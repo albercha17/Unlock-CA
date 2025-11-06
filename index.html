@@ -1,120 +1,263 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Unlock C&A</title>
+
+  <!-- Fuente Poppins desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+    /* 🎨 VARIABLES DE COLOR Y ESTILO PRINCIPAL */
+    :root {
+      --bg-dark-1: #080812;
+      --bg-dark-2: #15162a;
+      --accent: #ff0055;
+      --glass: rgba(255,255,255,0.06);
+      --muted: rgba(255,255,255,0.75);
+      --card-radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, rgba(20,20,40,0.9), rgba(30,30,70,0.9)),
-                  url('https://images.unsplash.com/photo-1500077423678-48c5cf66aee2?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-      color: #fff;
+  font-family: "Poppins", system-ui;
+  background: 
+    linear-gradient(rgba(8, 8, 18, 0.8), rgba(21, 22, 42, 0.9)), /* capa oscura encima */
+    url('assets/images/fondo.png') center/cover no-repeat fixed; /* tu imagen */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+
+    .wrap {
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero {
+      padding: 28px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0, 0, 0, 0.4));
+      border: 1px solid var(--glass);
+      box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+      min-height: 360px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      text-align: center;
+      gap: 18px;
+      position: relative;
       overflow: hidden;
     }
 
-    h1 {
-      font-size: 3.5rem;
-      margin-bottom: 50px;
-      text-shadow: 0 0 25px #ff0055, 0 0 10px #ff99cc;
-      animation: fadeIn 2s ease forwards;
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: url('assets/images/fondo.jpg') center/cover no-repeat;
+      opacity: 0.92;
+      filter: grayscale(20%) blur(2px);
     }
 
-    h1 span {
-      color: #ff0055;
-      animation: flicker 2.5s infinite;
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 2;
     }
 
-    .game-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 30px;
-      width: 280px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 25px rgba(255, 0, 85, 0.2);
-      transition: transform 0.4s, box-shadow 0.4s;
-    }
-
-    .game-card:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 35px rgba(255, 0, 85, 0.6);
-    }
-
-    .game-card h2 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-
-    button {
-      margin-top: 15px;
-      background-color: #ff0055;
-      border: none;
+    .logo {
+      width: 84px;
+      height: 84px;
       border-radius: 12px;
-      padding: 12px 30px;
-      color: white;
-      font-weight: bold;
-      font-size: 1rem;
+      object-fit: contain;
+      border: 2px solid white;
+      box-shadow: 0 0 20px rgba(255,255,255,0.15);
+      background-color: rgba(255,255,255,0.05);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px,4.2vw,48px);
+      line-height: 1;
+      z-index: 2;
+    }
+    h1 span { color: var(--accent); }
+
+    .lead {
+      color: var(--muted);
+      z-index: 2;
+      max-width: 60ch;
+      margin-top: 8px;
+      font-weight: 300;
+    }
+
+    .panel { display: flex; flex-direction: column; gap: 18px; }
+
+    .card {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 16px 16px 12px;
+      border-radius: var(--card-radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0, 0, 0, 0.4));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: glow 2s ease-in-out infinite alternate;
+      transition: transform .28s, box-shadow .28s;
+      overflow: hidden;
     }
 
-    button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px rgba(255, 0, 85, 0.9);
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.6);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .thumb {
+      width: 86px;
+      height: 86px;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgb(253, 253, 253);
+      flex-shrink: 0;
     }
 
-    @keyframes glow {
-      from { box-shadow: 0 0 10px rgba(255, 0, 85, 0.4); }
-      to { box-shadow: 0 0 25px rgba(255, 0, 85, 0.8); }
+    .meta {
+      flex: 1;
+      padding-right: 50px;
     }
 
-    @keyframes flicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.4; }
+    .meta h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
     }
+
+    .meta p {
+      margin: 6px 0 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .num {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 3px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    }
+
+    .card.red { border-left: 8px solid #ff2a77; }
+    .card.blue { border-left: 8px solid #3AB0FF; }
+    .card.gold { border-left: 8px solid #FFD166; }
 
     footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9rem;
-      opacity: 0.6;
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      margin-top: 8px;
+      font-size: 13px;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.3rem;
-      }
-      .game-card {
-        width: 220px;
+    @media(max-width:920px) {
+      .wrap { grid-template-columns: 1fr; gap: 18px; }
+      .panel { order: 2; }
+      .hero { order: 1; min-height: unset; padding: 20px; }
+      .meta { padding-right: 0; }
+      .num {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
+        top: 10px;
+        right: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Unlock <span>C&A</span></h1>
+  <div class="wrap">
 
-  <div class="game-card">
-    <h2>La Mansión Misteriosa</h2>
-    <button onclick="window.location.href='juego.html?nombre=mansión'">Jugar</button>
+    <section class="hero">
+      <div class="logo-row">
+        <img src="assets/images/logo.png" alt="Logo Unlock C&A" class="logo">
+        <div>
+          <h1>Unlock <span>C&A</span></h1>
+          <div class="lead">Juega tus aventuras personalizadas: escoge una carta y sumérgete en enigmas, códigos y minijuegos.</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel">
+
+      <!-- 🔴 Carta 1: ahora apunta a "apagon.html" -->
+      <div class="card red" data-target="apagonEnElColegio/apagon" tabindex="0">
+        <div class="thumb" style="background-image:url('assets/images/AEEC.png')"></div>
+        <div class="meta">
+          <h3>Unlock: Apagón en el Colegio Santa María de los Apóstoles</h3>
+          <p>Cuando el colegio queda sellado por un misterioso apagón, Alberto y Cristina solo tienen una salida: ¡resolver el caos antes de que la oscuridad los atrape!</p>
+          <p>Dificultad: ★</p>
+        </div>
+        <div class="num">01</div>
+      </div>
+
+      <div class="card blue" data-target="prueba1" tabindex="0">
+        <div class="thumb" style="background-image:url('assets/images/logo.png')"></div>
+        <div class="meta">
+          <h3>Prueba 1</h3>
+          <p>Puzzle rápido para calentar motores. Ideal para 1-2 jugadores.</p>
+          <p>Dificultad: ★</p>
+        </div>
+        <div class="num">02</div>
+      </div>
+
+      <div class="card gold" data-target="tesoro" tabindex="0">
+        <div class="thumb" style="background-image:url('assets/images/logo.png')"></div>
+        <div class="meta">
+          <h3>Prueba 1</h3>
+          <p>Puzzle rápido para calentar motores. Ideal para 1-2 jugadores.</p>
+          <p>Dificultad: ★</p>
+        </div>
+        <div class="num">03</div>
+      </div>
+
+      <footer>© 2025 Unlock C&A | Creado por Alberto & Cristina</footer>
+    </aside>
   </div>
 
-  <footer>© 2025 Unlock C&A | Creado por Alberto & Cristina</footer>
+  <!-- 🔧 SCRIPT ACTUALIZADO -->
+  <script>
+    // Redirige a la página correspondiente al hacer clic en una carta
+    function openGame(target){
+      // Cambia dinámicamente según el valor de data-target
+      window.location.href = target + ".html";
+    }
+
+    // Detecta clics y teclas Enter en las cartas
+    document.querySelectorAll('.card').forEach(c => {
+      c.addEventListener('click', () => openGame(c.dataset.target));
+      c.addEventListener('keydown', e => { if (e.key === 'Enter') openGame(c.dataset.target); });
+    });
+  </script>
 </body>
 </html>
