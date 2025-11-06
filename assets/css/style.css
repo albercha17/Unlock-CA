@@ -1,0 +1,432 @@
+/* assets/css/style.css
+   Unlock C&A — estilos externos mejorados (más opacos y visuales)
+*/
+
+:root{
+  --bg1: #06060a;
+  --bg2: #101226;
+  --card-bg: rgba(255,255,255,0.06);
+  --card-strong: rgba(255,255,255,0.14);
+  --accent: #ff2a77;
+  --accent-2: #ff6ea1;
+  --success: linear-gradient(90deg,#00b37e,#00e69d);
+  --glass: rgba(255,255,255,0.07);
+  --muted: rgba(255,255,255,0.78);
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(2,6,23,0.7);
+}
+
+/* Base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#fff}
+.container{max-width:1100px;margin:32px auto;padding:20px}
+
+/* Card panel */
+.panel-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border:1px solid var(--glass);
+  border-radius: var(--radius);
+  padding:20px;
+  box-shadow: var(--shadow);
+}
+
+/* Header */
+.header { display:flex; gap:16px; align-items:center; margin-bottom:12px; }
+.logo-img{ width:72px; height:72px; border-radius:12px; border:2px solid #fff; object-fit:contain; background:rgba(255,255,255,0.03); box-shadow:0 6px 24px rgba(0,0,0,0.45); }
+.hgroup{ flex:1 }
+.title{ font-size:clamp(24px,3.8vw,40px); margin:0; color:var(--accent); letter-spacing:-0.5px }
+.subtitle{ margin:6px 0 0 0; color:var(--muted); font-weight:300 }
+
+/* Lead text */
+.lead { font-size:15px; line-height:1.6; color:rgba(255,255,255,0.9); margin:12px 0 0; }
+
+/* Buttons */
+.row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; padding:10px 18px; border-radius:12px; border:0; cursor:pointer; font-weight:700; box-shadow:0 8px 28px rgba(0,0,0,0.45); transition:transform .16s, box-shadow .16s }
+.btn:active{ transform:translateY(1px) }
+.btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted) }
+.btn-primary{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff }
+.btn-success{ background:var(--success); color:#fff; box-shadow:0 14px 40px rgba(0,230,157,0.12) }
+
+/* Options list */
+.cards{ display:grid; gap:14px; margin-top:18px }
+.option{
+  display:flex; gap:12px; align-items:flex-start; padding:14px; border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.12)); /* more opaque */
+  border:1px solid rgba(255,255,255,0.14);
+  box-shadow:0 12px 30px rgba(0,0,0,0.45);
+  transition: transform .2s, box-shadow .2s;
+}
+.option:hover{ transform:translateY(-6px); box-shadow:0 20px 45px rgba(0,0,0,0.6) }
+.opt-thumb{ width:86px; height:86px; border-radius:12px; background-size:cover; background-position:center; border:1px solid rgba(255,255,255,0.06); flex-shrink:0 }
+.opt-meta{ flex:1; padding-right:12px }
+.opt-title{ margin:0; font-weight:700; font-size:15px }
+.opt-desc{ margin:6px 0 0 0; color:var(--muted); font-size:13px; line-height:1.45 }
+.opt-num{ width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:2px solid rgba(255,255,255,0.06) }
+
+/* Small footer */
+.small-footer{ margin-top:14px; text-align:center; color:rgba(255,255,255,0.6); font-size:13px }
+
+/* Responsive */
+@media(max-width:920px){
+  .container{ padding:14px }
+  .layout{ display:flex; flex-direction:column; gap:18px }
+  .header{ align-items:flex-start }
+  .cards{ display:flex; flex-direction:column }
+  .logo-img{ width:64px; height:64px }
+}
+/* ---------- TOP BAR: timer + gear ---------- */
+.top-bar{
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:12px;
+  padding:8px 18px;
+  z-index:120;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.25));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+/* timer style */
+.timer{
+  margin-right:auto; /* pushes gear to right */
+  font-weight:700;
+  font-size:0.98rem;
+  color: #fff;
+  background: rgba(0,0,0,0.25);
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  min-width:120px;
+  text-align:center;
+}
+
+/* gear button */
+.gear-btn{
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding:8px 10px;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.gear-btn:hover{ transform: scale(1.04); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
+.gear-btn svg{ display:block; color: white }
+
+/* ensure body content isn't hidden under top bar on small screens */
+body { padding-top: 54px; }
+
+/* responsive tweaks */
+@media(max-width:520px){
+  .timer{ font-size:0.9rem; min-width:90px; padding:6px 8px }
+  .gear-btn{ padding:6px; border-radius:8px }
+  body { padding-top: 62px; }
+}
+/* -------- Game screen & top-bar extras -------- */
+.top-bar{
+  position:fixed; left:0; right:0; top:0; display:flex; align-items:center; gap:12px;
+  padding:8px 18px; z-index:120; backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.25));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.timer{
+  margin-right:auto; font-weight:700; font-size:0.98rem; color:#fff;
+  background: rgba(0,0,0,0.25); padding:8px 12px; border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  min-width:120px; text-align:center;
+}
+.gear-btn{
+  background: transparent; color: white; border: 1px solid rgba(255,255,255,0.06);
+  padding:8px 10px; border-radius:10px; display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.gear-btn:hover{ transform: scale(1.04); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
+.gear-btn svg{ display:block; color: white }
+
+/* Game panel big timer */
+#gameTimer { 
+  font-family: "Poppins", system-ui; 
+  font-weight:800; 
+  color: #fff; 
+  text-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* ensure body content isn't hidden under top bar on small screens */
+body { padding-top: 54px; }
+@media(max-width:520px){
+  .timer{ font-size:0.9rem; min-width:90px; padding:6px 8px }
+  .gear-btn{ padding:6px; border-radius:8px }
+  body { padding-top: 62px; }
+}
+/* ---------- Overlay de confirmación ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.25s ease forwards;
+}
+.overlay-box {
+  background: rgba(20,20,30,0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 28px 36px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 8px 35px rgba(0,0,0,0.5);
+  max-width: 340px;
+  width: 90%;
+}
+.overlay-box h2 {
+  color: #fff;
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+.overlay-box p {
+  color: rgba(255,255,255,0.7);
+  margin: 8px 0 22px;
+}
+.overlay-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.btn-danger {
+  background: linear-gradient(90deg, #ff0033, #ff5577);
+  color: white;
+  border: none;
+}
+.btn-danger:hover {
+  background: linear-gradient(90deg, #ff3366, #ff7799);
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* ---------- Temporizador grande ---------- */
+.timer-big {
+  font-size: 3.6rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.5);
+  margin: 20px 0 30px;
+  letter-spacing: 1px;
+}
+
+/* ---------- Engranaje grande ---------- */
+.gear-btn-big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  color: #fff;
+  padding: 18px 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 25px rgba(255,255,255,0.08);
+  margin-bottom: 20px;
+}
+.gear-btn-big svg {
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+.gear-btn-big:hover svg {
+  transform: rotate(30deg) scale(1.1);
+}
+.gear-btn-big:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+  box-shadow: 0 0 30px rgba(255,255,255,0.25);
+}
+.gear-btn-big span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* ---------- Botones debajo ---------- */
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* ---------- Overlay confirmación (igual que antes) ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.overlay-box {
+  background: rgba(20,20,30,0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 28px 36px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 8px 35px rgba(0,0,0,0.5);
+  max-width: 340px;
+  width: 90%;
+}
+.overlay-box h2 { margin-top: 0; }
+.overlay-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.btn-danger {
+  background: linear-gradient(90deg, #ff0033, #ff5577);
+  color: white;
+  border: none;
+}
+.btn-danger:hover {
+  background: linear-gradient(90deg, #ff3366, #ff7799);
+  transform: scale(1.05);
+}
+/* ---------- Action button (big) ---------- */
+.action-btn-big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  color: #fff;
+  padding: 18px 22px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.45), 0 0 30px rgba(255, 165, 0, 0.06);
+  margin-bottom: 18px;
+  background-image: linear-gradient(180deg, rgba(255,165,0,0.06), rgba(255,100,0,0.02));
+}
+.action-btn-big svg {
+  width: 40px; height: 40px;
+  color: #ffd27a; /* gold-ish for the bolt */
+  transition: transform 0.25s ease, filter 0.25s ease;
+  filter: drop-shadow(0 6px 18px rgba(255,165,0,0.12));
+}
+.action-btn-big span {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* hover/active */
+.action-btn-big:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.6), 0 0 48px rgba(255,165,0,0.12);
+}
+.action-btn-big:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* small screens tweak */
+@media(max-width:520px){
+  .action-btn-big { padding:14px 16px }
+  .action-btn-big svg { width:34px; height:34px }
+}
+/* ---------- Modal numérico (teclado) ---------- */
+.num-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(2,6,15,0.6);
+  z-index: 1100;
+  padding: 18px;
+}
+.num-modal-box {
+  width: 420px;
+  max-width: 95%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.num-modal-box h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+  color: #fff;
+}
+.num-display {
+  margin: 8px auto 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  min-height: 44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+/* keypad grid */
+.num-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.num-key {
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 14px 8px;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  transition: transform .12s, box-shadow .12s, background .12s;
+}
+.num-key:active { transform: translateY(2px) scale(.995); }
+.num-key:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.55); }
+
+/* special keys */
+.num-key.action {
+  background: linear-gradient(180deg, rgba(255,80,80,0.14), rgba(255,40,40,0.06));
+  border:1px solid rgba(255,80,80,0.12);
+}
+
+/* actions row */
+.num-modal-actions { display:flex; gap:10px; justify-content:center; margin-top:6px; }
+.num-modal-actions .btn { min-width:110px; }
+
+/* small screens tweak */
+@media(max-width:480px){
+  .num-modal-box { padding:14px; }
+  .num-key { padding:12px 6px; font-size:1.1rem; }
+}
+

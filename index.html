@@ -5,258 +5,74 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Unlock C&A</title>
 
-  <!-- Fuente Poppins desde Google Fonts -->
+  <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
-  <style>
-    /* 🎨 VARIABLES DE COLOR Y ESTILO PRINCIPAL */
-    :root {
-      --bg-dark-1: #080812;
-      --bg-dark-2: #15162a;
-      --accent: #ff0055;
-      --glass: rgba(255,255,255,0.06);
-      --muted: rgba(255,255,255,0.75);
-      --card-radius: 18px;
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
-
-    body {
-  font-family: "Poppins", system-ui;
-  background: 
-    linear-gradient(rgba(8, 8, 18, 0.8), rgba(21, 22, 42, 0.9)), /* capa oscura encima */
-    url('assets/images/fondo.png') center/cover no-repeat fixed; /* tu imagen */
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-
-    .wrap {
-      max-width: 1100px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 36px;
-      align-items: center;
-    }
-
-    .hero {
-      padding: 28px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0, 0, 0, 0.4));
-      border: 1px solid var(--glass);
-      box-shadow: 0 20px 60px rgba(2,6,23,0.6);
-      min-height: 360px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute; inset: 0;
-      background: url('assets/images/fondo.jpg') center/cover no-repeat;
-      opacity: 0.92;
-      filter: grayscale(20%) blur(2px);
-    }
-
-    .logo-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      z-index: 2;
-    }
-
-    .logo {
-      width: 84px;
-      height: 84px;
-      border-radius: 12px;
-      object-fit: contain;
-      border: 2px solid white;
-      box-shadow: 0 0 20px rgba(255,255,255,0.15);
-      background-color: rgba(255,255,255,0.05);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(28px,4.2vw,48px);
-      line-height: 1;
-      z-index: 2;
-    }
-    h1 span { color: var(--accent); }
-
-    .lead {
-      color: var(--muted);
-      z-index: 2;
-      max-width: 60ch;
-      margin-top: 8px;
-      font-weight: 300;
-    }
-
-    .panel { display: flex; flex-direction: column; gap: 18px; }
-
-    .card {
-      position: relative;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 16px 16px 12px;
-      border-radius: var(--card-radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0, 0, 0, 0.4));
-      border: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      cursor: pointer;
-      transition: transform .28s, box-shadow .28s;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 45px rgba(0,0,0,0.6);
-    }
-
-    .thumb {
-      width: 86px;
-      height: 86px;
-      border-radius: 12px;
-      background-size: cover;
-      background-position: center;
-      border: 1px solid rgb(253, 253, 253);
-      flex-shrink: 0;
-    }
-
-    .meta {
-      flex: 1;
-      padding-right: 50px;
-    }
-
-    .meta h3 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .meta p {
-      margin: 6px 0 0 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .num {
-      position: absolute;
-      right: 12px;
-      top: 12px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
-      border: 3px solid rgba(255,255,255,0.08);
-      font-size: 14px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.3);
-    }
-
-    .card.red { border-left: 8px solid #ff2a77; }
-    .card.blue { border-left: 8px solid #3AB0FF; }
-    .card.gold { border-left: 8px solid #FFD166; }
-
-    footer {
-      text-align: center;
-      color: rgba(255,255,255,0.6);
-      margin-top: 8px;
-      font-size: 13px;
-    }
-
-    @media(max-width:920px) {
-      .wrap { grid-template-columns: 1fr; gap: 18px; }
-      .panel { order: 2; }
-      .hero { order: 1; min-height: unset; padding: 20px; }
-      .meta { padding-right: 0; }
-      .num {
-        width: 36px;
-        height: 36px;
-        font-size: 12px;
-        top: 10px;
-        right: 10px;
-      }
-    }
-  </style>
+  <!-- External stylesheet (pon este archivo en assets/css/style.css) -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <div class="wrap">
-
-    <section class="hero">
-      <div class="logo-row">
-        <img src="assets/images/logo.png" alt="Logo Unlock C&A" class="logo">
-        <div>
-          <h1>Unlock <span>C&A</span></h1>
-          <div class="lead">Juega tus aventuras personalizadas: escoge una carta y sumérgete en enigmas, códigos y minijuegos.</div>
+  <div class="container layout">
+    <div class="panel-card">
+      <!-- Header with logo and title -->
+      <header class="header">
+        <img src="assets/images/logo.png" alt="Unlock C&A logo" class="logo-img">
+        <div class="hgroup">
+          <h1 class="title">Unlock C&amp;A</h1>
+          <div class="subtitle">Elige una aventura y empieza a jugar</div>
         </div>
-      </div>
-    </section>
+      </header>
 
-    <aside class="panel">
+      <main>
 
-      <!-- 🔴 Carta 1: ahora apunta a "apagon.html" -->
-      <div class="card red" data-target="apagonEnElColegio/apagon" tabindex="0">
-        <div class="thumb" style="background-image:url('assets/images/AEEC.png')"></div>
-        <div class="meta">
-          <h3>Unlock: Apagón en el Colegio Santa María de los Apóstoles</h3>
-          <p>Cuando el colegio queda sellado por un misterioso apagón, Alberto y Cristina solo tienen una salida: ¡resolver el caos antes de que la oscuridad los atrape!</p>
-          <p>Dificultad: ★</p>
-        </div>
-        <div class="num">01</div>
-      </div>
+        <!-- Cards / options -->
+        <section class="cards" aria-label="Lista de juegos">
+          <div class="option solid" role="button" tabindex="0" onclick="openGame('apagonEnElColegio/apagon')" onkeypress="if(event.key==='Enter')openGame('apagonEnElColegio/apagon')">
+            <div class="opt-thumb" style="background-image:url('assets/images/AEEC.png')"></div>
+            <div class="opt-meta">
+              <h3 class="opt-title">Apagón en el Colegio</h3>
+              <p class="opt-desc">El colegio queda a oscuras y las puertas se cierran. Resuelve los enigmas para volver a encender la luz.</p>
+            </div>
+            <div class="opt-num">01</div>
+          </div>
 
-      <div class="card blue" data-target="prueba1" tabindex="0">
-        <div class="thumb" style="background-image:url('assets/images/logo.png')"></div>
-        <div class="meta">
-          <h3>Prueba 1</h3>
-          <p>Puzzle rápido para calentar motores. Ideal para 1-2 jugadores.</p>
-          <p>Dificultad: ★</p>
-        </div>
-        <div class="num">02</div>
-      </div>
+          <div class="option" role="button" tabindex="0" onclick="openGame('prueba1')" onkeypress="if(event.key==='Enter')openGame('prueba1')">
+            <div class="opt-thumb" style="background-image:url('assets/images/prueba1.jpg')"></div>
+            <div class="opt-meta">
+              <h3 class="opt-title">Prueba 1</h3>
+              <p class="opt-desc">Puzzle corto para calentar motores.</p>
+            </div>
+            <div class="opt-num">02</div>
+          </div>
 
-      <div class="card gold" data-target="tesoro" tabindex="0">
-        <div class="thumb" style="background-image:url('assets/images/logo.png')"></div>
-        <div class="meta">
-          <h3>Prueba 1</h3>
-          <p>Puzzle rápido para calentar motores. Ideal para 1-2 jugadores.</p>
-          <p>Dificultad: ★</p>
-        </div>
-        <div class="num">03</div>
-      </div>
+          <div class="option" role="button" tabindex="0" onclick="openGame('tesoro')" onkeypress="if(event.key==='Enter')openGame('tesoro')">
+            <div class="opt-thumb" style="background-image:url('assets/images/tesoro.jpg')"></div>
+            <div class="opt-meta">
+              <h3 class="opt-title">Búsqueda del Tesoro</h3>
+              <p class="opt-desc">Explora la isla y descifra las pistas para encontrar el botín.</p>
+            </div>
+            <div class="opt-num">03</div>
+          </div>
+        </section>
 
-      <footer>© 2025 Unlock C&A | Creado por Alberto & Cristina</footer>
-    </aside>
+        <div class="small-footer">© 2025 Unlock C&A | Creado por Alberto &amp; Cristina</div>
+      </main>
+    </div>
   </div>
 
-  <!-- 🔧 SCRIPT ACTUALIZADO -->
   <script>
-    // Redirige a la página correspondiente al hacer clic en una carta
+    // Navigate to game pages (assumes files like apagon.html, prueba1.html, tesoro.html)
     function openGame(target){
-      // Cambia dinámicamente según el valor de data-target
-      window.location.href = target + ".html";
+      // If you want to use a folder structure, adjust this line.
+      window.location.href = target + '.html';
     }
 
-    // Detecta clics y teclas Enter en las cartas
-    document.querySelectorAll('.card').forEach(c => {
-      c.addEventListener('click', () => openGame(c.dataset.target));
-      c.addEventListener('keydown', e => { if (e.key === 'Enter') openGame(c.dataset.target); });
+
+    // Add keyboard support for options (Enter already handled inline for accessibility)
+    document.querySelectorAll('.option').forEach(el => {
+      el.addEventListener('keydown', e => {
+        if(e.key === 'Enter') el.click();
+      });
     });
   </script>
 </body>
