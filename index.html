@@ -5,71 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unlock C&A</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e1e2f, #252547);
+      background: linear-gradient(135deg, rgba(20,20,40,0.9), rgba(30,30,70,0.9)),
+                  url('https://images.unsplash.com/photo-1500077423678-48c5cf66aee2?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
       color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      text-align: center;
+      overflow: hidden;
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 30px;
-      text-shadow: 0 0 15px #ff0055;
+      font-size: 3.5rem;
+      margin-bottom: 50px;
+      text-shadow: 0 0 25px #ff0055, 0 0 10px #ff99cc;
+      animation: fadeIn 2s ease forwards;
     }
 
-    .container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+    h1 span {
+      color: #ff0055;
+      animation: flicker 2.5s infinite;
     }
 
     .game-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 20px;
-      text-align: center;
-      width: 200px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      transition: transform 0.3s, background 0.3s;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px;
+      width: 280px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 25px rgba(255, 0, 85, 0.2);
+      transition: transform 0.4s, box-shadow 0.4s;
     }
 
     .game-card:hover {
-      transform: scale(1.05);
-      background: rgba(255, 255, 255, 0.2);
-      cursor: pointer;
+      transform: scale(1.07);
+      box-shadow: 0 0 35px rgba(255, 0, 85, 0.6);
+    }
+
+    .game-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
     }
 
     button {
       margin-top: 15px;
       background-color: #ff0055;
       border: none;
-      border-radius: 10px;
-      padding: 10px 20px;
+      border-radius: 12px;
+      padding: 12px 30px;
       color: white;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: glow 2s ease-in-out infinite alternate;
     }
 
     button:hover {
-      background-color: #ff3385;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(255, 0, 85, 0.9);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(255, 0, 85, 0.4); }
+      to { box-shadow: 0 0 25px rgba(255, 0, 85, 0.8); }
+    }
+
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.4; }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.3rem;
+      }
+      .game-card {
+        width: 220px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Unlock C&A</h1>
-    <div class="game-card">
-      <h2>La mansión misteriosa</h2>
-      <button onclick="window.location.href='juego.html?nombre=mansión'">Jugar</button>
-    </div>
+  <h1>Unlock <span>C&A</span></h1>
+
+  <div class="game-card">
+    <h2>La Mansión Misteriosa</h2>
+    <button onclick="window.location.href='juego.html?nombre=mansión'">Jugar</button>
   </div>
+
+  <footer>© 2025 Unlock C&A | Creado por Alberto & Cristina</footer>
 </body>
 </html>
-
