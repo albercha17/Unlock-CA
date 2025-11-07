@@ -292,20 +292,49 @@
       const card = entered.trim();
 
       // PISTAS
-      if(pendingUse === 'pista'){
-        closeNumModal();
-        const specific = `./pistas/pistas-${card}.js`;
-        const fallback = `./pistas/pistas.js`;
-        try {
-          let module = null;
-          try { module = await import(specific); } catch (e) { module = await import(fallback); }
-          if(module && typeof module.openPistas === 'function'){
-            module.openPistas(card, { onChoose: (n,t)=> alert(`Has elegido la pista ${n}:\n\n${t}`), onClose: ()=> hintBtn.focus() });
-          } else { alert('Módulo de pistas cargado, pero no exporta openPistas.'); }
-        } catch(err){ console.error('Error cargando pistas:', err); alert('No se pudo cargar las pistas. Usa Live Server.'); }
-        pendingUse = null;
-        return;
+      if (pendingUse === 'pista') {
+  closeNumModal();
+  const specific = `./pistas/pistas-${card}.js`;
+  const fallback = `./pistas/pistas.js`;
+
+  try {
+    let module = null;
+    try {
+      // Intentamos cargar la pista específica
+      module = await import(specific);
+    } catch (e) {
+      // Si no existe, intentamos el genérico
+      try {
+        module = await import(fallback);
+      } catch {
+        module = null;
       }
+    }
+
+    if (module && typeof module.openPistas === 'function') {
+      // Si el módulo se cargó correctamente, abrimos las pistas
+      module.openPistas(card, {
+        onChoose: (n, t) => alert(`Has elegido la pista ${n}:\n\n${t}`),
+        onClose: () => hintBtn.focus()
+      });
+    } else {
+      // Si no hay pistas para esa carta
+      numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
+      numModal.style.display = 'flex';
+      numModal.setAttribute('aria-hidden', 'false');
+    }
+
+  } catch (err) {
+    console.warn("No se pudo cargar el módulo de pistas:", err);
+    numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
+    numModal.style.display = 'flex';
+    numModal.setAttribute('aria-hidden', 'false');
+  }
+
+  pendingUse = null;
+  return;
+}
+
 
       // ACCION
       if(pendingUse === 'accion'){ await checkAndOpen(card); pendingUse = null; return; }
@@ -320,7 +349,7 @@
       const c = code.trim();
 
       if(c === '1' || c === '01'){
-        const modulePath = './juegos/ordenarProbetas/main.js';
+        const modulePath = './juegos/01-ordenarProbetas.js';
         try {
           const module = await import(modulePath);
           if(typeof module.startMinigame === 'function'){
@@ -362,7 +391,7 @@
 
         numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
       } catch(err){
-        numMessage.textContent = "Error comprobando la carta. Usa Live Server o prueba otra.";
+        numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
       }
     }
 
