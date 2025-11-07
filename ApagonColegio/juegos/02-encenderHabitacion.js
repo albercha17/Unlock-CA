@@ -73,12 +73,10 @@ export function startMinigame(opts = {}) {
   document.body.appendChild(overlay);
 
   /* ===== Coordenadas (porcentaje relativos a la IMAGEN) ===== */
-  // linterna: ya bien detectada
   const linternaArea = { x1: 0.58, y1: 0.78, x2: 0.83, y2: 0.93 };
 
-  // PAPEL: más abajo y a la izquierda (valores actualizados)
-  // (estas siguen siendo porcentajes relativos al cuadro visible de la imagen)
-  const paperArea = { x1: 0.30, y1: 0.60, x2: 0.54, y2: 0.72 };
+  // 🟩 Ajuste fino: un poco más abajo y un poco más a la izquierda
+  const paperArea = { x1: 0.27, y1: 0.63, x2: 0.51, y2: 0.74 };
 
   let linternaEncontrada = false;
   let paperEncontrado = false;
@@ -86,7 +84,6 @@ export function startMinigame(opts = {}) {
 
   img.addEventListener("click", (e) => {
     const rect = img.getBoundingClientRect();
-    // si ancho/alto son 0, salida temprana
     if (rect.width === 0 || rect.height === 0) return;
 
     const x = (e.clientX - rect.left) / rect.width;
@@ -106,7 +103,6 @@ export function startMinigame(opts = {}) {
       return;
     }
 
-    // segunda escena: detección del papel
     if (segundaEscena && !paperEncontrado) {
       if (
         x >= paperArea.x1 &&
@@ -183,23 +179,19 @@ export function startMinigame(opts = {}) {
     }, 400);
   }
 
-  /* ===== Marcar carta del papel (posición calculada en px sobre la imagen visible) ===== */
+  /* ===== Marcar carta del papel ===== */
   function marcarPapel() {
-    // recalcular rects de la imagen y del contenedor
     const imgRect = img.getBoundingClientRect();
     const contRect = imgContainer.getBoundingClientRect();
 
-    // centro del área del papel en porcentaje (relativo a imagen)
     const cxPct = (paperArea.x1 + paperArea.x2) / 2;
     const cyPct = (paperArea.y1 + paperArea.y2) / 2;
 
-    // coordenadas en píxeles relativas a la imagen visible
     const pxInImgX = imgRect.width * cxPct;
     const pxInImgY = imgRect.height * cyPct;
 
-    // convertir a coordenadas dentro del contenedor (para posicionamiento absolute)
-    const leftPx = (imgRect.left - contRect.left) + pxInImgX;
-    const topPx = (imgRect.top - contRect.top) + pxInImgY;
+    const leftPx = imgRect.left - contRect.left + pxInImgX;
+    const topPx = imgRect.top - contRect.top + pxInImgY;
 
     const mark = document.createElement("div");
     Object.assign(mark.style, {
@@ -224,13 +216,11 @@ export function startMinigame(opts = {}) {
     mark.textContent = "Carta 7 ✓";
     imgContainer.appendChild(mark);
 
-    // animar entrada
     requestAnimationFrame(() => {
       mark.style.opacity = "1";
       mark.style.transform = "translate(-50%, -50%) scale(1)";
     });
 
-    // opcional: auto-limpiar la marca al cabo de X segundos
     setTimeout(() => {
       mark.style.opacity = "0";
       mark.style.transform = "translate(-50%, -50%) scale(0.9)";
