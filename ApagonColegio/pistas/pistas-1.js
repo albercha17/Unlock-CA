@@ -6,8 +6,8 @@ export function openPistas(card, opts = {}) {
   // Datos de ejemplo para la carta
   const pistas = {
     1: {
-      1: "Pista fácil: La sala con número impar guarda algo bajo la alfombra.",
-      2: "Pista clara: Busca en la sala 3, debajo del felpudo que tiene una mancha de pintura."
+      1: "Ordenalos como están ordenados en la tabla periódica.",
+      2: "C ➜ N ➜ O ➜ S."
     }
     // Puedes añadir más cartas así: 2: {1: '...', 2:'...'}
   };
