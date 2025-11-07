@@ -15,7 +15,7 @@ export function openPistas(card, opts = {}) {
   const cardNum = String(Number(card)); // normalizar
   const data = pistas[cardNum] || {
     1: "Encuentra algo para ilumnar.",
-    2: "No ves algo interesante? Algo que destaque ademas de lo escrito en la pizarra..."
+    2: "No ves algo interesante? Puede que encima de la mesa.. o en la pizarra..."
   };
 
   // Crear overlay y caja
