@@ -2,13 +2,28 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
+  <!-- evitar zoom en móvil -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Unlock CA - Apagon en el Colegio</title>
+  <title>Unlock CA - Apagón en el Colegio</title>
+
+  <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <!-- tu CSS global -->
   <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- estilos locales (botones, keypad, responsive) -->
   <style>
+    :root {
+      --btn-height: 56px;
+      --btn-min-width: 150px;
+      --btn-radius: 12px;
+      --btn-gap: 10px;
+      --icon-size: 22px;
+    }
+
+    /* num keypad modal (mantenerlo igual) */
     .num-modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(2,6,15,0.6); z-index: 1100; padding: 18px; }
-    .num-modal-box { width: 420px; max-width: 95%; background: #1b1b2f; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+    .num-modal-box { width: 420px; max-width: 95%; background: #1b1b2f; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.6); font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
     .num-display { margin: 8px auto 14px; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px 16px; font-size: 1.25rem; font-weight: 700; min-height: 44px; display:flex; align-items:center; justify-content:center; color: #fff; letter-spacing: 2px; }
     .num-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
     .num-key { background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.06); padding: 14px 8px; border-radius: 10px; font-size: 1.25rem; font-weight: 700; color: #fff; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.45); transition: transform .12s, box-shadow .12s, background .12s; }
@@ -17,6 +32,91 @@
     .num-key.action { background: linear-gradient(180deg, rgba(255,80,80,0.14), rgba(255,40,40,0.06)); border:1px solid rgba(255,80,80,0.12); }
     .num-modal-actions { display:flex; gap:10px; justify-content:center; margin-top:6px; }
     .num-message { color: #ffb3b3; font-size: 0.95rem; margin: 8px 0 0; min-height: 20px; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+
+    /* fila de controles (acción + pista) */
+    .action-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* boton base: ambos comparten exactamente las mismas dimensiones y alineado */
+    .control-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--btn-gap);
+      padding: 0 16px; /* altura fija, centrado vertical mediante height */
+      border-radius: var(--btn-radius);
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+      min-width: var(--btn-min-width);  /* ancho mínimo igual */
+      height: var(--btn-height);        /* altura fija igual */
+      justify-content: center;
+      line-height: 1;
+      color: inherit;
+      transition: transform .12s, box-shadow .12s, opacity .12s;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* caja del icono para forzar tamaño y alineado idéntico */
+    .control-btn .icon {
+      width: var(--icon-size);
+      height: var(--icon-size);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 var(--icon-size);
+    }
+
+    /* forzar SVG a ocupar todo el contenedor y no añadir offset */
+    .control-btn svg { width: 100%; height: 100%; display: block; }
+
+    /* variantes de color */
+    .action-btn-big {
+      background: linear-gradient(180deg,#2fd09f,#0db07e);
+      color: #052214;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .action-btn-big:active { transform: translateY(1px); box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+
+    .hint-btn {
+      background: linear-gradient(135deg,#ffcf48,#f5b800);
+      color: #111;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .hint-btn:active { transform: translateY(1px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+
+    /* para que el texto dentro no cambie la altura */
+    .control-btn span { display:inline-block; line-height:1; }
+
+    /* ocultar texto visualmente pero mantener accesible (opcional) */
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0,0,0,0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    /* responsive: reducir tamaño en pantalla pequeña */
+    @media (max-width: 520px) {
+      :root {
+        --btn-height: 48px;
+        --btn-min-width: 120px;
+        --icon-size: 18px;
+      }
+      .num-modal-box { width: 92%; padding: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -25,13 +125,13 @@
       <header class="header" style="display:flex;align-items:center;gap:16px">
         <img src="../assets/images/AEEC.png" alt="Imagen del escenario" style="width:160px;height:160px;object-fit:cover;border-radius:12px;border:3px solid #fff">
         <div>
-          <h1 style="margin:0">Apagon en el Colegio</h1>
-          <p style="margin:6px 0 0 0;color:#ddd">Alberto y Cristina estan atrapados; reactiva el generador antes de que sea tarde.</p>
+          <h1 style="margin:0">Apagón en el Colegio</h1>
+          <p style="margin:6px 0 0 0;color:#ddd">Alberto y Cristina están atrapados; reactiva el generador antes de que sea tarde.</p>
         </div>
       </header>
 
       <main>
-        <p class="lead">Pulsa <strong>Empezar</strong> para iniciar el temporizador de 1 hora. Luego usa <em>Accion</em> para introducir cartas de accion.</p>
+        <p class="lead">Pulsa <strong>Empezar</strong> para iniciar el temporizador de 1 hora. Luego usa <em>Acción</em> para introducir cartas de acción o <em>Pista</em> para pedir ayuda.</p>
         <div style="display:flex;gap:12px;margin-top:12px">
           <button class="btn btn-success" id="startBtn">Empezar</button>
           <button class="btn btn-ghost" onclick="volver()">← Volver al menú</button>
@@ -42,10 +142,25 @@
     <div class="panel-card" id="gamePanel" style="display:none;text-align:center">
       <div id="gameTimer" class="timer-big">01:00:00</div>
 
-      <button class="action-btn-big" id="actionBtn" aria-label="Accion importante" style="margin-top:12px">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 2L3 14h7l-1 8L21 10h-7l-1-8z" fill="currentColor"/></svg>
-        <span>Accion</span>
-      </button>
+      <!-- FILA: botón Acción y botón Pista (bombilla) al lado -->
+      <div class="action-row" role="group" aria-label="Controles de acción">
+        <button class="control-btn action-btn-big" id="actionBtn" aria-label="Acción importante">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path d="M13 2L3 14h7l-1 8L21 10h-7l-1-8z" fill="currentColor"/></svg>
+          </span>
+          <span>Acción</span>
+        </button>
+
+        <button class="control-btn hint-btn" id="hintBtn" aria-label="Pedir pista" title="Pedir pista">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+              <path d="M9 18h6v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1z" fill="#111"/>
+              <path d="M12 3a5 5 0 0 0-3 9v2h6v-2a5 5 0 0 0-3-9z" fill="#111"/>
+            </svg>
+          </span>
+          <span>Pista</span>
+        </button>
+      </div>
 
       <div class="game-controls" style="margin-top:12px">
         <button class="btn btn-ghost" id="pauseBtn" style="display:none">Pausar</button>
@@ -55,11 +170,12 @@
     </div>
   </div>
 
+  <!-- Modal keypad numérico (reutilizable para acción y pistas) -->
   <div id="numModal" class="num-modal" aria-hidden="true" style="display:none">
     <div class="num-modal-box" role="dialog" aria-modal="true" aria-labelledby="numModalTitle">
-      <h3 id="numModalTitle">Introduce numero de carta</h3>
+      <h3 id="numModalTitle">Introduce número de carta</h3>
       <div class="num-display" id="numDisplay" aria-live="polite">—</div>
-      <div class="num-keypad" role="group" aria-label="Teclado numerico">
+      <div class="num-keypad" role="group" aria-label="Teclado numérico">
         <button class="num-key" data-key="1">1</button>
         <button class="num-key" data-key="2">2</button>
         <button class="num-key" data-key="3">3</button>
@@ -88,16 +204,22 @@
   </div>
 
   <script type="module">
+    /* ===========================================================
+       Código principal del juego (apagon.html)
+       =========================================================== */
+
     const DEFAULT_SECONDS = 60 * 60;
     let remaining = DEFAULT_SECONDS;
     let intervalId = null;
     let isPaused = false;
 
+    // referencias DOM
     const introPanel = document.getElementById('introPanel');
     const gamePanel = document.getElementById('gamePanel');
     const startBtn = document.getElementById('startBtn');
     const gameTimerEl = document.getElementById('gameTimer');
     const actionBtn = document.getElementById('actionBtn');
+    const hintBtn = document.getElementById('hintBtn');
     const pauseBtn = document.getElementById('pauseBtn');
     const resumeBtn = document.getElementById('resumeBtn');
     const stopBtn = document.getElementById('stopBtn');
@@ -113,6 +235,8 @@
     const openAnywayBtn = document.getElementById('openAnyway');
 
     let entered = "";
+    // indica para qué uso se abrió el keypad: 'accion' | 'pista' | null
+    let pendingUse = null;
 
     function formatTime(s){
       const h = Math.floor(s / 3600).toString().padStart(2,'0');
@@ -136,6 +260,7 @@
       }
     }
 
+    // iniciar juego
     startBtn.addEventListener('click', () => {
       introPanel.style.display = 'none';
       gamePanel.style.display = 'block';
@@ -148,26 +273,87 @@
       intervalId = setInterval(tick, 1000);
     });
 
+    // teclado numérico
     function renderNum(){ numDisplay.textContent = entered === "" ? "—" : entered; }
     function openNumModal(){ entered=""; numMessage.textContent=""; renderNum(); numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); if(location.protocol==='file:') openAnywayWrap.style.display='block'; else openAnywayWrap.style.display='none'; const first = numKeys.find(k=>!k.classList.contains('action')); if(first) first.focus(); }
-    function closeNumModal(){ numModal.style.display='none'; numModal.setAttribute('aria-hidden','true'); actionBtn.focus(); }
+    function closeNumModal(){ numModal.style.display='none'; numModal.setAttribute('aria-hidden','true'); actionBtn.focus(); pendingUse = null; }
 
     numKeys.forEach(k=>{ k.addEventListener('click', ()=>{ const key = k.dataset.key; if(!key) return; if(entered.length>=4) return; entered+=key; renderNum(); }); });
     numClear.addEventListener('click', ()=>{ entered = entered.slice(0,-1); renderNum(); });
-    numCancel.addEventListener('click', ()=> closeNumModal() );
+    numCancel.addEventListener('click', ()=> { closeNumModal(); });
 
+    // abrir keypad para acción
+    actionBtn.addEventListener('click', () => {
+      pendingUse = 'accion';
+      openNumModal();
+    });
+
+    // abrir keypad para pista
+    hintBtn.addEventListener('click', () => {
+      pendingUse = 'pista';
+      openNumModal();
+    });
+
+    // al aceptar (numOk) dependemos del pendingUse
+    numOk.addEventListener('click', async () => {
+      if(!entered || entered.trim()==="") { numMessage.textContent = "Introduce un número."; return; }
+      const card = entered.trim();
+
+      // flujo pistas
+      if(pendingUse === 'pista'){
+        closeNumModal();
+        // intentamos cargar pista específica ./pistas/pistas-<card>.js, si no existe, ./pistas/pistas.js
+        const specific = `./pistas/pistas-${card}.js`;
+        const fallback = `./pistas/pistas.js`;
+        try {
+          let module = null;
+          try {
+            module = await import(specific);
+          } catch (errSpecific) {
+            module = await import(fallback);
+          }
+          if(module && typeof module.openPistas === 'function'){
+            module.openPistas(card, {
+              onChoose: (choiceNumber, text) => {
+                // por ahora mostramos la pista elegida con un alert; puedes integrarlo en el juego
+                alert(`Has elegido la pista ${choiceNumber}:\n\n${text}`);
+              },
+              onClose: () => { hintBtn.focus(); }
+            });
+          } else {
+            alert('Módulo de pistas cargado, pero no exporta openPistas.');
+          }
+        } catch(err){
+          console.error('Error cargando pistas:', err);
+          alert('No se pudo cargar las pistas. Usa Live Server o revisa la ruta ./pistas/');
+        } finally {
+          pendingUse = null;
+        }
+        return;
+      }
+
+      // flujo acción -> minijuegos / páginas
+      if(pendingUse === 'accion'){
+        await checkAndOpen(card);
+        pendingUse = null;
+        return;
+      }
+
+      // fallback por seguridad
+      await checkAndOpen(card);
+      pendingUse = null;
+    });
+
+    // checkAndOpen: carga minijuegos o páginas como antes
     async function checkAndOpen(code){
       numMessage.textContent = "";
-      if(code.trim()===""){ numMessage.textContent = "Introduce un numero."; return; }
-      if(!/^\d+$/.test(code)){ numMessage.textContent = "Solo se permiten digitos."; return; }
+      if(code.trim()===""){ numMessage.textContent = "Introduce un número."; return; }
+      if(!/^\d+$/.test(code)){ numMessage.textContent = "Solo se permiten dígitos."; return; }
       const c = code.trim();
 
-
-
-      //--------------------------------JUEGOS--------------------------------------------------------------------
+      // ejemplo minijuegos
       if(c === '1' || c === '01'){
-        const modulePath = '../ApagonColegio/juegos/ordenarProbetas/main.js';
-        closeNumModal();
+        const modulePath = './juegos/ordenarProbetas/main.js';
         try {
           const module = await import(modulePath);
           if(typeof module.startMinigame === 'function'){
@@ -177,7 +363,7 @@
               resumeGameTimer: () => { isPaused = false; }
             });
           } else {
-            numMessage.textContent = "Modulo cargado, pero no exporta startMinigame.";
+            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
           }
         } catch(err){
           console.error("Error cargando minijuego:", err);
@@ -185,28 +371,28 @@
         }
         return;
       }
-      if(c === '2' || c === '02'){
-        const modulePath = '../ApagonColegio/juegos/miniJuegoLevantarProyectar/main.js';
-        closeNumModal();
-        try {
-          const module = await import(modulePath);
-          if(typeof module.startMinigame === 'function'){
-            module.startMinigame({
-              onClose: () => { actionBtn.focus(); },
-              pauseGameTimer: () => { isPaused = true; },
-              resumeGameTimer: () => { isPaused = false; }
-            });
-          } else {
-            numMessage.textContent = "Modulo cargado, pero no exporta startMinigame.";
-          }
-        } catch(err){
-          console.error("Error cargando minijuego:", err);
-          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
-        }
-        return;
-      }
-      //-------------------------------------------------------------------------------------------------------------
 
+      if(c === '2' || c === '02'){
+        const modulePath = './juegos/miniJuegoLevantarProyectar/main.js';
+        try {
+          const module = await import(modulePath);
+          if(typeof module.startMinigame === 'function'){
+            module.startMinigame({
+              onClose: () => { actionBtn.focus(); },
+              pauseGameTimer: () => { isPaused = true; },
+              resumeGameTimer: () => { isPaused = false; }
+            });
+          } else {
+            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
+          }
+        } catch(err){
+          console.error("Error cargando minijuego:", err);
+          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
+        }
+        return;
+      }
+
+      // si no es minijuego, intentamos abrir páginas externas
       const path1 = `juego-${c}.html`;
       const path2 = `juego.html?card=${encodeURIComponent(c)}`;
 
@@ -226,28 +412,27 @@
         try { const r2 = await fetch(path2, { method:'GET' }); r2ok = r2.ok; } catch(e){ r2ok = false; }
         if(r2ok){ closeNumModal(); window.location.href = path2; return; }
 
-        numMessage.textContent = "Esa carta no es de accion. Prueba con otra.";
+        numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
       } catch(err){
         numMessage.textContent = "Error comprobando la carta. Usa Live Server o prueba otra.";
       }
     }
 
-    document.getElementById('numOk').addEventListener('click', ()=> checkAndOpen(entered) );
-
+    // atajos teclado cuando el modal está abierto
     document.addEventListener('keydown', (e)=>{
       if(numModal.style.display === 'flex'){
         if(e.key === 'Escape'){ closeNumModal(); e.preventDefault(); return; }
-        if(e.key === 'Enter'){ checkAndOpen(entered); e.preventDefault(); return; }
+        if(e.key === 'Enter'){ document.getElementById('numOk').click(); e.preventDefault(); return; }
         if(e.key === 'Backspace'){ entered = entered.slice(0,-1); renderNum(); e.preventDefault(); return; }
         if(/^[0-9]$/.test(e.key) && entered.length < 4){ entered += e.key; renderNum(); e.preventDefault(); }
       }
     });
 
-    actionBtn.addEventListener('click', openNumModal);
-
+    // pausa / reanudar
     pauseBtn.addEventListener('click', ()=> { isPaused = true; pauseBtn.style.display='none'; resumeBtn.style.display='inline-flex'; });
     resumeBtn.addEventListener('click', ()=> { isPaused = false; pauseBtn.style.display='inline-flex'; resumeBtn.style.display='none'; });
 
+    // salir
     stopBtn.addEventListener('click', ()=> {
       const ok = confirm("¿Seguro que quieres salir? Perderás el progreso actual.");
       if(ok){
@@ -257,6 +442,7 @@
     });
 
     function volver(){ window.location.href = '../index.html'; }
+
   </script>
 </body>
 </html>

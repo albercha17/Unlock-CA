@@ -81,7 +81,7 @@ export function startMinigame(opts = {}) {
   box.className = 'mlp-box';
 
   box.innerHTML =
-    '<h3 class="mlp-title">Carta 01 — Ordena las Probetas</h3>' +
+    '<h3 class="mlp-title">Carta 01 — Ordena las Probetas para crear un nuevo compuesto</h3>' +
     `<div id="mm-instr" class="mlp-instr">Cuatro probetas esperan su turno. Ordena su esencia de la más ligera a la más pesada — empieza por la que menos pesa.</div>`;
 
   const tubesRow = document.createElement('div'); tubesRow.className = 'mlp-row';
