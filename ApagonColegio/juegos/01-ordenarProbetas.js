@@ -1,6 +1,6 @@
 // juegos/miniJuegoLevantarProyectar/main.js
 // Minijuego: ordenar 4 probetas (C, N, O, S) por su número atómico (de menor a mayor).
-// Versión con animación de entrada/salida y sonido/vibración de éxito.
+// Versión ajustada para que TODO quepa en la pantalla (sin scroll).
 // Exporta startMinigame(opts)
 // opts: { onClose?: fn, pauseGameTimer?: fn, resumeGameTimer?: fn }
 
@@ -21,31 +21,30 @@ export function startMinigame(opts = {}) {
     style.id = styleId;
     style.textContent = `
       :root{
-        --mlp-gap: 12px;
-        --mlp-box-padding: 14px;
-        /* tube sizing: clamp(min, responsive, max) */
-        --tube-w: clamp(90px, 22vw, 180px);
-        --tube-h: calc(var(--tube-w) * 1.33); /* altura proporcional */
-        --tube-padding: 8px;
-        --slot-border-radius: 12px;
+        --mlp-gap: 10px;
+        --mlp-box-padding: 12px;
+        /* tube sizing responsive: will shrink to fit viewport */
+        --tube-w: clamp(64px, 16vw, 140px);
+        --tube-h: calc(var(--tube-w) * 1.25);
+        --slot-border-radius: 10px;
       }
 
       .mlp-overlay {
         position:fixed; inset:0;
         display:flex; align-items:center; justify-content:center;
-        background:rgba(0,0,0,0.66); z-index:2500; padding:10px;
-        -webkit-overflow-scrolling:touch;
+        background:rgba(0,0,0,0.66); z-index:2500; padding:8px;
       }
-      /* animación de entrada */
-      @keyframes mlp-enter { from { transform: translateY(12px) scale(.99); opacity:0; } to { transform: translateY(0) scale(1); opacity:1; } }
-      @keyframes mlp-exit  { from { transform: translateY(0) scale(1); opacity:1; } to { transform: translateY(12px) scale(.98); opacity:0; } }
 
+      /* entrada / salida */
+      @keyframes mlp-enter { from { transform: translateY(8px) scale(.995); opacity:0 } to { transform: translateY(0) scale(1); opacity:1 } }
+      @keyframes mlp-exit  { from { transform: translateY(0) scale(1); opacity:1 } to { transform: translateY(8px) scale(.99); opacity:0 } }
+
+      /* BOX: altura fija según viewport; sin scroll en la ventana principal */
       .mlp-box {
         width:94vw;
         max-width:920px;
-        max-height:calc(100vh - 40px); /* importante para que todo quepa en pantalla */
-        overflow:auto;
-        -webkit-overflow-scrolling:touch;
+        height: calc(100vh - 24px);     /* clave: ocupar la pantalla menos un margen */
+        overflow: hidden;               /* evita scroll; todo debe redimensionarse */
         background:#0f1116;
         border-radius:12px;
         padding:var(--mlp-box-padding);
@@ -54,43 +53,60 @@ export function startMinigame(opts = {}) {
         box-shadow:0 18px 56px rgba(0,0,0,0.7);
         font-family:inherit;
         animation: mlp-enter .28s cubic-bezier(.2,.9,.2,1);
+        display:flex;
+        flex-direction:column;
       }
       .mlp-box.mlp-exiting { animation: mlp-exit .22s cubic-bezier(.2,.9,.2,1) forwards; }
 
-      .mlp-title { margin:0 0 8px 0; font-size:1.05rem; }
-      .mlp-instr { color:#d6d6d6; margin-bottom:10px; font-size:0.95rem; }
+      .mlp-header {
+        flex: 0 0 auto;
+      }
+      .mlp-title { margin:0 0 6px 0; font-size:1.02rem; }
+      .mlp-instr { color:#d6d6d6; margin-bottom:6px; font-size:0.92rem; }
 
+      /* Contenedor central que se encargará de distribuir filas y escalar si es necesario */
+      .mlp-center {
+        flex: 1 1 auto;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:6px 0;
+      }
+
+      /* filas (probetas y slots) están en columna dentro de mlp-center para facilitar ajuste vertical */
       .mlp-row {
         display:flex;
         gap:var(--mlp-gap);
         justify-content:center;
-        margin:12px 0;
-        flex-wrap:wrap;
+        align-items:flex-end;
+        flex-wrap:nowrap; /* preferimos que no rompan en varias líneas: ajustamos tamaño con clamp */
       }
 
-      /* PROBETAS (tube) — responsive usando clamp */
+      /* PROBETAS (tube) — responsive usando clamp/variables */
       .mlp-tube {
         width: var(--tube-w);
-        max-width: 44%;
         height: var(--tube-h);
-        padding: var(--tube-padding);
+        padding: 6px;
         border-radius: var(--slot-border-radius);
         display:flex; align-items:center; justify-content:center;
         cursor:pointer; user-select:none; transition: transform .12s, box-shadow .12s;
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+        box-sizing: border-box;
+        flex: 0 0 auto;
       }
       .mlp-tube img {
-        width: 88%;
-        height: 88%;
+        width: 86%;
+        height: 86%;
         object-fit: contain;
         display:block;
         pointer-events: none;
       }
 
-      /* SLOTS (targets) — siguen la misma regla que las probetas */
+      /* SLOTS (targets) — mismas dimensiones que las probetas */
       .mlp-slot {
         width: var(--tube-w);
-        max-width: 44%;
         height: var(--tube-h);
         border-radius: var(--slot-border-radius);
         border:2px dashed rgba(255,255,255,0.06);
@@ -98,36 +114,32 @@ export function startMinigame(opts = {}) {
         background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
         transition: all .14s;
         box-sizing: border-box;
+        flex: 0 0 auto;
       }
       .mlp-slot.highlight { border-color: rgba(255,255,255,0.18); box-shadow:0 10px 30px rgba(0,0,0,0.35); }
 
-      .mlp-actions { display:flex; gap:12px; justify-content:center; margin-top:12px; flex-wrap:wrap; }
+      .mlp-actions { flex: 0 0 auto; display:flex; gap:10px; justify-content:center; margin-top:6px; padding-top:6px; }
       .mlp-btn {
-        padding:12px 16px; border-radius:10px;
+        padding:10px 14px; border-radius:10px;
         background:linear-gradient(90deg,#1f2230,#121217);
         border:1px solid rgba(255,255,255,0.06); color:#fff;
-        cursor:pointer; font-weight:700; font-size:0.98rem;
+        cursor:pointer; font-weight:700; font-size:0.94rem;
       }
-      .mlp-feedback { min-height:28px; margin-top:8px; color:#ffdede; text-align:center; font-size:0.95rem; }
+      .mlp-feedback { min-height:26px; margin-top:6px; color:#ffdede; text-align:center; font-size:0.92rem; }
 
       .mlp-tube:focus, .mlp-slot:focus { outline:3px solid rgba(255,255,255,0.06); outline-offset:3px; }
 
-      /* Desktop overrides: si hay suficiente espacio, fija tamaños más grandes */
-      @media(min-width:900px) {
-        :root { --tube-w: 180px; --tube-h: 240px; }
-        .mlp-tube { width: var(--tube-w); height: var(--tube-h); }
-        .mlp-slot { width: var(--tube-w); height: var(--tube-h); }
+      /* If viewport is short (small height) reduce sizes more aggressively to avoid any overflow */
+      @media (max-height:620px) {
+        :root { --tube-w: clamp(56px, 18vw, 120px); --tube-h: calc(var(--tube-w) * 1.25); --mlp-box-padding:10px; --mlp-gap:8px; }
+        .mlp-title { font-size:0.98rem; }
+        .mlp-instr { font-size:0.9rem; }
+        .mlp-btn { padding:8px 12px; font-size:0.9rem; }
       }
 
-      /* Mobile tweaks: reducir márgenes y gap para que quepa todo */
-      @media(max-width:520px) {
-        .mlp-box { padding:10px; }
-        .mlp-title { font-size:1rem; }
-        .mlp-instr { font-size:0.92rem; }
-        .mlp-row { gap:8px; margin:8px 0; }
-        :root { --mlp-gap: 8px; --tube-w: clamp(72px, 30vw, 140px); --tube-h: calc(var(--tube-w) * 1.25); }
-        .mlp-actions { gap:8px; }
-        .mlp-btn { padding:10px 12px; font-size:0.92rem; }
+      /* Desktop larger sizes (if tall enough, keep them friendly) */
+      @media (min-height:900px) and (min-width:900px) {
+        :root { --tube-w: 180px; --tube-h: 230px; --mlp-gap:14px; --mlp-box-padding:16px; }
       }
     `;
     document.head.appendChild(style);
@@ -140,14 +152,22 @@ export function startMinigame(opts = {}) {
   const box = document.createElement('div');
   box.className = 'mlp-box';
 
+  // header + center area
   box.innerHTML =
-    '<h3 class="mlp-title">Carta 01 — Ordena las Probetas para crear un nuevo compuesto</h3>' +
-    `<div id="mm-instr" class="mlp-instr">Cuatro probetas esperan su turno. Ordena su esencia de la más ligera a la más pesada — empieza por la que menos pesa.</div>`;
+    '<div class="mlp-header"><h3 class="mlp-title">Carta 01 — Ordena las Probetas para crear un nuevo compuesto</h3>' +
+    `<div id="mm-instr" class="mlp-instr">Cuatro probetas esperan su turno. Ordena su esencia de la más ligera a la más pesada — empieza por la que menos pesa.</div></div>`;
+
+  const center = document.createElement('div');
+  center.className = 'mlp-center';
 
   const tubesRow = document.createElement('div');
   tubesRow.className = 'mlp-row';
+  tubesRow.setAttribute('aria-label', 'Probetas disponibles');
+
   const targetRow = document.createElement('div');
   targetRow.className = 'mlp-row';
+  targetRow.setAttribute('aria-label', 'Slots para ordenar');
+
   const feedback = document.createElement('div');
   feedback.className = 'mlp-feedback';
 
@@ -162,9 +182,11 @@ export function startMinigame(opts = {}) {
   actions.appendChild(resetBtn);
   actions.appendChild(closeBtn);
 
-  box.appendChild(tubesRow);
-  box.appendChild(targetRow);
-  box.appendChild(feedback);
+  center.appendChild(tubesRow);
+  center.appendChild(targetRow);
+  center.appendChild(feedback);
+
+  box.appendChild(center);
   box.appendChild(actions);
   overlay.appendChild(box);
   document.body.appendChild(overlay);
@@ -315,14 +337,14 @@ export function startMinigame(opts = {}) {
   let selectedTube = null;
   const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
   const mmInstrEl = box.querySelector('#mm-instr');
-  const defaultInstr = mmInstrEl.textContent;
+  const defaultInstr = mmInstrEl ? mmInstrEl.textContent : '';
 
   function setSelection(tube) {
     clearSelection();
     selectedTube = tube;
     tube.style.transform = 'translateY(-6px) scale(1.03)';
     tube.style.boxShadow = '0 18px 40px rgba(0,0,0,0.45)';
-    mmInstrEl.textContent = 'Toca un hueco vacío para colocar la probeta seleccionada.';
+    if (mmInstrEl) mmInstrEl.textContent = 'Toca un hueco vacío para colocar la probeta seleccionada.';
   }
 
   function clearSelection() {
@@ -330,7 +352,7 @@ export function startMinigame(opts = {}) {
     selectedTube.style.transform = '';
     selectedTube.style.boxShadow = '';
     selectedTube = null;
-    mmInstrEl.textContent = defaultInstr;
+    if (mmInstrEl) mmInstrEl.textContent = defaultInstr;
   }
 
   /* --------------------- LÓGICA: comprobar orden --------------------- */
@@ -351,7 +373,7 @@ export function startMinigame(opts = {}) {
       feedback.innerHTML = '<strong style="color:#b6ffb6">¡Correcto! Las probetas están en orden (menor → mayor).</strong><div style="margin-top:8px;color:#d6ffd6"><strong>Pista:</strong> Revisa el cajón del laboratorio.</div>';
       Array.from(targetRow.children).forEach(s => s.style.pointerEvents = 'none');
       Array.from(tubesRow.children).forEach(t => t.style.pointerEvents = 'none');
-      mmInstrEl.textContent = 'Resuelto — pulsa Cerrar para volver.';
+      if (mmInstrEl) mmInstrEl.textContent = 'Resuelto — pulsa Cerrar para volver.';
     } else {
       feedback.textContent = 'Orden incorrecto. Intenta reorganizarlas.';
     }
@@ -364,8 +386,8 @@ export function startMinigame(opts = {}) {
     arr.forEach(el => tubesRow.appendChild(makeTube(el)));
     feedback.textContent = '';
     clearSelection();
-    // asegurarnos de que el contenido visible empieza arriba del box (especialmente en móvil)
-    try { box.scrollTop = 0; } catch (e) {}
+    // ajustar visualmente: aseguramos que las filas están centradas
+    // (no hay scroll en container principal)
   }
   populateTubes(shuffle(ELEMENTS));
 
