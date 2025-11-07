@@ -1,3 +1,4 @@
-Unlock C&A - Paquete entregable
-
-Servir via HTTP y abrir apagon/apagon.html
+Menu principal
+El juego del apagon:
+    - Juego de las probetas perfectos
+    - Menu del juego: pistas y juegos
