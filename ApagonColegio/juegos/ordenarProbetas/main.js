@@ -1,72 +1,55 @@
 // juegos/miniJuegoLevantarProyectar/main.js
 // Minijuego: ordenar 4 probetas (C, N, O, S) por su número atómico (de menor a mayor).
-// Versión optimizada móvil (iPhone): todo el minijuego cabe en pantalla,
-// caja centrada con scroll interno, tap-to-pick + tap-to-drop para touch,
-// drag&drop nativo en escritorio y vibración en interacciones.
-
+// Versión con animación de entrada/salida y sonido/vibración de éxito.
 // Exporta startMinigame(opts)
 // opts: { onClose?: fn, pauseGameTimer?: fn, resumeGameTimer?: fn }
+
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
 
-  // Si nos pasan la función para pausar el temporizador principal, la ejecutamos.
+  // Pausar temporizador principal si se provee la función
   if (typeof pauseGameTimer === 'function') pauseGameTimer();
 
-  /* ---------------------- INSERCIÓN DE ESTILOS (para mobile-friendly) ---------------------- */
-  // Se inyectan unos estilos mínimos en <head> para mantener el DOM más limpio.
+  /* --------------------- INYECTAR ESTILOS (incluye animaciones) --------------------- */
   const styleId = 'miniJuego-levantar-style';
   if (!document.getElementById(styleId)) {
     const style = document.createElement('style');
     style.id = styleId;
     style.textContent = `
-      /* overlay flexible y centrado */
       .mlp-overlay {
-        position:fixed;
-        inset:0;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:rgba(0,0,0,0.66);
-        z-index:2500;
-        padding:10px;
+        position:fixed; inset:0;
+        display:flex; align-items:center; justify-content:center;
+        background:rgba(0,0,0,0.66); z-index:2500; padding:10px;
         -webkit-overflow-scrolling:touch;
       }
-      /* caja principal: cabe en pantalla y permite scroll interno */
+      /* animación de entrada */
+      @keyframes mlp-enter { from { transform: translateY(12px) scale(.99); opacity:0; } to { transform: translateY(0) scale(1); opacity:1; } }
+      @keyframes mlp-exit { from { transform: translateY(0) scale(1); opacity:1; } to { transform: translateY(12px) scale(.98); opacity:0; } }
+
       .mlp-box {
-        width:94vw;
-        max-width:820px;
-        max-height:92vh; /* muy importante para que todo quede dentro del viewport móvil */
-        overflow:auto;
-        -webkit-overflow-scrolling:touch;
-        background:#0f1116;
-        border-radius:12px;
-        padding:14px;
-        color:#fff;
-        border:1px solid rgba(255,255,255,0.04);
-        box-shadow:0 18px 56px rgba(0,0,0,0.7);
-        font-family:inherit;
+        width:94vw; max-width:820px; max-height:92vh; overflow:auto; -webkit-overflow-scrolling:touch;
+        background:#0f1116; border-radius:12px; padding:14px;
+        color:#fff; border:1px solid rgba(255,255,255,0.04);
+        box-shadow:0 18px 56px rgba(0,0,0,0.7); font-family:inherit;
+        animation: mlp-enter .28s cubic-bezier(.2,.9,.2,1);
       }
+      .mlp-box.mlp-exiting { animation: mlp-exit .22s cubic-bezier(.2,.9,.2,1) forwards; }
+
       .mlp-title { margin:0 0 8px 0; font-size:1.05rem; }
       .mlp-instr { color:#d6d6d6; margin-bottom:10px; font-size:0.95rem; }
 
       .mlp-row { display:flex; gap:12px; justify-content:center; margin:12px 0; flex-wrap:wrap; }
 
-      /* probeta: tamaño relativo a viewport para que sea grande en móviles */
       .mlp-tube {
-        width:22vw; max-width:150px;
-        height:26vw; max-height:180px;
-        padding:6px; border-radius:10px;
-        display:flex; align-items:center; justify-content:center;
-        cursor:pointer; user-select:none; transition:transform .12s;
+        width:22vw; max-width:150px; height:26vw; max-height:180px;
+        padding:6px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+        cursor:pointer; user-select:none; transition:transform .12s, box-shadow .12s;
       }
       .mlp-tube img { width:78%; height:78%; object-fit:contain; display:block; pointer-events:none; }
 
-      /* slot (donde soltar) */
       .mlp-slot {
-        width:22vw; max-width:150px;
-        height:26vw; max-height:180px;
-        border-radius:10px;
-        border:2px dashed rgba(255,255,255,0.06);
+        width:22vw; max-width:150px; height:26vw; max-height:180px;
+        border-radius:10px; border:2px dashed rgba(255,255,255,0.06);
         display:flex; align-items:center; justify-content:center;
         background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(0,0,0,0.04));
         transition:all .14s;
@@ -82,17 +65,15 @@ export function startMinigame(opts = {}) {
       }
       .mlp-feedback { min-height:28px; margin-top:8px; color:#ffdede; text-align:center; font-size:0.95rem; }
 
-      /* mejor foco para accesibilidad */
       .mlp-tube:focus, .mlp-slot:focus { outline:3px solid rgba(255,255,255,0.06); outline-offset:3px; }
       @media(min-width:900px) {
-        .mlp-tube { width:120px; height:160px; }
-        .mlp-slot { width:120px; height:160px; }
+        .mlp-tube { width:120px; height:160px; } .mlp-slot { width:120px; height:160px; }
       }
     `;
     document.head.appendChild(style);
   }
 
-  /* ---------------------- CREAMOS ELEMENTOS DEL DOM ---------------------- */
+  /* --------------------- ELEMENTOS DOM --------------------- */
   const overlay = document.createElement('div');
   overlay.className = 'mlp-overlay';
 
@@ -101,34 +82,17 @@ export function startMinigame(opts = {}) {
 
   box.innerHTML =
     '<h3 class="mlp-title">Carta 01 — Ordena las Probetas</h3>' +
-    '<div id="mm-instr" class="mlp-instr">Cuatro probetas esperan su turno. Ordena su esencia de la más ligera a la más pesada — empieza por la que menos pesa.</div>';
+    `<div id="mm-instr" class="mlp-instr">Cuatro probetas esperan su turno. Ordena su esencia de la más ligera a la más pesada — empieza por la que menos pesa.</div>`;
 
-  // contenedores
-  const tubesRow = document.createElement('div');
-  tubesRow.className = 'mlp-row';
+  const tubesRow = document.createElement('div'); tubesRow.className = 'mlp-row';
+  const targetRow = document.createElement('div'); targetRow.className = 'mlp-row';
+  const feedback = document.createElement('div'); feedback.className = 'mlp-feedback';
 
-  const targetRow = document.createElement('div');
-  targetRow.className = 'mlp-row';
+  const actions = document.createElement('div'); actions.className = 'mlp-actions';
+  const resetBtn = document.createElement('button'); resetBtn.className = 'mlp-btn'; resetBtn.textContent = 'Recolocar';
+  const closeBtn = document.createElement('button'); closeBtn.className = 'mlp-btn'; closeBtn.textContent = 'Cerrar';
+  actions.appendChild(resetBtn); actions.appendChild(closeBtn);
 
-  const feedback = document.createElement('div');
-  feedback.className = 'mlp-feedback';
-
-  // botones
-  const actions = document.createElement('div');
-  actions.className = 'mlp-actions';
-
-  const resetBtn = document.createElement('button');
-  resetBtn.className = 'mlp-btn';
-  resetBtn.textContent = 'Recolocar';
-
-  const closeBtn = document.createElement('button');
-  closeBtn.className = 'mlp-btn';
-  closeBtn.textContent = 'Cerrar';
-
-  actions.appendChild(resetBtn);
-  actions.appendChild(closeBtn);
-
-  // añadimos al DOM
   box.appendChild(tubesRow);
   box.appendChild(targetRow);
   box.appendChild(feedback);
@@ -136,7 +100,7 @@ export function startMinigame(opts = {}) {
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 
-  /* ---------------------- DATOS: 4 elementos que tienes en /assets/images/apagonColegio/ ---------------------- */
+  /* --------------------- DATOS (C, N, O, S) --------------------- */
   const ELEMENTS = [
     { sym: 'C', z: 6 },
     { sym: 'N', z: 7 },
@@ -144,7 +108,7 @@ export function startMinigame(opts = {}) {
     { sym: 'S', z: 16 }
   ];
 
-  /* ---------------------- UTIL helpers ---------------------- */
+  /* --------------------- HELPERS --------------------- */
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -153,14 +117,44 @@ export function startMinigame(opts = {}) {
     }
     return a;
   }
-  // pequeña ayuda de vibración si está disponible (UX móvil)
   function vib(ms = 20) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} }
 
-  /* ---------------------- CREAR PROBETA (imagen sólo) ---------------------- */
+  // Sonido de éxito con WebAudio (simple chime)
+  let audioCtx = null;
+  function playSuccessSound() {
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const t = audioCtx.currentTime;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(880, t);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.12, t + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t); o.stop(t + 0.5);
+      // segundo tono
+      const o2 = audioCtx.createOscillator();
+      const g2 = audioCtx.createGain();
+      o2.type = 'sine';
+      o2.frequency.setValueAtTime(1320, t + 0.06);
+      g2.gain.setValueAtTime(0.0001, t + 0.06);
+      g2.gain.exponentialRampToValueAtTime(0.08, t + 0.08);
+      g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+      o2.connect(g2); g2.connect(audioCtx.destination);
+      o2.start(t + 0.06); o2.stop(t + 0.5);
+    } catch (e) {
+      // fallbacks: nada crítico
+      // console.warn('Audio no disponible', e);
+    }
+  }
+
+  /* --------------------- CREAR PROBETA (solo imagen) --------------------- */
   function makeTube(el) {
     const t = document.createElement('div');
     t.className = 'mlp-tube';
-    t.tabIndex = 0; // foco accesible
+    t.tabIndex = 0;
     t.dataset.z = String(el.z);
     t.dataset.sym = el.sym;
 
@@ -170,17 +164,14 @@ export function startMinigame(opts = {}) {
     img.loading = 'lazy';
     t.appendChild(img);
 
-    // Drag native (escritorio)
+    // drag para escritorio
     t.draggable = true;
     t.addEventListener('dragstart', (e) => {
       e.dataTransfer.setData('text/plain', t.dataset.z);
-      // drag image temporal (evita hueco)
       try {
         const dragImg = img.cloneNode(true);
-        dragImg.style.width = '120px';
-        dragImg.style.height = '160px';
-        dragImg.style.position = 'absolute';
-        dragImg.style.top = '-9999px';
+        dragImg.style.width = '120px'; dragImg.style.height = '160px';
+        dragImg.style.position = 'absolute'; dragImg.style.top = '-9999px';
         document.body.appendChild(dragImg);
         e.dataTransfer.setDragImage(dragImg, dragImg.width/2, dragImg.height/2);
         setTimeout(()=> { try { document.body.removeChild(dragImg); } catch(_){} }, 0);
@@ -188,16 +179,15 @@ export function startMinigame(opts = {}) {
       vib(10);
     });
 
-    // Tap (touch) -> selección/desselección. en iPhone esto será el comportamiento principal.
+    // tap (touch) selección
     t.addEventListener('click', (ev) => {
       ev.stopPropagation();
       if (isTouchDevice) {
-        if (selectedTube === t) { clearSelection(); }
-        else { setSelection(t); }
+        if (selectedTube === t) clearSelection(); else setSelection(t);
       }
     });
 
-    // teclado: Enter para seleccionar
+    // teclado: Enter selecciona
     t.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -208,34 +198,27 @@ export function startMinigame(opts = {}) {
     return t;
   }
 
-  /* ---------------------- SLOTS (drop targets) ---------------------- */
+  /* --------------------- SLOTS (targets) --------------------- */
   for (let i = 0; i < 4; i++) {
     const slot = document.createElement('div');
     slot.className = 'mlp-slot';
     slot.dataset.index = String(i);
     slot.tabIndex = 0;
 
-    // dragover / drop (escritorio)
-    slot.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      slot.classList.add('highlight');
-    });
+    slot.addEventListener('dragover', (e) => { e.preventDefault(); slot.classList.add('highlight'); });
     slot.addEventListener('dragleave', () => slot.classList.remove('highlight'));
     slot.addEventListener('drop', (e) => {
-      e.preventDefault();
-      slot.classList.remove('highlight');
+      e.preventDefault(); slot.classList.remove('highlight');
       const z = e.dataTransfer.getData('text/plain');
       let tube = Array.from(tubesRow.children).find(t => t.dataset.z === z);
       if (!tube) tube = box.querySelector(`.mlp-tube[data-z="${z}"]`);
       if (!tube) return;
-      // si el slot tenía algo, lo devolvemos al tubesRow
       if (slot.firstChild) tubesRow.appendChild(slot.firstChild);
       slot.appendChild(tube);
-      vib(8);
-      checkOrder();
+      vib(8); checkOrder();
     });
 
-    // tap en slot: si hay una probeta seleccionada (modo touch), soltarla aquí
+    // touch/tap: soltar si hay selección
     slot.addEventListener('click', () => {
       if (selectedTube) {
         if (slot.firstChild) tubesRow.appendChild(slot.firstChild);
@@ -260,63 +243,63 @@ export function startMinigame(opts = {}) {
     targetRow.appendChild(slot);
   }
 
-  /* ---------------------- SELECCIÓN TOUCH (pick & drop) ---------------------- */
+  /* --------------------- SELECCIÓN TOUCH --------------------- */
   let selectedTube = null;
   const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
-  const mmInstr = box.querySelector('#mm-instr');
-  const defaultInstr = mmInstr.textContent;
+  const mmInstrEl = box.querySelector('#mm-instr');
+  const defaultInstr = mmInstrEl.textContent;
 
   function setSelection(tube) {
     clearSelection();
     selectedTube = tube;
     tube.style.transform = 'translateY(-6px) scale(1.03)';
     tube.style.boxShadow = '0 18px 40px rgba(0,0,0,0.45)';
-    mmInstr.textContent = 'Toca un hueco vacío para colocar la probeta seleccionada.';
+    mmInstrEl.textContent = 'Toca un hueco vacío para colocar la probeta seleccionada.';
   }
   function clearSelection() {
     if (!selectedTube) return;
     selectedTube.style.transform = '';
     selectedTube.style.boxShadow = '';
     selectedTube = null;
-    mmInstr.textContent = defaultInstr;
+    mmInstrEl.textContent = defaultInstr;
   }
 
-  /* ---------------------- LOGICA: checkOrder ---------------------- */
-  function checkOrder(){
-    const slotZ = Array.from(targetRow.children).map(slot => slot.firstChild ? slot.firstChild.dataset.z : null);
-    if (slotZ.some(z=> z === null)) {
+  /* --------------------- LÓGICA: comprobar orden --------------------- */
+  function checkOrder() {
+    const slotZ = Array.from(targetRow.children).map(s => s.firstChild ? s.firstChild.dataset.z : null);
+    if (slotZ.some(z => z === null)) {
       feedback.textContent = 'Coloca todas las probetas en los slots.';
       return;
     }
-    const nums = slotZ.map(z=>Number(z));
+    const nums = slotZ.map(z => Number(z));
     let ok = true;
-    for (let i=1;i<nums.length;i++){ if (nums[i] < nums[i-1]) { ok=false; break; } }
+    for (let i = 1; i < nums.length; i++) { if (nums[i] < nums[i - 1]) { ok = false; break; } }
     if (ok) {
+      // éxito: vibración + sonido + mensaje
       vib(60);
+      playSuccessSound();
       feedback.innerHTML = '<strong style="color:#b6ffb6">¡Correcto! Las probetas están en orden (menor → mayor).</strong><div style="margin-top:8px;color:#d6ffd6"><strong>Pista:</strong> Revisa el cajón del laboratorio.</div>';
       // bloquear movimientos
       Array.from(targetRow.children).forEach(s => s.style.pointerEvents = 'none');
       Array.from(tubesRow.children).forEach(t => t.style.pointerEvents = 'none');
-      mmInstr.textContent = 'Resuelto — pulsa Cerrar para volver.';
+      mmInstrEl.textContent = 'Resuelto — pulsa Cerrar para volver.';
     } else {
       feedback.textContent = 'Orden incorrecto. Intenta reorganizarlas.';
     }
   }
 
-  /* ---------------------- POBLAR INICIALMENTE ---------------------- */
-  function populateTubes(arr){
+  /* --------------------- POBLAR INICIAL --------------------- */
+  function populateTubes(arr) {
     // devolver probetas de slots al contenedor
     Array.from(targetRow.children).forEach(s => { if (s.firstChild) tubesRow.appendChild(s.firstChild); });
-    // limpiar
     while (tubesRow.firstChild) tubesRow.removeChild(tubesRow.firstChild);
-    // añadir probetas
     arr.forEach(el => tubesRow.appendChild(makeTube(el)));
     feedback.textContent = '';
     clearSelection();
   }
   populateTubes(shuffle(ELEMENTS));
 
-  /* ---------------------- BOTONES: Recolocar y Cerrar ---------------------- */
+  /* --------------------- BOTONES --------------------- */
   resetBtn.addEventListener('click', () => {
     Array.from(targetRow.children).forEach(s => { if (s.firstChild) tubesRow.appendChild(s.firstChild); });
     populateTubes(shuffle(ELEMENTS));
@@ -324,23 +307,30 @@ export function startMinigame(opts = {}) {
     vib(10);
   });
 
-  function cleanup() {
-    // restaurar scroll del documento (no lo tocamos aquí, pero si en el futuro se hace, rest.)
+  // CERRAR: animación de salida + limpieza
+  function cleanupWithAnimation() {
+    box.classList.add('mlp-exiting');
+    // esperar final de animación antes de eliminar
+    box.addEventListener('animationend', function handler() {
+      box.removeEventListener('animationend', handler);
+      cleanupImmediate();
+    });
+  }
+  closeBtn.addEventListener('click', () => { vib(10); cleanupWithAnimation(); });
+
+  function cleanupImmediate() {
     document.removeEventListener('keydown', onKey);
     try { overlay.remove(); } catch (e) {}
     if (typeof resumeGameTimer === 'function') resumeGameTimer();
     if (typeof onClose === 'function') onClose();
   }
-  closeBtn.addEventListener('click', () => { cleanup(); vib(10); });
 
-  function onKey(e) { if (e.key === 'Escape') cleanup(); }
+  function onKey(e) { if (e.key === 'Escape') cleanupWithAnimation(); }
   document.addEventListener('keydown', onKey);
 
-  // tocar fuera del box cancela selección (no cierra el modal)
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) clearSelection();
-  });
+  // click fuera del box cancela selección (no cierra)
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) clearSelection(); });
 
-  // devolvemos objeto con método close
-  return { close: cleanup };
+  // devolver handle con close (cierra con animación)
+  return { close: cleanupWithAnimation };
 }
