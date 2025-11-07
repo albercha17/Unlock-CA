@@ -20,6 +20,16 @@ export function startMinigame(opts = {}) {
     const style = document.createElement('style');
     style.id = styleId;
     style.textContent = `
+      :root{
+        --mlp-gap: 12px;
+        --mlp-box-padding: 14px;
+        /* tube sizing: clamp(min, responsive, max) */
+        --tube-w: clamp(90px, 22vw, 180px);
+        --tube-h: calc(var(--tube-w) * 1.33); /* altura proporcional */
+        --tube-padding: 8px;
+        --slot-border-radius: 12px;
+      }
+
       .mlp-overlay {
         position:fixed; inset:0;
         display:flex; align-items:center; justify-content:center;
@@ -28,13 +38,21 @@ export function startMinigame(opts = {}) {
       }
       /* animación de entrada */
       @keyframes mlp-enter { from { transform: translateY(12px) scale(.99); opacity:0; } to { transform: translateY(0) scale(1); opacity:1; } }
-      @keyframes mlp-exit { from { transform: translateY(0) scale(1); opacity:1; } to { transform: translateY(12px) scale(.98); opacity:0; } }
+      @keyframes mlp-exit  { from { transform: translateY(0) scale(1); opacity:1; } to { transform: translateY(12px) scale(.98); opacity:0; } }
 
       .mlp-box {
-        width:94vw; max-width:820px; max-height:92vh; overflow:auto; -webkit-overflow-scrolling:touch;
-        background:#0f1116; border-radius:12px; padding:14px;
-        color:#fff; border:1px solid rgba(255,255,255,0.04);
-        box-shadow:0 18px 56px rgba(0,0,0,0.7); font-family:inherit;
+        width:94vw;
+        max-width:920px;
+        max-height:calc(100vh - 40px); /* importante para que todo quepa en pantalla */
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+        background:#0f1116;
+        border-radius:12px;
+        padding:var(--mlp-box-padding);
+        color:#fff;
+        border:1px solid rgba(255,255,255,0.04);
+        box-shadow:0 18px 56px rgba(0,0,0,0.7);
+        font-family:inherit;
         animation: mlp-enter .28s cubic-bezier(.2,.9,.2,1);
       }
       .mlp-box.mlp-exiting { animation: mlp-exit .22s cubic-bezier(.2,.9,.2,1) forwards; }
@@ -42,39 +60,44 @@ export function startMinigame(opts = {}) {
       .mlp-title { margin:0 0 8px 0; font-size:1.05rem; }
       .mlp-instr { color:#d6d6d6; margin-bottom:10px; font-size:0.95rem; }
 
-      .mlp-row { display:flex; gap:12px; justify-content:center; margin:12px 0; flex-wrap:wrap; }
+      .mlp-row {
+        display:flex;
+        gap:var(--mlp-gap);
+        justify-content:center;
+        margin:12px 0;
+        flex-wrap:wrap;
+      }
 
-      // tamaño de las probetas
-
+      /* PROBETAS (tube) — responsive usando clamp */
       .mlp-tube {
-  width:30vw;
-  max-width:240px;
-  height:36vw;
-  max-height:260px;
-  padding:10px;
-  border-radius:14px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; user-select:none; transition:transform .12s, box-shadow .12s;
-}
-.mlp-tube img { width:90%; height:90%; object-fit:contain; display:block; pointer-events:none; }
-
-.mlp-slot {
-  width:30vw; max-width:240px;
-  height:36vw; max-height:260px;
-  border-radius:14px; ...
-}
-@media(min-width:900px) {
-  .mlp-tube { width:180px; height:240px; }
-  .mlp-slot { width:180px; height:240px; }
-}
-
-
-      .mlp-slot {
-        width:22vw; max-width:150px; height:26vw; max-height:180px;
-        border-radius:10px; border:2px dashed rgba(255,255,255,0.06);
+        width: var(--tube-w);
+        max-width: 44%;
+        height: var(--tube-h);
+        padding: var(--tube-padding);
+        border-radius: var(--slot-border-radius);
         display:flex; align-items:center; justify-content:center;
-        background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(0,0,0,0.04));
-        transition:all .14s;
+        cursor:pointer; user-select:none; transition: transform .12s, box-shadow .12s;
+        background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      }
+      .mlp-tube img {
+        width: 88%;
+        height: 88%;
+        object-fit: contain;
+        display:block;
+        pointer-events: none;
+      }
+
+      /* SLOTS (targets) — siguen la misma regla que las probetas */
+      .mlp-slot {
+        width: var(--tube-w);
+        max-width: 44%;
+        height: var(--tube-h);
+        border-radius: var(--slot-border-radius);
+        border:2px dashed rgba(255,255,255,0.06);
+        display:flex; align-items:center; justify-content:center;
+        background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+        transition: all .14s;
+        box-sizing: border-box;
       }
       .mlp-slot.highlight { border-color: rgba(255,255,255,0.18); box-shadow:0 10px 30px rgba(0,0,0,0.35); }
 
@@ -88,8 +111,23 @@ export function startMinigame(opts = {}) {
       .mlp-feedback { min-height:28px; margin-top:8px; color:#ffdede; text-align:center; font-size:0.95rem; }
 
       .mlp-tube:focus, .mlp-slot:focus { outline:3px solid rgba(255,255,255,0.06); outline-offset:3px; }
+
+      /* Desktop overrides: si hay suficiente espacio, fija tamaños más grandes */
       @media(min-width:900px) {
-        .mlp-tube { width:120px; height:160px; } .mlp-slot { width:120px; height:160px; }
+        :root { --tube-w: 180px; --tube-h: 240px; }
+        .mlp-tube { width: var(--tube-w); height: var(--tube-h); }
+        .mlp-slot { width: var(--tube-w); height: var(--tube-h); }
+      }
+
+      /* Mobile tweaks: reducir márgenes y gap para que quepa todo */
+      @media(max-width:520px) {
+        .mlp-box { padding:10px; }
+        .mlp-title { font-size:1rem; }
+        .mlp-instr { font-size:0.92rem; }
+        .mlp-row { gap:8px; margin:8px 0; }
+        :root { --mlp-gap: 8px; --tube-w: clamp(72px, 30vw, 140px); --tube-h: calc(var(--tube-w) * 1.25); }
+        .mlp-actions { gap:8px; }
+        .mlp-btn { padding:10px 12px; font-size:0.92rem; }
       }
     `;
     document.head.appendChild(style);
@@ -132,23 +170,7 @@ export function startMinigame(opts = {}) {
   document.body.appendChild(overlay);
 
   /* --------------------- DATOS (C, N, O, S) --------------------- */
-  const ELEMENTS = [{
-      sym: 'C',
-      z: 6
-    },
-    {
-      sym: 'N',
-      z: 7
-    },
-    {
-      sym: 'O',
-      z: 8
-    },
-    {
-      sym: 'S',
-      z: 16
-    }
-  ];
+  const ELEMENTS = [{ sym: 'C', z: 6 }, { sym: 'N', z: 7 }, { sym: 'O', z: 8 }, { sym: 'S', z: 16 }];
 
   /* --------------------- HELPERS --------------------- */
   function shuffle(arr) {
@@ -161,17 +183,14 @@ export function startMinigame(opts = {}) {
   }
 
   function vib(ms = 20) {
-    try {
-      if (navigator.vibrate) navigator.vibrate(ms);
-    } catch (e) {}
+    try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {}
   }
 
   // Sonido de éxito con WebAudio (simple chime)
   let audioCtx = null;
-
   function playSuccessSound() {
     try {
-      if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const t = audioCtx.currentTime;
       const o = audioCtx.createOscillator();
       const g = audioCtx.createGain();
@@ -180,10 +199,8 @@ export function startMinigame(opts = {}) {
       g.gain.setValueAtTime(0.0001, t);
       g.gain.exponentialRampToValueAtTime(0.12, t + 0.01);
       g.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
-      o.connect(g);
-      g.connect(audioCtx.destination);
-      o.start(t);
-      o.stop(t + 0.5);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t); o.stop(t + 0.5);
       // segundo tono
       const o2 = audioCtx.createOscillator();
       const g2 = audioCtx.createGain();
@@ -192,14 +209,9 @@ export function startMinigame(opts = {}) {
       g2.gain.setValueAtTime(0.0001, t + 0.06);
       g2.gain.exponentialRampToValueAtTime(0.08, t + 0.08);
       g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
-      o2.connect(g2);
-      g2.connect(audioCtx.destination);
-      o2.start(t + 0.06);
-      o2.stop(t + 0.5);
-    } catch (e) {
-      // fallbacks: nada crítico
-      // console.warn('Audio no disponible', e);
-    }
+      o2.connect(g2); g2.connect(audioCtx.destination);
+      o2.start(t + 0.06); o2.stop(t + 0.5);
+    } catch (e) { /* ignore */ }
   }
 
   /* --------------------- CREAR PROBETA (solo imagen) --------------------- */
@@ -228,11 +240,7 @@ export function startMinigame(opts = {}) {
         dragImg.style.top = '-9999px';
         document.body.appendChild(dragImg);
         e.dataTransfer.setDragImage(dragImg, dragImg.width / 2, dragImg.height / 2);
-        setTimeout(() => {
-          try {
-            document.body.removeChild(dragImg);
-          } catch (_) {}
-        }, 0);
+        setTimeout(() => { try { document.body.removeChild(dragImg); } catch (_) {} }, 0);
       } catch (err) {}
       vib(10);
     });
@@ -265,22 +273,17 @@ export function startMinigame(opts = {}) {
     slot.dataset.index = String(i);
     slot.tabIndex = 0;
 
-    slot.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      slot.classList.add('highlight');
-    });
+    slot.addEventListener('dragover', (e) => { e.preventDefault(); slot.classList.add('highlight'); });
     slot.addEventListener('dragleave', () => slot.classList.remove('highlight'));
     slot.addEventListener('drop', (e) => {
-      e.preventDefault();
-      slot.classList.remove('highlight');
+      e.preventDefault(); slot.classList.remove('highlight');
       const z = e.dataTransfer.getData('text/plain');
       let tube = Array.from(tubesRow.children).find(t => t.dataset.z === z);
       if (!tube) tube = box.querySelector(`.mlp-tube[data-z="${z}"]`);
       if (!tube) return;
       if (slot.firstChild) tubesRow.appendChild(slot.firstChild);
       slot.appendChild(tube);
-      vib(8);
-      checkOrder();
+      vib(8); checkOrder();
     });
 
     // touch/tap: soltar si hay selección
@@ -340,17 +343,12 @@ export function startMinigame(opts = {}) {
     const nums = slotZ.map(z => Number(z));
     let ok = true;
     for (let i = 1; i < nums.length; i++) {
-      if (nums[i] < nums[i - 1]) {
-        ok = false;
-        break;
-      }
+      if (nums[i] < nums[i - 1]) { ok = false; break; }
     }
     if (ok) {
-      // éxito: vibración + sonido + mensaje
       vib(60);
       playSuccessSound();
       feedback.innerHTML = '<strong style="color:#b6ffb6">¡Correcto! Las probetas están en orden (menor → mayor).</strong><div style="margin-top:8px;color:#d6ffd6"><strong>Pista:</strong> Revisa el cajón del laboratorio.</div>';
-      // bloquear movimientos
       Array.from(targetRow.children).forEach(s => s.style.pointerEvents = 'none');
       Array.from(tubesRow.children).forEach(t => t.style.pointerEvents = 'none');
       mmInstrEl.textContent = 'Resuelto — pulsa Cerrar para volver.';
@@ -361,22 +359,19 @@ export function startMinigame(opts = {}) {
 
   /* --------------------- POBLAR INICIAL --------------------- */
   function populateTubes(arr) {
-    // devolver probetas de slots al contenedor
-    Array.from(targetRow.children).forEach(s => {
-      if (s.firstChild) tubesRow.appendChild(s.firstChild);
-    });
+    Array.from(targetRow.children).forEach(s => { if (s.firstChild) tubesRow.appendChild(s.firstChild); });
     while (tubesRow.firstChild) tubesRow.removeChild(tubesRow.firstChild);
     arr.forEach(el => tubesRow.appendChild(makeTube(el)));
     feedback.textContent = '';
     clearSelection();
+    // asegurarnos de que el contenido visible empieza arriba del box (especialmente en móvil)
+    try { box.scrollTop = 0; } catch (e) {}
   }
   populateTubes(shuffle(ELEMENTS));
 
   /* --------------------- BOTONES --------------------- */
   resetBtn.addEventListener('click', () => {
-    Array.from(targetRow.children).forEach(s => {
-      if (s.firstChild) tubesRow.appendChild(s.firstChild);
-    });
+    Array.from(targetRow.children).forEach(s => { if (s.firstChild) tubesRow.appendChild(s.firstChild); });
     populateTubes(shuffle(ELEMENTS));
     feedback.textContent = 'Probetas recolocadas. Intenta de nuevo.';
     vib(10);
@@ -385,38 +380,26 @@ export function startMinigame(opts = {}) {
   // CERRAR: animación de salida + limpieza
   function cleanupWithAnimation() {
     box.classList.add('mlp-exiting');
-    // esperar final de animación antes de eliminar
     box.addEventListener('animationend', function handler() {
       box.removeEventListener('animationend', handler);
       cleanupImmediate();
     });
   }
-  closeBtn.addEventListener('click', () => {
-    vib(10);
-    cleanupWithAnimation();
-  });
+  closeBtn.addEventListener('click', () => { vib(10); cleanupWithAnimation(); });
 
   function cleanupImmediate() {
     document.removeEventListener('keydown', onKey);
-    try {
-      overlay.remove();
-    } catch (e) {}
+    try { overlay.remove(); } catch (e) {}
     if (typeof resumeGameTimer === 'function') resumeGameTimer();
     if (typeof onClose === 'function') onClose();
   }
 
-  function onKey(e) {
-    if (e.key === 'Escape') cleanupWithAnimation();
-  }
+  function onKey(e) { if (e.key === 'Escape') cleanupWithAnimation(); }
   document.addEventListener('keydown', onKey);
 
   // click fuera del box cancela selección (no cierra)
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) clearSelection();
-  });
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) clearSelection(); });
 
   // devolver handle con close (cierra con animación)
-  return {
-    close: cleanupWithAnimation
-  };
+  return { close: cleanupWithAnimation };
 }
