@@ -45,6 +45,7 @@ export function startMinigame(opts = {}) {
     objectFit: "contain",
     cursor: "crosshair",
     transition: "opacity 0.4s ease",
+    display: "block",
   });
 
   imgContainer.appendChild(img);
@@ -68,13 +69,16 @@ export function startMinigame(opts = {}) {
   });
   btnSalir.addEventListener("click", cerrar);
   overlay.appendChild(btnSalir);
+
   document.body.appendChild(overlay);
 
-  /* ===== Coordenadas ===== */
+  /* ===== Coordenadas (porcentaje relativos a la IMAGEN) ===== */
+  // linterna: ya bien detectada
   const linternaArea = { x1: 0.58, y1: 0.78, x2: 0.83, y2: 0.93 };
 
-  // 🟨 NUEVO: coordenadas adaptadas a iPhone (más arriba y un poco centrado)
-  const paperArea = { x1: 0.36, y1: 0.41, x2: 0.58, y2: 0.51 };
+  // PAPEL: más abajo y a la izquierda (valores actualizados)
+  // (estas siguen siendo porcentajes relativos al cuadro visible de la imagen)
+  const paperArea = { x1: 0.30, y1: 0.60, x2: 0.54, y2: 0.72 };
 
   let linternaEncontrada = false;
   let paperEncontrado = false;
@@ -82,11 +86,19 @@ export function startMinigame(opts = {}) {
 
   img.addEventListener("click", (e) => {
     const rect = img.getBoundingClientRect();
+    // si ancho/alto son 0, salida temprana
+    if (rect.width === 0 || rect.height === 0) return;
+
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
     if (!segundaEscena) {
-      if (x >= linternaArea.x1 && x <= linternaArea.x2 && y >= linternaArea.y1 && y <= linternaArea.y2) {
+      if (
+        x >= linternaArea.x1 &&
+        x <= linternaArea.x2 &&
+        y >= linternaArea.y1 &&
+        y <= linternaArea.y2
+      ) {
         if (linternaEncontrada) return;
         linternaEncontrada = true;
         mostrarMensaje("🔦 Coge la carta 5", cambiarEscena);
@@ -94,8 +106,14 @@ export function startMinigame(opts = {}) {
       return;
     }
 
+    // segunda escena: detección del papel
     if (segundaEscena && !paperEncontrado) {
-      if (x >= paperArea.x1 && x <= paperArea.x2 && y >= paperArea.y1 && y <= paperArea.y2) {
+      if (
+        x >= paperArea.x1 &&
+        x <= paperArea.x2 &&
+        y >= paperArea.y1 &&
+        y <= paperArea.y2
+      ) {
         paperEncontrado = true;
         mostrarMensaje("📄 Coge la carta 7", marcarPapel);
       }
@@ -126,6 +144,7 @@ export function startMinigame(opts = {}) {
       textAlign: "center",
       boxShadow: "0 12px 30px rgba(0,0,0,0.6)",
       border: "1px solid rgba(255,255,255,0.1)",
+      maxWidth: "92%",
     });
     boxMsg.innerHTML = texto;
 
@@ -164,17 +183,30 @@ export function startMinigame(opts = {}) {
     }, 400);
   }
 
-  /* ===== Marcar carta del papel ===== */
+  /* ===== Marcar carta del papel (posición calculada en px sobre la imagen visible) ===== */
   function marcarPapel() {
-    const cx = (paperArea.x1 + paperArea.x2) / 2;
-    const cy = (paperArea.y1 + paperArea.y2) / 2;
+    // recalcular rects de la imagen y del contenedor
+    const imgRect = img.getBoundingClientRect();
+    const contRect = imgContainer.getBoundingClientRect();
+
+    // centro del área del papel en porcentaje (relativo a imagen)
+    const cxPct = (paperArea.x1 + paperArea.x2) / 2;
+    const cyPct = (paperArea.y1 + paperArea.y2) / 2;
+
+    // coordenadas en píxeles relativas a la imagen visible
+    const pxInImgX = imgRect.width * cxPct;
+    const pxInImgY = imgRect.height * cyPct;
+
+    // convertir a coordenadas dentro del contenedor (para posicionamiento absolute)
+    const leftPx = (imgRect.left - contRect.left) + pxInImgX;
+    const topPx = (imgRect.top - contRect.top) + pxInImgY;
 
     const mark = document.createElement("div");
     Object.assign(mark.style, {
       position: "absolute",
-      left: `${cx * 100}%`,
-      top: `${cy * 100}%`,
-      transform: "translate(-50%, -50%) scale(0.9)",
+      left: `${leftPx}px`,
+      top: `${topPx}px`,
+      transform: "translate(-50%, -50%) scale(0.95)",
       zIndex: "20",
       background: "linear-gradient(180deg,#2fd09f,#0db07e)",
       color: "#042214",
@@ -187,14 +219,23 @@ export function startMinigame(opts = {}) {
       opacity: "0",
       transition: "transform .25s ease, opacity .25s ease",
       pointerEvents: "none",
+      whiteSpace: "nowrap",
     });
     mark.textContent = "Carta 7 ✓";
     imgContainer.appendChild(mark);
 
+    // animar entrada
     requestAnimationFrame(() => {
       mark.style.opacity = "1";
       mark.style.transform = "translate(-50%, -50%) scale(1)";
     });
+
+    // opcional: auto-limpiar la marca al cabo de X segundos
+    setTimeout(() => {
+      mark.style.opacity = "0";
+      mark.style.transform = "translate(-50%, -50%) scale(0.9)";
+      setTimeout(() => { try { mark.remove(); } catch (e) {} }, 300);
+    }, 2500);
   }
 
   /* ===== Cerrar minijuego ===== */
