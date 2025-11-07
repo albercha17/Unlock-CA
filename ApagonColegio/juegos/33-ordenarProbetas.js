@@ -353,7 +353,7 @@ export function startMinigame(opts = {}) {
     if (ok) {
       vib(60);
       playSuccessSound();
-      feedback.innerHTML = '<strong style="color:#b6ffb6">¡Correcto! Las probetas están en orden (menor → mayor).</strong><div style="margin-top:8px;color:#d6ffd6"><strong>Pista:</strong> Revisa el cajón del laboratorio.</div>';
+      feedback.innerHTML = '<strong style="color:#b6ffb6">¡Correcto! Se ha creado una sustancia nueva.</strong><div style="margin-top:8px;color:#d6ffd6"><strong>Pista:</strong> Revisa el cajón del laboratorio.</div>';
       Array.from(targetRow.children).forEach(s => s.style.pointerEvents = 'none');
       Array.from(tubesRow.children).forEach(t => t.style.pointerEvents = 'none');
       if (mmInstrEl) mmInstrEl.textContent = 'Resuelto — pulsa Cerrar para volver.';

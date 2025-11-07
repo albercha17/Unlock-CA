@@ -14,8 +14,8 @@ export function openPistas(card, opts = {}) {
 
   const cardNum = String(Number(card)); // normalizar
   const data = pistas[cardNum] || {
-    1: "Pista fácil: (no hay pistas definidas para esta carta).",
-    2: "Pista clara: (no hay pistas definidas para esta carta)."
+    1: "Ordenalos como están ordenados en la tabla periódica.",
+    2: "C ➜ N ➜ O ➜ S."
   };
 
   // Crear overlay y caja

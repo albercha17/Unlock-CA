@@ -16,6 +16,7 @@
       --icon-size: 22px;
       --gap: 12px;
       --font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      --fade-ms: 150ms;
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -32,84 +33,74 @@
     }
 
     /* ===== botones acción/pista (normalizados) ===== */
-   /* ===== botones acción/pista (solo tamaño mejorado para iPhone) ===== */
-.action-row {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
+    .action-row {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
 
-.action-row .control-btn {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: var(--gap) !important;
-  width: var(--btn-w) !important;
-  min-width: var(--btn-w) !important;
-  height: var(--btn-h) !important;
-  padding: 0 18px !important;
-  border-radius: var(--btn-radius) !important;
-  border: none !important;
-  cursor: pointer !important;
-  font-weight: 800 !important;
-  font-size: 16px !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.6px !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
-  user-select: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  white-space: nowrap !important;
-  vertical-align: middle !important;
-  transform: translateZ(0);
-  background: linear-gradient(180deg, #2fd09f, #0db07e);
-  color: #042617;
-}
+    .action-row .control-btn {
+      display: inline-flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: var(--gap) !important;
+      width: var(--btn-w) !important;
+      min-width: var(--btn-w) !important;
+      height: var(--btn-h) !important;
+      padding: 0 18px !important;
+      border-radius: var(--btn-radius) !important;
+      border: none !important;
+      cursor: pointer !important;
+      font-weight: 800 !important;
+      font-size: 16px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.6px !important;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      white-space: nowrap !important;
+      vertical-align: middle !important;
+      transform: translateZ(0);
+      background: linear-gradient(180deg, #2fd09f, #0db07e);
+      color: #042617;
+    }
 
-/* 🔍 Iconos más grandes y visibles */
-.action-row .control-btn .icon {
-  width: 28px !important;   /* antes 22px */
-  height: 28px !important;  /* antes 22px */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 28px;           /* asegura el tamaño en Safari */
-}
+    .action-row .control-btn .icon {
+      width: 28px !important;
+      height: 28px !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 28px;
+    }
 
-.action-row .control-btn .icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  fill: currentColor; /* hereda color del botón */
-}
+    .action-row .control-btn .icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      fill: currentColor;
+    }
 
-/* Botón de pista */
-.action-row .hint-btn {
-  background: linear-gradient(135deg, #ffcf48, #f5b800) !important;
-  color: #111 !important;
-}
+    .action-row .hint-btn {
+      background: linear-gradient(135deg, #ffcf48, #f5b800) !important;
+      color: #111 !important;
+    }
 
-/* Botón de pista — icono oscuro para buen contraste */
-.action-row .hint-btn .icon svg {
-  fill: #111 !important;
-}
-
-/* 🔹 Ajuste para pantallas pequeñas (iPhone) */
-@media (max-width: 480px) {
-  .action-row .control-btn {
-    width: 160px !important;
-    height: 56px !important;
-    font-size: 14px !important;
-  }
-
-  .action-row .control-btn .icon {
-    width: 26px !important;
-    height: 26px !important;
-  }
-}
+    @media (max-width: 480px) {
+      .action-row .control-btn {
+        width: 160px !important;
+        height: 56px !important;
+        font-size: 14px !important;
+      }
+      .action-row .control-btn .icon {
+        width: 26px !important;
+        height: 26px !important;
+      }
+    }
 
     /* ===== NUEVA CABECERA DEL PANEL DE JUEGO ===== */
     .game-panel-header {
@@ -120,46 +111,79 @@
       width:100%;
       margin-bottom:8px;
     }
-    .game-logo-circle {
-      width:64px;
-      height:64px;
-      border-radius:50%;
-      overflow:hidden;
-      flex:0 0 64px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border:2px solid rgba(255,255,255,0.08);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
-    }
+    .game-logo-circle { width:64px; height:64px; border-radius:50%; overflow:hidden; flex:0 0 64px; display:inline-flex; align-items:center; justify-content:center; border:2px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow: 0 8px 28px rgba(0,0,0,0.45); }
     .game-logo-circle img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-    .game-title-left {
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      justify-content:center;
-    }
-    .game-title-left h2 {
-      margin:0;
-      font-size:1.25rem;
-      font-weight:800;
-      letter-spacing:0.6px;
-      color:#fff;
-    }
-    .game-title-left .game-sub {
-      margin-top:4px;
-      font-size:0.92rem;
-      color: rgba(255,255,255,0.75);
-      font-weight:600;
-    }
+    .game-title-left h2 { margin:0; font-size:1.25rem; font-weight:800; letter-spacing:0.6px; color:#fff; }
+    .game-title-left .game-sub { margin-top:4px; font-size:0.92rem; color: rgba(255,255,255,0.75); font-weight:600; }
 
     @media(max-width:560px){
       .game-logo-circle { width:48px; height:48px; flex:0 0 48px; }
       .game-title-left h2 { font-size:1.05rem; }
       .game-title-left .game-sub { font-size:0.85rem; }
     }
+
+    /* ===== Modal numérico (mejorado + fade) ===== */
+    .num-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.6);
+      z-index: 9998;
+      opacity: 1;
+      transition: opacity var(--fade-ms) ease;
+    }
+    .num-modal.closing { opacity: 0; }
+    .num-modal-box {
+      background: linear-gradient(180deg, #0f1724, #0b1220);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 18px;
+      border-radius: 12px;
+      width: 360px;
+      max-width: calc(100% - 40px);
+      color: #eaeef2;
+      transform: translateY(0);
+      transition: transform var(--fade-ms) ease;
+    }
+    .num-modal.closing .num-modal-box { transform: translateY(8px); }
+    .num-display { font-size: 28px; text-align: center; padding: 8px 0; background: rgba(255,255,255,0.02); border-radius: 8px; margin-bottom: 8px; }
+    .num-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .num-key { background: linear-gradient(180deg, #162030, #0e1622); color: #fff; padding: 12px 0; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); cursor: pointer; font-size: 18px; font-weight: 700; user-select: none; }
+    .num-key.action { background: linear-gradient(180deg,#2c2c2c,#111); }
+    .num-message { color: #ffb3b3; min-height: 1.2em; margin-top: 8px; }
+    .btn-open-anyway { background: #ffb86b; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; color:#111; font-weight:700; }
+
+    /* ===== Sistema de diálogos (sustituye alert/confirm visualmente) ===== */
+    .sys-dialog {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      z-index: 10000;
+    }
+    .sys-dialog .box {
+      width: 480px;
+      max-width: calc(100% - 32px);
+      background: linear-gradient(180deg,#0b1220,#081018);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 18px;
+      border-radius: 10px;
+      color: #f1f5f9;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      text-align: left;
+    }
+    .sys-dialog .box .msg { margin-bottom: 12px; line-height:1.4; }
+    .sys-dialog .box .controls { display:flex; gap:10px; justify-content:flex-end; }
+    .sys-dialog .btn { padding: 8px 14px; border-radius:8px; cursor:pointer; border: none; font-weight:700; }
+    .sys-dialog .btn.ok { background: linear-gradient(180deg,#2fd09f,#0db07e); color:#042617; }
+    .sys-dialog .btn.cancel { background: #2d2f33; color: #fff; border: 1px solid rgba(255,255,255,0.04); }
+
+    /* pequeño ajuste responsive */
+    @media (max-width:520px){ .sys-dialog .box{ width: 92%; } }
+
   </style>
 </head>
 <body>
@@ -185,7 +209,6 @@
 
     <!-- panel de juego -->
     <div class="panel-card" id="gamePanel" style="display:none;margin-top:18px">
-      <!-- CABECERA: logo circular a la izquierda, título a la derecha -->
       <div class="game-panel-header" role="banner" aria-label="Cabecera del juego">
         <div class="game-logo-circle" aria-hidden="true">
           <img src="../assets/images/AEEC.png" alt="Logo del escenario">
@@ -195,10 +218,8 @@
         </div>
       </div>
 
-      <!-- Temporizador -->
       <div id="gameTimer" class="timer-big" role="timer" aria-live="polite">01:00:00</div>
 
-      <!-- Botones acción/pista -->
       <div class="action-row" role="group" aria-label="Controles de acción">
         <button id="actionBtn" class="control-btn action-btn" aria-label="Acción importante" title="Acción">
           <span class="icon" aria-hidden="true">
@@ -220,7 +241,6 @@
         </button>
       </div>
 
-      <!-- controles inferiores -->
       <div class="game-controls" style="margin-top:16px">
         <button class="btn-ghost" id="pauseBtn" style="display:none">Pausar</button>
         <button class="btn-ghost" id="resumeBtn" style="display:none">Reanudar</button>
@@ -230,7 +250,7 @@
   </div>
 
   <!-- Modal numérico -->
-  <div id="numModal" class="num-modal" aria-hidden="true" style="display:none">
+  <div id="numModal" class="num-modal" aria-hidden="true">
     <div class="num-modal-box" role="dialog" aria-modal="true" aria-labelledby="numModalTitle">
       <h3 id="numModalTitle" style="margin:0 0 8px 0">Introduce número de carta</h3>
       <div class="num-display" id="numDisplay" aria-live="polite">—</div>
@@ -262,8 +282,19 @@
     </div>
   </div>
 
+  <!-- Sistema de diálogos (sustituye alert) -->
+  <div id="sysDialog" class="sys-dialog" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="box" role="document">
+      <div class="msg" id="sysDialogMsg"></div>
+      <div class="controls" id="sysDialogControls">
+        <button class="btn cancel" id="sysCancelBtn">Cancelar</button>
+        <button class="btn ok" id="sysOkBtn">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module">
-    /* Lógica principal (igual que tenías) */
+    /* Lógica principal (igual que tenías) con mejoras: fade-out + sysDialog */
     const DEFAULT_SECONDS = 60 * 60;
     let remaining = DEFAULT_SECONDS;
     let intervalId = null;
@@ -289,74 +320,142 @@
     const openAnywayWrap = document.getElementById('openAnywayWrap');
     const openAnywayBtn = document.getElementById('openAnyway');
 
+    const sysDialog = document.getElementById('sysDialog');
+    const sysDialogMsg = document.getElementById('sysDialogMsg');
+    const sysOkBtn = document.getElementById('sysOkBtn');
+    const sysCancelBtn = document.getElementById('sysCancelBtn');
+    const sysDialogControls = document.getElementById('sysDialogControls');
+
     let entered = "";
     let pendingUse = null;
 
+    /* --- Helpers: time --- */
     function formatTime(s){ const h=Math.floor(s/3600).toString().padStart(2,'0'); const m=Math.floor((s%3600)/60).toString().padStart(2,'0'); const sec=Math.floor(s%60).toString().padStart(2,'0'); return `${h}:${m}:${sec}`; }
     function updateDisplay(){ gameTimerEl.textContent = formatTime(remaining); gameTimerEl.style.color = remaining <= 300 ? "#ffb3b3" : "#fff"; }
     function tick(){ if(!isPaused){ remaining--; if(remaining<0){ clearInterval(intervalId); gameTimerEl.textContent="00:00:00 — TIEMPO"; return; } updateDisplay(); } }
 
     startBtn.addEventListener('click', ()=>{ introPanel.style.display='none'; gamePanel.style.display='block'; remaining=DEFAULT_SECONDS; updateDisplay(); pauseBtn.style.display='inline-flex'; resumeBtn.style.display='none'; isPaused=false; if(intervalId) clearInterval(intervalId); intervalId=setInterval(tick,1000); });
 
+    /* --- Modal numérico: render / open / close (con fade-out) --- */
     function renderNum(){ numDisplay.textContent = entered==="" ? "—" : entered; }
-    function openNumModal(){ entered=""; numMessage.textContent=""; renderNum(); numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); if(location.protocol==='file:') openAnywayWrap.style.display='block'; else openAnywayWrap.style.display='none'; const first=numKeys.find(k=>!k.classList.contains('action')); if(first) first.focus(); }
-    function closeNumModal(){ numModal.style.display='none'; numModal.setAttribute('aria-hidden','true'); actionBtn.focus(); pendingUse=null; }
+    function openNumModal(){ entered=""; numMessage.textContent=""; renderNum(); // ensure class removed
+      numModal.classList.remove('closing'); numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); if(location.protocol==='file:') openAnywayWrap.style.display='block'; else openAnywayWrap.style.display='none'; const first=numKeys.find(k=>!k.classList.contains('action')); if(first) first.focus(); }
+    // NO limpiar pendingUse aquí: el estado se mantiene mientras el modal esté abierto
+    function closeNumModalImmediate(){
+      numModal.style.display='none';
+      numModal.classList.remove('closing');
+      numModal.setAttribute('aria-hidden','true');
+      actionBtn.focus();
+    }
+    function closeNumModal(){
+      // Añadimos clase 'closing' para fade-out; al terminar timeout ocultamos
+      numModal.classList.add('closing');
+      numModal.setAttribute('aria-hidden','true');
+      // after CSS transition
+      setTimeout(()=> { closeNumModalImmediate(); }, 150); // igual que --fade-ms
+    }
+
+    function cancelNumModal(){
+      // El usuario canceló: cerrar modal y limpiar pendingUse
+      pendingUse = null;
+      closeNumModal();
+    }
 
     numKeys.forEach(k=>{ k.addEventListener('click', ()=>{ const key=k.dataset.key; if(!key) return; if(entered.length>=4) return; entered+=key; renderNum(); }); });
     numClear.addEventListener('click', ()=>{ entered = entered.slice(0,-1); renderNum(); });
-    numCancel.addEventListener('click', ()=> { closeNumModal(); });
+    numCancel.addEventListener('click', ()=> { cancelNumModal(); });
 
     actionBtn.addEventListener('click', ()=>{ pendingUse='accion'; openNumModal(); });
     hintBtn.addEventListener('click', ()=>{ pendingUse='pista'; openNumModal(); });
 
+    /* --- Sistema de diálogos (sustituye alert/confirm visualmente) --- */
+    function showSysDialog(message, {showCancel=false, okText='Aceptar', cancelText='Cancelar'} = {}) {
+      return new Promise((resolve)=> {
+        sysDialogMsg.textContent = message;
+        sysOkBtn.textContent = okText;
+        sysCancelBtn.textContent = cancelText;
+        sysCancelBtn.style.display = showCancel ? 'inline-block' : 'none';
+        sysDialog.style.display = 'flex';
+        sysDialog.setAttribute('aria-hidden','false');
+        // focus
+        sysOkBtn.focus();
+
+        function cleanup(){
+          sysDialog.style.display = 'none';
+          sysDialog.setAttribute('aria-hidden','true');
+          sysOkBtn.removeEventListener('click', onOk);
+          sysCancelBtn.removeEventListener('click', onCancel);
+        }
+        function onOk(){ cleanup(); resolve({ok:true}); }
+        function onCancel(){ cleanup(); resolve({ok:false}); }
+
+        sysOkBtn.addEventListener('click', onOk);
+        sysCancelBtn.addEventListener('click', onCancel);
+      });
+    }
+
+    // Convenience wrappers
+    function showAlert(message){
+      // fire-and-forget (keeps compatibility with code that calls alert without waiting)
+      showSysDialog(message, { showCancel:false, okText:'Aceptar' });
+    }
+    function showConfirm(message){
+      // returns Promise<boolean>
+      return showSysDialog(message, { showCancel:true, okText:'Sí', cancelText:'No' }).then(r=> !!r.ok);
+    }
+
+    // Replace window.alert with our visual dialog (non-blocking)
+    window.alert = function(msg){ try{ showAlert(String(msg)); }catch(e){ console.log(msg); } };
+
+    /* --- Manejo de pistas y acciones --- */
     numOk.addEventListener('click', async ()=> {
       if(!entered || entered.trim()==="") { numMessage.textContent = "Introduce un número."; return; }
       const card = entered.trim();
 
       // PISTAS
       if (pendingUse === 'pista') {
-  closeNumModal();
-  const specific = `./pistas/pistas-${card}.js`;
-  const fallback = `./pistas/pistas.js`;
+        numMessage.textContent = "";
+        const specific = `./pistas/pistas-${card}.js`;
+        const fallback = `./pistas/pistas.js`;
 
-  try {
-    let module = null;
-    try {
-      // Intentamos cargar la pista específica
-      module = await import(specific);
-    } catch (e) {
-      // Si no existe, intentamos el genérico
-      try {
-        module = await import(fallback);
-      } catch {
-        module = null;
+        try {
+          let module = null;
+          try { module = await import(specific); } catch (e) {
+            try { module = await import(fallback); } catch { module = null; }
+          }
+
+          if (module && typeof module.openPistas === 'function') {
+            // Cerramos modal y abrimos la UI de pistas
+            closeNumModal();
+            module.openPistas(card, {
+              onChoose: async (n, t) => {
+                // usuario escogió una pista: limpiamos el modo pista y mostramos el texto con nuestro diálogo
+                pendingUse = null;
+                await showSysDialog(`Has elegido la pista ${n}:\n\n${t}`, { showCancel:false, okText:'Cerrar' });
+              },
+              onClose: () => {
+                // cuando la UI de pistas se cierre limpiamos el modo pista y devolvemos foco
+                pendingUse = null;
+                hintBtn.focus();
+              }
+            });
+          } else {
+            // No hay módulo de pistas: avisamos y dejamos el modal abierto en modo 'pista'
+            numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
+            numModal.style.display = 'flex';
+            numModal.setAttribute('aria-hidden', 'false');
+            // pendingUse se mantiene como 'pista'
+          }
+
+        } catch (err) {
+          console.warn("No se pudo cargar el módulo de pistas:", err);
+          numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden', 'false');
+        }
+
+        return;
       }
-    }
-
-    if (module && typeof module.openPistas === 'function') {
-      // Si el módulo se cargó correctamente, abrimos las pistas
-      module.openPistas(card, {
-        onChoose: (n, t) => alert(`Has elegido la pista ${n}:\n\n${t}`),
-        onClose: () => hintBtn.focus()
-      });
-    } else {
-      // Si no hay pistas para esa carta
-      numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
-      numModal.style.display = 'flex';
-      numModal.setAttribute('aria-hidden', 'false');
-    }
-
-  } catch (err) {
-    console.warn("No se pudo cargar el módulo de pistas:", err);
-    numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
-    numModal.style.display = 'flex';
-    numModal.setAttribute('aria-hidden', 'false');
-  }
-
-  pendingUse = null;
-  return;
-}
-
 
       // ACCION
       if(pendingUse === 'accion'){ await checkAndOpen(card); pendingUse = null; return; }
@@ -365,33 +464,99 @@
     });
 
     async function checkAndOpen(code){
+      // Cerrar modal antes de lanzar minijuegos o navegar
+      closeNumModal();
+
       numMessage.textContent = "";
-      if(code.trim()===""){ numMessage.textContent = "Introduce un número."; return; }
-      if(!/^\d+$/.test(code)){ numMessage.textContent = "Solo se permiten dígitos."; return; }
+      if(code.trim()===""){ numMessage.textContent = "Introduce un número."; numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); return; }
+      if(!/^\d+$/.test(code)){ numMessage.textContent = "Solo se permiten dígitos."; numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); return; }
       const c = code.trim();
 
-      if(c === '1' || c === '01'){
-        const modulePath = './juegos/01-ordenarProbetas.js';
+      // MINIJUEGO 33 (ordenar probetas)
+      if(c === '33'){
+        const modulePath = './juegos/33-ordenarProbetas.js';
         try {
           const module = await import(modulePath);
           if(typeof module.startMinigame === 'function'){
-            module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> isPaused=true, resumeGameTimer: ()=> isPaused=false });
-          } else { numMessage.textContent = "Módulo cargado, pero no exporta startMinigame."; }
-        } catch(err){ console.error("Error cargando minijuego:", err); numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server."; }
+            module.startMinigame({
+              onClose: ()=> actionBtn.focus(),
+              pauseGameTimer: ()=> { isPaused = true; },
+              resumeGameTimer: ()=> { isPaused = false; }
+            });
+            pendingUse = null;
+          } else {
+            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
+            numModal.style.display = 'flex';
+            numModal.setAttribute('aria-hidden','false');
+            pendingUse = 'accion';
+          }
+        } catch(err){
+          console.error("Error cargando minijuego:", err);
+          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
+          pendingUse = 'accion';
+        }
         return;
       }
 
+      // MINIJUEGO 1 (cerradura)
+      if(c === '1'){
+        const modulePath = '../tempalteJuegos/cerradura/main.js';
+        try {
+          const module = await import(modulePath);
+          if(typeof module.startMinigame === 'function'){
+            module.startMinigame({
+              onClose: ()=> actionBtn.focus(),
+              pauseGameTimer: ()=> { isPaused = true; },
+              resumeGameTimer: ()=> { isPaused = false; }
+            });
+            pendingUse = null;
+          } else {
+            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
+            numModal.style.display = 'flex';
+            numModal.setAttribute('aria-hidden','false');
+            pendingUse = 'accion';
+          }
+        } catch(err){
+          console.error("Error cargando minijuego:", err);
+          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
+          pendingUse = 'accion';
+        }
+        return;
+      }
+
+      // MINIJUEGO 2 (encender habitación)
       if(c === '2' || c === '02'){
         const modulePath = './juegos/02-encenderHabitacion.js';
         try {
           const module = await import(modulePath);
           if(typeof module.startMinigame === 'function'){
-            module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> isPaused=true, resumeGameTimer: ()=> isPaused=false });
-          } else { numMessage.textContent = "Módulo cargado, pero no exporta startMinigame."; }
-        } catch(err){ console.error("Error cargando minijuego:", err); numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server."; }
+            module.startMinigame({
+              onClose: ()=> actionBtn.focus(),
+              pauseGameTimer: ()=> { isPaused = true; },
+              resumeGameTimer: ()=> { isPaused = false; }
+            });
+            pendingUse = null;
+          } else {
+            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
+            numModal.style.display = 'flex';
+            numModal.setAttribute('aria-hidden','false');
+            pendingUse = 'accion';
+          }
+        } catch(err){
+          console.error("Error cargando minijuego:", err);
+          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
+          pendingUse = 'accion';
+        }
         return;
       }
 
+      // Rutas genéricas a páginas de juego
       const path1 = `juego-${c}.html`;
       const path2 = `juego.html?card=${encodeURIComponent(c)}`;
 
@@ -399,27 +564,35 @@
         numMessage.textContent = "No se puede comprobar en local. Usa Live Server o pulsa 'Abrir de todos modos'.";
         openAnywayWrap.style.display = 'block';
         openAnywayBtn.onclick = () => { closeNumModal(); window.location.href = path2; };
+        pendingUse = null;
         return;
       }
 
       try {
         let r1ok = false;
         try { const r1 = await fetch(path1, { method:'HEAD' }); r1ok = r1.ok; } catch(e){ r1ok = false; }
-        if(r1ok){ closeNumModal(); window.location.href = path1; return; }
+        if(r1ok){ window.location.href = path1; pendingUse = null; return; }
 
         let r2ok = false;
         try { const r2 = await fetch(path2, { method:'GET' }); r2ok = r2.ok; } catch(e){ r2ok = false; }
-        if(r2ok){ closeNumModal(); window.location.href = path2; return; }
+        if(r2ok){ window.location.href = path2; pendingUse = null; return; }
 
         numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
+        numModal.style.display = 'flex';
+        numModal.setAttribute('aria-hidden','false');
+        pendingUse = null;
       } catch(err){
         numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
+        numModal.style.display = 'flex';
+        numModal.setAttribute('aria-hidden','false');
+        pendingUse = null;
       }
     }
 
+    /* --- Shortcut keys & controls --- */
     document.addEventListener('keydown', (e)=>{
       if(numModal.style.display === 'flex'){
-        if(e.key === 'Escape'){ closeNumModal(); e.preventDefault(); return; }
+        if(e.key === 'Escape'){ cancelNumModal(); e.preventDefault(); return; }
         if(e.key === 'Enter'){ document.getElementById('numOk').click(); e.preventDefault(); return; }
         if(e.key === 'Backspace'){ entered = entered.slice(0,-1); renderNum(); e.preventDefault(); return; }
         if(/^[0-9]$/.test(e.key) && entered.length < 4){ entered += e.key; renderNum(); e.preventDefault(); }
@@ -429,12 +602,25 @@
     pauseBtn.addEventListener('click', ()=> { isPaused = true; pauseBtn.style.display='none'; resumeBtn.style.display='inline-flex'; });
     resumeBtn.addEventListener('click', ()=> { isPaused = false; pauseBtn.style.display='inline-flex'; resumeBtn.style.display='none'; });
 
-    stopBtn.addEventListener('click', ()=> {
-      const ok = confirm("¿Seguro que quieres salir? Perderás el progreso actual.");
+    // 'Salir' ahora usa el diálogo estilizado
+    stopBtn.addEventListener('click', async ()=> {
+      const ok = await showConfirm("¿Seguro que quieres salir? Perderás el progreso actual.");
       if(ok){ if(intervalId) clearInterval(intervalId); window.location.href = '../index.html'; }
     });
 
     function volver(){ window.location.href = '../index.html'; }
+
+    // small accessibility: close sysDialog on ESC
+    document.addEventListener('keydown', (e)=> {
+      if(sysDialog.style.display === 'flex' && e.key === 'Escape') {
+        // Close as cancel if visible
+        if(sysCancelBtn.style.display !== 'none'){
+          sysCancelBtn.click();
+        } else {
+          sysOkBtn.click();
+        }
+      }
+    });
   </script>
 </body>
 </html>
