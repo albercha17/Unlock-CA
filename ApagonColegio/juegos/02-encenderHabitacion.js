@@ -75,8 +75,8 @@ export function startMinigame(opts = {}) {
   /* ===== Coordenadas ===== */
   const linternaArea = { x1: 0.58, y1: 0.78, x2: 0.83, y2: 0.93 };
 
-  // ✅ Ajuste fino del papel: casi como el primero, un pelín más abajo y algo más a la izquierda
-  const paperArea = { x1: 0.33, y1: 0.43, x2: 0.55, y2: 0.53 };
+  // Ajuste: más a la izquierda y un poco más abajo respecto a la versión previa
+  const paperArea = { x1: 0.29, y1: 0.46, x2: 0.51, y2: 0.56 };
 
   let linternaEncontrada = false;
   let paperEncontrado = false;
