@@ -32,62 +32,84 @@
     }
 
     /* ===== botones acción/pista (normalizados) ===== */
-    .action-row {
-      display:flex;
-      gap:18px;
-      align-items:center;
-      justify-content:center;
-      margin-top:14px;
-      flex-wrap:wrap;
-    }
-    .action-row .control-btn {
-      display:inline-flex !important;
-      flex-direction:row !important;
-      align-items:center !important;
-      justify-content:center !important;
-      gap: var(--gap) !important;
-      width: var(--btn-w) !important;
-      min-width: var(--btn-w) !important;
-      height: var(--btn-h) !important;
-      padding: 0 18px !important;
-      border-radius: var(--btn-radius) !important;
-      border: none !important;
-      cursor: pointer !important;
-      font-weight: 800 !important;
-      font-size: 16px !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.6px !important;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.45) !important;
-      user-select: none !important;
-      -webkit-tap-highlight-color: transparent !important;
-      white-space: nowrap !important;
-      vertical-align: middle !important;
-      transform: translateZ(0);
-      background: linear-gradient(180deg,#2fd09f,#0db07e);
-      color: #042617;
-    }
-    .action-row .control-btn .icon { width: var(--icon-size) !important; height: var(--icon-size) !important; display:inline-flex; align-items:center; justify-content:center; flex:0 0 var(--icon-size); }
-    .action-row .hint-btn { background: linear-gradient(135deg,#ffcf48,#f5b800) !important; color:#111 !important; }
+   /* ===== botones acción/pista (solo tamaño mejorado para iPhone) ===== */
+.action-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
 
-    /* Temporizador grande */
-    #gameTimer { font-family: var(--font); font-weight:900; font-size: clamp(36px, 6vw, 64px); text-align:center; margin:18px 0; color:#fff; }
+.action-row .control-btn {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--gap) !important;
+  width: var(--btn-w) !important;
+  min-width: var(--btn-w) !important;
+  height: var(--btn-h) !important;
+  padding: 0 18px !important;
+  border-radius: var(--btn-radius) !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+  transform: translateZ(0);
+  background: linear-gradient(180deg, #2fd09f, #0db07e);
+  color: #042617;
+}
 
-    /* Modal numeric */
-    .num-modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(2,6,15,0.6); z-index: 1100; padding: 8px !important; overflow:auto; }
-    .num-modal-box { width:420px; max-width:95%; background:#1b1b2f; border-radius:12px; padding:16px; max-height: calc(100vh - 40px); overflow:auto; -webkit-overflow-scrolling: touch; }
-    .num-display{ background:rgba(255,255,255,0.03); padding:10px; border-radius:10px; font-weight:700; font-size:1.25rem; text-align:center; color:#fff; margin:8px 0 14px; }
-    .num-keypad { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-    .num-key{ padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); color:#fff; font-weight:700; cursor:pointer; border:1px solid rgba(255,255,255,0.06); }
+/* 🔍 Iconos más grandes y visibles */
+.action-row .control-btn .icon {
+  width: 28px !important;   /* antes 22px */
+  height: 28px !important;  /* antes 22px */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;           /* asegura el tamaño en Safari */
+}
 
-    /* botoncitos inferiores */
-    .game-controls{ display:flex; gap:12px; justify-content:center; margin-top:14px; }
-    .btn-ghost{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); color:#fff; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; }
-    .btn-ghost[disabled]{ opacity:0.6; cursor:not-allowed; }
+.action-row .control-btn .icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: currentColor; /* hereda color del botón */
+}
 
-    @media (max-width:480px){
-      :root { --btn-w:150px; --btn-h:52px; --icon-size:18px; }
-      .container{ margin:16px auto; padding:12px; }
-    }
+/* Botón de pista */
+.action-row .hint-btn {
+  background: linear-gradient(135deg, #ffcf48, #f5b800) !important;
+  color: #111 !important;
+}
+
+/* Botón de pista — icono oscuro para buen contraste */
+.action-row .hint-btn .icon svg {
+  fill: #111 !important;
+}
+
+/* 🔹 Ajuste para pantallas pequeñas (iPhone) */
+@media (max-width: 480px) {
+  .action-row .control-btn {
+    width: 160px !important;
+    height: 56px !important;
+    font-size: 14px !important;
+  }
+
+  .action-row .control-btn .icon {
+    width: 26px !important;
+    height: 26px !important;
+  }
+}
 
     /* ===== NUEVA CABECERA DEL PANEL DE JUEGO ===== */
     .game-panel-header {
