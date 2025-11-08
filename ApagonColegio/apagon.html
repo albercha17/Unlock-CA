@@ -418,7 +418,10 @@
 
     async function tryImportModule(modulePath){
       try{
-        const module = await import(modulePath);
+        const resolvedPath = modulePath.startsWith('http')
+          ? modulePath
+          : new URL(modulePath, import.meta.url).href;
+        const module = await import(resolvedPath);
         return { ok:true, module };
       }catch(err){
         return { ok:false, err };
