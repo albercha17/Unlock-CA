@@ -418,7 +418,10 @@
 
     async function tryImportModule(modulePath){
       try{
-        const module = await import(modulePath);
+        const resolvedPath = modulePath.startsWith('http')
+          ? modulePath
+          : new URL(modulePath, import.meta.url).href;
+        const module = await import(resolvedPath);
         return { ok:true, module };
       }catch(err){
         return { ok:false, err };
@@ -449,6 +452,27 @@
           module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
         } else {
           numMessage.textContent = "Módulo 33 cargado, pero no exporta startMinigame.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+        }
+        return;
+      }
+
+      // MINIJUEGO 99 (microscopio)
+      if(c === '99'){
+        const modulePath = './juegos/99-microscopio.js';
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error("Error cargando minijuego 99:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (99). Comprueba que ./juegos/99-microscopio.js exista y usa Live Server.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+        } else {
+          numMessage.textContent = "Módulo 99 cargado, pero no exporta startMinigame.";
           numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
         }
         return;
