@@ -53,7 +53,7 @@ export function startMinigame(opts = {}) {
 
   /* ===== Botón salir ===== */
   const btnSalir = document.createElement("button");
-  btnSalir.textContent = "🚪 Salir";
+  btnSalir.textContent = "Salir";
   Object.assign(btnSalir.style, {
     marginTop: "12px",
     padding: "10px 18px",
@@ -111,7 +111,7 @@ export function startMinigame(opts = {}) {
         y <= paperArea.y2
       ) {
         paperEncontrado = true;
-        mostrarMensaje("📄 Coge la carta 7", marcarPapel);
+        mostrarMensaje("📄 Coge la carta 26", marcarPapel);
       }
     }
   });
@@ -213,7 +213,7 @@ export function startMinigame(opts = {}) {
       pointerEvents: "none",
       whiteSpace: "nowrap",
     });
-    mark.textContent = "Carta 7 ✓";
+    mark.textContent = "Carta 26 ✓";
     imgContainer.appendChild(mark);
 
     requestAnimationFrame(() => {

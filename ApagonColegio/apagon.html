@@ -294,7 +294,9 @@
   </div>
 
   <script type="module">
-    /* Lógica principal (igual que tenías) con mejoras: fade-out + sysDialog */
+    /* Lógica principal corregida: no cerrar modal hasta confirmar que la acción existe.
+       Si la acción/minijuego no existe mostramos un error y dejamos el modal abierto.
+    */
     const DEFAULT_SECONDS = 60 * 60;
     let remaining = DEFAULT_SECONDS;
     let intervalId = null;
@@ -329,37 +331,17 @@
     let entered = "";
     let pendingUse = null;
 
-    /* --- Helpers: time --- */
     function formatTime(s){ const h=Math.floor(s/3600).toString().padStart(2,'0'); const m=Math.floor((s%3600)/60).toString().padStart(2,'0'); const sec=Math.floor(s%60).toString().padStart(2,'0'); return `${h}:${m}:${sec}`; }
     function updateDisplay(){ gameTimerEl.textContent = formatTime(remaining); gameTimerEl.style.color = remaining <= 300 ? "#ffb3b3" : "#fff"; }
     function tick(){ if(!isPaused){ remaining--; if(remaining<0){ clearInterval(intervalId); gameTimerEl.textContent="00:00:00 — TIEMPO"; return; } updateDisplay(); } }
 
     startBtn.addEventListener('click', ()=>{ introPanel.style.display='none'; gamePanel.style.display='block'; remaining=DEFAULT_SECONDS; updateDisplay(); pauseBtn.style.display='inline-flex'; resumeBtn.style.display='none'; isPaused=false; if(intervalId) clearInterval(intervalId); intervalId=setInterval(tick,1000); });
 
-    /* --- Modal numérico: render / open / close (con fade-out) --- */
     function renderNum(){ numDisplay.textContent = entered==="" ? "—" : entered; }
-    function openNumModal(){ entered=""; numMessage.textContent=""; renderNum(); // ensure class removed
-      numModal.classList.remove('closing'); numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); if(location.protocol==='file:') openAnywayWrap.style.display='block'; else openAnywayWrap.style.display='none'; const first=numKeys.find(k=>!k.classList.contains('action')); if(first) first.focus(); }
-    // NO limpiar pendingUse aquí: el estado se mantiene mientras el modal esté abierto
-    function closeNumModalImmediate(){
-      numModal.style.display='none';
-      numModal.classList.remove('closing');
-      numModal.setAttribute('aria-hidden','true');
-      actionBtn.focus();
-    }
-    function closeNumModal(){
-      // Añadimos clase 'closing' para fade-out; al terminar timeout ocultamos
-      numModal.classList.add('closing');
-      numModal.setAttribute('aria-hidden','true');
-      // after CSS transition
-      setTimeout(()=> { closeNumModalImmediate(); }, 150); // igual que --fade-ms
-    }
-
-    function cancelNumModal(){
-      // El usuario canceló: cerrar modal y limpiar pendingUse
-      pendingUse = null;
-      closeNumModal();
-    }
+    function openNumModal(){ entered=""; numMessage.textContent=""; renderNum(); numModal.classList.remove('closing'); numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); if(location.protocol==='file:') openAnywayWrap.style.display='block'; else openAnywayWrap.style.display='none'; const first=numKeys.find(k=>!k.classList.contains('action')); if(first) first.focus(); }
+    function closeNumModalImmediate(){ numModal.style.display='none'; numModal.classList.remove('closing'); numModal.setAttribute('aria-hidden','true'); actionBtn.focus(); }
+    function closeNumModal(){ numModal.classList.add('closing'); numModal.setAttribute('aria-hidden','true'); setTimeout(()=> { closeNumModalImmediate(); }, 150); }
+    function cancelNumModal(){ pendingUse = null; closeNumModal(); }
 
     numKeys.forEach(k=>{ k.addEventListener('click', ()=>{ const key=k.dataset.key; if(!key) return; if(entered.length>=4) return; entered+=key; renderNum(); }); });
     numClear.addEventListener('click', ()=>{ entered = entered.slice(0,-1); renderNum(); });
@@ -368,7 +350,6 @@
     actionBtn.addEventListener('click', ()=>{ pendingUse='accion'; openNumModal(); });
     hintBtn.addEventListener('click', ()=>{ pendingUse='pista'; openNumModal(); });
 
-    /* --- Sistema de diálogos (sustituye alert/confirm visualmente) --- */
     function showSysDialog(message, {showCancel=false, okText='Aceptar', cancelText='Cancelar'} = {}) {
       return new Promise((resolve)=> {
         sysDialogMsg.textContent = message;
@@ -377,42 +358,22 @@
         sysCancelBtn.style.display = showCancel ? 'inline-block' : 'none';
         sysDialog.style.display = 'flex';
         sysDialog.setAttribute('aria-hidden','false');
-        // focus
         sysOkBtn.focus();
-
-        function cleanup(){
-          sysDialog.style.display = 'none';
-          sysDialog.setAttribute('aria-hidden','true');
-          sysOkBtn.removeEventListener('click', onOk);
-          sysCancelBtn.removeEventListener('click', onCancel);
-        }
+        function cleanup(){ sysDialog.style.display = 'none'; sysDialog.setAttribute('aria-hidden','true'); sysOkBtn.removeEventListener('click', onOk); sysCancelBtn.removeEventListener('click', onCancel); }
         function onOk(){ cleanup(); resolve({ok:true}); }
         function onCancel(){ cleanup(); resolve({ok:false}); }
-
         sysOkBtn.addEventListener('click', onOk);
         sysCancelBtn.addEventListener('click', onCancel);
       });
     }
-
-    // Convenience wrappers
-    function showAlert(message){
-      // fire-and-forget (keeps compatibility with code that calls alert without waiting)
-      showSysDialog(message, { showCancel:false, okText:'Aceptar' });
-    }
-    function showConfirm(message){
-      // returns Promise<boolean>
-      return showSysDialog(message, { showCancel:true, okText:'Sí', cancelText:'No' }).then(r=> !!r.ok);
-    }
-
-    // Replace window.alert with our visual dialog (non-blocking)
+    function showAlert(message){ showSysDialog(message, { showCancel:false, okText:'Aceptar' }); }
+    function showConfirm(message){ return showSysDialog(message, { showCancel:true, okText:'Sí', cancelText:'No' }).then(r=> !!r.ok); }
     window.alert = function(msg){ try{ showAlert(String(msg)); }catch(e){ console.log(msg); } };
 
-    /* --- Manejo de pistas y acciones --- */
     numOk.addEventListener('click', async ()=> {
       if(!entered || entered.trim()==="") { numMessage.textContent = "Introduce un número."; return; }
       const card = entered.trim();
 
-      // PISTAS
       if (pendingUse === 'pista') {
         numMessage.textContent = "";
         const specific = `./pistas/pistas-${card}.js`;
@@ -425,26 +386,19 @@
           }
 
           if (module && typeof module.openPistas === 'function') {
-            // Cerramos modal y abrimos la UI de pistas
+            // cerramos modal y abrimos pistas
             closeNumModal();
             module.openPistas(card, {
               onChoose: async (n, t) => {
-                // usuario escogió una pista: limpiamos el modo pista y mostramos el texto con nuestro diálogo
                 pendingUse = null;
                 await showSysDialog(`Has elegido la pista ${n}:\n\n${t}`, { showCancel:false, okText:'Cerrar' });
               },
-              onClose: () => {
-                // cuando la UI de pistas se cierre limpiamos el modo pista y devolvemos foco
-                pendingUse = null;
-                hintBtn.focus();
-              }
+              onClose: () => { pendingUse = null; hintBtn.focus(); }
             });
           } else {
-            // No hay módulo de pistas: avisamos y dejamos el modal abierto en modo 'pista'
             numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
             numModal.style.display = 'flex';
             numModal.setAttribute('aria-hidden', 'false');
-            // pendingUse se mantiene como 'pista'
           }
 
         } catch (err) {
@@ -457,16 +411,23 @@
         return;
       }
 
-      // ACCION
       if(pendingUse === 'accion'){ await checkAndOpen(card); pendingUse = null; return; }
       await checkAndOpen(card);
       pendingUse = null;
     });
 
-    async function checkAndOpen(code){
-      // Cerrar modal antes de lanzar minijuegos o navegar
-      closeNumModal();
+    async function tryImportModule(modulePath){
+      try{
+        const module = await import(modulePath);
+        return { ok:true, module };
+      }catch(err){
+        return { ok:false, err };
+      }
+    }
 
+    async function checkAndOpen(code){
+      // NOTE: ahora NO cerramos el modal inmediatamente.
+      // Solo lo cerraremos si realmente lanzamos algo.
       numMessage.textContent = "";
       if(code.trim()===""){ numMessage.textContent = "Introduce un número."; numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); return; }
       if(!/^\d+$/.test(code)){ numMessage.textContent = "Solo se permiten dígitos."; numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); return; }
@@ -475,27 +436,20 @@
       // MINIJUEGO 33 (ordenar probetas)
       if(c === '33'){
         const modulePath = './juegos/33-ordenarProbetas.js';
-        try {
-          const module = await import(modulePath);
-          if(typeof module.startMinigame === 'function'){
-            module.startMinigame({
-              onClose: ()=> actionBtn.focus(),
-              pauseGameTimer: ()=> { isPaused = true; },
-              resumeGameTimer: ()=> { isPaused = false; }
-            });
-            pendingUse = null;
-          } else {
-            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
-            numModal.style.display = 'flex';
-            numModal.setAttribute('aria-hidden','false');
-            pendingUse = 'accion';
-          }
-        } catch(err){
-          console.error("Error cargando minijuego:", err);
-          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
-          numModal.style.display = 'flex';
-          numModal.setAttribute('aria-hidden','false');
-          pendingUse = 'accion';
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error("Error cargando minijuego 33:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (33). Comprueba que el archivo exista y usa Live Server.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+        } else {
+          numMessage.textContent = "Módulo 33 cargado, pero no exporta startMinigame.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
@@ -503,27 +457,41 @@
       // MINIJUEGO 1 (cerradura)
       if(c === '1'){
         const modulePath = '../tempalteJuegos/cerradura/main.js';
-        try {
-          const module = await import(modulePath);
-          if(typeof module.startMinigame === 'function'){
-            module.startMinigame({
-              onClose: ()=> actionBtn.focus(),
-              pauseGameTimer: ()=> { isPaused = true; },
-              resumeGameTimer: ()=> { isPaused = false; }
-            });
-            pendingUse = null;
-          } else {
-            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
-            numModal.style.display = 'flex';
-            numModal.setAttribute('aria-hidden','false');
-            pendingUse = 'accion';
-          }
-        } catch(err){
-          console.error("Error cargando minijuego:", err);
-          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
-          numModal.style.display = 'flex';
-          numModal.setAttribute('aria-hidden','false');
-          pendingUse = 'accion';
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error("Error cargando cerradura:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (cerradura). Comprueba la ruta y usa Live Server.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+        } else {
+          numMessage.textContent = "El módulo de la cerradura no exporta startMinigame.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+        }
+        return;
+      }
+
+      // MINIJUEGO 45 (llaves director)
+      if(c === '45'){
+        const modulePath = './juegos/45-llavesDirector.js'; // ruta del minijuego de llaves
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error("Error cargando minijuego 45:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (45). Comprueba que ./juegos/45-llavesDirector.js exista y usa Live Server.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+        } else {
+          numMessage.textContent = "Módulo 45 cargado, pero no exporta startMinigame.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
@@ -531,65 +499,57 @@
       // MINIJUEGO 2 (encender habitación)
       if(c === '2' || c === '02'){
         const modulePath = './juegos/02-encenderHabitacion.js';
-        try {
-          const module = await import(modulePath);
-          if(typeof module.startMinigame === 'function'){
-            module.startMinigame({
-              onClose: ()=> actionBtn.focus(),
-              pauseGameTimer: ()=> { isPaused = true; },
-              resumeGameTimer: ()=> { isPaused = false; }
-            });
-            pendingUse = null;
-          } else {
-            numMessage.textContent = "Módulo cargado, pero no exporta startMinigame.";
-            numModal.style.display = 'flex';
-            numModal.setAttribute('aria-hidden','false');
-            pendingUse = 'accion';
-          }
-        } catch(err){
-          console.error("Error cargando minijuego:", err);
-          numMessage.textContent = "No se pudo cargar el minijuego. Usa Live Server.";
-          numModal.style.display = 'flex';
-          numModal.setAttribute('aria-hidden','false');
-          pendingUse = 'accion';
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error("Error cargando minijuego 02:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (02). Comprueba la ruta y usa Live Server.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+        } else {
+          numMessage.textContent = "Módulo 02 cargado, pero no exporta startMinigame.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
 
-      // Rutas genéricas a páginas de juego
+      // Rutas genéricas a páginas de juego (juego-N.html / juego.html?card=N)
       const path1 = `juego-${c}.html`;
       const path2 = `juego.html?card=${encodeURIComponent(c)}`;
 
       if(location.protocol === 'file:'){
+        // Si estamos en file: mostramos la opción de abrir de todos modos (y mantenemos modal visible)
         numMessage.textContent = "No se puede comprobar en local. Usa Live Server o pulsa 'Abrir de todos modos'.";
         openAnywayWrap.style.display = 'block';
         openAnywayBtn.onclick = () => { closeNumModal(); window.location.href = path2; };
-        pendingUse = null;
+        numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
         return;
       }
 
       try {
         let r1ok = false;
         try { const r1 = await fetch(path1, { method:'HEAD' }); r1ok = r1.ok; } catch(e){ r1ok = false; }
-        if(r1ok){ window.location.href = path1; pendingUse = null; return; }
+        if(r1ok){ closeNumModal(); window.location.href = path1; return; }
 
         let r2ok = false;
         try { const r2 = await fetch(path2, { method:'GET' }); r2ok = r2.ok; } catch(e){ r2ok = false; }
-        if(r2ok){ window.location.href = path2; pendingUse = null; return; }
+        if(r2ok){ closeNumModal(); window.location.href = path2; return; }
 
+        // Si no hay minijuego ni página, avisamos y dejamos modal abierto
         numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
         numModal.style.display = 'flex';
         numModal.setAttribute('aria-hidden','false');
-        pendingUse = null;
       } catch(err){
         numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
         numModal.style.display = 'flex';
         numModal.setAttribute('aria-hidden','false');
-        pendingUse = null;
       }
     }
 
-    /* --- Shortcut keys & controls --- */
     document.addEventListener('keydown', (e)=>{
       if(numModal.style.display === 'flex'){
         if(e.key === 'Escape'){ cancelNumModal(); e.preventDefault(); return; }
@@ -613,7 +573,6 @@
     // small accessibility: close sysDialog on ESC
     document.addEventListener('keydown', (e)=> {
       if(sysDialog.style.display === 'flex' && e.key === 'Escape') {
-        // Close as cancel if visible
         if(sysCancelBtn.style.display !== 'none'){
           sysCancelBtn.click();
         } else {
