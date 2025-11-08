@@ -228,7 +228,7 @@ export function startMinigame(opts = {}) {
     fontSize: "1rem",
     boxShadow: "0 12px 24px rgba(239,68,68,0.35)",
     WebkitTapHighlightColor: "transparent",
-  });
+ });
 
   buttonBar.appendChild(exitBtn);
 
