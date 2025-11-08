@@ -1,5 +1,12 @@
 export function startMinigame(opts = {}) {
-  const { onClose, pauseGameTimer, resumeGameTimer } = opts;
+  const { onClose, pauseGameTimer, resumeGameTimer, numbers: customNumbers } = opts;
+
+  const numbers =
+    Array.isArray(customNumbers) && customNumbers.length >= 2
+      ? customNumbers.slice(0, 4)
+      : [742, 185, 396, 508];
+
+  const numbersLabel = numbers.join(" • ");
 
   if (typeof pauseGameTimer === "function") pauseGameTimer();
 
@@ -79,6 +86,10 @@ export function startMinigame(opts = {}) {
   });
 
   const sample = document.createElement("div");
+  const numbersText = numbers
+    .map((num, idx) => `<text x='50%' y='${200 + idx * 90}' text-anchor='middle'>${num}</text>`)
+    .join("");
+
   const sampleSvg =
     "data:image/svg+xml;utf8," +
     encodeURIComponent(
@@ -91,8 +102,8 @@ export function startMinigame(opts = {}) {
         `</radialGradient>` +
         `</defs>` +
         `<rect width='600' height='600' fill='url(#g)'/>` +
-        `<g font-family="'Poppins', sans-serif" font-size='220' font-weight='800' fill='#fef9c3' opacity='0.92'>` +
-        `<text x='50%' y='54%' text-anchor='middle'>742</text>` +
+        `<g font-family="'Poppins', sans-serif" font-size='120' font-weight='800' fill='#fef9c3' opacity='0.92'>` +
+        numbersText +
         `</g>` +
         `<g stroke='#22d3ee' stroke-width='4' opacity='0.45'>` +
         `<circle cx='170' cy='170' r='38' fill='none'/>` +
@@ -115,7 +126,7 @@ export function startMinigame(opts = {}) {
   viewport.appendChild(sample);
 
   const resultBadge = document.createElement("div");
-  resultBadge.textContent = "742";
+  resultBadge.textContent = numbersLabel;
   Object.assign(resultBadge.style, {
     position: "absolute",
     bottom: "18px",
@@ -197,7 +208,7 @@ export function startMinigame(opts = {}) {
   knobArea.appendChild(knob);
 
   const instructions = document.createElement("p");
-  instructions.textContent = "Cuando esté nítido, recuerda el número.";
+  instructions.textContent = "Cuando esté nítido, recuerda los números.";
   Object.assign(instructions.style, {
     fontSize: "0.88rem",
     color: "rgba(226,232,240,0.74)",
@@ -243,11 +254,14 @@ export function startMinigame(opts = {}) {
   document.body.appendChild(overlay);
 
   let knobValue = 0; // 0 -> 100
+  let targetKnobValue = 0;
+  let animationFrameId = null;
   let dragging = false;
   let successShown = false;
 
   const maxBlur = 18;
   const minBlur = 1.2;
+  const knobResistance = 0.12;
 
   function updateBlur() {
     const t = knobValue / 100;
@@ -259,12 +273,12 @@ export function startMinigame(opts = {}) {
       successShown = true;
       resultBadge.style.opacity = "1";
       resultBadge.style.transform = "translateX(-50%) translateY(-6px)";
-      instructions.textContent = "¡Enfoque conseguido! El número es 742.";
+      instructions.textContent = `¡Enfoque conseguido! Los números son ${numbersLabel}.`;
     } else if (t < 0.9 && successShown) {
       successShown = false;
       resultBadge.style.opacity = "0";
       resultBadge.style.transform = "translateX(-50%)";
-      instructions.textContent = "Cuando esté nítido, recuerda el número.";
+      instructions.textContent = "Cuando esté nítido, recuerda los números.";
     }
   }
 
@@ -275,8 +289,27 @@ export function startMinigame(opts = {}) {
   function setValueFromAngle(angleDeg) {
     const clamped = Math.max(-140, Math.min(140, angleDeg));
     const normalized = (clamped + 140) / 280;
-    knobValue = Math.max(0, Math.min(100, normalized * 100));
+    targetKnobValue = Math.max(0, Math.min(100, normalized * 100));
+    ensureKnobAnimation();
+  }
+
+  function ensureKnobAnimation() {
+    if (animationFrameId !== null) return;
+    animationFrameId = requestAnimationFrame(stepKnobTowardsTarget);
+  }
+
+  function stepKnobTowardsTarget() {
+    const delta = targetKnobValue - knobValue;
+    if (Math.abs(delta) < 0.05) {
+      knobValue = targetKnobValue;
+      updateBlur();
+      animationFrameId = null;
+      return;
+    }
+
+    knobValue = Math.max(0, Math.min(100, knobValue + delta * knobResistance));
     updateBlur();
+    animationFrameId = requestAnimationFrame(stepKnobTowardsTarget);
   }
 
   function computeAngle(clientX, clientY) {
@@ -331,6 +364,10 @@ export function startMinigame(opts = {}) {
     knob.removeEventListener("pointercancel", onPointerUp);
     exitBtn.removeEventListener("click", cerrar);
     document.removeEventListener("keydown", onKeyDown);
+    if (animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
   }
 
   function onKeyDown(ev) {
@@ -344,5 +381,6 @@ export function startMinigame(opts = {}) {
 
   // iniciar con un ligero desenfoque
   knobValue = 0;
+  targetKnobValue = 0;
   updateBlur();
 }
