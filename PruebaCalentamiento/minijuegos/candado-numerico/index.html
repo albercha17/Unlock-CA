@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Minijuego - Candado numérico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <link rel="stylesheet" href="candado-numerico.css">
+</head>
+<body class="minijuego">
+  <a class="skip-link" href="#panel-candado">Saltar al panel del candado</a>
+  <div class="container">
+    <div class="panel-card">
+      <header class="header">
+        <div class="hgroup">
+          <h1 class="titleJuego">Candado numérico</h1>
+          <p class="subtitle">Ajusta los diales con los iconos correctos para abrir el candado 3-1-5.</p>
+        </div>
+      </header>
+
+      <main>
+        <section class="lead">
+          <p>
+            Cada dial representa un tipo de objeto encontrado en la sala de práctica. Cuenta engranajes, linternas y llaves para
+            determinar el código final. Cuando creas que lo tienes, pulsa «Probar código».
+          </p>
+        </section>
+
+        <section class="lock" id="panel-candado">
+          <h2>Panel del candado</h2>
+          <div class="lock-dials" role="group" aria-label="Diales del candado">
+            <div class="dial" data-index="0">
+              <p class="dial-label">Engranajes</p>
+              <div class="dial-controls">
+                <button type="button" class="dial-btn" data-action="down" aria-label="Disminuir primer dígito">−</button>
+                <output class="dial-display" aria-live="polite" aria-label="Primer dígito">0</output>
+                <button type="button" class="dial-btn" data-action="up" aria-label="Aumentar primer dígito">+</button>
+              </div>
+            </div>
+            <div class="dial" data-index="1">
+              <p class="dial-label">Linternas</p>
+              <div class="dial-controls">
+                <button type="button" class="dial-btn" data-action="down" aria-label="Disminuir segundo dígito">−</button>
+                <output class="dial-display" aria-live="polite" aria-label="Segundo dígito">0</output>
+                <button type="button" class="dial-btn" data-action="up" aria-label="Aumentar segundo dígito">+</button>
+              </div>
+            </div>
+            <div class="dial" data-index="2">
+              <p class="dial-label">Llaves</p>
+              <div class="dial-controls">
+                <button type="button" class="dial-btn" data-action="down" aria-label="Disminuir tercer dígito">−</button>
+                <output class="dial-display" aria-live="polite" aria-label="Tercer dígito">0</output>
+                <button type="button" class="dial-btn" data-action="up" aria-label="Aumentar tercer dígito">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="lock-actions">
+            <button type="button" class="btn btn-primary" id="try-code">Probar código</button>
+            <button type="button" class="btn btn-ghost" id="reset-code">Reiniciar diales</button>
+          </div>
+          <p class="lock-feedback" id="lock-feedback" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="lock-history" aria-live="polite">
+          <h2>Historial de intentos</h2>
+          <ol class="history-list" id="lock-history"></ol>
+        </section>
+      </main>
+
+      <footer class="small-footer">
+        <a class="btn btn-primary" href="../../prueba1.html">Volver al módulo de calentamiento</a>
+      </footer>
+    </div>
+  </div>
+
+  <script src="candado-numerico.js" defer></script>
+</body>
+</html>

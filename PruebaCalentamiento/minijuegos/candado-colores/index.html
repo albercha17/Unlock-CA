@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Minijuego - Candado de colores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <link rel="stylesheet" href="candado-colores.css">
+</head>
+<body class="minijuego">
+  <a class="skip-link" href="#controles">Saltar al panel de controles</a>
+  <div class="container">
+    <div class="panel-card">
+      <header class="header">
+        <div class="hgroup">
+          <h1 class="titleJuego">Candado de colores</h1>
+          <p class="subtitle">Pulsa los interruptores en el orden correcto para reactivar la energía.</p>
+        </div>
+      </header>
+
+      <main>
+        <section class="lead">
+          <p>
+            Observa el panel y reproduce la secuencia correcta de colores. Cada vez que pruebes una combinación se mostrará si
+            has acertado. Usa el botón de reinicio para volver a empezar cuando quieras.
+          </p>
+        </section>
+
+        <section class="color-pad" id="controles" aria-labelledby="color-pad-title">
+          <h2 id="color-pad-title">Panel de interruptores</h2>
+          <div class="color-buttons" role="group" aria-label="Interruptores de color">
+            <button type="button" class="color-button color-rojo" data-color="rojo">Rojo</button>
+            <button type="button" class="color-button color-azul" data-color="azul">Azul</button>
+            <button type="button" class="color-button color-verde" data-color="verde">Verde</button>
+            <button type="button" class="color-button color-amarillo" data-color="amarillo">Amarillo</button>
+          </div>
+          <div class="pad-actions">
+            <button type="button" class="btn btn-ghost" id="reset">Reiniciar intento</button>
+          </div>
+          <p class="pad-feedback" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="pad-history" aria-live="polite">
+          <h2>Intentos recientes</h2>
+          <ol class="history-list" id="history" aria-label="Historial de combinaciones"></ol>
+        </section>
+      </main>
+
+      <footer class="small-footer">
+        <a class="btn btn-primary" href="../../prueba1.html">Volver al módulo de calentamiento</a>
+      </footer>
+    </div>
+  </div>
+
+  <script src="candado-colores.js" defer></script>
+</body>
+</html>

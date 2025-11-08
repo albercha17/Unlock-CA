@@ -2,78 +2,138 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Unlock C&A</title>
 
-  <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-
-  <!-- External stylesheet (pon este archivo en assets/css/style.css) -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#lista-aventuras">Saltar al listado de aventuras</a>
   <div class="container layout">
     <div class="panel-card">
-      <!-- Header with logo and title -->
-      <header class="header">
-        <img src="assets/images/logo.png" alt="Unlock C&A logo" class="logo-img">
+      <header class="header" role="banner">
+        <img src="assets/images/logo.png" alt="Logotipo Unlock C&A" class="logo-img">
         <div class="hgroup">
           <h1 class="title">Unlock C&amp;A</h1>
-          <div class="subtitle">Elige una aventura y empieza a jugar</div>
+          <p class="subtitle">Descubre nuestras misiones cooperativas y desafía tu ingenio.</p>
         </div>
       </header>
 
       <main>
+        <section class="intro" aria-labelledby="intro-heading">
+          <h2 id="intro-heading">¿Cómo funciona?</h2>
+          <p>
+            Elige una aventura, reúne a tu equipo y resuelve los acertijos para avanzar. Cada misión incluye un conjunto
+            de pistas y materiales de apoyo, además de un temporizador opcional para aumentar la tensión.
+          </p>
 
-        <!-- Cards / options -->
-        <section class="cards" aria-label="Lista de juegos">
-          <div class="option solid" role="button" tabindex="0" onclick="openGame('ApagonColegio/apagon')" onkeypress="if(event.key==='Enter')openGame('ApagonColegio/apagon')">
-            <div class="opt-thumb" style="background-image:url('assets/images/AEEC.png')"></div>
-            <div class="opt-meta">
-              <h3 class="opt-title">Apagón en el Colegio</h3>
-              <p class="opt-desc">El colegio queda a oscuras y las puertas se cierran. Resuelve los enigmas para volver a encender la luz.</p>
-            </div>
-            <div class="opt-num">01</div>
-          </div>
-
-          <div class="option" role="button" tabindex="0" onclick="openGame('prueba1')" onkeypress="if(event.key==='Enter')openGame('prueba1')">
-            <div class="opt-thumb" style="background-image:url('assets/images/prueba1.jpg')"></div>
-            <div class="opt-meta">
-              <h3 class="opt-title">Prueba 1</h3>
-              <p class="opt-desc">Puzzle corto para calentar motores.</p>
-            </div>
-            <div class="opt-num">02</div>
-          </div>
-
-          <div class="option" role="button" tabindex="0" onclick="openGame('tesoro')" onkeypress="if(event.key==='Enter')openGame('tesoro')">
-            <div class="opt-thumb" style="background-image:url('assets/images/tesoro.jpg')"></div>
-            <div class="opt-meta">
-              <h3 class="opt-title">Búsqueda del Tesoro</h3>
-              <p class="opt-desc">Explora la isla y descifra las pistas para encontrar el botín.</p>
-            </div>
-            <div class="opt-num">03</div>
-          </div>
+          <form class="filter" role="search" aria-label="Filtrar aventuras disponibles">
+            <label class="filter-label" for="filter-input">Filtrar aventuras por nombre o temática</label>
+            <input id="filter-input" name="filter" type="search" placeholder="Busca por ejemplo: colegio, calentamiento, laboratorio" autocomplete="off">
+          </form>
         </section>
 
-        <div class="small-footer">© 2025 Unlock C&A | Creado por Alberto &amp; Cristina</div>
+        <section class="cards-wrapper" aria-labelledby="lista-aventuras">
+          <div class="cards-header">
+            <h2 id="lista-aventuras">Aventuras disponibles</h2>
+            <p class="cards-help">Usa el filtro o navega con el tabulador para elegir una misión.</p>
+          </div>
+          <ul class="cards" role="list">
+            <li class="cards-item" role="listitem">
+              <a class="option option-solid" data-title="Apagón en el Colegio" data-tags="colegio electricidad laboratorio misterio" href="ApagonColegio/apagon.html">
+                <div class="opt-thumb" aria-hidden="true" style="background-image:url('assets/images/AEEC.png')"></div>
+                <div class="opt-meta">
+                  <h3 class="opt-title">Apagón en el Colegio</h3>
+                  <p class="opt-desc">El colegio queda a oscuras y las puertas se cierran. Encuentra las combinaciones para restablecer la energía.</p>
+                  <dl class="opt-extra">
+                    <div>
+                      <dt>Duración</dt>
+                      <dd>45-60 minutos</dd>
+                    </div>
+                    <div>
+                      <dt>Equipo</dt>
+                      <dd>Ideal 3-5 personas</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="opt-num" aria-hidden="true">01</div>
+              </a>
+            </li>
+
+            <li class="cards-item" role="listitem">
+              <a class="option" data-title="Módulo de Calentamiento" data-tags="prueba rapida inicio candados entrenamiento" href="PruebaCalentamiento/prueba1.html">
+                <div class="opt-thumb" aria-hidden="true" style="background-image:url('assets/images/prueba1.jpg')"></div>
+                <div class="opt-meta">
+                  <h3 class="opt-title">Módulo de Calentamiento</h3>
+                  <p class="opt-desc">Tres acertijos breves para romper el hielo, practicar la comunicación y aprender a pedir pistas.</p>
+                  <dl class="opt-extra">
+                    <div>
+                      <dt>Duración</dt>
+                      <dd>15-20 minutos</dd>
+                    </div>
+                    <div>
+                      <dt>Equipo</dt>
+                      <dd>2-4 personas</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="opt-num" aria-hidden="true">02</div>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <footer class="small-footer">© 2025 Unlock C&amp;A | Creado por Alberto &amp; Cristina</footer>
       </main>
     </div>
   </div>
 
   <script>
-    // Navigate to game pages (assumes files like apagon.html, prueba1.html, tesoro.html)
-    function openGame(target){
-      // If you want to use a folder structure, adjust this line.
-      window.location.href = target + '.html';
-    }
+    (function () {
+      const filterInput = document.querySelector('#filter-input');
+      const cards = Array.from(document.querySelectorAll('.cards-item'));
+      const noResultsMessage = document.createElement('p');
+      noResultsMessage.className = 'no-results';
+      noResultsMessage.textContent = 'No hay aventuras que coincidan con tu búsqueda. Prueba con otro término.';
 
+      const cardsList = document.querySelector('.cards');
 
-    // Add keyboard support for options (Enter already handled inline for accessibility)
-    document.querySelectorAll('.option').forEach(el => {
-      el.addEventListener('keydown', e => {
-        if(e.key === 'Enter') el.click();
-      });
-    });
+      function normalise(value) {
+        return value
+          .toLocaleLowerCase()
+          .normalize('NFD')
+          .replace(/\p{Diacritic}/gu, '');
+      }
+
+      function applyFilter(term) {
+        const keyword = normalise(term.trim());
+        let visibleCount = 0;
+
+        cards.forEach((item) => {
+          const anchor = item.querySelector('a');
+          const title = normalise(anchor.dataset.title || '');
+          const tags = normalise(anchor.dataset.tags || '');
+          const matches = !keyword || title.includes(keyword) || tags.includes(keyword);
+          item.classList.toggle('is-hidden', !matches);
+          item.hidden = !matches;
+          if (matches) {
+            visibleCount += 1;
+          }
+        });
+
+        if (visibleCount === 0) {
+          if (!noResultsMessage.isConnected) {
+            cardsList.parentElement.appendChild(noResultsMessage);
+          }
+        } else if (noResultsMessage.isConnected) {
+          noResultsMessage.remove();
+        }
+      }
+
+      filterInput.addEventListener('input', (event) => applyFilter(event.target.value));
+      applyFilter('');
+    })();
   </script>
 </body>
 </html>

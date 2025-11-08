@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Minijuego - Mensaje cifrado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <link rel="stylesheet" href="mensaje-cifrado.css">
+</head>
+<body class="minijuego">
+  <a class="skip-link" href="#herramientas">Saltar a la zona interactiva</a>
+  <div class="container">
+    <div class="panel-card">
+      <header class="header">
+        <div class="hgroup">
+          <h1 class="titleJuego">Mensaje cifrado</h1>
+          <p class="subtitle">Usa la transposición por columnas para revelar la frase escondida en el walkie-talkie.</p>
+        </div>
+      </header>
+
+      <main>
+        <section class="lead">
+          <p>
+            El mensaje interceptado parece caótico, pero en realidad está organizado en columnas. Ajusta la cuadrícula con cuatro
+            columnas, observa el patrón y escribe la frase final para desbloquear la frecuencia.
+          </p>
+        </section>
+
+        <section class="cipher" id="herramientas">
+          <h2>Herramientas de decodificación</h2>
+          <p>Mensaje recibido: <code class="cipher-code" id="encoded-message">EICSOTLO</code></p>
+
+          <div class="cipher-controls">
+            <label class="cipher-label" for="column-count">Número de columnas</label>
+            <input id="column-count" type="number" min="2" max="6" value="4">
+            <button type="button" class="btn btn-ghost" id="render-grid">Organizar en columnas</button>
+            <button type="button" class="btn btn-success" id="read-columns">Leer por columnas</button>
+          </div>
+
+          <div class="cipher-grid" id="cipher-grid" aria-live="polite" aria-label="Representación visual del mensaje"></div>
+          <p class="cipher-output" id="column-output" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="cipher-guess">
+          <h2>Introduce tu respuesta</h2>
+          <form id="guess-form" autocomplete="off">
+            <label class="cipher-label" for="guess-input">Frase descifrada</label>
+            <input id="guess-input" type="text" placeholder="Escribe tu respuesta" required>
+            <button type="submit" class="btn btn-primary">Comprobar</button>
+          </form>
+          <p class="guess-feedback" id="guess-feedback" role="status" aria-live="polite"></p>
+        </section>
+      </main>
+
+      <footer class="small-footer">
+        <a class="btn btn-primary" href="../../prueba1.html">Volver al módulo de calentamiento</a>
+      </footer>
+    </div>
+  </div>
+
+  <script src="mensaje-cifrado.js" defer></script>
+</body>
+</html>

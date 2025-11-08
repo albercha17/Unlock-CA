@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Unlock C&A - Módulo de Calentamiento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#retos">Ir a los retos</a>
+  <div class="container">
+    <div class="panel-card">
+      <header class="header">
+        <img src="../assets/images/prueba1.jpg" alt="Candados de entrenamiento" class="logo-img">
+        <div class="hgroup">
+          <h1 class="titleJuego">Módulo de Calentamiento</h1>
+          <p class="subtitle">Tres acertijos rápidos para aprender a coordinarse antes de la misión principal.</p>
+        </div>
+      </header>
+
+      <div class="lead">
+        <p>
+          Divide al equipo en parejas y cronometraos 15 minutos. Cada reto tiene varias pistas progresivas y una solución
+          final. Intentad resolverlo sin pistas, y pedid ayuda solo cuando todo el equipo esté de acuerdo.
+        </p>
+      </div>
+
+      <nav class="row" aria-label="Acciones principales">
+        <a class="btn btn-primary" href="../index.html">Volver al menú</a>
+        <button class="btn btn-success" type="button" id="timer-toggle">Iniciar temporizador</button>
+      </nav>
+
+      <section class="minijuegos" aria-labelledby="minijuegos-title">
+        <div class="cards-header">
+          <h2 id="minijuegos-title">Minijuegos interactivos</h2>
+          <p class="cards-help">Entrenad con simulaciones rápidas antes de lanzaros al reto principal.</p>
+        </div>
+        <div class="minijuegos-grid">
+          <article class="minijuego-card">
+            <h3>Candado de colores</h3>
+            <p>Reproduce la secuencia correcta de interruptores para activar el panel eléctrico.</p>
+            <ul>
+              <li>Memoria visual y trabajo en equipo</li>
+              <li>Historial de intentos en tiempo real</li>
+            </ul>
+            <a class="btn btn-primary" href="minijuegos/candado-colores/index.html">Jugar ahora</a>
+          </article>
+
+          <article class="minijuego-card">
+            <h3>Mensaje cifrado</h3>
+            <p>Organiza el mensaje en columnas, interpreta el patrón y revela la frase oculta.</p>
+            <ul>
+              <li>Herramientas para reorganizar letras</li>
+              <li>Validación automática de la respuesta</li>
+            </ul>
+            <a class="btn btn-primary" href="minijuegos/mensaje-cifrado/index.html">Descifrar mensaje</a>
+          </article>
+
+          <article class="minijuego-card">
+            <h3>Candado numérico</h3>
+            <p>Ajusta los diales según los objetos de la sala y prueba el código 3-1-5.</p>
+            <ul>
+              <li>Controles accesibles para cada dial</li>
+              <li>Registro de combinaciones probadas</li>
+            </ul>
+            <a class="btn btn-primary" href="minijuegos/candado-numerico/index.html">Abrir el candado</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="cards-header" id="retos">
+        <h2>Retos cooperativos</h2>
+        <p class="cards-help">Pulsa en “Pedir pista” para revelar una nueva pista en orden. Puedes mostrar la solución si os quedáis atascados.</p>
+      </section>
+
+      <div class="retos-lista" aria-live="polite"></div>
+
+      <footer class="small-footer">¿Listos para algo más complejo? Vuelve al menú y elige otra aventura.</footer>
+    </div>
+  </div>
+
+  <template id="reto-template">
+    <article class="reto" data-reto>
+      <header class="reto-cabecera">
+        <h3 class="reto-titulo"></h3>
+        <p class="reto-descripcion"></p>
+      </header>
+      <div class="reto-contenido">
+        <ul class="reto-pistas" role="list"></ul>
+        <div class="reto-controles">
+          <button type="button" class="btn btn-ghost btn-pista">Pedir pista</button>
+          <button type="button" class="btn btn-primary btn-solucion">Mostrar solución</button>
+        </div>
+        <output class="reto-solucion" hidden></output>
+      </div>
+    </article>
+  </template>
+
+  <script src="pistas/pistas-prueba1.js" defer></script>
+  <script>
+    (function () {
+      const timerButton = document.getElementById('timer-toggle');
+      let countdownInterval = null;
+      let remaining = 15 * 60;
+
+      function renderTimerLabel(seconds) {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        timerButton.textContent = `Tiempo restante: ${mins}:${secs}`;
+      }
+
+      function tick() {
+        remaining -= 1;
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+          timerButton.textContent = '¡Tiempo agotado! Reiniciar';
+          timerButton.setAttribute('aria-live', 'assertive');
+        } else {
+          renderTimerLabel(remaining);
+        }
+      }
+
+      timerButton.addEventListener('click', () => {
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+          remaining = 15 * 60;
+          timerButton.textContent = 'Iniciar temporizador';
+          timerButton.removeAttribute('aria-live');
+        } else {
+          remaining = 15 * 60;
+          renderTimerLabel(remaining);
+          countdownInterval = setInterval(tick, 1000);
+        }
+      });
+    })();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const retosData = window.calentamientoHints || [];
+      const contenedor = document.querySelector('.retos-lista');
+      const plantilla = document.getElementById('reto-template');
+
+      retosData.forEach((reto, index) => {
+        const instancia = plantilla.content.cloneNode(true);
+        const articulo = instancia.querySelector('[data-reto]');
+        articulo.dataset.index = index;
+        articulo.querySelector('.reto-titulo').textContent = reto.titulo;
+        articulo.querySelector('.reto-descripcion').textContent = reto.descripcion;
+        const pistasLista = articulo.querySelector('.reto-pistas');
+        const btnPista = articulo.querySelector('.btn-pista');
+        const btnSolucion = articulo.querySelector('.btn-solucion');
+        const solucion = articulo.querySelector('.reto-solucion');
+        const controles = articulo.querySelector('.reto-controles');
+        let pistasMostradas = 0;
+
+        function mostrarPista() {
+          if (pistasMostradas >= reto.pistas.length) {
+            btnPista.disabled = true;
+            btnPista.textContent = 'Sin más pistas';
+            return;
+          }
+          const pista = document.createElement('li');
+          pista.textContent = reto.pistas[pistasMostradas];
+          pistasLista.appendChild(pista);
+          pistasMostradas += 1;
+          if (pistasMostradas >= reto.pistas.length) {
+            btnPista.disabled = true;
+            btnPista.textContent = 'Sin más pistas';
+          }
+        }
+
+        btnPista.addEventListener('click', mostrarPista);
+        btnSolucion.addEventListener('click', () => {
+          solucion.textContent = reto.solucion;
+          solucion.hidden = false;
+          btnSolucion.disabled = true;
+        });
+
+        if (reto.minijuego && reto.minijuego.url) {
+          const enlace = document.createElement('a');
+          enlace.className = 'btn btn-success';
+          enlace.href = reto.minijuego.url;
+          enlace.textContent = reto.minijuego.etiqueta || 'Abrir minijuego';
+          enlace.target = '_blank';
+          enlace.rel = 'noopener noreferrer';
+          controles.appendChild(enlace);
+        }
+
+        contenedor.appendChild(instancia);
+      });
+    });
+  </script>
+</body>
+</html>
