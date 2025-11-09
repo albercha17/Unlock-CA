@@ -97,65 +97,10 @@ export function startMinigame(opts = {}) {
   header.appendChild(title);
   header.appendChild(subtitle);
 
-  // === VISOR CIRCULAR ===
-  const viewport = document.createElement("div");
-  Object.assign(viewport.style, {
-    width: "min(280px, 70vw)",
-    height: "min(280px, 70vw)",
-    borderRadius: "50%",
-    background:
-      "radial-gradient(circle at 35% 30%, rgba(65,114,255,0.25), rgba(19,40,86,0.9))",
-    border: "4px solid rgba(148,163,184,0.3)",
-    boxShadow:
-      "inset 0 12px 30px rgba(0,0,0,0.65), 0 12px 30px rgba(8,12,28,0.8)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    overflow: "hidden",
-    marginTop: "4px",
-  });
-
-  const sample = document.createElement("div");
-  Object.assign(sample.style, {
-    width: "100%",
-    height: "100%",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    filter: "blur(30px)",
-    transition: "filter 0.12s ease-out",
-  });
-
-  viewport.appendChild(sample);
-
-  // Badgito con el progreso (muestra los números ya enfocados)
-  const resultBadge = document.createElement("div");
-  Object.assign(resultBadge.style, {
-    position: "absolute",
-    bottom: "16px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    padding: "8px 18px",
-    borderRadius: "999px",
-    background: "rgba(21,128,61,0.12)",
-    color: "#bbf7d0",
-    fontSize: "0.9rem",
-    fontWeight: "700",
-    letterSpacing: "0.12em",
-    opacity: "0",
-    transition: "opacity 0.25s ease, transform 0.25s ease",
-    border: "1px solid rgba(34,197,94,0.45)",
-    backdropFilter: "blur(8px)",
-    pointerEvents: "none",
-    textTransform: "uppercase",
-  });
-
-  viewport.appendChild(resultBadge);
-
-  // === KNOB / ROSCA ===
+  // === KNOB / ROSCA (AHORA ARRIBA) ===
   const knobArea = document.createElement("div");
   Object.assign(knobArea.style, {
-    marginTop: "18px",
+    marginTop: "14px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -261,6 +206,61 @@ export function startMinigame(opts = {}) {
   knobArea.appendChild(knobLabel);
   knobArea.appendChild(knob);
 
+  // === VISOR CIRCULAR (AHORA ABAJO) ===
+  const viewport = document.createElement("div");
+  Object.assign(viewport.style, {
+    width: "min(280px, 70vw)",
+    height: "min(280px, 70vw)",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle at 35% 30%, rgba(65,114,255,0.25), rgba(19,40,86,0.9))",
+    border: "4px solid rgba(148,163,184,0.3)",
+    boxShadow:
+      "inset 0 12px 30px rgba(0,0,0,0.65), 0 12px 30px rgba(8,12,28,0.8)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    overflow: "hidden",
+    marginTop: "18px",
+  });
+
+  const sample = document.createElement("div");
+  Object.assign(sample.style, {
+    width: "100%",
+    height: "100%",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    filter: "blur(30px)",
+    transition: "filter 0.12s ease-out",
+  });
+
+  viewport.appendChild(sample);
+
+  // Badgito con el progreso (muestra los números ya enfocados)
+  const resultBadge = document.createElement("div");
+  Object.assign(resultBadge.style, {
+    position: "absolute",
+    bottom: "16px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    padding: "8px 18px",
+    borderRadius: "999px",
+    background: "rgba(21,128,61,0.12)",
+    color: "#bbf7d0",
+    fontSize: "0.9rem",
+    fontWeight: "700",
+    letterSpacing: "0.12em",
+    opacity: "0",
+    transition: "opacity 0.25s ease, transform 0.25s ease",
+    border: "1px solid rgba(34,197,94,0.45)",
+    backdropFilter: "blur(8px)",
+    pointerEvents: "none",
+    textTransform: "uppercase",
+  });
+
+  viewport.appendChild(resultBadge);
+
   // === INSTRUCCIONES Y BOTONES ===
   const instructions = document.createElement("p");
   Object.assign(instructions.style, {
@@ -319,10 +319,10 @@ export function startMinigame(opts = {}) {
   buttonBar.appendChild(nextBtn);
   buttonBar.appendChild(exitBtn);
 
-  // Montar panel
+  // Montar panel (ORDEN NUEVO)
   panel.appendChild(header);
-  panel.appendChild(viewport);
-  panel.appendChild(knobArea);
+  panel.appendChild(knobArea);   // arriba
+  panel.appendChild(viewport);   // abajo
   panel.appendChild(instructions);
   panel.appendChild(buttonBar);
   overlay.appendChild(panel);
@@ -391,11 +391,18 @@ export function startMinigame(opts = {}) {
     updateNextButtonState();
   }
 
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
   function updateBlur() {
     const t = knobValue / 100; // 0..1
     const blur = maxBlur - (maxBlur - minBlur) * t;
     sample.style.filter = `blur(${blur.toFixed(2)}px)`;
-    knobDial.style.transform = `translateX(-50%) rotate(${lerp(-140, 140, t)}deg)`;
+
+    // Convertimos el valor lineal al ángulo del dial (-140º a 140º)
+    const angle = lerp(-140, 140, t);
+    knobDial.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 
     if (t >= revealThreshold && !successShown) {
       revealNumber();
@@ -404,46 +411,41 @@ export function startMinigame(opts = {}) {
     }
   }
 
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function setValueFromAngle(angleDeg) {
-    // Limitamos el giro a un arco de -140º a 140º
-    const clamped = Math.max(-140, Math.min(140, angleDeg));
-    const normalized = (clamped + 140) / 280; // 0..1
-    knobValue = Math.max(0, Math.min(100, normalized * 100));
-    updateBlur();
-  }
-
-  function computeAngle(clientX, clientY) {
+  // Usamos el eje X del dedo para controlar el enfoque
+  function updateFromPointerX(clientX) {
     const rect = knob.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = clientX - cx;
-    const dy = clientY - cy;
-    return (Math.atan2(dy, dx) * 180) / Math.PI;
+    // margen lateral para que no sea ultra sensible
+    const margin = rect.width * 0.15;
+    const minX = rect.left + margin;
+    const maxX = rect.right - margin;
+
+    const clampedX = Math.max(minX, Math.min(maxX, clientX));
+    const t = (clampedX - minX) / (maxX - minX); // 0..1
+    knobValue = t * 100;
+    updateBlur();
   }
 
   function onPointerDown(ev) {
     dragging = true;
-    knob.setPointerCapture(ev.pointerId);
-    const angle = computeAngle(ev.clientX, ev.clientY);
-    setValueFromAngle(angle);
+    if (knob.setPointerCapture) {
+      knob.setPointerCapture(ev.pointerId);
+    }
+    updateFromPointerX(ev.clientX);
     ev.preventDefault();
   }
 
   function onPointerMove(ev) {
     if (!dragging) return;
-    const angle = computeAngle(ev.clientX, ev.clientY);
-    setValueFromAngle(angle);
+    updateFromPointerX(ev.clientX);
     ev.preventDefault();
   }
 
   function onPointerUp(ev) {
     if (!dragging) return;
     dragging = false;
-    knob.releasePointerCapture(ev.pointerId);
+    if (knob.releasePointerCapture) {
+      knob.releasePointerCapture(ev.pointerId);
+    }
     ev.preventDefault();
   }
 

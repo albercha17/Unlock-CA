@@ -137,6 +137,25 @@ function makeStyles() {
 .mlj-key .k-fill {
   z-index: 1;
   transform: scale(1);
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: inset 0 3px 6px rgba(255,255,255,0.12), inset 0 -4px 8px rgba(0,0,0,0.35);
+}
+.mlj-key .k-fill::before {
+  content:'';
+  position:absolute;
+  inset: 16% 18% 42% 24%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0.05) 62%, transparent 72%);
+  filter: blur(0.8px);
+  opacity: 0.75;
+}
+.mlj-key .k-fill::after {
+  content:'';
+  position:absolute;
+  inset: 58% 18% 12% 28%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0));
+  opacity:0.65;
 }
 
 /* label sobre la cabeza (número) */
@@ -147,8 +166,8 @@ function makeStyles() {
   transform: translate(-10%, 0);
   font-weight: 800;
   font-size: 13px;
-  color: rgba(255,255,255,0.95);
-  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.55), 0 0 4px rgba(0,0,0,0.35);
   pointer-events: none;
   z-index: 2;
 }
@@ -280,8 +299,15 @@ export function startMinigame(opts = {}) {
     const hue = Math.round((i * 360 / total) % 360);
     const sat = 72 + (i % 3) * 2;
     const light = 52 - (i % 4);
-    const color = `hsl(${hue} ${sat}% ${light}%)`;
-    keys.push({ id: `k${i+1}`, color, label: `` });
+    const base = `hsl(${hue} ${sat}% ${light}%)`;
+    const highlight = `hsl(${hue} ${Math.min(100, sat + 14)}% ${Math.min(96, light + 26)}%)`;
+    const midtone = `hsl(${hue} ${Math.max(20, sat - 6)}% ${Math.max(12, light - 6)}%)`;
+    const shadow = `hsl(${hue} ${Math.max(18, sat - 20)}% ${Math.max(6, light - 28)}%)`;
+    keys.push({
+      id: `k${i+1}`,
+      colors: { base, highlight, midtone, shadow },
+      label: ``
+    });
   }
 
   // FIXED correct key: la morada (hue ~270) corresponde al índice 15 -> id 'k16'
@@ -307,7 +333,9 @@ export function startMinigame(opts = {}) {
 
       const fill = document.createElement('div');
       fill.className = 'k-fill';
-      fill.style.background = k.color;
+      const { base, highlight, midtone, shadow } = k.colors;
+      fill.style.background = `linear-gradient(145deg, ${highlight} 0%, ${base} 44%, ${midtone} 72%, ${shadow} 100%)`;
+      fill.style.filter = 'drop-shadow(0 4px 6px rgba(0,0,0,0.35))';
 
       const label = document.createElement('div');
       label.className = 'k-label';
