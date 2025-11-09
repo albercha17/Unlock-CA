@@ -31,59 +31,23 @@ function makeStyles() {
 }
 .mlj-panel {
   width: min(980px, 94%);
-  background: radial-gradient(circle at top,#0f1b33 0%,#071022 42%,#081426 100%);
-  border-radius: 18px;
-  padding: 26px 28px 22px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+  background: linear-gradient(180deg,#071022,#081426);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
   color: #eef6ff;
   text-align: center;
-  border: 1px solid rgba(255,255,255,0.04);
 }
 .mlj-header { display:flex; align-items:center; gap:12px; justify-content:space-between; margin-bottom:10px; }
 .mlj-title { font-size:20px; font-weight:800; letter-spacing:0.6px; }
 .mlj-sub { font-size:13px; color: #c9d7e6; opacity:0.9; }
 
 .mlj-board {
-  position: relative;
   display:grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
-  margin: 26px 0 24px;
+  gap: 12px;
+  margin: 18px 0;
   justify-items:center;
-  padding: 32px 38px;
-  border-radius: 22px;
-  background: linear-gradient(135deg,#3c2411 0%,#4d3116 38%,#2d1c0d 100%);
-  box-shadow: inset 0 12px 28px rgba(0,0,0,0.45), inset 0 -14px 30px rgba(0,0,0,0.35), 0 28px 46px rgba(0,0,0,0.45);
-  overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.05);
-}
-.mlj-board::before {
-  content: '';
-  position: absolute;
-  inset: 16px;
-  border-radius: 16px;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.12) 0, rgba(255,255,255,0.12) 2px, transparent 2px),
-    linear-gradient(to bottom, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 2px, transparent 2px),
-    linear-gradient(to right, rgba(0,0,0,0.35) 0, rgba(0,0,0,0.35) 3px, transparent 3px),
-    linear-gradient(to bottom, rgba(0,0,0,0.35) 0, rgba(0,0,0,0.35) 3px, transparent 3px);
-  background-size:
-    calc(100% / 5) 100%,
-    100% calc(100% / 4),
-    calc(100% / 5) 100%,
-    100% calc(100% / 4);
-  opacity: 0.45;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.55);
-}
-.mlj-board::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 18%, rgba(255,255,255,0.12), transparent 52%),
-              radial-gradient(circle at 80% 82%, rgba(0,0,0,0.35), transparent 60%);
-  mix-blend-mode: soft-light;
-  pointer-events: none;
 }
 
 /* botón de llave: ahora es contenedor; la forma la crean .k-outline y .k-fill */
@@ -105,7 +69,6 @@ function makeStyles() {
   position: relative;
   overflow: visible;
   -webkit-tap-highlight-color: transparent;
-  z-index: 1;
 }
 
 /* contorno negro mediante máscara aplicada a un pseudo-elemento interno */
@@ -137,25 +100,6 @@ function makeStyles() {
 .mlj-key .k-fill {
   z-index: 1;
   transform: scale(1);
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: inset 0 3px 6px rgba(255,255,255,0.12), inset 0 -4px 8px rgba(0,0,0,0.35);
-}
-.mlj-key .k-fill::before {
-  content:'';
-  position:absolute;
-  inset: 16% 18% 42% 24%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0.05) 62%, transparent 72%);
-  filter: blur(0.8px);
-  opacity: 0.75;
-}
-.mlj-key .k-fill::after {
-  content:'';
-  position:absolute;
-  inset: 58% 18% 12% 28%;
-  background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0));
-  opacity:0.65;
 }
 
 /* label sobre la cabeza (número) */
@@ -166,8 +110,8 @@ function makeStyles() {
   transform: translate(-10%, 0);
   font-weight: 800;
   font-size: 13px;
-  color: rgba(255,255,255,0.92);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.55), 0 0 4px rgba(0,0,0,0.35);
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
   pointer-events: none;
   z-index: 2;
 }
@@ -202,8 +146,7 @@ function makeStyles() {
 
 /* responsive */
 @media (max-width:620px) {
-  .mlj-board { grid-template-columns: repeat(4, 1fr); gap:12px; padding: 28px 24px; }
-  .mlj-board::before { inset: 12px; }
+  .mlj-board { grid-template-columns: repeat(4, 1fr); gap:10px; }
   .mlj-key { --size: 72px; }
   .mlj-key .k-label { font-size:12px; left:16%; top:10%; transform: translate(-10%,0); }
 }
@@ -299,15 +242,8 @@ export function startMinigame(opts = {}) {
     const hue = Math.round((i * 360 / total) % 360);
     const sat = 72 + (i % 3) * 2;
     const light = 52 - (i % 4);
-    const base = `hsl(${hue} ${sat}% ${light}%)`;
-    const highlight = `hsl(${hue} ${Math.min(100, sat + 14)}% ${Math.min(96, light + 26)}%)`;
-    const midtone = `hsl(${hue} ${Math.max(20, sat - 6)}% ${Math.max(12, light - 6)}%)`;
-    const shadow = `hsl(${hue} ${Math.max(18, sat - 20)}% ${Math.max(6, light - 28)}%)`;
-    keys.push({
-      id: `k${i+1}`,
-      colors: { base, highlight, midtone, shadow },
-      label: ``
-    });
+    const color = `hsl(${hue} ${sat}% ${light}%)`; // space-separated HSL
+    keys.push({ id: `k${i+1}`, color, label: `` });
   }
 
   // FIXED correct key: la morada (hue ~270) corresponde al índice 15 -> id 'k16'
@@ -333,9 +269,7 @@ export function startMinigame(opts = {}) {
 
       const fill = document.createElement('div');
       fill.className = 'k-fill';
-      const { base, highlight, midtone, shadow } = k.colors;
-      fill.style.background = `linear-gradient(145deg, ${highlight} 0%, ${base} 44%, ${midtone} 72%, ${shadow} 100%)`;
-      fill.style.filter = 'drop-shadow(0 4px 6px rgba(0,0,0,0.35))';
+      fill.style.background = k.color;
 
       const label = document.createElement('div');
       label.className = 'k-label';
