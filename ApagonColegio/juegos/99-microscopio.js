@@ -173,47 +173,90 @@ export function startMinigame(opts = {}) {
 
   const knob = document.createElement("div");
   Object.assign(knob.style, {
-    width: "150px",
-    height: "150px",
+    width: "164px",
+    height: "164px",
     borderRadius: "50%",
     background:
-      "radial-gradient(circle at 30% 30%, rgba(51,65,85,0.8), rgba(15,23,42,1))",
-    border: "2px solid rgba(148,163,184,0.45)",
+      "radial-gradient(circle at 32% 30%, rgba(51,65,85,0.9), rgba(15,23,42,1) 60%, rgba(2,6,23,1) 100%)",
+    border: "4px solid rgba(30,41,59,0.55)",
     boxShadow:
-      "0 20px 34px rgba(2,6,23,0.65), inset 0 18px 32px rgba(10,20,46,0.55)",
+      "0 28px 48px rgba(2,6,23,0.65), inset 0 22px 38px rgba(2,6,23,0.5)",
     position: "relative",
     touchAction: "none",
+    overflow: "hidden",
   });
 
-  const knobDial = document.createElement("div");
-  Object.assign(knobDial.style, {
+  const knobRidges = document.createElement("div");
+  Object.assign(knobRidges.style, {
     position: "absolute",
-    width: "10px",
-    height: "46px",
-    background: "linear-gradient(180deg, #38bdf8, #0ea5e9)",
-    top: "12px",
-    left: "50%",
-    transformOrigin: "50% 65px",
-    borderRadius: "999px",
-    transform: "translateX(-50%) rotate(-140deg)",
-    boxShadow: "0 6px 16px rgba(14,165,233,0.45)",
+    inset: "0",
+    borderRadius: "50%",
+    background:
+      "repeating-conic-gradient(from 90deg, rgba(148,163,184,0.16) 0deg, rgba(148,163,184,0.16) 6deg, rgba(15,23,42,0.92) 6deg, rgba(15,23,42,0.92) 12deg)",
+    mixBlendMode: "screen",
+    opacity: "0.55",
+    pointerEvents: "none",
+  });
+
+  const knobRim = document.createElement("div");
+  Object.assign(knobRim.style, {
+    position: "absolute",
+    inset: "10px",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle, rgba(30,41,59,0.85) 0%, rgba(15,23,42,1) 70%, rgba(15,23,42,1) 100%)",
+    border: "1px solid rgba(71,85,105,0.45)",
+    boxShadow: "inset 0 16px 28px rgba(8,15,35,0.85), inset 0 -18px 28px rgba(148,163,184,0.12)",
     pointerEvents: "none",
   });
 
   const knobCore = document.createElement("div");
   Object.assign(knobCore.style, {
     position: "absolute",
-    inset: "32px",
+    inset: "36px",
     borderRadius: "50%",
     background:
-      "radial-gradient(circle, rgba(15,23,42,0.95) 0%, rgba(2,6,23,1) 90%)",
-    border: "1px solid rgba(148,163,184,0.3)",
-    boxShadow: "inset 0 10px 20px rgba(8,16,40,0.85)",
+      "radial-gradient(circle at 40% 35%, rgba(148,163,184,0.15), rgba(15,23,42,0.95) 68%, rgba(2,6,23,1) 100%)",
+    border: "1px solid rgba(100,116,139,0.35)",
+    boxShadow: "inset 0 10px 22px rgba(5,13,32,0.92)",
     pointerEvents: "none",
   });
 
+  const knobDial = document.createElement("div");
+  Object.assign(knobDial.style, {
+    position: "absolute",
+    width: "14px",
+    height: "72px",
+    background: "linear-gradient(180deg, #f8fafc, #94a3b8 55%, #1f2937)",
+    top: "-6px",
+    left: "50%",
+    transformOrigin: "50% 86px",
+    borderRadius: "999px",
+    transform: "translateX(-50%) rotate(-140deg)",
+    boxShadow: "0 10px 20px rgba(15,23,42,0.45)",
+    pointerEvents: "none",
+  });
+
+  const knobIndicator = document.createElement("div");
+  Object.assign(knobIndicator.style, {
+    position: "absolute",
+    top: "14px",
+    left: "50%",
+    width: "24px",
+    height: "24px",
+    transform: "translateX(-50%)",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle, rgba(248,250,252,0.95) 0%, rgba(148,163,184,0.8) 55%, rgba(30,41,59,0.95) 100%)",
+    boxShadow: "0 6px 14px rgba(15,23,42,0.55)",
+    pointerEvents: "none",
+  });
+
+  knob.appendChild(knobRidges);
+  knob.appendChild(knobRim);
   knob.appendChild(knobCore);
   knob.appendChild(knobDial);
+  knob.appendChild(knobIndicator);
 
   knobArea.appendChild(knobLabel);
   knobArea.appendChild(knob);
