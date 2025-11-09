@@ -348,11 +348,18 @@ export function startMinigame(opts = {}) {
     updateNextButtonState();
   }
 
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
   function updateBlur() {
     const t = knobValue / 100; // 0..1
     const blur = maxBlur - (maxBlur - minBlur) * t;
     sample.style.filter = `blur(${blur.toFixed(2)}px)`;
-    knobDial.style.transform = `translateX(-50%) rotate(${lerp(-140, 140, t)}deg)`;
+
+    // Convertimos el valor lineal al ángulo del dial (-140º a 140º)
+    const angle = lerp(-140, 140, t);
+    knobDial.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 
     if (t >= revealThreshold && !successShown) {
       revealNumber();
@@ -361,46 +368,41 @@ export function startMinigame(opts = {}) {
     }
   }
 
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function setValueFromAngle(angleDeg) {
-    // Limitamos el giro a un arco de -140º a 140º
-    const clamped = Math.max(-140, Math.min(140, angleDeg));
-    const normalized = (clamped + 140) / 280; // 0..1
-    knobValue = Math.max(0, Math.min(100, normalized * 100));
-    updateBlur();
-  }
-
-  function computeAngle(clientX, clientY) {
+  // NUEVO: en lugar de usar ángulos con atan2, mapeamos el X del dedo a 0..100.
+  function updateFromPointerX(clientX) {
     const rect = knob.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = clientX - cx;
-    const dy = clientY - cy;
-    return (Math.atan2(dy, dx) * 180) / Math.PI;
+    // Deja un margen a izquierda/derecha para que no sea ultra sensible
+    const margin = rect.width * 0.15;
+    const minX = rect.left + margin;
+    const maxX = rect.right - margin;
+
+    const clampedX = Math.max(minX, Math.min(maxX, clientX));
+    const t = (clampedX - minX) / (maxX - minX); // 0..1
+    knobValue = t * 100;
+    updateBlur();
   }
 
   function onPointerDown(ev) {
     dragging = true;
-    knob.setPointerCapture(ev.pointerId);
-    const angle = computeAngle(ev.clientX, ev.clientY);
-    setValueFromAngle(angle);
+    if (knob.setPointerCapture) {
+      knob.setPointerCapture(ev.pointerId);
+    }
+    updateFromPointerX(ev.clientX);
     ev.preventDefault();
   }
 
   function onPointerMove(ev) {
     if (!dragging) return;
-    const angle = computeAngle(ev.clientX, ev.clientY);
-    setValueFromAngle(angle);
+    updateFromPointerX(ev.clientX);
     ev.preventDefault();
   }
 
   function onPointerUp(ev) {
     if (!dragging) return;
     dragging = false;
-    knob.releasePointerCapture(ev.pointerId);
+    if (knob.releasePointerCapture) {
+      knob.releasePointerCapture(ev.pointerId);
+    }
     ev.preventDefault();
   }
 
