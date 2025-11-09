@@ -417,14 +417,41 @@
     });
 
     async function tryImportModule(modulePath){
+      const resolvedPath = modulePath.startsWith('http')
+        ? modulePath
+        : new URL(modulePath, import.meta.url).href;
+
       try{
-        const resolvedPath = modulePath.startsWith('http')
-          ? modulePath
-          : new URL(modulePath, import.meta.url).href;
         const module = await import(resolvedPath);
         return { ok:true, module };
       }catch(err){
-        return { ok:false, err };
+        console.warn("Fallo al importar módulo via import():", err);
+
+        // Algunos navegadores (o el protocolo file://) pueden bloquear import().
+        // Intentamos un plan B cargando el archivo manualmente y creando un blob.
+        try{
+          const response = await fetch(resolvedPath, { cache: 'no-store' });
+          if(!response.ok){
+            throw new Error(`Respuesta ${response.status} al intentar obtener ${resolvedPath}`);
+          }
+
+          const code = await response.text();
+          const blob = new Blob([code], { type: 'text/javascript' });
+          const blobUrl = URL.createObjectURL(blob);
+
+          try{
+            const module = await import(/* @vite-ignore */ blobUrl);
+            URL.revokeObjectURL(blobUrl);
+            return { ok:true, module };
+          }catch(blobErr){
+            URL.revokeObjectURL(blobUrl);
+            console.error("No se pudo cargar el módulo desde el blob:", blobErr);
+            return { ok:false, err: blobErr };
+          }
+        }catch(fetchErr){
+          console.error("No se pudo obtener el módulo como texto:", fetchErr);
+          return { ok:false, err: fetchErr };
+        }
       }
     }
 

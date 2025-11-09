@@ -1,6 +1,9 @@
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
 
+  const numbers = ["15", "12", "17", "12"];
+  const totalRounds = numbers.length;
+
   if (typeof pauseGameTimer === "function") pauseGameTimer();
 
   const overlay = document.createElement("div");
@@ -48,7 +51,7 @@ export function startMinigame(opts = {}) {
   });
 
   const subtitle = document.createElement("p");
-  subtitle.textContent = "Gira la rueda para enfocar la muestra";
+  subtitle.textContent = "Gira la rosca del telescopio para enfocar la muestra";
   Object.assign(subtitle.style, {
     margin: "6px 0 0 0",
     fontSize: "0.95rem",
@@ -79,7 +82,7 @@ export function startMinigame(opts = {}) {
   });
 
   const sample = document.createElement("div");
-  const sampleSvg =
+  const buildSampleSvg = (digit) =>
     "data:image/svg+xml;utf8," +
     encodeURIComponent(
       `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>` +
@@ -92,7 +95,7 @@ export function startMinigame(opts = {}) {
         `</defs>` +
         `<rect width='600' height='600' fill='url(#g)'/>` +
         `<g font-family="'Poppins', sans-serif" font-size='220' font-weight='800' fill='#fef9c3' opacity='0.92'>` +
-        `<text x='50%' y='54%' text-anchor='middle'>742</text>` +
+        `<text x='50%' y='55%' text-anchor='middle' dominant-baseline='middle'>${digit}</text>` +
         `</g>` +
         `<g stroke='#22d3ee' stroke-width='4' opacity='0.45'>` +
         `<circle cx='170' cy='170' r='38' fill='none'/>` +
@@ -105,17 +108,17 @@ export function startMinigame(opts = {}) {
   Object.assign(sample.style, {
     width: "100%",
     height: "100%",
-    backgroundImage: `url("${sampleSvg}")`,
+    backgroundImage: "",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    filter: "blur(18px)",
-    transition: "filter 0.18s ease-out",
+    filter: "blur(42px)",
+    transition: "filter 0.14s ease-out",
   });
 
   viewport.appendChild(sample);
 
   const resultBadge = document.createElement("div");
-  resultBadge.textContent = "742";
+  resultBadge.textContent = "";
   Object.assign(resultBadge.style, {
     position: "absolute",
     bottom: "18px",
@@ -159,45 +162,59 @@ export function startMinigame(opts = {}) {
     width: "150px",
     height: "150px",
     borderRadius: "50%",
-    background: "radial-gradient(circle at 30% 30%, rgba(148,163,184,0.22), rgba(15,23,42,0.95))",
-    border: "2px solid rgba(255,255,255,0.08)",
-    boxShadow: "0 16px 30px rgba(2,6,23,0.65), inset 0 12px 22px rgba(148,163,184,0.18)",
+    background: "radial-gradient(circle at 30% 30%, rgba(51,65,85,0.7), rgba(15,23,42,0.95))",
+    border: "2px solid rgba(148,163,184,0.35)",
+    boxShadow: "0 20px 34px rgba(2,6,23,0.65), inset 0 18px 32px rgba(10,20,46,0.55)",
     position: "relative",
     touchAction: "none",
+    overflow: "hidden",
   });
 
-  const knobIndicator = document.createElement("div");
-  Object.assign(knobIndicator.style, {
+  const knobDial = document.createElement("div");
+  Object.assign(knobDial.style, {
     position: "absolute",
-    width: "12px",
-    height: "48px",
-    background: "linear-gradient(180deg, #38bdf8, #0ea5e9)",
-    top: "10px",
-    left: "50%",
-    transformOrigin: "50% 65px",
-    borderRadius: "8px",
-    transform: "translateX(-50%) rotate(-135deg)",
-    boxShadow: "0 6px 16px rgba(14,165,233,0.45)",
-  });
-
-  const knobCenter = document.createElement("div");
-  Object.assign(knobCenter.style, {
-    position: "absolute",
-    inset: "28px",
+    inset: "6px",
     borderRadius: "50%",
-    background: "radial-gradient(circle, rgba(15,23,42,1) 0%, rgba(30,41,59,0.85) 70%, rgba(15,23,42,0.95) 100%)",
-    border: "1px solid rgba(148,163,184,0.3)",
-    boxShadow: "inset 0 8px 20px rgba(2,6,23,0.8)",
+    background:
+      "radial-gradient(circle at 50% 50%, rgba(15,23,42,0.65) 0%, rgba(10,12,32,0.85) 62%, rgba(2,6,23,0.95) 100%)," +
+      "repeating-conic-gradient(from 0deg, rgba(59,130,246,0.35) 0deg 10deg, rgba(12,74,110,0.85) 10deg 22deg)",
+    boxShadow: "inset 0 22px 32px rgba(2,6,23,0.85), inset 0 -12px 18px rgba(14,116,144,0.22)",
+    transition: "transform 0.08s ease-out",
+    pointerEvents: "none",
   });
 
-  knob.appendChild(knobCenter);
-  knob.appendChild(knobIndicator);
+  const knobGrip = document.createElement("div");
+  Object.assign(knobGrip.style, {
+    position: "absolute",
+    inset: "26px",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle at 50% 45%, rgba(191,219,254,0.14) 0%, rgba(30,41,59,0.88) 70%, rgba(8,15,35,0.95) 100%)",
+    border: "1px solid rgba(148,163,184,0.4)",
+    boxShadow: "inset 0 8px 16px rgba(2,6,23,0.85)",
+    pointerEvents: "none",
+  });
+
+  const knobCore = document.createElement("div");
+  Object.assign(knobCore.style, {
+    position: "absolute",
+    inset: "44px",
+    borderRadius: "50%",
+    background: "radial-gradient(circle, rgba(15,23,42,0.95) 0%, rgba(2,6,23,1) 90%)",
+    border: "1px solid rgba(148,163,184,0.25)",
+    boxShadow: "inset 0 10px 20px rgba(8,16,40,0.85)",
+    pointerEvents: "none",
+  });
+
+  knob.appendChild(knobDial);
+  knob.appendChild(knobGrip);
+  knob.appendChild(knobCore);
 
   knobArea.appendChild(knobLabel);
   knobArea.appendChild(knob);
 
   const instructions = document.createElement("p");
-  instructions.textContent = "Cuando esté nítido, recuerda el número.";
+  instructions.textContent = "Gira la rosca para enfocar la muestra (1/" + totalRounds + ").";
   Object.assign(instructions.style, {
     fontSize: "0.88rem",
     color: "rgba(226,232,240,0.74)",
@@ -211,6 +228,27 @@ export function startMinigame(opts = {}) {
     display: "flex",
     justifyContent: "center",
     marginTop: "18px",
+    gap: "12px",
+  });
+
+  const nextBtn = document.createElement("button");
+  nextBtn.type = "button";
+  nextBtn.textContent = "Siguiente";
+  nextBtn.disabled = true;
+  Object.assign(nextBtn.style, {
+    padding: "12px 26px",
+    borderRadius: "12px",
+    border: "none",
+    background: "linear-gradient(180deg, #22c55e, #15803d)",
+    color: "#fff",
+    fontWeight: "700",
+    letterSpacing: "0.08em",
+    cursor: "pointer",
+    fontSize: "1rem",
+    boxShadow: "0 12px 24px rgba(34,197,94,0.32)",
+    opacity: "0.5",
+    transition: "opacity 0.2s ease", 
+    WebkitTapHighlightColor: "transparent",
   });
 
   const exitBtn = document.createElement("button");
@@ -230,6 +268,7 @@ export function startMinigame(opts = {}) {
     WebkitTapHighlightColor: "transparent",
  });
 
+  buttonBar.appendChild(nextBtn);
   buttonBar.appendChild(exitBtn);
 
   panel.appendChild(header);
@@ -243,28 +282,91 @@ export function startMinigame(opts = {}) {
   document.body.appendChild(overlay);
 
   let knobValue = 0; // 0 -> 100
+  let targetKnobValue = 0;
+  let animationFrameId = null;
   let dragging = false;
   let successShown = false;
+  let currentRound = 0;
 
-  const maxBlur = 18;
-  const minBlur = 1.2;
+  const maxBlur = 42;
+  const minBlur = 0.35;
+  const knobResistance = 0.075;
+  const revealThreshold = 0.995;
+  const hideThreshold = 0.985;
+
+  function updateProgressBadge() {
+    const progressIndex = currentRound + (successShown ? 1 : 0);
+    const found = numbers.slice(0, progressIndex).join(" • ");
+    const remaining = numbers.slice(progressIndex).map(() => "◦").join(" • ");
+    resultBadge.textContent = [found, remaining].filter(Boolean).join(" • ");
+    const shouldShow = currentRound > 0 || successShown;
+    resultBadge.style.opacity = shouldShow ? "1" : "0";
+    resultBadge.style.transform = shouldShow
+      ? "translateX(-50%) translateY(-6px)"
+      : "translateX(-50%)";
+  }
+
+  function setDefaultInstruction() {
+    instructions.textContent = `Gira la rosca para enfocar la muestra (${currentRound + 1}/${totalRounds}).`;
+  }
+
+  function refreshSample() {
+    sample.style.backgroundImage = `url("${buildSampleSvg(numbers[currentRound])}")`;
+  }
+
+  function updateNextButtonState() {
+    if (successShown) {
+      nextBtn.disabled = false;
+      nextBtn.style.opacity = "1";
+      nextBtn.textContent = currentRound === totalRounds - 1 ? "Terminar" : "Siguiente";
+    } else {
+      nextBtn.disabled = true;
+      nextBtn.style.opacity = "0.5";
+      nextBtn.textContent = currentRound === totalRounds - 1 ? "Terminar" : "Siguiente";
+    }
+  }
+
+  function setupRound(round) {
+    currentRound = round;
+    successShown = false;
+    setDefaultInstruction();
+    refreshSample();
+    updateProgressBadge();
+    updateNextButtonState();
+    knobValue = 0;
+    targetKnobValue = 0;
+    updateBlur();
+  }
+
+  function revealNumber() {
+    successShown = true;
+    instructions.textContent = `¡Enfoque conseguido! El número es ${numbers[currentRound]}.`;
+    updateProgressBadge();
+    updateNextButtonState();
+  }
+
+  function hideNumber() {
+    successShown = false;
+    setDefaultInstruction();
+    updateProgressBadge();
+    updateNextButtonState();
+  }
 
   function updateBlur() {
     const t = knobValue / 100;
-    const blur = maxBlur - (maxBlur - minBlur) * t;
+    const denominator = Math.max(0.0001, revealThreshold - hideThreshold);
+    const focusBlend = Math.max(0, Math.min(1, (t - hideThreshold) / denominator));
+    const eased = Math.pow(focusBlend, 8);
+    const blur = t >= revealThreshold
+      ? minBlur
+      : maxBlur - (maxBlur - minBlur) * eased;
     sample.style.filter = `blur(${blur.toFixed(2)}px)`;
-    knobIndicator.style.transform = `translateX(-50%) rotate(${lerp(-135, 135, t)}deg)`;
+    knobDial.style.transform = `rotate(${lerp(-150, 150, t)}deg)`;
 
-    if (t >= 0.94 && !successShown) {
-      successShown = true;
-      resultBadge.style.opacity = "1";
-      resultBadge.style.transform = "translateX(-50%) translateY(-6px)";
-      instructions.textContent = "¡Enfoque conseguido! El número es 742.";
-    } else if (t < 0.9 && successShown) {
-      successShown = false;
-      resultBadge.style.opacity = "0";
-      resultBadge.style.transform = "translateX(-50%)";
-      instructions.textContent = "Cuando esté nítido, recuerda el número.";
+    if (t >= revealThreshold && !successShown) {
+      revealNumber();
+    } else if (t < hideThreshold && successShown) {
+      hideNumber();
     }
   }
 
@@ -275,8 +377,27 @@ export function startMinigame(opts = {}) {
   function setValueFromAngle(angleDeg) {
     const clamped = Math.max(-140, Math.min(140, angleDeg));
     const normalized = (clamped + 140) / 280;
-    knobValue = Math.max(0, Math.min(100, normalized * 100));
+    targetKnobValue = Math.max(0, Math.min(100, normalized * 100));
+    ensureKnobAnimation();
+  }
+
+  function ensureKnobAnimation() {
+    if (animationFrameId !== null) return;
+    animationFrameId = requestAnimationFrame(stepKnobTowardsTarget);
+  }
+
+  function stepKnobTowardsTarget() {
+    const delta = targetKnobValue - knobValue;
+    if (Math.abs(delta) < 0.05) {
+      knobValue = targetKnobValue;
+      updateBlur();
+      animationFrameId = null;
+      return;
+    }
+
+    knobValue = Math.max(0, Math.min(100, knobValue + delta * knobResistance));
     updateBlur();
+    animationFrameId = requestAnimationFrame(stepKnobTowardsTarget);
   }
 
   function computeAngle(clientX, clientY) {
@@ -316,6 +437,16 @@ export function startMinigame(opts = {}) {
   knob.addEventListener("pointercancel", onPointerUp);
 
   exitBtn.addEventListener("click", cerrar);
+  nextBtn.addEventListener("click", onNextClick);
+
+  function onNextClick() {
+    if (nextBtn.disabled) return;
+    if (currentRound >= totalRounds - 1) {
+      cerrar();
+      return;
+    }
+    setupRound(currentRound + 1);
+  }
 
   function cerrar() {
     cleanup();
@@ -330,7 +461,12 @@ export function startMinigame(opts = {}) {
     knob.removeEventListener("pointerup", onPointerUp);
     knob.removeEventListener("pointercancel", onPointerUp);
     exitBtn.removeEventListener("click", cerrar);
+    nextBtn.removeEventListener("click", onNextClick);
     document.removeEventListener("keydown", onKeyDown);
+    if (animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
   }
 
   function onKeyDown(ev) {
@@ -342,7 +478,5 @@ export function startMinigame(opts = {}) {
 
   document.addEventListener("keydown", onKeyDown);
 
-  // iniciar con un ligero desenfoque
-  knobValue = 0;
-  updateBlur();
+  setupRound(0);
 }
