@@ -11,3 +11,6 @@ Menú principal con acceso a diferentes aventuras cooperativas:
 - Imágenes en `assets/images/`.
 
 Cada aventura incluye su carpeta de pistas o materiales para organizar el contenido auxiliar.
+
+#Apagón en el Colegio# 
+Normas
