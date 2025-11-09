@@ -97,7 +97,116 @@ export function startMinigame(opts = {}) {
   header.appendChild(title);
   header.appendChild(subtitle);
 
-  // === VISOR CIRCULAR ===
+  // === KNOB / ROSCA (AHORA ARRIBA) ===
+  const knobArea = document.createElement("div");
+  Object.assign(knobArea.style, {
+    marginTop: "14px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "12px",
+  });
+
+  const knobLabel = document.createElement("span");
+  knobLabel.textContent = "Enfoque";
+  Object.assign(knobLabel.style, {
+    fontSize: "0.8rem",
+    letterSpacing: "0.16em",
+    textTransform: "uppercase",
+    color: "rgba(226,232,240,0.7)",
+  });
+
+  const knob = document.createElement("div");
+  Object.assign(knob.style, {
+    width: "164px",
+    height: "164px",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle at 32% 30%, rgba(51,65,85,0.9), rgba(15,23,42,1) 60%, rgba(2,6,23,1) 100%)",
+    border: "4px solid rgba(30,41,59,0.55)",
+    boxShadow:
+      "0 28px 48px rgba(2,6,23,0.65), inset 0 22px 38px rgba(2,6,23,0.5)",
+    position: "relative",
+    touchAction: "none",
+    overflow: "hidden",
+  });
+
+  const knobRidges = document.createElement("div");
+  Object.assign(knobRidges.style, {
+    position: "absolute",
+    inset: "0",
+    borderRadius: "50%",
+    background:
+      "repeating-conic-gradient(from 90deg, rgba(148,163,184,0.16) 0deg, rgba(148,163,184,0.16) 6deg, rgba(15,23,42,0.92) 6deg, rgba(15,23,42,0.92) 12deg)",
+    mixBlendMode: "screen",
+    opacity: "0.55",
+    pointerEvents: "none",
+  });
+
+  const knobRim = document.createElement("div");
+  Object.assign(knobRim.style, {
+    position: "absolute",
+    inset: "10px",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle, rgba(30,41,59,0.85) 0%, rgba(15,23,42,1) 70%, rgba(15,23,42,1) 100%)",
+    border: "1px solid rgba(71,85,105,0.45)",
+    boxShadow: "inset 0 16px 28px rgba(8,15,35,0.85), inset 0 -18px 28px rgba(148,163,184,0.12)",
+    pointerEvents: "none",
+  });
+
+  const knobCore = document.createElement("div");
+  Object.assign(knobCore.style, {
+    position: "absolute",
+    inset: "36px",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle at 40% 35%, rgba(148,163,184,0.15), rgba(15,23,42,0.95) 68%, rgba(2,6,23,1) 100%)",
+    border: "1px solid rgba(100,116,139,0.35)",
+    boxShadow: "inset 0 10px 22px rgba(5,13,32,0.92)",
+    pointerEvents: "none",
+  });
+
+  const knobDial = document.createElement("div");
+  Object.assign(knobDial.style, {
+    position: "absolute",
+    width: "14px",
+    height: "72px",
+    background: "linear-gradient(180deg, #f8fafc, #94a3b8 55%, #1f2937)",
+    top: "-6px",
+    left: "50%",
+    transformOrigin: "50% 86px",
+    borderRadius: "999px",
+    transform: "translateX(-50%) rotate(-140deg)",
+    boxShadow: "0 10px 20px rgba(15,23,42,0.45)",
+    pointerEvents: "none",
+  });
+
+  const knobIndicator = document.createElement("div");
+  Object.assign(knobIndicator.style, {
+    position: "absolute",
+    top: "14px",
+    left: "50%",
+    width: "24px",
+    height: "24px",
+    transform: "translateX(-50%)",
+    borderRadius: "50%",
+    background:
+      "radial-gradient(circle, rgba(248,250,252,0.95) 0%, rgba(148,163,184,0.8) 55%, rgba(30,41,59,0.95) 100%)",
+    boxShadow: "0 6px 14px rgba(15,23,42,0.55)",
+    pointerEvents: "none",
+  });
+
+  knob.appendChild(knobRidges);
+  knob.appendChild(knobRim);
+  knob.appendChild(knobCore);
+  knob.appendChild(knobDial);
+  knob.appendChild(knobIndicator);
+
+  knobArea.appendChild(knobLabel);
+  knobArea.appendChild(knob);
+
+  // === VISOR CIRCULAR (AHORA ABAJO) ===
   const viewport = document.createElement("div");
   Object.assign(viewport.style, {
     width: "min(280px, 70vw)",
@@ -113,7 +222,7 @@ export function startMinigame(opts = {}) {
     justifyContent: "center",
     position: "relative",
     overflow: "hidden",
-    marginTop: "4px",
+    marginTop: "18px",
   });
 
   const sample = document.createElement("div");
@@ -151,72 +260,6 @@ export function startMinigame(opts = {}) {
   });
 
   viewport.appendChild(resultBadge);
-
-  // === KNOB / ROSCA ===
-  const knobArea = document.createElement("div");
-  Object.assign(knobArea.style, {
-    marginTop: "18px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "12px",
-  });
-
-  const knobLabel = document.createElement("span");
-  knobLabel.textContent = "Enfoque";
-  Object.assign(knobLabel.style, {
-    fontSize: "0.8rem",
-    letterSpacing: "0.16em",
-    textTransform: "uppercase",
-    color: "rgba(226,232,240,0.7)",
-  });
-
-  const knob = document.createElement("div");
-  Object.assign(knob.style, {
-    width: "150px",
-    height: "150px",
-    borderRadius: "50%",
-    background:
-      "radial-gradient(circle at 30% 30%, rgba(51,65,85,0.8), rgba(15,23,42,1))",
-    border: "2px solid rgba(148,163,184,0.45)",
-    boxShadow:
-      "0 20px 34px rgba(2,6,23,0.65), inset 0 18px 32px rgba(10,20,46,0.55)",
-    position: "relative",
-    touchAction: "none",
-  });
-
-  const knobDial = document.createElement("div");
-  Object.assign(knobDial.style, {
-    position: "absolute",
-    width: "10px",
-    height: "46px",
-    background: "linear-gradient(180deg, #38bdf8, #0ea5e9)",
-    top: "12px",
-    left: "50%",
-    transformOrigin: "50% 65px",
-    borderRadius: "999px",
-    transform: "translateX(-50%) rotate(-140deg)",
-    boxShadow: "0 6px 16px rgba(14,165,233,0.45)",
-    pointerEvents: "none",
-  });
-
-  const knobCore = document.createElement("div");
-  Object.assign(knobCore.style, {
-    position: "absolute",
-    inset: "32px",
-    borderRadius: "50%",
-    background:
-      "radial-gradient(circle, rgba(15,23,42,0.95) 0%, rgba(2,6,23,1) 90%)",
-    border: "1px solid rgba(148,163,184,0.3)",
-    boxShadow: "inset 0 10px 20px rgba(8,16,40,0.85)",
-    pointerEvents: "none",
-  });
-
-  knob.appendChild(knobCore);
-  knob.appendChild(knobDial);
-
-  knobArea.appendChild(knobLabel);
-  knobArea.appendChild(knob);
 
   // === INSTRUCCIONES Y BOTONES ===
   const instructions = document.createElement("p");
@@ -276,10 +319,10 @@ export function startMinigame(opts = {}) {
   buttonBar.appendChild(nextBtn);
   buttonBar.appendChild(exitBtn);
 
-  // Montar panel
+  // Montar panel (ORDEN NUEVO)
   panel.appendChild(header);
-  panel.appendChild(viewport);
-  panel.appendChild(knobArea);
+  panel.appendChild(knobArea);   // arriba
+  panel.appendChild(viewport);   // abajo
   panel.appendChild(instructions);
   panel.appendChild(buttonBar);
   overlay.appendChild(panel);
@@ -348,11 +391,18 @@ export function startMinigame(opts = {}) {
     updateNextButtonState();
   }
 
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
   function updateBlur() {
     const t = knobValue / 100; // 0..1
     const blur = maxBlur - (maxBlur - minBlur) * t;
     sample.style.filter = `blur(${blur.toFixed(2)}px)`;
-    knobDial.style.transform = `translateX(-50%) rotate(${lerp(-140, 140, t)}deg)`;
+
+    // Convertimos el valor lineal al ángulo del dial (-140º a 140º)
+    const angle = lerp(-140, 140, t);
+    knobDial.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 
     if (t >= revealThreshold && !successShown) {
       revealNumber();
@@ -361,46 +411,41 @@ export function startMinigame(opts = {}) {
     }
   }
 
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function setValueFromAngle(angleDeg) {
-    // Limitamos el giro a un arco de -140º a 140º
-    const clamped = Math.max(-140, Math.min(140, angleDeg));
-    const normalized = (clamped + 140) / 280; // 0..1
-    knobValue = Math.max(0, Math.min(100, normalized * 100));
-    updateBlur();
-  }
-
-  function computeAngle(clientX, clientY) {
+  // Usamos el eje X del dedo para controlar el enfoque
+  function updateFromPointerX(clientX) {
     const rect = knob.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = clientX - cx;
-    const dy = clientY - cy;
-    return (Math.atan2(dy, dx) * 180) / Math.PI;
+    // margen lateral para que no sea ultra sensible
+    const margin = rect.width * 0.15;
+    const minX = rect.left + margin;
+    const maxX = rect.right - margin;
+
+    const clampedX = Math.max(minX, Math.min(maxX, clientX));
+    const t = (clampedX - minX) / (maxX - minX); // 0..1
+    knobValue = t * 100;
+    updateBlur();
   }
 
   function onPointerDown(ev) {
     dragging = true;
-    knob.setPointerCapture(ev.pointerId);
-    const angle = computeAngle(ev.clientX, ev.clientY);
-    setValueFromAngle(angle);
+    if (knob.setPointerCapture) {
+      knob.setPointerCapture(ev.pointerId);
+    }
+    updateFromPointerX(ev.clientX);
     ev.preventDefault();
   }
 
   function onPointerMove(ev) {
     if (!dragging) return;
-    const angle = computeAngle(ev.clientX, ev.clientY);
-    setValueFromAngle(angle);
+    updateFromPointerX(ev.clientX);
     ev.preventDefault();
   }
 
   function onPointerUp(ev) {
     if (!dragging) return;
     dragging = false;
-    knob.releasePointerCapture(ev.pointerId);
+    if (knob.releasePointerCapture) {
+      knob.releasePointerCapture(ev.pointerId);
+    }
     ev.preventDefault();
   }
 
