@@ -1,6 +1,7 @@
 // ./juegos/41-secuenciaPuerta.js
 
 const TARGET_SEQUENCE = ["18", "34", "66", "35", "78", "81", "53"];
+const TIMER_SECONDS = 15; // ⏱️ ahora 15 segundos
 
 function makeStyles() {
   return `
@@ -18,10 +19,54 @@ function makeStyles() {
   color:#eaf2ff;
   padding:18px;
   box-shadow:0 18px 46px rgba(0,0,0,.55);
+  transition: box-shadow .2s ease, transform .2s ease;
 }
+.msp-panel.alarm{
+  box-shadow:0 18px 46px rgba(0,0,0,.55), 0 0 30px rgba(239,68,68,.35);
+  animation:msp-alarmshake .5s infinite alternate;
+}
+@keyframes msp-alarmshake{
+  0%{ transform: translateX(0) }
+  100%{ transform: translateX(-2px) }
+}
+
 .msp-header{display:flex; align-items:center; justify-content:space-between; gap:12px;}
 .msp-title{font-weight:900; letter-spacing:.06em; font-size:1.05rem;}
 .msp-sub{color:#c9d7e6; opacity:.85; font-size:.9rem; margin-top:4px}
+
+.msp-timer{ display:flex; align-items:center; gap:10px; }
+.msp-timer-badge{
+  min-width:86px; text-align:center;
+  padding:8px 10px; border-radius:12px; font-weight:900; letter-spacing:.06em;
+  background:linear-gradient(180deg,#3b0a0a,#1a0606);
+  color:#fecaca; border:1px solid rgba(239,68,68,.45);
+  box-shadow:0 10px 26px rgba(120,10,10,.35);
+}
+.msp-timer-badge.low{
+  animation: msp-blink 900ms infinite;
+}
+@keyframes msp-blink{
+  0%,100%{ filter:none; opacity:1 }
+  50%{ filter:brightness(1.35); opacity:.78 }
+}
+/* Modo crítico (<=7s): más agresivo */
+.msp-timer-badge.critical{
+  background:linear-gradient(180deg,#7f1d1d,#450a0a);
+  border-color: rgba(239,68,68,.75);
+  color:#fff5f5;
+  animation:
+    msp-blink-fast 600ms infinite,
+    msp-throb 700ms infinite;
+  position:relative;
+}
+@keyframes msp-blink-fast{
+  0%,100%{ filter:none; opacity:1 }
+  50%{ filter:brightness(1.6) contrast(1.1); opacity:.7 }
+}
+@keyframes msp-throb{
+  0%,100%{ transform:scale(1) }
+  50%{ transform:scale(1.06) }
+}
 
 .msp-grid{
   display:grid; gap:12px; margin-top:14px;
@@ -29,9 +74,9 @@ function makeStyles() {
 }
 @media (max-width:540px){ .msp-grid{ grid-template-columns: repeat(3, 1fr); } }
 
-/* BOTONES REDONDOS */
+/* Botones redondos */
 .msp-btn{
-  aspect-ratio: 1 / 1; /* círculo */
+  aspect-ratio: 1 / 1;
   display:flex; align-items:center; justify-content:center;
   border:none; border-radius:9999px; cursor:pointer;
   font-weight:900; font-size:1.1rem; letter-spacing:.04em;
@@ -43,9 +88,7 @@ function makeStyles() {
 .msp-btn:focus{ outline:none; transform: translateY(-4px) }
 .msp-btn:active{ transform: translateY(1px) scale(.99) }
 
-.msp-progress{
-  margin-top:10px; font-size:.92rem; color:#a7bed8;
-}
+.msp-progress{ margin-top:10px; font-size:.92rem; color:#a7bed8; }
 .msp-progress b{ color:#e2f0ff }
 
 .msp-controls{ display:flex; gap:8px; justify-content:flex-end; margin-top:12px }
@@ -113,17 +156,28 @@ export function startMinigame(opts = {}){
   const panel = document.createElement('div');
   panel.className = 'msp-panel';
 
+  // Header con título y temporizador rojo
   const header = document.createElement('div');
   header.className = 'msp-header';
+
   const left = document.createElement('div');
-  left.innerHTML = `<div class="msp-title">Panel de Secuencia</div>
-                    <div class="msp-sub">Pulsa los números en el orden correcto.</div>`;
+  left.innerHTML = `<div class="msp-title">¡Pulsa los botones en el orden correcto antes de que el reloj se agote!</div>`;
+
+  const right = document.createElement('div');
+  right.className = 'msp-timer';
+  const timerBadge = document.createElement('div');
+  timerBadge.className = 'msp-timer-badge';
+  timerBadge.textContent = formatTime(TIMER_SECONDS);
+
   const closeBtn = document.createElement('button');
   closeBtn.className = 'msp-ghost';
   closeBtn.textContent = 'Cerrar';
-  closeBtn.onclick = () => cleanup(false); // si cierras manual sin completar
+  closeBtn.onclick = () => cleanup(false);
+
+  right.appendChild(timerBadge);
+  right.appendChild(closeBtn);
   header.appendChild(left);
-  header.appendChild(closeBtn);
+  header.appendChild(right);
 
   const grid = document.createElement('div');
   grid.className = 'msp-grid';
@@ -146,7 +200,7 @@ export function startMinigame(opts = {}){
   resetBtn.textContent = 'Reiniciar';
   const exitBtn = document.createElement('button');
   exitBtn.className = 'msp-primary';
-  exitBtn.textContent = 'Cerrar'; // al gusto: cierra siempre
+  exitBtn.textContent = 'Cerrar';
   controls.appendChild(resetBtn);
   controls.appendChild(exitBtn);
 
@@ -162,9 +216,56 @@ export function startMinigame(opts = {}){
   let idx = 0;
   let completed = false;
 
+  // ⏱️ Temporizador (15s) con modo crítico a 7s
+  let remaining = TIMER_SECONDS;
+  let timerId = null;
+
+  function startTimer(){
+    updateTimerBadge();
+    timerId = setInterval(()=>{
+      remaining--;
+      updateTimerBadge();
+      if(remaining <= 0){
+        stopTimer();
+        try{
+          alert("ERROR. DESCONEXION DEL SISTEMA. Coge las cartas: 81, 34, 35, 66 y 78. Solo podras usar estas cartas junto a la 18 y 53.");
+        }catch{}
+        cleanup(false);
+      }
+    }, 1000);
+  }
+  function stopTimer(){
+    if(timerId){ clearInterval(timerId); timerId = null; }
+    timerBadge.classList.remove('low','critical');
+    panel.classList.remove('alarm');
+  }
+  function updateTimerBadge(){
+    timerBadge.textContent = formatTime(Math.max(0, remaining));
+    // low para <=10 (por si reutilizas con más tiempo) y crítico a <=7
+    if(remaining <= 7){
+      timerBadge.classList.add('critical');
+      timerBadge.classList.remove('low');
+      panel.classList.add('alarm');
+    } else if(remaining <= 10){
+      timerBadge.classList.add('low');
+      timerBadge.classList.remove('critical');
+      panel.classList.remove('alarm');
+    } else {
+      timerBadge.classList.remove('low','critical');
+      panel.classList.remove('alarm');
+    }
+  }
+  function formatTime(s){
+    const m = Math.floor(s/60).toString().padStart(2,'0');
+    const ss = (s%60).toString().padStart(2,'0');
+    return `${m}:${ss}`;
+  }
+
+  // Render inicial
   renderButtons();
   updateProgress();
   toastHide();
+  startTimer();
 
   function renderButtons(){
     grid.innerHTML = '';
@@ -192,8 +293,7 @@ export function startMinigame(opts = {}){
         grid.style.pointerEvents = 'none';
         toastHide();
         success.style.display = 'block';
-        // NO cerrar automáticamente: esperar a que el usuario pulse "Cerrar"
-        // Si quieres notificar éxito al juego sin cerrar:
+        stopTimer(); // ✅ detener a éxito
         if (typeof onClose === 'function') onClose(true);
       }
     } else {
@@ -209,7 +309,6 @@ export function startMinigame(opts = {}){
   }
 
   function updateProgress(){
-    // Solo mostrar lo ya acertado, sin revelar el siguiente
     const count = idx;
     const total = TARGET_SEQUENCE.length;
     const done = TARGET_SEQUENCE.slice(0, idx).join(' → ') || '—';
@@ -219,12 +318,13 @@ export function startMinigame(opts = {}){
   function toastHide(){ toast.style.display = 'none'; }
 
   resetBtn.onclick = ()=>{
-    if (completed) return; // si ya has abierto la puerta, no tiene sentido reiniciar
+    if (completed) return;
     idx = 0;
     updateProgress();
     Array.from(grid.children).forEach(b=> b.removeAttribute('style'));
     toastHide();
     grid.classList.remove('shake');
+    // El temporizador no se reinicia
   };
 
   exitBtn.onclick = ()=> cleanup(completed);
@@ -235,10 +335,10 @@ export function startMinigame(opts = {}){
   document.addEventListener('keydown', onKey);
 
   function cleanup(ok){
+    stopTimer();
     document.removeEventListener('keydown', onKey);
     if(document.body.contains(root)) document.body.removeChild(root);
     if(typeof resumeGameTimer === 'function') resumeGameTimer();
-    // onClose(true) ya se lanzó al completar; si cierran sin completar, manda false.
     if(typeof onClose === 'function' && !ok) onClose(false);
   }
 
