@@ -36,7 +36,7 @@ export function startMinigame(opts = {}) {
   });
 
   const img = document.createElement("img");
-  img.src = "../assets/images/apagonColegio/habitacionApagada.png";
+  img.src = "./images/habitacionApagada.png";
   img.alt = "Habitación oscura";
   Object.assign(img.style, {
     width: "auto",
@@ -172,7 +172,7 @@ export function startMinigame(opts = {}) {
   function cambiarEscena() {
     img.style.opacity = "0";
     setTimeout(() => {
-      img.src = "../assets/images/apagonColegio/habitacionEncendida.png";
+      img.src = "./images/habitacionEncendida.png";
       img.style.opacity = "1";
       img.style.cursor = "crosshair";
       segundaEscena = true;

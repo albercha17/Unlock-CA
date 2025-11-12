@@ -240,7 +240,7 @@ export function startMinigame(opts = {}) {
     t.dataset.sym = el.sym;
 
     const img = document.createElement('img');
-    img.src = `../assets/images/apagonColegio/${el.sym}.png`;
+    img.src = `./images/${el.sym}.png`;
     img.alt = `Probeta ${el.sym}`;
     img.loading = 'lazy';
     t.appendChild(img);

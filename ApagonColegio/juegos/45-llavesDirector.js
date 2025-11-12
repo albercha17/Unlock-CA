@@ -2,7 +2,7 @@
   ./juegos/45-llavesDirector.js
   Minijuego: 20 llaves coloreadas usando un PNG de silueta (mask).
   Requisitos: coloca el PNG (silhouette, blanca/opaque sobre transparente) en:
-    ../assets/images/apagonColegio/llave.png (o ajusta KEY_PNG)
+    ./images/llave.png (o ajusta KEY_PNG)
   Exporta: startMinigame(opts)
     opts:
       - onClose(resultBoolean)
@@ -12,7 +12,7 @@
   También expone window.startMinijuegoLlaves para pruebas directas.
 */
 
-const KEY_PNG = '../assets/images/apagonColegio/llave.png'; // <-- ajusta si hace falta
+const KEY_PNG = './images/llave.png'; // <-- ajusta si hace falta
 
 function makeStyles() {
   return `

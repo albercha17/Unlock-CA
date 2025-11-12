@@ -190,7 +190,7 @@
   <div class="container layout" id="mainContainer">
     <div class="panel-card" id="introPanel">
       <header style="display:flex;align-items:center;gap:14px;margin-bottom:8px">
-        <img src="../assets/images/AEEC.png" alt="Imagen del escenario" style="width:120px;height:120px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,0.06)">
+        <img src="./images/AEEC.png" alt="Imagen del escenario" style="width:120px;height:120px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,0.06)">
         <div>
           <h1 style="margin:0;font-size:20px">Apagón en el Colegio</h1>
           <p style="margin:6px 0 0 0;color:#cfcfd3">Alberto y Cristina están atrapados; reactiva el generador antes de que sea tarde.</p>
@@ -211,7 +211,7 @@
     <div class="panel-card" id="gamePanel" style="display:none;margin-top:18px">
       <div class="game-panel-header" role="banner" aria-label="Cabecera del juego">
         <div class="game-logo-circle" aria-hidden="true">
-          <img src="../assets/images/AEEC.png" alt="Logo del escenario">
+          <img src="./images/AEEC.png" alt="Logo del escenario">
         </div>
         <div class="game-title-left">
           <h2>Apagón en el Colegio</h2>
@@ -478,13 +478,13 @@
         return;
       }
 
-      // MINIJUEGO 1 (cerradura)
-      if(c === '1'){
-        const modulePath = '../tempalteJuegos/cerradura/main.js';
+      // MINIJUEGO 10 (cables)
+      if(c === '10'){
+        const modulePath = './juegos/10-cables.js';
         const res = await tryImportModule(modulePath);
         if(!res.ok){
-          console.error("Error cargando cerradura:", res.err);
-          numMessage.textContent = "No se pudo cargar el minijuego (cerradura). Comprueba la ruta y usa Live Server.";
+          console.error("Error cargando cables:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (cables). Comprueba la ruta y usa Live Server.";
           numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
           return;
         }
@@ -493,7 +493,7 @@
           closeNumModal();
           module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
         } else {
-          numMessage.textContent = "El módulo de la cerradura no exporta startMinigame.";
+          numMessage.textContent = "El módulo de cables no exporta startMinigame.";
           numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
         }
         return;
