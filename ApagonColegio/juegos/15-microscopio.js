@@ -29,8 +29,8 @@ function buildSampleSvg(digit) {
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
 
-  // Números que deben ir viendo (4 rondas)
-  const numbers = ["1", "3", "0", "7"];
+  // Números que deben ir viendo (4 rondas)4732
+  const numbers = ["4", "7", "2", "2"];
   const totalRounds = numbers.length;
 
   if (typeof pauseGameTimer === "function") pauseGameTimer();
