@@ -204,7 +204,7 @@ export function startMinigame(opts = {}) {
       position: "absolute",
       left: `${leftPx}px`,
       top: `${topPx}px`,
-      transform: "translate(-50%, -50%) scale(0.95)`,
+      transform: "translate(-50%, -50%) scale(0.95)",
       zIndex: "20",
       background: "linear-gradient(180deg,#2fd09f,#0db07e)",
       color: "#042214",
