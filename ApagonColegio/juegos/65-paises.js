@@ -95,7 +95,6 @@ export function startMinigame(opts = {}) {
 
   // Cajita roja para depurar el área de Roma
   const debugBox = document.createElement("div");
-  debugBox.className = "mgl-debug-box";
   debugBox.style.display = "none"; // por defecto oculta
 
   viewImgWrap.appendChild(viewImg);
