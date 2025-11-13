@@ -1,5 +1,5 @@
 // juegos/globoPaises/main.js
-// Minijuego: elegir país sobre un globo terráqueo PNG.
+// Minijuego: elegir país sobre un globo terráqueo PNG + clic en Roma.
 
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
@@ -13,6 +13,15 @@ export function startMinigame(opts = {}) {
     st.textContent = makeStyles();
     document.head.appendChild(st);
   }
+
+  // Área de ROMA en porcentajes respecto a la imagen (x, y entre 0 y 1)
+  // Ajusta estos valores cuando veas la caja roja.
+  const ROME_AREA = {
+    x1: 0.40,
+    x2: 0.70,
+    y1: 0.46,
+    y2: 0.63,
+  };
 
   /* =============== OVERLAY =============== */
   const root = document.createElement("div");
@@ -84,7 +93,13 @@ export function startMinigame(opts = {}) {
   viewImg.className = "mgl-country-img";
   viewImg.alt = "Mapa del país";
 
+  // Cajita roja para depurar el área de Roma
+  const debugBox = document.createElement("div");
+  debugBox.className = "mgl-debug-box";
+  debugBox.style.display = "none"; // por defecto oculta
+
   viewImgWrap.appendChild(viewImg);
+  viewImgWrap.appendChild(debugBox);
 
   const backBtn = document.createElement("button");
   backBtn.className = "mgl-back-btn";
@@ -107,16 +122,56 @@ export function startMinigame(opts = {}) {
 
   let currentCountryKey = null;
 
+  // Recoloca la caja roja de Roma según el tamaño actual de la imagen
+  function updateRomeDebugBox() {
+    if (currentCountryKey !== "italia") {
+      debugBox.style.display = "none";
+      return;
+    }
+
+    const rect = viewImg.getBoundingClientRect();
+    const wrapRect = viewImgWrap.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
+    const x1px = rect.left + ROME_AREA.x1 * rect.width;
+    const x2px = rect.left + ROME_AREA.x2 * rect.width;
+    const y1px = rect.top + ROME_AREA.y1 * rect.height;
+    const y2px = rect.top + ROME_AREA.y2 * rect.height;
+
+    const left = x1px - wrapRect.left;
+    const top = y1px - wrapRect.top;
+    const width = x2px - x1px;
+    const height = y2px - y1px;
+
+    debugBox.style.display = "block";
+    debugBox.style.left = `${left}px`;
+    debugBox.style.top = `${top}px`;
+    debugBox.style.width = `${width}px`;
+    debugBox.style.height = `${height}px`;
+  }
+
   function mostrarPais(country) {
     currentCountryKey = country.key;
 
     viewImg.src = `./images/${country.file}`;
     viewImg.style.cursor = "default";
     viewImg.onclick = null; // limpiar cualquier handler anterior
+    debugBox.style.display = "none";
+
+    // Cuando la imagen cargue, recolocamos la caja roja si hace falta
+    const onLoad = () => {
+      if (country.key === "italia") {
+        viewImg.style.cursor = "pointer";
+        updateRomeDebugBox();
+      } else {
+        debugBox.style.display = "none";
+      }
+      viewImg.removeEventListener("load", onLoad);
+    };
+    viewImg.addEventListener("load", onLoad);
 
     // Comportamiento especial para Italia → click en Roma
     if (country.key === "italia") {
-      viewImg.style.cursor = "pointer";
       viewImg.onclick = (ev) => {
         const rect = viewImg.getBoundingClientRect();
         if (!rect.width || !rect.height) return;
@@ -124,15 +179,13 @@ export function startMinigame(opts = {}) {
         const x = (ev.clientX - rect.left) / rect.width;
         const y = (ev.clientY - rect.top) / rect.height;
 
-        // Zona aproximada de ROMA en tu imagen.
-        // Si no cuadra perfecto, ajusta estos rangos:
-        //          ↓↓↓  x entre 0 y 1  ↓↓↓        ↓↓↓ y entre 0 y 1 ↓↓↓
         const inRome =
-          x >= 0.40 && x <= 0.70 &&   // más/menos ancho
-          y >= 0.46 && y <= 0.63;     // más/menos alto
+          x >= ROME_AREA.x1 &&
+          x <= ROME_AREA.x2 &&
+          y >= ROME_AREA.y1 &&
+          y <= ROME_AREA.y2;
 
         if (inRome) {
-          // En tu apagon.html ya hay un override bonito de alert()
           alert("ACERTIJO RESUELTO!\nCoge la carta 17.");
         }
       };
@@ -141,6 +194,9 @@ export function startMinigame(opts = {}) {
     main.style.display = "none";
     view.style.display = "flex";
     view.classList.add("mgl-fade");
+
+    // Por si ya estaba cargada de antes (cache), intentamos recolocar
+    requestAnimationFrame(updateRomeDebugBox);
   }
 
   function mostrarSelector() {
@@ -150,9 +206,11 @@ export function startMinigame(opts = {}) {
     viewImg.src = "";
     viewImg.style.cursor = "default";
     viewImg.onclick = null;
+    debugBox.style.display = "none";
   }
 
   function cerrar(ok) {
+    cleanup();
     try {
       root.remove();
     } catch (e) {}
@@ -166,12 +224,10 @@ export function startMinigame(opts = {}) {
   }
   document.addEventListener("keydown", onKey);
 
-  // Limpieza si hiciera falta
   function cleanup() {
     document.removeEventListener("keydown", onKey);
   }
 
-  // Exponer cleanup opcionalmente
   return { root, cleanup };
 }
 
@@ -269,7 +325,7 @@ function makeStyles() {
   border-color:rgba(96,165,250,.9);
 }
 
-/* Vista país (ocupa el mismo hueco que main) */
+/* Vista país */
 .mgl-country-view{
   flex:1;
   display:none;
@@ -282,7 +338,6 @@ function makeStyles() {
   min-height:0;
 }
 
-/* Contenedor de la imagen para que no se salga */
 .mgl-country-image-wrap{
   flex:1;
   display:flex;
@@ -290,9 +345,9 @@ function makeStyles() {
   justify-content:center;
   max-height:100%;
   overflow:hidden;
+  position:relative; /* para posicionar la caja roja */
 }
 
-/* Imagen responsiva del país */
 .mgl-country-img{
   max-width:100%;
   max-height:100%;
@@ -319,6 +374,15 @@ function makeStyles() {
 @keyframes mgl-fade{
   from{opacity:0; transform:translateY(6px);}
   to{opacity:1;}
+}
+
+/* Cajita roja para marcar ROMA (debug) */
+.mgl-debug-box{
+  position:absolute;
+  border:2px dashed #f97373;
+  background:rgba(248,113,113,0.25);
+  pointer-events:none;
+  box-sizing:border-box;
 }
 `;
 }
