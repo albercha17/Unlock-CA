@@ -17,10 +17,10 @@ export function startMinigame(opts = {}) {
   // Área de ROMA en porcentajes respecto a la imagen (x, y entre 0 y 1)
   // Ajusta estos valores cuando veas la caja roja.
   const ROME_AREA = {
-    x1: 0.40,
-    x2: 0.70,
-    y1: 0.46,
-    y2: 0.63,
+    x1: 0.35,
+    x2: 0.60,
+    y1: 0.40,
+    y2: 0.50,
   };
 
   /* =============== OVERLAY =============== */
