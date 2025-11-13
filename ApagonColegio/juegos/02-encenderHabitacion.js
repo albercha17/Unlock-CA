@@ -1,6 +1,6 @@
 // juegos/minijuegoLinterna/main.js
 // Minijuego: pulsa sobre la linterna en la imagen para obtener la carta 5.
-// Luego la escena cambia, y al pulsar el papel se obtiene la carta 7.
+// Luego la escena cambia, y al pulsar el papel (o el cubo azul) se obtiene la carta 26.
 
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
@@ -72,11 +72,25 @@ export function startMinigame(opts = {}) {
 
   document.body.appendChild(overlay);
 
-  /* ===== Coordenadas ===== */
+  /* ===== Coordenadas (normalizadas 0..1) ===== */
+
+  // Linterna escena apagada
   const linternaArea = { x1: 0.58, y1: 0.78, x2: 0.83, y2: 0.93 };
 
-  // Ajuste: más a la izquierda y un poco más abajo respecto a la versión previa
+  // Papel escena encendida (ligero ajuste)
   const paperArea = { x1: 0.29, y1: 0.46, x2: 0.51, y2: 0.56 };
+
+  // NUEVO: cubo azul escena encendida (aprox. abajo a la izquierda, ajústalo si hace falta)
+  const bucketArea = { x1: 0.05, y1: 0.78, x2: 0.20, y2: 0.97 };
+
+  function isInside(area, x, y) {
+    return (
+      x >= area.x1 &&
+      x <= area.x2 &&
+      y >= area.y1 &&
+      y <= area.y2
+    );
+  }
 
   let linternaEncontrada = false;
   let paperEncontrado = false;
@@ -89,28 +103,20 @@ export function startMinigame(opts = {}) {
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
+    // ESCENA 1: apagada, buscar linterna
     if (!segundaEscena) {
-      if (
-        x >= linternaArea.x1 &&
-        x <= linternaArea.x2 &&
-        y >= linternaArea.y1 &&
-        y <= linternaArea.y2
-      ) {
-        if (linternaEncontrada) return;
+      if (!linternaEncontrada && isInside(linternaArea, x, y)) {
         linternaEncontrada = true;
         mostrarMensaje("🔦 Coge la carta 5", cambiarEscena);
       }
       return;
     }
 
+    // ESCENA 2: encendida, papel o cubo azul
     if (segundaEscena && !paperEncontrado) {
-      if (
-        x >= paperArea.x1 &&
-        x <= paperArea.x2 &&
-        y >= paperArea.y1 &&
-        y <= paperArea.y2
-      ) {
+      if (isInside(paperArea, x, y) || isInside(bucketArea, x, y)) {
         paperEncontrado = true;
+        // Reutilizamos el mismo flujo que con el papel
         mostrarMensaje("📄 Coge la carta 26", marcarPapel);
       }
     }
@@ -198,7 +204,7 @@ export function startMinigame(opts = {}) {
       position: "absolute",
       left: `${leftPx}px`,
       top: `${topPx}px`,
-      transform: "translate(-50%, -50%) scale(0.95)",
+      transform: "translate(-50%, -50%) scale(0.95)`,
       zIndex: "20",
       background: "linear-gradient(180deg,#2fd09f,#0db07e)",
       color: "#042214",
@@ -224,13 +230,19 @@ export function startMinigame(opts = {}) {
     setTimeout(() => {
       mark.style.opacity = "0";
       mark.style.transform = "translate(-50%, -50%) scale(0.9)";
-      setTimeout(() => { try { mark.remove(); } catch (e) {} }, 300);
+      setTimeout(() => {
+        try {
+          mark.remove();
+        } catch (e) {}
+      }, 300);
     }, 2500);
   }
 
   /* ===== Cerrar minijuego ===== */
   function cerrar() {
-    try { overlay.remove(); } catch (e) {}
+    try {
+      overlay.remove();
+    } catch (e) {}
     if (typeof resumeGameTimer === "function") resumeGameTimer();
     if (typeof onClose === "function") onClose();
   }
