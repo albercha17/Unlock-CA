@@ -457,13 +457,13 @@
         return;
       }
 
-      // MINIJUEGO 99 (microscopio)
-      if(c === '99'){
-        const modulePath = './juegos/99-microscopio.js';
+      // MINIJUEGO 15 (microscopio)
+      if(c === '15'){
+        const modulePath = './juegos/15-microscopio.js';
         const res = await tryImportModule(modulePath);
         if(!res.ok){
-          console.error("Error cargando minijuego 99:", res.err);
-          numMessage.textContent = "No se pudo cargar el minijuego (99). Comprueba que ./juegos/99-microscopio.js exista y usa Live Server.";
+          console.error("Error cargando minijuego 15:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (15). Comprueba que ./juegos/15-microscopio.js exista y usa Live Server.";
           numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
           return;
         }
@@ -472,7 +472,27 @@
           closeNumModal();
           module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
         } else {
-          numMessage.textContent = "Módulo 99 cargado, pero no exporta startMinigame.";
+          numMessage.textContent = "Módulo 15 cargado, pero no exporta startMinigame.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+        }
+        return;
+      }
+      // MINIJUEGO 61 (microscopio)
+      if(c === '61'){
+        const modulePath = './juegos/61-cerrojo.js';
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error("Error cargando minijuego 61:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (61). Comprueba que ./juegos/61-cerrojo.js exista y usa Live Server.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+        } else {
+          numMessage.textContent = "Módulo 61 cargado, pero no exporta startMinigame.";
           numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
         }
         return;

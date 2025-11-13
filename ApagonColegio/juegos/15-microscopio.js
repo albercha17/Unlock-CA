@@ -30,7 +30,7 @@ export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
 
   // Números que deben ir viendo (4 rondas)
-  const numbers = ["15", "12", "17", "12"];
+  const numbers = ["1", "3", "0", "7"];
   const totalRounds = numbers.length;
 
   if (typeof pauseGameTimer === "function") pauseGameTimer();
