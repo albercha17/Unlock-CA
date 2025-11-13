@@ -29,7 +29,7 @@ function buildSampleSvg(digit) {
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
 
-  // Números que deben ir viendo (4 rondas)4732
+  // Números que deben ir viendo (4 rondas) -> 4 7 2 2
   const numbers = ["4", "7", "2", "2"];
   const totalRounds = numbers.length;
 
@@ -97,7 +97,7 @@ export function startMinigame(opts = {}) {
   header.appendChild(title);
   header.appendChild(subtitle);
 
-  // === KNOB / ROSCA (AHORA ARRIBA) ===
+  // === KNOB / ROSCA (ARRIBA) ===
   const knobArea = document.createElement("div");
   Object.assign(knobArea.style, {
     marginTop: "14px",
@@ -151,7 +151,8 @@ export function startMinigame(opts = {}) {
     background:
       "radial-gradient(circle, rgba(30,41,59,0.85) 0%, rgba(15,23,42,1) 70%, rgba(15,23,42,1) 100%)",
     border: "1px solid rgba(71,85,105,0.45)",
-    boxShadow: "inset 0 16px 28px rgba(8,15,35,0.85), inset 0 -18px 28px rgba(148,163,184,0.12)",
+    boxShadow:
+      "inset 0 16px 28px rgba(8,15,35,0.85), inset 0 -18px 28px rgba(148,163,184,0.12)",
     pointerEvents: "none",
   });
 
@@ -206,7 +207,7 @@ export function startMinigame(opts = {}) {
   knobArea.appendChild(knobLabel);
   knobArea.appendChild(knob);
 
-  // === VISOR CIRCULAR (AHORA ABAJO) ===
+  // === VISOR CIRCULAR (ABAJO) ===
   const viewport = document.createElement("div");
   Object.assign(viewport.style, {
     width: "min(280px, 70vw)",
@@ -236,30 +237,6 @@ export function startMinigame(opts = {}) {
   });
 
   viewport.appendChild(sample);
-
-  // Badgito con el progreso (muestra los números ya enfocados)
-  const resultBadge = document.createElement("div");
-  Object.assign(resultBadge.style, {
-    position: "absolute",
-    bottom: "16px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    padding: "8px 18px",
-    borderRadius: "999px",
-    background: "rgba(21,128,61,0.12)",
-    color: "#bbf7d0",
-    fontSize: "0.9rem",
-    fontWeight: "700",
-    letterSpacing: "0.12em",
-    opacity: "0",
-    transition: "opacity 0.25s ease, transform 0.25s ease",
-    border: "1px solid rgba(34,197,94,0.45)",
-    backdropFilter: "blur(8px)",
-    pointerEvents: "none",
-    textTransform: "uppercase",
-  });
-
-  viewport.appendChild(resultBadge);
 
   // === INSTRUCCIONES Y BOTONES ===
   const instructions = document.createElement("p");
@@ -319,10 +296,10 @@ export function startMinigame(opts = {}) {
   buttonBar.appendChild(nextBtn);
   buttonBar.appendChild(exitBtn);
 
-  // Montar panel (ORDEN NUEVO)
+  // Montar panel
   panel.appendChild(header);
-  panel.appendChild(knobArea);   // arriba
-  panel.appendChild(viewport);   // abajo
+  panel.appendChild(knobArea);
+  panel.appendChild(viewport);
   panel.appendChild(instructions);
   panel.appendChild(buttonBar);
   overlay.appendChild(panel);
@@ -332,12 +309,18 @@ export function startMinigame(opts = {}) {
 
   let knobValue = 0;           // 0 .. 100
   let dragging = false;
+  let dragStartX = 0;
+  let dragStartValue = 0;
   let currentRound = 0;
   let successShown = false;
 
   const maxBlur = 30;
-  const minBlur = 1.2;
-  const revealThreshold = 0.9; // cuánto hay que girar para "enfocar"
+  const minBlur = 1.4;
+
+  // Ahora el foco está en el CENTRO de la rueda:
+  // si te vas mucho a la izquierda o derecha se vuelve a desenfocar.
+  const focusCenter = 0.5;      // valor medio
+  const focusWindow = 0.18;     // margen donde se considera "en foco"
 
   function setDefaultInstruction() {
     instructions.textContent = `Gira la rosca para enfocar la muestra (${currentRound + 1}/${totalRounds}).`;
@@ -345,19 +328,6 @@ export function startMinigame(opts = {}) {
 
   function refreshSample() {
     sample.style.backgroundImage = `url("${buildSampleSvg(numbers[currentRound])}")`;
-  }
-
-  function updateProgressBadge() {
-    const done = numbers.slice(0, currentRound + (successShown ? 1 : 0));
-    if (done.length === 0) {
-      resultBadge.style.opacity = "0";
-      resultBadge.style.transform = "translateX(-50%)";
-      resultBadge.textContent = "";
-      return;
-    }
-    resultBadge.textContent = done.join(" • ");
-    resultBadge.style.opacity = "1";
-    resultBadge.style.transform = "translateX(-50%) translateY(-6px)";
   }
 
   function updateNextButtonState() {
@@ -373,21 +343,18 @@ export function startMinigame(opts = {}) {
     updateBlur();
     refreshSample();
     setDefaultInstruction();
-    updateProgressBadge();
     updateNextButtonState();
   }
 
   function revealNumber() {
     successShown = true;
     instructions.textContent = `¡Enfoque conseguido! El número es ${numbers[currentRound]}.`;
-    updateProgressBadge();
     updateNextButtonState();
   }
 
   function hideNumber() {
     successShown = false;
     setDefaultInstruction();
-    updateProgressBadge();
     updateNextButtonState();
   }
 
@@ -397,46 +364,45 @@ export function startMinigame(opts = {}) {
 
   function updateBlur() {
     const t = knobValue / 100; // 0..1
-    const blur = maxBlur - (maxBlur - minBlur) * t;
+
+    // Distancia al punto de enfoque del centro (0 = foco perfecto, 1 = muy desenfocado)
+    const distance = Math.min(1, Math.abs(t - focusCenter) / focusCenter);
+
+    // Muy desenfocado en los extremos, nítido en el centro
+    const blur = minBlur + distance * (maxBlur - minBlur);
     sample.style.filter = `blur(${blur.toFixed(2)}px)`;
 
-    // Convertimos el valor lineal al ángulo del dial (-140º a 140º)
+    // Giramos el dial de -140º a 140º según el valor
     const angle = lerp(-140, 140, t);
     knobDial.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 
-    if (t >= revealThreshold && !successShown) {
+    const inFocus = Math.abs(t - focusCenter) <= focusWindow;
+
+    if (inFocus && !successShown) {
       revealNumber();
-    } else if (t < revealThreshold * 0.95 && successShown) {
+    } else if (!inFocus && successShown) {
+      // si te alejas demasiado del foco, deja de estar "conseguido"
       hideNumber();
     }
   }
 
-  // Usamos el eje X del dedo para controlar el enfoque
-  function updateFromPointerX(clientX) {
-    const rect = knob.getBoundingClientRect();
-    // margen lateral para que no sea ultra sensible
-    const margin = rect.width * 0.15;
-    const minX = rect.left + margin;
-    const maxX = rect.right - margin;
-
-    const clampedX = Math.max(minX, Math.min(maxX, clientX));
-    const t = (clampedX - minX) / (maxX - minX); // 0..1
-    knobValue = t * 100;
-    updateBlur();
-  }
-
+  // Movimiento relativo horizontal -> estilo "potenciómetro"
   function onPointerDown(ev) {
     dragging = true;
+    dragStartX = ev.clientX;
+    dragStartValue = knobValue;
     if (knob.setPointerCapture) {
       knob.setPointerCapture(ev.pointerId);
     }
-    updateFromPointerX(ev.clientX);
     ev.preventDefault();
   }
 
   function onPointerMove(ev) {
     if (!dragging) return;
-    updateFromPointerX(ev.clientX);
+    const deltaX = ev.clientX - dragStartX;
+    const sensitivity = 0.4; // cuanto más alto, más sensible
+    knobValue = Math.max(0, Math.min(100, dragStartValue + deltaX * sensitivity));
+    updateBlur();
     ev.preventDefault();
   }
 
