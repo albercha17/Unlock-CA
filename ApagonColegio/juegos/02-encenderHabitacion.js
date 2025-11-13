@@ -94,6 +94,7 @@ export function startMinigame(opts = {}) {
 
   let linternaEncontrada = false;
   let paperEncontrado = false;
+  let cuboEncontrado = false;
   let segundaEscena = false;
 
   img.addEventListener("click", (e) => {
@@ -114,13 +115,22 @@ export function startMinigame(opts = {}) {
 
     // ESCENA 2: encendida, papel o cubo azul
     if (segundaEscena && !paperEncontrado) {
-      if (isInside(paperArea, x, y) || isInside(bucketArea, x, y)) {
+      if (isInside(paperArea, x, y)) {
         paperEncontrado = true;
         // Reutilizamos el mismo flujo que con el papel
         mostrarMensaje("📄 Coge la carta 26", marcarPapel);
       }
     }
+    // ESCENA 2: encendida, papel o cubo azul
+    if (segundaEscena && !cuboEncontrado) {
+      if (isInside(bucketArea, x, y)) {
+        cuboEncontrado = true;
+        // Reutilizamos el mismo flujo que con el papel
+        mostrarMensaje("🟦 Coge la carta 8(", marcarPapel);
+      }
+    }
   });
+  
 
   /* ===== Mostrar mensajes ===== */
   function mostrarMensaje(texto, callback) {
