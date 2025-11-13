@@ -9,19 +9,6 @@
   <link rel="stylesheet" href="../assets/css/style.css">
 
   <style>
-    /* 👇 Añade esto dentro de <style> */
-
-html, body {
-  /* Ya tienes parte de esto, añade solo lo nuevo si lo prefieres */
-  touch-action: manipulation;            /* ayuda en navegadores modernos */
-  -ms-touch-action: manipulation;        /* por compatibilidad */
-}
-
-button {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
     :root{
       --btn-w: 200px;
       --btn-h: 64px;
@@ -32,10 +19,36 @@ button {
       --fade-ms: 150ms;
     }
 
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    html, body { height: auto !important; width: 100% !important; overflow: auto !important; margin:0; background: radial-gradient(circle at center, #0a0f24 0%, #050810 100%); color:#fff; font-family:var(--font); }
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-    .container{ max-width:1100px; margin:28px auto; padding:18px; }
+    html, body {
+      height: auto !important;
+      width: 100% !important;
+      overflow: auto !important;
+      margin:0;
+      background: radial-gradient(circle at center, #0a0f24 0%, #050810 100%);
+      color:#fff;
+      font-family:var(--font);
+      /* 👇 Añadido para evitar zoom en iOS */
+      touch-action: manipulation;
+      -ms-touch-action: manipulation;
+    }
+
+    /* Evitar zoom raro en botones / toques */
+    button {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:28px auto;
+      padding:18px;
+    }
 
     .panel-card{
       background: rgba(255,255,255,0.04);
@@ -124,10 +137,38 @@ button {
       width:100%;
       margin-bottom:8px;
     }
-    .game-logo-circle { width:64px; height:64px; border-radius:50%; overflow:hidden; flex:0 0 64px; display:inline-flex; align-items:center; justify-content:center; border:2px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow: 0 8px 28px rgba(0,0,0,0.45); }
-    .game-logo-circle img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .game-title-left h2 { margin:0; font-size:1.25rem; font-weight:800; letter-spacing:0.6px; color:#fff; }
-    .game-title-left .game-sub { margin-top:4px; font-size:0.92rem; color: rgba(255,255,255,0.75); font-weight:600; }
+    .game-logo-circle {
+      width:64px;
+      height:64px;
+      border-radius:50%;
+      overflow:hidden;
+      flex:0 0 64px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:2px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+    }
+    .game-logo-circle img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .game-title-left h2 {
+      margin:0;
+      font-size:1.25rem;
+      font-weight:800;
+      letter-spacing:0.6px;
+      color:#fff;
+    }
+    .game-title-left .game-sub {
+      margin-top:4px;
+      font-size:0.92rem;
+      color: rgba(255,255,255,0.75);
+      font-weight:600;
+    }
 
     @media(max-width:560px){
       .game-logo-circle { width:48px; height:48px; flex:0 0 48px; }
@@ -160,12 +201,45 @@ button {
       transition: transform var(--fade-ms) ease;
     }
     .num-modal.closing .num-modal-box { transform: translateY(8px); }
-    .num-display { font-size: 28px; text-align: center; padding: 8px 0; background: rgba(255,255,255,0.02); border-radius: 8px; margin-bottom: 8px; }
-    .num-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .num-key { background: linear-gradient(180deg, #162030, #0e1622); color: #fff; padding: 12px 0; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); cursor: pointer; font-size: 18px; font-weight: 700; user-select: none; }
+    .num-display {
+      font-size: 28px;
+      text-align: center;
+      padding: 8px 0;
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .num-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .num-key {
+      background: linear-gradient(180deg, #162030, #0e1622);
+      color: #fff;
+      padding: 12px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.03);
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      user-select: none;
+    }
     .num-key.action { background: linear-gradient(180deg,#2c2c2c,#111); }
-    .num-message { color: #ffb3b3; min-height: 1.2em; margin-top: 8px; }
-    .btn-open-anyway { background: #ffb86b; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; color:#111; font-weight:700; }
+    .num-message {
+      color: #ffb3b3;
+      min-height: 1.2em;
+      margin-top: 8px;
+    }
+    .btn-open-anyway {
+      background: #ffb86b;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color:#111;
+      font-weight:700;
+    }
 
     /* ===== Sistema de diálogos (sustituye alert/confirm visualmente) ===== */
     .sys-dialog {
@@ -188,14 +262,38 @@ button {
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
       text-align: left;
     }
-    .sys-dialog .box .msg { margin-bottom: 12px; line-height:1.4; }
-    .sys-dialog .box .controls { display:flex; gap:10px; justify-content:flex-end; }
-    .sys-dialog .btn { padding: 8px 14px; border-radius:8px; cursor:pointer; border: none; font-weight:700; }
-    .sys-dialog .btn.ok { background: linear-gradient(180deg,#2fd09f,#0db07e); color:#042617; }
-    .sys-dialog .btn.cancel { background: #2d2f33; color: #fff; border: 1px solid rgba(255,255,255,0.04); }
+    .sys-dialog .box .msg {
+      margin-bottom: 12px;
+      line-height:1.4;
+    }
+    .sys-dialog .box .controls {
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    .sys-dialog .btn {
+      padding: 8px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      border: none;
+      font-weight:700;
+    }
+    .sys-dialog .btn.ok {
+      background: linear-gradient(180deg,#2fd09f,#0db07e);
+      color:#042617;
+    }
+    .sys-dialog .btn.cancel {
+      background: #2d2f33;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
 
     /* pequeño ajuste responsive */
-    @media (max-width:520px){ .sys-dialog .box{ width: 92%; } }
+    @media (max-width:520px){
+      .sys-dialog .box{
+        width: 92%;
+      }
+    }
 
   </style>
 </head>
@@ -211,7 +309,10 @@ button {
       </header>
 
       <main style="margin-top:12px">
-        <p class="lead" style="color:#d0d0d6">Pulsa <strong>Empezar</strong> para iniciar el temporizador de 1 hora. Luego usa <em>Acción</em> para introducir cartas de acción o <em>Pista</em> para pedir ayuda.</p>
+        <p class="lead" style="color:#d0d0d6">
+          Pulsa <strong>Empezar</strong> para iniciar el temporizador de 1 hora.
+          Luego usa <em>Acción</em> para introducir cartas de acción o <em>Pista</em> para pedir ayuda.
+        </p>
 
         <div style="display:flex;gap:12px;margin-top:12px">
           <button class="btn btn-success" id="startBtn">Empezar</button>
@@ -305,18 +406,18 @@ button {
       </div>
     </div>
   </div>
+
   <!-- Bloquear zoom por doble tap y pellizco en Safari/iOS -->
   <script>
     (function () {
       let lastTouchEnd = 0;
 
-      // Bloquea doble-tap zoom
+      // Evita doble-tap zoom
       document.addEventListener(
         'touchend',
         function (e) {
           const now = Date.now();
           if (now - lastTouchEnd <= 300) {
-            // dos toques muy seguidos = probable doble tap -> no zoom
             e.preventDefault();
           }
           lastTouchEnd = now;
@@ -324,7 +425,7 @@ button {
         { passive: false }
       );
 
-      // Bloquea pinch-zoom (dos o más dedos)
+      // Evita pinch-zoom (dos dedos)
       document.addEventListener(
         'touchmove',
         function (e) {
@@ -335,11 +436,6 @@ button {
         { passive: false }
       );
     })();
-  </script>
-
-  <!-- Tu script actual -->
-  <script type="module">
-    // ... aquí sigue TODO tu JS tal cual lo tienes ...
   </script>
 
   <script type="module">
@@ -380,24 +476,98 @@ button {
     let entered = "";
     let pendingUse = null;
 
-    function formatTime(s){ const h=Math.floor(s/3600).toString().padStart(2,'0'); const m=Math.floor((s%3600)/60).toString().padStart(2,'0'); const sec=Math.floor(s%60).toString().padStart(2,'0'); return `${h}:${m}:${sec}`; }
-    function updateDisplay(){ gameTimerEl.textContent = formatTime(remaining); gameTimerEl.style.color = remaining <= 300 ? "#ffb3b3" : "#fff"; }
-    function tick(){ if(!isPaused){ remaining--; if(remaining<0){ clearInterval(intervalId); gameTimerEl.textContent="00:00:00 — TIEMPO"; return; } updateDisplay(); } }
+    function formatTime(s){
+      const h=Math.floor(s/3600).toString().padStart(2,'0');
+      const m=Math.floor((s%3600)/60).toString().padStart(2,'0');
+      const sec=Math.floor(s%60).toString().padStart(2,'0');
+      return `${h}:${m}:${sec}`;
+    }
+    function updateDisplay(){
+      gameTimerEl.textContent = formatTime(remaining);
+      gameTimerEl.style.color = remaining <= 300 ? "#ffb3b3" : "#fff";
+    }
+    function tick(){
+      if(!isPaused){
+        remaining--;
+        if(remaining<0){
+          clearInterval(intervalId);
+          gameTimerEl.textContent="00:00:00 — TIEMPO";
+          return;
+        }
+        updateDisplay();
+      }
+    }
 
-    startBtn.addEventListener('click', ()=>{ introPanel.style.display='none'; gamePanel.style.display='block'; remaining=DEFAULT_SECONDS; updateDisplay(); pauseBtn.style.display='inline-flex'; resumeBtn.style.display='none'; isPaused=false; if(intervalId) clearInterval(intervalId); intervalId=setInterval(tick,1000); });
+    startBtn.addEventListener('click', ()=>{
+      introPanel.style.display='none';
+      gamePanel.style.display='block';
+      remaining=DEFAULT_SECONDS;
+      updateDisplay();
+      pauseBtn.style.display='inline-flex';
+      resumeBtn.style.display='none';
+      isPaused=false;
+      if(intervalId) clearInterval(intervalId);
+      intervalId=setInterval(tick,1000);
+    });
 
-    function renderNum(){ numDisplay.textContent = entered==="" ? "—" : entered; }
-    function openNumModal(){ entered=""; numMessage.textContent=""; renderNum(); numModal.classList.remove('closing'); numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); if(location.protocol==='file:') openAnywayWrap.style.display='block'; else openAnywayWrap.style.display='none'; const first=numKeys.find(k=>!k.classList.contains('action')); if(first) first.focus(); }
-    function closeNumModalImmediate(){ numModal.style.display='none'; numModal.classList.remove('closing'); numModal.setAttribute('aria-hidden','true'); actionBtn.focus(); }
-    function closeNumModal(){ numModal.classList.add('closing'); numModal.setAttribute('aria-hidden','true'); setTimeout(()=> { closeNumModalImmediate(); }, 150); }
-    function cancelNumModal(){ pendingUse = null; closeNumModal(); }
+    function renderNum(){
+      numDisplay.textContent = entered==="" ? "—" : entered;
+    }
+    function openNumModal(){
+      entered="";
+      numMessage.textContent="";
+      renderNum();
+      numModal.classList.remove('closing');
+      numModal.style.display='flex';
+      numModal.setAttribute('aria-hidden','false');
+      if(location.protocol==='file:') openAnywayWrap.style.display='block';
+      else openAnywayWrap.style.display='none';
+      const first=numKeys.find(k=>!k.classList.contains('action'));
+      if(first) first.focus();
+    }
+    function closeNumModalImmediate(){
+      numModal.style.display='none';
+      numModal.classList.remove('closing');
+      numModal.setAttribute('aria-hidden','true');
+      actionBtn.focus();
+    }
+    function closeNumModal(){
+      numModal.classList.add('closing');
+      numModal.setAttribute('aria-hidden','true');
+      setTimeout(()=> {
+        closeNumModalImmediate();
+      }, 150);
+    }
+    function cancelNumModal(){
+      pendingUse = null;
+      closeNumModal();
+    }
 
-    numKeys.forEach(k=>{ k.addEventListener('click', ()=>{ const key=k.dataset.key; if(!key) return; if(entered.length>=4) return; entered+=key; renderNum(); }); });
-    numClear.addEventListener('click', ()=>{ entered = entered.slice(0,-1); renderNum(); });
-    numCancel.addEventListener('click', ()=> { cancelNumModal(); });
+    numKeys.forEach(k=>{
+      k.addEventListener('click', ()=>{
+        const key=k.dataset.key;
+        if(!key) return;
+        if(entered.length>=4) return;
+        entered+=key;
+        renderNum();
+      });
+    });
+    numClear.addEventListener('click', ()=>{
+      entered = entered.slice(0,-1);
+      renderNum();
+    });
+    numCancel.addEventListener('click', ()=> {
+      cancelNumModal();
+    });
 
-    actionBtn.addEventListener('click', ()=>{ pendingUse='accion'; openNumModal(); });
-    hintBtn.addEventListener('click', ()=>{ pendingUse='pista'; openNumModal(); });
+    actionBtn.addEventListener('click', ()=>{
+      pendingUse='accion';
+      openNumModal();
+    });
+    hintBtn.addEventListener('click', ()=>{
+      pendingUse='pista';
+      openNumModal();
+    });
 
     function showSysDialog(message, {showCancel=false, okText='Aceptar', cancelText='Cancelar'} = {}) {
       return new Promise((resolve)=> {
@@ -408,19 +578,43 @@ button {
         sysDialog.style.display = 'flex';
         sysDialog.setAttribute('aria-hidden','false');
         sysOkBtn.focus();
-        function cleanup(){ sysDialog.style.display = 'none'; sysDialog.setAttribute('aria-hidden','true'); sysOkBtn.removeEventListener('click', onOk); sysCancelBtn.removeEventListener('click', onCancel); }
-        function onOk(){ cleanup(); resolve({ok:true}); }
-        function onCancel(){ cleanup(); resolve({ok:false}); }
+        function cleanup(){
+          sysDialog.style.display = 'none';
+          sysDialog.setAttribute('aria-hidden','true');
+          sysOkBtn.removeEventListener('click', onOk);
+          sysCancelBtn.removeEventListener('click', onCancel);
+        }
+        function onOk(){
+          cleanup();
+          resolve({ok:true});
+        }
+        function onCancel(){
+          cleanup();
+          resolve({ok:false});
+        }
         sysOkBtn.addEventListener('click', onOk);
         sysCancelBtn.addEventListener('click', onCancel);
       });
     }
-    function showAlert(message){ showSysDialog(message, { showCancel:false, okText:'Aceptar' }); }
-    function showConfirm(message){ return showSysDialog(message, { showCancel:true, okText:'Sí', cancelText:'No' }).then(r=> !!r.ok); }
-    window.alert = function(msg){ try{ showAlert(String(msg)); }catch(e){ console.log(msg); } };
+    function showAlert(message){
+      showSysDialog(message, { showCancel:false, okText:'Aceptar' });
+    }
+    function showConfirm(message){
+      return showSysDialog(message, { showCancel:true, okText:'Sí', cancelText:'No' }).then(r=> !!r.ok);
+    }
+    window.alert = function(msg){
+      try{
+        showAlert(String(msg));
+      }catch(e){
+        console.log(msg);
+      }
+    };
 
-    numOk.addEventListener('click', async ()=> {
-      if(!entered || entered.trim()==="") { numMessage.textContent = "Introduce un número."; return; }
+    numOk.addEventListener('click', async ()=>{
+      if(!entered || entered.trim()==="") {
+        numMessage.textContent = "Introduce un número.";
+        return;
+      }
       const card = entered.trim();
 
       if (pendingUse === 'pista') {
@@ -435,14 +629,16 @@ button {
           }
 
           if (module && typeof module.openPistas === 'function') {
-            // cerramos modal y abrimos pistas
             closeNumModal();
             module.openPistas(card, {
               onChoose: async (n, t) => {
                 pendingUse = null;
                 await showSysDialog(`Has elegido la pista ${n}:\n\n${t}`, { showCancel:false, okText:'Cerrar' });
               },
-              onClose: () => { pendingUse = null; hintBtn.focus(); }
+              onClose: () => {
+                pendingUse = null;
+                hintBtn.focus();
+              }
             });
           } else {
             numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
@@ -460,7 +656,11 @@ button {
         return;
       }
 
-      if(pendingUse === 'accion'){ await checkAndOpen(card); pendingUse = null; return; }
+      if(pendingUse === 'accion'){
+        await checkAndOpen(card);
+        pendingUse = null;
+        return;
+      }
       await checkAndOpen(card);
       pendingUse = null;
     });
@@ -478,11 +678,19 @@ button {
     }
 
     async function checkAndOpen(code){
-      // NOTE: ahora NO cerramos el modal inmediatamente.
-      // Solo lo cerraremos si realmente lanzamos algo.
       numMessage.textContent = "";
-      if(code.trim()===""){ numMessage.textContent = "Introduce un número."; numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); return; }
-      if(!/^\d+$/.test(code)){ numMessage.textContent = "Solo se permiten dígitos."; numModal.style.display='flex'; numModal.setAttribute('aria-hidden','false'); return; }
+      if(code.trim()===""){
+        numMessage.textContent = "Introduce un número.";
+        numModal.style.display='flex';
+        numModal.setAttribute('aria-hidden','false');
+        return;
+      }
+      if(!/^\d+$/.test(code)){
+        numMessage.textContent = "Solo se permiten dígitos.";
+        numModal.style.display='flex';
+        numModal.setAttribute('aria-hidden','false');
+        return;
+      }
       const c = code.trim();
 
       // MINIJUEGO 33 (ordenar probetas)
@@ -492,16 +700,22 @@ button {
         if(!res.ok){
           console.error("Error cargando minijuego 33:", res.err);
           numMessage.textContent = "No se pudo cargar el minijuego (33). Comprueba que el archivo exista y usa Live Server.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
           return;
         }
         const module = res.module;
         if(typeof module.startMinigame === 'function'){
           closeNumModal();
-          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
         } else {
           numMessage.textContent = "Módulo 33 cargado, pero no exporta startMinigame.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
@@ -512,57 +726,77 @@ button {
         const res = await tryImportModule(modulePath);
         if(!res.ok){
           console.error("Error cargando minijuego 15:", res.err);
-          numMessage.textContent = "No se pudo cargar el minijuego (15). Comprueba que ./juegos/15-microscopio.js exista y usa Live Server.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numMessage.textContent = "No se pudo cargar el minijuego (15). Comprueba que ./juegos/15-microscopio.js exista y uses Live Server.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
           return;
         }
         const module = res.module;
         if(typeof module.startMinigame === 'function'){
           closeNumModal();
-          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
         } else {
           numMessage.textContent = "Módulo 15 cargado, pero no exporta startMinigame.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
-      // MINIJUEGO 61 (microscopio)
+
+      // MINIJUEGO 61 (cerrojo)
       if(c === '61'){
         const modulePath = './juegos/61-cerrojo.js';
         const res = await tryImportModule(modulePath);
         if(!res.ok){
           console.error("Error cargando minijuego 61:", res.err);
-          numMessage.textContent = "No se pudo cargar el minijuego (61). Comprueba que ./juegos/61-cerrojo.js exista y usa Live Server.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numMessage.textContent = "No se pudo cargar el minijuego (61). Comprueba que ./juegos/61-cerrojo.js exista y uses Live Server.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
           return;
         }
         const module = res.module;
         if(typeof module.startMinigame === 'function'){
           closeNumModal();
-          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
         } else {
           numMessage.textContent = "Módulo 61 cargado, pero no exporta startMinigame.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
-      // MINIJUEGO 65 (paises)
+
+      // MINIJUEGO 65 (países)
       if(c === '65'){
         const modulePath = './juegos/65-paises.js';
         const res = await tryImportModule(modulePath);
         if(!res.ok){
           console.error("Error cargando minijuego 65:", res.err);
-          numMessage.textContent = "No se pudo cargar el minijuego (65). Comprueba que ./juegos/65-paises.js exista y usa Live Server.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numMessage.textContent = "No se pudo cargar el minijuego (65). Comprueba que ./juegos/65-paises.js exista y uses Live Server.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
           return;
         }
         const module = res.module;
         if(typeof module.startMinigame === 'function'){
           closeNumModal();
-          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
         } else {
           numMessage.textContent = "Módulo 65 cargado, pero no exporta startMinigame.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
@@ -574,37 +808,49 @@ button {
         if(!res.ok){
           console.error("Error cargando cables:", res.err);
           numMessage.textContent = "No se pudo cargar el minijuego (cables). Comprueba la ruta y usa Live Server.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
           return;
         }
         const module = res.module;
         if(typeof module.startMinigame === 'function'){
           closeNumModal();
-          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
         } else {
           numMessage.textContent = "El módulo de cables no exporta startMinigame.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
 
       // MINIJUEGO 45 (llaves director)
       if(c === '45'){
-        const modulePath = './juegos/45-llavesDirector.js'; // ruta del minijuego de llaves
+        const modulePath = './juegos/45-llavesDirector.js';
         const res = await tryImportModule(modulePath);
         if(!res.ok){
           console.error("Error cargando minijuego 45:", res.err);
-          numMessage.textContent = "No se pudo cargar el minijuego (45). Comprueba que ./juegos/45-llavesDirector.js exista y usa Live Server.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numMessage.textContent = "No se pudo cargar el minijuego (45). Comprueba que ./juegos/45-llavesDirector.js exista y uses Live Server.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
           return;
         }
         const module = res.module;
         if(typeof module.startMinigame === 'function'){
           closeNumModal();
-          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
         } else {
           numMessage.textContent = "Módulo 45 cargado, pero no exporta startMinigame.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
@@ -616,16 +862,22 @@ button {
         if(!res.ok){
           console.error("Error cargando minijuego 02:", res.err);
           numMessage.textContent = "No se pudo cargar el minijuego (02). Comprueba la ruta y usa Live Server.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
           return;
         }
         const module = res.module;
         if(typeof module.startMinigame === 'function'){
           closeNumModal();
-          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
         } else {
           numMessage.textContent = "Módulo 02 cargado, pero no exporta startMinigame.";
-          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
         }
         return;
       }
@@ -635,24 +887,44 @@ button {
       const path2 = `juego.html?card=${encodeURIComponent(c)}`;
 
       if(location.protocol === 'file:'){
-        // Si estamos en file: mostramos la opción de abrir de todos modos (y mantenemos modal visible)
         numMessage.textContent = "No se puede comprobar en local. Usa Live Server o pulsa 'Abrir de todos modos'.";
         openAnywayWrap.style.display = 'block';
-        openAnywayBtn.onclick = () => { closeNumModal(); window.location.href = path2; };
-        numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+        openAnywayBtn.onclick = () => {
+          closeNumModal();
+          window.location.href = path2;
+        };
+        numModal.style.display = 'flex';
+        numModal.setAttribute('aria-hidden','false');
         return;
       }
 
       try {
         let r1ok = false;
-        try { const r1 = await fetch(path1, { method:'HEAD' }); r1ok = r1.ok; } catch(e){ r1ok = false; }
-        if(r1ok){ closeNumModal(); window.location.href = path1; return; }
+        try {
+          const r1 = await fetch(path1, { method:'HEAD' });
+          r1ok = r1.ok;
+        } catch(e){
+          r1ok = false;
+        }
+        if(r1ok){
+          closeNumModal();
+          window.location.href = path1;
+          return;
+        }
 
         let r2ok = false;
-        try { const r2 = await fetch(path2, { method:'GET' }); r2ok = r2.ok; } catch(e){ r2ok = false; }
-        if(r2ok){ closeNumModal(); window.location.href = path2; return; }
+        try {
+          const r2 = await fetch(path2, { method:'GET' });
+          r2ok = r2.ok;
+        } catch(e){
+          r2ok = false;
+        }
+        if(r2ok){
+          closeNumModal();
+          window.location.href = path2;
+          return;
+        }
 
-        // Si no hay minijuego ni página, avisamos y dejamos modal abierto
         numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
         numModal.style.display = 'flex';
         numModal.setAttribute('aria-hidden','false');
@@ -665,23 +937,53 @@ button {
 
     document.addEventListener('keydown', (e)=>{
       if(numModal.style.display === 'flex'){
-        if(e.key === 'Escape'){ cancelNumModal(); e.preventDefault(); return; }
-        if(e.key === 'Enter'){ document.getElementById('numOk').click(); e.preventDefault(); return; }
-        if(e.key === 'Backspace'){ entered = entered.slice(0,-1); renderNum(); e.preventDefault(); return; }
-        if(/^[0-9]$/.test(e.key) && entered.length < 4){ entered += e.key; renderNum(); e.preventDefault(); }
+        if(e.key === 'Escape'){
+          cancelNumModal();
+          e.preventDefault();
+          return;
+        }
+        if(e.key === 'Enter'){
+          document.getElementById('numOk').click();
+          e.preventDefault();
+          return;
+        }
+        if(e.key === 'Backspace'){
+          entered = entered.slice(0,-1);
+          renderNum();
+          e.preventDefault();
+          return;
+        }
+        if(/^[0-9]$/.test(e.key) && entered.length < 4){
+          entered += e.key;
+          renderNum();
+          e.preventDefault();
+        }
       }
     });
 
-    pauseBtn.addEventListener('click', ()=> { isPaused = true; pauseBtn.style.display='none'; resumeBtn.style.display='inline-flex'; });
-    resumeBtn.addEventListener('click', ()=> { isPaused = false; pauseBtn.style.display='inline-flex'; resumeBtn.style.display='none'; });
-
-    // 'Salir' ahora usa el diálogo estilizado
-    stopBtn.addEventListener('click', async ()=> {
-      const ok = await showConfirm("¿Seguro que quieres salir? Perderás el progreso actual.");
-      if(ok){ if(intervalId) clearInterval(intervalId); window.location.href = '../index.html'; }
+    pauseBtn.addEventListener('click', ()=>{
+      isPaused = true;
+      pauseBtn.style.display='none';
+      resumeBtn.style.display='inline-flex';
+    });
+    resumeBtn.addEventListener('click', ()=>{
+      isPaused = false;
+      pauseBtn.style.display='inline-flex';
+      resumeBtn.style.display='none';
     });
 
-    function volver(){ window.location.href = '../index.html'; }
+    // 'Salir' ahora usa el diálogo estilizado
+    stopBtn.addEventListener('click', async ()=>{
+      const ok = await showConfirm("¿Seguro que quieres salir? Perderás el progreso actual.");
+      if(ok){
+        if(intervalId) clearInterval(intervalId);
+        window.location.href = '../index.html';
+      }
+    });
+
+    function volver(){
+      window.location.href = '../index.html';
+    }
 
     // small accessibility: close sysDialog on ESC
     document.addEventListener('keydown', (e)=> {
