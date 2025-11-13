@@ -126,7 +126,7 @@ export function startMinigame(opts = {}) {
       if (isInside(bucketArea, x, y)) {
         cuboEncontrado = true;
         // Reutilizamos el mismo flujo que con el papel
-        mostrarMensaje("🟦 Coge la carta 8(", marcarPapel);
+        mostrarMensaje("🟦 Coge la carta 8", marcarPapel);
       }
     }
   });
