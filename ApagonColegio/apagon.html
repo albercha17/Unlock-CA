@@ -9,6 +9,19 @@
   <link rel="stylesheet" href="../assets/css/style.css">
 
   <style>
+    /* 👇 Añade esto dentro de <style> */
+
+html, body {
+  /* Ya tienes parte de esto, añade solo lo nuevo si lo prefieres */
+  touch-action: manipulation;            /* ayuda en navegadores modernos */
+  -ms-touch-action: manipulation;        /* por compatibilidad */
+}
+
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
     :root{
       --btn-w: 200px;
       --btn-h: 64px;
@@ -292,6 +305,42 @@
       </div>
     </div>
   </div>
+  <!-- Bloquear zoom por doble tap y pellizco en Safari/iOS -->
+  <script>
+    (function () {
+      let lastTouchEnd = 0;
+
+      // Bloquea doble-tap zoom
+      document.addEventListener(
+        'touchend',
+        function (e) {
+          const now = Date.now();
+          if (now - lastTouchEnd <= 300) {
+            // dos toques muy seguidos = probable doble tap -> no zoom
+            e.preventDefault();
+          }
+          lastTouchEnd = now;
+        },
+        { passive: false }
+      );
+
+      // Bloquea pinch-zoom (dos o más dedos)
+      document.addEventListener(
+        'touchmove',
+        function (e) {
+          if (e.touches && e.touches.length > 1) {
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+    })();
+  </script>
+
+  <!-- Tu script actual -->
+  <script type="module">
+    // ... aquí sigue TODO tu JS tal cual lo tienes ...
+  </script>
 
   <script type="module">
     /* Lógica principal corregida: no cerrar modal hasta confirmar que la acción existe.
