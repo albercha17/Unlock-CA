@@ -1,6 +1,5 @@
 // juegos/globoPaises/main.js
 // Minijuego: elegir país sobre un globo terráqueo PNG.
-// Alberto Approved™: estética Unlock, animaciones suaves, compatible iPhone.
 
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
@@ -33,7 +32,7 @@ export function startMinigame(opts = {}) {
   `;
   header.querySelector(".mgl-close").onclick = () => cerrar(false);
 
-  /* =============== MAIN ZONE =============== */
+  /* =============== MAIN ZONE (GLOBO + LISTA) =============== */
   const main = document.createElement("div");
   main.className = "mgl-main";
 
@@ -56,12 +55,12 @@ export function startMinigame(opts = {}) {
   countryGrid.className = "mgl-country-grid";
 
   const countries = [
-    { name: "EEUU", file: "eeuu.png" },
-    { name: "España", file: "espana.png" },
-    { name: "Italia", file: "italia.png" },
-    { name: "Inglaterra", file: "inglaterra.png" },
-    { name: "Francia", file: "francia.png" },
-    { name: "Alemania", file: "alemania.png" },
+    { name: "EEUU", key: "eeuu", file: "eeuu.png" },
+    { name: "España", key: "espana", file: "espana.png" },
+    { name: "Italia", key: "italia", file: "italia.png" },
+    { name: "Inglaterra", key: "inglaterra", file: "inglaterra.png" },
+    { name: "Francia", key: "francia", file: "francia.png" },
+    { name: "Alemania", key: "alemania", file: "alemania.png" },
   ];
 
   countries.forEach((c) => {
@@ -82,8 +81,8 @@ export function startMinigame(opts = {}) {
   viewImgWrap.className = "mgl-country-image-wrap";
 
   const viewImg = document.createElement("img");
-  viewImg.style.width = "100%";
-  viewImg.style.borderRadius = "12px";
+  viewImg.className = "mgl-country-img";
+  viewImg.alt = "Mapa del país";
 
   viewImgWrap.appendChild(viewImg);
 
@@ -104,10 +103,41 @@ export function startMinigame(opts = {}) {
   root.appendChild(panel);
   document.body.appendChild(root);
 
-  /* =============== FUNCIONES DE LÓGICA =============== */
+  /* =============== LÓGICA =============== */
+
+  let currentCountryKey = null;
 
   function mostrarPais(country) {
+    currentCountryKey = country.key;
+
     viewImg.src = `./images/${country.file}`;
+    viewImg.style.cursor = "default";
+    viewImg.onclick = null; // limpiar cualquier handler anterior
+
+    // Comportamiento especial para Italia → click en Roma
+    if (country.key === "italia") {
+      viewImg.style.cursor = "pointer";
+      viewImg.onclick = (ev) => {
+        const rect = viewImg.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        const x = (ev.clientX - rect.left) / rect.width;
+        const y = (ev.clientY - rect.top) / rect.height;
+
+        // Zona aproximada de ROMA en tu imagen.
+        // Si no cuadra perfecto, ajusta estos rangos:
+        //          ↓↓↓  x entre 0 y 1  ↓↓↓        ↓↓↓ y entre 0 y 1 ↓↓↓
+        const inRome =
+          x >= 0.40 && x <= 0.70 &&   // más/menos ancho
+          y >= 0.46 && y <= 0.63;     // más/menos alto
+
+        if (inRome) {
+          // En tu apagon.html ya hay un override bonito de alert()
+          alert("ACERTIJO RESUELTO!\nCoge la carta 17.");
+        }
+      };
+    }
+
     main.style.display = "none";
     view.style.display = "flex";
     view.classList.add("mgl-fade");
@@ -116,6 +146,10 @@ export function startMinigame(opts = {}) {
   function mostrarSelector() {
     view.style.display = "none";
     main.style.display = "grid";
+    currentCountryKey = null;
+    viewImg.src = "";
+    viewImg.style.cursor = "default";
+    viewImg.onclick = null;
   }
 
   function cerrar(ok) {
@@ -127,9 +161,18 @@ export function startMinigame(opts = {}) {
     if (typeof onClose === "function") onClose(ok === true);
   }
 
-  document.addEventListener("keydown", (e) => {
+  function onKey(e) {
     if (e.key === "Escape") cerrar(false);
-  });
+  }
+  document.addEventListener("keydown", onKey);
+
+  // Limpieza si hiciera falta
+  function cleanup() {
+    document.removeEventListener("keydown", onKey);
+  }
+
+  // Exponer cleanup opcionalmente
+  return { root, cleanup };
 }
 
 /* =============== ESTILOS =============== */
@@ -144,14 +187,17 @@ function makeStyles() {
 .mgl-panel{
   width:min(820px,96vw);
   min-height:min(520px,92vh);
+  max-height:96vh;
   background:#020617;
   border-radius:20px;
   border:1px solid rgba(148,163,184,0.45);
   box-shadow:0 22px 52px rgba(15,23,42,0.9);
   color:#e5edff;
   padding:18px;
-  display:flex; flex-direction:column;
+  display:flex;
+  flex-direction:column;
   position:relative;
+  box-sizing:border-box;
 }
 
 .mgl-header{
@@ -167,11 +213,13 @@ function makeStyles() {
   background:#1e293b; color:#fff;
 }
 
+/* Zona principal: globo + lista */
 .mgl-main{
   flex:1;
   display:grid;
   grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
   gap:18px;
+  min-height:0;
 }
 @media (max-width:720px){
   .mgl-main{ grid-template-columns:1fr; }
@@ -182,19 +230,22 @@ function makeStyles() {
   display:flex;
   align-items:center;
   justify-content:center;
+  min-height:0;
 }
 .mgl-globe-img{
   width:100%;
   max-width:360px;
   height:auto;
   border-radius:999px;
-  object-fit:cover;
+  object-fit:contain;
   box-shadow:0 18px 38px rgba(0,0,0,0.55);
   border:2px solid rgba(255,255,255,0.05);
 }
 
+/* Lista de países */
 .mgl-side{
   display:flex; flex-direction:column; gap:10px;
+  min-height:0;
 }
 
 .mgl-country-grid{
@@ -218,8 +269,9 @@ function makeStyles() {
   border-color:rgba(96,165,250,.9);
 }
 
-/* VISTA PAÍS */
+/* Vista país (ocupa el mismo hueco que main) */
 .mgl-country-view{
+  flex:1;
   display:none;
   flex-direction:column;
   background:#0b1120;
@@ -227,7 +279,31 @@ function makeStyles() {
   padding:14px;
   gap:10px;
   box-shadow:0 14px 28px rgba(0,0,0,.45);
+  min-height:0;
 }
+
+/* Contenedor de la imagen para que no se salga */
+.mgl-country-image-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  max-height:100%;
+  overflow:hidden;
+}
+
+/* Imagen responsiva del país */
+.mgl-country-img{
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:12px;
+  box-shadow:0 18px 36px rgba(0,0,0,0.65);
+  border:1px solid rgba(15,23,42,0.9);
+}
+
 .mgl-back-btn{
   padding:6px 12px;
   border-radius:10px;
@@ -235,7 +311,9 @@ function makeStyles() {
   background:#1e293b;
   color:#fff;
   cursor:pointer;
+  align-self:flex-start;
 }
+
 .mgl-fade{ animation:mgl-fade .25s ease-out; }
 
 @keyframes mgl-fade{
