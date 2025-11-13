@@ -229,7 +229,7 @@ export function startMinigame(opts = {}) {
       pointerEvents: "none",
       whiteSpace: "nowrap",
     });
-    mark.textContent = "Carta 26 ✓";
+    mark.textContent = "Carta encontrada ✓";
     imgContainer.appendChild(mark);
 
     requestAnimationFrame(() => {
