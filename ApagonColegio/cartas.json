@@ -1,0 +1,24 @@
+{
+  "2": {
+    "titulo": "Carta 2 — Tutoria apagada",
+    "tipo": "juego app",
+    "descripcion": [
+      "La carta es un juego de la app en el que se ve una imagen muy oscura.",
+      "En la imagen podemos ver una linterna. Al darle nos dira que cojamos la carta 5(la linterna).",
+      "Se actualizara la imagen y veremos la habitacion con más luz. Podremos ver en la pizarra un numero romano que luego usaremos.",
+      "Ademas, podremos tocar 2 objetos: una hoja encima de la mesa (carta 26) y un cubo azul (carta 8)."],
+    "pistas": [
+      "Encuentra algo para ilumnar.",
+      "No ves algo interesante? Algo que destaque ademas de lo escrito en la pizarra o algo por el suelo...",
+      "Hay una hoja en la mesa. Hay un numero romano en la pizarra, apuntalo para más tarde. Ademas en el suelo se encuentra un cubo azul."
+    ]
+  },
+  "33": {
+    "titulo": "Carta 33 — Ordenar probetas",
+    "pistas": [
+      "Las letras O, N, S y C no están ahí por azar.",
+      "Piensa en la tabla periódica: ordena por número atómico de los elementos que empiezan por esas letras (Oxygen, Nitrogen, Sulfur, Carbon).",
+      "El orden correcto es C (6), N (7), O (8), S (16). Usa ese orden para resolver el minijuego."
+    ]
+  }
+}

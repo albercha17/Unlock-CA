@@ -1,9 +1,9 @@
-// ./pistas/pistas.js
+// ./pistas/cartas.js
 // Interfaz: openPistas(card, { onClose() })
-// Lee ./pistas/pistas.json y muestra UNA pista a la vez con botones Anterior / Siguiente.
+// Lee ./pistas/cartas.json y muestra UNA pista a la vez con botones Anterior / Siguiente.
 // IMPORTANTE: No dispara onChoose ni abre diálogos externos.
 
-const PISTAS_JSON_URL = './pistas.json';
+const PISTAS_JSON_URL = './cartas.json';
 
 function css() {
   return `
