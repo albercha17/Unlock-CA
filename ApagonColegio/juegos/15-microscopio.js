@@ -29,9 +29,13 @@ function buildSampleSvg(digit) {
 export function startMinigame(opts = {}) {
   const { onClose, pauseGameTimer, resumeGameTimer } = opts;
 
-  // Números que deben ir viendo (4 rondas) -> 4 7 2 2
-  const numbers = ["4", "7", "2", "2"];
+  // Números que deben ir viendo (4 rondas) -> 4 7 3 2
+  const numbers = ["4", "7", "3", "2"];
   const totalRounds = numbers.length;
+
+  // Para que cada número tenga "otra combinación" de clics izquierda/derecha
+  // valores de enfoque objetivo (clics desde 0): negativos = izquierda, positivos = derecha
+  const focusTargets = [-3, 4, -1, 2];
 
   if (typeof pauseGameTimer === "function") pauseGameTimer();
 
@@ -87,7 +91,7 @@ export function startMinigame(opts = {}) {
   });
 
   const subtitle = document.createElement("p");
-  subtitle.textContent = "Gira la rosca para enfocar la muestra";
+  subtitle.textContent = "Usa las flechas para enfocar la muestra";
   Object.assign(subtitle.style, {
     margin: "4px 0 0 0",
     fontSize: "0.95rem",
@@ -97,121 +101,50 @@ export function startMinigame(opts = {}) {
   header.appendChild(title);
   header.appendChild(subtitle);
 
-  // === KNOB / ROSCA (ARRIBA) ===
-  const knobArea = document.createElement("div");
-  Object.assign(knobArea.style, {
-    marginTop: "14px",
+  // === ZONA CENTRAL: BOTÓN IZQUIERDA + CÍRCULO + BOTÓN DERECHA ===
+  const centerRow = document.createElement("div");
+  Object.assign(centerRow.style, {
+    marginTop: "18px",
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
-    gap: "12px",
+    justifyContent: "center",
+    gap: "14px",
   });
 
-  const knobLabel = document.createElement("span");
-  knobLabel.textContent = "Enfoque";
-  Object.assign(knobLabel.style, {
-    fontSize: "0.8rem",
-    letterSpacing: "0.16em",
-    textTransform: "uppercase",
-    color: "rgba(226,232,240,0.7)",
-  });
-
-  const knob = document.createElement("div");
-  Object.assign(knob.style, {
-    width: "164px",
-    height: "164px",
-    borderRadius: "50%",
-    background:
-      "radial-gradient(circle at 32% 30%, rgba(51,65,85,0.9), rgba(15,23,42,1) 60%, rgba(2,6,23,1) 100%)",
-    border: "4px solid rgba(30,41,59,0.55)",
-    boxShadow:
-      "0 28px 48px rgba(2,6,23,0.65), inset 0 22px 38px rgba(2,6,23,0.5)",
-    position: "relative",
-    touchAction: "none",
-    overflow: "hidden",
-  });
-
-  const knobRidges = document.createElement("div");
-  Object.assign(knobRidges.style, {
-    position: "absolute",
-    inset: "0",
-    borderRadius: "50%",
-    background:
-      "repeating-conic-gradient(from 90deg, rgba(148,163,184,0.16) 0deg, rgba(148,163,184,0.16) 6deg, rgba(15,23,42,0.92) 6deg, rgba(15,23,42,0.92) 12deg)",
-    mixBlendMode: "screen",
-    opacity: "0.55",
-    pointerEvents: "none",
-  });
-
-  const knobRim = document.createElement("div");
-  Object.assign(knobRim.style, {
-    position: "absolute",
-    inset: "10px",
-    borderRadius: "50%",
-    background:
-      "radial-gradient(circle, rgba(30,41,59,0.85) 0%, rgba(15,23,42,1) 70%, rgba(15,23,42,1) 100%)",
-    border: "1px solid rgba(71,85,105,0.45)",
-    boxShadow:
-      "inset 0 16px 28px rgba(8,15,35,0.85), inset 0 -18px 28px rgba(148,163,184,0.12)",
-    pointerEvents: "none",
-  });
-
-  const knobCore = document.createElement("div");
-  Object.assign(knobCore.style, {
-    position: "absolute",
-    inset: "36px",
-    borderRadius: "50%",
-    background:
-      "radial-gradient(circle at 40% 35%, rgba(148,163,184,0.15), rgba(15,23,42,0.95) 68%, rgba(2,6,23,1) 100%)",
-    border: "1px solid rgba(100,116,139,0.35)",
-    boxShadow: "inset 0 10px 22px rgba(5,13,32,0.92)",
-    pointerEvents: "none",
-  });
-
-  const knobDial = document.createElement("div");
-  Object.assign(knobDial.style, {
-    position: "absolute",
-    width: "14px",
-    height: "72px",
-    background: "linear-gradient(180deg, #f8fafc, #94a3b8 55%, #1f2937)",
-    top: "-6px",
-    left: "50%",
-    transformOrigin: "50% 86px",
+  const btnLeft = document.createElement("button");
+  btnLeft.textContent = "⟲";
+  Object.assign(btnLeft.style, {
+    width: "52px",
+    height: "52px",
     borderRadius: "999px",
-    transform: "translateX(-50%) rotate(-140deg)",
-    boxShadow: "0 10px 20px rgba(15,23,42,0.45)",
-    pointerEvents: "none",
+    border: "1px solid rgba(148,163,184,0.6)",
+    background: "radial-gradient(circle at 30% 30%, #1f2937, #020617)",
+    color: "#e5edff",
+    fontWeight: "800",
+    fontSize: "1.4rem",
+    cursor: "pointer",
+    boxShadow: "0 10px 26px rgba(0,0,0,0.5)",
   });
 
-  const knobIndicator = document.createElement("div");
-  Object.assign(knobIndicator.style, {
-    position: "absolute",
-    top: "14px",
-    left: "50%",
-    width: "24px",
-    height: "24px",
-    transform: "translateX(-50%)",
-    borderRadius: "50%",
-    background:
-      "radial-gradient(circle, rgba(248,250,252,0.95) 0%, rgba(148,163,184,0.8) 55%, rgba(30,41,59,0.95) 100%)",
-    boxShadow: "0 6px 14px rgba(15,23,42,0.55)",
-    pointerEvents: "none",
+  const btnRight = document.createElement("button");
+  btnRight.textContent = "⟳";
+  Object.assign(btnRight.style, {
+    width: "52px",
+    height: "52px",
+    borderRadius: "999px",
+    border: "1px solid rgba(148,163,184,0.6)",
+    background: "radial-gradient(circle at 70% 30%, #1f2937, #020617)",
+    color: "#e5edff",
+    fontWeight: "800",
+    fontSize: "1.4rem",
+    cursor: "pointer",
+    boxShadow: "0 10px 26px rgba(0,0,0,0.5)",
   });
 
-  knob.appendChild(knobRidges);
-  knob.appendChild(knobRim);
-  knob.appendChild(knobCore);
-  knob.appendChild(knobDial);
-  knob.appendChild(knobIndicator);
-
-  knobArea.appendChild(knobLabel);
-  knobArea.appendChild(knob);
-
-  // === VISOR CIRCULAR (ABAJO) ===
   const viewport = document.createElement("div");
   Object.assign(viewport.style, {
-    width: "min(280px, 70vw)",
-    height: "min(280px, 70vw)",
+    width: "min(260px, 70vw)",
+    height: "min(260px, 70vw)",
     borderRadius: "50%",
     background:
       "radial-gradient(circle at 35% 30%, rgba(65,114,255,0.25), rgba(19,40,86,0.9))",
@@ -223,7 +156,7 @@ export function startMinigame(opts = {}) {
     justifyContent: "center",
     position: "relative",
     overflow: "hidden",
-    marginTop: "18px",
+    transition: "transform 0.18s ease-out",
   });
 
   const sample = document.createElement("div");
@@ -238,13 +171,17 @@ export function startMinigame(opts = {}) {
 
   viewport.appendChild(sample);
 
+  centerRow.appendChild(btnLeft);
+  centerRow.appendChild(viewport);
+  centerRow.appendChild(btnRight);
+
   // === INSTRUCCIONES Y BOTONES ===
   const instructions = document.createElement("p");
   Object.assign(instructions.style, {
     fontSize: "0.88rem",
     color: "rgba(226,232,240,0.74)",
     textAlign: "center",
-    margin: "10px 0 0",
+    margin: "16px 0 0",
   });
 
   const buttonBar = document.createElement("div");
@@ -298,8 +235,7 @@ export function startMinigame(opts = {}) {
 
   // Montar panel
   panel.appendChild(header);
-  panel.appendChild(knobArea);
-  panel.appendChild(viewport);
+  panel.appendChild(centerRow);
   panel.appendChild(instructions);
   panel.appendChild(buttonBar);
   overlay.appendChild(panel);
@@ -307,23 +243,17 @@ export function startMinigame(opts = {}) {
 
   // === LÓGICA DEL JUEGO ===
 
-  let knobValue = 0;           // 0 .. 100
-  let dragging = false;
-  let dragStartX = 0;
-  let dragStartValue = 0;
   let currentRound = 0;
+  let focusValue = 0;      // empieza en 0, se mueve con las flechas
   let successShown = false;
+  let spinAngle = 0;
 
   const maxBlur = 30;
   const minBlur = 1.4;
-
-  // Ahora el foco está en el CENTRO de la rueda:
-  // si te vas mucho a la izquierda o derecha se vuelve a desenfocar.
-  const focusCenter = 0.5;      // valor medio
-  const focusWindow = 0.18;     // margen donde se considera "en foco"
+  const maxOffset = 6;     // distancia máxima que consideramos para desenfoque
 
   function setDefaultInstruction() {
-    instructions.textContent = `Gira la rosca para enfocar la muestra (${currentRound + 1}/${totalRounds}).`;
+    instructions.textContent = `Usa las flechas para enfocar la muestra (${currentRound + 1}/${totalRounds}).`;
   }
 
   function refreshSample() {
@@ -338,10 +268,12 @@ export function startMinigame(opts = {}) {
 
   function setupRound(round) {
     currentRound = round;
+    focusValue = 0;
     successShown = false;
-    knobValue = 0;
-    updateBlur();
+    spinAngle = 0;
+    viewport.style.transform = "rotate(0deg)";
     refreshSample();
+    updateBlur();
     setDefaultInstruction();
     updateNextButtonState();
   }
@@ -358,67 +290,44 @@ export function startMinigame(opts = {}) {
     updateNextButtonState();
   }
 
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
   function updateBlur() {
-    const t = knobValue / 100; // 0..1
+    const target = focusTargets[currentRound];
+    const offset = focusValue - target;
+    const distance = Math.min(maxOffset, Math.abs(offset));
 
-    // Distancia al punto de enfoque del centro (0 = foco perfecto, 1 = muy desenfocado)
-    const distance = Math.min(1, Math.abs(t - focusCenter) / focusCenter);
-
-    // Muy desenfocado en los extremos, nítido en el centro
-    const blur = minBlur + distance * (maxBlur - minBlur);
+    const t = distance / maxOffset; // 0..1
+    const blur = minBlur + t * (maxBlur - minBlur);
     sample.style.filter = `blur(${blur.toFixed(2)}px)`;
 
-    // Giramos el dial de -140º a 140º según el valor
-    const angle = lerp(-140, 140, t);
-    knobDial.style.transform = `translateX(-50%) rotate(${angle}deg)`;
-
-    const inFocus = Math.abs(t - focusCenter) <= focusWindow;
+    const inFocus = distance === 0;
 
     if (inFocus && !successShown) {
       revealNumber();
     } else if (!inFocus && successShown) {
-      // si te alejas demasiado del foco, deja de estar "conseguido"
       hideNumber();
     }
   }
 
-  // Movimiento relativo horizontal -> estilo "potenciómetro"
-  function onPointerDown(ev) {
-    dragging = true;
-    dragStartX = ev.clientX;
-    dragStartValue = knobValue;
-    if (knob.setPointerCapture) {
-      knob.setPointerCapture(ev.pointerId);
-    }
-    ev.preventDefault();
+  function spin(direction) {
+    // pequeño giro para dar sensación de rotación
+    spinAngle += direction * 18;
+    viewport.style.transform = `rotate(${spinAngle}deg)`;
   }
 
-  function onPointerMove(ev) {
-    if (!dragging) return;
-    const deltaX = ev.clientX - dragStartX;
-    const sensitivity = 0.4; // cuanto más alto, más sensible
-    knobValue = Math.max(0, Math.min(100, dragStartValue + deltaX * sensitivity));
+  function onLeftClick() {
+    focusValue -= 1;
+    spin(-1);
     updateBlur();
-    ev.preventDefault();
   }
 
-  function onPointerUp(ev) {
-    if (!dragging) return;
-    dragging = false;
-    if (knob.releasePointerCapture) {
-      knob.releasePointerCapture(ev.pointerId);
-    }
-    ev.preventDefault();
+  function onRightClick() {
+    focusValue += 1;
+    spin(1);
+    updateBlur();
   }
 
-  knob.addEventListener("pointerdown", onPointerDown);
-  knob.addEventListener("pointermove", onPointerMove);
-  knob.addEventListener("pointerup", onPointerUp);
-  knob.addEventListener("pointercancel", onPointerUp);
+  btnLeft.addEventListener("click", onLeftClick);
+  btnRight.addEventListener("click", onRightClick);
 
   function onNextClick() {
     if (nextBtn.disabled) return;
@@ -437,6 +346,10 @@ export function startMinigame(opts = {}) {
     if (ev.key === "Escape") {
       ev.preventDefault();
       closeOverlay(false);
+    } else if (ev.key === "ArrowLeft") {
+      onLeftClick();
+    } else if (ev.key === "ArrowRight") {
+      onRightClick();
     }
   }
 
@@ -445,10 +358,8 @@ export function startMinigame(opts = {}) {
   document.addEventListener("keydown", onKeyDown);
 
   function cleanup() {
-    knob.removeEventListener("pointerdown", onPointerDown);
-    knob.removeEventListener("pointermove", onPointerMove);
-    knob.removeEventListener("pointerup", onPointerUp);
-    knob.removeEventListener("pointercancel", onPointerUp);
+    btnLeft.removeEventListener("click", onLeftClick);
+    btnRight.removeEventListener("click", onRightClick);
     nextBtn.removeEventListener("click", onNextClick);
     exitBtn.removeEventListener("click", onExitClick);
     document.removeEventListener("keydown", onKeyDown);
