@@ -497,6 +497,26 @@
         }
         return;
       }
+      // MINIJUEGO 65 (paises)
+      if(c === '65'){
+        const modulePath = './juegos/65-paises.js';
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error("Error cargando minijuego 65:", res.err);
+          numMessage.textContent = "No se pudo cargar el minijuego (65). Comprueba que ./juegos/65-paises.js exista y usa Live Server.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({ onClose: ()=> actionBtn.focus(), pauseGameTimer: ()=> { isPaused = true; }, resumeGameTimer: ()=> { isPaused = false; } });
+        } else {
+          numMessage.textContent = "Módulo 65 cargado, pero no exporta startMinigame.";
+          numModal.style.display = 'flex'; numModal.setAttribute('aria-hidden','false');
+        }
+        return;
+      }
 
       // MINIJUEGO 10 (cables)
       if(c === '10'){
