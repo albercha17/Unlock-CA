@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Unlock CA - Apagón en el Colegio</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -33,7 +34,7 @@
       background: radial-gradient(circle at center, #0a0f24 0%, #050810 100%);
       color:#fff;
       font-family:var(--font);
-      /* 👇 Añadido para evitar zoom en iOS */
+      /* Evitar zoom en iOS */
       touch-action: manipulation;
       -ms-touch-action: manipulation;
     }
@@ -128,7 +129,7 @@
       }
     }
 
-    /* ===== NUEVA CABECERA DEL PANEL DE JUEGO ===== */
+    /* ===== CABECERA DEL PANEL DE JUEGO ===== */
     .game-panel-header {
       display:flex;
       align-items:center;
@@ -241,7 +242,7 @@
       font-weight:700;
     }
 
-    /* ===== Sistema de diálogos (sustituye alert/confirm visualmente) ===== */
+    /* ===== Sistema de diálogos (alert/confirm custom) ===== */
     .sys-dialog {
       position: fixed;
       inset: 0;
@@ -294,17 +295,19 @@
         width: 92%;
       }
     }
-
   </style>
 </head>
 <body>
   <div class="container layout" id="mainContainer">
     <div class="panel-card" id="introPanel">
       <header style="display:flex;align-items:center;gap:14px;margin-bottom:8px">
-        <img src="./images/AEEC.png" alt="Imagen del escenario" style="width:120px;height:120px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,0.06)">
+        <img src="./images/AEEC.png" alt="Imagen del escenario"
+             style="width:120px;height:120px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,0.06)">
         <div>
           <h1 style="margin:0;font-size:20px">Apagón en el Colegio</h1>
-          <p style="margin:6px 0 0 0;color:#cfcfd3">Alberto y Cristina están atrapados; reactiva el generador antes de que sea tarde.</p>
+          <p style="margin:6px 0 0 0;color:#cfcfd3">
+            Alberto y Cristina están atrapados; reactiva el generador antes de que sea tarde.
+          </p>
         </div>
       </header>
 
@@ -337,7 +340,8 @@
       <div class="action-row" role="group" aria-label="Controles de acción">
         <button id="actionBtn" class="control-btn action-btn" aria-label="Acción importante" title="Acción">
           <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                 aria-hidden="true" focusable="false">
               <path d="M13 2L3 14h7l-1 8L21 10h-7l-1-8z" fill="currentColor"/>
             </svg>
           </span>
@@ -346,7 +350,8 @@
 
         <button id="hintBtn" class="control-btn hint-btn" aria-label="Pedir pista" title="Pedir pista">
           <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                 aria-hidden="true" focusable="false">
               <path d="M9 18h6v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1z" fill="currentColor"/>
               <path d="M12 3a5 5 0 0 0-3 9v2h6v-2a5 5 0 0 0-3-9z" fill="currentColor"/>
             </svg>
@@ -361,6 +366,31 @@
         <button class="btn-ghost" id="stopBtn">Salir</button>
       </div>
     </div>
+  </div>
+
+  <!-- Overlay de vídeo de introducción -->
+  <div id="videoOverlay"
+       style="position:fixed; inset:0; z-index:3000; display:none;
+              background:rgba(0,0,0,0.95); align-items:center; justify-content:center;
+              flex-direction:column;">
+    <video id="introVideo"
+           src="./images/videoInicial.mp4"
+           style="max-width:100%; max-height:80vh; border-radius:12px;
+                  box-shadow:0 18px 40px rgba(0,0,0,0.8); background:#000;"
+           playsinline
+           webkit-playsinline>
+    </video>
+
+    <button id="skipVideoBtn"
+            style="margin-top:16px; padding:10px 18px;
+                   font-family:'Poppins', system-ui, -apple-system;
+                   font-size:0.95rem; font-weight:700;
+                   border:none; border-radius:999px;
+                   cursor:pointer;
+                   background:linear-gradient(180deg,#f97316,#c2410c);
+                   color:#fff; box-shadow:0 10px 28px rgba(0,0,0,0.6);">
+      Saltar vídeo
+    </button>
   </div>
 
   <!-- Modal numérico -->
@@ -439,9 +469,6 @@
   </script>
 
   <script type="module">
-    /* Lógica principal corregida: no cerrar modal hasta confirmar que la acción existe.
-       Si la acción/minijuego no existe mostramos un error y dejamos el modal abierto.
-    */
     const DEFAULT_SECONDS = 60 * 60;
     let remaining = DEFAULT_SECONDS;
     let intervalId = null;
@@ -473,6 +500,11 @@
     const sysCancelBtn = document.getElementById('sysCancelBtn');
     const sysDialogControls = document.getElementById('sysDialogControls');
 
+    // Nuevo: elementos de vídeo
+    const videoOverlay = document.getElementById('videoOverlay');
+    const introVideo = document.getElementById('introVideo');
+    const skipVideoBtn = document.getElementById('skipVideoBtn');
+
     let entered = "";
     let pendingUse = null;
 
@@ -498,7 +530,11 @@
       }
     }
 
-    startBtn.addEventListener('click', ()=>{
+    // Lógica para arrancar la partida (se llama tras el vídeo o al saltarlo)
+    function startGameAfterVideo() {
+      // ocultar vídeo
+      videoOverlay.style.display = 'none';
+
       introPanel.style.display='none';
       gamePanel.style.display='block';
       remaining=DEFAULT_SECONDS;
@@ -508,6 +544,36 @@
       isPaused=false;
       if(intervalId) clearInterval(intervalId);
       intervalId=setInterval(tick,1000);
+    }
+
+    // Empezar: mostrar vídeo de inicio
+    startBtn.addEventListener('click', () => {
+      // Mostramos el overlay de vídeo
+      videoOverlay.style.display = 'flex';
+
+      try {
+        introVideo.currentTime = 0;
+        const playPromise = introVideo.play();
+        if (playPromise && typeof playPromise.then === 'function') {
+          playPromise.catch(() => {
+            // Si falla el autoplay, al menos ponemos controles
+            introVideo.setAttribute('controls', 'controls');
+          });
+        }
+      } catch (e) {
+        introVideo.setAttribute('controls', 'controls');
+      }
+    });
+
+    // Cuando termina el vídeo, arrancar el juego
+    introVideo.addEventListener('ended', () => {
+      startGameAfterVideo();
+    });
+
+    // Botón "Saltar vídeo"
+    skipVideoBtn.addEventListener('click', () => {
+      try { introVideo.pause(); } catch(e) {}
+      startGameAfterVideo();
     });
 
     function renderNum(){
@@ -985,7 +1051,7 @@
       window.location.href = '../index.html';
     }
 
-    // small accessibility: close sysDialog on ESC
+    // cerrar sysDialog en ESC
     document.addEventListener('keydown', (e)=> {
       if(sysDialog.style.display === 'flex' && e.key === 'Escape') {
         if(sysCancelBtn.style.display !== 'none'){
