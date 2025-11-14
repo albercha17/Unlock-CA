@@ -2,33 +2,46 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Unlock C&A</title>
 
   <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
-  <!-- External stylesheet (pon este archivo en assets/css/style.css) -->
+  <!-- External stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
   <div class="container layout">
     <div class="panel-card">
-      <!-- Header with logo and title -->
+
+      <!-- Encabezado -->
       <header class="header">
         <img src="assets/images/logo.png" alt="Unlock C&A logo" class="logo-img">
         <div class="hgroup">
-          <h1 class="title">Unlock C&amp;A</h1>
+          <h1 class="title">Unlock C&A</h1>
           <div class="subtitle">Elige una aventura y empieza a jugar</div>
         </div>
       </header>
 
+      <!-- MAIN -->
       <main>
 
-        <!-- Cards / options -->
+        <!-- Tarjetas de juegos -->
         <section class="cards" aria-label="Lista de juegos">
-          <div class="option solid" role="button" tabindex="0" onclick="openGame('ApagonColegio/apagon')" onkeypress="if(event.key==='Enter')openGame('ApagonColegio/apagon')">
-            <div class="opt-thumb" style="background-image:url('ApagonColegio/images/AEECIndex.png')"></div>
+
+          <!-- ---------------------- -->
+          <!--       APAGÓN           -->
+          <!-- ---------------------- -->
+          <div 
+            class="option solid" 
+            role="button" 
+            tabindex="0"
+            onclick="openApagon()"
+            onkeypress="if(event.key==='Enter') openApagon()"
+          >
+            <div class="opt-thumb" style="background-image:url('assets/images/AEEC.png')"></div>
             <div class="opt-meta">
               <h3 class="opt-title">Apagón en el Colegio</h3>
               <p class="opt-desc">El colegio queda a oscuras y las puertas se cierran. Resuelve los enigmas para volver a encender la luz.</p>
@@ -36,23 +49,42 @@
             <div class="opt-num">01</div>
           </div>
 
-          <div class="option" role="button" tabindex="0" onclick="openGame('prueba1')" onkeypress="if(event.key==='Enter')openGame('prueba1')">
+          <!-- ---------------------- -->
+          <!--       PRUEBA 1         -->
+          <!-- ---------------------- -->
+          <div 
+            class="option" 
+            role="button" 
+            tabindex="0"
+            onclick="openGame('prueba1')"
+            onkeypress="if(event.key==='Enter') openGame('prueba1')"
+          >
             <div class="opt-thumb" style="background-image:url('assets/images/prueba1.jpg')"></div>
             <div class="opt-meta">
               <h3 class="opt-title">Prueba 1</h3>
-              <p class="opt-desc">Puzzle corto para calentar motores.</p>
+              <p class="opt-desc">Puzzle corto para empezar.</p>
             </div>
             <div class="opt-num">02</div>
           </div>
 
-          <div class="option" role="button" tabindex="0" onclick="openGame('tesoro')" onkeypress="if(event.key==='Enter')openGame('tesoro')">
+          <!-- ---------------------- -->
+          <!--    TESORO              -->
+          <!-- ---------------------- -->
+          <div 
+            class="option" 
+            role="button" 
+            tabindex="0"
+            onclick="openGame('tesoro')"
+            onkeypress="if(event.key==='Enter') openGame('tesoro')"
+          >
             <div class="opt-thumb" style="background-image:url('assets/images/tesoro.jpg')"></div>
             <div class="opt-meta">
               <h3 class="opt-title">Búsqueda del Tesoro</h3>
-              <p class="opt-desc">Explora la isla y descifra las pistas para encontrar el botín.</p>
+              <p class="opt-desc">Explora la isla y descifra el botín oculto.</p>
             </div>
             <div class="opt-num">03</div>
           </div>
+
         </section>
 
         <div class="small-footer">© 2025 Unlock C&A | Creado por Alberto para Cristina</div>
@@ -61,19 +93,33 @@
   </div>
 
   <script>
-    // Navigate to game pages (assumes files like apagon.html, prueba1.html, tesoro.html)
-    function openGame(target){
-      // If you want to use a folder structure, adjust this line.
-      window.location.href = target + '.html';
+
+    /* ==========================================================
+       CONFIGURA AQUÍ EL LINK QUE QUIERES PARA *APAGÓN*
+    ========================================================== */
+    const APAGON_LINK = "https://albercha17.github.io/Unlock-Apagon-en-el-Colegio/";  
+    // Ejemplos válidos:
+    // "https://albercha17.github.io/Unlock-CA/ApagonColegio/apagon.html"
+    // "https://vm.tiktok.com/ZMhViv45/"
+
+
+    function openApagon() {
+      window.location.href = APAGON_LINK;
     }
 
+    // Para los otros juegos que sí cargan archivo html interno
+    function openGame(target){
+      window.location.href = target + ".html";
+    }
 
-    // Add keyboard support for options (Enter already handled inline for accessibility)
+    // Accesibilidad por teclado
     document.querySelectorAll('.option').forEach(el => {
       el.addEventListener('keydown', e => {
         if(e.key === 'Enter') el.click();
       });
     });
+
   </script>
+
 </body>
 </html>
