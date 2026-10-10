@@ -10,6 +10,7 @@
   },
   "P": {
     "titulo": "Carta P — Llegada al faro",
+    "coge": [7, 11],
     "tipo": "gris",
     "descripcion": [
       "Noche de tormenta. Inés y Marcos llegan al faro de Cabo Niebla. La gran lámpara está apagada y la sirena, muda. Por radio, la guardia costera avisa: el carguero «Estrella del Norte» navega a ciegas y llegará a las rocas en una hora.",
@@ -31,6 +32,7 @@
   },
   "7": {
     "titulo": "Carta 7 — Recibidor del faro",
+    "coge": [15, 21, 29, 19, 12, 36],
     "tipo": "gris",
     "descripcion": [
       "Recibidor circular y oscuro, iluminado solo con vuestras linternas. Veis: un cuaderno de cuero sobre la mesa (carta 15), un reloj de pared parado (carta 21), una foto enmarcada (carta 29), un paraguas roto en un rincón (carta 19), una taza de té todavía tibia (carta 12) y, al fondo, una puerta con un teclado numérico (carta 36).",
@@ -103,12 +105,13 @@
   },
   "40": {
     "titulo": "Carta 40 — Escalera de caracol",
+    "coge": [52, 30, 27, 18],
     "tipo": "gris",
     "descripcion": [
-      "Subís por la escalera de caracol hasta un rellano con: una ventana redonda que da al mar (carta 52), una puerta de hierro con el rótulo «MÁQUINAS» (carta 58), un nido de gaviota (carta 27) y una gaviota disecada (carta 18).",
-      "Coged las cartas 52, 58, 27 y 18."
+      "Subís por la escalera de caracol hasta un rellano con: una ventana redonda que da al mar (carta 52), una puerta de hierro con el rótulo «MÁQUINAS» (carta 30), un nido de gaviota (carta 27) y una gaviota disecada (carta 18).",
+      "Coged las cartas 52, 30, 27 y 18."
     ],
-    "pistas": ["Mirad por la ventana.", "Coged las cartas 52, 58, 27 y 18."],
+    "pistas": ["Mirad por la ventana.", "Coged las cartas 52, 30, 27 y 18."],
     "arte": "Escalera de caracol de hierro forjado vista desde abajo mirando hacia arriba, con un rellano que tiene una ventana redonda con vista al mar tormentoso, una puerta de hierro con ojo de buey, un nido de gaviota en un saliente y una gaviota disecada sobre una repisa."
   },
   "27": {
@@ -142,23 +145,27 @@
   },
   "33": {
     "titulo": "Carta 33 — Ancla de bronce",
+    "combina": [30, 63],
     "tipo": "roja",
     "descripcion": [
       "El ancla de bronce del recibidor. Como decía la foto de Anselmo, en el vástago hay un hueco con una llave de hierro grande.",
-      "Combinad esta carta con la puerta de máquinas (carta 58) para obtener la carta 63. Descartad las cartas 33 y 58."
+      "Combinad esta carta con la puerta de máquinas (carta 30): sumad sus números (33 + 30 = 63) y coged la carta 63. Descartad las cartas 33 y 30."
     ],
-    "pistas": ["La llave abrirá una puerta.", "Combinad la carta 33 con la carta 58."],
+    "pistas": ["La llave abrirá una puerta.", "Combinad la carta 33 con la carta 30.", "Sumad los números de las dos cartas: 33 + 30 = 63."],
     "arte": "Ancla de bronce enorme, oxidada y verdosa, apoyada contra una pared de piedra, con una llave de hierro grande asomando de un hueco en el vástago."
   },
-  "58": {
-    "titulo": "Carta 58 — Puerta de máquinas",
+  "30": {
+    "titulo": "Carta 30 — Puerta de máquinas",
+    "combina": [33, 63],
     "tipo": "azul",
     "descripcion": ["Una puerta de hierro remachada con una cerradura enorme. Necesita la llave del ancla (carta 33)."],
-    "pistas": ["Necesitáis una llave grande.", "Combinad esta carta con la carta 33."],
+    "pistas": ["Necesitáis una llave grande.", "Combinad esta carta con la carta 33.", "Sumad los números de las dos cartas: 30 + 33 = 63."],
     "arte": "Puerta de hierro remachada con un pequeño ojo de buey y una gran cerradura antigua, pintada de verde desconchado, en una pared de piedra húmeda."
   },
   "63": {
     "titulo": "Carta 63 — Sala de máquinas",
+    "coge": [74, 85, 72, 3],
+    "descarta": [33, 30],
     "tipo": "gris",
     "descripcion": [
       "Entráis en la sala de máquinas: un generador diésel viejo y parado, una mesa con un mapa náutico (carta 74), una radio grande de onda corta (carta 85), un bidón de aceite (carta 72) y una brújula rota (carta 3).",
@@ -196,30 +203,35 @@
   },
   "72": {
     "titulo": "Carta 72 — Bidón de aceite",
+    "combina": [10, 82],
     "tipo": "roja",
-    "descripcion": ["Un bidón de aceite de lámpara. Combinadlo con la lámpara vacía (carta 81) para obtener la carta 82. Descartad las cartas 72 y 81."],
-    "pistas": ["Algo necesita llenarse.", "Combinad la carta 72 con la carta 81."],
+    "descripcion": ["Un bidón de aceite de lámpara. Combinadlo con la lámpara vacía (carta 10): sumad sus números (72 + 10 = 82) y coged la carta 82. Descartad las cartas 72 y 10."],
+    "pistas": ["Algo necesita llenarse.", "Combinad la carta 72 con la carta 10.", "Sumad los números de las dos cartas: 72 + 10 = 82."],
     "arte": "Bidón metálico de aceite de 5 litros, abollado, con un grifo y una mancha oscura, sobre el suelo de la sala de máquinas de un faro."
   },
   "78": {
     "titulo": "Carta 78 — Sala de la lente",
+    "coge": [70, 10, 95],
+    "descarta": [63],
     "tipo": "gris",
     "descripcion": [
-      "Lo más alto del faro. La enorme lente gira inmóvil bajo la tormenta. Veis: un panel de espejos ajustables (carta 70), una lámpara de aceite vacía (carta 81) y el panel de arranque (carta 95).",
-      "Coged las cartas 70, 81 y 95. Descartad la carta 63."
+      "Lo más alto del faro. La enorme lente gira inmóvil bajo la tormenta. Veis: un panel de espejos ajustables (carta 70), una lámpara de aceite vacía (carta 10) y el panel de arranque (carta 95).",
+      "Coged las cartas 70, 10 y 95. Descartad la carta 63."
     ],
-    "pistas": ["Hay tres cosas que tocar.", "Coged las cartas 70, 81 y 95."],
+    "pistas": ["Hay tres cosas que tocar.", "Coged las cartas 70, 10 y 95."],
     "arte": "Sala de la lente en lo alto de un faro: una enorme lente de Fresnel de cristal, ventanales con una tormenta nocturna detrás, un panel de espejos de bronce ajustables a un lado, una lámpara de aceite vacía en una repisa y un panel de control de latón con palancas y válvulas."
   },
-  "81": {
-    "titulo": "Carta 81 — Lámpara vacía",
+  "10": {
+    "titulo": "Carta 10 — Lámpara vacía",
+    "combina": [72, 82],
     "tipo": "azul",
     "descripcion": ["Una lámpara de aceite con el depósito seco. Necesita aceite (carta 72)."],
-    "pistas": ["Falta combustible.", "Combinadla con la carta 72."],
+    "pistas": ["Falta combustible.", "Combinadla con la carta 72.", "Sumad los números de las dos cartas: 10 + 72 = 82."],
     "arte": "Lámpara de aceite de latón con depósito de cristal vacío y la mecha seca, sobre una repisa de madera."
   },
   "82": {
     "titulo": "Carta 82 — Lámpara llena",
+    "descarta": [72, 10],
     "tipo": "gris",
     "descripcion": ["La lámpara, llena de aceite y lista. La necesitaréis para el panel de arranque (carta 95)."],
     "pistas": ["Guardadla para el panel de arranque."],
