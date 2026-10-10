@@ -529,3 +529,8 @@ input,
 textarea {
   touch-action: manipulation;
 }
+
+/* Juegos aún no disponibles en el menú */
+.option.disabled{ opacity:.45; cursor:default; filter:grayscale(.6); }
+.option.disabled:hover{ transform:none; box-shadow:0 12px 30px rgba(0,0,0,0.45); }
+.soon{ display:inline-block; margin-left:6px; padding:2px 8px; border-radius:999px; font-size:.65rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; background:rgba(255,255,255,.14); vertical-align:middle; }

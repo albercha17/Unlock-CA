@@ -1,0 +1,13 @@
+# Sesión de Chrome con login de ChatGPT: NUNCA subir
+.chrome-profile/
+__pycache__/
+
+# Juego del colegio: ya se sirve desde su propio repo (enlace externo en el menú)
+Unlock-Apagon-en-el-Colegio/
+
+# Herramientas de creación de cartas (no hacen falta en el móvil)
+generar_*.py
+prompts.html
+imprimir.html
+cartas-data.js
+Unlock-El-Faro/arte/
