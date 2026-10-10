@@ -1,16 +1,16 @@
 # Unlock C&A
 
-Menú principal con acceso a diferentes aventuras cooperativas:
+Menú principal (index.html) con acceso a las aventuras cooperativas:
 
-- **Apagón en el Colegio** (`ApagonColegio/apagon.html`): misión clásica para restablecer la energía del centro educativo.
-- **Módulo de Calentamiento** (`PruebaCalentamiento/prueba1.html`): tres retos breves con pistas progresivas para aprender la dinámica.
-- **La Isla del Tesoro** (`TesoroIsla/tesoro.html`): expedición narrativa dividida en tres fases con materiales descargables.
+- Apagón en el Colegio: se juega desde su propio repositorio (enlace externo en el menú).
+- Apagón en el Barrio (Unlock-Apagon-en-el-Barrio/): secuela, cuando el apagón sale del colegio.
+- El Faro de Cabo Niebla (Unlock-El-Faro/): tormenta, faro apagado y un carguero rumbo a las rocas.
+- Prueba 1 y Búsqueda del Tesoro: marcados como "Próximamente" (aún no tienen página).
 
 ## Recursos comunes
-- Hojas de estilo globales en `assets/css/style.css`.
-- Imágenes en `assets/images/`.
+- Hoja de estilos del menú en assets/css/style.css.
+- Imágenes del menú en assets/images/.
 
-Cada aventura incluye su carpeta de pistas o materiales para organizar el contenido auxiliar.
-
-#Apagón en el Colegio# 
-Normas
+## Notas
+- Los juegos usan módulos ES: hay que servirlos por http(s) (GitHub Pages, Live Server o python -m http.server), no abrir el HTML con doble clic.
+- Las herramientas de creación de cartas (prompts, impresión, scripts) y las ilustraciones originales no se suben (ver .gitignore).

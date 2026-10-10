@@ -50,39 +50,58 @@
           </div>
 
           <!-- ---------------------- -->
-          <!--       PRUEBA 1         -->
+          <!--    APAGÓN EN EL BARRIO -->
           <!-- ---------------------- -->
-          <div 
-            class="option" 
-            role="button" 
+          <div
+            class="option"
+            role="button"
             tabindex="0"
-            onclick="openGame('prueba1')"
-            onkeypress="if(event.key==='Enter') openGame('prueba1')"
+            onclick="openGame('Unlock-Apagon-en-el-Barrio/index.html')"
           >
-            <div class="opt-thumb" style="background-image:url('assets/images/prueba1.jpg')"></div>
+            <div class="opt-thumb" style="background:radial-gradient(circle at 50% 30%,#3a2c10,#14100a);display:flex;align-items:center;justify-content:center;font-size:40px">🏘️</div>
             <div class="opt-meta">
-              <h3 class="opt-title">Prueba 1</h3>
-              <p class="opt-desc">Puzzle corto para empezar.</p>
+              <h3 class="opt-title">Apagón en el Barrio</h3>
+              <p class="opt-desc">Cristina sale del colegio, pero el apagón se ha extendido por toda la calle. ¿Quién ha apagado el barrio?</p>
             </div>
             <div class="opt-num">02</div>
           </div>
 
           <!-- ---------------------- -->
-          <!--    TESORO              -->
+          <!--    EL FARO             -->
           <!-- ---------------------- -->
-          <div 
-            class="option" 
-            role="button" 
+          <div
+            class="option"
+            role="button"
             tabindex="0"
-            onclick="openGame('tesoro')"
-            onkeypress="if(event.key==='Enter') openGame('tesoro')"
+            onclick="openGame('Unlock-El-Faro/index.html')"
           >
-            <div class="opt-thumb" style="background-image:url('assets/images/tesoro.jpg')"></div>
+            <div class="opt-thumb" style="background-image:url('assets/images/faro.jpg')"></div>
             <div class="opt-meta">
-              <h3 class="opt-title">Búsqueda del Tesoro</h3>
-              <p class="opt-desc">Explora la isla y descifra el botín oculto.</p>
+              <h3 class="opt-title">El Faro de Cabo Niebla</h3>
+              <p class="opt-desc">Tormenta, la lámpara apagada y un carguero rumbo a las rocas. Una hora para encender el faro.</p>
             </div>
             <div class="opt-num">03</div>
+          </div>
+
+          <!-- ---------------------- -->
+          <!--    PRÓXIMAMENTE        -->
+          <!-- ---------------------- -->
+          <div class="option disabled" aria-disabled="true">
+            <div class="opt-thumb" style="background-image:url('assets/images/prueba1.jpg')"></div>
+            <div class="opt-meta">
+              <h3 class="opt-title">Prueba 1 <span class="soon">Próximamente</span></h3>
+              <p class="opt-desc">Puzzle corto para empezar.</p>
+            </div>
+            <div class="opt-num">04</div>
+          </div>
+
+          <div class="option disabled" aria-disabled="true">
+            <div class="opt-thumb" style="background-image:url('assets/images/tesoro.jpg')"></div>
+            <div class="opt-meta">
+              <h3 class="opt-title">Búsqueda del Tesoro <span class="soon">Próximamente</span></h3>
+              <p class="opt-desc">Explora la isla y descifra el botín oculto.</p>
+            </div>
+            <div class="opt-num">05</div>
           </div>
 
         </section>
@@ -107,13 +126,13 @@
       window.location.href = APAGON_LINK;
     }
 
-    // Para los otros juegos que sí cargan archivo html interno
-    function openGame(target){
-      window.location.href = target + ".html";
+    // Juegos que viven dentro de este mismo repositorio
+    function openGame(ruta){
+      window.location.href = ruta;
     }
 
     // Accesibilidad por teclado
-    document.querySelectorAll('.option').forEach(el => {
+    document.querySelectorAll('.option:not(.disabled)').forEach(el => {
       el.addEventListener('keydown', e => {
         if(e.key === 'Enter') el.click();
       });
