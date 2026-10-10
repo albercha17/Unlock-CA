@@ -2,6 +2,9 @@
 .chrome-profile/
 __pycache__/
 
+# Carpetas de trabajo de Claude Code (worktrees): nunca subir
+.claude/
+
 # Juego del colegio: ya se sirve desde su propio repo (enlace externo en el menú)
 Unlock-Apagon-en-el-Colegio/
 
