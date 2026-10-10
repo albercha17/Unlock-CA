@@ -392,6 +392,13 @@
     </div>
   </div>
 
+  <!-- Vídeo de introducción (se reproduce al pulsar Empezar) -->
+  <div id="videoOverlay" style="position:fixed;inset:0;z-index:3000;display:none;background:rgba(0,0,0,0.96);align-items:center;justify-content:center;flex-direction:column;padding:12px">
+    <video id="introVideo" src="./video/videoInicial.mp4" preload="auto" playsinline webkit-playsinline
+      style="max-width:100%;max-height:80vh;border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,0.8);background:#000"></video>
+    <button id="skipVideoBtn" type="button" style="margin-top:16px;padding:10px 18px;font-family:'Poppins',system-ui,-apple-system;font-size:0.95rem;font-weight:700;border:none;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#ffd27a,#f0a020);color:#2a1600;box-shadow:0 10px 28px rgba(0,0,0,0.6)">Saltar vídeo</button>
+  </div>
+
   <!-- Modal numérico -->
   <div id="numModal" class="num-modal" aria-hidden="true">
     <div class="num-modal-box" role="dialog" aria-modal="true" aria-labelledby="numModalTitle">
@@ -507,7 +514,16 @@
       }
     }
 
-    startBtn.addEventListener('click', () => {
+    const videoOverlay = document.getElementById('videoOverlay');
+    const introVideo = document.getElementById('introVideo');
+    const skipVideoBtn = document.getElementById('skipVideoBtn');
+    let partidaIniciada = false;
+
+    function empezarPartida() {
+      if (partidaIniciada) return;
+      partidaIniciada = true;
+      try { introVideo.pause(); } catch (e) { /* ignore */ }
+      videoOverlay.style.display = 'none';
       introPanel.style.display='none';
       gamePanel.style.display='block';
       remaining=DEFAULT_SECONDS;
@@ -517,7 +533,30 @@
       isPaused=false;
       if(intervalId) clearInterval(intervalId);
       intervalId=setInterval(tick,1000);
+    }
+
+    // El vídeo de introducción va en ./video/videoInicial.mp4. Si no existe o falla, la partida empieza igual.
+    startBtn.addEventListener('click', () => {
+      partidaIniciada = false;
+      videoOverlay.style.display = 'flex';
+      try {
+        introVideo.currentTime = 0;
+        const p = introVideo.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(() => {
+            if (introVideo.error) empezarPartida();
+            else introVideo.setAttribute('controls', 'controls');
+          });
+        }
+      } catch (e) {
+        empezarPartida();
+      }
     });
+    introVideo.addEventListener('ended', empezarPartida);
+    introVideo.addEventListener('error', () => {
+      if (videoOverlay.style.display === 'flex') empezarPartida();
+    });
+    skipVideoBtn.addEventListener('click', empezarPartida);
 
     function renderNum(){
       numDisplay.textContent = entered==="" ? "—" : entered;
