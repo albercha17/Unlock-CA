@@ -33,12 +33,13 @@
   "7": {
     "titulo": "Carta 7 — Recibidor del faro",
     "coge": [15, 21, 29, 19, 12, 36],
+    "descarta": ["P"],
     "tipo": "gris",
     "descripcion": [
       "Recibidor circular y oscuro, iluminado solo con vuestras linternas. Veis: un cuaderno de cuero sobre la mesa (carta 15), un reloj de pared parado (carta 21), una foto enmarcada (carta 29), un paraguas roto en un rincón (carta 19), una taza de té todavía tibia (carta 12) y, al fondo, una puerta con un teclado numérico (carta 36).",
-      "Coged las cartas 15, 21, 29, 19, 12 y 36."
+      "Coged las cartas 15, 21, 29, 19, 12 y 36. Descartad la carta P."
     ],
-    "pistas": ["Fijaos en todo lo que hay en la sala.", "Coged las cartas 15, 21, 29, 19, 12 y 36."],
+    "pistas": ["Fijaos en todo lo que hay en la sala.", "Coged las cartas 15, 21, 29, 19, 12 y 36. Descartad la carta P."],
     "arte": "Interior del recibidor circular de un faro, a oscuras e iluminado solo por una linterna: una mesa de madera con un cuaderno de cuero, un reloj de pared grande parado, una foto enmarcada en la pared, un paraguas roto en un rincón, una taza de té humeante, un ancla de bronce apoyada contra la pared y, al fondo, una puerta de madera con un panel metálico de teclado numérico."
   },
   "29": {
@@ -94,7 +95,7 @@
     "descripcion": [
       "Es un juego de la app: una puerta reforzada con un teclado de 4 cifras.",
       "El código es la hora real de ahora mismo: la que marca el reloj parado (carta 21) corregida con lo que dice el cuaderno (carta 15).",
-      "Al abrirla, coged la carta 40. Descartad la carta 36."
+      "Al abrirla, coged la carta 40."
     ],
     "pistas": [
       "El reloj está parado, pero ¿cuánto atrasa?",
@@ -106,12 +107,13 @@
   "40": {
     "titulo": "Carta 40 — Escalera de caracol",
     "coge": [52, 30, 27, 18],
+    "descarta": [7, 36, 21, 19, 12],
     "tipo": "gris",
     "descripcion": [
       "Subís por la escalera de caracol hasta un rellano con: una ventana redonda que da al mar (carta 52), una puerta de hierro con el rótulo «MÁQUINAS» (carta 30), un nido de gaviota (carta 27) y una gaviota disecada (carta 18).",
-      "Coged las cartas 52, 30, 27 y 18."
+      "Coged las cartas 52, 30, 27 y 18. Descartad las cartas 7, 36, 21, 19 y 12."
     ],
-    "pistas": ["Mirad por la ventana.", "Coged las cartas 52, 30, 27 y 18."],
+    "pistas": ["Mirad por la ventana.", "Coged las cartas 52, 30, 27 y 18. Descartad las cartas 7, 36, 21, 19 y 12."],
     "arte": "Escalera de caracol de hierro forjado vista desde abajo mirando hacia arriba, con un rellano que tiene una ventana redonda con vista al mar tormentoso, una puerta de hierro con ojo de buey, un nido de gaviota en un saliente y una gaviota disecada sobre una repisa."
   },
   "27": {
@@ -134,7 +136,7 @@
     "descripcion": [
       "Es un juego de la app: desde la ventana veis una luz parpadeante en el mar. El carguero os envía un mensaje en código morse.",
       "Usad la tabla de morse del cuaderno (carta 15) para descifrarlo y escribid la palabra.",
-      "Al acertar, coged la carta 33. Descartad las cartas 52, 27 y 18."
+      "Al acertar, coged la carta 33."
     ],
     "pistas": [
       "Los destellos cortos son puntos y los largos, rayas. La tabla está en el cuaderno.",
@@ -146,9 +148,11 @@
   "33": {
     "titulo": "Carta 33 — Ancla de bronce",
     "combina": [30, 63],
+    "descarta": [52, 27, 18, 29],
     "tipo": "roja",
     "descripcion": [
       "El ancla de bronce del recibidor. Como decía la foto de Anselmo, en el vástago hay un hueco con una llave de hierro grande.",
+      "Al coger esta carta, descartad las cartas 52, 27, 18 y 29.",
       "Combinad esta carta con la puerta de máquinas (carta 30): sumad sus números (33 + 30 = 63) y coged la carta 63. Descartad las cartas 33 y 30."
     ],
     "pistas": ["La llave abrirá una puerta.", "Combinad la carta 33 con la carta 30.", "Sumad los números de las dos cartas: 33 + 30 = 63."],
@@ -165,13 +169,13 @@
   "63": {
     "titulo": "Carta 63 — Sala de máquinas",
     "coge": [74, 85, 72, 3],
-    "descarta": [33, 30],
+    "descarta": [33, 30, 40],
     "tipo": "gris",
     "descripcion": [
       "Entráis en la sala de máquinas: un generador diésel viejo y parado, una mesa con un mapa náutico (carta 74), una radio grande de onda corta (carta 85), un bidón de aceite (carta 72) y una brújula rota (carta 3).",
-      "Coged las cartas 74, 85, 72 y 3."
+      "Coged las cartas 74, 85, 72 y 3. Descartad las cartas 33, 30 y 40."
     ],
-    "pistas": ["Hay una radio. Marcos sabrá qué hacer.", "Coged las cartas 74, 85, 72 y 3."],
+    "pistas": ["Hay una radio. Marcos sabrá qué hacer.", "Coged las cartas 74, 85, 72 y 3. Descartad las cartas 33, 30 y 40."],
     "arte": "Sala de máquinas de un faro: generador diésel antiguo parado, tuberías, cuadros de válvulas, una mesa grande con un mapa, una radio de onda corta, un bidón de aceite y una brújula, todo iluminado por luz de linterna y relámpagos por una ventana."
   },
   "3": {
@@ -196,7 +200,7 @@
     "tipo": "verde",
     "descripcion": [
       "Es un juego de la app: una radio grande con un dial de sintonía. Hay que sintonizar la frecuencia del faro (la anotada en el mapa, carta 74) para hablar con la guardia costera.",
-      "Al conseguirlo, coged la carta 78. Descartad las cartas 85, 74 y 3."
+      "Al conseguirlo, coged la carta 78."
     ],
     "pistas": ["Hay varias emisoras. Solo una es la del faro.", "La frecuencia está en el mapa.", "Sintonizad 91,7 MHz."],
     "arte": "Radio de onda corta de sobremesa con un gran dial iluminado en ámbar, dos perillas grandes, altavoz de tela y un micrófono de mano, sobre una mesa del cuarto de máquinas."
@@ -212,13 +216,13 @@
   "78": {
     "titulo": "Carta 78 — Sala de la lente",
     "coge": [70, 10, 95],
-    "descarta": [63],
+    "descarta": [63, 85, 74, 3, 11],
     "tipo": "gris",
     "descripcion": [
       "Lo más alto del faro. La enorme lente gira inmóvil bajo la tormenta. Veis: un panel de espejos ajustables (carta 70), una lámpara de aceite vacía (carta 10) y el panel de arranque (carta 95).",
-      "Coged las cartas 70, 10 y 95. Descartad la carta 63."
+      "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74, 3 y 11."
     ],
-    "pistas": ["Hay tres cosas que tocar.", "Coged las cartas 70, 10 y 95."],
+    "pistas": ["Hay tres cosas que tocar.", "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74, 3 y 11."],
     "arte": "Sala de la lente en lo alto de un faro: una enorme lente de Fresnel de cristal, ventanales con una tormenta nocturna detrás, un panel de espejos de bronce ajustables a un lado, una lámpara de aceite vacía en una repisa y un panel de control de latón con palancas y válvulas."
   },
   "10": {
@@ -268,9 +272,10 @@
   },
   "99": {
     "titulo": "Carta 99 — ¡La luz del faro! (FIN)",
+    "descarta": [78, 95, 82, 15],
     "tipo": "gris",
     "descripcion": [
-      "El faro se enciende y su haz barre el mar. El «Estrella del Norte» gira justo a tiempo y esquiva Los Dientes.",
+      "El faro se enciende y su haz barre el mar. El «Estrella del Norte» gira justo a tiempo y esquiva Los Dientes. Descartad las cartas 78, 95, 82 y 15.",
       "Anselmo aparece por la escalera con su termo: se había quedado dormido en la despensa. «¿Qué han hecho con mi faro?», sonríe.",
       "FIN."
     ],
