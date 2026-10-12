@@ -196,7 +196,7 @@
       "Al acertar, coged la carta 33."
     ],
     "pistas": [
-      "Los destellos cortos son puntos y los largos, rayas. La tabla está en el cuaderno.",
+      "Los destellos cortos son puntos y los largos, rayas. Apuntadlos en un papel (podéis pulsar «Repetir mensaje») y buscadlos en la tabla del cuaderno.",
       "Son cinco letras. La primera es · −",
       "La palabra es ANCLA."
     ],
@@ -304,13 +304,13 @@
     "titulo": "Carta 85 — Radio de onda corta",
     "tipo": "verde",
     "descripcion": [
-      "Es un juego de la app: una radio grande con un dial de sintonía. Hay que sintonizar la frecuencia del faro: la del mapa (carta 74) completada con la décima grabada en la brújula (carta 3).",
+      "Es un juego de la app: una radio antigua con una rueda de sintonía, una rueda de ajuste fino y una escala con aguja. Hay que sintonizar la frecuencia del faro: la del mapa (carta 74) completada con la décima grabada en la brújula (carta 3).",
       "Al conseguirlo, coged la carta 78."
     ],
     "pistas": [
       "Hay varias emisoras. Solo una es la del faro.",
       "El mapa da 91 y la brújula, la décima.",
-      "Sintonizad 91,7 MHz."
+      "Gira la rueda grande hasta acercarte a 91 y afina con la pequeña. Sintonizad 91,7 MHz."
     ],
     "arte": "Radio de onda corta de sobremesa con un gran dial iluminado en ámbar, dos perillas grandes, altavoz de tela y un micrófono de mano, sobre una mesa del cuarto de máquinas."
   },
