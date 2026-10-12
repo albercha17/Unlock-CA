@@ -107,7 +107,7 @@ export function startMinigame(opts = {}) {
 
     if (hit && !solved) {
       solved = true;
-      ui.say('¡La luz llega a la lámpara! El mecanismo queda alineado. Descartad la carta 70.', 'ok');
+      ui.say('¡La luz llega a la lámpara! El mecanismo queda alineado. Descartad las cartas 70 y 27.', 'ok');
     }
   }
 
