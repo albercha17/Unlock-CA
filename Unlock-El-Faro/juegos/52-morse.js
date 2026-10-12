@@ -1,5 +1,5 @@
 // Carta 52 — Ventana de señales: descifrar un mensaje en morse. Palabra: ANCLA.
-import { openGame } from './_ui.js';
+import { openGame } from './ui.js';
 
 const WORD = 'ANCLA';
 const MORSE = {

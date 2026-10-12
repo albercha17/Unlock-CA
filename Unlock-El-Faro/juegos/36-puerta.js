@@ -1,5 +1,5 @@
 // Carta 36 — Puerta de la escalera: teclado de 4 cifras. Código: 0435 (3:15 + 1 h 20 min).
-import { openGame } from './_ui.js';
+import { openGame } from './ui.js';
 
 const CODE = '0435';
 
