@@ -14,3 +14,9 @@ prompts.html
 imprimir.html
 cartas-data.js
 Unlock-El-Faro/arte/
+
+# Aventuras C&A: sus páginas de prompts e impresión sí se suben (se usan desde la web)
+# y las ilustraciones originales (pesadas) se quedan en local: se suben convertidas a img/
+!Aventuras-CA/*/prompts.html
+!Aventuras-CA/*/imprimir.html
+Aventuras-CA/*/arte/

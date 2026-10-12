@@ -1,0 +1,217 @@
+ESTILO = ("Ilustración digital de ciencia ficción realista con estética de película, paleta de óxido anaranjado, grises metálicos, "
+          "destellos de cian y luces de emergencia rojas, formato vertical 2:3. Sin texto, letras ni números en la imagen. "
+          "Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.")
+
+PERSONAJES = {
+    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Lleva ropa actual y cómoda (vaqueros, zapatillas, camiseta y una chaqueta ligera).",
+    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Lleva ropa actual (vaqueros, zapatillas, sudadera con capucha y una mochila)."
+}
+
+HOJA = ("Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. "
+        "Mantén su parecido real con la foto (cara, pelo, barba, ojos). "
+        "Cristina: mujer de 26 años, profesora, pelo rubio y rizado, ojos azules, vaqueros, zapatillas, camiseta y chaqueta ligera. "
+        "Alberto: hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones, vaqueros, zapatillas, sudadera con capucha y mochila. "
+        "Estilo: " + ESTILO)
+
+FOTO = ("Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). "
+        "Pídele que mantenga el parecido real, pero con el estilo de ilustración de este juego.")
+
+VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estética de película de ciencia ficción realista, colores de óxido anaranjado y destellos cian. Sin ningún texto, letra ni subtítulo en pantalla. "
+         "Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Alberto teclea en el aparato y Cristina sonríe. "
+         "Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul, el salón se deforma y los dos son absorbidos por un túnel de luz. "
+         "Escena 3 (8-12 s): caen en un hangar oscuro de una colonia en Marte, con luces de emergencia rojas parpadeando y polvo rojizo flotando; por una ventana se ve una tormenta de polvo; el aparato humea y se apaga. "
+         "Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, levantándose; fundido a negro. "
+         "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, alarma lejana y viento marciano, música de ciencia ficción tensa, sin voz de narrador.")
+
+J = {
+    "P": dict(
+        titulo="Carta P — Llegada a la cúpula", tipo="gris", coge=[10, 16],
+        descripcion=[
+            "Segunda parada del Cronoportal: Marte, año 2157. El salto sale mal otra vez y aterrizáis en el hangar de la cúpula Aurora, la primera colonia, a oscuras por una tormenta de polvo. El Cronoportal se queda sin energía.",
+            "Dentro de una hora la tormenta cortará las comunicaciones y el soporte vital se apagará del todo. Hay que recargar el aparato antes.",
+            "Coged las cartas 10 y 16."],
+        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 16."],
+        arte="Hangar de la colonia Aurora en Marte, oscuro y cubierto de polvo rojizo, con luces de emergencia rojas parpadeando; por una ventana se ve una tormenta de polvo. En el suelo, el Cronoportal humea. Cristina y Alberto, con ropa actual, se levantan desconcertados."),
+    "16": dict(
+        titulo="Carta 16 — Cronoportal sin energía", tipo="azul", combina=[54, 70],
+        descripcion=[
+            "El Cronoportal: una consola de latón y cristal con el anillo central apagado y el indicador de batería casi vacío.",
+            "Necesita una fuente de energía enorme. En una colonia, solo hay una: el núcleo de fusión (carta 54).",
+            "Combinad esta carta con el núcleo de fusión: sumad sus números (16 + 54 = 70) y coged la carta 70."],
+        pistas=["Necesita mucha energía.", "Combinad la carta 16 con la carta 54.", "Sumad los números de las dos cartas: 16 + 54 = 70."],
+        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un indicador de batería casi vacío con una luz roja tenue, sobre el suelo metálico de un hangar."),
+    "10": dict(
+        titulo="Carta 10 — Hangar de la cúpula", tipo="gris", coge=[21, 25, 17, 23, 33, 36], descarta=["P"],
+        descripcion=[
+            "El hangar: una terminal de seguridad con la puerta bloqueada (carta 21), notas adhesivas pegadas en un monitor (carta 25), un traje espacial colgado sin casco (carta 17), un casco sobre una caja (carta 23), una tableta con un diario (carta 33) y una tomatera bajo una luz violeta de cultivo (carta 36).",
+            "Coged las cartas 21, 25, 17, 23, 33 y 36. Descartad la carta P."],
+        pistas=["Fijaos en todo lo que hay en el hangar.", "Coged las cartas 21, 25, 17, 23, 33 y 36. Descartad la carta P."],
+        arte="Hangar amplio de la colonia: estantes de herramientas, una terminal de seguridad con pantalla, un traje espacial colgado sin casco, un casco sobre una caja, notas adhesivas en un monitor, una tableta y una pequeña tomatera en una maceta bajo una luz violeta de cultivo. Cristina y Alberto exploran con linternas."),
+    "21": dict(
+        titulo="Carta 21 — Terminal de seguridad", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: una terminal pide un código de 4 cifras (del 1 al 6, sin repetir). Cada intento indica cuántas cifras están bien colocadas (●) y cuántas existen pero en otro sitio (○).",
+            "La nota adhesiva (carta 25) da una pista sobre el código. Al acertar, se abre la puerta de seguridad. Coged la carta 44."],
+        pistas=["Leed la nota adhesiva (carta 25).", "El código no lleva 2 ni 5: solo usa 1, 3, 4 y 6.", "El código es 4 1 6 3."],
+        arte="Terminal informático empotrado en la pared con pantalla verde de código, teclado numérico y una luz roja de acceso denegado."),
+    "25": dict(
+        titulo="Carta 25 — Nota adhesiva", tipo="gris",
+        descripcion=["Una nota adhesiva amarilla pegada al borde de un monitor, con una pista sobre el código de la terminal (carta 21)."],
+        pistas=["Leed lo que pone la nota.", "Os sirve para la terminal de seguridad (carta 21)."],
+        textoCarta=["No lleva el 2", "ni el 5"],
+        arte="Una nota adhesiva amarilla pegada en el borde de un monitor, escrita a mano con garabatos sin texto legible."),
+    "17": dict(
+        titulo="Carta 17 — Traje sin casco", tipo="azul", combina=[23, 40],
+        descripcion=[
+            "Un traje espacial blanco con parches de la colonia, colgado de una percha. Le falta el casco (carta 23).",
+            "Combinadlos: sumad sus números (17 + 23 = 40) y coged la carta 40."],
+        pistas=["Sin casco no se puede salir.", "Combinad la carta 17 con la carta 23.", "Sumad los números de las dos cartas: 17 + 23 = 40."],
+        arte="Traje espacial blanco con parches de la colonia, colgado de una percha, sin casco, con el cuello abierto."),
+    "23": dict(
+        titulo="Carta 23 — Casco de astronauta", tipo="roja", combina=[17, 40],
+        descripcion=[
+            "Un casco con visor dorado reflectante. Es el que le falta al traje (carta 17).",
+            "Combinadlos: sumad sus números (23 + 17 = 40) y coged la carta 40."],
+        pistas=["Hace falta un traje completo.", "Combinad la carta 23 con la carta 17.", "Sumad los números de las dos cartas: 23 + 17 = 40."],
+        arte="Casco de astronauta con visor dorado reflectante, sobre una caja metálica."),
+    "40": dict(
+        titulo="Carta 40 — Traje completo", tipo="gris", descarta=[17, 23],
+        descripcion=[
+            "El traje presurizado completo, listo para usar. Sin él no se puede cruzar la esclusa del reactor (carta 66). Descartad las cartas 17 y 23."],
+        pistas=["Ya podéis salir al exterior.", "Hace falta para la esclusa del reactor (carta 66)."],
+        arte="Alberto con un traje espacial completo con casco puesto, en el hangar, con el pulgar levantado; Cristina a su lado con una linterna."),
+    "44": dict(
+        titulo="Carta 44 — Pasillo de la cúpula", tipo="gris", coge=[52, 28], descarta=[10, 21, 25],
+        descripcion=[
+            "La puerta de seguridad se abre a un pasillo curvo con ventanas al paisaje marciano. En la pared hay un panel de oxígeno abierto (carta 52) y un plano de la cúpula (carta 28).",
+            "Coged las cartas 52 y 28. Descartad las cartas 10, 21 y 25."],
+        pistas=["Mirad el panel y el plano.", "Coged las cartas 52 y 28. Descartad las cartas 10, 21 y 25."],
+        arte="Pasillo curvo de la colonia con ventanas a un paisaje marciano, tuberías, un panel de tuberías abierto y un plano de la cúpula en la pared, luces tenues. Cristina y Alberto caminan por él."),
+    "52": dict(
+        titulo="Carta 52 — Panel de oxígeno", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: una red de tuberías con la entrada de oxígeno a la izquierda y la salida a la derecha. Hay que girar las piezas hasta conectarlas.",
+            "Al restaurar el oxígeno se reactiva el soporte vital y se desbloquea la esclusa. Coged la carta 66."],
+        pistas=["Tocad las tuberías para girarlas.", "Empezad por la entrada de la izquierda y seguid el camino pieza a pieza."],
+        arte="Panel de mantenimiento abierto con una red de tuberías transparentes con burbujas, válvulas redondas y un manómetro en rojo."),
+    "28": dict(
+        titulo="Carta 28 — Plano de la cúpula", tipo="gris",
+        descripcion=["Un plano técnico azul de la cúpula Aurora con una anotación sobre la esclusa del reactor. El código va en decimal (carta 66)."],
+        pistas=["Leed la anotación de la esclusa.", "Hace falta para la esclusa del reactor (carta 66)."],
+        textoCarta=["Esclusa del reactor:", "código 173"],
+        arte="Plano técnico azul (blueprint) de la cúpula Aurora con salas marcadas, flechas y anotaciones ilegibles."),
+    "66": dict(
+        titulo="Carta 66 — Esclusa del reactor", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: la esclusa se abre con un código en binario de 8 interruptores. El plano (carta 28) da el número en decimal; hay que traducirlo. Necesitáis el traje completo (carta 40).",
+            "Al abrirla, cruzáis al reactor. Coged la carta 79."],
+        pistas=["Cada interruptor vale el doble que el siguiente: 128, 64, 32, 16, 8, 4, 2, 1.", "El código es 173: 128 + 32 + 8 + 4 + 1.", "Activad los interruptores 128, 32, 8, 4 y 1."],
+        arte="Gran puerta esclusa circular de acero con ocho pequeñas luces de código en fila y una rueda de apertura."),
+    "79": dict(
+        titulo="Carta 79 — Sala del reactor", tipo="gris", coge=[54], descarta=[44, 52, 66, 28, 40],
+        descripcion=[
+            "La sala del reactor: un cilindro de cristal apagado, pasarelas y tuberías. En el centro, un soporte con el núcleo de fusión (carta 54).",
+            "Coged la carta 54. Descartad las cartas 44, 52, 66, 28 y 40."],
+        pistas=["Ahí está lo que buscáis.", "Coged la carta 54. Descartad las cartas 44, 52, 66, 28 y 40."],
+        arte="Sala del reactor de la colonia con un cilindro central de cristal con luz azul apagada, pasarelas y tuberías, y un soporte con una esfera de cristal brillante en el centro. Cristina y Alberto con trajes espaciales."),
+    "54": dict(
+        titulo="Carta 54 — Núcleo de fusión", tipo="roja", combina=[16, 70],
+        descripcion=[
+            "Una esfera de cristal con luz azul brillante sobre un soporte de metal. Es la fuente de energía que necesita el Cronoportal (carta 16).",
+            "Combinadlos: sumad sus números (54 + 16 = 70) y coged la carta 70."],
+        pistas=["Es lo que el aparato necesita.", "Combinad la carta 54 con la carta 16.", "Sumad los números de las dos cartas: 54 + 16 = 70."],
+        arte="Núcleo de fusión: una esfera de cristal con luz azul brillante sobre un soporte de metal."),
+    "70": dict(
+        titulo="Carta 70 — Cronoportal cargado", tipo="gris", coge=[88], descarta=[16, 54, 79],
+        descripcion=[
+            "El núcleo encaja en el anillo central y el Cronoportal despierta, pero hay que calibrarlo para volver a la fecha correcta (carta 88).",
+            "Coged la carta 88. Descartad las cartas 16, 54 y 79."],
+        pistas=["El aparato ya tiene energía.", "Coged la carta 88. Descartad las cartas 16, 54 y 79."],
+        arte="El Cronoportal con el núcleo de fusión encajado en su anillo central, brillando con luz azul intensa y arcos de energía. Alberto ajusta un dial y Cristina vigila la puerta."),
+    "88": dict(
+        titulo="Carta 88 — Calibrador del Cronoportal", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: hay que ajustar la amplitud y la frecuencia de la señal del Cronoportal. La amplitud la da el diario de la doctora Reyes (carta 33) y la frecuencia, su tomatera (carta 36).",
+            "Al calibrarlo, el portal de vuelta se abre. Coged la carta 99."],
+        pistas=["Leed el diario (carta 33) y mirad la tomatera (carta 36).", "Amplitud 3. Frecuencia 5.", "Poned amplitud 3 y frecuencia 5."],
+        arte="Primer plano de dos diales de calibración del Cronoportal con un pequeño osciloscopio verde."),
+    "33": dict(
+        titulo="Carta 33 — Diario de la doctora Reyes", tipo="verde",
+        descripcion=[
+            "El diario de voz de la doctora Reyes, jefa de la colonia. Es un juego de la app, pero no hay nada que resolver: es un lector con varias páginas (no pausa el temporizador).",
+            "Contiene la amplitud del calibrador (carta 88), una explicación de la esclusa y avisos sobre el núcleo de fusión.",
+            "Podéis volver a abrirlo siempre que lo necesitéis."],
+        pistas=["Abrid la carta 33 en la app y pasad las páginas.", "Fijaos en la calibración del Cronoportal.", "La frecuencia no está aquí: la dejó en otro sitio."],
+        arte="Una tableta digital agrietada sobre una mesa, con la pantalla encendida mostrando una pequeña forma de onda verde y fotos de plantas."),
+    "36": dict(
+        titulo="Carta 36 — Tomatera", tipo="gris",
+        descripcion=["Una pequeña tomatera bajo una luz violeta de cultivo, con un cartel de la doctora Reyes. La frecuencia del calibrador (carta 88) está anotada aquí."],
+        pistas=["Contad las hojas de cada rama.", "Hace falta para el calibrador (carta 88)."],
+        textoCarta=["Cada rama:", "5 hojas"],
+        arte="Pequeña tomatera en una maceta bajo una luz violeta de cultivo, con ramas con hojas en grupos de cinco y un cartel pequeño sin texto legible."),
+    "99": dict(
+        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[70, 88, 33, 36],
+        descripcion=[
+            "El Cronoportal se calibra y se abre un portal de luz azul. Cristina y Alberto saltan justo cuando el soporte vital termina de reactivarse en toda la cúpula.",
+            "Aterrizan en su salón. Cristina deja una tomatera sobre la mesa: «Me la he traído». Alberto, riendo: «Mañana, otro destino». Descartad las cartas 70, 88, 33 y 36.",
+            "FIN."],
+        pistas=[],
+        arte="Cristina y Alberto saltando a través de un portal circular de luz azul que se abre en el hangar; detrás, la cúpula iluminándose y, delante, un destello de su salón actual; Cristina lleva una pequeña maceta con una tomatera."),
+}
+
+META = dict(juego="Marte, 2157 — Cúpula Aurora", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO)
+
+SPEC = dict(
+    final="99",
+    needs={"44": ["21", "25"], "66": ["52"], "40": ["17", "23"], "79": ["66", "28", "40"], "70": ["16", "54"], "99": ["88", "33", "36"]},
+    eventos={},
+)
+
+PARA_QUE = {
+    "P": "Inicio: llegada al hangar. Te manda coger la 10 y la 16.",
+    "16": "El Cronoportal sin energía: se combina con el núcleo de fusión (54).",
+    "10": "El hangar: reparte las cartas del hangar y te quita la P.",
+    "21": "Terminal de seguridad (app): código de 4 cifras tipo Mastermind.",
+    "25": "Nota adhesiva: el código no lleva 2 ni 5.",
+    "17": "Traje sin casco: se combina con el casco (23).",
+    "23": "Casco: se combina con el traje (17).",
+    "40": "Traje completo: resultado de 17 + 23; hace falta para la esclusa.",
+    "33": "Diario de la doctora Reyes (app, solo lectura): amplitud 3 del calibrador.",
+    "36": "Tomatera: «Cada rama: 5 hojas» = frecuencia 5 del calibrador.",
+    "44": "Pasillo de la cúpula: aparece al abrir la terminal.",
+    "52": "Panel de oxígeno (app): girar tuberías de la entrada a la salida.",
+    "28": "Plano: el código de la esclusa es 173.",
+    "66": "Esclusa del reactor (app): 173 en binario con 8 interruptores.",
+    "79": "Sala del reactor: aparece al abrir la esclusa.",
+    "54": "Núcleo de fusión: se combina con el Cronoportal (16).",
+    "70": "Cronoportal cargado: resultado de 16 + 54.",
+    "88": "Calibrador (app): amplitud 3 y frecuencia 5.",
+    "99": "Final de la aventura.",
+}
+
+PASOS = [
+    dict(t="Llegada al hangar", que="Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 16.",
+         acciones=[("leer", "P")], mesa=["P", "10", "16"]),
+    dict(t="El hangar", que="Lee la carta 10. Descarta la P y coge 21, 25, 17, 23, 33 y 36. La nota (25) dice que el código no lleva el 2 ni el 5 y la tomatera (36), «Cada rama: 5 hojas».",
+         acciones=[("leer", "10")], mesa=["10", "16", "21", "25", "17", "23", "33", "36"]),
+    dict(t="Lee el diario en la app", que="En el móvil: Acción, 33. Pasa las 4 páginas: ahí está la amplitud de calibración. No hay nada que resolver y no pausa el tiempo.",
+         acciones=[("app", "33", "lector")], mesa=["10", "16", "21", "25", "17", "23", "33", "36"]),
+    dict(t="Hackea la terminal", que="En el móvil: Acción, 21. Con la pista de la nota (el código no lleva 2 ni 5, así que solo usa 1, 3, 4 y 6, sin repetir) prueba códigos y fíjate en ● y ○. El código es 4 1 6 3. El mensaje te dice que cojas la 44.",
+         acciones=[("app", "21", "carta 44")], mesa=["10", "16", "21", "25", "17", "23", "33", "36", "44"]),
+    dict(t="El pasillo", que="Lee la carta 44. Descarta 10, 21 y 25 y coge 52 y 28. El plano (28) dice que el código de la esclusa es 173.",
+         acciones=[("leer", "44")], mesa=["16", "17", "23", "33", "36", "44", "52", "28"]),
+    dict(t="Restaura el oxígeno", que="En el móvil: Acción, 52. Gira las tuberías hasta que el oxígeno llegue de la entrada (izquierda) a la salida (derecha). El mensaje te dice que cojas la 66.",
+         acciones=[("app", "52", "carta 66")], mesa=["16", "17", "23", "33", "36", "44", "52", "28", "66"]),
+    dict(t="Combina el traje", que="El traje sin casco (17) y el casco (23) son combinables: 17 + 23 = 40. Coge la 40 y léela: te manda descartar 17 y 23.",
+         acciones=[("combinar", "17", "23"), ("leer", "40")], mesa=["16", "33", "36", "44", "52", "28", "66", "40"]),
+    dict(t="Abre la esclusa", que="En el móvil: Acción, 66. El plano dice 173; en binario con 8 interruptores es 128 + 32 + 8 + 4 + 1 (10101101). Con el traje puesto, el mensaje te dice que cojas la 79.",
+         acciones=[("app", "66", "carta 79")], mesa=["16", "33", "36", "44", "52", "28", "66", "40", "79"]),
+    dict(t="La sala del reactor", que="Lee la carta 79. Descarta 44, 52, 66, 28 y 40 y coge la 54 (núcleo de fusión).",
+         acciones=[("leer", "79")], mesa=["16", "33", "36", "79", "54"]),
+    dict(t="Carga el Cronoportal", que="El Cronoportal (16) y el núcleo de fusión (54) son combinables: 16 + 54 = 70. Coge la 70 y léela: te manda descartar 16, 54 y 79 y coger la 88.",
+         acciones=[("combinar", "16", "54"), ("leer", "70")], mesa=["33", "36", "70", "88"]),
+    dict(t="Calibra el Cronoportal", que="En el móvil: Acción, 88. El diario dice amplitud 3 y la tomatera, 5 hojas por rama: frecuencia 5. Pulsa Calibrar. El mensaje te dice que cojas la 99.",
+         acciones=[("app", "88", "carta 99")], mesa=["33", "36", "70", "88", "99"]),
+    dict(t="Final", que="Lee la carta 99. Descarta 70, 88, 33 y 36. En la mesa solo queda la 99. ¡Fin!",
+         acciones=[("leer", "99")], mesa=["99"]),
+]
