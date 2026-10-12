@@ -1,7 +1,7 @@
-// Carta 52 — Ventana de señales: descifrar un mensaje en morse. Palabra: LLAVE.
+// Carta 52 — Ventana de señales: descifrar un mensaje en morse. Palabra: ANCLA.
 import { openGame } from './ui.js';
 
-const WORD = 'LLAVE';
+const WORD = 'ANCLA';
 const MORSE = {
   A: '.-', B: '-...', C: '-.-.', D: '-..', E: '.', F: '..-.', G: '--.', H: '....', I: '..',
   J: '.---', K: '-.-', L: '.-..', M: '--', N: '-.', O: '---', P: '.--.', Q: '--.-', R: '.-.',
@@ -72,7 +72,7 @@ export function startMinigame(opts = {}) {
   ui.button('Borrar', 'ghost', () => { entered = entered.slice(0, -1); render(); });
   ui.button('Comprobar', 'primary', () => {
     if (entered === WORD) {
-      ui.say('¡Mensaje descifrado: LLAVE! Anselmo la dejó donde él sabía. Mirad la foto del recibidor (carta 29).', 'ok');
+      ui.say('¡Mensaje descifrado! Coged la carta 33.', 'ok');
       kb.querySelectorAll('button').forEach(b => { b.disabled = true; });
     } else {
       ui.say('Esa palabra no es. Fijaos bien en puntos y rayas.', 'bad');

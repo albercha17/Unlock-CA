@@ -30,7 +30,6 @@
     "coge": [
       15,
       21,
-      29,
       19,
       12,
       36
@@ -40,32 +39,14 @@
     ],
     "tipo": "gris",
     "descripcion": [
-      "Recibidor circular y oscuro, iluminado solo con vuestras linternas. Veis: un cuaderno de cuero sobre la mesa (carta 15), un reloj de pared parado (carta 21), una foto enmarcada (carta 29), un paraguas roto en un rincón (carta 19), una taza de té todavía tibia (carta 12) y, al fondo, una puerta con un teclado numérico (carta 36).",
-      "Coged las cartas 15, 21, 29, 19, 12 y 36. Descartad la carta P."
+      "Recibidor circular y oscuro, iluminado solo con vuestras linternas. Veis: un cuaderno de cuero sobre la mesa (carta 15), un reloj de pared parado (carta 21), un paraguas roto en un rincón (carta 19), una taza de té todavía tibia (carta 12) y, al fondo, una puerta con un teclado numérico (carta 36).",
+      "Coged las cartas 15, 21, 19, 12 y 36. Descartad la carta P."
     ],
     "pistas": [
       "Fijaos en todo lo que hay en la sala.",
-      "Coged las cartas 15, 21, 29, 19, 12 y 36. Descartad la carta P."
+      "Coged las cartas 15, 21, 19, 12 y 36. Descartad la carta P."
     ],
     "arte": "Interior del recibidor circular de un faro, a oscuras e iluminado solo por una linterna: una mesa de madera con un cuaderno de cuero, un reloj de pared grande parado, una foto enmarcada en la pared, un paraguas roto en un rincón, una taza de té humeante, un ancla de bronce apoyada contra la pared y, al fondo, una puerta de madera con un panel metálico de teclado numérico."
-  },
-  "29": {
-    "titulo": "Carta 29 — Foto de Anselmo",
-    "tipo": "gris",
-    "descripcion": [
-      "Una foto antigua de Anselmo, joven, posando junto a un ancla enorme frente al faro.",
-      "En el reverso, con letra temblorosa: «Lo que sujeta al barco guarda mi llave. Carta 33».",
-      "Cuando descifréis el mensaje de la ventana (carta 52), esta foto os dice qué carta coger."
-    ],
-    "pistas": [
-      "Guardad la frase del reverso.",
-      "Tras descifrar el mensaje de la ventana (carta 52), coged la carta 33."
-    ],
-    "arte": "Fotografía antigua en blanco y negro desvaído con marco de madera: un hombre de unos cuarenta años con gorro de lana y barba corta posa orgulloso junto a un ancla de bronce enorme frente a la puerta de un faro.",
-    "textoCarta": [
-      "Reverso:",
-      "«Lo que sujeta al barco guarda mi llave. Carta 33»"
-    ]
   },
   "15": {
     "titulo": "Carta 15 — Cuaderno del guardián",
@@ -212,12 +193,12 @@
     "descripcion": [
       "Es un juego de la app: desde la ventana veis una luz parpadeante en el mar. El carguero os envía un mensaje en código morse.",
       "Usad la tabla de morse del cuaderno (carta 15) para descifrarlo y escribid la palabra.",
-      "Al acertar, el mensaje os dice dónde buscar: la foto de Anselmo (carta 29) os indicará qué carta coger."
+      "Al acertar, coged la carta 33."
     ],
     "pistas": [
       "Los destellos cortos son puntos y los largos, rayas. La tabla está en el cuaderno.",
-      "Son cinco letras. La primera es · − · ·",
-      "La palabra es LLAVE. Después, mirad la foto de Anselmo (carta 29)."
+      "Son cinco letras. La primera es · −",
+      "La palabra es ANCLA."
     ],
     "arte": "Ventana redonda de ojo de buey vista desde dentro, con un mar tormentoso y negro de noche; a lo lejos, un carguero con una luz blanca muy brillante que parpadea."
   },
@@ -228,13 +209,12 @@
       63
     ],
     "descarta": [
-      52,
-      29
+      52
     ],
     "tipo": "roja",
     "descripcion": [
-      "El ancla de bronce del recibidor. Como decía la foto de Anselmo, en el vástago hay un hueco con una llave de hierro grande.",
-      "Al coger esta carta, descartad las cartas 52 y 29.",
+      "El ancla de bronce del recibidor. En el vástago hay un hueco con una llave de hierro grande.",
+      "Al coger esta carta, descartad la carta 52.",
       "Combinad esta carta con la puerta de máquinas (carta 30): sumad sus números (33 + 30 = 63) y coged la carta 63. Descartad las cartas 33 y 30."
     ],
     "pistas": [
@@ -427,7 +407,7 @@
     "tipo": "verde",
     "descripcion": [
       "Es un juego de la app: cinco pasos para arrancar la lámpara, que hay que hacer en el orden correcto. El orden está repartido entre el cuaderno de Anselmo (carta 15), la taza (carta 12) y la gaviota (carta 18).",
-      "Necesitáis la lámpara llena (carta 82) y los espejos alineados (carta 70).",
+      "Necesitáis la lámpara llena (carta 82) y haber alineado ya los espejos de la lente (carta 70).",
       "Al acertar, coged la carta 99."
     ],
     "pistas": [
