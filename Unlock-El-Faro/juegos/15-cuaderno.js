@@ -18,9 +18,9 @@ const PAGINAS = [
   {
     titulo: 'Avisos para mí mismo',
     texto: [
-      'El reloj del recibidor atrasa 1 hora y 20 minutos desde la última tormenta. Nunca lo arreglé: sé la hora de memoria.',
-      'La llave de máquinas está donde nadie la buscaría: con lo que sujeta a los barcos.',
-      'La frecuencia de la radio del faro la tengo apuntada en el mapa, en el cuarto de máquinas.',
+      'El reloj del recibidor está parado desde la última tormenta. Nunca lo arreglé: dejé apuntado cuánto atrasa en un sitio donde lo vería cada día.',
+      'Mi nieta Inés dice que trabajo demasiado. Tiene razón, pero el faro no se enciende solo.',
+      'La frecuencia de la radio del faro la tengo apuntada en el mapa, en el cuarto de máquinas; la décima me la grabé en la brújula, para no olvidarla.',
       'No dejar el termo cerca de la lente. Otra vez.'
     ]
   },
@@ -29,9 +29,8 @@ const PAGINAS = [
     texto: [
       'Cinco cosas, y el orden importa. Si las hago mal, la lente se atasca y vuelta a empezar.',
       'Lo primero, siempre, el aceite.',
-      'La mecha se ceba antes de girar nada.',
       'El piloto se enciende justo después del engranaje.',
-      'El freno de la lente se suelta el último. Siempre el último.'
+      'El resto de los pasos los dejé apuntados donde no se me olvidasen: junto al té y con la gaviota.'
     ]
   },
   {
