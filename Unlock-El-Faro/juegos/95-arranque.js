@@ -1,5 +1,5 @@
 // Carta 95 — Panel de arranque: ordenar 5 pasos. El orden sale del cuaderno (carta 15).
-import { openGame } from './_ui.js';
+import { openGame } from './ui.js';
 
 const ORDER = [
   'Abrir la válvula del aceite',

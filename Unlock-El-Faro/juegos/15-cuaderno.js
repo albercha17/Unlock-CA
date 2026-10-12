@@ -1,6 +1,6 @@
 // Carta 15 — Cuaderno del guardián: lector de páginas (no hay nada que resolver).
 // No pausa el temporizador: leer también cuesta tiempo.
-import { openGame } from './_ui.js';
+import { openGame } from './ui.js';
 
 const MORSE = [
   ['A', '·−'], ['B', '−···'], ['C', '−·−·'], ['D', '−··'], ['E', '·'], ['F', '··−·'], ['G', '−−·'],

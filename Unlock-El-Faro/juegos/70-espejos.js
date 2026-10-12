@@ -1,6 +1,6 @@
 // Carta 70 — Espejos de la lente: llevar el haz de luz de la izquierda a la lámpara (5,4).
 // Solución: espejos de camino (2,2)='/', (2,0)='/', (5,0)='\'. Los otros tres son señuelos.
-import { openGame } from './_ui.js';
+import { openGame } from './ui.js';
 
 const COLS = 7, ROWS = 5, CELL = 100;
 const SOURCE_ROW = 2;

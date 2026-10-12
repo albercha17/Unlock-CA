@@ -1,5 +1,5 @@
 // Carta 85 — Radio de onda corta: sintonizar 91,7 MHz (anotado en el mapa, carta 74).
-import { openGame } from './_ui.js';
+import { openGame } from './ui.js';
 
 const TARGET = 91.7;
 const DECOYS = [
