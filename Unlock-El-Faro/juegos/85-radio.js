@@ -29,10 +29,6 @@ export function startMinigame(opts = {}) {
     .far-escala svg{display:block;width:100%}
     .far-panel{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
     .far-lectura{flex:0 0 auto;font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;font-weight:700;font-size:1.25rem;color:#ffb347;background:#150c05;border:2px solid #24150a;border-radius:6px;padding:4px 10px;text-shadow:0 0 8px rgba(255,160,40,.8)}
-    .far-senal{display:flex;gap:3px;align-items:flex-end;height:22px}
-    .far-senal i{width:8px;border-radius:2px;background:#2a1a0e;height:40%}
-    .far-senal i:nth-child(2){height:55%}.far-senal i:nth-child(3){height:70%}.far-senal i:nth-child(4){height:85%}.far-senal i:nth-child(5){height:100%}
-    .far-senal i.on{background:#7dff6a;box-shadow:0 0 6px rgba(125,255,106,.8)}
     .far-ruedas{display:flex;justify-content:space-around;align-items:flex-end;margin-top:12px}
     .far-rueda{display:flex;flex-direction:column;align-items:center;gap:6px;color:#e8d3a8;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
     .far-knob{position:relative;width:116px;height:116px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#a78358,#4a3220 60%,#2b1b0e);border:4px solid #1b1007;box-shadow:0 6px 14px rgba(0,0,0,.6),inset 0 2px 4px rgba(255,255,255,.18);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
@@ -85,11 +81,7 @@ export function startMinigame(opts = {}) {
   lectura.className = 'far-lectura';
   lectura.id = 'farReadout';
   lectura.setAttribute('aria-live', 'off');
-  const senal = document.createElement('div');
-  senal.className = 'far-senal';
-  senal.setAttribute('aria-hidden', 'true');
-  for (let i = 0; i < 5; i++) senal.appendChild(document.createElement('i'));
-  panel.append(lectura, senal);
+  panel.append(lectura);
 
   // ---- ruedas ----
   const ruedas = document.createElement('div');
@@ -170,7 +162,8 @@ export function startMinigame(opts = {}) {
   ui.body.append(radio, msg);
 
   // ---- sonido ----
-  let ctx = null, noiseGain = null, toneGain = null, nodes = [], muted = false, solved = false, holdTimer = null;
+  // Sonido: estática que baja al acercarte a una emisora, tono limpio en la del faro y otro tono en las falsas.
+  let ctx = null, noiseGain = null, toneGain = null, decoyGain = null, decoyOsc = null, nodes = [], muted = false, solved = false, holdTimer = null;
   function startAudio() {
     try {
       const AC = window.AudioContext || window.webkitAudioContext;
@@ -191,11 +184,22 @@ export function startMinigame(opts = {}) {
       toneGain = ctx.createGain();
       toneGain.gain.value = 0;
       osc.connect(toneGain).connect(ctx.destination);
+      decoyOsc = ctx.createOscillator();
+      decoyOsc.type = 'triangle';
+      decoyOsc.frequency.value = 260;
+      decoyGain = ctx.createGain();
+      decoyGain.gain.value = 0;
+      decoyOsc.connect(decoyGain).connect(ctx.destination);
       noise.start();
       osc.start();
-      nodes = [noise, osc];
+      decoyOsc.start();
+      nodes = [noise, osc, decoyOsc];
     } catch (e) { ctx = null; }
   }
+  function despertarAudio() {
+    if (ctx && ctx.state === 'suspended') { try { ctx.resume(); } catch (e) { /* ignore */ } }
+  }
+  ['pointerdown', 'keydown', 'wheel'].forEach(t => radio.addEventListener(t, despertarAudio, { passive: true }));
   function stopAudio() {
     nodes.forEach(n => { try { n.stop(); } catch (e) { /* ignore */ } });
     if (ctx) { try { ctx.close(); } catch (e) { /* ignore */ } }
@@ -216,16 +220,17 @@ export function startMinigame(opts = {}) {
     document.getElementById('farAgujaPunta').setAttribute('cx', x(f));
     lectura.textContent = f.toFixed(1) + ' MHz';
     const s = fuerza(f);
-    const leds = Math.round(s * 5);
-    [...senal.children].forEach((l, i) => l.classList.toggle('on', i < leds));
-    if (ctx && noiseGain && toneGain) {
-      noiseGain.gain.value = muted || solved ? 0 : 0.2 * (1 - s);
-      toneGain.gain.value = muted || solved ? 0 : 0.06 * s;
+    const dd = Math.min(...DECOYS.map(d => Math.abs(d.f - f)));
+    const sd = Math.max(0, 1 - dd / 0.8);
+    if (ctx && noiseGain && toneGain && decoyGain) {
+      const apagado = muted || solved;
+      noiseGain.gain.value = apagado ? 0 : 0.2 * (1 - Math.max(s, sd * 0.7));
+      toneGain.gain.value = apagado ? 0 : 0.07 * s * s;
+      decoyGain.gain.value = apagado ? 0 : 0.05 * sd * sd;
     }
     if (solved) return;
     clearTimeout(holdTimer);
     if (Math.abs(f - TARGET) <= TOLERANCIA) {
-      msg.textContent = '...señal clara...';
       holdTimer = setTimeout(() => {
         solved = true;
         grande.activa = false;
@@ -237,7 +242,7 @@ export function startMinigame(opts = {}) {
       return;
     }
     const decoy = DECOYS.find(d => Math.abs(d.f - f) <= 0.3);
-    msg.textContent = decoy ? decoy.msg : (s > 0.3 ? 'Se oye algo entre la estática... acercaos.' : 'Solo estática.');
+    msg.textContent = decoy ? decoy.msg : '';
   }
 
   grande.alCambiar = actualizar;
