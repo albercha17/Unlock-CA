@@ -22,12 +22,12 @@
   },
   "11": {
     "titulo": "Carta 11 — Radio de Marcos",
-    "tipo": "morada",
+    "tipo": "gris",
     "descripcion": [
-      "La radio portátil de Marcos, técnico de radio. Es vuestra conexión con el mundo y le encanta tocar diales.",
-      "No hace nada por sí sola: la usaréis cuando encontréis una radio grande (carta 85)."
+      "La radio portátil de Marcos, técnico de radio. Se le acabó la batería con la tormenta y ahora solo capta estática.",
+      "Es solo ambientación: no hace falta hacer nada con ella. Se descarta más adelante."
     ],
-    "pistas": ["Guardadla, Marcos sabrá cuándo usarla."],
+    "pistas": ["Es solo ambientación, no hace falta hacer nada con ella."],
     "arte": "Primer plano de una radio portátil de onda corta de los años 80, con antena extensible y el dial iluminado en ámbar, apoyada sobre una mesa de madera mojada por la lluvia."
   },
   "7": {
