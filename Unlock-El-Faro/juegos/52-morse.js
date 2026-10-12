@@ -20,26 +20,22 @@ export function startMinigame(opts = {}) {
   style.textContent = `
     .far-lamp{width:84px;height:84px;margin:0 auto 10px;border-radius:50%;background:#1a2430;border:3px solid #3a4a5c;transition:background .05s,box-shadow .05s}
     .far-lamp.on{background:#fff6c8;box-shadow:0 0 40px 14px rgba(255,236,150,.85);border-color:#fff6c8}
-    .far-tape{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:1.6rem;letter-spacing:4px;white-space:pre;min-height:2.2rem;color:#ffd27a;margin-bottom:12px}
   `;
   ui.body.appendChild(style);
 
   const lamp = document.createElement('div');
   lamp.className = 'far-lamp';
-  const tape = document.createElement('div');
-  tape.className = 'far-tape';
   const display = document.createElement('div');
   display.className = 'far-display';
   const kb = document.createElement('div');
   kb.className = 'far-keyboard';
-  ui.body.append(lamp, tape, display, kb);
+  ui.body.append(lamp, display, kb);
 
   let run = 0;
   ui.onClose(() => { run = -1; });
 
   async function play() {
     const id = ++run;
-    tape.textContent = '';
     replay.disabled = true;
     for (const letter of WORD) {
       for (const sym of MORSE[letter]) {
@@ -47,11 +43,9 @@ export function startMinigame(opts = {}) {
         lamp.classList.add('on');
         await sleep(sym === '.' ? 280 : 840);
         lamp.classList.remove('on');
-        tape.textContent += sym === '.' ? '·' : '−';
         await sleep(300);
       }
-      tape.textContent += '   ';
-      await sleep(700);
+      await sleep(1100);
     }
     if (id === run) replay.disabled = false;
   }
@@ -75,7 +69,7 @@ export function startMinigame(opts = {}) {
       ui.say('¡Mensaje descifrado! Coged la carta 33.', 'ok');
       kb.querySelectorAll('button').forEach(b => { b.disabled = true; });
     } else {
-      ui.say('Esa palabra no es. Fijaos bien en puntos y rayas.', 'bad');
+      ui.say('Esa palabra no es. Volved a mirar los destellos: cortos y largos.', 'bad');
     }
   });
 
