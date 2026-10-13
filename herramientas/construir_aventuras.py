@@ -1,11 +1,11 @@
-"""Construye las carpetas de juego de Aventuras-CA a partir de la plantilla del Faro. Ejecutar desde la raiz del repo."""
+"""Construye las carpetas de juego de juegos/aventuras-ca a partir de la plantilla del Faro. Ejecutar desde la raiz del repo."""
 import json, os, shutil, sys, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from PIL import Image, ImageDraw, ImageFont
 import datos_egipto as E
 import datos_marte as M
 
-FARO = "Unlock-El-Faro"
+FARO = "juegos/el-faro"
 TMP = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -86,19 +86,19 @@ def placeholder(ruta, titulo, c1, c2):
 
 
 for nombre, cfg in JUEGOS.items():
-    base = f"Aventuras-CA/{nombre}"
+    base = f"juegos/aventuras-ca/{nombre.lower()}"
     if os.path.exists(f"{base}/cartas.json") and "--forzar" not in sys.argv:
         sys.exit(f"{base} ya existe: no lo sobrescribo (los juegos se retocan a mano; usa --forzar solo si de verdad quieres regenerarlo).")
     datos = cfg["datos"]
-    os.makedirs(f"{base}/juegos", exist_ok=True)
+    os.makedirs(f"{base}/minijuegos", exist_ok=True)
     os.makedirs(f"{base}/img", exist_ok=True)
     os.makedirs(f"{base}/video", exist_ok=True)
 
     # ficheros genericos
     shutil.copy(f"{FARO}/pistas.js", f"{base}/pistas.js")
-    shutil.copy(f"{FARO}/juegos/ui.js", f"{base}/juegos/ui.js")
+    shutil.copy(f"{FARO}/minijuegos/ui.js", f"{base}/minijuegos/ui.js")
     if nombre != "Egipto":
-        shutil.copy("Aventuras-CA/Egipto/juegos/lector.js", f"{base}/juegos/lector.js")
+        shutil.copy("juegos/aventuras-ca/egipto/minijuegos/lector.js", f"{base}/minijuegos/lector.js")
     css = leer(f"{FARO}/style.css")
     css += f"\n/* Aventuras C&A: {nombre} */\n:root{{ --accent:{cfg['acento']}; --accent-2:{cfg['acento2']}; --bg1:{cfg['bg1']}; --bg2:{cfg['bg2']}; }}\n"
     escribir(f"{base}/style.css", css)
@@ -107,15 +107,12 @@ for nombre, cfg in JUEGOS.items():
     # index.html
     ix = index_faro
     ix = sustituir(ix, "<title>Unlock C&amp;A - El Faro de Cabo Niebla</title>", f"<title>Aventuras C&amp;A - {cfg['titulo']}</title>")
-    g1, g2 = cfg["grad"].split(",")
-    ix = sustituir(ix, 'background:radial-gradient(circle at 50% 30%,#1c3a4d,#0a1218);border:2px solid rgba(255,255,255,0.06)">🌊</div>',
-                   f'background:radial-gradient(circle at 50% 30%,{g1},{g2});border:2px solid rgba(255,255,255,0.06)">{cfg["emoji"]}</div>')
     ix = sustituir(ix, '<h1 style="margin:0;font-size:20px">El Faro de Cabo Niebla</h1>', f'<h1 style="margin:0;font-size:20px">{cfg["titulo"]}</h1>')
     ix = sustituir(ix, "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo.", cfg["sinopsis"])
-    ix = sustituir(ix, '<div class="game-logo-circle" aria-hidden="true">🌊</div>', f'<div class="game-logo-circle" aria-hidden="true">{cfg["emoji"]}</div>')
     ix = sustituir(ix, "<h2>El Faro de Cabo Niebla</h2>", f'<h2>{cfg["titulo"]}</h2>')
     ix = sustituir(ix, "← Volver al menú", "← Volver a Aventuras C&amp;A")
-    mapa = ",\n".join(f"      '{k}': './juegos/{v}'" for k, v in cfg["minigames"].items())
+    ix = sustituir(ix, "window.location.href = '../../index.html';", "window.location.href = '../index.html';")
+    mapa = ",\n".join(f"      '{k}': './minijuegos/{v}'" for k, v in cfg["minigames"].items())
     viejo_mapa = re.search(r"    const MINIGAMES = \{.*?\n    \};", ix, re.S).group(0)
     ix = ix.replace(viejo_mapa, "    const MINIGAMES = {\n" + mapa + "\n    };")
     escribir(f"{base}/index.html", ix)

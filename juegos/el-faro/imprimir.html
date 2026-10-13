@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imprimir cartas — El Faro de Cabo Niebla</title>
+<style>
+  :root{--gris:#8a94a3;--verde:#2f9e58;--roja:#c0453d;--azul:#3b78c9;--morada:#7b4fd0}
+  *{box-sizing:border-box}
+  body{margin:0;background:#cfd6dd;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#111}
+  .barra{position:sticky;top:0;z-index:5;display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:#16212c;color:#e8eef4}
+  .barra button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:8px 16px;background:#ffd27a;color:#2a1600;cursor:pointer}
+  .barra label{font-size:.9rem;display:flex;gap:6px;align-items:center}
+  .barra span.n{color:#93a4b5;font-size:.85rem}
+  .hoja{width:210mm;min-height:297mm;margin:12px auto;padding:8mm 8mm;background:#fff;display:grid;grid-template-columns:repeat(3,63mm);grid-auto-rows:88mm;gap:2mm;justify-content:center;align-content:start;box-shadow:0 4px 18px rgba(0,0,0,.25);break-after:page}
+  .guias .carta,.guias .dorso{outline:.2mm dashed #888;outline-offset:.6mm}
+
+  .carta,.dorso{position:relative;width:63mm;height:88mm;border-radius:3mm;overflow:hidden;background:#1b2733;border:1.6mm solid var(--c,var(--gris));color:#fff;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .arte{position:absolute;inset:0;background:linear-gradient(160deg,#2a3b4c,#101a24) center/cover no-repeat}
+  .num{position:absolute;top:1.4mm;left:1.4mm;width:9.5mm;height:9.5mm;border-radius:50%;background:var(--c,var(--gris));border:.5mm solid #fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12pt;box-shadow:0 .4mm 1mm rgba(0,0,0,.5)}
+  .etq{position:absolute;top:2mm;right:2mm;background:var(--c,var(--gris));font-size:5.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.7mm 1.8mm;border-radius:1mm}
+  .tit{position:absolute;left:0;right:0;bottom:0;padding:5mm 2.5mm 2.2mm;background:linear-gradient(transparent,rgba(5,10,16,.94) 45%);font-weight:700;font-size:8.5pt;text-align:center;line-height:1.15}
+  .texto{position:absolute;left:3mm;right:3mm;top:12mm;bottom:12mm;background:rgba(244,234,208,.95);color:#2a2012;border-radius:1.5mm;padding:2mm 2.2mm;font-size:6.2pt;line-height:1.3;overflow:hidden;font-family:Georgia,"Times New Roman",serif}
+  .texto.chico{top:auto;bottom:11.5mm;font-size:7pt;text-align:center}
+  .texto.largo{top:auto;bottom:11.5mm;left:2.5mm;right:2.5mm;padding:1.4mm 1.8mm;font-size:5.3pt;line-height:1.22;background:rgba(244,234,208,.93)}
+  .texto.largo div{white-space:nowrap}
+  .texto.largo div:nth-last-child(-n+2){white-space:normal}
+  .texto.largo div:nth-last-child(2){margin-top:1.2mm;padding-top:1mm;border-top:.2mm solid rgba(42,32,18,.35)}
+  .texto div+div{margin-top:.8mm}
+
+  .dorso{--c:#ffd27a;background:radial-gradient(circle at 50% 38%,#ffe9a8 0,#ffd27a 6%,#1c3a4d 7%,#0a1218 70%)}
+  .dorso::before{content:"";position:absolute;left:50%;top:38%;width:130%;height:14mm;transform:translate(0,-50%) rotate(-12deg);transform-origin:0 50%;background:linear-gradient(90deg,rgba(255,226,150,.55),transparent)}
+  .dorso .t{position:absolute;left:0;right:0;bottom:9mm;text-align:center;font-weight:800;letter-spacing:.25em;font-size:10pt;color:#ffd27a}
+  .dorso .s{position:absolute;left:0;right:0;bottom:4.5mm;text-align:center;font-size:6pt;letter-spacing:.2em;color:#9fb4c8}
+
+  @page{size:A4;margin:0}
+  @media print{
+    body{background:#fff}
+    .barra{display:none}
+    .hoja{margin:0;box-shadow:none}
+  }
+</style>
+</head>
+<body>
+<div class="barra">
+  <button type="button" onclick="window.print()">Imprimir</button>
+  <label><input type="checkbox" id="guias" checked> Guías de corte</label>
+  <span class="n" id="resumen"></span>
+  <span class="n">Consejo: imprime en A4 al 100 % (sin «ajustar a página»). La última hoja son los dorsos.</span>
+</div>
+<div id="hojas"></div>
+
+<script>
+fetch('cartas.json?v=' + Date.now(), {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(datos){
+window.JUEGO = datos;
+(function(){
+  var J = window.JUEGO;
+  var COLORES = {gris:'#8a94a3',verde:'#2f9e58',roja:'#c0453d',azul:'#3b78c9',morada:'#7b4fd0'};
+  var ETIQ = {gris:'',verde:'App',roja:'Combina',azul:'Combina',morada:'Herramienta'};
+  var ids = Object.keys(J).filter(function(k){ return k.charAt(0) !== '_'; }).sort(function(a, b){
+    if (a === 'P') return -1; if (b === 'P') return 1; return Number(a) - Number(b);
+  });
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function cartaHTML(id){
+    var c = J[id], color = COLORES[c.tipo] || COLORES.gris;
+    var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
+    var html = '<div class="carta" style="--c:' + color + '"><div class="arte" data-id="' + esc(id) + '"></div>' +
+      '<div class="num">' + esc(id) + '</div>';
+    if (ETIQ[c.tipo]) html += '<div class="etq">' + ETIQ[c.tipo] + '</div>';
+    if (c.textoCarta && c.textoCarta.length) {
+      var clase = c.textoCarta.length <= 3 ? ' chico' : ' largo';
+      html += '<div class="texto' + clase + '">' + c.textoCarta.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>';
+    }
+    return html + '<div class="tit">' + esc(titulo) + '</div></div>';
+  }
+
+  var tarjetas = ids.map(cartaHTML);
+  var hojas = [];
+  for (var i = 0; i < tarjetas.length; i += 9) hojas.push(tarjetas.slice(i, i + 9));
+  var dorsos = '';
+  for (var k = 0; k < 9; k++) dorsos += '<div class="dorso"><div class="t">UNLOCK</div><div class="s">' + esc(J._meta.juego.toUpperCase()) + '</div></div>';
+
+  document.getElementById('hojas').innerHTML =
+    hojas.map(function(h){ return '<div class="hoja guias">' + h.join('') + '</div>'; }).join('') +
+    '<div class="hoja guias">' + dorsos + '</div>';
+
+  document.getElementById('guias').addEventListener('change', function(e){
+    document.querySelectorAll('.hoja').forEach(function(h){ h.classList.toggle('guias', e.target.checked); });
+  });
+
+  var faltan = [];
+  document.querySelectorAll('.arte').forEach(function(el){
+    var id = el.dataset.id, exts = ['jpg'], i = 0;
+    (function probar(){
+      var img = new Image();
+      img.onload = function(){ el.style.backgroundImage = 'url("img/' + id + '.' + exts[i] + '")'; contar(); };
+      img.onerror = function(){ i++; if (i < exts.length) probar(); else { faltan.push(id); contar(); } };
+      img.src = 'img/' + id + '.' + exts[i];
+    })();
+  });
+  var vistas = 0;
+  function contar(){
+    vistas++;
+    if (vistas === ids.length) {
+      document.getElementById('resumen').textContent = faltan.length
+        ? 'Faltan ilustraciones: ' + faltan.join(', ')
+        : 'Todas las ilustraciones están listas.';
+    }
+  }
+})();
+}).catch(function(){ document.body.insertAdjacentHTML('beforeend', '<p style="padding:20px">No se pudo cargar cartas.json. Abre esta página desde el sitio web publicado.</p>'); });
+</script>
+</body>
+</html>

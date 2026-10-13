@@ -18,16 +18,16 @@ Módulos de apoyo: `bot_core.py` (jugador y mesa), `solvers_*.py` (cómo se resu
 ## Ejemplo completo con El Faro
 
 ```
-python herramientas/verificar.py Unlock-El-Faro/cartas.json herramientas/spec_faro.json
+python herramientas/verificar.py juegos/el-faro/cartas.json herramientas/spec_faro.json
 python -m http.server 8810        # en otra terminal
-python herramientas/ejecutar_manual.py http://127.0.0.1:8810 Unlock-El-Faro datos_faro solvers_faro
-python herramientas/crear_manual_md.py Unlock-El-Faro datos_faro
+python herramientas/ejecutar_manual.py http://127.0.0.1:8810 juegos/el-faro datos_faro solvers_faro
+python herramientas/crear_manual_md.py juegos/el-faro datos_faro
 ```
 
 ## Un juego nuevo
 
 1. Copia `datos_egipto.py` como `datos_<juego>.py` y cámbialo (cartas, `SPEC`, `PASOS`, `PARA_QUE`).
-2. Escribe los minijuegos en `juegos/` y un `solvers_<juego>.py` con cómo se resuelve cada uno.
+2. Escribe los minijuegos en `minijuegos/` y un `solvers_<juego>.py` con cómo se resuelve cada uno.
 3. Pasa el verificador, el manual y el bot. Genera `MANUAL.md`.
 
 Los `spec_*.json` indican, para cada carta que no sale en el «coge» de otra, qué cartas hay que tener en la mano para obtenerla (`needs`) y los descartes que manda la app (`eventos`).

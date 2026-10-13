@@ -1,26 +1,18 @@
-# Sesión de Chrome con login de ChatGPT: NUNCA subir
+# Nunca subir: sesiones de Chrome (cookies/login), caches y carpetas de trabajo de Claude Code
 .chrome-profile/
+.unlock-chatgpt-*/
 __pycache__/
-
-# Carpetas de trabajo de Claude Code (worktrees): nunca subir
+*.pyc
 .claude/
 
-# Juego del colegio: ya se sirve desde su propio repo (enlace externo en el menú)
-Unlock-Apagon-en-el-Colegio/
-
-# Herramientas de creación de cartas (no hacen falta en el móvil)
-generar_*.py
-prompts.html
-imprimir.html
-cartas-data.js
-Unlock-El-Faro/arte/
-
-# Aventuras C&A: sus páginas de prompts e impresión sí se suben (se usan desde la web)
-# y las ilustraciones originales (pesadas) se quedan en local: se suben convertidas a img/
-!Aventuras-CA/*/prompts.html
-!Aventuras-CA/*/imprimir.html
-Aventuras-CA/*/arte/
-
-# Hoja de personajes y fotos de Cristina y Alberto: privadas, solo en local
+# Ilustraciones originales (pesadas) y hoja de personajes/fotos privadas: solo en local.
+# Se suben convertidas a img/*.jpg con herramientas/preparar_imagenes.py
+juegos/**/arte/
 personajes/
 fotos-privadas/
+
+# Juego del colegio: se sirve desde su propio repositorio (enlace externo en el menú)
+Unlock-Apagon-en-el-Colegio/
+
+# Vídeos locales (los de cada juego van en juegos/**/video/)
+/video/

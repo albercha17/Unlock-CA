@@ -3,7 +3,7 @@ sys.path.insert(0, __import__("os").path.dirname(__import__("os").path.abspath(_
 from bot_core import *
 
 BASE = sys.argv[1]
-J = "Unlock-El-Faro"
+J = "juegos/el-faro"
 
 
 def s15(d):

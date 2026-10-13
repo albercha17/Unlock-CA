@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompts — El Faro de Cabo Niebla</title>
+<style>
+  :root{--bg:#0d141b;--panel:#16212c;--line:#273545;--tx:#e8eef4;--mut:#93a4b5;--acc:#ffd27a;
+    --gris:#8a94a3;--verde:#2f9e58;--roja:#c0453d;--azul:#3b78c9;--morada:#7b4fd0}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}
+  h1{margin:0 0 4px;font-size:1.7rem}
+  h2{font-size:1.05rem;margin:0 0 6px}
+  p{margin:0 0 10px;color:var(--mut)}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:16px}
+  ol{margin:8px 0 0;padding-left:20px;color:var(--mut)} li{margin-bottom:4px} li b{color:var(--tx)}
+  pre{margin:8px 0 0;white-space:pre-wrap;word-break:break-word;font:13px/1.5 ui-monospace,Consolas,monospace;background:#080d12;border:1px solid var(--line);border-radius:8px;padding:12px;color:#d6e2ee}
+  button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:#1f2d3b;color:var(--tx);padding:6px 12px;font-weight:600}
+  button:hover{background:var(--acc);color:#2a1600;border-color:var(--acc)}
+  button.ok{background:#2f9e58;color:#fff;border-color:#2f9e58}
+  .card{display:grid;grid-template-columns:1fr 110px;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--c,var(--gris));border-radius:12px;padding:14px;margin-top:12px}
+  .card.hecha{opacity:.55}
+  .head{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .num{font:700 .85rem ui-monospace,Consolas,monospace;background:#0b1118;border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+  .head h3{margin:0;font-size:1rem}
+  .tag{margin-left:auto;font:600 .68rem ui-monospace,Consolas,monospace;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--c,var(--gris));border-radius:5px;padding:2px 7px}
+  .file{font:.8rem ui-monospace,Consolas,monospace;color:var(--acc)}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+  .thumb{width:110px;height:154px;border-radius:8px;border:1px dashed var(--line);background:#0b1118;object-fit:cover;display:block}
+  label.chk{color:var(--mut);font-size:.85rem;display:flex;gap:6px;align-items:center}
+  @media (max-width:560px){.card{grid-template-columns:1fr}.thumb{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Prompts — <span id="juego"></span></h1>
+  <p>Una ilustración por carta, sin texto: el número, el título y los textos los pone <b>imprimir.html</b>.</p>
+
+  <div class="box">
+    <h2>Cómo hacerlo con ChatGPT</h2>
+    <ol>
+      <li><b>Paso 0 (una vez):</b> copia el prompt de la hoja de personajes de abajo y pégalo en un chat nuevo. Quédate con el estilo que te guste.</li>
+      <li>En <b>ese mismo chat</b>, pega los prompts de cada carta (botón «Copiar prompt»). Así los personajes y el estilo se mantienen.</li>
+      <li>Descarga cada imagen y guárdala en la carpeta <b>arte/</b> con el nombre indicado (por ejemplo <span class="file">arte/7.png</span>). La miniatura de la derecha aparecerá al recargar esta página.</li>
+      <li>Cuando estén todas, abre <b>imprimir.html</b> y dale a Imprimir.</li>
+    </ol>
+    <p style="margin-top:8px">Si el estilo se va desviando, empieza otro chat con la hoja de personajes y la primera imagen que te gustó adjuntas. Pídele siempre «sin ningún texto, letra ni número en la imagen».</p>
+  </div>
+
+  <div class="box">
+    <h2>Paso 0 — Hoja de personajes</h2>
+    <pre id="paso0"></pre>
+    <div class="row"><button data-copy="paso0">Copiar prompt</button></div>
+  </div>
+
+  <div class="box">
+    <h2>Vídeo de introducción</h2>
+    <p>Se reproduce al pulsar «Empezar» en el juego. Guárdalo como <span class="file">video/videoInicial.mp4</span> (vertical 9:16, idealmente menos de 25 MB). Si puedes, adjunta la hoja de personajes o la imagen de la carta P para que Inés y Marcos se parezcan. Si sale con texto en pantalla, pídele: «Repítelo sin ningún texto ni subtítulos».</p>
+    <pre id="videoPrompt">Crea un vídeo vertical 9:16 de 15 segundos, con animación de estilo ilustración pintada a mano en acuarela y gouache, como un libro ilustrado de misterio, paleta azul petróleo, gris niebla y toques de luz ámbar. Sin ningún texto, letra, rótulo ni subtítulo en pantalla.
+
+Escena 1 (0-4 s): plano aéreo lento sobre el faro de Cabo Niebla, torre blanca con una banda roja, en un acantilado en plena tormenta nocturna. Olas gigantes rompen contra las rocas. Un relámpago ilumina la gran lámpara de la cima: está apagada.
+
+Escena 2 (4-7 s): el mar negro bajo la lluvia. A lo lejos, las luces pequeñas de un carguero que navega a ciegas hacia unas rocas afiladas.
+
+Escena 3 (7-11 s): Inés (mujer de 30 años, pelo negro corto y liso, ojos verdes, chubasquero amarillo) y Marcos (hombre de 32 años, pelirrojo, gafas redondas, pecas, jersey azul marino bajo una chaqueta impermeable gris, mochila con una antena de radio) corren bajo la lluvia hacia la puerta del faro. Marcos sujeta una radio portátil.
+
+Escena 4 (11-15 s): primer plano de la radio crepitando. Una voz de hombre, seria y con interferencias, dice en español: «Faro de Cabo Niebla, aquí guardacostas. El carguero Estrella del Norte llegará a Los Dientes en una hora. Necesitamos esa luz». Inés empuja la puerta, la linterna ilumina un recibidor oscuro y la imagen se funde a negro.
+
+Sonido: tormenta, truenos lejanos, olas, lluvia y música tensa de cuerdas graves que va subiendo, sin voz de narrador.</pre>
+    <div class="row"><button data-copy="videoPrompt">Copiar prompt</button></div>
+  </div>
+
+  <div id="lista"></div>
+</div>
+
+<script>
+fetch('cartas.json?v=' + Date.now(), {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(datos){
+window.JUEGO = datos;
+(function(){
+  var J = window.JUEGO, meta = J._meta;
+  var COLORES = {gris:'#8a94a3',verde:'#2f9e58',roja:'#c0453d',azul:'#3b78c9',morada:'#7b4fd0'};
+  var ETIQ = {gris:'objeto',verde:'minijuego app',roja:'combina',azul:'combina',morada:'herramienta'};
+  document.getElementById('juego').textContent = meta.juego;
+
+  var nombres = Object.keys(meta.personajes);
+  document.getElementById('paso0').textContent =
+    'Crea una hoja de personajes (character sheet) con tres personas de cuerpo entero, de frente y de perfil, sobre fondo claro y neutro: \n' +
+    nombres.map(function(n){ return '- ' + meta.personajes[n]; }).join('\n') +
+    '\n\n' + meta.estilo;
+
+  function promptDe(id, c){
+    var quienes = nombres.filter(function(n){ return c.arte.indexOf(n) >= 0 || (n === 'Anselmo' && /anciano de barba blanca/.test(c.arte)); });
+    var p = 'Crea una ilustración vertical con proporción 2:3 para una carta de juego de escape room. ' + c.arte;
+    if (quienes.length) p += '\nPersonajes (mantén exactamente el mismo aspecto que en las imágenes anteriores): ' + quienes.map(function(n){ return meta.personajes[n]; }).join(' ');
+    return p + '\n' + meta.estilo;
+  }
+
+  function orden(a, b){
+    if (a === 'P') return -1; if (b === 'P') return 1;
+    return Number(a) - Number(b);
+  }
+  var ids = Object.keys(J).filter(function(k){ return k.charAt(0) !== '_'; }).sort(orden);
+
+  var hechas = {};
+  try { hechas = JSON.parse(localStorage.getItem('faro-hechas') || '{}'); } catch(e) {}
+  function guardar(){ try { localStorage.setItem('faro-hechas', JSON.stringify(hechas)); } catch(e) {} }
+
+  function copiar(texto, btn){
+    function ok(){ var t = btn.textContent; btn.textContent = 'Copiado'; btn.classList.add('ok'); setTimeout(function(){ btn.textContent = t; btn.classList.remove('ok'); }, 1200); }
+    function viejo(){
+      var ta = document.createElement('textarea'); ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta); ok();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(ok, viejo); else viejo();
+  }
+
+  var lista = document.getElementById('lista');
+  ids.forEach(function(id){
+    var c = J[id], full = promptDe(id, c);
+    var div = document.createElement('div');
+    div.className = 'card' + (hechas[id] ? ' hecha' : '');
+    div.style.setProperty('--c', COLORES[c.tipo] || COLORES.gris);
+    div.innerHTML =
+      '<div><div class="head"><span class="num"></span><h3></h3><span class="tag"></span></div>' +
+      '<div class="row"><span class="file"></span></div>' +
+      '<pre></pre>' +
+      '<div class="row"><button type="button">Copiar prompt</button><label class="chk"><input type="checkbox"> Hecha</label></div></div>' +
+      '<img class="thumb" alt="">';
+    div.querySelector('.num').textContent = id;
+    div.querySelector('h3').textContent = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
+    div.querySelector('.tag').textContent = ETIQ[c.tipo] || c.tipo;
+    div.querySelector('.file').textContent = 'Guardar como: arte/' + id + '.png';
+    div.querySelector('pre').textContent = full;
+    div.querySelector('button').addEventListener('click', function(e){ copiar(full, e.currentTarget); });
+    var chk = div.querySelector('input');
+    chk.checked = !!hechas[id];
+    chk.addEventListener('change', function(){ hechas[id] = chk.checked; div.classList.toggle('hecha', chk.checked); guardar(); });
+    var img = div.querySelector('img'), exts = ['jpg'], i = 0;
+    img.addEventListener('error', function(){ i++; if (i < exts.length) img.src = 'img/' + id + '.' + exts[i]; else { img.removeAttribute('src'); } });
+    img.src = 'img/' + id + '.' + exts[0];
+    lista.appendChild(div);
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){ copiar(document.getElementById(b.dataset.copy).textContent, b); });
+  });
+})();
+}).catch(function(){ document.body.insertAdjacentHTML('beforeend', '<p style="padding:20px">No se pudo cargar cartas.json. Abre esta página desde el sitio web publicado.</p>'); });
+</script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 """Convierte las ilustraciones originales de un juego a JPG ligeros para la web.
 
 Uso (desde la raiz del repo):
-    python herramientas/preparar_imagenes.py Aventuras-CA/Egipto
-    python herramientas/preparar_imagenes.py Unlock-El-Faro
+    python herramientas/preparar_imagenes.py juegos/aventuras-ca/egipto
+    python herramientas/preparar_imagenes.py juegos/el-faro
 
-Lee Aventuras-CA/Egipto/arte/ID.png (o .jpg/.jpeg/.webp; ID = numero de la carta o P),
-escribe Aventuras-CA/Egipto/img/ID.jpg (520 px de ancho) y quita esa carta de img/pendientes.json
+Lee juegos/aventuras-ca/egipto/arte/ID.png (o .jpg/.jpeg/.webp; ID = numero de la carta o P),
+escribe juegos/aventuras-ca/egipto/img/ID.jpg (520 px de ancho) y quita esa carta de img/pendientes.json
 para que la hoja de impresion deje de avisar de que es una ilustracion de relleno.
 Las originales (arte/) no se suben a git: pesan demasiado.
 """

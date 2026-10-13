@@ -6,12 +6,12 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 
 | Juego | Dónde | Manual de partida |
 |---|---|---|
-| **Aventuras C&A** (hub con el Cronoportal) | [`Aventuras-CA/`](Aventuras-CA/index.html) | — |
-| &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* | [`Aventuras-CA/Egipto/`](Aventuras-CA/Egipto/) | [MANUAL.md](Aventuras-CA/Egipto/MANUAL.md) |
-| &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* | [`Aventuras-CA/Marte/`](Aventuras-CA/Marte/) | [MANUAL.md](Aventuras-CA/Marte/MANUAL.md) |
-| &nbsp;&nbsp;Apagón en el Barrio | [`Unlock-Apagon-en-el-Barrio/`](Unlock-Apagon-en-el-Barrio/) | — |
+| **Aventuras C&A** (hub con el Cronoportal) | [`juegos/aventuras-ca/`](juegos/aventuras-ca/index.html) | — |
+| &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* | [`juegos/aventuras-ca/egipto/`](juegos/aventuras-ca/egipto/) | [MANUAL.md](juegos/aventuras-ca/egipto/MANUAL.md) |
+| &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* | [`juegos/aventuras-ca/marte/`](juegos/aventuras-ca/marte/) | [MANUAL.md](juegos/aventuras-ca/marte/MANUAL.md) |
+| &nbsp;&nbsp;Apagón en el Barrio | [`juegos/apagon-barrio/`](juegos/apagon-barrio/) | — |
 | &nbsp;&nbsp;Apagón en el Colegio | repositorio propio (enlace externo) | — |
-| **El Faro de Cabo Niebla** (juego de referencia) | [`Unlock-El-Faro/`](Unlock-El-Faro/) | [MANUAL.md](Unlock-El-Faro/MANUAL.md) |
+| **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
 **El Faro es el juego de referencia:** su flujo está comprobado de principio a fin y los juegos nuevos se hacen igual (ver la [guía de diseño](GUIA-DE-JUEGOS.md)).
 
@@ -27,21 +27,28 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 ## Estructura
 
 ```
-index.html                  menú principal
-Aventuras-CA/               hub «Aventuras C&A» + Egipto/ + Marte/
-Unlock-El-Faro/             juego de referencia
-Unlock-Apagon-en-el-Barrio/ secuela del colegio
-herramientas/               verificador, bots de prueba, manuales y conversor de imágenes
-GUIA-DE-JUEGOS.md           cómo diseñar y crear un juego nuevo
+index.html                       menú principal
+assets/                          estilos e imágenes del menú
+juegos/
+  aventuras-ca/                  hub «Aventuras C&A»
+    egipto/  marte/              una carpeta por juego
+  el-faro/                       juego de referencia
+  apagon-barrio/                 secuela del colegio
+herramientas/                    verificador, bots de prueba, manuales, ChatGPT y conversor de imágenes
+GUIA-DE-JUEGOS.md                cómo diseñar y crear un juego nuevo
 ```
 
-Dentro de cada juego: `index.html` (app), `pc.html` (Modo PC), `cartas.json` (guion, pistas, textos impresos y prompts de ilustración), `pistas.js`, `juegos/` (un módulo por minijuego), `img/` (ilustraciones ligeras), `MANUAL.md`. Las aventuras añaden `prompts.html` (prompts para ChatGPT) e `imprimir.html`.
+Dentro de cada juego: `index.html` (app), `pc.html` (Modo PC), `cartas.json` (guion, pistas, textos impresos y prompts de ilustración), `pistas.js`, `minijuegos/` (un módulo por minijuego), `img/` (ilustraciones ligeras que se publican), `MANUAL.md`. Los juegos con ilustraciones añaden `prompts.html` (prompts para ChatGPT) e `imprimir.html`. Los originales pesados van en `arte/` y no se suben.
 
 ## Ilustraciones (Aventuras C&A)
 
-1. Abre `prompts.html` del juego, adjunta a ChatGPT una foto de Cristina y Alberto y sigue los pasos (hoja de personajes → una imagen por carta → vídeo de inicio).
-2. Guarda las imágenes como `arte/8.png`, `arte/P.png`... dentro de la carpeta del juego (`arte/` no se sube a git).
-3. `python herramientas/preparar_imagenes.py Aventuras-CA/Egipto` las convierte a `img/*.jpg` ligeros; después se suben. Mientras no estén, las cartas salen con una ilustración de relleno.
+Están hechas con ChatGPT de forma automática (Selenium), con la cara de Cristina y Alberto de una hoja de personajes y **ropa distinta en cada juego**:
+
+1. `herramientas/abrir_chrome_chatgpt.ps1` abre un Chrome normal: inicia sesión en ChatGPT (y pasa la verificación «soy humano») ahí.
+2. `python herramientas/chatgpt_imagenes.py --conectar --hoja --foto F1.jpg F2.jpg` crea la hoja de personajes (`personajes/hoja.png`, solo en local).
+3. `python herramientas/chatgpt_imagenes.py --conectar juegos/aventuras-ca/egipto` genera cada carta en `arte/ID.png` y la convierte a `img/ID.jpg`.
+
+`arte/`, `personajes/` y las fotos no se suben a git. Manualmente se puede hacer igual con `prompts.html` de cada juego.
 
 ## Publicar cambios
 
@@ -53,9 +60,9 @@ Dentro de cada juego: `index.html` (app), `pc.html` (Modo PC), `cartas.json` (gu
 ## Comprobar un juego
 
 ```
-python herramientas/verificar.py Unlock-El-Faro/cartas.json herramientas/spec_faro.json
+python herramientas/verificar.py juegos/el-faro/cartas.json herramientas/spec_faro.json
 python -m http.server 8810
-python herramientas/ejecutar_manual.py http://127.0.0.1:8810 Unlock-El-Faro datos_faro solvers_faro
+python herramientas/ejecutar_manual.py http://127.0.0.1:8810 juegos/el-faro datos_faro solvers_faro
 ```
 
 Más detalle en [`herramientas/LEEME.md`](herramientas/LEEME.md).

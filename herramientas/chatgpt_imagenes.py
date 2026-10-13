@@ -9,10 +9,10 @@ Todo lo privado queda FUERA de git: el perfil de Chrome con tu sesion vive en
 
 Uso (desde la raiz del repo):
     python herramientas/chatgpt_imagenes.py --foto F1.jpg F2.jpg --hoja         # solo la hoja
-    python herramientas/chatgpt_imagenes.py Aventuras-CA/Egipto                    # las cartas que falten
-    python herramientas/chatgpt_imagenes.py Aventuras-CA/Marte --solo 10 33 P      # solo esas
-    python herramientas/chatgpt_imagenes.py Aventuras-CA/Marte --forzar            # regenera todas
-    python herramientas/chatgpt_imagenes.py --foto F.jpg --hoja Aventuras-CA/Egipto Aventuras-CA/Marte
+    python herramientas/chatgpt_imagenes.py juegos/aventuras-ca/egipto                    # las cartas que falten
+    python herramientas/chatgpt_imagenes.py juegos/aventuras-ca/marte --solo 10 33 P      # solo esas
+    python herramientas/chatgpt_imagenes.py juegos/aventuras-ca/marte --forzar            # regenera todas
+    python herramientas/chatgpt_imagenes.py --foto F.jpg --hoja juegos/aventuras-ca/egipto juegos/aventuras-ca/marte
 
 La primera vez se abre Chrome: inicia sesion en ChatGPT a mano (el script espera hasta 10 min).
 Se puede cortar y relanzar: salta lo que ya existe. Si ChatGPT pone limite de imagenes, para.
@@ -248,7 +248,7 @@ def hacer_juego(chat, carpeta, solo, forzar):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("juegos", nargs="*", help="carpetas de juego, p. ej. Aventuras-CA/Egipto")
+    ap.add_argument("juegos", nargs="*", help="carpetas de juego, p. ej. juegos/aventuras-ca/egipto")
     ap.add_argument("--foto", nargs="+", help="una o varias fotos de Cristina y Alberto (solo para la hoja)")
     ap.add_argument("--hoja", action="store_true", help="generar la hoja de personajes")
     ap.add_argument("--solo", nargs="*")
