@@ -35,7 +35,11 @@ function css() {
   display:flex; align-items:center; justify-content:center;
   background:linear-gradient(180deg,#2fd09f,#0db07e); color:#042617; font-weight:900;
 }
-.pst-text{ color:#dfe9fb; line-height:1.4; white-space:pre-wrap; }
+.pst-text{ color:#dfe9fb; line-height:1.45; white-space:pre-wrap; }
+.pst-cuerpo{ flex:1; min-width:0; }
+.pst-nivel{ display:inline-block; font-size:.7rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; padding:2px 8px; border-radius:999px; background:rgba(255,255,255,.08); color:#b9c7d9; }
+.pst-nivel.sol{ background:rgba(255,157,31,.18); color:#ffcf6b; }
+.pst-aviso{ margin-top:8px; font-size:.8rem; color:#ffcf6b; }
 
 .pst-empty{
   margin-top:12px; padding:12px; border-radius:12px; text-align:center; font-weight:800;
@@ -49,7 +53,7 @@ function css() {
 .pst-ind{ color:#9fb3cc; font-size:.9rem; letter-spacing:.04em; }
 .pst-actions{ display:flex; gap:8px; }
 .pst-btn{
-  padding:8px 14px; border-radius:10px; font-weight:800; border:1px solid transparent; cursor:pointer;
+  min-height:46px; padding:8px 16px; border-radius:10px; font-weight:800; border:1px solid transparent; cursor:pointer;
 }
 .pst-ghost{ background:transparent; color:#eaf2ff; border-color:rgba(255,255,255,.06); }
 .pst-primary{ background:linear-gradient(180deg,#2fd09f,#0db07e); color:#042617; }
@@ -114,8 +118,18 @@ export async function openPistas(card, opts = {}) {
     const textEl = document.createElement('div');
     textEl.className = 'pst-text';
 
+    const nivelEl = document.createElement('div');
+    nivelEl.className = 'pst-nivel';
+    const avisoEl = document.createElement('div');
+    avisoEl.className = 'pst-aviso';
+    const cuerpoEl = document.createElement('div');
+    cuerpoEl.className = 'pst-cuerpo';
+    cuerpoEl.appendChild(nivelEl);
+    cuerpoEl.appendChild(textEl);
+    cuerpoEl.appendChild(avisoEl);
+
     cardWrap.appendChild(badgeEl);
-    cardWrap.appendChild(textEl);
+    cardWrap.appendChild(cuerpoEl);
     panel.appendChild(cardWrap);
 
     const footer = document.createElement('div');
@@ -153,6 +167,12 @@ export async function openPistas(card, opts = {}) {
       const n = idx + 1;
       badgeEl.textContent = n;
       textEl.textContent = pistas[idx];
+      // nivel de la pista: de menos a más reveladora; la última casi siempre resuelve el paso
+      const total = pistas.length;
+      const ultima = total > 1 && idx === total - 1;
+      nivelEl.textContent = total === 1 ? 'Orientación' : (idx === 0 ? 'Orientación' : (ultima ? 'Solución' : 'Empujón'));
+      nivelEl.classList.toggle('sol', ultima);
+      avisoEl.textContent = ultima ? 'Esta pista casi lo resuelve. Si queréis seguir pensando, volved a la anterior.' : '';
       indEl.textContent = `Pista ${n} / ${pistas.length}`;
       prevBtn.disabled = (idx === 0);
       nextBtn.disabled = (idx === pistas.length - 1);

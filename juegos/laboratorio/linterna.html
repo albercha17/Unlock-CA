@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Puente y linterna</title><link rel="stylesheet" href="lab.css">
+<style>
+.orillas{display:grid;grid-template-columns:1fr 70px 1fr;gap:6px;align-items:stretch}
+.orilla{background:var(--panel2);border-radius:12px;min-height:200px;padding:8px;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:flex-start}
+.rio{background:repeating-linear-gradient(0deg,#0d3350 0 8px,#124466 8px 16px);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#9fd2f0;text-align:center}
+.pers{width:100%;min-height:52px;border-radius:12px;border:2px solid var(--linea);background:var(--panel);color:var(--texto);display:flex;align-items:center;justify-content:space-between;padding:6px 12px;cursor:pointer;touch-action:manipulation;font-weight:700}
+.pers .t{background:#ffd27a;color:#2a1600;border-radius:999px;padding:2px 10px;font-weight:800}
+.pers.sel{border-color:#ffd27a;box-shadow:0 0 12px rgba(255,210,122,.5)}
+.lin{font-size:.8rem;color:var(--suave);text-align:center}
+.lin.aqui{color:#ffd27a;font-weight:800}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Puente y linterna</h1>
+<p class="sub">Idea de la guía §7.2 · tiempo mínimo calculado por script</p>
+<div class="regla">Cuatro exploradores deben cruzar el puente <b>antes de que amanezca</b>. Solo hay una linterna: cruzan de uno en uno o de dos en dos (a la velocidad del más lento) y alguien debe devolverla. Los números son los minutos que tarda cada uno. Llegad todos en <b id="limite"></b> minutos o menos.</div>
+<div class="tabla">
+  <div class="orillas"><div class="orilla" id="izq"><div class="lin" id="lin-izq"></div></div><div class="rio">puente</div><div class="orilla" id="der"><div class="lin" id="lin-der"></div></div></div>
+  <div class="fila-btn"><button class="btn primario" id="cruzar">Cruzar</button><button class="btn" id="reiniciar">Reiniciar</button></div>
+  <div class="msg" id="msg" aria-live="polite"></div>
+  <div class="pista">Tiempo gastado: <b id="gastado">0</b> min</div>
+</div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.linterna;
+  const T = D.tiempos;
+  const LIM = D.tiempo_minimo;
+  document.getElementById('limite').textContent = LIM;
+  const nombres = ['Alba', 'Biel', 'Carla', 'Dani'];
+  let lado, lampara, sel, gastado, resuelto;
+  const msg = document.getElementById('msg');
+  function inicio() { lado = T.map(() => 'izq'); lampara = 'izq'; sel = new Set(); gastado = 0; resuelto = false; msg.textContent = ''; pintar(); }
+  function pintar() {
+    ['izq', 'der'].forEach(o => {
+      const cont = document.getElementById(o);
+      cont.querySelectorAll('.pers').forEach(e => e.remove());
+      T.forEach((t, i) => {
+        if (lado[i] !== o) return;
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pers lado-' + o + (sel.has(i) ? ' sel' : '');
+        b.dataset.t = String(t);
+        b.dataset.i = String(i);
+        b.setAttribute('aria-label', nombres[i] + ', ' + t + ' minutos');
+        b.innerHTML = '<span>' + nombres[i] + '</span><span class="t">' + t + '</span>';
+        b.addEventListener('click', () => {
+          if (resuelto || lampara !== o) return;
+          if (sel.has(i)) sel.delete(i); else if (sel.size < 2) sel.add(i);
+          pintar();
+        });
+        cont.appendChild(b);
+      });
+      const l = document.getElementById('lin-' + o);
+      l.textContent = lampara === o ? 'Linterna aquí' : '';
+      l.className = 'lin' + (lampara === o ? ' aqui' : '');
+    });
+    document.getElementById('gastado').textContent = String(gastado);
+  }
+  document.getElementById('cruzar').addEventListener('click', () => {
+    if (resuelto) return;
+    if (!sel.size) { msg.className = 'msg bad'; msg.textContent = 'Elige a uno o dos exploradores de la orilla donde está la linterna.'; return; }
+    const destino = lampara === 'izq' ? 'der' : 'izq';
+    gastado += Math.max(...[...sel].map(i => T[i]));
+    sel.forEach(i => { lado[i] = destino; });
+    sel = new Set();
+    lampara = destino;
+    msg.className = 'msg'; msg.textContent = '';
+    pintar();
+    if (lado.every(x => x === 'der')) {
+      resuelto = true;
+      if (gastado <= LIM) { msg.className = 'msg ok'; msg.textContent = '¡Todos al otro lado en ' + gastado + ' minutos! Llegáis a tiempo.'; }
+      else { resuelto = false; msg.className = 'msg bad'; msg.textContent = 'Habéis tardado ' + gastado + ' minutos: amanece antes. Probad otro reparto.'; }
+    }
+  });
+  document.getElementById('reiniciar').addEventListener('click', inicio);
+  inicio();
+})();
+</script></body></html>

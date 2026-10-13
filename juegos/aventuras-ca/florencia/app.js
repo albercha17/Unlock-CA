@@ -1,0 +1,616 @@
+// app.js — lógica de la app de Unlock C&A / Aventuras C&A. Común a todos los juegos: se edita en juegos/el-faro y se propaga con
+// herramientas/regenerar_index.py. La configuración de cada juego (segundos, carta final, minijuegos) está en window.APP_CONFIG (index.html).
+
+const CFG = Object.assign({ segundos: 3600, final: '99', volver: '../index.html', minijuegos: {} }, window.APP_CONFIG || {});
+const $ = (id) => document.getElementById(id);
+const TEMA = document.documentElement.dataset.tema || 'faro';
+const TITULO = (document.querySelector('[data-juego-titulo]') || {}).textContent || document.title;
+const CLAVE_GUARDADO = 'ca-partida:' + location.pathname.replace(/index\.html$/, '');
+const CLAVE_RELOJ = 'ca-reloj-oculto';
+
+// texto del reloj según la historia (el reloj es parte del juego, no solo un número)
+const ETIQUETA_RELOJ = {
+  faro: 'El carguero se acerca a las rocas',
+  egipto: 'Los sacerdotes se acercan al templo',
+  marte: 'El oxígeno de la cúpula se agota',
+  florencia: 'El alba se acerca',
+  dinosaurios: 'El asteroide se acerca'
+};
+
+const REGLAS = [
+  '<p><b>Cartas:</b> cada carta tiene un número. Se leen entre los dos y se ponen en la mesa.</p>',
+  '<p><b>Coge / Descarta:</b> cuando una carta dice «Coge», buscad esas cartas en el mazo y ponedlas en la mesa; «Descarta» significa apartarlas.</p>',
+  '<p><b>Combinar:</b> si dos cartas se pueden combinar, <b>sumad sus números</b>: el resultado es la carta que debéis coger.</p>',
+  '<p><b>Acción:</b> si una carta tiene puzle, código o minijuego en la app, escribid su número en Acción.</p>',
+  '<p><b>Pista:</b> escribid el número de la carta en la que estáis atascados. Las pistas van de menos a más reveladoras; la última lo resuelve.</p>',
+  '<p><b>Cuaderno:</b> la app apunta lo que abrís y tiene un bloc para vuestras notas. La partida se guarda sola.</p>'
+].join('');
+
+// ---------------------------------------------------------------- utilidades
+function leerGuardado() {
+  try { return JSON.parse(localStorage.getItem(CLAVE_GUARDADO) || 'null'); } catch (e) { return null; }
+}
+function escribirGuardado(valor) {
+  try {
+    if (valor === null) localStorage.removeItem(CLAVE_GUARDADO);
+    else localStorage.setItem(CLAVE_GUARDADO, JSON.stringify(valor));
+  } catch (e) { /* sin almacenamiento: la partida sigue, solo no se guarda */ }
+}
+function prefiereMenosMovimiento() {
+  return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+function pitido(freq, ms, tipo = 'sine', vol = 0.06) {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    pitido.ctx = pitido.ctx || new AC();
+    const ctx = pitido.ctx;
+    if (ctx.state === 'suspended') ctx.resume();
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = tipo;
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(vol, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + ms / 1000);
+    osc.connect(g).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + ms / 1000);
+  } catch (e) { /* sin audio */ }
+}
+function vibrar(patron) {
+  try { if (navigator.vibrate) navigator.vibrate(patron); } catch (e) { /* iOS no lo tiene */ }
+}
+function textoDuracion(seg) {
+  const m = Math.round(seg / 60);
+  if (m === 60) return '1 hora';
+  if (m % 60 === 0) return (m / 60) + ' horas';
+  return m + ' minutos';
+}
+function formatTime(s) {
+  const neg = s < 0;
+  const n = Math.ceil(Math.abs(s));
+  const h = Math.floor(n / 3600).toString().padStart(2, '0');
+  const m = Math.floor((n % 3600) / 60).toString().padStart(2, '0');
+  const sec = Math.floor(n % 60).toString().padStart(2, '0');
+  return `${neg ? '+' : ''}${h}:${m}:${sec}`;
+}
+function mmss(s) {
+  const n = Math.max(0, Math.round(s));
+  return `${Math.floor(n / 60)}:${String(n % 60).padStart(2, '0')}`;
+}
+
+// ---------------------------------------------------------------- elementos
+const introPanel = $('introPanel');
+const gamePanel = $('gamePanel');
+const finalPanel = $('finalPanel');
+const startBtn = $('startBtn');
+const continueBtn = $('continueBtn');
+const gameTimerEl = $('gameTimer');
+const relojEl = $('reloj');
+const actionBtn = $('actionBtn');
+const hintBtn = $('hintBtn');
+const pauseBtn = $('pauseBtn');
+const resumeBtn = $('resumeBtn');
+const stopBtn = $('stopBtn');
+const numModal = $('numModal');
+const numDisplay = $('numDisplay');
+const numTitulo = $('numTitulo');
+const numMessage = $('numMessage');
+const numKeys = Array.from(document.querySelectorAll('.num-key'));
+const numOk = $('numOk');
+const numCancel = $('numCancel');
+const numClear = $('numClear');
+const openAnywayWrap = $('openAnywayWrap');
+const sysDialog = $('sysDialog');
+const sysDialogMsg = $('sysDialogMsg');
+const sysOkBtn = $('sysOkBtn');
+const sysCancelBtn = $('sysCancelBtn');
+
+// ---------------------------------------------------------------- estado de la partida
+const TOTAL = CFG.segundos;
+let estado = nuevoEstado();
+let intervalId = null;
+let isPaused = false;
+let ultimoTick = 0;
+let ticksDesdeGuardado = 0;
+let avisoTiempoMostrado = false;
+let partidaIniciada = false;
+let entered = '';
+let pendingUse = null;
+let cartas = null; // cartas.json (títulos para el teclado y el registro)
+
+function nuevoEstado() {
+  return { v: 1, restante: TOTAL, log: [], pistas: {}, sinEfecto: 0, notas: '', empezada: Date.now(), fin: null };
+}
+function guardar() {
+  if (!estado || estado.fin) return;
+  escribirGuardado(estado);
+}
+async function cargarCartas() {
+  if (cartas) return cartas;
+  try {
+    const r = await fetch('./cartas.json', { cache: 'no-store' });
+    cartas = r.ok ? await r.json() : {};
+  } catch (e) {
+    cartas = {};
+  }
+  return cartas;
+}
+function tituloCarta(num) {
+  const c = cartas && cartas[String(num)];
+  return c && c.titulo ? c.titulo : `Carta ${num}`;
+}
+function soloNombre(titulo) {
+  const partes = String(titulo).split('—');
+  return (partes.length > 1 ? partes.slice(1).join('—') : titulo).replace(/\s*\(FIN\)\s*/i, '').trim();
+}
+
+// ---------------------------------------------------------------- reloj
+function actualizarReloj() {
+  const gastado = TOTAL - estado.restante;
+  gameTimerEl.textContent = formatTime(estado.restante);
+  const frac = Math.max(0, Math.min(1, gastado / TOTAL));
+  $('relojBarra').style.width = (frac * 100) + '%';
+  $('relojMarca').style.left = (frac * 100) + '%';
+  const urgente = estado.restante > 0 && (estado.restante <= 300 || frac >= 0.9);
+  relojEl.classList.toggle('urgente', urgente && !prefiereMenosMovimiento());
+  if (prefiereMenosMovimiento()) gameTimerEl.style.color = urgente ? '#ff9d9d' : '#fff';
+  relojEl.classList.toggle('tarde', estado.restante <= 0);
+  const abiertas = estado.log.filter((e) => e.uso === 'accion' && e.card !== String(CFG.final)).length;
+  const pistas = Object.values(estado.pistas).reduce((a, b) => a + b, 0);
+  $('resumen').textContent = `Cartas abiertas: ${abiertas} · Pistas pedidas: ${pistas}`;
+}
+function tick() {
+  const ahora = Date.now();
+  const dt = (ahora - ultimoTick) / 1000;
+  ultimoTick = ahora;
+  if (isPaused || estado.fin) return;
+  estado.restante -= dt;
+  if (estado.restante <= 0 && !avisoTiempoMostrado) {
+    avisoTiempoMostrado = true;
+    pitido(220, 600, 'sawtooth');
+    vibrar([200, 100, 200]);
+    showSysDialog('Se acabó el tiempo. Podéis seguir jugando: el reloj cuenta el tiempo de más y quedará anotado en el informe.', { okText: 'Seguir jugando' });
+  }
+  actualizarReloj();
+  if (++ticksDesdeGuardado >= 5) { ticksDesdeGuardado = 0; guardar(); }
+}
+function arrancarReloj() {
+  if (intervalId) clearInterval(intervalId);
+  ultimoTick = Date.now();
+  intervalId = setInterval(tick, 1000);
+}
+
+// ---------------------------------------------------------------- pantalla encendida
+let wakeLock = null;
+async function pedirPantallaEncendida() {
+  try {
+    if (!('wakeLock' in navigator) || estado.fin) return;
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => { wakeLock = null; });
+  } catch (e) { /* batería baja o sin permiso: no pasa nada */ }
+}
+function soltarPantalla() {
+  try { if (wakeLock) wakeLock.release(); } catch (e) { /* nada */ }
+  wakeLock = null;
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && partidaIniciada && !estado.fin) pedirPantallaEncendida();
+});
+
+// ---------------------------------------------------------------- inicio de partida
+function prepararPantallaJuego() {
+  introPanel.style.display = 'none';
+  finalPanel.style.display = 'none';
+  gamePanel.style.display = 'block';
+  pauseBtn.style.display = 'inline-flex';
+  resumeBtn.style.display = 'none';
+  isPaused = false;
+  avisoTiempoMostrado = estado.restante <= 0;
+  $('notasTexto').value = estado.notas || '';
+  actualizarReloj();
+  arrancarReloj();
+  pedirPantallaEncendida();
+  guardar();
+  window.scrollTo(0, 0);
+}
+function empezarPartida() {
+  if (partidaIniciada) return;
+  partidaIniciada = true;
+  try { introVideo.pause(); } catch (e) { /* ignore */ }
+  videoOverlay.style.display = 'none';
+  estado = nuevoEstado();
+  prepararPantallaJuego();
+}
+
+const videoOverlay = $('videoOverlay');
+const introVideo = $('introVideo');
+const skipVideoBtn = $('skipVideoBtn');
+
+// El vídeo de introducción va en ./video/videoInicial.mp4. Si no existe o falla, la partida empieza igual.
+startBtn.addEventListener('click', () => {
+  pitido(660, 90);
+  partidaIniciada = false;
+  videoOverlay.style.display = 'flex';
+  try {
+    introVideo.currentTime = 0;
+    const p = introVideo.play();
+    if (p && typeof p.catch === 'function') {
+      p.catch(() => {
+        if (introVideo.error) empezarPartida();
+        else introVideo.setAttribute('controls', 'controls');
+      });
+    }
+  } catch (e) {
+    empezarPartida();
+  }
+});
+introVideo.addEventListener('ended', empezarPartida);
+introVideo.addEventListener('error', () => {
+  if (videoOverlay.style.display === 'flex') empezarPartida();
+});
+skipVideoBtn.addEventListener('click', empezarPartida);
+
+continueBtn.addEventListener('click', () => {
+  const g = leerGuardado();
+  if (!g || !Array.isArray(g.log)) return;
+  pitido(660, 90);
+  estado = g;
+  partidaIniciada = true;
+  prepararPantallaJuego();
+});
+
+// ---------------------------------------------------------------- teclado de cartas
+function renderNum() {
+  numDisplay.textContent = entered === '' ? '—' : entered;
+  numTitulo.textContent = '';
+  const c = entered && cartas ? cartas[entered.toUpperCase() === 'P' ? 'P' : String(Number(entered))] : null;
+  if (!c || !c.titulo || !/^(P|\d+)$/i.test(entered)) return;
+  if (String(Number(entered)) === String(CFG.final) && pendingUse === 'pista') return; // sin destripar el final
+  if (pendingUse === 'accion' && !CFG.minijuegos[String(Number(entered))]) return; // solo confirma las cartas con app
+  numTitulo.textContent = soloNombre(c.titulo);
+}
+function openNumModal() {
+  entered = '';
+  numMessage.textContent = '';
+  renderNum();
+  numModal.classList.remove('closing');
+  numModal.style.display = 'flex';
+  numModal.setAttribute('aria-hidden', 'false');
+  openAnywayWrap.style.display = location.protocol === 'file:' ? 'block' : 'none';
+  const first = numKeys.find((k) => !k.classList.contains('action'));
+  if (first) first.focus();
+}
+function closeNumModalImmediate() {
+  numModal.style.display = 'none';
+  numModal.classList.remove('closing');
+  numModal.setAttribute('aria-hidden', 'true');
+  actionBtn.focus();
+}
+function closeNumModal() {
+  numModal.classList.add('closing');
+  numModal.setAttribute('aria-hidden', 'true');
+  setTimeout(closeNumModalImmediate, 150);
+}
+function cancelNumModal() {
+  pendingUse = null;
+  closeNumModal();
+}
+function mostrarErrorNum(texto) {
+  numMessage.textContent = texto;
+  numModal.style.display = 'flex';
+  numModal.setAttribute('aria-hidden', 'false');
+  pitido(180, 160, 'square', 0.04);
+  vibrar(60);
+}
+
+numKeys.forEach((k) => {
+  k.addEventListener('click', () => {
+    const key = k.dataset.key;
+    if (!key || entered.length >= 4) return;
+    entered += key;
+    renderNum();
+  });
+});
+numClear.addEventListener('click', () => { entered = entered.slice(0, -1); renderNum(); });
+numCancel.addEventListener('click', cancelNumModal);
+
+actionBtn.addEventListener('click', async () => { pendingUse = 'accion'; await cargarCartas(); openNumModal(); });
+hintBtn.addEventListener('click', async () => { pendingUse = 'pista'; await cargarCartas(); openNumModal(); });
+
+// ---------------------------------------------------------------- diálogos
+function showSysDialog(message, { showCancel = false, okText = 'Aceptar', cancelText = 'Cancelar' } = {}) {
+  return new Promise((resolve) => {
+    sysDialogMsg.textContent = message;
+    sysOkBtn.textContent = okText;
+    sysCancelBtn.textContent = cancelText;
+    sysCancelBtn.style.display = showCancel ? 'inline-block' : 'none';
+    sysDialog.style.display = 'flex';
+    sysDialog.setAttribute('aria-hidden', 'false');
+    sysOkBtn.focus();
+    function cleanup() {
+      sysDialog.style.display = 'none';
+      sysDialog.setAttribute('aria-hidden', 'true');
+      sysOkBtn.removeEventListener('click', onOk);
+      sysCancelBtn.removeEventListener('click', onCancel);
+    }
+    function onOk() { cleanup(); resolve({ ok: true }); }
+    function onCancel() { cleanup(); resolve({ ok: false }); }
+    sysOkBtn.addEventListener('click', onOk);
+    sysCancelBtn.addEventListener('click', onCancel);
+  });
+}
+function showAlert(message) {
+  try { showSysDialog(message, { showCancel: false, okText: 'Aceptar' }); } catch (e) { console.log(message); }
+}
+function showConfirm(message) {
+  return showSysDialog(message, { showCancel: true, okText: 'Sí', cancelText: 'No' }).then((r) => !!r.ok);
+}
+window.alert = function (msg) { showAlert(String(msg)); };
+
+// ---------------------------------------------------------------- aceptar carta
+function registrar(card, uso) {
+  estado.log.push({ card: String(card), uso, t: Math.round(TOTAL - estado.restante) });
+  if (uso === 'pista') estado.pistas[card] = (estado.pistas[card] || 0) + 1;
+  actualizarReloj();
+  guardar();
+}
+
+numOk.addEventListener('click', async () => {
+  if (!entered || entered.trim() === '') {
+    numMessage.textContent = 'Introduce un número.';
+    return;
+  }
+  const card = entered.trim();
+
+  if (pendingUse === 'pista') {
+    numMessage.textContent = '';
+    try {
+      const module = await import('./pistas.js');
+      if (module && typeof module.openPistas === 'function') {
+        closeNumModal();
+        const clave = card.toUpperCase() === 'P' ? 'P' : String(Number(card));
+        registrar(clave, 'pista');
+        module.openPistas(clave, { onClose: () => { pendingUse = null; hintBtn.focus(); } });
+      } else {
+        numMessage.textContent = 'No se pudo cargar el sistema de pistas.';
+      }
+    } catch (err) {
+      console.warn('No se pudo cargar el módulo de pistas:', err);
+      mostrarErrorNum('No hay pistas para esta carta. Prueba con otra.');
+    }
+    return;
+  }
+
+  await checkAndOpen(card);
+  pendingUse = null;
+});
+
+async function tryImportModule(modulePath) {
+  try {
+    const resolvedPath = new URL(modulePath, import.meta.url).href;
+    const module = await import(resolvedPath);
+    return { ok: true, module };
+  } catch (err) {
+    return { ok: false, err };
+  }
+}
+
+async function checkAndOpen(code) {
+  numMessage.textContent = '';
+  if (code.trim() === '') { mostrarErrorNum('Introduce un número.'); return; }
+  if (code.trim().toUpperCase() === 'P') {
+    estado.sinEfecto++;
+    mostrarErrorNum('La carta P no es de acción. Pide su pista con el botón Pista.');
+    return;
+  }
+  if (!/^\d+$/.test(code)) { mostrarErrorNum('Solo se permiten dígitos.'); return; }
+  const c = String(Number(code)); // normaliza '02' -> '2', etc.
+
+  if (c === String(CFG.final)) {
+    closeNumModal();
+    registrar(c, 'accion');
+    mostrarFinal(true);
+    return;
+  }
+
+  const modulePath = CFG.minijuegos[c];
+  if (modulePath) {
+    const res = await tryImportModule(modulePath);
+    if (!res.ok) {
+      console.error(`Error cargando minijuego ${c}:`, res.err);
+      mostrarErrorNum(`No se pudo cargar el minijuego (${c}). Comprueba que el archivo exista y usa un servidor local.`);
+      return;
+    }
+    const module = res.module;
+    if (typeof module.startMinigame === 'function') {
+      closeNumModal();
+      registrar(c, 'accion');
+      module.startMinigame({
+        onClose: () => actionBtn.focus(),
+        pauseGameTimer: () => { isPaused = true; },
+        resumeGameTimer: () => { isPaused = false; }
+      });
+    } else {
+      mostrarErrorNum(`Módulo ${c} cargado, pero no exporta startMinigame.`);
+    }
+    return;
+  }
+
+  estado.sinEfecto++;
+  guardar();
+  mostrarErrorNum('Esa carta no es de acción. Prueba con otra.');
+}
+
+document.addEventListener('keydown', (e) => {
+  if (numModal.style.display === 'flex') {
+    if (e.key === 'Escape') { cancelNumModal(); e.preventDefault(); return; }
+    if (e.key === 'Enter') { numOk.click(); e.preventDefault(); return; }
+    if (e.key === 'Backspace') { entered = entered.slice(0, -1); renderNum(); e.preventDefault(); return; }
+    if (/^[0-9pP]$/.test(e.key) && entered.length < 4) { entered += e.key.toUpperCase(); renderNum(); e.preventDefault(); }
+  }
+  if (sysDialog.style.display === 'flex' && e.key === 'Escape') {
+    if (sysCancelBtn.style.display !== 'none') sysCancelBtn.click();
+    else sysOkBtn.click();
+  }
+});
+
+// ---------------------------------------------------------------- pausa y salida
+pauseBtn.addEventListener('click', () => {
+  isPaused = true;
+  pauseBtn.style.display = 'none';
+  resumeBtn.style.display = 'inline-flex';
+});
+resumeBtn.addEventListener('click', () => {
+  isPaused = false;
+  pauseBtn.style.display = 'inline-flex';
+  resumeBtn.style.display = 'none';
+});
+stopBtn.addEventListener('click', async () => {
+  const ok = await showConfirm('¿Salir al inicio? La partida queda guardada y podréis continuarla desde el botón «Continuar partida».');
+  if (!ok) return;
+  guardar();
+  if (intervalId) clearInterval(intervalId);
+  soltarPantalla();
+  partidaIniciada = false;
+  introPanel.style.display = 'block';
+  gamePanel.style.display = 'none';
+  mostrarContinuar();
+});
+
+// ---------------------------------------------------------------- reloj oculto
+const clockToggle = $('clockToggle');
+function aplicarRelojOculto(oculto) {
+  relojEl.classList.toggle('oculto', oculto);
+  clockToggle.setAttribute('aria-pressed', String(oculto));
+  clockToggle.setAttribute('aria-label', oculto ? 'Mostrar el número del reloj' : 'Ocultar el número del reloj');
+  try { localStorage.setItem(CLAVE_RELOJ, oculto ? '1' : '0'); } catch (e) { /* nada */ }
+}
+clockToggle.addEventListener('click', () => aplicarRelojOculto(!relojEl.classList.contains('oculto')));
+try { if (localStorage.getItem(CLAVE_RELOJ) === '1') aplicarRelojOculto(true); } catch (e) { /* nada */ }
+
+// ---------------------------------------------------------------- cuaderno
+const cuaderno = $('cuaderno');
+function abrirCuaderno(tab) {
+  pintarRegistro();
+  cuaderno.classList.add('abierto');
+  cuaderno.setAttribute('aria-hidden', 'false');
+  elegirPestana(tab || 'registro');
+}
+function cerrarCuaderno() {
+  cuaderno.classList.remove('abierto');
+  cuaderno.setAttribute('aria-hidden', 'true');
+  $('notebookBtn').focus();
+}
+function elegirPestana(nombre) {
+  ['registro', 'notas', 'reglas'].forEach((t) => {
+    $('tab' + t[0].toUpperCase() + t.slice(1)).setAttribute('aria-selected', String(t === nombre));
+    $('panel' + t[0].toUpperCase() + t.slice(1)).hidden = t !== nombre;
+  });
+  if (nombre === 'notas') $('notasTexto').focus();
+}
+async function pintarRegistro() {
+  await cargarCartas();
+  const cont = $('panelRegistro');
+  if (!estado.log.length) {
+    cont.innerHTML = '<p class="registro-vacio">Todavía no habéis abierto ninguna carta con la app. Aquí quedará anotado lo que hagáis.</p>';
+    return;
+  }
+  const ol = document.createElement('ol');
+  ol.className = 'registro';
+  estado.log.slice().reverse().forEach((e) => {
+    const li = document.createElement('li');
+    const nombre = document.createElement('span');
+    nombre.textContent = (e.uso === 'pista' ? 'Pista · ' : '') + tituloCarta(e.card);
+    const t = document.createElement('small');
+    t.textContent = mmss(e.t);
+    li.append(nombre, t);
+    ol.appendChild(li);
+  });
+  cont.replaceChildren(ol);
+}
+$('notebookBtn').addEventListener('click', () => abrirCuaderno('registro'));
+$('cuadernoCerrar').addEventListener('click', cerrarCuaderno);
+cuaderno.addEventListener('click', (e) => { if (e.target === cuaderno) cerrarCuaderno(); });
+document.querySelectorAll('.pestanas button').forEach((b) => b.addEventListener('click', () => elegirPestana(b.dataset.tab)));
+$('notasTexto').addEventListener('input', (e) => { estado.notas = e.target.value; guardar(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && cuaderno.classList.contains('abierto')) cerrarCuaderno(); });
+
+// ---------------------------------------------------------------- final e informe
+function construirInforme(exito) {
+  const usado = TOTAL - estado.restante;
+  const pistas = Object.entries(estado.pistas).map(([c, n]) => `${c}×${n}`).join(', ') || 'ninguna';
+  const abiertas = estado.log.filter((e) => e.uso === 'accion').map((e) => e.card).join(', ') || 'ninguna';
+  const extra = estado.restante < 0 ? ` (${mmss(-estado.restante)} de más)` : '';
+  const lineas = [
+    `Informe de partida — ${TITULO}`,
+    `Fecha: ${new Date().toLocaleString('es-ES')}`,
+    `Resultado: ${exito ? 'aventura completada' : 'partida sin terminar'}`,
+    `Tiempo usado: ${mmss(usado)} de ${mmss(TOTAL)}${extra}`,
+    `Pistas pedidas (carta×veces): ${pistas}`,
+    `Cartas abiertas con la app (en orden): ${abiertas}`,
+    `Intentos sin efecto en el teclado: ${estado.sinEfecto}`
+  ];
+  const tiempos = estado.log.map((e) => `${e.uso === 'pista' ? 'pista ' : ''}${e.card} a los ${mmss(e.t)}`).join('; ');
+  if (tiempos) lineas.push(`Línea de tiempo: ${tiempos}`);
+  if (estado.notas && estado.notas.trim()) lineas.push(`Notas: ${estado.notas.trim()}`);
+  return lineas.join('\n');
+}
+function mostrarFinal(exito) {
+  estado.fin = Date.now();
+  escribirGuardado(null);
+  if (intervalId) clearInterval(intervalId);
+  soltarPantalla();
+  gamePanel.style.display = 'none';
+  introPanel.style.display = 'none';
+  finalPanel.style.display = 'block';
+  const usado = TOTAL - estado.restante;
+  const pistas = Object.values(estado.pistas).reduce((a, b) => a + b, 0);
+  $('finTiempo').textContent = mmss(usado);
+  $('finPistas').textContent = String(pistas);
+  $('finCartas').textContent = String(estado.log.filter((e) => e.uso === 'accion' && e.card !== String(CFG.final)).length);
+  $('finalTitulo').textContent = exito ? '¡Misión cumplida!' : 'Partida terminada';
+  $('finalSub').textContent = estado.restante >= 0
+    ? `Lo habéis conseguido con ${mmss(estado.restante)} de margen.`
+    : `Lo habéis conseguido, con ${mmss(-estado.restante)} de más sobre el tiempo previsto.`;
+  $('informeTexto').textContent = construirInforme(exito);
+  [440, 554, 659, 880].forEach((f, i) => setTimeout(() => pitido(f, 220, 'triangle', 0.07), i * 160));
+  window.scrollTo(0, 0);
+}
+$('copyReportBtn').addEventListener('click', async () => {
+  const texto = $('informeTexto').textContent;
+  const pre = $('informeTexto');
+  let copiado = false;
+  try { await navigator.clipboard.writeText(texto); copiado = true; } catch (e) { /* respaldo abajo */ }
+  if (!copiado) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = texto;
+      document.body.appendChild(ta);
+      ta.select();
+      copiado = document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch (e) { copiado = false; }
+  }
+  pre.hidden = false;
+  $('copyReportBtn').textContent = copiado ? 'Informe copiado' : 'Seleccionad y copiad el informe';
+});
+$('replayBtn').addEventListener('click', () => { escribirGuardado(null); location.reload(); });
+
+// ---------------------------------------------------------------- inicio
+function mostrarContinuar() {
+  const g = leerGuardado();
+  const hay = !!(g && !g.fin && Array.isArray(g.log) && typeof g.restante === 'number' && (g.log.length || g.restante < TOTAL - 5));
+  continueBtn.hidden = !hay;
+  if (hay) continueBtn.textContent = `Continuar partida (${mmss(Math.max(0, g.restante))} restantes)`;
+}
+function volver() { window.location.href = CFG.volver; }
+window.volver = volver;
+
+$('introMin').textContent = textoDuracion(TOTAL);
+$('reglasTexto').innerHTML = REGLAS;
+$('panelReglas').innerHTML = REGLAS;
+$('relojEtiqueta').textContent = ETIQUETA_RELOJ[TEMA] || 'El tiempo corre';
+gameTimerEl.textContent = formatTime(TOTAL);
+mostrarContinuar();
+cargarCartas();

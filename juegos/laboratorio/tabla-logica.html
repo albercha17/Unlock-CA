@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Tabla lógica (sospechosos)</title><link rel="stylesheet" href="lab.css">
+<style>
+table.tl{width:100%;border-collapse:separate;border-spacing:3px;margin-bottom:10px}
+table.tl th{font-size:.72rem;color:var(--suave);font-weight:700;padding:2px}
+table.tl td.nom{font-weight:700;font-size:.82rem;padding-right:6px;text-align:right;color:var(--acento)}
+table.tl button{width:100%;min-height:44px}
+.frase{padding:6px 0;border-bottom:1px solid var(--linea);font-size:.88rem}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Tabla lógica (sospechosos)</h1>
+<p class="sub">Idea de la guía §7.2 · Zebra · solución única comprobada por script</p>
+<div class="regla">Cada persona tiene un objeto y un lugar distintos. Con las pistas, rellena las tablas: toca una casilla para marcar <b>×</b> (descartado) y otra vez para <b>●</b> (es este). Cuando creas tenerlo, pulsa Comprobar.</div>
+<div class="tabla" id="frases"></div>
+<div id="tablas"></div>
+<div class="fila-btn"><button class="btn primario" id="comprobar">Comprobar</button></div>
+<div class="msg" id="msg" aria-live="polite"></div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.zebra;
+  const personas = D.personas;
+  const nombres = Object.keys(D.atributos);
+  const fr = document.getElementById('frases');
+  D.frases.forEach(t => { const d = document.createElement('div'); d.className = 'frase'; d.textContent = t; fr.appendChild(d); });
+  const estado = {};
+  const cont = document.getElementById('tablas');
+  nombres.forEach(a => {
+    estado[a] = personas.map(() => D.atributos[a].map(() => 0));
+    const t = document.createElement('div');
+    t.className = 'tabla';
+    let h = '<div style="font-size:.78rem;color:var(--suave);margin-bottom:4px;text-transform:capitalize">' + a + '</div><table class="tl"><tr><th></th>' + D.atributos[a].map(v => '<th>' + v + '</th>').join('') + '</tr>';
+    personas.forEach((p, i) => {
+      h += '<tr><td class="nom">' + p + '</td>' + D.atributos[a].map((v, j) => '<td><button type="button" class="celda" data-a="' + a + '" data-p="' + i + '" data-v="' + j + '" aria-label="' + p + ' y ' + v + '"></button></td>').join('') + '</tr>';
+    });
+    t.innerHTML = h + '</table>';
+    cont.appendChild(t);
+  });
+  cont.addEventListener('click', e => {
+    const b = e.target.closest('button.celda');
+    if (!b) return;
+    const a = b.dataset.a, p = +b.dataset.p, v = +b.dataset.v;
+    estado[a][p][v] = (estado[a][p][v] + 1) % 3;
+    b.textContent = ['', '×', '●'][estado[a][p][v]];
+    b.style.color = estado[a][p][v] === 2 ? '#ffd27a' : '#9fb4c8';
+  });
+  const msg = document.getElementById('msg');
+  document.getElementById('comprobar').addEventListener('click', () => {
+    let ok = true;
+    nombres.forEach(a => personas.forEach((p, i) => {
+      D.atributos[a].forEach((v, j) => {
+        const esDe = D.solucion[a][i] === v;
+        if ((estado[a][i][j] === 2) !== esDe) ok = false;
+      });
+    }));
+    if (ok) { msg.className = 'msg ok'; msg.textContent = '¡Todo encaja! Has identificado quién tiene cada cosa y dónde está.'; }
+    else { msg.className = 'msg bad'; msg.textContent = 'Algo no encaja con las pistas. Revisa las frases una por una.'; }
+  });
+})();
+</script></body></html>

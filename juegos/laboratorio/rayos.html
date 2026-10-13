@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Rayos y espejos</title><link rel="stylesheet" href="lab.css">
+<style>
+.tablero{position:relative;margin:4px 0 0 24px;width:calc(100% - 24px);max-width:340px}
+.rej{display:grid;gap:3px;position:relative}
+.cel{aspect-ratio:1;border-radius:8px;border:1px solid var(--linea);background:var(--panel2);padding:0;position:relative;cursor:pointer;touch-action:manipulation;color:#fff}
+.cel.muro{background:repeating-linear-gradient(45deg,#3a3f47 0 6px,#2b2f36 6px 12px);cursor:default}
+.cel.gema::after{content:"";position:absolute;inset:22%;background:linear-gradient(135deg,#9ff0ff,#2aa7d6);transform:rotate(45deg);border-radius:4px;box-shadow:0 0 14px #5fd8ff}
+.cel.gema.on::after{box-shadow:0 0 24px #fff,0 0 40px #5fd8ff}
+.cel svg{position:absolute;inset:0;width:100%;height:100%}
+.emisor{position:absolute;left:-20px;width:0;height:0;border-left:14px solid #ffd27a;border-top:9px solid transparent;border-bottom:9px solid transparent;filter:drop-shadow(0 0 5px #ffd27a)}
+svg.rayo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+svg.rayo polyline{fill:none;stroke:#ffe27a;stroke-width:.09;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 .08px #ffd27a)}
+.cont{display:flex;justify-content:space-between;font-size:.85rem;color:var(--suave);margin:8px 6px}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Rayos y espejos</h1>
+<p class="sub">Idea de la guía §7.19 · solución única comprobada por script</p>
+<div class="regla">El rayo sale por el lado izquierdo (flecha) y avanza en línea recta. Toca una casilla para poner un espejo <b>/</b>, vuélvela a tocar para <b>\</b> y otra vez para quitarlo. Debes usar <b>exactamente</b> los espejos indicados, <b>todos</b> tocados por el rayo, para que llegue a la <b>gema</b>. Los muros paran el rayo.</div>
+<div class="tabla">
+  <div class="tablero" id="tablero"><div class="rej" id="rej"></div><svg class="rayo" id="rayo" aria-hidden="true"></svg><div class="emisor" id="emisor" aria-hidden="true"></div></div>
+  <div class="cont"><span>Espejos puestos: <b id="puestos">0</b> / <b id="total">0</b></span><span id="estado"></span></div>
+  <div class="msg" id="msg" aria-live="polite"></div>
+  <div class="fila-btn"><button class="btn" id="reiniciar">Quitar todos</button></div>
+</div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.rayos;
+  const N = D.n;
+  const paredes = new Set(D.paredes);
+  const rej = document.getElementById('rej');
+  rej.style.gridTemplateColumns = 'repeat(' + N + ',1fr)';
+  const msg = document.getElementById('msg');
+  document.getElementById('total').textContent = String(D.espejos);
+  let esp = {}, resuelto = false;
+  const celdas = [];
+  for (let i = 0; i < N * N; i++) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cel' + (paredes.has(i) ? ' muro' : '') + (i === D.objetivo ? ' gema' : '');
+    b.dataset.i = String(i);
+    b.setAttribute('aria-label', (paredes.has(i) ? 'Muro' : i === D.objetivo ? 'Gema' : 'Casilla') + ' ' + 'ABCDEFG'[i % N] + (Math.floor(i / N) + 1));
+    if (!paredes.has(i) && i !== D.objetivo) b.addEventListener('click', () => ciclo(i));
+    celdas.push(b);
+    rej.appendChild(b);
+  }
+  const em = document.getElementById('emisor');
+  function colocarEmisor() { em.style.top = 'calc(' + (D.fila * 100 / N) + '% + ' + (100 / N / 2) + '% - 9px)'; }
+  colocarEmisor();
+  function ciclo(i) {
+    if (resuelto) return;
+    const m = esp[i];
+    if (!m) { if (Object.keys(esp).length >= D.espejos) { msg.className = 'msg bad'; msg.textContent = 'Ya has usado todos los espejos. Quita alguno.'; return; } esp[i] = '/'; }
+    else if (m === '/') esp[i] = '\\';
+    else delete esp[i];
+    msg.textContent = '';
+    pintar();
+  }
+  function trazar() {
+    let x = 0, y = D.fila, dx = 1, dy = 0;
+    const pts = [[-0.5, y + 0.5]];
+    const tocados = new Set();
+    let llega = false;
+    for (let k = 0; k < 4 * N * N; k++) {
+      if (x < 0 || x >= N || y < 0 || y >= N) { pts.push([x + 0.5 - dx * 0.5, y + 0.5 - dy * 0.5]); break; }
+      const c = y * N + x;
+      if (paredes.has(c)) { pts.push([x + 0.5 - dx * 0.5, y + 0.5 - dy * 0.5]); break; }
+      pts.push([x + 0.5, y + 0.5]);
+      if (c === D.objetivo) { llega = true; break; }
+      const m = esp[c];
+      if (m) { tocados.add(c); const t = m === '/' ? [-dy, -dx] : [dy, dx]; dx = t[0]; dy = t[1]; }
+      x += dx; y += dy;
+    }
+    return { pts, llega, tocados };
+  }
+  function pintar() {
+    celdas.forEach((b, i) => {
+      b.querySelector('svg') && b.querySelector('svg').remove();
+      if (esp[i]) {
+        const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        s.setAttribute('viewBox', '0 0 10 10');
+        const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const a = esp[i] === '/' ? [2, 8, 8, 2] : [2, 2, 8, 8];
+        l.setAttribute('x1', a[0]); l.setAttribute('y1', a[1]); l.setAttribute('x2', a[2]); l.setAttribute('y2', a[3]);
+        l.setAttribute('stroke', '#dff6ff'); l.setAttribute('stroke-width', '1.4'); l.setAttribute('stroke-linecap', 'round');
+        s.appendChild(l);
+        b.appendChild(s);
+        b.setAttribute('aria-label', 'Espejo ' + esp[i] + ' en ' + 'ABCDEFG'[i % N] + (Math.floor(i / N) + 1));
+      }
+    });
+    const r = trazar();
+    const svg = document.getElementById('rayo');
+    svg.setAttribute('viewBox', '0 0 ' + N + ' ' + N);
+    svg.innerHTML = '<polyline points="' + r.pts.map(p => p.join(',')).join(' ') + '"/>';
+    celdas[D.objetivo].classList.toggle('on', r.llega);
+    const usados = Object.keys(esp).length;
+    document.getElementById('puestos').textContent = String(usados);
+    document.getElementById('estado').textContent = r.llega ? 'El rayo llega a la gema' : '';
+    if (r.llega && usados === D.espejos && r.tocados.size === D.espejos) {
+      resuelto = true; msg.className = 'msg ok'; msg.textContent = '¡La gema brilla! Todos los espejos hacen falta.';
+    } else if (r.llega && usados === D.espejos) {
+      msg.className = 'msg bad'; msg.textContent = 'El rayo llega, pero hay espejos que no toca: todos deben servir.';
+    } else if (r.llega) {
+      msg.className = 'msg bad'; msg.textContent = 'Llega, pero debes usar exactamente ' + D.espejos + ' espejos.';
+    }
+  }
+  document.getElementById('reiniciar').addEventListener('click', () => { esp = {}; resuelto = false; msg.textContent = ''; pintar(); });
+  pintar();
+})();
+</script></body></html>

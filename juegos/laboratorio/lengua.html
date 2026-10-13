@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Traductor (lengua inventada)</title><link rel="stylesheet" href="lab.css">
+<style>
+.par{padding:8px 0;border-bottom:1px solid var(--linea)}
+.par .es{font-size:.85rem;color:var(--suave)}
+.par .gl{font-size:1.15rem;font-weight:800;letter-spacing:.06em;color:var(--acento)}
+input.txt{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--linea);background:var(--panel2);color:var(--texto);font:700 1.1rem inherit;font-family:inherit;padding:8px 12px;letter-spacing:.06em}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Traductor (lengua inventada)</h1>
+<p class="sub">Idea de la guía §7.9 · estilo Rosetta · los ejemplos fijan la traducción (comprobado por script)</p>
+<div class="regla">Esta lengua tiene reglas fijas: orden de la frase, dónde va el adjetivo y cómo se hace el plural. Todo lo necesario está en los <b>ejemplos</b>. Traduce la frase del final escribiendo las palabras separadas por espacios.</div>
+<div class="tabla" id="pares"></div>
+<div class="tabla">
+  <div style="font-size:.78rem;color:var(--suave)">Traduce a la lengua inventada:</div>
+  <div id="pregunta" style="font-weight:800;margin:6px 0 10px"></div>
+  <input class="txt" id="resp" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Tu traducción">
+  <div class="fila-btn"><button class="btn primario" id="comprobar">Traducir</button></div>
+  <div class="msg" id="msg" aria-live="polite"></div>
+</div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.rosetta;
+  const pares = document.getElementById('pares');
+  D.frases.forEach(([es, gl]) => {
+    const d = document.createElement('div');
+    d.className = 'par';
+    d.innerHTML = '<div class="gl">' + gl + '</div><div class="es">' + es + '</div>';
+    pares.appendChild(d);
+  });
+  document.getElementById('pregunta').textContent = '«' + D.pregunta[0] + '»';
+  const msg = document.getElementById('msg');
+  let resuelto = false;
+  document.getElementById('comprobar').addEventListener('click', () => {
+    if (resuelto) return;
+    const r = document.getElementById('resp').value.trim().toLowerCase().replace(/\s+/g, ' ');
+    if (r === D.pregunta[1]) { resuelto = true; msg.className = 'msg ok'; msg.textContent = '¡Los glifos se iluminan! Has entendido la lengua.'; }
+    else { msg.className = 'msg bad'; msg.textContent = 'Esa frase no suena bien: revisa el orden de las palabras y los plurales de los ejemplos.'; }
+  });
+})();
+</script></body></html>

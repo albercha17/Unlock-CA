@@ -68,4 +68,5 @@ def main(carpetas):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:] or ["juegos/el-faro", "juegos/aventuras-ca/egipto", "juegos/aventuras-ca/marte", "juegos/aventuras-ca/florencia"])
+    import glob
+    main(sys.argv[1:] or ["juegos/el-faro"] + sorted(p.replace("\\", "/").rsplit("/cartas.json", 1)[0] for p in glob.glob("juegos/aventuras-ca/*/cartas.json")))

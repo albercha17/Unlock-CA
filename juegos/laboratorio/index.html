@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio de puzles</title><link rel="stylesheet" href="lab.css">
+<style>
+a.tarjeta{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+a.tarjeta:active{transform:scale(.99)}
+a.tarjeta h2{margin:0 0 2px;font-size:1.05rem;color:var(--acento)}
+a.tarjeta p{margin:0;font-size:.85rem;color:var(--suave);line-height:1.35}
+a.tarjeta .tag{display:inline-block;margin-top:6px;font-size:.7rem;border:1px solid var(--linea);border-radius:999px;padding:2px 8px;color:var(--suave)}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="../index.html">← Volver al menú</a>
+<h1>Laboratorio de puzles</h1>
+<p class="sub">Prototipos jugables de ideas de la investigación (guía de puzles §7). Sin imágenes finales: sirven para probar el tacto y decidir qué entra en los próximos juegos. Cada instancia tiene solución única comprobada.</p>
+<a class="tarjeta" href="nonograma.html"><h2>Mural de píxeles</h2><p>Nonograma: rellena las casillas según los números de filas y columnas hasta que aparezca el dibujo.</p><span class="tag">lógica · 4-7 min</span></a>
+<a class="tarjeta" href="akari.html"><h2>Velas y sombras</h2><p>Akari: coloca velas que iluminen todo el plano sin verse entre ellas.</p><span class="tag">lógica · 3-5 min</span></a>
+<a class="tarjeta" href="caja-negra.html"><h2>Cámara de pruebas</h2><p>Caja negra: una máquina se enciende con ciertas combinaciones de fichas; deduce la regla probando.</p><span class="tag">deducción · 4-6 min</span></a>
+<a class="tarjeta" href="lengua.html"><h2>Traductor</h2><p>Lengua inventada: deduce el orden de las palabras y los plurales con cinco ejemplos y traduce una frase nueva.</p><span class="tag">lenguaje · 5-7 min</span></a>
+<a class="tarjeta" href="tabla-logica.html"><h2>Tabla lógica</h2><p>Sospechosos, objetos y lugares: cada pista descarta casillas hasta que solo queda una combinación.</p><span class="tag">deducción · 4-6 min</span></a>
+<a class="tarjeta" href="caballeros.html"><h2>Caballeros y bribones</h2><p>Unos siempre dicen la verdad y otros siempre mienten: descubre quién es quién.</p><span class="tag">deducción · 2-4 min</span></a>
+<a class="tarjeta" href="bloques.html"><h2>Atasco (bloques deslizantes)</h2><p>Rush Hour: desliza los coches para dejar salir al rojo por la derecha.</p><span class="tag">espacial · 3-6 min</span></a>
+<a class="tarjeta" href="tubos.html"><h2>Destilería (tubos de colores)</h2><p>Vierte los líquidos de un tubo a otro hasta que cada tubo tenga un solo color.</p><span class="tag">planificación · 3-5 min</span></a>
+<a class="tarjeta" href="puentes.html"><h2>Puentes entre islas (Hashi)</h2><p>Une las islas con puentes: el número de cada isla dice cuántos puentes salen de ella; todo debe quedar conectado.</p><span class="tag">lógica · 4-6 min</span></a>
+<a class="tarjeta" href="linterna.html"><h2>Puente y linterna</h2><p>Cuatro exploradores cruzan un puente de noche con una sola linterna: de dos en dos, a la velocidad del más lento. ¿Llegan a tiempo?</p><span class="tag">optimización · 3-5 min</span></a>
+<a class="tarjeta" href="luces.html"><h2>Cristales en cruz</h2><p>Cada toque cambia el cristal y sus cuatro vecinos. Deja la pared como el dibujo.</p><span class="tag">lógica · 3-6 min</span></a>
+<a class="tarjeta" href="cerillas.html"><h2>Cerillas</h2><p>La cuenta está mal. Mueve una sola cerilla para arreglarla (solución única).</p><span class="tag">ingenio · 1-3 min</span></a>
+<a class="tarjeta" href="rayos.html"><h2>Rayos y espejos</h2><p>Coloca exactamente tres espejos, todos útiles, para llevar el rayo hasta la gema (solución única).</p><span class="tag">espacial · 3-6 min</span></a>
+<p class="pista">Las instancias se generan con <code>herramientas/crear_laboratorio.py</code> (cambia la semilla para otras partidas).</p>
+</div></body></html>

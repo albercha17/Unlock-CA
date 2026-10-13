@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Cristales en cruz</title><link rel="stylesheet" href="lab.css">
+<style>
+.mini{display:grid;gap:3px;width:120px;margin:6px auto}
+.mini i{aspect-ratio:1;border-radius:4px;background:#1d2e40;display:block}
+.mini i.on{background:#6ec3ff;box-shadow:0 0 8px #6ec3ff}
+.cri{aspect-ratio:1;border-radius:12px;border:2px solid var(--linea);background:#1d2e40;cursor:pointer;touch-action:manipulation;padding:0;transition:all .2s}
+.cri[data-on="1"]{background:radial-gradient(circle at 35% 30%,#d8f1ff,#4aa3ff);box-shadow:0 0 18px rgba(110,195,255,.8);border-color:#cfeaff}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Cristales en cruz</h1>
+<p class="sub">Idea de la guía §7.2 · «luces» · patrón alcanzable con un mínimo de toques conocido</p>
+<div class="regla">Al tocar un cristal cambian él y sus vecinos de arriba, abajo, izquierda y derecha (se encienden o se apagan). Parte de todo apagado y deja la pared como el <b>dibujo objetivo</b>. El orden de los toques no importa.</div>
+<div class="tabla"><div style="text-align:center;font-size:.78rem;color:var(--suave)">Objetivo</div><div class="mini" id="objetivo"></div></div>
+<div class="tabla"><div class="cuad" id="pared"></div><div class="pista" id="info" style="margin-top:6px"></div></div>
+<div class="msg" id="msg" aria-live="polite"></div>
+<div class="fila-btn"><button class="btn" id="reiniciar">Apagar todo</button></div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.luces;
+  const C = D.cols, F = D.filas;
+  const obj = document.getElementById('objetivo');
+  obj.style.gridTemplateColumns = 'repeat(' + C + ',1fr)';
+  D.objetivo.forEach(v => { const i = document.createElement('i'); if (v) i.className = 'on'; obj.appendChild(i); });
+  const pared = document.getElementById('pared');
+  pared.style.gridTemplateColumns = 'repeat(' + C + ',1fr)';
+  const msg = document.getElementById('msg');
+  const info = document.getElementById('info');
+  let est, toques, resuelto;
+  const celdas = [];
+  for (let i = 0; i < C * F; i++) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cri';
+    b.dataset.i = String(i);
+    b.setAttribute('aria-label', 'Cristal ' + 'ABCD'[i % C] + (Math.floor(i / C) + 1));
+    b.addEventListener('click', () => tocar(i));
+    celdas.push(b);
+    pared.appendChild(b);
+  }
+  function tocar(i) {
+    if (resuelto) return;
+    const c = i % C, r = Math.floor(i / C);
+    [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dc, dr]) => {
+      const x = c + dc, y = r + dr;
+      if (x >= 0 && x < C && y >= 0 && y < F) est[y * C + x] ^= 1;
+    });
+    toques++;
+    pintar();
+    if (est.every((v, k) => v === D.objetivo[k])) { resuelto = true; msg.className = 'msg ok'; msg.textContent = '¡La pared brilla como en el dibujo! Con ' + toques + ' toques (el mínimo es ' + D.toques_minimos.length + ').'; }
+  }
+  function pintar() { celdas.forEach((b, i) => { b.dataset.on = String(est[i]); }); info.textContent = 'Toques: ' + toques; }
+  function inicio() { est = Array(C * F).fill(0); toques = 0; resuelto = false; msg.textContent = ''; pintar(); }
+  document.getElementById('reiniciar').addEventListener('click', inicio);
+  inicio();
+})();
+</script></body></html>
