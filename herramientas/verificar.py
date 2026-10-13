@@ -123,8 +123,8 @@ for c in todos:
 for c, d in cartas.items():
     if c == final:
         continue
-    if c not in usadas and not d.get("textoCarta") and not d.get("combina"):
-        err(f"la carta {c} no la necesita ningun paso (sin funcion)")
+    if c not in usadas:
+        err(f"la carta {c} no la necesita ningun paso (sin funcion): toda carta debe servir para algo")
 
 
 # 4 simulacion
@@ -185,6 +185,10 @@ for _ in range(3000):
             err(f"partida atascada o con descarte invalido; mano: {sorted(mano)}")
 for a, b, s in sorted(accidentales):
     err(f"COMBINACION ACCIDENTAL posible: {a} + {b} = {s}, que es otra carta del juego que aun no se tiene")
+for f in sorted(finales):
+    resto = [x for x in f if x in cartas]  # sin marcadores de evento de la app
+    if resto != [final]:
+        err(f"al terminar no queda SOLO la carta {final} en la mesa: quedan {resto} (hay que descartar todo lo demas)")
 print(f"simulaciones: 3000, atascadas: {fallos}; manos finales: {sorted(finales)[:3]}")
 # cartas-data.js (copia embebida para abrir pc/imprimir/prompts con doble clic) debe coincidir con cartas.json
 import os

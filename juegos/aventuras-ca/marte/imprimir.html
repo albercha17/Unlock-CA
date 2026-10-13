@@ -29,6 +29,12 @@
   .texto.largo div:nth-last-child(2){margin-top:1.2mm;padding-top:1mm;border-top:.2mm solid rgba(42,32,18,.35)}
   .texto div+div{margin-top:.8mm}
 
+  .acc{position:absolute;left:2.2mm;right:2.2mm;bottom:10.5mm;display:flex;flex-direction:column;gap:.8mm}
+  .acc .g{display:flex;flex-wrap:wrap;align-items:center;gap:.9mm;background:rgba(5,10,16,.84);border-radius:1.2mm;padding:.8mm 1.4mm;font-size:2.4mm;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+  .acc .g b{margin-right:.6mm}
+  .acc .g i{font-style:normal;min-width:5.6mm;height:4.8mm;padding:0 1.1mm;border-radius:2.4mm;background:#fff;color:#111;display:inline-flex;align-items:center;justify-content:center;font-size:3mm;letter-spacing:0}
+  .acc .coge b{color:#7be495}.acc .des b{color:#ff8f8f}.acc .comb b{color:#ffd27a}
+
   .dorso{--c:#ffd27a;background:radial-gradient(circle at 50% 38%,#ffe9a8 0,#ffd27a 6%,#1c3a4d 7%,#0a1218 70%)}
   .dorso::before{content:"";position:absolute;left:50%;top:38%;width:130%;height:14mm;transform:translate(0,-50%) rotate(-12deg);transform-origin:0 50%;background:linear-gradient(90deg,rgba(255,226,150,.55),transparent)}
   .dorso .t{position:absolute;left:0;right:0;bottom:9mm;text-align:center;font-weight:800;letter-spacing:.25em;font-size:10pt;color:#ffd27a}
@@ -75,6 +81,12 @@ window.JUEGO = datos;
       var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '');
       html += '<div class="texto' + clase + '">' + c.textoCarta.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>';
     }
+    function chips(n){ return n.map(function(x){ return '<i>' + esc(x) + '</i>'; }).join(''); }
+    var acc = '';
+    if (c.coge && c.coge.length) acc += '<div class="g coge"><b>Coge</b>' + chips(c.coge) + '</div>';
+    if (c.descarta && c.descarta.length) acc += '<div class="g des"><b>Descarta</b>' + chips(c.descarta) + '</div>';
+    if (c.combina) acc += '<div class="g comb"><b>Combinable:</b> suma los números</div>';
+    if (acc) html += '<div class="acc">' + acc + '</div>';
     return html + '<div class="tit">' + esc(titulo) + '</div></div>';
   }
 

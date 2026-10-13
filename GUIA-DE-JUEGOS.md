@@ -4,10 +4,10 @@ El juego de referencia es **El Faro de Cabo Niebla** (`juegos/el-faro/`). Sigue 
 
 ## 1. Reglas de diseño (innegociables)
 
-1. **Toda carta sirve para algo.** Si no la necesita ningún puzle, o se le da una función real (una pista impresa que otro paso consume) o se quita. Nada de cartas de relleno.
+1. **Toda carta sirve para algo, y al final solo queda la carta final en la mesa** (todo lo demás se descarta). Si no la necesita ningún puzle, o se le da una función real (una pista impresa que otro paso consume) o se quita. Nada de cartas de relleno.
 2. **Tres tipos de carta:** normal (gris), de app (verde) y de combinar (roja/azul). No hay cartas «herramienta».
 3. **Combinar = sumar.** Los números de las dos cartas se suman y el resultado es la carta que se coge (`18 + 22 = 40`). Elige los números para que cuadren y comprueba que no haya sumas accidentales entre cartas combinables que coincidan en la mesa.
-4. **Los descartes se imprimen en la carta que se obtiene** (cambio de escena, combinación o minijuego), junto al «Coge». Lo que aún hará falta se conserva; lo usado se descarta. Si un minijuego no da carta nueva, el mensaje de la app manda descartar.
+4. **Toda carta que haga coger o descartar lo dice, impreso en la propia carta** (franjas «Coge», «Descarta» y «Combinable: suma los números»), tanto en `imprimir.html` como en el Modo PC. Esto vale para **cualquier juego**, sin excepción. **Los descartes se imprimen en la carta que se obtiene** (cambio de escena, combinación o minijuego), junto al «Coge». Lo que aún hará falta se conserva; lo usado se descarta. Si un minijuego no da carta nueva, el mensaje de la app manda descartar.
 5. **Nunca se imprime en una carta el número de otra que el jugador aún no puede tener.** Los números solo aparecen en la franja de la carta que se acaba de coger o en el mensaje del minijuego al resolverlo.
 6. **Una carta que descarta otra debe poder descartarla siempre**, en cualquier orden legal de juego.
 7. **Las ilustraciones no llevan texto.** El número, el título, las franjas y los textos los pone `imprimir.html` / el Modo PC.
@@ -59,7 +59,8 @@ Por carta (la clave es el número, `P` para la inicial):
 
 ## 5. Verificación (antes de dar un juego por terminado)
 
-1. `herramientas/verificar.py`: simula 3.000 partidas en orden aleatorio legal. Falla si una partida se atasca, si una carta descarta algo que no se tiene o que aún hace falta, si hay números impresos antes de tiempo, si una suma no cuadra o si una carta no sirve para nada. Necesita un `spec_*.json` con las dependencias (`needs`) de las cartas que no salen de un «coge».
+0. `herramientas/probar_impresion.py`: comprueba que cada carta de `imprimir.html` muestra sus franjas Coge/Descarta/Combinable exactamente como dice `cartas.json`.
+1. `herramientas/verificar.py`: simula 3.000 partidas en orden aleatorio legal. Falla si una partida se atasca, si al terminar no queda solo la carta final, si una carta descarta algo que no se tiene o que aún hace falta, si hay números impresos antes de tiempo, si una suma no cuadra o si una carta no sirve para nada. Necesita un `spec_*.json` con las dependencias (`needs`) de las cartas que no salen de un «coge».
 2. `herramientas/ejecutar_manual.py`: juega el manual completo en un navegador (Selenium + Chrome) con el Modo PC y la app reales y comprueba la mesa tras cada paso.
 3. `herramientas/bot_aventuras.py` (o `bot_faro.py`): partida autónoma que solo hace lo que dicen las cartas y los mensajes. `herramientas/bot_azar.py`: **muchas partidas en orden aleatorio** (mínimo 10 por juego): cada semilla elige otro orden de leer, coger, descartar, combinar y resolver apps.
 4. Relee todos los textos buscando referencias a cartas eliminadas o instrucciones contradictorias, y abre cada minijuego con el visor de pistas.
