@@ -424,18 +424,32 @@ def rush_hour(semilla=1, n=6, min_movs=8):
     raise RuntimeError("sin instancia de Rush Hour")
 
 
-def _resolver_rush(n, coches, ini):
+def rush_hour_ruta(inst):
+    """Lista de pasos (coche, +1/-1) de una solución mínima."""
+    n, coches = inst["n"], inst["coches"]
+    ini = tuple(tuple(c[:2]) for c in coches)
+    return _resolver_rush(n, coches, ini, ruta=True)
+
+
+def _resolver_rush(n, coches, ini, ruta=False):
     def celdas(i, pos):
         r, c = pos
         _, _, largo, hor = coches[i]
         return [(r, c + k) if hor else (r + k, c) for k in range(largo)]
 
     visto = {ini}
+    padre = {ini: None}
     cola = deque([(ini, 0)])
     while cola:
         est, d = cola.popleft()
         if est[0][1] + 2 == n:     # el coche objetivo toca el borde derecho
-            return d
+            if not ruta:
+                return d
+            pasos, e = [], est
+            while padre[e]:
+                e, paso = padre[e]
+                pasos.append(paso)
+            return pasos[::-1]
         occ = set()
         for i, p in enumerate(est):
             occ |= set(celdas(i, p))
@@ -452,6 +466,7 @@ def _resolver_rush(n, coches, ini):
                 ne = est[:i] + ((nr, nc),) + est[i + 1:]
                 if ne not in visto:
                     visto.add(ne)
+                    padre[ne] = (est, (i, paso))
                     cola.append((ne, d + 1))
     return None
 
@@ -700,16 +715,28 @@ def tubos(colores=3, capacidad=4, vacios=2, semilla=1, min_movs=6):
     raise RuntimeError("sin instancia de tubos")
 
 
-def _resolver_tubos(ini, cap):
+def tubos_ruta(inst):
+    """Lista de movimientos (origen, destino) de una solución mínima."""
+    return _resolver_tubos(tuple(tuple(x) for x in inst["tubos"]), inst["capacidad"], ruta=True)
+
+
+def _resolver_tubos(ini, cap, ruta=False):
     def resuelto(e):
         return all(len(t) == 0 or (len(t) == cap and len(set(t)) == 1) for t in e)
 
     visto = {ini}
+    padre = {ini: None}
     cola = deque([(ini, 0)])
     while cola:
         e, d = cola.popleft()
         if resuelto(e):
-            return d
+            if not ruta:
+                return d
+            pasos, x = [], e
+            while padre[x]:
+                x, mov = padre[x]
+                pasos.append(mov)
+            return pasos[::-1]
         for a, ta in enumerate(e):
             if not ta:
                 continue
@@ -729,6 +756,7 @@ def _resolver_tubos(ini, cap):
                 ne = tuple(ne)
                 if ne not in visto:
                     visto.add(ne)
+                    padre[ne] = (e, (a, b))
                     cola.append((ne, d + 1))
     return None
 

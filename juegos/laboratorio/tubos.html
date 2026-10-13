@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Destilería (tubos de colores)</title><link rel="stylesheet" href="lab.css">
+<style>
+#tubos{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:6px 0}
+.tubo{width:52px;height:190px;border:3px solid #6a7a8c;border-top-color:#9fb4c8;border-radius:6px 6px 22px 22px;background:rgba(255,255,255,.05);display:flex;flex-direction:column-reverse;padding:3px;gap:2px;cursor:pointer;touch-action:manipulation}
+.tubo.sel{border-color:#ffd27a;box-shadow:0 0 14px rgba(255,210,122,.6);transform:translateY(-6px)}
+.bloque{flex:1;border-radius:4px;max-height:44px}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Destilería (tubos de colores)</h1>
+<p class="sub">Idea de la guía §7.2 · water sort · movimientos mínimos conocidos por script</p>
+<div class="regla">Toca un tubo y luego otro para <b>verter</b> el color de arriba. Solo se puede verter sobre el mismo color o sobre un tubo vacío, y si cabe. Deja cada tubo con <b>un solo color</b>.</div>
+<div class="tabla"><div id="tubos"></div></div>
+<div class="msg" id="msg" aria-live="polite"></div>
+<div class="pista" id="info"></div>
+<div class="fila-btn"><button class="btn" id="reiniciar">Reiniciar</button></div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.tubos;
+  const cap = D.capacidad;
+  const colores = ['#ff6a5a', '#4aa3ff', '#ffd27a', '#7dffb0', '#c58aff'];
+  const cont = document.getElementById('tubos');
+  const msg = document.getElementById('msg');
+  const info = document.getElementById('info');
+  let est, sel, movs, resuelto;
+  function inicio() { est = D.tubos.map(t => t.slice()); sel = null; movs = 0; resuelto = false; msg.textContent = ''; pintar(); }
+  function pintar() {
+    cont.innerHTML = '';
+    est.forEach((t, i) => {
+      const e = document.createElement('div');
+      e.className = 'tubo' + (sel === i ? ' sel' : '');
+      e.dataset.i = String(i);
+      e.setAttribute('role', 'button');
+      e.setAttribute('aria-label', 'Tubo ' + (i + 1));
+      t.forEach(c => { const b = document.createElement('div'); b.className = 'bloque'; b.style.background = 'linear-gradient(180deg,' + colores[c] + ',' + colores[c] + 'bb)'; e.appendChild(b); });
+      e.addEventListener('click', () => tocar(i));
+      cont.appendChild(e);
+    });
+    info.textContent = 'Movimientos: ' + movs + ' · mínimo posible: ' + D.movimientos_minimos;
+  }
+  function tocar(i) {
+    if (resuelto) return;
+    if (sel === null) { if (est[i].length) sel = i; }
+    else if (sel === i) sel = null;
+    else {
+      const a = est[sel], b = est[i];
+      if (b.length < cap && (!b.length || b[b.length - 1] === a[a.length - 1])) {
+        let k = 1;
+        while (k < a.length && a[a.length - 1 - k] === a[a.length - 1]) k++;
+        k = Math.min(k, cap - b.length);
+        const trozo = a.splice(a.length - k, k);
+        trozo.forEach(c => b.push(c));
+        movs++;
+      }
+      sel = null;
+    }
+    pintar();
+    if (est.every(t => t.length === 0 || (t.length === cap && new Set(t).size === 1))) {
+      resuelto = true; msg.className = 'msg ok'; msg.textContent = '¡Cada tubo tiene su color! Destilación completa en ' + movs + ' movimientos.';
+    }
+  }
+  document.getElementById('reiniciar').addEventListener('click', inicio);
+  inicio();
+})();
+</script></body></html>

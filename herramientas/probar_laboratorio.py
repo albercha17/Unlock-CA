@@ -82,8 +82,27 @@ def caballeros(d):
     clic(d, "#comprobar")
 
 
+def bloques(d):
+    for i, paso in d.execute_script("return window.LAB.bloques.ruta"):
+        d.execute_script("window.__moverCoche(arguments[0], arguments[1])", i, paso)
+        time.sleep(0.01)
+
+
+def tubos(d):
+    for a, b in d.execute_script("return window.LAB.tubos.ruta"):
+        clic(d, f".tubo[data-i='{a}']")
+        clic(d, f".tubo[data-i='{b}']")
+
+
+def puentes(d):
+    for a, b, v in d.execute_script("return window.LAB.puentes.puentes"):
+        for _ in range(v):
+            clic(d, f".isla[data-k='{a[0]},{a[1]}']")
+            clic(d, f".isla[data-k='{b[0]},{b[1]}']")
+
+
 PRUEBAS = [("nonograma", nonograma), ("akari", akari), ("caja-negra", caja_negra), ("lengua", lengua),
-           ("tabla-logica", tabla), ("caballeros", caballeros)]
+           ("tabla-logica", tabla), ("caballeros", caballeros), ("bloques", bloques), ("tubos", tubos), ("puentes", puentes)]
 
 
 def main():

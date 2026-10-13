@@ -248,7 +248,7 @@ Lista de mejoras (para la tarea de interfaz):
 ### 7.8 Herramientas que salen de esta investigación
 
 - `herramientas/generadores_puzles.py`: generadores con **solución única comprobada** de nonograma, luces (Akari), rascacielos, tabla lógica (zebra), caballeros y bribones, caja negra, Rush Hour, puentes (Hashi), lengua inventada (Rosetta), luces en cruz, puente y linterna y tubos de colores. `python herramientas/generadores_puzles.py --prueba` los ejecuta todos.
-- `juegos/laboratorio/` (hub `index.html`): **prototipos jugables** de seis de estas ideas (mural de píxeles, velas y sombras, cámara de pruebas, traductor, tabla lógica, caballeros y bribones) con instancias de solución única; se generan con `herramientas/crear_laboratorio.py [semilla]` y se prueban con `herramientas/probar_laboratorio.py <URL>`. Sirven para probar el tacto en el móvil y decidir qué entra en el próximo juego.
+- `juegos/laboratorio/` (hub `index.html`): **prototipos jugables** de nueve de estas ideas (mural de píxeles, velas y sombras, cámara de pruebas, traductor, tabla lógica, caballeros y bribones, atasco de bloques, tubos de colores y puentes entre islas) con instancias de solución única; se generan con `herramientas/crear_laboratorio.py [semilla]` y se prueban con `herramientas/probar_laboratorio.py <URL>`. Sirven para probar el tacto en el móvil y decidir qué entra en el próximo juego.
 - `herramientas/auditar_minijuegos.py`: revisa cada minijuego y cada carta de app contra las reglas (mensaje de acierto con «Coged la carta», sin emojis, mensajes de fallo, número de pistas, anchos fijos, texto alternativo).
 
 ### 7.9 Seis fichas de puzle listas para implementar (las que más aportan a la saga)

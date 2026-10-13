@@ -26,6 +26,13 @@ for s in range(semilla, semilla + 60):
         break
 datos["zebra"] = G.zebra(semilla=semilla)
 datos["caballeros"] = G.caballeros(4, semilla)
+rh = G.rush_hour(semilla)
+rh["ruta"] = G.rush_hour_ruta(rh)
+datos["bloques"] = rh
+tb = G.tubos(3, 4, 2, semilla)
+tb["ruta"] = G.tubos_ruta(tb)
+datos["tubos"] = tb
+datos["puentes"] = G.hashi(7, 7, semilla)
 os.makedirs("juegos/laboratorio", exist_ok=True)
 with open("juegos/laboratorio/datos.js", "w", encoding="utf-8", newline="\n") as f:
     f.write("// Generado por herramientas/crear_laboratorio.py (no editar a mano)\nwindow.LAB = " + json.dumps(datos, ensure_ascii=False, indent=1) + ";\n")

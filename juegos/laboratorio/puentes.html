@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Puentes entre islas (Hashi)</title><link rel="stylesheet" href="lab.css">
+<style>
+#mapa{position:relative;width:100%;max-width:380px;aspect-ratio:1;margin:0 auto;background:radial-gradient(circle at 50% 40%,#12445a,#0a2434);border-radius:12px;border:3px solid #2a5a72;touch-action:manipulation}
+#mapa svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.isla{position:absolute;width:13%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:3px solid #c9a45a;background:radial-gradient(circle at 35% 30%,#f3e2b0,#b0894a);color:#2a1600;font:800 1.15rem inherit;font-family:inherit;padding:0;cursor:pointer}
+.isla.sel{box-shadow:0 0 0 4px #ffd27a,0 0 18px #ffd27a}
+.isla.ok{background:radial-gradient(circle at 35% 30%,#c8ffd8,#4aa070)}
+.isla.mal{background:radial-gradient(circle at 35% 30%,#ffd0d0,#b04a4a)}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Puentes entre islas (Hashi)</h1>
+<p class="sub">Idea de la guía §7.2 · solución única comprobada por script</p>
+<div class="regla">Toca una isla y luego otra <b>en línea recta</b> (sin otra isla entre medias) para tender un puente; toca otra vez para un puente doble y otra para quitarlo. El número de cada isla dice cuántos puentes salen de ella. Los puentes <b>no se cruzan</b> y todas las islas deben quedar <b>conectadas</b>.</div>
+<div class="tabla"><div id="mapa"></div></div>
+<div class="msg" id="msg" aria-live="polite"></div>
+<div class="fila-btn"><button class="btn" id="reiniciar">Quitar puentes</button></div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.puentes;
+  const N = D.n;
+  const mapa = document.getElementById('mapa');
+  const msg = document.getElementById('msg');
+  const islas = Object.keys(D.islas).map(k => ({ k, r: +k.split(',')[0], c: +k.split(',')[1], n: D.islas[k] }));
+  const puentes = {}; // 'k1|k2' -> 0,1,2
+  let sel = null, resuelto = false;
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + N + ' ' + N);
+  mapa.appendChild(svg);
+  const btn = {};
+  islas.forEach(i => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'isla';
+    b.dataset.k = i.k;
+    b.textContent = i.n;
+    b.setAttribute('aria-label', 'Isla ' + i.n + ' en fila ' + (i.r + 1) + ' columna ' + (i.c + 1));
+    b.style.left = ((i.c + 0.5) / N * 100) + '%';
+    b.style.top = ((i.r + 0.5) / N * 100) + '%';
+    b.addEventListener('click', () => tocar(i));
+    mapa.appendChild(b);
+    btn[i.k] = b;
+  });
+  const clave = (a, b) => [a.k, b.k].sort().join('|');
+  function entre(a, b) { // ¿hay otra isla entre a y b en línea?
+    return islas.some(x => x !== a && x !== b && ((a.r === b.r && x.r === a.r && x.c > Math.min(a.c, b.c) && x.c < Math.max(a.c, b.c)) || (a.c === b.c && x.c === a.c && x.r > Math.min(a.r, b.r) && x.r < Math.max(a.r, b.r))));
+  }
+  function cruza(a, b) {
+    return Object.keys(puentes).some(kk => {
+      if (!puentes[kk] || kk === clave(a, b)) return false;
+      const [p, q] = kk.split('|').map(s => islas.find(x => x.k === s));
+      const h1 = a.r === b.r, h2 = p.r === q.r;
+      if (h1 === h2) return false;
+      const [h, v] = h1 ? [[a, b], [p, q]] : [[p, q], [a, b]];
+      const fy = h[0].r, x1 = Math.min(h[0].c, h[1].c), x2 = Math.max(h[0].c, h[1].c);
+      const fx = v[0].c, y1 = Math.min(v[0].r, v[1].r), y2 = Math.max(v[0].r, v[1].r);
+      return x1 < fx && fx < x2 && y1 < fy && fy < y2;
+    });
+  }
+  function tocar(i) {
+    if (resuelto) return;
+    if (!sel) { sel = i; }
+    else if (sel === i) { sel = null; }
+    else {
+      const a = sel, b = i;
+      sel = null;
+      if (!(a.r === b.r || a.c === b.c) || entre(a, b)) { aviso('Solo puedes unir islas en línea recta y sin otra isla entre medias.', true); }
+      else {
+        const kk = clave(a, b);
+        const nuevo = ((puentes[kk] || 0) + 1) % 3;
+        if (nuevo && cruza(a, b)) aviso('Ese puente cruzaría otro.', true);
+        else { puentes[kk] = nuevo; aviso('', false); }
+      }
+    }
+    pintar();
+    comprobar();
+  }
+  function aviso(t, mal) { if (resuelto) return; msg.className = 'msg' + (mal ? ' bad' : ''); msg.textContent = t; }
+  function grado(i) { return Object.keys(puentes).reduce((s, kk) => s + (kk.split('|').includes(i.k) ? puentes[kk] : 0), 0); }
+  function pintar() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    Object.keys(puentes).forEach(kk => {
+      const v = puentes[kk];
+      if (!v) return;
+      const [p, q] = kk.split('|').map(s => islas.find(x => x.k === s));
+      for (let j = 0; j < v; j++) {
+        const off = v === 1 ? 0 : (j === 0 ? -0.07 : 0.07);
+        const l = document.createElementNS(NS, 'line');
+        const horiz = p.r === q.r;
+        l.setAttribute('x1', p.c + 0.5 + (horiz ? 0 : off)); l.setAttribute('y1', p.r + 0.5 + (horiz ? off : 0));
+        l.setAttribute('x2', q.c + 0.5 + (horiz ? 0 : off)); l.setAttribute('y2', q.r + 0.5 + (horiz ? off : 0));
+        l.setAttribute('stroke', '#e8d9b0'); l.setAttribute('stroke-width', '0.07'); l.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(l);
+      }
+    });
+    islas.forEach(i => {
+      const g = grado(i);
+      btn[i.k].classList.toggle('sel', sel === i);
+      btn[i.k].classList.toggle('ok', g === i.n);
+      btn[i.k].classList.toggle('mal', g > i.n);
+    });
+  }
+  function comprobar() {
+    if (!islas.every(i => grado(i) === i.n)) return;
+    const vistos = new Set([islas[0].k]);
+    let cambio = true;
+    while (cambio) {
+      cambio = false;
+      Object.keys(puentes).forEach(kk => {
+        if (!puentes[kk]) return;
+        const [a, b] = kk.split('|');
+        if (vistos.has(a) !== vistos.has(b)) { vistos.add(a); vistos.add(b); cambio = true; }
+      });
+    }
+    if (vistos.size === islas.length) { resuelto = true; msg.className = 'msg ok'; msg.textContent = '¡Todas las islas están unidas! El archipiélago es transitable.'; }
+  }
+  document.getElementById('reiniciar').addEventListener('click', () => { Object.keys(puentes).forEach(k => delete puentes[k]); sel = null; resuelto = false; msg.textContent = ''; pintar(); });
+  pintar();
+})();
+</script></body></html>

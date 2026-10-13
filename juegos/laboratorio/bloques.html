@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Atasco (bloques deslizantes)</title><link rel="stylesheet" href="lab.css">
+<style>
+#tablero{position:relative;width:100%;max-width:360px;aspect-ratio:1;margin:0 auto;background:#0a1018;border:3px solid #3a4a5c;border-radius:10px;touch-action:none}
+.coche{position:absolute;border-radius:8px;border:2px solid rgba(255,255,255,.35);box-shadow:0 3px 8px rgba(0,0,0,.5);touch-action:none;cursor:grab;transition:left .12s,top .12s}
+.coche.objetivo{background:linear-gradient(180deg,#ff6a5a,#c22d22)}
+.salida{position:absolute;right:-18px;width:16px;background:#7dffb0;border-radius:0 8px 8px 0;opacity:.8}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Atasco (bloques deslizantes)</h1>
+<p class="sub">Idea de la guía §7.2 · Rush Hour · movimientos mínimos conocidos por script</p>
+<div class="regla">Arrastra los coches en la dirección en la que apuntan (horizontales o verticales). Saca el <b>coche rojo</b> por la salida de la derecha.</div>
+<div class="tabla"><div id="tablero"></div></div>
+<div class="msg" id="msg" aria-live="polite"></div>
+<div class="pista" id="info"></div>
+<div class="fila-btn"><button class="btn" id="reiniciar">Reiniciar</button></div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.bloques;
+  const N = D.n;
+  const tablero = document.getElementById('tablero');
+  const msg = document.getElementById('msg');
+  const info = document.getElementById('info');
+  const colores = ['#ff6a5a', '#4aa3ff', '#ffd27a', '#7dffb0', '#c58aff', '#ff9d6a', '#6ae0e0', '#e08ab8', '#a0b86a', '#8a9ab8'];
+  let coches, movs, resuelto;
+  const els = [];
+  function inicio() {
+    coches = D.coches.map(c => ({ r: c[0], c: c[1], largo: c[2], hor: c[3] }));
+    movs = 0; resuelto = false; msg.textContent = '';
+    pintar();
+  }
+  const celda = () => tablero.clientWidth / N;
+  function ocupado(excepto) {
+    const o = new Set();
+    coches.forEach((k, i) => { if (i !== excepto) for (let j = 0; j < k.largo; j++) o.add((k.hor ? k.r : k.r + j) + ',' + (k.hor ? k.c + j : k.c)); });
+    return o;
+  }
+  function puede(i, nr, nc) {
+    const k = coches[i];
+    const o = ocupado(i);
+    for (let j = 0; j < k.largo; j++) {
+      const y = k.hor ? nr : nr + j, x = k.hor ? nc + j : nc;
+      if (y < 0 || x < 0 || y >= N || x >= N || o.has(y + ',' + x)) return false;
+    }
+    return true;
+  }
+  function mover(i, paso) {
+    const k = coches[i];
+    const nr = k.hor ? k.r : k.r + paso, nc = k.hor ? k.c + paso : k.c;
+    if (resuelto || !puede(i, nr, nc)) return false;
+    k.r = nr; k.c = nc; movs++;
+    pintar();
+    if (coches[0].c + coches[0].largo === N) {
+      resuelto = true;
+      msg.className = 'msg ok';
+      msg.textContent = '¡El coche rojo sale! Atasco resuelto en ' + movs + ' movimientos.';
+    }
+    return true;
+  }
+  window.__moverCoche = mover; // para las pruebas automáticas
+  function pintar() {
+    const s = celda();
+    if (!els.length) {
+      D.coches.forEach((_, i) => {
+        const e = document.createElement('div');
+        e.className = 'coche' + (i === 0 ? ' objetivo' : '');
+        e.dataset.i = String(i);
+        if (i) e.style.background = 'linear-gradient(180deg,' + colores[i % colores.length] + ',#1d2e40)';
+        e.addEventListener('pointerdown', ev => empezarArrastre(ev, i));
+        tablero.appendChild(e);
+        els.push(e);
+      });
+      const sal = document.createElement('div');
+      sal.className = 'salida';
+      tablero.appendChild(sal);
+    }
+    coches.forEach((k, i) => {
+      const e = els[i];
+      e.style.left = (k.c * s + 2) + 'px'; e.style.top = (k.r * s + 2) + 'px';
+      e.style.width = ((k.hor ? k.largo : 1) * s - 4) + 'px'; e.style.height = ((k.hor ? 1 : k.largo) * s - 4) + 'px';
+    });
+    tablero.querySelector('.salida').style.cssText = 'top:' + (coches[0].r * s + 4) + 'px;height:' + (s - 8) + 'px';
+    info.textContent = 'Movimientos: ' + movs + ' · mínimo posible: ' + D.movimientos_minimos;
+  }
+  let arr = null;
+  function empezarArrastre(ev, i) {
+    if (resuelto) return;
+    ev.preventDefault();
+    arr = { i, x0: ev.clientX, y0: ev.clientY, acum: 0 };
+    ev.target.setPointerCapture(ev.pointerId);
+    ev.target.onpointermove = e => {
+      const k = coches[arr.i], s = celda();
+      const d = k.hor ? e.clientX - arr.x0 : e.clientY - arr.y0;
+      const pasos = Math.trunc(d / s) - arr.acum;
+      for (let p = 0; p < Math.abs(pasos); p++) { if (mover(arr.i, Math.sign(pasos))) arr.acum += Math.sign(pasos); else break; }
+    };
+    ev.target.onpointerup = ev.target.onpointercancel = () => { arr = null; };
+  }
+  window.addEventListener('resize', pintar);
+  document.getElementById('reiniciar').addEventListener('click', () => { inicio(); });
+  inicio();
+})();
+</script></body></html>
