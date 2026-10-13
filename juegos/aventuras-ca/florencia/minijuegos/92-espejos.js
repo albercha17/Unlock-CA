@@ -25,7 +25,8 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-e-svg{display:block;width:100%;background:#1a1109;border:2px solid #6b4a1e;border-radius:12px}
+    .far-e-svg{display:block;width:100%;background:linear-gradient(rgba(14,8,3,.74),rgba(14,8,3,.88)),url(./img/ui/suelo.jpg) center/cover;border:2px solid #6b4a1e;border-radius:12px}
+    .far-e-img{mix-blend-mode:screen}
     .far-e-cell{cursor:pointer}
     .far-e-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 6px}
     .far-e-tool{padding:10px 4px;border-radius:9px;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit}
@@ -85,6 +86,7 @@ export function startMinigame(opts = {}) {
 
   function pintar() {
     while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.insertAdjacentHTML('beforeend', '<defs><linearGradient id="far-luna-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#bcd4e6"/><stop offset="1" stop-color="#6d8aa3"/></linearGradient><radialGradient id="far-lente-g"><stop offset="0" stop-color="rgba(220,245,255,.5)"/><stop offset="1" stop-color="rgba(120,180,220,.22)"/></radialGradient></defs>');
     for (let c = 0; c < COLS; c++) el('text', { x: c * CELL + CELL / 2, y: -10, 'text-anchor': 'middle', 'font-size': 12, fill: '#e8d9b0', 'font-family': 'system-ui,sans-serif' }, LETRAS[c]);
     for (let r = 0; r < FILAS; r++) el('text', { x: -10, y: r * CELL + CELL / 2 + 4, 'text-anchor': 'middle', 'font-size': 12, fill: '#e8d9b0', 'font-family': 'system-ui,sans-serif' }, String(r + 1));
     for (let r = 0; r < FILAS; r++) {
@@ -92,7 +94,7 @@ export function startMinigame(opts = {}) {
         const k = c + ',' + r;
         const g = el('g', { class: 'far-e-cell', 'data-c': k });
         const rect = document.createElementNS(NS, 'rect');
-        [['x', c * CELL + 1.5], ['y', r * CELL + 1.5], ['width', CELL - 3], ['height', CELL - 3], ['rx', 5], ['fill', '#3a2814']].forEach(([a, v]) => rect.setAttribute(a, v));
+        [['x', c * CELL + 1.5], ['y', r * CELL + 1.5], ['width', CELL - 3], ['height', CELL - 3], ['rx', 5], ['fill', 'rgba(0,0,0,.32)'], ['stroke', 'rgba(255,230,170,.08)']].forEach(([a, v]) => rect.setAttribute(a, v));
         g.appendChild(rect);
         svg.appendChild(g);
         g.addEventListener('click', () => pulsar(k));
@@ -101,23 +103,27 @@ export function startMinigame(opts = {}) {
     // elementos fijos
     OBSTACULOS.forEach(k => {
       const [x, y] = k.split(',').map(Number);
-      el('text', { x: x * CELL + CELL / 2, y: y * CELL + CELL / 2 + 10, 'text-anchor': 'middle', 'font-size': 28, 'pointer-events': 'none' }, '🏛️');
+      el('image', { href: './img/ui/taller/columna.jpg', x: x * CELL + 5, y: y * CELL + 5, width: CELL - 10, height: CELL - 10, class: 'far-e-img', 'pointer-events': 'none' });
     });
     ATRILES.forEach(k => {
       const [x, y] = k.split(',').map(Number);
-      el('circle', { cx: x * CELL + CELL / 2, cy: y * CELL + CELL / 2, r: 17, fill: 'none', stroke: '#e8d9b0', 'stroke-width': 2, 'stroke-dasharray': '4 3', 'pointer-events': 'none' });
-      if (k === lente) el('text', { x: x * CELL + CELL / 2, y: y * CELL + CELL / 2 + 9, 'text-anchor': 'middle', 'font-size': 26, 'pointer-events': 'none' }, '🔍');
+      el('image', { href: './img/ui/taller/atril.jpg', x: x * CELL + 3, y: y * CELL + 3, width: CELL - 6, height: CELL - 6, class: 'far-e-img', 'pointer-events': 'none' });
+      if (k === lente) {
+        el('circle', { cx: x * CELL + CELL / 2, cy: y * CELL + CELL / 2 - 1, r: 15, fill: 'url(#far-lente-g)', stroke: 'rgba(235,250,255,.9)', 'stroke-width': 2, 'pointer-events': 'none' });
+        el('path', { d: `M${x * CELL + CELL / 2 - 9} ${y * CELL + CELL / 2 - 6} a11 11 0 0 1 9 -6`, fill: 'none', stroke: 'rgba(255,255,255,.9)', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'pointer-events': 'none' });
+      }
     });
     const [px, py] = PORTAL.split(',').map(Number);
-    el('text', { x: px * CELL + CELL / 2, y: py * CELL + CELL / 2 + 9, 'text-anchor': 'middle', 'font-size': 28, 'pointer-events': 'none' }, '🌀');
-    el('text', { x: SOL_COL * CELL + CELL / 2, y: -MARGEN + 8, 'text-anchor': 'middle', 'font-size': 18, 'pointer-events': 'none' }, '☀️');
+    el('image', { href: './img/ui/taller/portal.jpg', x: px * CELL + 2, y: py * CELL + 2, width: CELL - 4, height: CELL - 4, class: 'far-e-img', 'pointer-events': 'none' });
+    el('image', { href: './img/ui/taller/claraboya.jpg', x: SOL_COL * CELL + CELL / 2 - 17, y: -MARGEN - 8, width: 34, height: 34, class: 'far-e-img', 'pointer-events': 'none' });
     // espejos
     Object.keys(espejos).forEach(k => {
       const [x, y] = k.split(',').map(Number);
       const cx = x * CELL + CELL / 2, cy = y * CELL + CELL / 2;
-      const a = espejos[k] === '/' ? [cx - 17, cy + 17, cx + 17, cy - 17] : [cx - 17, cy - 17, cx + 17, cy + 17];
-      el('line', { x1: a[0], y1: a[1], x2: a[2], y2: a[3], stroke: '#e3b34f', 'stroke-width': 7, 'stroke-linecap': 'round', 'pointer-events': 'none' });
-      el('line', { x1: a[0], y1: a[1], x2: a[2], y2: a[3], stroke: '#fff3c4', 'stroke-width': 2.5, 'stroke-linecap': 'round', 'pointer-events': 'none', class: 'far-e-espejo', 'data-c': k, 'data-o': espejos[k] });
+      const g = el('g', { transform: `translate(${cx} ${cy}) rotate(${espejos[k] === '/' ? -45 : 45})`, 'pointer-events': 'none' });
+      const marco = el('rect', { x: -21, y: -5.5, width: 42, height: 11, rx: 3, fill: '#8a6420', stroke: '#e3b34f', 'stroke-width': 1.5 });
+      const luna = el('rect', { x: -18, y: -3, width: 36, height: 6, rx: 1.5, fill: 'url(#far-luna-g)', class: 'far-e-espejo', 'data-c': k, 'data-o': espejos[k] });
+      [marco, luna].forEach(n => g.appendChild(n));
     });
     // rayo
     const t = trazar();

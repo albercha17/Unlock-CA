@@ -20,11 +20,11 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-q-malla{display:grid;grid-template-columns:repeat(4,58px) 50px;grid-auto-rows:58px;gap:5px;justify-content:center;margin-bottom:6px}
+    .far-q-malla{display:grid;grid-template-columns:repeat(4,58px) 50px;grid-auto-rows:58px;gap:5px;justify-content:center;margin:0 auto 6px;width:fit-content;padding:8px;border-radius:10px;border:3px solid #6b4a1e;background:linear-gradient(rgba(14,8,3,.74),rgba(14,8,3,.88)),url(./img/ui/suelo.jpg) center/cover;box-shadow:inset 0 0 20px rgba(0,0,0,.8)}
     .far-q-malla .sumas{height:34px}
-    .far-q-cell{border-radius:9px;border:2px solid #8a5a2a;background:linear-gradient(180deg,#d9b46a,#b88f45);color:#2a1600;font-size:1.5rem;font-weight:800;cursor:pointer;font-family:inherit}
-    .far-q-cell.sel{outline:3px solid #fff;outline-offset:1px}
-    .far-q-cell.fija{background:linear-gradient(180deg,#7a5a30,#5a3f1e);color:#f4e9c8;cursor:default}
+    .far-q-cell{border-radius:6px;border:0;padding:0;background:url(./img/ui/placas/laton.jpg) center/100% 100% no-repeat,#000;color:#2a1600;font-size:1.5rem;font-weight:800;cursor:pointer;font-family:Georgia,serif;text-shadow:0 1px 0 rgba(255,235,170,.6)}
+    .far-q-cell.sel{outline:3px solid #fff;outline-offset:1px;filter:brightness(1.18)}
+    .far-q-cell.fija{background:url(./img/ui/placas/oscura.jpg) center/100% 100% no-repeat,#000;color:#f4e9c8;text-shadow:0 1px 3px #000;cursor:default}
     .far-q-suma{display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;border-radius:8px;color:#9fb4c8;background:rgba(255,255,255,.04)}
     .far-q-suma.ok{color:#9dffb0;background:rgba(80,200,120,.15)}
     .far-q-suma.mal{color:#ffb3b3;background:rgba(220,80,80,.15)}

@@ -16,9 +16,11 @@ export function startMinigame(opts = {}) {
   style.textContent = `
     .far-j-jarras{display:flex;gap:26px;justify-content:center;align-items:flex-end;margin:6px 0 12px}
     .far-j-jarra{display:flex;flex-direction:column;align-items:center;gap:6px;font-weight:700;color:#e8d9b0}
-    .far-j-vaso{display:flex;flex-direction:column-reverse;gap:3px;padding:6px;border:3px solid #8a5a2a;border-top:none;border-radius:0 0 22px 22px;background:#1b1209}
-    .far-j-medida{width:62px;height:30px;border-radius:5px;background:rgba(255,255,255,.07)}
-    .far-j-medida.llena{background:linear-gradient(180deg,#5fb7ff,#2a7fd0)}
+    .far-j-vaso{position:relative}
+    .far-j-vaso img{position:relative;z-index:2;display:block;width:100%;height:100%;object-fit:fill;mix-blend-mode:screen}
+    .far-j-agua{position:absolute;left:9%;right:9%;bottom:7%;z-index:1;border-radius:0 0 10px 10px;background:linear-gradient(180deg,#7cc8ff,#2a7fd0 70%,#1b5aa0);box-shadow:0 0 14px rgba(95,183,255,.55);transition:height .55s cubic-bezier(.3,1.3,.5,1)}
+    .far-j-marcas{position:absolute;left:9%;right:9%;bottom:7%;z-index:3;pointer-events:none}
+    .far-j-marcas i{position:absolute;left:0;right:0;border-top:1px dashed rgba(255,255,255,.35)}
     .far-j-pasos{text-align:center;color:#9fb4c8;font-size:.85rem;margin-bottom:8px}
     .far-j-acciones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
   `;
@@ -44,11 +46,20 @@ export function startMinigame(opts = {}) {
       col.dataset.jarra = k;
       const vaso = document.createElement('div');
       vaso.className = 'far-j-vaso';
-      for (let i = 0; i < CAP[k]; i++) {
-        const m = document.createElement('div');
-        m.className = 'far-j-medida' + (i < nivel[k] ? ' llena' : '');
-        vaso.appendChild(m);
-      }
+      vaso.style.width = (k === 'pequena' ? 118 : 96) + 'px';
+      vaso.style.height = (k === 'pequena' ? 106 : 200) + 'px';
+      // el agua ocupa el 86 % útil del vaso: cada medida es una fracción igual
+      const util = 86;
+      const agua = document.createElement('div');
+      agua.className = 'far-j-agua';
+      agua.dataset.nivel = String(nivel[k]);
+      agua.style.height = (nivel[k] / CAP[k] * util) + '%';
+      const marcas = document.createElement('div');
+      marcas.className = 'far-j-marcas';
+      marcas.style.height = util + '%';
+      for (let i = 1; i < CAP[k]; i++) { const m = document.createElement('i'); m.style.bottom = (i / CAP[k] * 100) + '%'; marcas.appendChild(m); }
+      vaso.innerHTML = '<img alt="" src="./img/ui/vasos/' + (k === 'pequena' ? 'vaso3' : 'vaso5') + '.jpg">';
+      vaso.append(agua, marcas);
       const t = document.createElement('div');
       t.className = 'far-j-texto';
       t.textContent = (k === 'pequena' ? 'Pequeña' : 'Grande') + ' (' + CAP[k] + '): ' + nivel[k];

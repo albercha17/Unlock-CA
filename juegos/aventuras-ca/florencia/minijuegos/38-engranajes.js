@@ -10,7 +10,7 @@ const NS = 'http://www.w3.org/2000/svg';
 const PEGS = { A: [0, 0], B: [3, 3], D: [3, 0], Z: [7, 3] };
 const NOMBRES = { A: 'la manivela', B: 'la clavija B', D: 'la clavija D', Z: 'la cuerda' };
 const TAM = { 1: 'pequeña', 2: 'mediana', 4: 'grande' };
-const COLOR = { 1: '#e3b34f', 2: '#c98a35', 4: '#9a6428' };
+const IMG = { 1: 'pequena', 2: 'mediana', 4: 'grande' };
 const BANDEJA = [1, 1, 2, 2, 4];
 const EPS = 1e-6;
 
@@ -24,12 +24,13 @@ export function startMinigame(opts = {}) {
   const style = document.createElement('style');
   style.textContent = `
     @keyframes far-giro{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-    .far-g-svg{display:block;width:100%;background:#241508;border:2px solid #6b4a1e;border-radius:12px}
+    .far-g-svg{display:block;width:100%;background:linear-gradient(rgba(14,8,3,.74),rgba(14,8,3,.88)),url(./img/ui/suelo.jpg) center/cover;border:2px solid #6b4a1e;border-radius:12px}
+    .far-g-rueda-svg{mix-blend-mode:screen}
     .far-g-giro{transform-box:fill-box;transform-origin:center}
     .far-g-peg{cursor:pointer}
     .far-g-tray{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0 4px}
-    .far-g-rueda{width:62px;padding:6px 2px;border-radius:10px;border:2px solid #6b4a1e;background:#2a1a0c;color:#fff;cursor:pointer;font:600 .7rem system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px}
-    .far-g-rueda i{display:block;border-radius:50%;border:3px dotted rgba(0,0,0,.45)}
+    .far-g-rueda{width:62px;padding:6px 2px;border-radius:10px;border:2px solid #6b4a1e;background:linear-gradient(rgba(14,8,3,.7),rgba(14,8,3,.9)),url(./img/ui/suelo.jpg) center/cover;color:#fff;cursor:pointer;font:600 .7rem system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px}
+    .far-g-rueda img{display:block;mix-blend-mode:screen;object-fit:contain}
     .far-g-rueda.sel{border-color:#ffd27a;box-shadow:0 0 10px rgba(255,210,122,.6)}
     .far-g-rueda:disabled{opacity:.3;cursor:not-allowed}
     .far-g-ayuda{color:#9fb4c8;font-size:.82rem;text-align:center;min-height:1.2em}
@@ -84,25 +85,15 @@ export function startMinigame(opts = {}) {
   function pintarRueda(peg, r, giro) {
     const [cx, cy] = [PEGS[peg][0] * U, PEGS[peg][1] * U];
     const R = r * U;
-    const dientes = 8 * r;
     const g = el('g', { transform: `translate(${cx} ${cy})`, 'data-peg': peg, class: 'far-g-rueda-svg' });
     const anim = el('g', { class: 'far-g-giro' });
     if (giro) {
       anim.style.animation = `far-giro ${(3 / giro.vel).toFixed(3)}s linear infinite`;
       anim.style.animationDirection = giro.dir === 1 ? 'normal' : 'reverse';
     }
-    const color = peg === 'A' ? '#b86a2a' : COLOR[r];
-    const perim = 2 * Math.PI * (R + 3);
-    anim.appendChild(el('circle', { r: R + 3, fill: 'none', stroke: color, 'stroke-width': 6, 'stroke-dasharray': `${perim / (dientes * 2)} ${perim / (dientes * 2)}` }));
-    anim.appendChild(el('circle', { r: R, fill: color, stroke: '#3a2208', 'stroke-width': 2 }));
-    anim.appendChild(el('circle', { r: R * 0.62, fill: 'rgba(0,0,0,.18)' }));
-    [0, 60, 120].forEach(a => {
-      const rad = a * Math.PI / 180;
-      anim.appendChild(el('line', { x1: -Math.cos(rad) * R * 0.9, y1: -Math.sin(rad) * R * 0.9, x2: Math.cos(rad) * R * 0.9, y2: Math.sin(rad) * R * 0.9, stroke: '#3a2208', 'stroke-width': 3, 'stroke-linecap': 'round' }));
-    });
-    anim.appendChild(el('circle', { cx: R * 0.78, cy: 0, r: 4, fill: '#fff' }));
+    const W = 2 * R + 8;
+    anim.appendChild(el('image', { href: './img/ui/engranajes/' + (peg === 'A' ? 'manivela' : IMG[r]) + '.jpg', x: -W / 2, y: -W / 2, width: W, height: W }));
     g.appendChild(anim);
-    g.appendChild(el('circle', { r: 7, fill: '#3a2208', stroke: '#e8d9b0', 'stroke-width': 2 }));
     return g;
   }
 
@@ -145,7 +136,8 @@ export function startMinigame(opts = {}) {
       b.dataset.id = String(g.id);
       b.disabled = g.usada;
       b.setAttribute('aria-label', 'Rueda ' + TAM[g.r]);
-      b.innerHTML = '<i style="width:' + (10 + g.r * 7) + 'px;height:' + (10 + g.r * 7) + 'px;background:' + COLOR[g.r] + '"></i>' + TAM[g.r];
+      const lado = 18 + g.r * 7;
+      b.innerHTML = '<img alt="" style="width:' + lado + 'px;height:' + lado + 'px" src="./img/ui/engranajes/' + IMG[g.r] + '.jpg">' + TAM[g.r];
       b.addEventListener('click', () => { if (!resuelto) { seleccion = seleccion === g.id ? null : g.id; ui.say(''); pintar(); } });
       bandejaEl.appendChild(b);
     });
