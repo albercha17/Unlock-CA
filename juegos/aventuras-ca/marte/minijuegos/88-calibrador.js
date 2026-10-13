@@ -16,7 +16,8 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-osc{background:#04120c;border:2px solid #1f5a3a;border-radius:10px;margin-bottom:10px}
+    .far-osc{background:#04120c;border:2px solid #1f5a3a;border-radius:10px;margin-bottom:10px;box-shadow:inset 0 0 26px rgba(40,255,140,.12)}
+    .far-osc polyline{filter:drop-shadow(0 0 4px #7dffb0)}
     .far-ajuste{display:grid;grid-template-columns:auto 1fr auto;gap:8px 10px;align-items:center;text-align:left;margin-bottom:6px;font-size:.9rem}
     .far-ajuste input{width:100%;accent-color:#7dffb0}
     .far-ajuste output{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:700;color:#7dffb0;min-width:1.5em;text-align:right}
@@ -34,6 +35,8 @@ export function startMinigame(opts = {}) {
   const eje = document.createElementNS(NS, 'line');
   eje.setAttribute('x1', 0); eje.setAttribute('x2', 300); eje.setAttribute('y1', 50); eje.setAttribute('y2', 50);
   eje.setAttribute('stroke', '#1f5a3a');
+  for (let x = 30; x < 300; x += 30) { const v = document.createElementNS(NS, 'line'); v.setAttribute('x1', x); v.setAttribute('x2', x); v.setAttribute('y1', 0); v.setAttribute('y2', 100); v.setAttribute('stroke', 'rgba(125,255,176,.08)'); svg.appendChild(v); }
+  for (let y = 10; y < 100; y += 20) { const h = document.createElementNS(NS, 'line'); h.setAttribute('x1', 0); h.setAttribute('x2', 300); h.setAttribute('y1', y); h.setAttribute('y2', y); h.setAttribute('stroke', 'rgba(125,255,176,.08)'); svg.appendChild(h); }
   svg.append(eje, linea);
 
   const ajustes = document.createElement('div');

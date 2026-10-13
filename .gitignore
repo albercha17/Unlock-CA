@@ -15,5 +15,8 @@ fotos-privadas/
 # para tenerlo ordenado; se sirve desde su propio GitHub Pages (enlace externo en el menú). No se versiona aquí.
 juegos/apagon-colegio/
 
+# Marcas locales de chatgpt_fondos.py (indican qué imágenes de interfaz ya son las de ChatGPT)
+*.origen
+
 # Vídeos locales (los de cada juego van en juegos/**/video/)
 /video/

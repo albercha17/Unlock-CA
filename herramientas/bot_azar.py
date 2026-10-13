@@ -32,26 +32,29 @@ def jugar_azar(nombre, url_pc, url_app, solvers, requiere, semilla, final="99", 
         hechas = 0
         while hechas < max_acciones:
             opciones = []
-            if pendientes:
-                opciones.append(("instruccion", None))
+            en_mesa = mesa.en_mesa()
+            # Como un jugador de verdad: al coger una carta se lee su franja ANTES de descartarla, combinarla o usarla.
+            ejecutables = [i for i, (acc, n, _m) in enumerate(pendientes) if not (acc == "descartar" and n in en_mesa and n not in leidas)]
+            if ejecutables:
+                opciones.append(("instruccion", ejecutables))
             for n in mesa.en_mesa():
                 if n not in leidas:
                     opciones.append(("leer", n))
-            comb = [n for n in mesa.en_mesa() if mesa.info(n)["etq"] == "COMBINA"]
+            comb = [n for n in en_mesa if n in leidas and mesa.info(n)["etq"] == "COMBINA"]
             for i, a in enumerate(comb):
                 for b in comb[i + 1:]:
                     clave = tuple(sorted((a, b)))
                     if clave not in combinadas and str(int(a) + int(b)) in mesa.en_mazo():
                         opciones.append(("combinar", clave))
-            for n in mesa.en_mesa():
-                if n not in resueltas and mesa.info(n)["etq"] == "APP" and all(r in mesa.en_mesa() for r in requiere.get(n, [])):
+            for n in en_mesa:
+                if n in leidas and n not in resueltas and mesa.info(n)["etq"] == "APP" and all(r in en_mesa for r in requiere.get(n, [])):
                     opciones.append(("app", n))
             if not opciones:
                 break
             tipo, dato = rng.choice(opciones)
             hechas += 1
             if tipo == "instruccion":
-                accion, n, motivo = pendientes.pop(rng.randrange(len(pendientes)))
+                accion, n, motivo = pendientes.pop(rng.choice(dato))
                 (mesa.descartar if accion == "descartar" else mesa.coger)(n, motivo)
             elif tipo == "leer":
                 leidas.add(dato)

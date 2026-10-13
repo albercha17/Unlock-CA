@@ -76,6 +76,20 @@ Por carta (la clave es el número, `P` para la inicial):
 
 `prompts.html` (en las aventuras) da el prompt de la hoja de personajes, el de cada carta y el del vídeo. Las imágenes se guardan en `arte/` (local), se convierten con `herramientas/preparar_imagenes.py` y se suben como `img/*.jpg`.
 
+## 6b. Aspecto de los minijuegos (ambientación)
+
+Todos los minijuegos comparten `minijuegos/ui.js` (idéntico en cada juego) y cada juego tiene su **tema** (`<html data-tema="...">`):
+fondo con la ilustración de la carta desenfocada, cabecera con la imagen, marco, tipografía, teclas, partículas ambientales
+(lluvia y niebla en el Faro, polvo dorado en Egipto, polvo marciano y líneas de escaneo en Marte, chispas de vela en Florencia),
+destello y sonido al acertar, sacudida al fallar y un botón de silencio (se recuerda en el móvil).
+
+Para un juego nuevo:
+1. Añade su tema al objeto `TEMAS` de `ui.js` (colores, tipografía, partículas, símbolo) y copia `ui.js` a las demás carpetas.
+2. Pon `data-tema` en su `index.html` (el constructor lo hace con la clave `tema`).
+3. Cada minijuego debe llamarse `Carta N — Nombre` (de ahí sale la imagen `img/N.jpg`) y usar solo `body`, `button`, `close`, `onClose` y `say` de `openGame`.
+4. Genera la textura de su panel con `herramientas/chatgpt_fondos.py` (añade su pedido a `PEDIDOS`); el constructor deja una provisional en `img/ui/panel.jpg`.
+5. Revisa el resultado con `herramientas/capturar_minijuegos.py`.
+
 ## 7. Publicación
 
 - Ramas + Pull Request; `main` lo fusiona el dueño del repositorio.
