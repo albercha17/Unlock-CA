@@ -26,19 +26,19 @@ def sustituir(txt, viejo, nuevo, veces=1):
 
 JUEGOS = {
     "Egipto": dict(
-        datos=E, titulo="Egipto, 1274 a.C.: El Ojo de Horus", emoji="🏺",
+        datos=E, tema="egipto", titulo="Egipto, 1274 a.C.: El Ojo de Horus", emoji="🏺",
         grad="#4a3512,#150f05", acento="#e0b04a", acento2="#f2d27a", bg1="#120d05", bg2="#2a1d0a",
         sinopsis="Cristina y Alberto estrenan su Cronoportal y aterrizan en una cámara secreta bajo un templo de Tebas, en el año 1274 a.C. Con el aparato sin energía y solo una hora antes de que lleguen los sacerdotes, tienen que encontrar el Ojo de Horus.",
         minigames={"15": "15-papiro.js", "23": "23-muro.js", "47": "47-balanza.js", "71": "71-anillos.js", "95": "95-cristales.js", "37": "37-tablilla.js", "34": "34-sarcofago.js"},
         pal=("#7a5a1e", "#2a1d0a")),
     "Marte": dict(
-        datos=M, titulo="Marte, 2157: Cúpula Aurora", emoji="🚀",
+        datos=M, tema="marte", titulo="Marte, 2157: Cúpula Aurora", emoji="🚀",
         grad="#5a2a14,#12060a", acento="#ff8a50", acento2="#ffb085", bg1="#12070a", bg2="#2a120c",
         sinopsis="Segundo salto del Cronoportal: Marte, año 2157. La cúpula Aurora está a oscuras por una tormenta de polvo y el soporte vital se apaga. Cristina y Alberto tienen una hora para encontrar el núcleo de fusión y volver a casa.",
         minigames={"21": "21-terminal.js", "52": "52-tuberias.js", "66": "66-esclusa.js", "88": "88-calibrador.js", "35": "35-diario.js", "48": "48-rover.js", "62": "62-energia.js"},
         pal=("#8a3a1a", "#1c0c10")),
     "Florencia": dict(
-        datos=F, titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞",
+        datos=F, tema="florencia", titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞",
         grad="#5a3a1a,#140c06", acento="#d9a441", acento2="#f0c773", bg1="#120c07", bg2="#2a1c0e",
         sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con una hora hasta el amanecer. Solo la luz del alba, concentrada por la lente del maestro, puede recargar el aparato.",
         minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js"},
@@ -117,6 +117,7 @@ for nombre, cfg in JUEGOS.items():
 
     # index.html
     ix = index_faro
+    ix = sustituir(ix, '<html lang="es" data-tema="faro">', f'<html lang="es" data-tema="{cfg["tema"]}">')
     ix = sustituir(ix, "<title>Unlock C&amp;A - El Faro de Cabo Niebla</title>", f"<title>Aventuras C&amp;A - {cfg['titulo']}</title>")
     ix = sustituir(ix, '<h1 style="margin:0;font-size:20px">El Faro de Cabo Niebla</h1>', f'<h1 style="margin:0;font-size:20px">{cfg["titulo"]}</h1>')
     ix = sustituir(ix, "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo.", cfg["sinopsis"])
@@ -149,6 +150,19 @@ for nombre, cfg in JUEGOS.items():
         if os.path.exists(f"{base}/arte/{k}.png"):
             continue  # ya hay ilustracion real: no la pises con el relleno
         placeholder(f"{base}/img/{k}.jpg", c["titulo"].split("—", 1)[1].strip(), *cfg["pal"])
+
+    # textura provisional del panel de los minijuegos (degradado); chatgpt_fondos.py la sustituye por una real
+    ui_dir = f"{base}/img/ui"
+    os.makedirs(ui_dir, exist_ok=True)
+    if not os.path.exists(f"{ui_dir}/panel.jpg"):
+        a = tuple(int(cfg["pal"][0][i:i + 2], 16) for i in (1, 3, 5))
+        b = tuple(int(cfg["pal"][1][i:i + 2], 16) for i in (1, 3, 5))
+        g = Image.new("RGB", (64, 96))
+        px = g.load()
+        for y in range(96):
+            for x in range(64):
+                px[x, y] = tuple(int(a[k] * (1 - y / 95) + b[k] * y / 95) for k in range(3))
+        g.save(f"{ui_dir}/panel.jpg", quality=70)
 
     # prompts.html e imprimir.html (en linea: leen cartas.json)
     escribir(f"{base}/prompts.html", prompts_tpl.replace("{{TITULO}}", cfg["titulo"]).replace("{{KEY}}", f"prompts-{nombre.lower()}"))

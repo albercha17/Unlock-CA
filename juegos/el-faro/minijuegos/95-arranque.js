@@ -9,6 +9,14 @@ const ORDER = [
   'Soltar el freno de la lente'
 ];
 
+const ICONO = {
+  'Abrir la válvula del aceite': '🛢️',
+  'Cebar la mecha': '🕯️',
+  'Girar el engranaje': '⚙️',
+  'Encender el piloto': '🔥',
+  'Soltar el freno de la lente': '🔓'
+};
+
 function shuffle(a) {
   const r = a.slice();
   for (let i = r.length - 1; i > 0; i--) {
@@ -31,6 +39,8 @@ export function startMinigame(opts = {}) {
     .far-step{display:flex;gap:10px;align-items:center;width:100%;padding:11px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font:inherit;font-size:.92rem;cursor:pointer;text-align:left}
     .far-step:hover{background:rgba(255,255,255,.1)}
     .far-step .n{flex:0 0 26px;height:26px;border-radius:50%;background:#26323f;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem}
+    .far-step .ico{font-size:1.3rem;filter:grayscale(.6);transition:filter .2s}
+    .far-step.placed .ico{filter:none}
     .far-step.placed .n{background:#ffd27a;color:#2a1600}
     .far-step.placed{border-color:#ffd27a}
   `;
@@ -53,9 +63,13 @@ export function startMinigame(opts = {}) {
       const n = document.createElement('span');
       n.className = 'n';
       n.textContent = idx >= 0 ? String(idx + 1) : '·';
+      const ico = document.createElement('span');
+      ico.className = 'ico';
+      ico.textContent = ICONO[text] || '';
+      ico.setAttribute('aria-hidden', 'true');
       const t = document.createElement('span');
       t.textContent = text;
-      b.append(n, t);
+      b.append(n, ico, t);
       b.addEventListener('click', () => {
         if (done) return;
         if (idx >= 0) chosen.splice(idx, 1); else chosen.push(text);
