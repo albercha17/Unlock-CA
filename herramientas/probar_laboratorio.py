@@ -115,13 +115,19 @@ def linterna(d):
         clic(d, "#cruzar")
 
 
+def cerillas(d):
+    de, a = d.execute_script("const c = window.LAB.cerillas; return [c.desde, c.hasta]")
+    clic(d, f".slot[data-k='{de[0]}'][data-s='{de[1]}']")
+    clic(d, f".slot[data-k='{a[0]}'][data-s='{a[1]}']")
+
+
 def luces(d):
     for i in d.execute_script("return window.LAB.luces.toques_minimos"):
         clic(d, f".cri[data-i='{i}']")
 
 
 PRUEBAS = [("nonograma", nonograma), ("akari", akari), ("caja-negra", caja_negra), ("lengua", lengua),
-           ("tabla-logica", tabla), ("caballeros", caballeros), ("bloques", bloques), ("tubos", tubos), ("puentes", puentes), ("linterna", linterna), ("luces", luces)]
+           ("tabla-logica", tabla), ("caballeros", caballeros), ("bloques", bloques), ("tubos", tubos), ("puentes", puentes), ("linterna", linterna), ("luces", luces), ("cerillas", cerillas)]
 
 
 def main():

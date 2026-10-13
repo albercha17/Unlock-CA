@@ -702,6 +702,69 @@ def puentes_linterna(tiempos=(1, 2, 5, 8)):
     return None
 
 
+# ============================================================ Cerillas (mover UNA cerilla para arreglar la cuenta)
+# Segmentos de un dígito: a=arriba b=arriba-dcha c=abajo-dcha d=abajo e=abajo-izda f=arriba-izda g=centro
+_SEG = {0: "abcdef", 1: "bc", 2: "abdeg", 3: "abcdg", 4: "bcfg", 5: "acdfg", 6: "acdefg", 7: "abc", 8: "abcdefg", 9: "abcdfg"}
+_MASK = {d: sum(1 << "abcdefg".index(ch) for ch in s) for d, s in _SEG.items()}
+_DIG = {m: d for d, m in _MASK.items()}
+
+
+def _cerillas_valida(a, op, b, c):
+    """a,b,c: máscaras de 7 bits; op: máscara de 2 bits (1 = '-', 3 = '+'). Devuelve True si es una cuenta verdadera."""
+    if a not in _DIG or b not in _DIG or c not in _DIG or op not in (1, 3):
+        return False
+    x, y, z = _DIG[a], _DIG[b], _DIG[c]
+    return (x + y == z) if op == 3 else (x - y == z)
+
+
+def cerillas(semilla=1):
+    """Cuenta falsa «A ± B = C» con cerillas (dígitos de 7 segmentos). Hay exactamente UNA forma de arreglarla moviendo una sola cerilla.
+    Devuelve las posiciones (símbolo, segmento) de origen y destino de la única solución."""
+    rng = random.Random(semilla)
+    # símbolo 0=A, 1=operador (2 palitos: horizontal y vertical), 2=B, 3=C
+    anchos = [7, 2, 7, 7]
+    desde = [0, 7, 9, 16]
+
+    def partir(estado):
+        return [(estado >> desde[k]) & ((1 << anchos[k]) - 1) for k in range(4)]
+
+    def juntar(partes):
+        return sum(partes[k] << desde[k] for k in range(4))
+
+    for _ in range(20000):
+        a, b = rng.randint(0, 9), rng.randint(0, 9)
+        op = rng.choice((1, 3))
+        c = rng.randint(0, 9)
+        est = juntar([_MASK[a], op, _MASK[b], _MASK[c]])
+        pa, po, pb, pc = partir(est)
+        if _cerillas_valida(pa, po, pb, pc):
+            continue
+        sols = {}
+        for src in range(23):
+            if not est >> src & 1:
+                continue
+            for dst in range(23):
+                if dst == src or est >> dst & 1:
+                    continue
+                n = (est & ~(1 << src)) | (1 << dst)
+                if _cerillas_valida(*partir(n)):
+                    sols[n] = (src, dst)
+        if len(sols) != 1:
+            continue
+        (src, dst), = sols.values()
+
+        def donde(i):
+            k = max(j for j in range(4) if desde[j] <= i)
+            return k, i - desde[k]
+
+        sk, ss = donde(src)
+        dk, ds = donde(dst)
+        if sk == dk:      # que la cerilla cambie de símbolo: más interesante y más claro
+            continue
+        return dict(simbolos=[a, "+" if op == 3 else "-", b, c], masks=[pa, po, pb, pc], desde=[sk, ss], hasta=[dk, ds])
+    raise RuntimeError("sin instancia de cerillas")
+
+
 # ============================================================ Tubos de colores (water sort)
 def tubos(colores=3, capacidad=4, vacios=2, semilla=1, min_movs=6):
     rng = random.Random(semilla)
@@ -794,6 +857,8 @@ def _prueba():
     pl = puentes_linterna((1, 2, 5, 8))
     print("puente y linterna OK ->", pl["tiempo_minimo"], "min:", pl["plan"])
     ok &= pl["tiempo_minimo"] == 15
+    ce = cerillas(1)
+    print("cerillas OK ->", ce["simbolos"], "mueve", ce["desde"], "->", ce["hasta"])
     tb = tubos(3, 4, 2, 1)
     print("tubos OK ->", tb["tubos"], "mínimo", tb["movimientos_minimos"], "movimientos")
     return ok

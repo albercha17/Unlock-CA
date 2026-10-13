@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Cerillas</title><link rel="stylesheet" href="lab.css">
+<style>
+.cuenta{display:flex;justify-content:center;align-items:center;gap:10px;padding:14px 0;flex-wrap:nowrap}
+.sim{position:relative;width:60px;height:104px;flex:none}
+.sim.op{width:50px}
+.sim.igual{width:50px}
+.slot{position:absolute;border:0;padding:0;border-radius:4px;background:rgba(255,255,255,.07);cursor:pointer;touch-action:manipulation;min-width:0}
+.slot.h{width:40px;height:8px}
+.slot.v{width:8px;height:40px}
+.slot::after{content:"";position:absolute;inset:-12px}
+.slot.on{background:linear-gradient(90deg,#f4d9a0,#c8893a);box-shadow:0 0 0 1px #6b3b10,0 2px 4px rgba(0,0,0,.5)}
+.slot.on::before{content:"";position:absolute;top:50%;left:0;width:30%;height:100%;transform:translateY(-50%);background:radial-gradient(circle,#e24a2a 40%,#a31d0e);border-radius:50%;display:none}
+.slot.sel{outline:3px solid #ffd27a;box-shadow:0 0 14px #ffd27a}
+.slot:focus-visible{outline:3px solid #fff}
+.fijo{position:absolute;width:40px;height:8px;border-radius:4px;background:linear-gradient(90deg,#f4d9a0,#c8893a);box-shadow:0 0 0 1px #6b3b10;left:5px}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Cerillas</h1>
+<p class="sub">Idea de Layton (guía §7.14) · una única solución comprobada por script</p>
+<div class="regla">La cuenta está mal. <b>Mueve una sola cerilla</b> (tócala y luego toca un hueco vacío) para que sea verdad. Puedes sacarla de un número y ponerla en otro, o cambiar un + por un −.</div>
+<div class="tabla">
+  <div class="cuenta" id="cuenta" role="group" aria-label="Cuenta con cerillas"></div>
+  <div class="msg" id="msg" aria-live="polite"></div>
+  <div class="fila-btn"><button class="btn" id="reiniciar">Reiniciar</button></div>
+</div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.cerillas;
+  // geometría de cada segmento de un dígito: [clase, izquierda, arriba]
+  const G7 = [['h', 10, 0], ['v', 52, 8], ['v', 52, 56], ['h', 10, 96], ['v', 0, 56], ['v', 0, 8], ['h', 10, 48]];
+  const GOP = [['h', 5, 48], ['v', 21, 28]]; // bit 0 horizontal, bit 1 vertical
+  const MASK = { 0: 'abcdef', 1: 'bc', 2: 'abdeg', 3: 'abcdg', 4: 'bcfg', 5: 'acdfg', 6: 'acdefg', 7: 'abc', 8: 'abcdefg', 9: 'abcdfg' };
+  const DIG = {};
+  Object.keys(MASK).forEach(d => { DIG[[...MASK[d]].reduce((m, ch) => m | (1 << 'abcdefg'.indexOf(ch)), 0)] = +d; });
+  const cuenta = document.getElementById('cuenta');
+  const msg = document.getElementById('msg');
+  let estado, sel, movido;
+  const nombresDig = ['A', '+/−', 'B', 'C'];
+  function simbolo(k) {
+    const d = document.createElement('div');
+    d.className = 'sim' + (k === 1 ? ' op' : '');
+    (k === 1 ? GOP : G7).forEach((g, s) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'slot ' + g[0];
+      b.style.left = g[1] + 'px';
+      b.style.top = g[2] + 'px';
+      b.dataset.k = String(k);
+      b.dataset.s = String(s);
+      b.addEventListener('click', () => tocar(k, s));
+      d.appendChild(b);
+    });
+    return d;
+  }
+  function igual() {
+    const d = document.createElement('div');
+    d.className = 'sim igual';
+    [36, 62].forEach(t => { const f = document.createElement('div'); f.className = 'fijo'; f.style.top = t + 'px'; d.appendChild(f); });
+    return d;
+  }
+  [0, 1, 2].forEach(k => cuenta.appendChild(simbolo(k)));
+  cuenta.appendChild(igual());
+  cuenta.appendChild(simbolo(3));
+  function valida() {
+    const a = DIG[estado[0]], b = DIG[estado[2]], c = DIG[estado[3]], op = estado[1];
+    if (a === undefined || b === undefined || c === undefined || (op !== 1 && op !== 3)) return false;
+    return op === 3 ? a + b === c : a - b === c;
+  }
+  function pintar() {
+    cuenta.querySelectorAll('.slot').forEach(b => {
+      const k = +b.dataset.k, s = +b.dataset.s;
+      const on = !!(estado[k] >> s & 1);
+      b.classList.toggle('on', on);
+      b.classList.toggle('sel', !!sel && sel[0] === k && sel[1] === s);
+      b.setAttribute('aria-label', nombresDig[k] + ' segmento ' + (s + 1) + (on ? ', con cerilla' : ', vacío'));
+    });
+  }
+  function tocar(k, s) {
+    if (movido) { msg.className = 'msg bad'; msg.textContent = 'Solo se puede mover una cerilla. Pulsa Reiniciar para volver a probar.'; return; }
+    const on = !!(estado[k] >> s & 1);
+    if (!sel) {
+      if (!on) { msg.className = 'msg'; msg.textContent = 'Primero toca una cerilla para cogerla.'; return; }
+      sel = [k, s]; msg.textContent = ''; pintar(); return;
+    }
+    if (on) { sel = (sel[0] === k && sel[1] === s) ? null : [k, s]; pintar(); return; }
+    estado[sel[0]] &= ~(1 << sel[1]);
+    estado[k] |= 1 << s;
+    sel = null; movido = true; pintar();
+    if (valida()) { msg.className = 'msg ok'; msg.textContent = '¡La cuenta es correcta!'; }
+    else { msg.className = 'msg bad'; msg.textContent = 'Esa cuenta sigue siendo falsa. Reinicia y prueba otra cerilla.'; }
+  }
+  function inicio() { estado = D.masks.slice(); sel = null; movido = false; msg.className = 'msg'; msg.textContent = ''; pintar(); }
+  document.getElementById('reiniciar').addEventListener('click', inicio);
+  inicio();
+})();
+</script></body></html>
