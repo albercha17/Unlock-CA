@@ -55,7 +55,8 @@ Están hechas con ChatGPT de forma automática (Selenium), con la cara de Cristi
 - GitHub Pages sirve la rama `main`. Se trabaja en ramas y se fusiona con un Pull Request.
 - GitHub Pages ignora los archivos cuyo nombre empieza por `_`: no los uses en el código servido.
 - **No uses `git add .`**: añade archivos de más (se subió una vez un perfil de Chrome). Añade siempre archivos o carpetas concretos. El `.gitignore` excluye las ilustraciones originales, perfiles y caches.
-- Las páginas se prueban con un servidor local (`python -m http.server`), no con doble clic: los módulos de JavaScript no funcionan con `file://`.
+- La app del móvil (`index.html`) se prueba con un servidor local (`python -m http.server`): sus módulos de JavaScript no funcionan con `file://`.
+- `pc.html`, `imprimir.html` y `prompts.html` también se pueden abrir con **doble clic**: usan `cartas-data.js`, que se genera con `python herramientas/sincronizar_cartas.py` (ejecútalo siempre que cambies un `cartas.json`).
 
 ## Comprobar un juego
 

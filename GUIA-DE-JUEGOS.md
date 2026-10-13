@@ -19,6 +19,7 @@ El juego de referencia es **El Faro de Cabo Niebla** (`juegos/el-faro/`). Sigue 
 index.html      shell de la app: temporizador, Acción, Pista, vídeo de inicio, Modo PC
 pc.html         mesa virtual: mazo boca abajo, mesa, descartes
 cartas.json     guion completo (ver §3)
+cartas-data.js  copia generada de cartas.json para abrir pc/imprimir/prompts con doble clic (no editar)
 pistas.js       visor de pistas (genérico, lee cartas.json)
 style.css       estilos
 minijuegos/     ui.js (base común) + un módulo por minijuego; lector.js para cartas de solo lectura
@@ -63,6 +64,7 @@ Por carta (la clave es el número, `P` para la inicial):
 3. `herramientas/bot_aventuras.py` (o `bot_faro.py`): partida autónoma que solo hace lo que dicen las cartas y los mensajes. `herramientas/bot_azar.py`: **muchas partidas en orden aleatorio** (mínimo 10 por juego): cada semilla elige otro orden de leer, coger, descartar, combinar y resolver apps.
 4. Relee todos los textos buscando referencias a cartas eliminadas o instrucciones contradictorias, y abre cada minijuego con el visor de pistas.
 5. `herramientas/crear_manual_md.py` genera `MANUAL.md` a partir de los mismos pasos.
+6. `herramientas/sincronizar_cartas.py` regenera `cartas-data.js` (el verificador falla si está desfasado): sin él, `pc.html`/`imprimir.html` no cargan las cartas al abrirlos con doble clic.
 
 ## 6. Ilustraciones y vídeo
 

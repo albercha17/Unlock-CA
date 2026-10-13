@@ -1,5 +1,5 @@
 """Construye las carpetas de juego de juegos/aventuras-ca a partir de la plantilla del Faro. Ejecutar desde la raiz del repo."""
-import json, os, shutil, sys, re
+import json, os, shutil, subprocess, sys, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from PIL import Image, ImageDraw, ImageFont
 import datos_egipto as E
@@ -143,11 +143,6 @@ for nombre, cfg in JUEGOS.items():
     escribir(f"{base}/prompts.html", prompts_tpl.replace("{{TITULO}}", cfg["titulo"]).replace("{{KEY}}", f"prompts-{nombre.lower()}"))
     im = imprimir_faro
     im = sustituir(im, "<title>Imprimir cartas — El Faro de Cabo Niebla</title>", f"<title>Imprimir cartas — {cfg['titulo']}</title>")
-    im = sustituir(im, '<script src="cartas-data.js"></script>\n<script>\n(function(){',
-                   "<script>\nfetch('cartas.json?v=' + Date.now(), {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(datos){\nwindow.JUEGO = datos;\n(function(){")
-    im = sustituir(im, "})();\n</script>\n</body>", "})();\n}).catch(function(){ document.body.insertAdjacentHTML('beforeend', '<p style=\"padding:20px\">No se pudo cargar cartas.json. Abre esta página desde el sitio web publicado.</p>'); });\n</script>\n</body>")
-    im = im.replace("'arte/'", "'img/'").replace("url(\"arte/", "url(\"img/")
-    im = sustituir(im, "exts = ['png','jpg','jpeg','webp']", "exts = ['jpg']")
     im = sustituir(im, "  .texto.chico{", "  .texto.emoji{font-size:4.4mm;line-height:1.35;letter-spacing:.12em}\n  .texto.chico{")
     im = sustituir(im, "var clase = c.textoCarta.length <= 3 ? ' chico' : ' largo';",
                    "var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '');")
@@ -163,4 +158,5 @@ for nombre, cfg in JUEGOS.items():
     json.dump(sorted((k for k in datos.J if not os.path.exists(f"{base}/arte/{k}.png")), key=lambda k: (k != "P", int(k) if k != "P" else 0)), open(f"{base}/img/pendientes.json", "w", encoding="utf-8"))
     escribir(f"{base}/imprimir.html", im)
 
+    subprocess.run([sys.executable, os.path.join(TMP, "sincronizar_cartas.py")], check=True)
     print(nombre, "->", len(datos.J), "cartas")
