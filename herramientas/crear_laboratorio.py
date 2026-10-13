@@ -36,6 +36,7 @@ datos["puentes"] = G.hashi(7, 7, semilla)
 datos["linterna"] = G.puentes_linterna((1, 2, 5, 8))
 datos["luces"] = G.luces(4, 3, semilla)
 datos["cerillas"] = G.cerillas(semilla)
+datos["rayos"] = G.rayos(5, 3, semilla)
 os.makedirs("juegos/laboratorio", exist_ok=True)
 with open("juegos/laboratorio/datos.js", "w", encoding="utf-8", newline="\n") as f:
     f.write("// Generado por herramientas/crear_laboratorio.py (no editar a mano)\nwindow.LAB = " + json.dumps(datos, ensure_ascii=False, indent=1) + ";\n")

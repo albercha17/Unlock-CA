@@ -765,6 +765,58 @@ def cerillas(semilla=1):
     raise RuntimeError("sin instancia de cerillas")
 
 
+# ============================================================ Rayos y espejos (colocar N espejos, todos útiles, para que el rayo llegue)
+def _rayo(n, paredes, fila, objetivo, espejos):
+    """Traza el rayo desde el borde izquierdo de `fila` hacia el este. espejos: {celda: '/' o '\\'}.
+    Devuelve (llega, celdas_visitadas_en_orden, espejos_tocados)."""
+    x, y, dx, dy = 0, fila, 1, 0
+    visitadas, tocados = [], set()
+    for _ in range(4 * n * n):
+        if not (0 <= x < n and 0 <= y < n):
+            return False, visitadas, tocados
+        c = y * n + x
+        if c in paredes:
+            return False, visitadas, tocados
+        visitadas.append(c)
+        if c == objetivo:
+            return True, visitadas, tocados
+        m = espejos.get(c)
+        if m:
+            tocados.add(c)
+            dx, dy = (-dy, -dx) if m == "/" else (dy, dx)
+        x, y = x + dx, y + dy
+    return False, visitadas, tocados
+
+
+def rayos(n=5, num_espejos=3, semilla=1):
+    """Cuadrícula n×n con paredes, un emisor en el borde izquierdo y una gema. Hay que colocar EXACTAMENTE `num_espejos`
+    espejos (/ o \\), todos tocados por el rayo, para que llegue a la gema. La solución es única."""
+    rng = random.Random(semilla)
+    for _ in range(4000):
+        paredes = set(rng.sample(range(n * n), rng.randint(3, 5)))
+        fila = rng.randrange(n)
+        objetivo = rng.randrange(n * n)
+        if objetivo in paredes or objetivo // n == fila and objetivo % n == 0 or fila * n in paredes:
+            continue
+        libres = [c for c in range(n * n) if c not in paredes and c != objetivo]
+        sols = []
+        for celdas in itertools.combinations(libres, num_espejos):
+            for orient in itertools.product("/\\", repeat=num_espejos):
+                esp = dict(zip(celdas, orient))
+                llega, _, tocados = _rayo(n, paredes, fila, objetivo, esp)
+                if llega and len(tocados) == num_espejos:
+                    sols.append(esp)
+                    if len(sols) > 1:
+                        break
+            if len(sols) > 1:
+                break
+        if len(sols) == 1:
+            esp = sols[0]
+            return dict(n=n, paredes=sorted(paredes), fila=fila, objetivo=objetivo, espejos=num_espejos,
+                        solucion=[[c, esp[c]] for c in sorted(esp)])
+    raise RuntimeError("sin instancia de rayos")
+
+
 # ============================================================ Tubos de colores (water sort)
 def tubos(colores=3, capacidad=4, vacios=2, semilla=1, min_movs=6):
     rng = random.Random(semilla)
@@ -859,6 +911,8 @@ def _prueba():
     ok &= pl["tiempo_minimo"] == 15
     ce = cerillas(1)
     print("cerillas OK ->", ce["simbolos"], "mueve", ce["desde"], "->", ce["hasta"])
+    ra = rayos(5, 3, 1)
+    print("rayos OK ->", ra["solucion"], "emisor fila", ra["fila"], "gema", ra["objetivo"])
     tb = tubos(3, 4, 2, 1)
     print("tubos OK ->", tb["tubos"], "mínimo", tb["movimientos_minimos"], "movimientos")
     return ok

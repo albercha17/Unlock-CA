@@ -121,13 +121,19 @@ def cerillas(d):
     clic(d, f".slot[data-k='{a[0]}'][data-s='{a[1]}']")
 
 
+def rayos(d):
+    for celda, o in d.execute_script("return window.LAB.rayos.solucion"):
+        for _ in range(1 if o == "/" else 2):
+            clic(d, f".cel[data-i='{celda}']")
+
+
 def luces(d):
     for i in d.execute_script("return window.LAB.luces.toques_minimos"):
         clic(d, f".cri[data-i='{i}']")
 
 
 PRUEBAS = [("nonograma", nonograma), ("akari", akari), ("caja-negra", caja_negra), ("lengua", lengua),
-           ("tabla-logica", tabla), ("caballeros", caballeros), ("bloques", bloques), ("tubos", tubos), ("puentes", puentes), ("linterna", linterna), ("luces", luces), ("cerillas", cerillas)]
+           ("tabla-logica", tabla), ("caballeros", caballeros), ("bloques", bloques), ("tubos", tubos), ("puentes", puentes), ("linterna", linterna), ("luces", luces), ("cerillas", cerillas), ("rayos", rayos)]
 
 
 def main():
