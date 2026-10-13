@@ -97,10 +97,15 @@ for c, d in cartas.items():
         pareja, res = map(str, d["combina"])
         if int(c) + int(pareja) != int(res):
             err(f"{c} + {pareja} != {res}")
-        if not cartas[pareja].get("combina"):
-            err(f"{pareja} deberia tener 'combina'")
-        if c not in needs.get(res, []) or pareja not in needs.get(res, []):
-            err(f"{res} deberia exigir {c} y {pareja}")
+        if pareja.startswith("+"):
+            # modificador: lo da una maquina de la app; la carta resultado exige esta carta
+            if c not in needs.get(res, []):
+                err(f"{res} deberia exigir {c} (se combina con el modificador {pareja})")
+        else:
+            if not cartas[pareja].get("combina"):
+                err(f"{pareja} deberia tener 'combina'")
+            if c not in needs.get(res, []) or pareja not in needs.get(res, []):
+                err(f"{res} deberia exigir {c} y {pareja}")
 
 # 3 descartes
 todos = list(ids) + list(eventos)

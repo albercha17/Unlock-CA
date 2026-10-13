@@ -68,4 +68,4 @@ def main(carpetas):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:] or ["juegos/el-faro", "juegos/aventuras-ca/egipto", "juegos/aventuras-ca/marte"])
+    main(sys.argv[1:] or ["juegos/el-faro", "juegos/aventuras-ca/egipto", "juegos/aventuras-ca/marte", "juegos/aventuras-ca/florencia"])

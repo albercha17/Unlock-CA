@@ -1,7 +1,7 @@
 """Partidas completas en orden aleatorio, en el navegador.
 
 uso: python herramientas/bot_azar.py BASE JUEGO N [semilla_inicial] [-v]
-JUEGO: faro | egipto | marte. Cada partida usa una semilla distinta (semilla_inicial, +1, +2...).
+JUEGO: faro | egipto | marte | florencia. Cada partida usa una semilla distinta (semilla_inicial, +1, +2...).
 En cada paso elige al azar entre las acciones posibles (leer una carta nueva, coger o descartar lo que
 dice, combinar, resolver una app) y solo hace lo que dicen las cartas y los mensajes de la app.
 """
@@ -103,7 +103,8 @@ def main():
     s0 = int(args[3]) if len(args) > 3 else 1
     cfg = {"faro": ("juegos/el-faro", "solvers_faro"),
            "egipto": ("juegos/aventuras-ca/egipto", "solvers_egipto"),
-           "marte": ("juegos/aventuras-ca/marte", "solvers_marte")}
+           "marte": ("juegos/aventuras-ca/marte", "solvers_marte"),
+           "florencia": ("juegos/aventuras-ca/florencia", "solvers_florencia")}
     carpeta, modulo = cfg[juego]
     mod = __import__(modulo)
     fallos = []
