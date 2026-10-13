@@ -9,7 +9,7 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | **Aventuras C&A** (hub con el Cronoportal) | [`juegos/aventuras-ca/`](juegos/aventuras-ca/index.html) | — |
 | &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* | [`juegos/aventuras-ca/egipto/`](juegos/aventuras-ca/egipto/) | [MANUAL.md](juegos/aventuras-ca/egipto/MANUAL.md) |
 | &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* | [`juegos/aventuras-ca/marte/`](juegos/aventuras-ca/marte/) | [MANUAL.md](juegos/aventuras-ca/marte/MANUAL.md) |
-| &nbsp;&nbsp;Apagón en el Colegio | repositorio propio (enlace externo) | — |
+| &nbsp;&nbsp;Apagón en el Colegio | repositorio propio, clonado en `juegos/apagon-colegio/` (enlace externo) | — |
 | **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
 **El Faro es el juego de referencia:** su flujo está comprobado de principio a fin y los juegos nuevos se hacen igual (ver la [guía de diseño](GUIA-DE-JUEGOS.md)).
@@ -32,6 +32,7 @@ juegos/
   aventuras-ca/                  hub «Aventuras C&A»
     egipto/  marte/              una carpeta por juego
   el-faro/                       juego de referencia
+  apagon-colegio/                OTRO repositorio (solo local; ver .gitignore)
 herramientas/                    verificador, bots de prueba, manuales, ChatGPT y conversor de imágenes
 GUIA-DE-JUEGOS.md                cómo diseñar y crear un juego nuevo
 ```
