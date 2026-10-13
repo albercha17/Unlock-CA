@@ -10,6 +10,12 @@
 
   <!-- External stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .grupo{margin:26px 0 0;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+    .grupo:first-of-type{margin-top:6px}
+    .grupo small{display:block;margin-top:2px;font-size:.78rem;letter-spacing:0;text-transform:none;font-weight:400;color:var(--muted)}
+    .cards+.grupo{margin-top:30px}
+  </style>
 </head>
 
 <body>
@@ -28,47 +34,25 @@
       <!-- MAIN -->
       <main>
 
-        <!-- Tarjetas de juegos -->
-        <section class="cards" aria-label="Lista de juegos">
-
-          <!-- ---------------------- -->
-          <!--       APAGÓN           -->
-          <!-- ---------------------- -->
-          <div 
-            class="option solid" 
-            role="button" 
+        <h2 class="grupo">Aventuras C&amp;A<small>Cristina y Alberto, su Cronoportal y todos sus juegos</small></h2>
+        <section class="cards" aria-label="Aventuras C&A">
+          <div
+            class="option solid"
+            role="button"
             tabindex="0"
-            onclick="openApagon()"
-            onkeypress="if(event.key==='Enter') openApagon()"
+            onclick="openGame('Aventuras-CA/index.html')"
           >
-            <div class="opt-thumb" style="background-image:url('assets/images/AEEC.png')"></div>
+            <div class="opt-thumb" style="background:radial-gradient(circle at 50% 40%,#2a7f86,#08161a);display:flex;align-items:center;justify-content:center;font-size:40px">🌀</div>
             <div class="opt-meta">
-              <h3 class="opt-title">Apagón en el Colegio</h3>
-              <p class="opt-desc">El colegio queda a oscuras y las puertas se cierran. Resuelve los enigmas para volver a encender la luz.</p>
+              <h3 class="opt-title">Aventuras C&amp;A</h3>
+              <p class="opt-desc">Viaja con el Cronoportal a otras épocas y lugares: Egipto, Marte... Aquí también están Apagón en el Colegio y Apagón en el Barrio.</p>
             </div>
             <div class="opt-num">01</div>
           </div>
+        </section>
 
-          <!-- ---------------------- -->
-          <!--    APAGÓN EN EL BARRIO -->
-          <!-- ---------------------- -->
-          <div
-            class="option"
-            role="button"
-            tabindex="0"
-            onclick="openGame('Unlock-Apagon-en-el-Barrio/index.html')"
-          >
-            <div class="opt-thumb" style="background:radial-gradient(circle at 50% 30%,#3a2c10,#14100a);display:flex;align-items:center;justify-content:center;font-size:40px">🏘️</div>
-            <div class="opt-meta">
-              <h3 class="opt-title">Apagón en el Barrio</h3>
-              <p class="opt-desc">Cristina sale del colegio, pero el apagón se ha extendido por toda la calle. ¿Quién ha apagado el barrio?</p>
-            </div>
-            <div class="opt-num">02</div>
-          </div>
-
-          <!-- ---------------------- -->
-          <!--    EL FARO             -->
-          <!-- ---------------------- -->
+        <h2 class="grupo">Más misterios<small>Con personajes inventados</small></h2>
+        <section class="cards" aria-label="Más misterios">
           <div
             class="option"
             role="button"
@@ -80,19 +64,16 @@
               <h3 class="opt-title">El Faro de Cabo Niebla</h3>
               <p class="opt-desc">Tormenta, la lámpara apagada y un carguero rumbo a las rocas. Una hora para encender el faro.</p>
             </div>
-            <div class="opt-num">03</div>
+            <div class="opt-num">02</div>
           </div>
 
-          <!-- ---------------------- -->
-          <!--    PRÓXIMAMENTE        -->
-          <!-- ---------------------- -->
           <div class="option disabled" aria-disabled="true">
             <div class="opt-thumb" style="background-image:url('assets/images/prueba1.jpg')"></div>
             <div class="opt-meta">
               <h3 class="opt-title">Prueba 1 <span class="soon">Próximamente</span></h3>
               <p class="opt-desc">Puzzle corto para empezar.</p>
             </div>
-            <div class="opt-num">04</div>
+            <div class="opt-num">03</div>
           </div>
 
           <div class="option disabled" aria-disabled="true">
@@ -101,9 +82,8 @@
               <h3 class="opt-title">Búsqueda del Tesoro <span class="soon">Próximamente</span></h3>
               <p class="opt-desc">Explora la isla y descifra el botín oculto.</p>
             </div>
-            <div class="opt-num">05</div>
+            <div class="opt-num">04</div>
           </div>
-
         </section>
 
         <div class="small-footer">© 2025 Unlock C&A | Creado por Alberto para Cristina</div>
@@ -112,20 +92,6 @@
   </div>
 
   <script>
-
-    /* ==========================================================
-       CONFIGURA AQUÍ EL LINK QUE QUIERES PARA *APAGÓN*
-    ========================================================== */
-    const APAGON_LINK = "https://albercha17.github.io/Unlock-Apagon-en-el-Colegio/";  
-    // Ejemplos válidos:
-    // "https://albercha17.github.io/Unlock-CA/ApagonColegio/apagon.html"
-    // "https://vm.tiktok.com/ZMhViv45/"
-
-
-    function openApagon() {
-      window.location.href = APAGON_LINK;
-    }
-
     // Juegos que viven dentro de este mismo repositorio
     function openGame(ruta){
       window.location.href = ruta;
@@ -137,7 +103,6 @@
         if(e.key === 'Enter') el.click();
       });
     });
-
   </script>
 
 </body>

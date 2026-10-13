@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aventuras C&amp;A</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#071013;--panel:#0e1d22;--panel2:#13292f;--line:#21404a;--tx:#e8f1f3;--mut:#8fb0b8;
+      --laton:#d9a441;--laton2:#f0c773;--cian:#3dd6c6;--radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(circle at 50% 0,#10303a 0,var(--bg) 60%);color:var(--tx);
+      font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100%}
+    body{padding-block:28px 56px}
+    .wrap{max-width:900px;margin-inline:auto;padding-inline:18px}
+    .eyebrow{margin:0 0 6px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cian);font-weight:700}
+    h1{margin:0;font-size:clamp(2rem,6vw,3rem);line-height:1.05;letter-spacing:-.01em}
+    h1 span{color:var(--laton2)}
+    .lede{max-width:62ch;margin:12px 0 0;color:var(--mut);line-height:1.6}
+
+    .portal{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+    .anillo{flex:0 0 118px;width:118px;height:118px;border-radius:50%;
+      background:radial-gradient(circle,#06161a 0 52%,transparent 53%),conic-gradient(from 0deg,var(--cian),#1d6f78,var(--laton),#8a6a2a,var(--cian));
+      box-shadow:0 0 28px rgba(61,214,198,.35),inset 0 0 0 5px #0a1c20;animation:gira 14s linear infinite;position:relative}
+    .anillo::after{content:"";position:absolute;inset:36%;border-radius:50%;background:radial-gradient(circle,#b9fff6,var(--cian) 55%,transparent 70%);opacity:.9;animation:late 3.2s ease-in-out infinite}
+    @keyframes gira{to{transform:rotate(360deg)}}
+    @keyframes late{50%{opacity:.45;transform:scale(.85)}}
+    @media (prefers-reduced-motion:reduce){.anillo,.anillo::after{animation:none}}
+    .portal > div:last-child{flex:1 1 320px;min-width:0}
+    .portal h2{margin:0 0 6px;font-size:1.1rem;color:var(--laton2)}
+    .portal p{margin:0 0 8px;color:var(--mut);font-size:.93rem;line-height:1.55}
+    .portal p:last-child{margin:0}
+
+    h2.seccion{margin:34px 0 4px;font-size:1.15rem;letter-spacing:.03em;text-transform:uppercase;color:var(--laton2)}
+    .sub{margin:0 0 14px;color:var(--mut);font-size:.9rem}
+    .saltos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+    a.salto{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;border-radius:var(--radius);
+      border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));padding:0;overflow:hidden;transition:transform .15s,border-color .15s}
+    a.salto:hover,a.salto:focus-visible{transform:translateY(-4px);border-color:var(--laton)}
+    a.salto:focus-visible{outline:3px solid var(--cian);outline-offset:3px}
+    .cartel{height:120px;display:flex;align-items:center;justify-content:center;font-size:54px}
+    .egipto .cartel{background:radial-gradient(circle at 50% 40%,#7a5a1e,#1a1208)}
+    .marte .cartel{background:radial-gradient(circle at 50% 40%,#9a421d,#14070a)}
+    .antes .cartel{background:radial-gradient(circle at 50% 40%,#3a4a5c,#0d141a)}
+    .salto .cuerpo{padding:0 16px 16px}
+    .salto h3{margin:0;font-size:1.1rem}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 8px}
+    .chip{font-size:.7rem;font-weight:700;letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--cian);background:#0a1a1e}
+    .chip.epoca{color:var(--laton2);border-color:#5a4a22}
+    .salto p{margin:0;color:var(--mut);font-size:.9rem;line-height:1.5}
+    .volver{display:inline-block;margin-top:30px;color:var(--mut);text-decoration:none;font-size:.9rem;border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+    .volver:hover,.volver:focus-visible{border-color:var(--laton);color:var(--tx)}
+    .volver:focus-visible{outline:3px solid var(--cian);outline-offset:3px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Cristina y Alberto · el Cronoportal</p>
+    <h1>Aventuras <span>C&amp;A</span></h1>
+    <p class="lede">Todos los juegos de Cristina y Alberto, en un solo sitio. Cada aventura empieza igual: un salto del Cronoportal que sale un poco mal, una hora de margen y un puzle tras otro para volver a casa.</p>
+  </header>
+
+  <section class="portal" aria-label="El Cronoportal">
+    <div class="anillo" aria-hidden="true"></div>
+    <div>
+      <h2>El Cronoportal</h2>
+      <p>Alberto lo construyó con piezas de su trabajo y Cristina elige los destinos. Un anillo de cristal, dos antenas de cobre y un indicador de batería que siempre se queda en rojo justo al aterrizar.</p>
+      <p>Cada salto los deja lejos de casa y sin energía. Para volver tienen que encontrar la fuente de energía de cada época, y esa hora de margen no perdona.</p>
+    </div>
+  </section>
+
+  <h2 class="seccion">Saltos con el Cronoportal</h2>
+  <p class="sub">Cada aventura se juega con las cartas (impresas o en el Modo PC) y el móvil.</p>
+  <div class="saltos">
+    <a class="salto egipto" href="Egipto/index.html">
+      <div class="cartel" aria-hidden="true">🏺</div>
+      <div class="cuerpo">
+        <h3>El Ojo de Horus</h3>
+        <div class="chips"><span class="chip epoca">Egipto · 1274 a.C.</span><span class="chip">Jeroglíficos</span><span class="chip">Balanza de Maat</span><span class="chip">Anillos de Ra</span></div>
+        <p>Una cámara secreta bajo el templo de Karnak, un amuleto que brilla con luz propia y una hora antes de que lleguen los sacerdotes.</p>
+      </div>
+    </a>
+    <a class="salto marte" href="Marte/index.html">
+      <div class="cartel" aria-hidden="true">🚀</div>
+      <div class="cuerpo">
+        <h3>Cúpula Aurora</h3>
+        <div class="chips"><span class="chip epoca">Marte · 2157</span><span class="chip">Hackeo</span><span class="chip">Tuberías</span><span class="chip">Binario</span></div>
+        <p>Una colonia a oscuras por una tormenta de polvo, el oxígeno en las últimas y un núcleo de fusión al otro lado de la esclusa.</p>
+      </div>
+    </a>
+  </div>
+
+  <h2 class="seccion">Antes del Cronoportal</h2>
+  <p class="sub">Los primeros misterios de Cristina y Alberto, en el presente.</p>
+  <div class="saltos">
+    <a class="salto antes" href="https://albercha17.github.io/Unlock-Apagon-en-el-Colegio/">
+      <div class="cartel" aria-hidden="true">🏫</div>
+      <div class="cuerpo">
+        <h3>Apagón en el Colegio</h3>
+        <div class="chips"><span class="chip epoca">Hoy</span><span class="chip">Laboratorio</span><span class="chip">Robot</span></div>
+        <p>El colegio queda a oscuras y las puertas se cierran. Resuelve los enigmas para volver a encender la luz.</p>
+      </div>
+    </a>
+    <a class="salto antes" href="../Unlock-Apagon-en-el-Barrio/index.html">
+      <div class="cartel" aria-hidden="true">🏘️</div>
+      <div class="cuerpo">
+        <h3>Apagón en el Barrio</h3>
+        <div class="chips"><span class="chip epoca">Hoy</span><span class="chip">Caseta eléctrica</span><span class="chip">Luz ultravioleta</span></div>
+        <p>Cristina sale del colegio, pero el apagón se ha extendido por toda la calle. ¿Quién ha apagado el barrio?</p>
+      </div>
+    </a>
+  </div>
+
+  <a class="volver" href="../index.html">← Volver al menú</a>
+</div>
+</body>
+</html>
