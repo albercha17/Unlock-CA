@@ -231,7 +231,7 @@
     "tipo": "verde",
     "descripcion": [
       "Es un juego de la app: tres anillos giratorios con símbolos. Hay que dejar arriba los tres que indica el acertijo de la cartela (carta 26).",
-      "Al encajarlos se abre la puerta del tesoro. Coged la carta 80."
+      "Al encajarlos se abre la puerta de la sala del sarcófago. Coged la carta 33."
     ],
     "pistas": [
       "Leed el acertijo de la cartela.",
@@ -265,17 +265,21 @@
       44
     ],
     "descarta": [
-      63,
-      71,
-      26
+      33,
+      37,
+      28,
+      34,
+      46,
+      55,
+      25
     ],
     "descripcion": [
-      "La puerta se abre a la cámara del tesoro: oro, vasijas y estatuas. Sobre un pedestal brilla el Ojo de Horus (carta 60) y, vigilando, una estatua colosal de un guardián (carta 44).",
-      "Coged las cartas 60 y 44. Descartad las cartas 63, 71 y 26."
+      "La llave-escarabajo gira en la cerradura y la puerta de la cámara del tesoro se abre: oro, vasijas y estatuas. Sobre un pedestal brilla el Ojo de Horus (carta 60) y, vigilando, una estatua colosal de un guardián (carta 44).",
+      "Coged las cartas 60 y 44. Descartad las cartas 33, 37, 28, 34, 46, 55 y 25."
     ],
     "pistas": [
       "Un haz de luz señala lo que buscáis.",
-      "Coged las cartas 60 y 44. Descartad las cartas 63, 71 y 26."
+      "Coged las cartas 60 y 44. Descartad las cartas 33, 37, 28, 34, 46, 55 y 25."
     ],
     "arte": "Cámara del tesoro llena de oro, vasijas, cofres y estatuas, con un haz de luz solar que cae sobre un pedestal central; al fondo, la estatua de un guardián. Cristina y Alberto asombrados en la entrada."
   },
@@ -347,6 +351,128 @@
       "Azul, amarillo, rojo, verde, amarillo."
     ],
     "arte": "Primer plano de la consola del Cronoportal con cuatro cristales de colores (amarillo, azul, verde, rojo) dispuestos alrededor del Ojo de Horus, apagados."
+  },
+  "33": {
+    "titulo": "Carta 33 — Sala del sarcófago",
+    "tipo": "gris",
+    "coge": [
+      37,
+      28,
+      34,
+      46
+    ],
+    "descarta": [
+      63,
+      71,
+      26
+    ],
+    "descripcion": [
+      "Los anillos giran y la puerta de piedra se abre a la sala del sarcófago: un sarcófago dorado sellado (carta 34), una tablilla rota sobre un pedestal (carta 37) y, en las paredes, dos inscripciones: una con el orden de los dioses (carta 28) y otra con una cifra grabada (carta 46).",
+      "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."
+    ],
+    "pistas": [
+      "Hay dos puzles en esta sala: la tablilla y el sarcófago.",
+      "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."
+    ],
+    "arte": "Sala funeraria de piedra con un sarcófago dorado sellado en el centro, una tablilla de piedra rota sobre un pedestal y dos inscripciones talladas en las paredes; luz de antorchas. Cristina y Alberto examinan el sarcófago."
+  },
+  "37": {
+    "titulo": "Carta 37 — Tablilla rota",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: una tablilla de piedra dividida en 9 casillas con una pieza ausente. Hay que deslizar las piezas hasta ordenarla como indica el orden de los dioses (carta 28).",
+      "Al recomponerla cae un escarabajo de oro. Coged la carta 55."
+    ],
+    "pistas": [
+      "Mirad el modelo que hay grabado en la pared (carta 28).",
+      "Colocad primero la fila de arriba y después la del medio.",
+      "Arriba: sol, ojo, escarabajo. En medio: serpiente, agua, halcón. Abajo: vasija, toro y el hueco."
+    ],
+    "arte": "Una tablilla de piedra rota en nueve piezas cuadradas con símbolos grabados (sol, ojo, escarabajo, serpiente, agua, halcón, vasija, toro) y una pieza ausente, sobre un pedestal."
+  },
+  "28": {
+    "titulo": "Carta 28 — Orden de los dioses",
+    "tipo": "gris",
+    "descripcion": [
+      "Una inscripción en la pared con nueve casillas que muestra el orden en que van los símbolos de la tablilla rota (carta 37)."
+    ],
+    "pistas": [
+      "Es el modelo de la tablilla.",
+      "Sirve para la tablilla rota (carta 37)."
+    ],
+    "textoCarta": [
+      "☀️ 👁️ 🐞",
+      "🐍 🌊 🦅",
+      "🏺 🐂 (hueco)"
+    ],
+    "arte": "Una inscripción tallada en la pared con una cuadrícula de tres por tres casillas con símbolos (sol, ojo, escarabajo, serpiente, agua, halcón, vasija, toro) y una casilla vacía."
+  },
+  "34": {
+    "titulo": "Carta 34 — Sarcófago sellado",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: el sarcófago está sellado con un código de 4 cifras. La cifra está grabada en la pared con signos del sistema de numeración egipcio (carta 46).",
+      "Al romper el sello aparece una cerradura de bronce. Coged la carta 25."
+    ],
+    "pistas": [
+      "Leed la inscripción de la pared (carta 46).",
+      "Cada clase de signo vale una potencia de diez: sumad los de cada clase.",
+      "❀❀ ◎◎◎ ∩∩∩∩ ||| = 2343. El código es 2343."
+    ],
+    "arte": "Sarcófago dorado de un faraón, cerrado con un sello de cera, en el centro de una sala funeraria; sobre la tapa, un hueco con una cerradura de bronce."
+  },
+  "46": {
+    "titulo": "Carta 46 — Inscripción numérica",
+    "tipo": "gris",
+    "descripcion": [
+      "Una inscripción con signos del sistema de numeración egipcio: cada clase de signo vale una potencia de diez. Es la cifra que abre el sarcófago (carta 34)."
+    ],
+    "pistas": [
+      "Sumad los signos de cada clase.",
+      "Sirve para el sarcófago sellado (carta 34)."
+    ],
+    "textoCarta": [
+      "| = 1   ∩ = 10   ◎ = 100   ❀ = 1000",
+      "❀❀  ◎◎◎",
+      "∩∩∩∩  |||"
+    ],
+    "arte": "Una inscripción tallada en la pared con signos numéricos del antiguo Egipto (flores de loto, espirales, arcos y trazos verticales) en filas ordenadas; sin texto legible."
+  },
+  "55": {
+    "titulo": "Carta 55 — Escarabajo de oro",
+    "tipo": "roja",
+    "combina": [
+      25,
+      80
+    ],
+    "descripcion": [
+      "Un escarabajo de oro con las alas desplegadas que cayó de la tablilla. Su parte inferior es plana y está grabada como una llave: encaja en una cerradura de bronce (carta 25).",
+      "Combinadlos: sumad sus números (55 + 25 = 80) y coged la carta 80."
+    ],
+    "pistas": [
+      "Es una llave con forma de escarabajo.",
+      "Combinad la carta 55 con la carta 25.",
+      "Sumad los números de las dos cartas: 55 + 25 = 80."
+    ],
+    "arte": "Un escarabajo de oro con las alas desplegadas, con la parte inferior plana y grabada como una llave, sobre un cojín de lino."
+  },
+  "25": {
+    "titulo": "Carta 25 — Cerradura de bronce",
+    "tipo": "azul",
+    "combina": [
+      55,
+      80
+    ],
+    "descripcion": [
+      "Una cerradura de bronce con una cavidad en forma de escarabajo, sacada del sarcófago. Le falta la llave (carta 55).",
+      "Combinadlas: sumad sus números (25 + 55 = 80) y coged la carta 80."
+    ],
+    "pistas": [
+      "Una cerradura sin llave no abre nada.",
+      "Combinad la carta 25 con la carta 55.",
+      "Sumad los números de las dos cartas: 25 + 55 = 80."
+    ],
+    "arte": "Una cerradura de bronce con una cavidad en forma de escarabajo, atornillada a una puerta de piedra."
   },
   "99": {
     "titulo": "Carta 99 — De vuelta a casa (FIN)",

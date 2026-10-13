@@ -51,7 +51,7 @@ Por carta (la clave es el número, `P` para la inicial):
 
 1. Dibuja el **grafo**: escenas (cartas que reparten otras), cartas de app (cada una exige datos de otras y da una carta nueva), combinaciones y el final.
 2. Reparte las **pistas** en cartas físicas (texto impreso) y en lectores de la app, de modo que cada puzle necesite al menos una pista de otra carta.
-3. Asigna **números** que cumplan las sumas y evita que un dato impreso (`17 deben`, `código 173`) coincida con el número de una carta del juego.
+3. Asigna **números** que cumplan las sumas, que ninguna pareja de cartas combinables sume el número de otra carta (el verificador lo detecta) y que ningún dato impreso (`17 deben`, `código 173`) coincida con el número de una carta del juego.
 4. Escribe los **descartes** en la carta obtenida.
 5. Escribe cada minijuego con su mensaje final «Coged la carta N» (y «Descartad…» si procede).
 6. **Verifica** (§5) y genera el manual.
@@ -60,7 +60,7 @@ Por carta (la clave es el número, `P` para la inicial):
 
 1. `herramientas/verificar.py`: simula 3.000 partidas en orden aleatorio legal. Falla si una partida se atasca, si una carta descarta algo que no se tiene o que aún hace falta, si hay números impresos antes de tiempo, si una suma no cuadra o si una carta no sirve para nada. Necesita un `spec_*.json` con las dependencias (`needs`) de las cartas que no salen de un «coge».
 2. `herramientas/ejecutar_manual.py`: juega el manual completo en un navegador (Selenium + Chrome) con el Modo PC y la app reales y comprueba la mesa tras cada paso.
-3. `herramientas/bot_aventuras.py` (o `bot_faro.py`): partida autónoma que solo hace lo que dicen las cartas y los mensajes.
+3. `herramientas/bot_aventuras.py` (o `bot_faro.py`): partida autónoma que solo hace lo que dicen las cartas y los mensajes. `herramientas/bot_azar.py`: **muchas partidas en orden aleatorio** (mínimo 10 por juego): cada semilla elige otro orden de leer, coger, descartar, combinar y resolver apps.
 4. Relee todos los textos buscando referencias a cartas eliminadas o instrucciones contradictorias, y abre cada minijuego con el visor de pistas.
 5. `herramientas/crear_manual_md.py` genera `MANUAL.md` a partir de los mismos pasos.
 

@@ -21,6 +21,7 @@
   .etq{position:absolute;top:2mm;right:2mm;background:var(--c,var(--gris));font-size:5.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.7mm 1.8mm;border-radius:1mm}
   .tit{position:absolute;left:0;right:0;bottom:0;padding:5mm 2.5mm 2.2mm;background:linear-gradient(transparent,rgba(5,10,16,.94) 45%);font-weight:700;font-size:8.5pt;text-align:center;line-height:1.15}
   .texto{position:absolute;left:3mm;right:3mm;top:12mm;bottom:12mm;background:rgba(244,234,208,.95);color:#2a2012;border-radius:1.5mm;padding:2mm 2.2mm;font-size:6.2pt;line-height:1.3;overflow:hidden;font-family:Georgia,"Times New Roman",serif}
+  .texto.emoji{font-size:4.4mm;line-height:1.35;letter-spacing:.12em}
   .texto.chico{top:auto;bottom:11.5mm;font-size:7pt;text-align:center}
   .texto.largo{top:auto;bottom:11.5mm;left:2.5mm;right:2.5mm;padding:1.4mm 1.8mm;font-size:5.3pt;line-height:1.22;background:rgba(244,234,208,.93)}
   .texto.largo div{white-space:nowrap}
@@ -70,7 +71,7 @@ window.JUEGO = datos;
       '<div class="num">' + esc(id) + '</div>';
     if (ETIQ[c.tipo]) html += '<div class="etq">' + ETIQ[c.tipo] + '</div>';
     if (c.textoCarta && c.textoCarta.length) {
-      var clase = c.textoCarta.length <= 3 ? ' chico' : ' largo';
+      var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '');
       html += '<div class="texto' + clase + '">' + c.textoCarta.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>';
     }
     return html + '<div class="tit">' + esc(titulo) + '</div></div>';

@@ -44,6 +44,7 @@
   .etq{position:absolute;top:calc(2 * var(--mm));right:calc(2 * var(--mm));background:var(--c);font-size:calc(1.9 * var(--mm));font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:calc(.7 * var(--mm)) calc(1.8 * var(--mm));border-radius:calc(1 * var(--mm))}
   .tit{position:absolute;left:0;right:0;bottom:0;padding:calc(5 * var(--mm)) calc(2.5 * var(--mm)) calc(2.2 * var(--mm));background:linear-gradient(transparent,rgba(5,10,16,.94) 45%);font-weight:700;font-size:calc(3 * var(--mm));text-align:center;line-height:1.15}
   .texto{position:absolute;left:calc(3 * var(--mm));right:calc(3 * var(--mm));bottom:calc(11.5 * var(--mm));background:rgba(244,234,208,.95);color:#2a2012;border-radius:calc(1.5 * var(--mm));padding:calc(2 * var(--mm)) calc(2.2 * var(--mm));font-size:calc(2.5 * var(--mm));line-height:1.3;text-align:center;font-family:Georgia,"Times New Roman",serif}
+  .texto.emoji{font-size:calc(4.4 * var(--mm));line-height:1.35;letter-spacing:.12em}
   .acc{position:absolute;left:calc(2.2 * var(--mm));right:calc(2.2 * var(--mm));bottom:calc(10.5 * var(--mm));display:flex;flex-direction:column;gap:calc(.8 * var(--mm))}
   .acc .g{display:flex;flex-wrap:wrap;align-items:center;gap:calc(.9 * var(--mm));background:rgba(5,10,16,.84);border-radius:calc(1.2 * var(--mm));padding:calc(.8 * var(--mm)) calc(1.4 * var(--mm));font-size:calc(2.4 * var(--mm));font-weight:800;letter-spacing:.05em;text-transform:uppercase}
   .acc .g b{margin-right:calc(.6 * var(--mm))}
@@ -142,7 +143,7 @@
     var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
     var h = '<div class="carta" style="--c:' + color + '"><div class="arte" style="background-image:url(\'img/' + esc(id) + '.jpg\')"></div><div class="num">' + esc(id) + '</div>';
     if (ETIQ[c.tipo]) h += '<div class="etq">' + ETIQ[c.tipo] + '</div>';
-    if (c.textoCarta && c.textoCarta.length) h += '<div class="texto">' + c.textoCarta.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>';
+    if (c.textoCarta && c.textoCarta.length) h += '<div class="texto' + (/\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + '">' + c.textoCarta.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>';
     function chips(n){ return n.map(function(x){ return '<i>' + esc(x) + '</i>'; }).join(''); }
     var acc = '';
     if (c.coge && c.coge.length) acc += '<div class="g coge"><b>Coge</b>' + chips(c.coge) + '</div>';

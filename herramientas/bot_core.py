@@ -99,14 +99,37 @@ class Mesa:
         d.get(url)
         esperar(1.4)
 
+    JS_FOTO = """
+    const cartas = {};
+    document.querySelectorAll('#mesa .item').forEach(it => {
+      const id = it.querySelector('.num').textContent;
+      cartas[id] = {
+        coge: [...it.querySelectorAll('.acc .coge i')].map(i => i.textContent),
+        descarta: [...it.querySelectorAll('.acc .des i')].map(i => i.textContent),
+        etq: [...it.querySelectorAll('.etq')].map(e => e.textContent).join(' ').trim().toUpperCase(),
+        comb: !!it.querySelector('.acc .comb'),
+        texto: [...it.querySelectorAll('.texto')].map(e => e.textContent).join(' | ')
+      };
+    });
+    return {
+      mesa: [...document.querySelectorAll('#mesa .item .num')].map(e => e.textContent),
+      mazo: [...document.querySelectorAll('#mazo .dorso .big')].map(e => e.textContent),
+      descartes: [...document.querySelectorAll('#descartes .dorso .big')].map(e => e.textContent),
+      cartas
+    };
+    """
+
+    def foto(self):
+        return self.d.execute_script(self.JS_FOTO)
+
     def en_mesa(self):
-        return [e.text for e in self.d.find_elements(By.CSS_SELECTOR, "#mesa .item .num")]
+        return self.foto()["mesa"]
 
     def en_mazo(self):
-        return [e.text for e in self.d.find_elements(By.CSS_SELECTOR, "#mazo .dorso .big")]
+        return self.foto()["mazo"]
 
     def en_descartes(self):
-        return [e.text for e in self.d.find_elements(By.CSS_SELECTOR, "#descartes .dorso .big")]
+        return self.foto()["descartes"]
 
     def coger(self, n, motivo):
         n = str(n)
@@ -114,7 +137,7 @@ class Mesa:
             raise Fallo(f"{motivo}: manda coger la {n}, pero no esta en el mazo (mesa={self.en_mesa()}, descartes={self.en_descartes()})")
         q = self.d.find_element(By.ID, "qn")
         q.send_keys(n + "\n")
-        esperar(0.8)
+        esperar(0.55)
         msg = self.d.find_element(By.ID, "msg").text
         if "Has cogido" not in msg:
             raise Fallo(f"no se pudo coger la {n}: '{msg}'")
@@ -127,20 +150,15 @@ class Mesa:
         for it in self.d.find_elements(By.CSS_SELECTOR, "#mesa .item"):
             if it.find_element(By.CSS_SELECTOR, ".num").text == n:
                 it.find_element(By.CSS_SELECTOR, ".mini").click()
-                esperar(0.4)
+                esperar(0.3)
                 log(f"   descarta {n}   ({motivo})")
                 return
 
     def info(self, n):
-        for it in self.d.find_elements(By.CSS_SELECTOR, "#mesa .item"):
-            if it.find_element(By.CSS_SELECTOR, ".num").text == n:
-                coge = [i.text for i in it.find_elements(By.CSS_SELECTOR, ".acc .coge i")]
-                des = [i.text for i in it.find_elements(By.CSS_SELECTOR, ".acc .des i")]
-                etq = " ".join(e.text for e in it.find_elements(By.CSS_SELECTOR, ".etq")).strip().upper()
-                comb = bool(it.find_elements(By.CSS_SELECTOR, ".acc .comb"))
-                texto = " | ".join(e.text for e in it.find_elements(By.CSS_SELECTOR, ".texto"))
-                return {"coge": coge, "descarta": des, "etq": etq, "comb": comb, "texto": texto}
-        raise Fallo(f"la carta {n} no esta en la mesa")
+        cartas = self.foto()["cartas"]
+        if n not in cartas:
+            raise Fallo(f"la carta {n} no esta en la mesa")
+        return cartas[n]
 
 
 def numeros(txt):

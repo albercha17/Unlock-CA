@@ -420,7 +420,7 @@
         <button class="num-key" data-key="9">9</button>
         <button class="num-key action" id="numClear">⌫</button>
         <button class="num-key" data-key="0">0</button>
-        <button class="num-key action" style="visibility:hidden">.</button>
+        <button class="num-key" data-key="P" aria-label="Carta P">P</button>
       </div>
 
       <p id="numMessage" class="num-message" aria-live="assertive"></p>
@@ -695,13 +695,21 @@
       '52': './juegos/52-tuberias.js',
       '66': './juegos/66-esclusa.js',
       '88': './juegos/88-calibrador.js',
-      '33': './juegos/33-diario.js'
+      '35': './juegos/35-diario.js',
+      '48': './juegos/48-rover.js',
+      '62': './juegos/62-energia.js'
     };
 
     async function checkAndOpen(code){
       numMessage.textContent = "";
       if(code.trim()===""){
         numMessage.textContent = "Introduce un número.";
+        numModal.style.display='flex';
+        numModal.setAttribute('aria-hidden','false');
+        return;
+      }
+      if(code.trim().toUpperCase() === 'P'){
+        numMessage.textContent = "La carta P no es de acción. Pide su pista con el botón Pista.";
         numModal.style.display='flex';
         numModal.setAttribute('aria-hidden','false');
         return;
@@ -750,7 +758,7 @@
         if(e.key === 'Escape'){ cancelNumModal(); e.preventDefault(); return; }
         if(e.key === 'Enter'){ document.getElementById('numOk').click(); e.preventDefault(); return; }
         if(e.key === 'Backspace'){ entered = entered.slice(0,-1); renderNum(); e.preventDefault(); return; }
-        if(/^[0-9]$/.test(e.key) && entered.length < 4){ entered += e.key; renderNum(); e.preventDefault(); }
+        if(/^[0-9pP]$/.test(e.key) && entered.length < 4){ entered += e.key.toUpperCase(); renderNum(); e.preventDefault(); }
       }
     });
 
