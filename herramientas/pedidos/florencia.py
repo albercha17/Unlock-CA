@@ -14,9 +14,9 @@ PEDIDOS = [
     dict(destino=D + "vasos", ancho=260, hoja=(2, 1), nombres=["vaso3", "vaso5"],
          prompt="Crea UNA SOLA IMAGEN con DOS vasos cilíndricos de cristal transparente vacíos, de paredes rectas y borde de latón, vistos de frente, lado a lado," + FILA +
                 " El de la izquierda es BAJO (la mitad de alto) y el de la derecha es ALTO (el doble de alto que el otro). Cristal muy transparente con reflejos." + EST + NEGRO),
-    dict(destino=D + "ornitoptero", ancho=520, hoja=(3, 1), nombres=["corto", "medio", "largo"],
-         prompt="Crea UNA SOLA IMAGEN con TRES versiones del ornitóptero de Leonardo da Vinci vistas de frente con las alas extendidas, en una fila," + FILA +
-                " Todas con la misma estructura de madera y un pequeño asiento central; la de la izquierda con alas CORTAS, la del centro con alas de longitud MEDIA y la de la derecha con alas muy LARGAS. "
+    dict(destino=D + "ornitoptero", ancho=520, hoja=(1, 3), nombres=["corto", "medio", "largo"],
+         prompt="Crea UNA SOLA IMAGEN con TRES versiones del ornitóptero de Leonardo da Vinci vistas de frente con las alas extendidas, APILADAS EN VERTICAL (una encima de otra, en tres filas), con las alas completas dentro del encuadre," + FILA +
+                " Todas con la misma estructura de madera y un pequeño asiento central; la de arriba con alas CORTAS, la del centro con alas de longitud MEDIA y la de abajo con alas muy LARGAS. "
                 "Alas de tela blanca natural sobre un armazón de madera." + EST + NEGRO),
     dict(destino=D + "saco.jpg", ancho=200,
          prompt="Crea un saco de arena de tela de yute atado con una cuerda, visto de frente." + NEGRO),

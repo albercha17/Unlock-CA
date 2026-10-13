@@ -81,9 +81,9 @@ def s37(d):
     """Tablilla deslizante: lee el estado del tablero y lo resuelve con una busqueda (BFS)."""
     from collections import deque
     abrir_carta(d, "37")
-    codigos = {0x2600: 1, 0x1F441: 2, 0x1F41E: 3, 0x1F40D: 4, 0x1F30A: 5, 0x1F985: 6, 0x1F3FA: 7, 0x1F402: 8}
+    codigos = {"sol": 1, "ojo": 2, "escarabajo": 3, "serpiente": 4, "agua": 5, "halcon": 6, "vasija": 7, "toro": 8}
     piezas = d.find_elements(By.CSS_SELECTOR, ".far-pieza")
-    estado = tuple(codigos[ord(p.text.strip()[0])] if p.text.strip() else 0 for p in piezas)
+    estado = tuple(codigos[p.get_attribute("data-simbolo")] if p.get_attribute("data-simbolo") else 0 for p in piezas)
     meta = (1, 2, 3, 4, 5, 6, 7, 8, 0)
     previo = {estado: None}
     cola = deque([estado])
