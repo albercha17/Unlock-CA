@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from PIL import Image, ImageDraw, ImageFont
 import datos_egipto as E
 import datos_marte as M
+import datos_florencia as F
 
 FARO = "juegos/el-faro"
 TMP = os.path.dirname(os.path.abspath(__file__))
@@ -36,14 +37,22 @@ JUEGOS = {
         sinopsis="Segundo salto del Cronoportal: Marte, año 2157. La cúpula Aurora está a oscuras por una tormenta de polvo y el soporte vital se apaga. Cristina y Alberto tienen una hora para encontrar el núcleo de fusión y volver a casa.",
         minigames={"21": "21-terminal.js", "52": "52-tuberias.js", "66": "66-esclusa.js", "88": "88-calibrador.js", "35": "35-diario.js", "48": "48-rover.js", "62": "62-energia.js"},
         pal=("#8a3a1a", "#1c0c10")),
+    "Florencia": dict(
+        datos=F, titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞",
+        grad="#5a3a1a,#140c06", acento="#d9a441", acento2="#f0c773", bg1="#120c07", bg2="#2a1c0e",
+        sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con una hora hasta el amanecer. Solo la luz del alba, concentrada por la lente del maestro, puede recargar el aparato.",
+        minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js"},
+        pal=("#6a4a22", "#1a1008")),
 }
+
+SOLO = [a.lower() for a in sys.argv[1:] if not a.startswith("--")]
 
 index_faro = leer(f"{FARO}/index.html")
 pc_faro = leer(f"{FARO}/pc.html")
 imprimir_faro = leer(f"{FARO}/imprimir.html")
 prompts_tpl = leer(os.path.join(TMP, "prompts_plantilla.html"))
 
-ORDEN_CAMPOS = ["titulo", "tipo", "coge", "descarta", "combina", "descripcion", "pistas", "textoCarta", "arte"]
+ORDEN_CAMPOS = ["titulo", "tipo", "coge", "descarta", "combina", "descripcion", "pistas", "textoCarta", "textoEspejo", "arte"]
 
 
 def fuente(tam):
@@ -86,6 +95,8 @@ def placeholder(ruta, titulo, c1, c2):
 
 
 for nombre, cfg in JUEGOS.items():
+    if SOLO and nombre.lower() not in SOLO:
+        continue
     base = f"juegos/aventuras-ca/{nombre.lower()}"
     if os.path.exists(f"{base}/cartas.json") and "--forzar" not in sys.argv:
         sys.exit(f"{base} ya existe: no lo sobrescribo (los juegos se retocan a mano; usa --forzar solo si de verdad quieres regenerarlo).")
@@ -123,7 +134,7 @@ for nombre, cfg in JUEGOS.items():
     pc = sustituir(pc, "<h1>El Faro de Cabo Niebla<small>", f"<h1>{cfg['titulo']}<small>")
     # textos con simbolos (emojis): letra mas grande para que se lean al imprimir
     pc = sustituir(pc, "  .acc{position:absolute;", "  .texto.emoji{font-size:calc(4.4 * var(--mm));line-height:1.35;letter-spacing:.12em}\n  .acc{position:absolute;")
-    pc = sustituir(pc, """h += '<div class="texto">' + c.textoCarta""", """h += '<div class="texto' + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + '">' + c.textoCarta""")
+    pc = sustituir(pc, """h += '<div class="texto' + (c.textoEspejo ? ' espejo' : '') + '">' + c.textoCarta""", """h += '<div class="texto' + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + (c.textoEspejo ? ' espejo' : '') + '">' + c.textoCarta""")
     escribir(f"{base}/pc.html", pc)
 
     # cartas.json
@@ -144,8 +155,8 @@ for nombre, cfg in JUEGOS.items():
     im = imprimir_faro
     im = sustituir(im, "<title>Imprimir cartas — El Faro de Cabo Niebla</title>", f"<title>Imprimir cartas — {cfg['titulo']}</title>")
     im = sustituir(im, "  .texto.chico{", "  .texto.emoji{font-size:4.4mm;line-height:1.35;letter-spacing:.12em}\n  .texto.chico{")
-    im = sustituir(im, "var clase = c.textoCarta.length <= 3 ? ' chico' : ' largo';",
-                   "var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '');")
+    im = sustituir(im, "var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (c.textoEspejo ? ' espejo' : '');",
+                   "var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + (c.textoEspejo ? ' espejo' : '');")
     im = sustituir(im, """      document.getElementById('resumen').textContent = faltan.length
         ? 'Faltan ilustraciones: ' + faltan.join(', ')
         : 'Todas las ilustraciones están listas.';""",
@@ -158,5 +169,6 @@ for nombre, cfg in JUEGOS.items():
     json.dump(sorted((k for k in datos.J if not os.path.exists(f"{base}/arte/{k}.png")), key=lambda k: (k != "P", int(k) if k != "P" else 0)), open(f"{base}/img/pendientes.json", "w", encoding="utf-8"))
     escribir(f"{base}/imprimir.html", im)
 
+    json.dump(datos.SPEC, open(os.path.join(TMP, f"spec_{nombre.lower()}.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=2)
     subprocess.run([sys.executable, os.path.join(TMP, "sincronizar_cartas.py")], check=True)
     print(nombre, "->", len(datos.J), "cartas")

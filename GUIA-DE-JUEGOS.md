@@ -40,10 +40,11 @@ Por carta (la clave es el número, `P` para la inicial):
 | `tipo` | `gris`, `verde`, `roja` o `azul` |
 | `coge` | números que se cogen al leer la carta (se imprimen en la franja) |
 | `descarta` | números que se descartan al obtenerla (franja) |
-| `combina` | `[pareja, resultado]` en las cartas de combinar |
+| `combina` | `[pareja, resultado]` en las cartas de combinar. La pareja puede ser un **modificador** de la app (`["+9", 51]`): la carta se suma al número que da una máquina |
 | `descripcion` | notas del diseñador (no se imprimen) |
 | `pistas` | pistas progresivas; la última da la solución |
 | `textoCarta` | texto impreso sobre la ilustración (3 líneas como máximo, sin números de otras cartas) |
+| `textoEspejo` | `true` imprime el texto volteado como en un espejo (escritura de Leonardo): se lee con un espejo o con la cámara frontal del móvil |
 | `arte` | descripción de la ilustración para ChatGPT |
 
 `_meta` lleva el nombre del juego, el estilo, los personajes, la hoja de personajes, la foto de referencia y el prompt del vídeo.

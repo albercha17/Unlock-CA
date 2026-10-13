@@ -178,6 +178,8 @@ def prompt_carta(carta, meta):
         p += (" Personajes (mantén exactamente su cara, pelo, barba y rasgos como en la hoja de personajes adjunta, "
               "pero con la ropa que se indica aquí, no con la de la hoja): "
               + " ".join(meta["personajes"][n] for n in salen))
+    else:
+        p += " En esta imagen no aparece ninguna persona (ni siluetas ni manos), solo objetos y escenario."
     p += " " + meta["estilo"] + " Muy importante: no escribas ningún texto, letra ni número dentro de la imagen."
     return " ".join(p.split())
 

@@ -9,6 +9,7 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | **Aventuras C&A** (hub con el Cronoportal) | [`juegos/aventuras-ca/`](juegos/aventuras-ca/index.html) | — |
 | &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* | [`juegos/aventuras-ca/egipto/`](juegos/aventuras-ca/egipto/) | [MANUAL.md](juegos/aventuras-ca/egipto/MANUAL.md) |
 | &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* | [`juegos/aventuras-ca/marte/`](juegos/aventuras-ca/marte/) | [MANUAL.md](juegos/aventuras-ca/marte/MANUAL.md) |
+| &nbsp;&nbsp;Florencia, 1503 — *El Taller de Leonardo* | [`juegos/aventuras-ca/florencia/`](juegos/aventuras-ca/florencia/) | [MANUAL.md](juegos/aventuras-ca/florencia/MANUAL.md) |
 | &nbsp;&nbsp;Apagón en el Colegio | repositorio propio, clonado en `juegos/apagon-colegio/` (enlace externo) | — |
 | **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
@@ -30,7 +31,7 @@ index.html                       menú principal
 assets/                          estilos e imágenes del menú
 juegos/
   aventuras-ca/                  hub «Aventuras C&A»
-    egipto/  marte/              una carpeta por juego
+    egipto/  marte/  florencia/  una carpeta por juego
   el-faro/                       juego de referencia
   apagon-colegio/                OTRO repositorio (solo local; ver .gitignore)
 herramientas/                    verificador, bots de prueba, manuales, ChatGPT y conversor de imágenes

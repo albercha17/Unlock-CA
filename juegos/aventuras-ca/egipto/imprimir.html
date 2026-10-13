@@ -29,6 +29,7 @@
   .texto.largo div:nth-last-child(2){margin-top:1.2mm;padding-top:1mm;border-top:.2mm solid rgba(42,32,18,.35)}
   .texto div+div{margin-top:.8mm}
 
+  .texto.espejo{transform:scaleX(-1)}
   .acc{position:absolute;left:2.2mm;right:2.2mm;bottom:10.5mm;display:flex;flex-direction:column;gap:.8mm}
   .acc .g{display:flex;flex-wrap:wrap;align-items:center;gap:.9mm;background:rgba(5,10,16,.84);border-radius:1.2mm;padding:.8mm 1.4mm;font-size:2.4mm;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
   .acc .g b{margin-right:.6mm}
@@ -78,14 +79,14 @@ window.JUEGO = datos;
       '<div class="num">' + esc(id) + '</div>';
     if (ETIQ[c.tipo]) html += '<div class="etq">' + ETIQ[c.tipo] + '</div>';
     if (c.textoCarta && c.textoCarta.length) {
-      var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '');
+      var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + (c.textoEspejo ? ' espejo' : '');
       html += '<div class="texto' + clase + '">' + c.textoCarta.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>';
     }
     function chips(n){ return n.map(function(x){ return '<i>' + esc(x) + '</i>'; }).join(''); }
     var acc = '';
     if (c.coge && c.coge.length) acc += '<div class="g coge"><b>Coge</b>' + chips(c.coge) + '</div>';
     if (c.descarta && c.descarta.length) acc += '<div class="g des"><b>Descarta</b>' + chips(c.descarta) + '</div>';
-    if (c.combina) acc += '<div class="g comb"><b>Combinable:</b> suma los números</div>';
+    if (c.combina) acc += '<div class="g comb"><b>Combinable:</b> ' + (String(c.combina[0]).charAt(0) === '+' ? 'suma el modificador de la app' : 'suma los números') + '</div>';
     if (acc) html += '<div class="acc">' + acc + '</div>';
     return html + '<div class="tit">' + esc(titulo) + '</div></div>';
   }
