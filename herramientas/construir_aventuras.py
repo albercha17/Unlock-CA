@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 import datos_egipto as E
 import datos_marte as M
 import datos_florencia as F
+import datos_dinosaurios as D
 
 FARO = "juegos/el-faro"
 TMP = os.path.dirname(os.path.abspath(__file__))
@@ -43,6 +44,13 @@ JUEGOS = {
         sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con una hora hasta el amanecer. Solo la luz del alba, concentrada por la lente del maestro, puede recargar el aparato.",
         minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js"},
         pal=("#6a4a22", "#1a1008")),
+    "Dinosaurios": dict(
+        datos=D, tema="dinosaurios", titulo="Cretácico, hace 66 millones de años: El Valle de los Gigantes", emoji="🦖", minutos=90,
+        grad="#2f5a22,#07120a", acento="#b5e35b", acento2="#d9f59a", bg1="#07120a", bg2="#12281a",
+        sinopsis="Cuarto salto del Cronoportal: el Cretácico, hace sesenta y seis millones de años. Cristina y Alberto aterrizan en un valle de dinosaurios, pero el núcleo de energía del aparato sale rodando y en el cielo brilla un asteroide. Tienen hora y media para recuperarlo antes de que el cielo se incendie.",
+        minigames={"14": "14-huellas.js", "20": "20-excavacion.js", "42": "42-diario.js", "40": "40-balsa.js", "46": "46-adn.js",
+                   "51": "51-estratos.js", "64": "64-cristales.js", "69": "69-nidos.js", "72": "72-geiser.js", "84": "84-esqueleto.js"},
+        pal=("#2f5a22", "#0a160c")),
 }
 
 SOLO = [a.lower() for a in sys.argv[1:] if not a.startswith("--")]
@@ -122,6 +130,7 @@ for nombre, cfg in JUEGOS.items():
     ix = sustituir(ix, '<h1 style="margin:0;font-size:20px">El Faro de Cabo Niebla</h1>', f'<h1 style="margin:0;font-size:20px">{cfg["titulo"]}</h1>')
     ix = sustituir(ix, "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo.", cfg["sinopsis"])
     ix = sustituir(ix, "<h2>El Faro de Cabo Niebla</h2>", f'<h2>{cfg["titulo"]}</h2>')
+    ix = sustituir(ix, "const DEFAULT_SECONDS = 60 * 60;", f"const DEFAULT_SECONDS = {cfg.get('minutos', 60)} * 60;")
     ix = sustituir(ix, "← Volver al menú", "← Volver a Aventuras C&amp;A")
     ix = sustituir(ix, "window.location.href = '../../index.html';", "window.location.href = '../index.html';")
     mapa = ",\n".join(f"      '{k}': './minijuegos/{v}'" for k, v in cfg["minigames"].items())

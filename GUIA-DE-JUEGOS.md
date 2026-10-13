@@ -2,6 +2,19 @@
 
 El juego de referencia es **El Faro de Cabo Niebla** (`juegos/el-faro/`). Sigue su patrón: su flujo está comprobado y los manuales de las aventuras salen del mismo método.
 
+## 0. Receta: crear un juego COMPLETO de una sola vez
+
+Cuando se pida «crea un juego» (con o sin temática), se entrega **todo**, sin dejar fases para después:
+
+1. **Diseño.** Tema, historia y grafo de cartas en 3 o 4 actos (más largo que el anterior), con al menos 7 puzles de app distintos y nuevos (ver la tabla de puzles ya usados en la [guía de puzles](GUIA-DE-PUZLES.md)). Las instancias (buscaminas, luces, dominó...) se generan con un script que **comprueba por fuerza bruta que la solución es única**. Cristina y Alberto salen siempre, con indumentaria de la época o del lugar (`PERSONAJES` y `HOJA` en `datos_<juego>.py`).
+2. **Datos y construcción.** `herramientas/datos_<juego>.py` (`J`, `META`, `SPEC`, `PARA_QUE`, `PASOS`), una entrada en `JUEGOS` de `construir_aventuras.py` (tema, colores, minijuegos y `minutos` de partida) y el tema en `TEMAS` de `ui.js` (copiado a todos los juegos). Después `python herramientas/construir_aventuras.py <Juego>`.
+3. **Pruebas del diseño.** `verificar.py` (3.000 partidas), `solvers_<juego>.py` + `ejecutar_manual.py`, `bot_azar.py` con 10 semillas, `probar_pistas.py`, `probar_impresion.py` y `crear_manual_md.py`.
+4. **Imágenes de la interfaz.** `herramientas/pedidos/<juego>.py` con todos los objetos y texturas que usan los minijuegos y `python herramientas/chatgpt_fondos.py --solo <juego>`.
+5. **Ilustraciones de las cartas.** `python herramientas/chatgpt_imagenes.py --conectar juegos/aventuras-ca/<juego>` (el Chrome se abre con `abrir_chrome_chatgpt.ps1`; avisa por si hay que iniciar sesión) y después `preparar_imagenes.py`. Revisa la hoja de contactos de las cartas.
+6. **Minijuegos con interfaz.** Cada uno con sus imágenes reales (§6b), `capturar_minijuegos.py` revisado a ojo y `probar_apps.py` sin errores de consola. Repite el paso 3 con las imágenes ya puestas.
+7. **Menú y documentación.** Tarjeta del juego en `juegos/aventuras-ca/index.html`, fila en `README.md`, el puzle nuevo en la tabla de la guía de puzles.
+8. **Publicación.** Rama, commit con archivos concretos, push y Pull Request (nunca a `main`); al terminar, cerrar el servidor local y el Chrome de depuración.
+
 ## 1. Reglas de diseño (innegociables)
 
 1. **Toda carta sirve para algo, y al final solo queda la carta final en la mesa** (todo lo demás se descarta). Si no la necesita ningún puzle, o se le da una función real (una pista impresa que otro paso consume) o se quita. Nada de cartas de relleno.
@@ -72,7 +85,7 @@ Por carta (la clave es el número, `P` para la inicial):
 
 **Ropa distinta en cada juego, ambientada en la época.** La cara, el pelo y los rasgos de Cristina y Alberto salen de la hoja de personajes (`personajes/hoja.png`, ropa actual); la ropa la define `_meta.personajes` de cada juego (Egipto: ropa actual de viaje; Marte: monos de colonia marciana). Al crear un juego nuevo, escribe su vestuario en `personajes` y en la `hoja` de `datos_<juego>.py`.
 
-**Generación automática con ChatGPT:** `herramientas/abrir_chrome_chatgpt.ps1` abre un Chrome normal (inicia sesión y pasa ahí la verificación «soy humano») y `python herramientas/chatgpt_imagenes.py --conectar juegos/aventuras-ca/<Juego>` genera y guarda todas las cartas. No cierres ese Chrome mientras trabaja.
+**Generación automática con ChatGPT** (la hoja de personajes `personajes/hoja.png` solo da las caras; la ropa sale de `_meta.personajes` de cada juego): `herramientas/abrir_chrome_chatgpt.ps1` abre un Chrome normal (inicia sesión y pasa ahí la verificación «soy humano») y `python herramientas/chatgpt_imagenes.py --conectar juegos/aventuras-ca/<Juego>` genera y guarda todas las cartas. No cierres ese Chrome mientras trabaja.
 
 `prompts.html` (en las aventuras) da el prompt de la hoja de personajes, el de cada carta y el del vídeo. Las imágenes se guardan en `arte/` (local), se convierten con `herramientas/preparar_imagenes.py` y se suben como `img/*.jpg`.
 
