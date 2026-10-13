@@ -102,6 +102,9 @@ Estudio hecho leyendo reseñas, artículos de diseño y catálogos de: **Unlock!
 22. **Dos jugadores:** roles asimétricos mantenidos toda la partida o reagrupar a menudo; puzles divididos «de solución conjunta»; un cuello de botella (solo se puede hacer una cosa) por capítulo para los giros y las escenas de menos de 2 minutos.
 23. **Guiar al jugador:** lo importante debe parecer importante y lo que parece importante debe serlo (los red herrings involuntarios son queja habitual); feedback incremental («sí / no del todo»); definir y comunicar los verbos de la interfaz.
 24. **Fiabilidad ante todo:** las quejas reales de la app de Unlock! son bloqueos, mensajes con la carta equivocada tras resolver bien y falta de aviso de que hace falta sonido. Nuestras pruebas automáticas (verificador, manual, bots y auditoría) existen para que eso no ocurra.
+25. **Qué hace difícil un puzle** (Elumir): su *tipo* (tarea / proceso / aha), la *ruta* (lineal = fácil pero con cuellos de botella; abierta = más puzles y riesgo de abrumar), el *reconocimiento* (¿saben qué pista va con qué puzle y cuándo tienen todas?), la *disponibilidad* (cuántos puzles abiertos a la vez) y la *complejidad* (anchura = nº de piezas; profundidad = nº de pasos). Se ajusta moviendo uno de esos cinco mandos, no solo «añadir tedio».
+26. **Curva de dificultad:** empezar con 1 o 2 puzles cortos, alternar puzles lentos con tareas sencillas y **terminar con uno fácil** (la recompensa es acabar). Un teclado que se bloquea tras 3 intentos penaliza probar: nunca castigar el intentar.
+27. **Variedad real** (encuesta de Nicholson de 2015 a 175 salas, con las cifras tal y como las recoge Errol Elumir en sus diapositivas): lo más usado es buscar objetos (78 %), comunicación (58 %), luz negra (54 %), contar (53 %) y cifrados con clave (47 %); lo menos usado, y por tanto lo más fresco: desenredar cuerdas (16 %), laberintos (14 %), manipular formas (11 %), líquidos (9 %), olfato (3 %). Nuestro banco apuesta por lo poco explorado.
 
 ### 7.2 Banco de ideas de minijuegos para móvil (no usadas todavía)
 
@@ -160,6 +163,7 @@ Leyenda: **[S]** solución única comprobable con script · **[C]** necesita car
 | **Rebus / pictogramas** | Frases con imágenes que se leen en voz alta | [I] |
 | **Escalera de palabras** | Cambiar una letra por paso hasta la palabra de la carta | [S] |
 | **Cripticos sencillos** | Anagrama, palabra oculta o charada con indicador subrayado | Pista de nivel fácil |
+| **Receta de transformaciones** | Una cadena de 8-12 órdenes que se aplican en orden a una palabra («mueve la primera letra tres puestos», «quita el animal», «añade LS al final»); el resultado es la respuesta (Puzzled Pint, «Bork Bork Bork») | [S][C] Puzle de proceso con humor; la app aplica cada orden con vista previa y deshacer; la carta trae la lista de órdenes |
 
 **Ciencia y deducción**
 | Idea | Cómo se juega | Notas |
@@ -183,6 +187,7 @@ Leyenda: **[S]** solución única comprobable con script · **[C]** necesita car
 ### 7.3 Estructura, app y narrativa (ideas)
 
 - **Cuaderno de campo compartido** dentro de la app: guarda lo descubierto y las respuestas de cada carta; la carta final solo se resuelve combinándolas (**metapuzle**, el «jefe final» de los puzzle hunts). Cada puzle puede esconder una **letra o cifra extra** que forma la respuesta del meta.
+- **Extracción por índices (estrellas):** cada puzle se resuelve en una palabra y el número de estrellas bajo él indica qué letra aprovechar; con todas las letras se rellena la frase final (Puzzled Pint, «Christmas Movie Magic»). Útil para metapuzles; en nuestros juegos, sin trivia: las descripciones deben bastar.
 - **Estructura de un reto:** texto de ambientación → identificar el tipo → resolver → *extraer* la respuesta (indexar, letra sobrante, plantilla, primera letra, diagonal, pintar celdas). Extracción explicada en el texto de ambientación.
 - **Roles distintos** para Cristina y Alberto (ella ve cartas que él no), como en Keep Talking: comunicación obligada.
 - **Datos que cambian las reglas** (nº de serie, pilas) para rejugar un mismo puzle.

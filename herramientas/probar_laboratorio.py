@@ -101,8 +101,27 @@ def puentes(d):
             clic(d, f".isla[data-k='{b[0]},{b[1]}']")
 
 
+def linterna(d):
+    for sentido, tiempos in d.execute_script("return window.LAB.linterna.plan"):
+        for t in tiempos:
+            # selecciona al explorador con ese tiempo que esté en la orilla de salida/llegada
+            hecho = False
+            for e in d.find_elements(By.CSS_SELECTOR, ".pers.lado-" + ("izq" if sentido == "ida" else "der")):
+                if e.get_attribute("data-t") == str(t) and "sel" not in e.get_attribute("class"):
+                    d.execute_script("arguments[0].click()", e)
+                    hecho = True
+                    break
+            assert hecho, f"no encuentro al explorador de {t}"
+        clic(d, "#cruzar")
+
+
+def luces(d):
+    for i in d.execute_script("return window.LAB.luces.toques_minimos"):
+        clic(d, f".cri[data-i='{i}']")
+
+
 PRUEBAS = [("nonograma", nonograma), ("akari", akari), ("caja-negra", caja_negra), ("lengua", lengua),
-           ("tabla-logica", tabla), ("caballeros", caballeros), ("bloques", bloques), ("tubos", tubos), ("puentes", puentes)]
+           ("tabla-logica", tabla), ("caballeros", caballeros), ("bloques", bloques), ("tubos", tubos), ("puentes", puentes), ("linterna", linterna), ("luces", luces)]
 
 
 def main():
