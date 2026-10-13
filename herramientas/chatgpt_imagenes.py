@@ -52,7 +52,7 @@ PERSONAJES = {
 }
 
 JS_ESCRIBIR = """
-const el = document.querySelector('#prompt-textarea');
+const el = document.querySelector("div[contenteditable='true'][role='textbox'], #prompt-textarea");
 el.focus();
 document.execCommand('selectAll');
 document.execCommand('delete');
@@ -61,8 +61,8 @@ document.execCommand('insertText', false, arguments[0]);
 
 JS_IMAGENES = """
 const out = [];
-const raiz = document.querySelectorAll('[data-message-author-role="assistant"] img');
-const lista = raiz.length ? raiz : document.querySelectorAll('main img');
+const raiz = document.querySelectorAll('[data-testid="generated-image-gallery"] img, [data-message-author-role="assistant"] img');
+const lista = raiz;
 lista.forEach(i => { if (i.complete && i.naturalWidth >= 512 && i.src) out.push(i.src); });
 return out;
 """
@@ -81,17 +81,21 @@ def orden(clave):
 
 
 class Chat:
-    def __init__(self):
-        PERFIL.mkdir(exist_ok=True)
+    def __init__(self, puerto=None):
         opts = webdriver.ChromeOptions()
-        opts.add_argument(f"--user-data-dir={PERFIL}")
-        opts.add_argument("--window-size=1200,900")
+        if puerto:
+            # Chrome abierto por ti con abrir_chrome_chatgpt.ps1 (navegador normal, sin automatizar)
+            opts.debugger_address = f"127.0.0.1:{puerto}"
+        else:
+            PERFIL.mkdir(exist_ok=True)
+            opts.add_argument(f"--user-data-dir={PERFIL}")
+            opts.add_argument("--window-size=1200,900")
         self.d = webdriver.Chrome(options=opts)
         self.d.set_script_timeout(90)
         self.vistas = set()
 
     def hay_cuadro(self):
-        return bool(self.d.find_elements(By.CSS_SELECTOR, "#prompt-textarea"))
+        return bool(self.d.find_elements(By.CSS_SELECTOR, "div[contenteditable=true][role=textbox], #prompt-textarea"))
 
     def nuevo_chat(self):
         self.d.get(URL)
@@ -104,11 +108,13 @@ class Chat:
             if self.hay_cuadro():
                 return
             time.sleep(1)
-        sys.exit("No encuentro el cuadro de texto de ChatGPT (¿sesión sin iniciar?).")
+        captura = Path(os.environ.get("TEMP", ".")) / "chatgpt_error.png"
+        self.d.save_screenshot(str(captura))
+        sys.exit(f"No encuentro el cuadro de texto de ChatGPT (url={self.d.current_url}, captura={captura}).")
 
     def adjuntar(self, ruta):
         try:
-            self.d.find_elements(By.CSS_SELECTOR, "input[type=file]")[0].send_keys(str(Path(ruta).resolve()))
+            self.d.find_elements(By.CSS_SELECTOR, "input[type=file][aria-label^=Adjuntar][accept*=image], input[type=file][multiple]")[0].send_keys(str(Path(ruta).resolve()))
             time.sleep(6)
             return True
         except Exception as e:  # noqa: BLE001
@@ -116,6 +122,7 @@ class Chat:
             return False
 
     def enviar(self, texto):
+        self.vistas.update(self.d.execute_script(JS_IMAGENES))  # lo que ya habia no cuenta como respuesta nueva
         self.d.execute_script(JS_ESCRIBIR, texto)
         time.sleep(1.5)
         botones = self.d.find_elements(By.CSS_SELECTOR, "button[data-testid='send-button']")
@@ -245,11 +252,12 @@ def main():
     ap.add_argument("--hoja", action="store_true", help="generar la hoja de personajes")
     ap.add_argument("--solo", nargs="*")
     ap.add_argument("--forzar", action="store_true")
+    ap.add_argument("--conectar", action="store_true", help="usar el Chrome ya abierto con abrir_chrome_chatgpt.ps1 (puerto 9222)")
     args = ap.parse_args()
     if not args.juegos and not args.hoja:
         ap.error("indica --hoja y/o alguna carpeta de juego")
 
-    chat = Chat()
+    chat = Chat(9222 if args.conectar else None)
     try:
         if args.hoja or not HOJA.exists():
             if not hacer_hoja(chat, args.foto, args.forzar and args.hoja):
@@ -262,7 +270,8 @@ def main():
             if not seguir:
                 break
     finally:
-        chat.d.quit()
+        if not args.conectar:
+            chat.d.quit()
 
 
 if __name__ == "__main__":
