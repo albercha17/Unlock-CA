@@ -186,5 +186,13 @@ for _ in range(3000):
 for a, b, s in sorted(accidentales):
     err(f"COMBINACION ACCIDENTAL posible: {a} + {b} = {s}, que es otra carta del juego que aun no se tiene")
 print(f"simulaciones: 3000, atascadas: {fallos}; manos finales: {sorted(finales)[:3]}")
+# cartas-data.js (copia embebida para abrir pc/imprimir/prompts con doble clic) debe coincidir con cartas.json
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from sincronizar_cartas import contenido
+_cd = os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), "cartas-data.js")
+if os.path.exists(os.path.join(os.path.dirname(_cd), "pc.html")):
+    if not os.path.exists(_cd) or open(_cd, encoding="utf-8", newline="").read().replace("\r\n", "\n") != contenido(sys.argv[1]):
+        err("cartas-data.js falta o esta desfasado respecto a cartas.json: ejecuta python herramientas/sincronizar_cartas.py")
 print("RESULTADO:", "OK" if not errores else f"{len(errores)} errores")
 sys.exit(1 if errores else 0)

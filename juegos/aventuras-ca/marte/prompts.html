@@ -64,6 +64,7 @@
   <div id="lista"></div>
 </div>
 
+<script src="cartas-data.js"></script>
 <script>
 (function(){
   var KEY = 'prompts-marte';
@@ -81,7 +82,7 @@
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(ok, viejo); else viejo();
   }
 
-  fetch('cartas.json?v=' + Date.now(), {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(J){
+  fetchCartas().then(function(r){ return r.json(); }).then(function(J){
     var meta = J._meta, nombres = Object.keys(meta.personajes);
     document.getElementById('juego').textContent = meta.juego;
     document.getElementById('foto').textContent = meta.foto;
@@ -128,7 +129,7 @@
       b.addEventListener('click', function(){ copiar(document.getElementById(b.dataset.copy).textContent, b); });
     });
   }).catch(function(){
-    document.querySelector('.wrap').insertAdjacentHTML('beforeend', '<p>No se pudo cargar cartas.json. Abre esta página desde el sitio web publicado.</p>');
+    document.querySelector('.wrap').insertAdjacentHTML('beforeend', '<p>No se pudo cargar las cartas. Ejecuta python herramientas/sincronizar_cartas.py o abre la página desde el sitio web.</p>');
   });
 })();
 </script>

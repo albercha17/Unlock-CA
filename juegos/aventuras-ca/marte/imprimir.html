@@ -51,8 +51,9 @@
 </div>
 <div id="hojas"></div>
 
+<script src="cartas-data.js"></script>
 <script>
-fetch('cartas.json?v=' + Date.now(), {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(datos){
+fetchCartas().then(function(r){ return r.json(); }).then(function(datos){
 window.JUEGO = datos;
 (function(){
   var J = window.JUEGO;
@@ -114,7 +115,7 @@ window.JUEGO = datos;
     }
   }
 })();
-}).catch(function(){ document.body.insertAdjacentHTML('beforeend', '<p style="padding:20px">No se pudo cargar cartas.json. Abre esta página desde el sitio web publicado.</p>'); });
+}).catch(function(){ document.body.insertAdjacentHTML('beforeend', '<p style="padding:20px">No se pudo cargar las cartas. Ejecuta python herramientas/sincronizar_cartas.py o abre la página desde el sitio web.</p>'); });
 </script>
 </body>
 </html>

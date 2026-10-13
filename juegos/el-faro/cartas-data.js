@@ -1,0 +1,448 @@
+// Generado por herramientas/sincronizar_cartas.py a partir de cartas.json. No editar a mano.
+window.JUEGO_LOCAL = {
+ "_meta": {
+  "juego": "El Faro de Cabo Niebla",
+  "estilo": "Ilustración pintada a mano en acuarela y gouache, estilo libro ilustrado de misterio (como un juego de escape room de mesa), texturas de papel, paleta azul petróleo, gris niebla y toques de luz ámbar cálida, iluminación dramática de tormenta nocturna, formato vertical 2:3. Sin texto, sin letras, sin números, sin marcos ni bordes. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
+  "personajes": {
+   "Inés": "Inés Valcárcel, mujer de 30 años, pelo negro corto y liso, piel clara, ojos verdes, chubasquero amarillo, botas de agua, expresión decidida.",
+   "Marcos": "Marcos Ibáñez, hombre de 32 años, pelirrojo, gafas redondas, pecas, jersey azul marino de cuello alto bajo una chaqueta impermeable gris, mochila con una antena de radio asomando.",
+   "Anselmo": "Anselmo, hombre de unos 75 años, barba blanca, gorro de lana verde, jersey de punto grueso, mirada amable, siempre con un termo."
+  }
+ },
+ "P": {
+  "titulo": "Carta P — Llegada al faro",
+  "coge": [
+   7
+  ],
+  "tipo": "gris",
+  "descripcion": [
+   "Noche de tormenta. Inés y Marcos llegan al faro de Cabo Niebla. La gran lámpara está apagada y la sirena, muda. Por radio, la guardia costera avisa: el carguero «Estrella del Norte» navega a ciegas y llegará a las rocas en una hora.",
+   "Anselmo, el viejo guardián y abuelo de Inés, no responde.",
+   "Coged la carta 7."
+  ],
+  "pistas": [
+   "Entrad en el faro.",
+   "Coged la carta 7."
+  ],
+  "arte": "El faro de Cabo Niebla, torre blanca con una banda roja, sobre un acantilado en plena tormenta nocturna; la gran lámpara de la cima está apagada. En primer plano y de espaldas, Inés y Marcos caminan hacia la puerta del faro con una linterna. En el mar, muy lejos, las luces de un carguero."
+ },
+ "7": {
+  "titulo": "Carta 7 — Recibidor del faro",
+  "coge": [
+   15,
+   21,
+   19,
+   12,
+   36
+  ],
+  "descarta": [
+   "P"
+  ],
+  "tipo": "gris",
+  "descripcion": [
+   "Recibidor circular y oscuro, iluminado solo con vuestras linternas. Veis: un cuaderno de cuero sobre la mesa (carta 15), un reloj de pared parado (carta 21), un paraguas roto en un rincón (carta 19), una taza de té todavía tibia (carta 12) y, al fondo, una puerta con un teclado numérico (carta 36).",
+   "Coged las cartas 15, 21, 19, 12 y 36. Descartad la carta P."
+  ],
+  "pistas": [
+   "Fijaos en todo lo que hay en la sala.",
+   "Coged las cartas 15, 21, 19, 12 y 36. Descartad la carta P."
+  ],
+  "arte": "Interior del recibidor circular de un faro, a oscuras e iluminado solo por una linterna: una mesa de madera con un cuaderno de cuero, un reloj de pared grande parado, una foto enmarcada en la pared, un paraguas roto en un rincón, una taza de té humeante, un ancla de bronce apoyada contra la pared y, al fondo, una puerta de madera con un panel metálico de teclado numérico."
+ },
+ "15": {
+  "titulo": "Carta 15 — Cuaderno del guardián",
+  "tipo": "verde",
+  "descripcion": [
+   "El cuaderno de Anselmo. Es un juego de la app, pero no hay nada que resolver: es un lector con varias páginas para leer (no pausa el temporizador).",
+   "Contiene la tabla del código morse, avisos del guardián y parte del procedimiento de arranque de la lámpara. El resto del procedimiento está anotado en otras cartas.",
+   "Podéis volver a abrirlo siempre que lo necesitéis."
+  ],
+  "pistas": [
+   "Abrid la carta 15 en la app y pasad las páginas.",
+   "La tabla de morse os hará falta en la ventana de señales (carta 52).",
+   "El orden de arranque de la lámpara está repartido: cuaderno, taza (carta 12) y gaviota (carta 18)."
+  ],
+  "arte": "Cuaderno de cuero abierto sobre una mesa de madera, páginas amarillentas con manchas de café y esquemas a lápiz, con un lápiz y unas gafas de lectura encima. Las páginas deben quedar casi vacías y claras en la zona central, sin ningún texto legible."
+ },
+ "21": {
+  "titulo": "Carta 21 — Reloj parado",
+  "tipo": "gris",
+  "descripcion": [
+   "Un gran reloj de pared, parado a las 3:15.",
+   "Anselmo habrá anotado en algún sitio cuánto atrasa (mirad el paraguas, carta 19)."
+  ],
+  "pistas": [
+   "El reloj no marca la hora real.",
+   "Anselmo apuntó cuánto atrasa en la etiqueta del paraguas (carta 19)."
+  ],
+  "arte": "Gran reloj de pared redondo de latón con esfera blanca y números romanos, agujas paradas marcando exactamente las tres y cuarto, cristal agrietado y telarañas en el marco.",
+  "textoCarta": [
+   "Parado a las 3:15"
+  ]
+ },
+ "19": {
+  "titulo": "Carta 19 — Paraguas roto",
+  "tipo": "gris",
+  "descripcion": [
+   "Un paraguas negro con las varillas dobladas, tirado en un rincón. En el forro han cosido una etiqueta con una anotación de Anselmo: el reloj del recibidor atrasa 1 hora y 20 minutos.",
+   "Os hará falta para la puerta de la escalera (carta 36)."
+  ],
+  "pistas": [
+   "Mirad la etiqueta del forro.",
+   "Sirve para saber la hora real del reloj (cartas 21 y 36)."
+  ],
+  "arte": "Paraguas negro roto con las varillas dobladas, tirado en un rincón húmedo del recibidor de un faro, con un charco debajo.",
+  "textoCarta": [
+   "Cosido en el forro:",
+   "«El reloj atrasa 1 h 20 min»"
+  ]
+ },
+ "12": {
+  "titulo": "Carta 12 — Taza de té",
+  "tipo": "gris",
+  "descripcion": [
+   "Una taza de té aún tibia: Anselmo estuvo aquí hace poco.",
+   "Bajo el platillo hay un papel con uno de los pasos para arrancar la lámpara. Os hará falta para el panel de arranque (carta 95)."
+  ],
+  "pistas": [
+   "Mirad bajo el platillo.",
+   "Guardadla: un paso del arranque está anotado aquí (carta 95)."
+  ],
+  "arte": "Taza de porcelana blanca desportillada con té humeante sobre un platillo, junto a una galleta mordida, sobre una mesa de madera con luz cálida de vela.",
+  "textoCarta": [
+   "Bajo el platillo:",
+   "«La mecha se ceba antes de girar nada»"
+  ]
+ },
+ "36": {
+  "titulo": "Carta 36 — Puerta de la escalera",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: una puerta reforzada con un teclado de 4 cifras.",
+   "El código es la hora real de ahora mismo: la que marca el reloj parado (carta 21) corregida con el retraso anotado en el paraguas (carta 19).",
+   "Al abrirla, coged la carta 40."
+  ],
+  "pistas": [
+   "El reloj está parado, pero ¿cuánto atrasa? Mirad el paraguas (carta 19).",
+   "3:15 más 1 hora y 20 minutos.",
+   "La hora real es 4:35. El código es 0435."
+  ],
+  "arte": "Puerta de madera oscura reforzada con herrajes de hierro, con un panel metálico de teclado numérico de 12 botones envejecidos incrustado en la pared de piedra, entrada a una escalera, iluminada por una linterna desde la izquierda."
+ },
+ "40": {
+  "titulo": "Carta 40 — Escalera de caracol",
+  "coge": [
+   52,
+   30,
+   27,
+   18
+  ],
+  "descarta": [
+   7,
+   36,
+   21,
+   19
+  ],
+  "tipo": "gris",
+  "descripcion": [
+   "Subís por la escalera de caracol hasta un rellano con: una ventana redonda que da al mar (carta 52), una puerta de hierro con el rótulo «MÁQUINAS» (carta 30), un nido de gaviota (carta 27) y una gaviota disecada (carta 18).",
+   "Coged las cartas 52, 30, 27 y 18. Descartad las cartas 7, 36, 21 y 19."
+  ],
+  "pistas": [
+   "Mirad por la ventana.",
+   "Coged las cartas 52, 30, 27 y 18. Descartad las cartas 7, 36, 21 y 19."
+  ],
+  "arte": "Escalera de caracol de hierro forjado vista desde abajo mirando hacia arriba, con un rellano que tiene una ventana redonda con vista al mar tormentoso, una puerta de hierro con ojo de buey, un nido de gaviota en un saliente y una gaviota disecada sobre una repisa."
+ },
+ "27": {
+  "titulo": "Carta 27 — Nido de gaviota",
+  "tipo": "gris",
+  "descripcion": [
+   "Un nido de gaviota con tres huevos. La madre os mira con mala cara. Entre las ramas hay un papel doblado con una anotación de Anselmo sobre la lente: «La luz sube, cruza y baja».",
+   "Os servirá para los espejos de la lente (carta 70). No toquéis los huevos."
+  ],
+  "pistas": [
+   "Leed el papel del nido.",
+   "Guardadlo para los espejos de la lente (carta 70)."
+  ],
+  "arte": "Nido de gaviota hecho de algas y plumas con tres huevos moteados en un saliente de piedra del faro, con una gaviota enfadada vigilando al fondo.",
+  "textoCarta": [
+   "Un papel entre las ramas:",
+   "«La luz sube, cruza y baja»"
+  ]
+ },
+ "18": {
+  "titulo": "Carta 18 — Gaviota disecada",
+  "tipo": "gris",
+  "descripcion": [
+   "Una gaviota disecada con un ojo de cristal torcido. Os da un susto, pero es inofensiva.",
+   "Anselmo le colgó del pico una etiqueta con otro paso para arrancar la lámpara. Os hará falta para el panel de arranque (carta 95)."
+  ],
+  "pistas": [
+   "Mirad la etiqueta del pico.",
+   "Guardadla: un paso del arranque está anotado aquí (carta 95)."
+  ],
+  "arte": "Gaviota disecada de plumas grises y blancas sobre una repisa de madera, con una expresión graciosa y un ojo de cristal torcido.",
+  "textoCarta": [
+   "En la etiqueta del pico:",
+   "«El freno, el último. Siempre»"
+  ]
+ },
+ "52": {
+  "titulo": "Carta 52 — Ventana de señales",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: desde la ventana veis una luz parpadeante en el mar. El carguero os envía un mensaje en código morse.",
+   "Usad la tabla de morse del cuaderno (carta 15) para descifrarlo y escribid la palabra.",
+   "Al acertar, coged la carta 33."
+  ],
+  "pistas": [
+   "Los destellos cortos son puntos y los largos, rayas. Apuntadlos en un papel (podéis pulsar «Repetir mensaje») y buscadlos en la tabla del cuaderno.",
+   "Son cinco letras. La primera es · −",
+   "La palabra es ANCLA."
+  ],
+  "arte": "Ventana redonda de ojo de buey vista desde dentro, con un mar tormentoso y negro de noche; a lo lejos, un carguero con una luz blanca muy brillante que parpadea."
+ },
+ "33": {
+  "titulo": "Carta 33 — Ancla de bronce",
+  "combina": [
+   30,
+   63
+  ],
+  "descarta": [
+   52
+  ],
+  "tipo": "roja",
+  "descripcion": [
+   "El ancla de bronce del recibidor. En el vástago hay un hueco con una llave de hierro grande.",
+   "Al coger esta carta, descartad la carta 52.",
+   "Combinad esta carta con la puerta de máquinas (carta 30): sumad sus números (33 + 30 = 63) y coged la carta 63. Descartad las cartas 33 y 30."
+  ],
+  "pistas": [
+   "La llave abrirá una puerta.",
+   "Combinad la carta 33 con la carta 30.",
+   "Sumad los números de las dos cartas: 33 + 30 = 63."
+  ],
+  "arte": "Ancla de bronce enorme, oxidada y verdosa, apoyada contra una pared de piedra, con una llave de hierro grande asomando de un hueco en el vástago."
+ },
+ "30": {
+  "titulo": "Carta 30 — Puerta de máquinas",
+  "combina": [
+   33,
+   63
+  ],
+  "tipo": "azul",
+  "descripcion": [
+   "Una puerta de hierro remachada con una cerradura enorme. Necesita la llave del ancla (carta 33)."
+  ],
+  "pistas": [
+   "Necesitáis una llave grande.",
+   "Combinad esta carta con la carta 33.",
+   "Sumad los números de las dos cartas: 30 + 33 = 63."
+  ],
+  "arte": "Puerta de hierro remachada con un pequeño ojo de buey y una gran cerradura antigua, pintada de verde desconchado, en una pared de piedra húmeda."
+ },
+ "63": {
+  "titulo": "Carta 63 — Sala de máquinas",
+  "coge": [
+   74,
+   85,
+   72,
+   3
+  ],
+  "descarta": [
+   33,
+   30,
+   40
+  ],
+  "tipo": "gris",
+  "descripcion": [
+   "Entráis en la sala de máquinas: un generador diésel viejo y parado, una mesa con un mapa náutico (carta 74), una radio grande de onda corta (carta 85), un bidón de aceite (carta 72) y una brújula rota (carta 3).",
+   "Coged las cartas 74, 85, 72 y 3. Descartad las cartas 33, 30 y 40."
+  ],
+  "pistas": [
+   "Hay una radio. Marcos sabrá qué hacer.",
+   "Coged las cartas 74, 85, 72 y 3. Descartad las cartas 33, 30 y 40."
+  ],
+  "arte": "Sala de máquinas de un faro: generador diésel antiguo parado, tuberías, cuadros de válvulas, una mesa grande con un mapa, una radio de onda corta, un bidón de aceite y una brújula, todo iluminado por luz de linterna y relámpagos por una ventana."
+ },
+ "3": {
+  "titulo": "Carta 3 — Brújula rota",
+  "tipo": "gris",
+  "descripcion": [
+   "Una brújula de latón con el cristal roto. En el interior de la tapa Anselmo grabó una frase: «Siete vientos, siete décimas».",
+   "Os servirá para la frecuencia de la radio (carta 85)."
+  ],
+  "pistas": [
+   "Leed lo grabado en la tapa.",
+   "Es la décima de la frecuencia del faro: 7."
+  ],
+  "arte": "Brújula de latón antigua con el cristal roto y la aguja suelta, sobre una mesa de madera.",
+  "textoCarta": [
+   "Grabado en la tapa:",
+   "«Siete vientos, siete décimas»"
+  ]
+ },
+ "74": {
+  "titulo": "Carta 74 — Mapa náutico",
+  "tipo": "gris",
+  "descripcion": [
+   "Un mapa de la costa con el faro y un grupo de rocas peligrosas llamado «Los Dientes». En el margen, una anotación de Anselmo con la frecuencia de la radio del faro, pero le falta la décima: 91,_ MHz."
+  ],
+  "pistas": [
+   "Fijaos en la anotación del margen: falta la décima.",
+   "La décima está grabada en la brújula (carta 3).",
+   "Sirve para la radio (carta 85)."
+  ],
+  "arte": "Mapa náutico antiguo desplegado sobre una mesa de madera, que muestra una costa con un faro y un grupo de rocas peligrosas, líneas de rumbo y una rosa de los vientos; sin texto legible.",
+  "textoCarta": [
+   "Nota al margen:",
+   "FARO — onda corta",
+   "91,_ MHz"
+  ]
+ },
+ "85": {
+  "titulo": "Carta 85 — Radio de onda corta",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: una radio antigua con una rueda de sintonía, una rueda de ajuste fino y una escala con aguja. Hay que sintonizar la frecuencia del faro: la del mapa (carta 74) completada con la décima grabada en la brújula (carta 3).",
+   "Al conseguirlo, coged la carta 78."
+  ],
+  "pistas": [
+   "Hay varias emisoras. Solo una es la del faro.",
+   "El mapa da 91 y la brújula, la décima.",
+   "Gira la rueda grande hasta acercarte a 91 y afina con la pequeña. Sintonizad 91,7 MHz."
+  ],
+  "arte": "Radio de onda corta de sobremesa con un gran dial iluminado en ámbar, dos perillas grandes, altavoz de tela y un micrófono de mano, sobre una mesa del cuarto de máquinas."
+ },
+ "72": {
+  "titulo": "Carta 72 — Bidón de aceite",
+  "combina": [
+   10,
+   82
+  ],
+  "tipo": "roja",
+  "descripcion": [
+   "Un bidón de aceite de lámpara. Combinadlo con la lámpara vacía (carta 10): sumad sus números (72 + 10 = 82) y coged la carta 82. Descartad las cartas 72 y 10."
+  ],
+  "pistas": [
+   "Algo necesita llenarse.",
+   "Combinad la carta 72 con la carta 10.",
+   "Sumad los números de las dos cartas: 72 + 10 = 82."
+  ],
+  "arte": "Bidón metálico de aceite de 5 litros, abollado, con un grifo y una mancha oscura, sobre el suelo de la sala de máquinas de un faro."
+ },
+ "78": {
+  "titulo": "Carta 78 — Sala de la lente",
+  "coge": [
+   70,
+   10,
+   95
+  ],
+  "descarta": [
+   63,
+   85,
+   74,
+   3
+  ],
+  "tipo": "gris",
+  "descripcion": [
+   "Lo más alto del faro. La enorme lente gira inmóvil bajo la tormenta. Veis: un panel de espejos ajustables (carta 70), una lámpara de aceite vacía (carta 10) y el panel de arranque (carta 95).",
+   "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74 y 3."
+  ],
+  "pistas": [
+   "Hay tres cosas que tocar.",
+   "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74 y 3."
+  ],
+  "arte": "Sala de la lente en lo alto de un faro: una enorme lente de Fresnel de cristal, ventanales con una tormenta nocturna detrás, un panel de espejos de bronce ajustables a un lado, una lámpara de aceite vacía en una repisa y un panel de control de latón con palancas y válvulas."
+ },
+ "10": {
+  "titulo": "Carta 10 — Lámpara vacía",
+  "combina": [
+   72,
+   82
+  ],
+  "tipo": "azul",
+  "descripcion": [
+   "Una lámpara de aceite con el depósito seco. Necesita aceite (carta 72)."
+  ],
+  "pistas": [
+   "Falta combustible.",
+   "Combinadla con la carta 72.",
+   "Sumad los números de las dos cartas: 10 + 72 = 82."
+  ],
+  "arte": "Lámpara de aceite de latón con depósito de cristal vacío y la mecha seca, sobre una repisa de madera."
+ },
+ "82": {
+  "titulo": "Carta 82 — Lámpara llena",
+  "descarta": [
+   72,
+   10
+  ],
+  "tipo": "gris",
+  "descripcion": [
+   "La lámpara, llena de aceite y lista. La necesitaréis para el panel de arranque (carta 95)."
+  ],
+  "pistas": [
+   "Guardadla para el panel de arranque."
+  ],
+  "arte": "Lámpara de aceite de latón con el depósito de cristal lleno de aceite dorado y la mecha cebada, lista para encenderse, sobre una repisa."
+ },
+ "70": {
+  "titulo": "Carta 70 — Espejos de la lente",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: un tablero con espejos. La luz sale por la izquierda y tiene que llegar a la lámpara del fondo. Tocad un espejo para girarlo.",
+   "La pista del nido (carta 27) os dice por dónde debe ir la luz.",
+   "Al conseguirlo, el mecanismo queda alineado. Descartad las cartas 70 y 27."
+  ],
+  "pistas": [
+   "Probad los espejos que están en el camino de la luz.",
+   "La luz debe subir, cruzar y bajar hasta la lámpara de abajo a la derecha.",
+   "Los tres espejos del camino: el primero y el segundo con «/», el tercero con «\\»."
+  ],
+  "arte": "Panel de espejos de bronce ajustables sobre un tablero de madera con raíles, con un pequeño rayo de luz dorada rebotando entre ellos."
+ },
+ "95": {
+  "titulo": "Carta 95 — Panel de arranque",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: cinco pasos para arrancar la lámpara, que hay que hacer en el orden correcto. El orden está repartido entre el cuaderno de Anselmo (carta 15), la taza (carta 12) y la gaviota (carta 18).",
+   "Necesitáis la lámpara llena (carta 82) y haber alineado ya los espejos de la lente (carta 70).",
+   "Al acertar, coged la carta 99."
+  ],
+  "pistas": [
+   "Juntad el procedimiento: cuaderno (carta 15), taza (carta 12) y gaviota (carta 18).",
+   "Lo primero siempre es el aceite. El freno, lo último.",
+   "Orden: aceite, mecha, engranaje, piloto, freno."
+  ],
+  "arte": "Panel de control de latón con cinco palancas y válvulas diferentes en fila, cada una con una placa grabada sin texto legible, indicadores de aguja y una gran lente iluminada al fondo."
+ },
+ "99": {
+  "titulo": "Carta 99 — ¡La luz del faro! (FIN)",
+  "descarta": [
+   78,
+   95,
+   82,
+   15,
+   12,
+   18
+  ],
+  "tipo": "gris",
+  "descripcion": [
+   "El faro se enciende y su haz barre el mar. El «Estrella del Norte» gira justo a tiempo y esquiva Los Dientes. Descartad las cartas 78, 95, 82, 15, 12 y 18.",
+   "Anselmo aparece por la escalera con su termo: se había quedado dormido en la despensa. «¿Qué han hecho con mi faro?», sonríe.",
+   "FIN."
+  ],
+  "pistas": [],
+  "arte": "El faro enciende su gran luz: un haz dorado barre el mar tormentoso e ilumina un carguero que gira lejos de las rocas. En primer plano, en la galería del faro, Inés, Marcos y un anciano de barba blanca y gorro de lana con un termo, sonriendo."
+ }
+};
+window.fetchCartas = function () {
+  return fetch('cartas.json?v=' + Date.now(), {cache: 'no-store'})
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r; })
+    .catch(function () {
+      if (window.JUEGO_LOCAL) return {ok: true, json: function () { return Promise.resolve(window.JUEGO_LOCAL); }};
+      throw new Error('sin cartas');
+    });
+};
