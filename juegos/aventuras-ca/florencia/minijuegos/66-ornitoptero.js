@@ -5,16 +5,20 @@
 //   71: 2 sacos + cuero vuelca · lino + 2 sacos se arruga · ala media + seda sin fuerza
 import { openGame } from './ui.js';
 
-const NS = 'http://www.w3.org/2000/svg';
+const IMG = './img/ui/';
 const GRUPOS = [
   { id: 'ala', titulo: 'Ala', opciones: [['corta', 'Corta'], ['media', 'Media'], ['larga', 'Larga']] },
   { id: 'tela', titulo: 'Tela', opciones: [['lino', 'Lino'], ['seda', 'Seda'], ['cuero', 'Cuero']] },
   { id: 'lastre', titulo: 'Lastre', opciones: [['1', '1 saco'], ['2', '2 sacos'], ['3', '3 sacos']] }
 ];
 const SOLUCION = { ala: 'larga', tela: 'seda', lastre: '2' };
-const ENVERGADURA = { corta: 46, media: 78, larga: 112 };
-const AX = 140;  // centro del ornitoptero
-const COLOR_TELA = { lino: '#e8dcc0', seda: '#d9566f', cuero: '#8a5a2a' };
+// anchura del ala en la escena (% del ancho) y tinte de cada tela sobre el ala de tela natural
+const ENVERGADURA = { corta: 58, media: 78, larga: 98 };
+const TINTE = {
+  lino: 'sepia(.15) brightness(1)',
+  seda: 'sepia(1) saturate(5) hue-rotate(-38deg) brightness(.95)',
+  cuero: 'sepia(1) saturate(1.4) brightness(.5)'
+};
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
@@ -25,10 +29,16 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-o-svg{display:block;width:100%;background:linear-gradient(180deg,#1d2a3a,#3a2a1c 78%);border:2px solid #6b4a1e;border-radius:12px;margin-bottom:10px}
-    .far-o-ave{transition:transform 1.2s ease-in,opacity .3s}
-    .far-o-ave.vuela{transform:translate(70px,-46px) rotate(-8deg)}
-    .far-o-ave.cae{transform:translate(18px,16px) rotate(24deg)}
+    .far-o-esc{position:relative;aspect-ratio:2/1;overflow:hidden;background:linear-gradient(180deg,rgba(29,42,58,.78),rgba(58,42,28,.86) 80%),url(./img/ui/suelo.jpg) center/cover;border:2px solid #6b4a1e;border-radius:12px;margin-bottom:10px}
+    .far-o-esc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:13%;background:linear-gradient(180deg,rgba(20,12,4,.2),rgba(20,12,4,.85))}
+    .far-o-luc{position:absolute;right:4%;top:4%;width:17%;mix-blend-mode:screen;filter:brightness(.55);transition:filter .8s}
+    .far-o-esc.abierto .far-o-luc{filter:brightness(1.3) drop-shadow(0 0 14px rgba(255,220,130,.9))}
+    .far-o-ave{position:absolute;left:50%;bottom:11%;width:100%;display:flex;flex-direction:column;align-items:center;mix-blend-mode:screen;transform:translateX(-50%);transition:transform 1.2s ease-in,opacity .3s;z-index:2}
+    .far-o-ave.vuela{transform:translate(calc(-50% + 22%),-52%) rotate(-8deg)}
+    .far-o-ave.cae{transform:translate(calc(-50% + 4%),14%) rotate(24deg)}
+    .far-o-ala{display:block;height:auto;transition:width .3s,filter .3s}
+    .far-o-sacos{display:flex;gap:4px;justify-content:center;margin-top:-6%;min-height:22px}
+    .far-o-sacos img{width:22px;height:auto;display:block}
     .far-o-grupo{display:flex;align-items:center;gap:8px;margin-bottom:8px}
     .far-o-grupo b{width:58px;color:#ffd27a;font-size:.9rem}
     .far-o-opts{display:flex;gap:6px;flex:1}
@@ -38,47 +48,44 @@ export function startMinigame(opts = {}) {
   `;
   ui.body.appendChild(style);
 
-  const svg = document.createElementNS(NS, 'svg');
-  svg.setAttribute('viewBox', '0 0 300 150');
-  svg.classList.add('far-o-svg');
+  const esc = document.createElement('div');
+  esc.className = 'far-o-esc';
+  esc.innerHTML = '<img class="far-o-luc" alt="" src="' + IMG + 'taller/claraboya.jpg">';
+  const ave = document.createElement('div');
+  ave.className = 'far-o-ave';
+  const ala = document.createElement('img');
+  ala.className = 'far-o-ala';
+  ala.alt = '';
+  const sacosEl = document.createElement('div');
+  sacosEl.className = 'far-o-sacos';
+  ave.append(ala, sacosEl);
+  esc.appendChild(ave);
   const grupos = document.createElement('div');
   const intentosEl = document.createElement('div');
   intentosEl.className = 'far-o-intentos';
-  ui.body.append(svg, grupos, intentosEl);
+  ui.body.append(esc, grupos, intentosEl);
 
   const eleccion = { ala: null, tela: null, lastre: null };
   let intentos = 0;
   let resuelto = false;
   let estadoVuelo = '';
 
-  function el(tag, attrs) {
-    const e = document.createElementNS(NS, tag);
-    Object.keys(attrs).forEach(k => e.setAttribute(k, attrs[k]));
-    return e;
-  }
-
   function pintarAve() {
-    while (svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(el('rect', { x: 0, y: 128, width: 300, height: 22, fill: '#2a1a0c' }));
-    svg.appendChild(el('polygon', { points: '6,128 120,128 120,119 6,125', fill: '#5a3a1a' }));  // rampa
-    const ave = el('g', { class: 'far-o-ave ' + estadoVuelo, 'data-estado': estadoVuelo });
-    const env = ENVERGADURA[eleccion.ala] || 62;
-    const col = COLOR_TELA[eleccion.tela] || '#b9a98a';
-    [-1, 1].forEach(lado => {
-      ave.appendChild(el('polygon', { points: `${AX},100 ${AX + lado * env},${86} ${AX + lado * env * 0.9},${112} ${AX},108`, fill: col, stroke: '#3a2208', 'stroke-width': 2 }));
-      ave.appendChild(el('line', { x1: AX, y1: 102, x2: AX + lado * env, y2: 90, stroke: '#3a2208', 'stroke-width': 3 }));
-    });
-    ave.appendChild(el('ellipse', { cx: AX, cy: 106, rx: 20, ry: 9, fill: '#8a5a2a', stroke: '#3a2208', 'stroke-width': 2 }));
-    ave.appendChild(el('circle', { cx: AX, cy: 100, r: 5, fill: '#e8d9b0' }));
-    const sacos = Number(eleccion.lastre) || 0;
-    for (let i = 0; i < sacos; i++) {
-      ave.appendChild(el('line', { x1: AX - 10 + i * 10, y1: 114, x2: AX - 10 + i * 10, y2: 120, stroke: '#3a2208', 'stroke-width': 1.5 }));
-      ave.appendChild(el('circle', { cx: AX - 10 + i * 10, cy: 124, r: 5, fill: '#b8893b', stroke: '#3a2208', 'stroke-width': 1.5 }));
+    const tamano = eleccion.ala || 'media';
+    ala.src = IMG + 'ornitoptero/' + ({ corta: 'corto', media: 'medio', larga: 'largo' })[tamano] + '.jpg';
+    ala.style.width = ENVERGADURA[tamano] + '%';
+    ala.style.filter = TINTE[eleccion.tela] || 'grayscale(.5) brightness(.85)';
+    ala.style.opacity = eleccion.ala ? '1' : '.6';
+    ave.className = 'far-o-ave ' + estadoVuelo;
+    ave.dataset.estado = estadoVuelo;
+    esc.classList.toggle('abierto', estadoVuelo === 'vuela');
+    sacosEl.innerHTML = '';
+    for (let i = 0; i < (Number(eleccion.lastre) || 0); i++) {
+      const s = document.createElement('img');
+      s.alt = '';
+      s.src = IMG + 'saco.jpg';
+      sacosEl.appendChild(s);
     }
-    svg.appendChild(ave);
-    // palanca del lucernario
-    svg.appendChild(el('line', { x1: 286, y1: 40, x2: 286, y2: 128, stroke: '#6b4a1e', 'stroke-width': 4 }));
-    svg.appendChild(el('circle', { cx: 286, cy: 40, r: 7, fill: '#ffd27a', stroke: '#3a2208', 'stroke-width': 2 }));
   }
 
   function pintarGrupos() {

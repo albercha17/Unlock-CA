@@ -86,9 +86,13 @@ destello y sonido al acertar, sacudida al fallar y un botón de silencio (se rec
 Para un juego nuevo:
 1. Añade su tema al objeto `TEMAS` de `ui.js` (colores, tipografía, partículas, símbolo) y copia `ui.js` a las demás carpetas.
 2. Pon `data-tema` en su `index.html` (el constructor lo hace con la clave `tema`).
-3. Cada minijuego debe llamarse `Carta N — Nombre` (de ahí sale la imagen `img/N.jpg`) y usar solo `body`, `button`, `close`, `onClose` y `say` de `openGame`.
-4. Genera la textura de su panel con `herramientas/chatgpt_fondos.py` (añade su pedido a `PEDIDOS`); el constructor deja una provisional en `img/ui/panel.jpg`.
-5. Revisa el resultado con `herramientas/capturar_minijuegos.py`.
+3. Cada minijuego debe llamarse `Carta N — Nombre` (de ahí sale la imagen `img/N.jpg`) y usar solo `body`, `button`, `close`, `onClose`, `say` y `textura` de `openGame`.
+4. Genera la textura de su panel y los gráficos de sus minijuegos con `herramientas/chatgpt_fondos.py`: cada juego tiene su catálogo en `herramientas/pedidos/<juego>.py`; el constructor deja un panel provisional en `img/ui/panel.jpg`.
+5. **Nada de emojis ni dibujos planos en los minijuegos**: cada objeto (glifo, gema, tubería, engranaje...) es una imagen de ChatGPT.
+   Los objetos se piden sobre fondo negro puro y se mezclan con `mix-blend-mode: screen` (el negro desaparece); las hojas con varios objetos se trocean solas.
+   Ojo: un elemento con `transform` o `filter` aísla el mezclado; pon el `mix-blend-mode` en el propio elemento que gira, no en sus hijos.
+6. Si un solucionador tenía que leer un emoji, que lea un atributo `data-*` del elemento (así se puede cambiar el dibujo sin romper las pruebas).
+7. Revisa el resultado con `herramientas/capturar_minijuegos.py` y prueba cada minijuego con `herramientas/probar_apps.py <url> <carpeta> <solvers>`.
 
 ## 7. Publicación
 

@@ -17,6 +17,8 @@ export function startMinigame(opts = {}) {
   const style = document.createElement('style');
   style.textContent = `
     .far-disco{display:block;margin:0 auto 6px;max-width:300px;width:100%}
+    .far-d-img{mix-blend-mode:screen}
+    
     .far-d-letra{cursor:pointer}
     .far-d-letra text{font-family:Georgia,"Times New Roman",serif;font-weight:700;pointer-events:none}
     .far-d-letra.sel circle{fill:#ffd27a}
@@ -69,16 +71,15 @@ export function startMinigame(opts = {}) {
 
   function pintarDisco() {
     while (svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(el('circle', { cx: 150, cy: 150, r: 146, fill: '#3b2412', stroke: '#b8893b', 'stroke-width': 3 }));
-    svg.appendChild(el('circle', { cx: 150, cy: 150, r: 112, fill: '#5a3a1a', stroke: '#b8893b', 'stroke-width': 2 }));
-    svg.appendChild(el('circle', { cx: 150, cy: 150, r: 80, fill: '#241408', stroke: '#b8893b', 'stroke-width': 2 }));
+    svg.appendChild(el('image', { href: './img/ui/disco.jpg', x: 2, y: 2, width: 296, height: 296, class: 'far-d-img' }));
+    // bandas oscuras para que se lean las letras sobre el relieve del bronce
+    svg.appendChild(el('circle', { cx: 150, cy: 150, r: 129, fill: 'none', stroke: 'rgba(12,7,2,.7)', 'stroke-width': 25 }));
+    svg.appendChild(el('circle', { cx: 150, cy: 150, r: 96, fill: 'none', stroke: 'rgba(12,7,2,.7)', 'stroke-width': 25 }));
     for (let i = 0; i < 26; i++) {
       svg.appendChild(letra('out', ALF[i], i, 129, '#f4e9c8', 'rgba(0,0,0,.25)'));
       // la letra de dentro que queda frente a la de fuera i
       svg.appendChild(letra('in', ALF[(i + giro) % 26], i, 96, '#ffd27a', 'rgba(255,210,122,.12)'));
     }
-    svg.appendChild(el('text', { x: 150, y: 146, 'text-anchor': 'middle', 'font-size': 13, fill: '#b8893b', 'font-family': 'Georgia,serif', 'font-style': 'italic' }, 'Alberti'));
-    svg.appendChild(el('text', { x: 150, y: 164, 'text-anchor': 'middle', 'font-size': 10, fill: '#8a6a30', 'font-family': 'Georgia,serif' }, 'fuera · dentro'));
     // marca de la A de fuera
     svg.appendChild(el('path', { d: 'M150 6 L144 -2 L156 -2 Z', fill: '#ffd27a' }));
   }

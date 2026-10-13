@@ -12,8 +12,8 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-ruedas{display:flex;gap:10px;justify-content:center;margin-bottom:14px;background:#2a1a0c;border:3px solid #8a5a2a;border-radius:12px;padding:12px 8px}
-    .far-rueda{width:54px;height:72px;border-radius:8px;background:linear-gradient(180deg,#d9b46a,#a87a35 50%,#d9b46a);border:2px solid #5a3a14;color:#2a1600;font-size:2.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 8px rgba(0,0,0,.35)}
+    .far-ruedas{display:flex;gap:8px;justify-content:center;margin-bottom:14px;background:linear-gradient(rgba(14,8,3,.74),rgba(14,8,3,.88)),url(./img/ui/suelo.jpg) center/cover;border:3px solid #6b4a1e;border-radius:12px;padding:12px 8px;box-shadow:inset 0 0 22px rgba(0,0,0,.8)}
+    .far-rueda{width:68px;height:68px;border-radius:50%;background:url(./img/ui/rueda.jpg) center/cover,#000;color:#fff3c4;font:800 1.9rem Georgia,serif;display:flex;align-items:center;justify-content:center;text-shadow:0 0 6px #000,0 2px 3px #000,0 0 14px rgba(255,210,122,.7);box-shadow:0 4px 10px rgba(0,0,0,.6)}
   `;
   ui.body.appendChild(style);
 
