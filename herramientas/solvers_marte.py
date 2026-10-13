@@ -32,7 +32,7 @@ def s52(d):
     # (indice de casilla, clics): ver GRID de 52-tuberias.js
     for idx, clics in [(1, 2), (2, 1), (3, 2), (5, 1), (6, 2), (8, 1), (9, 3), (13, 2), (14, 3)]:
         for _ in range(clics):
-            js(d, "document.querySelectorAll('svg rect[fill=transparent]')[%d].dispatchEvent(new MouseEvent('click',{bubbles:true}));" % idx)
+            d.find_element(By.CSS_SELECTOR, ".mar-celda[data-i='%d']" % idx).click()
             time.sleep(0.05)
     time.sleep(0.2)
     m = feedback(d)
@@ -104,6 +104,7 @@ def s48(d):
         if "roca" in feedback(d):
             break
     assert "roca" in feedback(d) or "borde" in feedback(d), feedback(d)
+    time.sleep(0.9)   # el rover termina de sacudirse antes de aceptar ordenes
     boton(d, "Reiniciar").click()
     for f in ruta:
         d.find_element(By.XPATH, f"//button[@aria-label='Añadir {f}']").click()
