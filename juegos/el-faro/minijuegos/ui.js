@@ -17,7 +17,7 @@ const TEMAS = {
     fuente: "'Cinzel', Georgia, 'Times New Roman', serif", mayus: true, trazo: '.1em',
     tinte: '34,22,6', panel: 'rgba(40,26,10,.90)', panel2: 'rgba(18,11,4,.94)',
     borde: '#d9a441', acento: '#f2d27a', brillo: '242,210,122', boton: 'linear-gradient(180deg,#f2d27a,#c98a1f)', botonTxt: '#2a1600',
-    particulas: 'polvo', simbolo: '☥', textura: 'panel.jpg'
+    particulas: 'polvo', simbolo: '☥', textura: 'panel.jpg', papel: 'papiro.jpg'
   },
   marte: {
     fuente: "'Orbitron', 'Poppins', system-ui, sans-serif", mayus: true, trazo: '.12em',
@@ -102,7 +102,7 @@ function injectStyle() {
     .far-key:active{transform:translateY(1px) scale(.97)}
     .far-key:hover:not(:disabled){background:linear-gradient(180deg,rgba(var(--far-brillo,255,255,255),.2),rgba(255,255,255,.04))}
     .far-key:disabled{opacity:.45;cursor:not-allowed}
-    .far-overlay .far-hoja.papiro,.far-overlay[data-tema="faro"] .far-hoja{background-image:var(--far-papel);background-size:cover;background-position:center;background-blend-mode:multiply}
+    .far-overlay .far-hoja.papiro,.far-overlay[data-tema="faro"] .far-hoja{background-image:linear-gradient(rgba(246,232,190,.62),rgba(246,232,190,.62)),var(--far-papel);background-size:cover;background-position:center;background-blend-mode:multiply}
     .far-overlay[data-mayus="1"] .far-title{text-transform:uppercase;font-size:1.02rem}
     .far-overlay[data-tema="florencia"] .far-title{font-size:1.5rem;font-style:italic}
     .far-overlay[data-tema="marte"] .far-display{font-family:"Orbitron","IBM Plex Mono",ui-monospace,monospace;color:#ffb085}

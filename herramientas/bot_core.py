@@ -81,7 +81,7 @@ def boton(d, texto):
 
 
 def tecla(d, texto):
-    for b in d.find_elements(By.CSS_SELECTOR, ".far-key, .aeb-key, .aebf-key"):
+    for b in d.find_elements(By.CSS_SELECTOR, ".far-key, .far-pesa, .aeb-key, .aebf-key"):
         if b.is_displayed() and b.text.strip() == texto:
             b.click()
             return

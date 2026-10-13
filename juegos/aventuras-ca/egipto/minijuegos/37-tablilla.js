@@ -1,8 +1,8 @@
 // Carta 37 — Tablilla rota: puzle deslizante 3x3. El orden correcto está en la carta 28 (Orden de los dioses).
-// Orden: ☀️ 👁️ 🐞 / 🐍 🌊 🦅 / 🏺 🐂 y el hueco abajo a la derecha.
+// Orden: sol, ojo, escarabajo / serpiente, agua, halcón / vasija, toro y el hueco abajo a la derecha.
 import { openGame } from './ui.js';
 
-const SIMBOLOS = { 1: '☀️', 2: '👁️', 3: '🐞', 4: '🐍', 5: '🌊', 6: '🦅', 7: '🏺', 8: '🐂' };
+const SIMBOLOS = { 1: 'sol', 2: 'ojo', 3: 'escarabajo', 4: 'serpiente', 5: 'agua', 6: 'halcon', 7: 'vasija', 8: 'toro' };
 const META = [1, 2, 3, 4, 5, 6, 7, 8, 0];
 const INICIAL = [2, 6, 3, 4, 0, 5, 1, 7, 8];
 
@@ -15,10 +15,11 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-tabla{display:grid;grid-template-columns:repeat(3,84px);gap:6px;justify-content:center;margin:4px 0 10px;background:#2b1f0e;border:3px solid #b8893b;border-radius:12px;padding:8px;width:fit-content;margin-inline:auto}
-    .far-pieza{width:84px;height:84px;border-radius:10px;border:2px solid #b8893b;background:linear-gradient(180deg,#d9b46a,#b88f45);font-size:2.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;padding:0}
+    .far-tabla{display:grid;grid-template-columns:repeat(3,84px);gap:6px;justify-content:center;margin:4px 0 10px;background:#140c04;border:3px solid #6b5320;border-radius:12px;padding:8px;width:fit-content;margin-inline:auto}
+    .far-pieza{width:84px;height:84px;border-radius:8px;border:2px solid #8a6a2a;background:linear-gradient(rgba(20,12,4,.62),rgba(20,12,4,.78)),url(./img/ui/piedra.jpg) center/cover;box-shadow:inset 0 0 12px rgba(0,0,0,.7),0 3px 6px rgba(0,0,0,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;padding:6px;overflow:hidden}
+    .far-pieza img{max-width:100%;max-height:100%;object-fit:contain;mix-blend-mode:screen;pointer-events:none}
     .far-pieza:active{transform:scale(.96)}
-    .far-pieza.hueco{background:transparent;border:2px dashed #6b5320;cursor:default}
+    .far-pieza.hueco{background:rgba(0,0,0,.45);border:2px dashed #6b5320;box-shadow:none;cursor:default}
     .far-movs{color:#9fb4c8;font-size:.85rem;margin-bottom:6px}
   `;
   ui.body.appendChild(style);
@@ -41,7 +42,11 @@ export function startMinigame(opts = {}) {
       b.className = 'far-pieza' + (v === 0 ? ' hueco' : '');
       b.dataset.pos = String(i);
       if (v !== 0) {
-        b.textContent = SIMBOLOS[v];
+        b.dataset.simbolo = SIMBOLOS[v];
+        const im = document.createElement('img');
+        im.alt = '';
+        im.src = './img/ui/glifos/' + SIMBOLOS[v] + '.jpg';
+        b.appendChild(im);
         b.setAttribute('aria-label', 'Pieza ' + SIMBOLOS[v]);
         b.addEventListener('click', () => mover(i));
       } else {

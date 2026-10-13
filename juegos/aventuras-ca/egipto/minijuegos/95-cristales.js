@@ -8,6 +8,7 @@ const COLORES = {
   verde: '#27ae60',
   rojo: '#eb5757'
 };
+const IMG = { amarillo: 'amarilla', azul: 'azul', verde: 'verde', rojo: 'roja' };
 const SECUENCIA = ['azul', 'amarillo', 'rojo', 'verde', 'amarillo'];
 
 export function startMinigame(opts = {}) {
@@ -19,9 +20,9 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-cristales{display:grid;grid-template-columns:repeat(2,96px);gap:14px;justify-content:center;margin:6px 0 14px}
-    .far-cristal{position:relative;width:96px;height:96px;border-radius:50%;border:3px solid rgba(255,235,180,.55);cursor:pointer;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.85),var(--gema) 38%,rgba(0,0,0,.55) 100%);box-shadow:0 0 0 4px rgba(0,0,0,.35),0 8px 20px rgba(0,0,0,.55),0 0 22px color-mix(in srgb,var(--gema) 55%,transparent);transition:transform .1s,filter .1s,box-shadow .2s;animation:far-gema 3.2s ease-in-out infinite alternate}
-    .far-cristal::after{content:"";position:absolute;left:18%;top:12%;width:34%;height:22%;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(3px);transform:rotate(-24deg)}
+    .far-cristales{display:grid;grid-template-columns:repeat(2,116px);gap:10px;justify-content:center;margin:6px 0 14px}
+    .far-cristal{position:relative;width:116px;height:116px;border-radius:50%;border:0;padding:0;cursor:pointer;background:#000;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.6),0 0 22px color-mix(in srgb,var(--gema) 55%,transparent);transition:transform .1s,filter .1s,box-shadow .2s;animation:far-gema 3.2s ease-in-out infinite alternate}
+    .far-cristal img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
     @keyframes far-gema{from{filter:brightness(.92)}to{filter:brightness(1.12)}}
     .far-cristal:active,.far-cristal.on{transform:scale(.93);filter:brightness(1.6);box-shadow:0 0 0 4px rgba(0,0,0,.35),0 0 46px var(--gema)}
     .far-cristal:disabled{opacity:.5;cursor:not-allowed}
@@ -51,6 +52,7 @@ export function startMinigame(opts = {}) {
     b.className = 'far-cristal';
     b.style.setProperty('--gema', COLORES[nombre]);
     b.setAttribute('aria-label', 'Cristal ' + nombre);
+    b.innerHTML = '<img alt="" src="./img/ui/gemas/' + IMG[nombre] + '.jpg">';
     b.dataset.color = nombre;
     b.addEventListener('click', () => {
       if (resuelto) return;

@@ -1,7 +1,7 @@
 // Carta 23 — Muro de jeroglíficos: descifrar 5 signos con la piedra de traducción (carta 31). Palabra: HORUS.
 import { openGame } from './ui.js';
 
-const GLIFOS = ['🏺', '👁️', '☀️', '🐞', '🐍'];
+const GLIFOS = ['vasija', 'ojo', 'sol', 'escarabajo', 'serpiente'];
 const PALABRA = 'HORUS';
 
 export function startMinigame(opts = {}) {
@@ -13,17 +13,18 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-glifos{display:flex;gap:8px;justify-content:center;margin-bottom:12px;background:#2b1f0e;border:2px solid #b8893b;border-radius:10px;padding:12px 6px}
-    .far-glifo{font-size:2.2rem;width:3rem;text-align:center}
+    .far-glifos{display:flex;gap:6px;justify-content:center;margin-bottom:12px;background:linear-gradient(rgba(20,12,4,.55),rgba(20,12,4,.7)),url(./img/ui/piedra.jpg) center/cover;border:3px solid #6b5320;border-radius:6px;padding:14px 6px;box-shadow:inset 0 0 26px rgba(0,0,0,.75)}
+    .far-glifo{width:15%;max-width:64px;aspect-ratio:1;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 6px rgba(255,210,122,.35))}
   `;
   ui.body.appendChild(style);
 
   const fila = document.createElement('div');
   fila.className = 'far-glifos';
   GLIFOS.forEach(g => {
-    const s = document.createElement('span');
+    const s = document.createElement('img');
     s.className = 'far-glifo';
-    s.textContent = g;
+    s.alt = 'Signo ' + g;
+    s.src = './img/ui/glifos/' + g + '.jpg';
     fila.appendChild(s);
   });
   const display = document.createElement('div');

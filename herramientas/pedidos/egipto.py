@@ -12,10 +12,12 @@ PEDIDOS = [
     dict(destino=D + "gemas", ancho=240, hoja=(4, 1), nombres=["amarilla", "azul", "verde", "roja"],
          prompt="Crea UNA SOLA IMAGEN apaisada con CUATRO gemas talladas con facetas, vistas desde arriba, en una fila," + FILA +
                 " De izquierda a derecha: una gema AMARILLA (citrino), una AZUL (zafiro), una VERDE (esmeralda) y una ROJA (rubí), cada una con engarce dorado, muy brillantes y translúcidas." + NEGRO),
-    dict(destino=D + "balanza-a", ancho=420, hoja=(3, 1), nombres=["pilar", "brazo", "plato"],
-         prompt="Crea UNA SOLA IMAGEN apaisada con TRES piezas de una balanza de oro egipcia, en una fila," + FILA +
-                " De izquierda a derecha: 1) el pilar vertical con base y un cabezal con eje (sin brazo), 2) el brazo horizontal de la balanza, largo y recto, con adornos y dos ganchos en los extremos, "
-                "3) un plato colgante de oro con tres cadenas que se juntan arriba en un anillo." + EST + NEGRO),
+    dict(destino=D + "balanza-a", ancho=420, hoja=(2, 1), nombres=["pilar", "plato"],
+         prompt="Crea UNA SOLA IMAGEN apaisada con DOS piezas de una balanza de oro egipcia, en una fila," + FILA +
+                " De izquierda a derecha: 1) el pilar vertical con base y un cabezal con eje (sin brazo), 2) un plato colgante de oro con tres cadenas que se juntan arriba en un anillo." + EST + NEGRO),
+    dict(destino=D + "balanza-a/brazo.jpg", ancho=640,
+         prompt="Crea el brazo horizontal de una balanza de oro egipcia: una barra larga y recta, con adornos de lapislázuli, un eje central y dos ganchos en los extremos, "
+                "vista de frente, ocupando TODO el ancho de la imagen, en formato muy apaisado 4:1." + EST + NEGRO),
     dict(destino=D + "balanza-b", ancho=300, hoja=(3, 1), nombres=["corazon", "pluma", "pesa"],
          prompt="Crea UNA SOLA IMAGEN apaisada con TRES objetos en una fila," + FILA +
                 " De izquierda a derecha: 1) un corazón de piedra pulida rojiza, 2) una pluma de avestruz blanca (la pluma de Maat), 3) una pesa de piedra con asa de bronce." + EST + NEGRO),
@@ -24,5 +26,5 @@ PEDIDOS = [
                 "Sin texto, letras ni números. Sin personas. Formato cuadrado."),
     dict(destino=D + "papiro.jpg", ancho=720,
          prompt="Crea una textura de papiro egipcio antiguo, vista cenital plana, fibras visibles, tono dorado claro, bordes irregulares y envejecidos y el centro liso y limpio. "
-                "Sin texto, letras ni números. Sin personas. Formato vertical 2:3."),
+                "El papiro debe llenar la imagen de borde a borde, SIN márgenes blancos ni fondo visible. Sin texto, letras ni números. Sin personas. Formato vertical 2:3."),
 ]
