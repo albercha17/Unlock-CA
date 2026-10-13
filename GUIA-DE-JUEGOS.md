@@ -66,6 +66,10 @@ Por carta (la clave es el número, `P` para la inicial):
 
 ## 6. Ilustraciones y vídeo
 
+**Ropa distinta en cada juego, ambientada en la época.** La cara, el pelo y los rasgos de Cristina y Alberto salen de la hoja de personajes (`personajes/hoja.png`, ropa actual); la ropa la define `_meta.personajes` de cada juego (Egipto: ropa actual de viaje; Marte: monos de colonia marciana). Al crear un juego nuevo, escribe su vestuario en `personajes` y en la `hoja` de `datos_<juego>.py`.
+
+**Generación automática con ChatGPT:** `herramientas/abrir_chrome_chatgpt.ps1` abre un Chrome normal (inicia sesión y pasa ahí la verificación «soy humano») y `python herramientas/chatgpt_imagenes.py --conectar Aventuras-CA/<Juego>` genera y guarda todas las cartas. No cierres ese Chrome mientras trabaja.
+
 `prompts.html` (en las aventuras) da el prompt de la hoja de personajes, el de cada carta y el del vídeo. Las imágenes se guardan en `arte/` (local), se convierten con `herramientas/preparar_imagenes.py` y se suben como `img/*.jpg`.
 
 ## 7. Publicación

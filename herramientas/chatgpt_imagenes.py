@@ -175,7 +175,8 @@ def prompt_carta(carta, meta):
     salen = [n for n in meta["personajes"] if n in arte]
     p = ("Crea una imagen vertical con proporción 2:3 para una carta de juego de escape room. " + arte)
     if salen:
-        p += (" Personajes (mantén exactamente el mismo aspecto que en la hoja de personajes adjunta): "
+        p += (" Personajes (mantén exactamente su cara, pelo, barba y rasgos como en la hoja de personajes adjunta, "
+              "pero con la ropa que se indica aquí, no con la de la hoja): "
               + " ".join(meta["personajes"][n] for n in salen))
     p += " " + meta["estilo"] + " Muy importante: no escribas ningún texto, letra ni número dentro de la imagen."
     return " ".join(p.split())

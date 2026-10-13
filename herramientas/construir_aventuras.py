@@ -138,6 +138,8 @@ for nombre, cfg in JUEGOS.items():
 
     # imagenes de relleno
     for k, c in datos.J.items():
+        if os.path.exists(f"{base}/arte/{k}.png"):
+            continue  # ya hay ilustracion real: no la pises con el relleno
         placeholder(f"{base}/img/{k}.jpg", c["titulo"].split("—", 1)[1].strip(), *cfg["pal"])
 
     # prompts.html e imprimir.html (en linea: leen cartas.json)
@@ -161,7 +163,7 @@ for nombre, cfg in JUEGOS.items():
         else if (pend.length) r.textContent = 'Ilustraciones de relleno (aún sin hacer): ' + pend.join(', ');
         else r.textContent = 'Todas las ilustraciones están listas.';
       });""")
-    json.dump(sorted(datos.J.keys(), key=lambda k: (k != "P", int(k) if k != "P" else 0)), open(f"{base}/img/pendientes.json", "w", encoding="utf-8"))
+    json.dump(sorted((k for k in datos.J if not os.path.exists(f"{base}/arte/{k}.png")), key=lambda k: (k != "P", int(k) if k != "P" else 0)), open(f"{base}/img/pendientes.json", "w", encoding="utf-8"))
     escribir(f"{base}/imprimir.html", im)
 
     print(nombre, "->", len(datos.J), "cartas")
