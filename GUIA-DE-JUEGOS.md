@@ -29,7 +29,9 @@ Cuando se pida «crea un juego» (con o sin temática), se entrega **todo**, sin
 ## 2. Anatomía de un juego
 
 ```
-index.html      shell de la app: temporizador, Acción, Pista, vídeo de inicio, Modo PC
+index.html      estructura de la app + `window.APP_CONFIG` (segundos, carta final, mapa de minijuegos)
+app.css / app.js  aspecto y lógica comunes de la app: inicio con reglas, reloj diegético, Acción, Pista, teclado con vista previa,
+                cuaderno (registro + notas + reglas), guardado automático, pantalla final con informe, Wake Lock
 pc.html         mesa virtual: mazo boca abajo, mesa, descartes
 cartas.json     guion completo (ver §3)
 cartas-data.js  copia generada de cartas.json para abrir pc/imprimir/prompts con doble clic (no editar)
@@ -41,7 +43,7 @@ video/          videoInicial.mp4 (opcional: si no está, la partida empieza sin 
 MANUAL.md       manual de partida generado y verificado
 ```
 
-Cada minijuego exporta `startMinigame(opts)` y se registra en el mapa `MINIGAMES` de `index.html` (`'36': './minijuegos/36-puerta.js'`). Usa `openGame` de `ui.js`; los lectores no pausan el temporizador.
+Cada minijuego exporta `startMinigame(opts)` y se registra en `minijuegos` de `window.APP_CONFIG` en `index.html` (`'36': './minijuegos/36-puerta.js'`). La app (`index.html`, `app.css`, `app.js`) se edita **solo en `juegos/el-faro`** y se propaga con `python herramientas/regenerar_index.py`. Usa `openGame` de `ui.js`; los lectores no pausan el temporizador.
 
 ## 3. `cartas.json`
 
