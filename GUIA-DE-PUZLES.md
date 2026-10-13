@@ -308,6 +308,35 @@ Cada ficha lleva: **qué se ve y se toca**, **qué dicen las cartas**, **cómo s
 
 *Antes de implementar cualquiera:* ejecutar el generador correspondiente, guardar la instancia en el fichero del minijuego como constante, escribir el solucionador antes que el aspecto y pasar `auditar_minijuegos.py`, `probar_apps.py` y las pruebas del juego completo.
 
+### 7.11 Lecciones de pistas, interfaz y juegos de móvil (segunda tanda)
+
+- **La pista es una señal de atasco, no un recurso.** Si un puzle necesita la misma pista el 50 % de las veces, hay que rediseñar el puzle (Room Escape Artist). Medirlo: `probar_pistas.py` ya cuenta cuántas pistas lleva cada carta.
+- **Pistas dentro de la ficción** (un personaje del juego que habla) en lugar de un cartel de sistema. Nuestro «Aria/Cristina y Alberto» ya lo hace; mantenerlo en los tres niveles.
+- **Pistas por fichas, no por tope duro:** dos fichas al inicio y una extra a mitad de partida evita el «ya no puedes pedir más». Alternativa suave que ya usamos: penalización de tiempo, nunca bloqueo.
+- **Reloj visible y alto en pantalla** reduce el pánico; **migas de pan** (confirmar progreso parcial) reducen la frustración en los cuellos de botella.
+- **Críticas al Unlock! original:** la pista por número de carta a veces destripa pasos posteriores y no hay «paso a paso»; nosotros damos las pistas por carta y por nivel (qué mirar → qué hacer → solución).
+- **De The Room / Machinarium:** pocos puntos activos por pantalla, respuesta inmediata al tocar (movimiento + vibración), el puzle resuelto queda inerte y el objeto usado desaparece del inventario, y cuando un puzle abre algo en otra parte hay que enseñarlo («panear a la consecuencia»). Aplicar en los minijuegos: tras resolver, bloquear la interacción y mostrar la carta/objeto que se obtiene.
+- **Onboarding y claridad de la consigna** fueron los fallos más citados en un prototipo universitario de escape digital: una pantalla de inicio breve y la regla del minijuego visible siempre arriba.
+- **Accesibilidad:** alternativas para puzles solo visuales (descripción en texto/alt), letra grande en cartas y no depender solo del color (formas además de colores).
+- **Móvil como objeto de la historia:** linterna para revelar mensajes, cifrado por golpes/sonidos en un orden, QR partido en varias cartas, inclinación (maze/canicas), micrófono para silbar una nota, brújula. Siempre con alternativa táctil porque sensores y permisos varían por dispositivo.
+- **Diseñar desde la mecánica:** elegir primero la mecánica nueva (p. ej. «dos personas pulsan a la vez») y vestirla después con la temática.
+
+### 7.12 EXIT (Kosmos), Puzzled Pint y sensores del navegador (tercera tanda)
+
+- **EXIT de Kosmos:** la solución de cada carta-enigma es un código de 3 símbolos que se mete en un disco; el disco señala la carta-respuesta. Las pistas van en 3 capas por símbolo (1.ª pista → 2.ª pista → solución) y algunas cartas solo se pueden mirar tras meter un código. Es exactamente nuestro esquema de pista de tres niveles y de cartas que se desbloquean con código: confirma que es el patrón correcto y que **ver la carta solo tras acertar el código** evita adelantarse.
+- **Estructura de Puzzled Pint:** puzle de localización fácil + 4 puzles + metapuzle + extra, todo resoluble por novatos en menos de 2 h, con «aha» en cada uno, sin conocimiento externo y en papel barato. Encaja con la estructura de nuestras partidas largas (puzles de zona → metapuzle final).
+- **Puzzledorf (diseño):** «todo lo que no es parte de la solución es espacio muerto»: en cada minijuego, quitar decoración que no ayude a resolver o que distraiga.
+- **Navegador del móvil (sensores):** giroscopio/acelerómetro pide permiso explícito en iOS (`DeviceOrientationEvent.requestPermission`); la precisión varía; la linterna no está en todos los navegadores (alternativa: pantalla blanca al máximo brillo sobre una carta translúcida); el micrófono permite «soplar» o silbar una nota. Regla nuestra: **cada minijuego con sensor lleva siempre una alternativa táctil**.
+- **Idea nueva: «Luz oculta»:** carta impresa con un mensaje que solo se lee poniendo la pantalla blanca detrás (o el móvil con una máscara); la app da la clave de qué carta mirar.
+- **Idea nueva: «Soplar para despejar»:** el micrófono detecta soplo para apartar polvo/arena y mostrar un símbolo (alternativa: frotar con el dedo). Encaja en Egipto o Dinosaurios.
+
+### 7.13 Chronicles of Crime, accesibilidad y fallos típicos (cuarta tanda)
+
+- **Chronicles of Crime:** un solo móvil lleva el juego; cada carta tiene un QR propio y escanear **encadena** diálogos (primero el testigo, luego la víctima para preguntarle por ella). Funciona sin conexión. Ideas para nosotros: preguntas encadenadas en una carta de interrogatorio (elegir testigo + objeto), búsqueda cronometrada de pistas en una escena con tiempo (45 s) y cerrar el caso respondiendo preguntas que dan puntuación.
+- **Accesibilidad (daltonismo):** no depender solo del color; añadir forma/icono sobre cada color (ChromaGun 2). Aplicable a gemas, frascos, tubos y cables: cada color con su símbolo. Objetivo táctil mínimo 44×44 px (WCAG 2.2 / Apple HIG; Material 48 dp). La opción accesible debe estar desde el principio, no desbloquearse.
+- **Fallos que hacen abandonar** (comentario de profesionales, no estudios): primeros puzles demasiado difíciles; **pistas falsas sin señalizar** (objetos que parecen puzle y no sirven); códigos que se encuentran «por casualidad» sin saber de dónde vienen (nunca te sientes listo); un jugador resuelve mientras los demás miran (→ sub-puzles en paralelo); final de salida arbitrario o roto. Respuesta en nuestro diseño: una victoria rápida al inicio, ninguna carta decorativa que parezca puzle, cada código con una cadena clara de «por qué», y cartas que repartan trabajo entre dos (Cristina y Alberto).
+
 ### 7.10 Fuentes principales
 
 Unlock! (reseñas y ficha de la app), Exit (reseñas), Deckscape, Escape Tales, Chronicles of Crime, MicroMacro, Room Escape Artist (pistas, priming, puzzle hunts, fracaso, equipos divididos), The Codex (13 reglas, «aha» frente a proceso, player loop, mímesis y diégesis), Rita Orlov/PostCurious (qué hace bueno un puzle, equilibrio, cifrado de símbolos, accesibilidad, playtest), Scott Nicholson «Ask Why» (texto completo), Society of Curiosities, Immersology (cuellos de botella, temático frente a inmersivo), Puzzlecraft (Selinker y Snyder), Game Maker's Toolkit, The Room/Gorogoa/Witness/Obra Dinn/Heaven's Vault/Chants of Sennaar/Day of the Tentacle (análisis de diseño), Keep Talking and Nobody Explodes (manual), Puzzles Wiki y Clontz (tipos de puzle y extracción), catálogos de escape rooms (escaperoom.com.au, escapely, escaperoomtips, erworkshop), Nikoli/Simon Tatham (reglas) y documentación web (MDN, caniuse) sobre Wake Lock, vibración, orientación, micrófono, Web Audio y PWA.
+- Room Escape Artist: «Hints and hinting systems» y «Designing escape rooms around game mechanics»; The Escape Effect: «Reinventing the escape room hints system»; Pratt IxD: «Design Critique: The Room»; Tabletop Gaming y Shut Up & Sit Down sobre Unlock!.
