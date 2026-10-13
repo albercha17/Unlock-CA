@@ -13,7 +13,10 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-term{background:#06140d;border:1px solid #1f5a3a;border-radius:10px;padding:10px 12px;margin-bottom:10px;min-height:110px;max-height:170px;overflow:auto;text-align:left;font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;color:#7dffb0;font-size:.95rem}
+        .mar-mon{position:relative;max-width:350px;margin:0 auto 10px;aspect-ratio:4/3;background:#000}
+    .mar-mon>img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;mix-blend-mode:screen}
+    .mar-pant{position:absolute;left:14.4%;right:12.5%;top:12.3%;bottom:23.5%;overflow:hidden;border-radius:6px}
+    .far-term{background:radial-gradient(ellipse at center,#06201a,#02100b);box-shadow:inset 0 0 26px rgba(40,255,140,.18);padding:8px 10px;width:100%;height:100%;box-sizing:border-box;overflow:auto;text-align:left;font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;color:#7dffb0;font-size:.85rem}
     .far-term div{padding:2px 0;letter-spacing:.12em}
     .far-term .vacio{opacity:.55;letter-spacing:0}
     .far-pad4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
@@ -27,7 +30,14 @@ export function startMinigame(opts = {}) {
   display.className = 'far-display';
   const pad = document.createElement('div');
   pad.className = 'far-pad4';
-  ui.body.append(hist, display, pad);
+  const mon = document.createElement('div');
+  mon.className = 'mar-mon';
+  const pant = document.createElement('div');
+  pant.className = 'mar-pant';
+  pant.appendChild(hist);
+  mon.innerHTML = '<img alt="" src="./img/ui/monitor-marco.jpg">';
+  mon.insertBefore(pant, mon.firstChild);
+  ui.body.append(mon, display, pad);
 
   let entered = [];
   let resuelto = false;
