@@ -8,7 +8,7 @@ Todo lo privado queda FUERA de git: el perfil de Chrome con tu sesion vive en
 %USERPROFILE%/.unlock-chatgpt-profile, y la foto, personajes/ y */arte/ estan en .gitignore.
 
 Uso (desde la raiz del repo):
-    python herramientas/chatgpt_imagenes.py --foto RUTA/foto.jpg --hoja            # solo la hoja
+    python herramientas/chatgpt_imagenes.py --foto F1.jpg F2.jpg --hoja         # solo la hoja
     python herramientas/chatgpt_imagenes.py Aventuras-CA/Egipto                    # las cartas que falten
     python herramientas/chatgpt_imagenes.py Aventuras-CA/Marte --solo 10 33 P      # solo esas
     python herramientas/chatgpt_imagenes.py Aventuras-CA/Marte --forzar            # regenera todas
@@ -178,11 +178,11 @@ def hacer_hoja(chat, foto, forzar):
     if HOJA.exists() and not forzar:
         print(f"La hoja ya existe: {HOJA}")
         return True
-    if not foto or not Path(foto).exists():
+    if not foto or not all(Path(f).exists() for f in foto):
         sys.exit("Para la hoja necesito --foto RUTA (foto de Cristina y Alberto).")
     print("Hoja de personajes (con la foto)...")
     chat.nuevo_chat()
-    if not chat.adjuntar(foto):
+    if not all([chat.adjuntar(f) for f in foto]):
         return False
     chat.enviar(prompt_hoja())
     src = chat.esperar_imagen()
@@ -241,7 +241,7 @@ def hacer_juego(chat, carpeta, solo, forzar):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("juegos", nargs="*", help="carpetas de juego, p. ej. Aventuras-CA/Egipto")
-    ap.add_argument("--foto", help="foto de Cristina y Alberto (solo para la hoja)")
+    ap.add_argument("--foto", nargs="+", help="una o varias fotos de Cristina y Alberto (solo para la hoja)")
     ap.add_argument("--hoja", action="store_true", help="generar la hoja de personajes")
     ap.add_argument("--solo", nargs="*")
     ap.add_argument("--forzar", action="store_true")
