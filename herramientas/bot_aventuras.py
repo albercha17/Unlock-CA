@@ -6,6 +6,6 @@ import solvers_egipto as SE
 import solvers_marte as SM
 
 BASE = sys.argv[1]
-ok1 = jugar("EGIPTO", f"{BASE}/Aventuras-CA/Egipto/pc.html", f"{BASE}/Aventuras-CA/Egipto/index.html", SE.SOLVERS, SE.REQUIERE)
-ok2 = jugar("MARTE", f"{BASE}/Aventuras-CA/Marte/pc.html", f"{BASE}/Aventuras-CA/Marte/index.html", SM.SOLVERS, SM.REQUIERE)
+ok1 = jugar("EGIPTO", f"{BASE}/juegos/aventuras-ca/egipto/pc.html", f"{BASE}/juegos/aventuras-ca/egipto/index.html", SE.SOLVERS, SE.REQUIERE)
+ok2 = jugar("MARTE", f"{BASE}/juegos/aventuras-ca/marte/pc.html", f"{BASE}/juegos/aventuras-ca/marte/index.html", SM.SOLVERS, SM.REQUIERE)
 sys.exit(0 if (ok1 and ok2) else 1)

@@ -1,8 +1,8 @@
 """Genera MANUAL.md (guia paso a paso y carta a carta) de un juego a partir de su cartas.json y su modulo de datos.
 
 Uso (desde la raiz del repo):
-    python herramientas/crear_manual_md.py Unlock-El-Faro datos_faro
-    python herramientas/crear_manual_md.py Aventuras-CA/Egipto datos_egipto
+    python herramientas/crear_manual_md.py juegos/el-faro datos_faro
+    python herramientas/crear_manual_md.py juegos/aventuras-ca/egipto datos_egipto
 Los pasos (PASOS) son los mismos que ejecuta ejecutar_manual.py en el navegador: si el manual dice algo, se ha comprobado.
 """
 import importlib

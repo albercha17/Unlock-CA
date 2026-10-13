@@ -101,9 +101,9 @@ def main():
     args = [a for a in sys.argv[1:] if a != "-v"]
     base, juego, n = args[0], args[1], int(args[2])
     s0 = int(args[3]) if len(args) > 3 else 1
-    cfg = {"faro": ("Unlock-El-Faro", "solvers_faro"),
-           "egipto": ("Aventuras-CA/Egipto", "solvers_egipto"),
-           "marte": ("Aventuras-CA/Marte", "solvers_marte")}
+    cfg = {"faro": ("juegos/el-faro", "solvers_faro"),
+           "egipto": ("juegos/aventuras-ca/egipto", "solvers_egipto"),
+           "marte": ("juegos/aventuras-ca/marte", "solvers_marte")}
     carpeta, modulo = cfg[juego]
     mod = __import__(modulo)
     fallos = []

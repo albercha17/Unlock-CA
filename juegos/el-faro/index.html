@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Unlock C&amp;A - El Faro de Cabo Niebla</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --btn-w: 200px;
+      --btn-h: 64px;
+      --btn-radius: 14px;
+      --icon-size: 22px;
+      --gap: 12px;
+      --font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      --fade-ms: 150ms;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html,
+    body {
+      height: auto !important;
+      width: 100% !important;
+      overflow: auto !important;
+      margin: 0;
+      touch-action: manipulation;
+      -ms-touch-action: manipulation;
+    }
+
+    button {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 18px;
+    }
+
+    /* ===== botones acción/pista ===== */
+    .action-row {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .action-row .control-btn {
+      display: inline-flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: var(--gap) !important;
+      width: var(--btn-w) !important;
+      min-width: var(--btn-w) !important;
+      height: var(--btn-h) !important;
+      padding: 0 18px !important;
+      border-radius: var(--btn-radius) !important;
+      border: none !important;
+      cursor: pointer !important;
+      font-weight: 800 !important;
+      font-size: 16px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.6px !important;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      white-space: nowrap !important;
+      vertical-align: middle !important;
+      transform: translateZ(0);
+      background: linear-gradient(180deg, #ffcf6b, #ff9d1f);
+      color: #2a1600;
+    }
+
+    .action-row .control-btn .icon {
+      width: 28px !important;
+      height: 28px !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 28px;
+    }
+
+    .action-row .control-btn .icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      fill: currentColor;
+    }
+
+    .action-row .hint-btn {
+      background: linear-gradient(135deg, #7fd8ff, #29a8e0) !important;
+      color: #05202e !important;
+    }
+
+    @media (max-width: 480px) {
+      .action-row .control-btn {
+        width: 160px !important;
+        height: 56px !important;
+        font-size: 14px !important;
+      }
+
+      .action-row .control-btn .icon {
+        width: 26px !important;
+        height: 26px !important;
+      }
+    }
+
+    /* ===== CABECERA DEL PANEL DE JUEGO ===== */
+    .game-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .game-logo-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex: 0 0 64px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at 50% 30%, #3a2c10, #14100a);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+      font-size: 30px;
+    }
+
+    .game-title-left h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      color: #fff;
+    }
+
+    .game-title-left .game-sub {
+      margin-top: 4px;
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 600;
+    }
+
+    @media(max-width:560px) {
+      .game-logo-circle {
+        width: 48px;
+        height: 48px;
+        flex: 0 0 48px;
+        font-size: 22px;
+      }
+
+      .game-title-left h2 {
+        font-size: 1.05rem;
+      }
+
+      .game-title-left .game-sub {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* ===== Modal numérico ===== */
+    .num-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9998;
+      opacity: 1;
+      transition: opacity var(--fade-ms) ease;
+    }
+
+    .num-modal.closing {
+      opacity: 0;
+    }
+
+    .num-modal-box {
+      background: linear-gradient(180deg, #0f1724, #0b1220);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 18px;
+      border-radius: 12px;
+      width: 360px;
+      max-width: calc(100% - 40px);
+      color: #eaeef2;
+      transform: translateY(0);
+      transition: transform var(--fade-ms) ease;
+    }
+
+    .num-modal.closing .num-modal-box {
+      transform: translateY(8px);
+    }
+
+    .num-display {
+      font-size: 28px;
+      text-align: center;
+      padding: 8px 0;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .num-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .num-key {
+      background: linear-gradient(180deg, #162030, #0e1622);
+      color: #fff;
+      padding: 12px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    .num-key.action {
+      background: linear-gradient(180deg, #2c2c2c, #111);
+    }
+
+    .num-message {
+      color: #ffb3b3;
+      min-height: 1.2em;
+      margin-top: 8px;
+    }
+
+    .btn-open-anyway {
+      background: #ffb86b;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #111;
+      font-weight: 700;
+    }
+
+    /* ===== Sistema de diálogos ===== */
+    .sys-dialog {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+    }
+
+    .sys-dialog .box {
+      width: 480px;
+      max-width: calc(100% - 32px);
+      background: linear-gradient(180deg, #0b1220, #081018);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 18px;
+      border-radius: 10px;
+      color: #f1f5f9;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      text-align: left;
+    }
+
+    .sys-dialog .box .msg {
+      margin-bottom: 12px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+
+    .sys-dialog .box .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .sys-dialog .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      font-weight: 700;
+    }
+
+    .sys-dialog .btn.ok {
+      background: linear-gradient(180deg, #ffcf6b, #ff9d1f);
+      color: #2a1600;
+    }
+
+    .sys-dialog .btn.cancel {
+      background: #2d2f33;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    @media (max-width:520px) {
+      .sys-dialog .box {
+        width: 92%;
+      }
+    }
+
+    .street-emoji {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container layout" id="mainContainer">
+    <div class="panel-card" id="introPanel">
+      <header style="display:flex;align-items:center;gap:14px;margin-bottom:8px">
+        <div class="street-emoji" style="width:96px;height:96px;flex:0 0 96px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,0.06)"><img src="img/P.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div>
+          <h1 style="margin:0;font-size:20px">El Faro de Cabo Niebla</h1>
+          <p style="margin:6px 0 0 0;color:#cfcfd3">
+            Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo.
+          </p>
+        </div>
+      </header>
+
+      <main style="margin-top:12px">
+        <p class="lead" style="color:#d0d0d6">
+          Pulsa <strong>Empezar</strong> para iniciar el temporizador de 1 hora.
+          Luego usa <em>Acción</em> para introducir cartas de acción o <em>Pista</em> para pedir ayuda.
+        </p>
+        <p class="lead" style="color:#d0d0d6">
+          <strong>Combinar cartas:</strong> si dos cartas se pueden combinar, suma sus números. El resultado es la carta que debes coger.
+        </p>
+
+        <div style="display:flex;gap:12px;margin-top:12px">
+          <button class="btn btn-success" id="startBtn">Empezar</button>
+          <a class="btn btn-ghost" href="pc.html" style="text-decoration:none">Modo PC (sin cartas impresas)</a>
+          <button class="btn btn-ghost" onclick="volver()">← Volver al menú</button>
+        </div>
+      </main>
+    </div>
+
+    <!-- panel de juego -->
+    <div class="panel-card" id="gamePanel" style="display:none;margin-top:18px">
+      <div class="game-panel-header" role="banner" aria-label="Cabecera del juego">
+        <div class="game-logo-circle" aria-hidden="true"><img src="img/P.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div class="game-title-left">
+          <h2>El Faro de Cabo Niebla</h2>
+        </div>
+      </div>
+
+      <div id="gameTimer" class="timer-big" role="timer" aria-live="polite">01:00:00</div>
+
+      <div class="action-row" role="group" aria-label="Controles de acción">
+        <button id="actionBtn" class="control-btn action-btn" aria-label="Acción importante" title="Acción">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M13 2L3 14h7l-1 8L21 10h-7l-1-8z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="label">Acción</span>
+        </button>
+
+        <button id="hintBtn" class="control-btn hint-btn" aria-label="Pedir pista" title="Pedir pista">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M9 18h6v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1z" fill="currentColor" />
+              <path d="M12 3a5 5 0 0 0-3 9v2h6v-2a5 5 0 0 0-3-9z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="label">Pista</span>
+        </button>
+      </div>
+
+      <div class="game-controls" style="margin-top:16px">
+        <button class="btn-ghost" id="pauseBtn" style="display:none">Pausar</button>
+        <button class="btn-ghost" id="resumeBtn" style="display:none">Reanudar</button>
+        <button class="btn-ghost" id="stopBtn">Salir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vídeo de introducción (se reproduce al pulsar Empezar) -->
+  <div id="videoOverlay" style="position:fixed;inset:0;z-index:3000;display:none;background:rgba(0,0,0,0.96);align-items:center;justify-content:center;flex-direction:column;padding:12px">
+    <video id="introVideo" src="./video/videoInicial.mp4" preload="auto" playsinline webkit-playsinline
+      style="max-width:100%;max-height:80vh;border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,0.8);background:#000"></video>
+    <button id="skipVideoBtn" type="button" style="margin-top:16px;padding:10px 18px;font-family:'Poppins',system-ui,-apple-system;font-size:0.95rem;font-weight:700;border:none;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#ffd27a,#f0a020);color:#2a1600;box-shadow:0 10px 28px rgba(0,0,0,0.6)">Saltar vídeo</button>
+  </div>
+
+  <!-- Modal numérico -->
+  <div id="numModal" class="num-modal" aria-hidden="true">
+    <div class="num-modal-box" role="dialog" aria-modal="true" aria-labelledby="numModalTitle">
+      <h3 id="numModalTitle" style="margin:0 0 8px 0">Introduce número de carta</h3>
+      <div class="num-display" id="numDisplay" aria-live="polite">—</div>
+      <div class="num-keypad" role="group" aria-label="Teclado numérico">
+        <button class="num-key" data-key="1">1</button>
+        <button class="num-key" data-key="2">2</button>
+        <button class="num-key" data-key="3">3</button>
+        <button class="num-key" data-key="4">4</button>
+        <button class="num-key" data-key="5">5</button>
+        <button class="num-key" data-key="6">6</button>
+        <button class="num-key" data-key="7">7</button>
+        <button class="num-key" data-key="8">8</button>
+        <button class="num-key" data-key="9">9</button>
+        <button class="num-key action" id="numClear">⌫</button>
+        <button class="num-key" data-key="0">0</button>
+        <button class="num-key" data-key="P" aria-label="Carta P">P</button>
+      </div>
+
+      <p id="numMessage" class="num-message" aria-live="assertive"></p>
+
+      <div id="openAnywayWrap" style="display:none;margin-top:8px">
+        <button id="openAnyway" class="btn-open-anyway">Abrir de todos modos</button>
+      </div>
+
+      <div class="num-modal-actions" style="margin-top:10px">
+        <button class="btn btn-ghost" id="numCancel">Cancelar</button>
+        <button class="btn btn-primary" id="numOk">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sistema de diálogos (sustituye alert) -->
+  <div id="sysDialog" class="sys-dialog" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="box" role="document">
+      <div class="msg" id="sysDialogMsg"></div>
+      <div class="controls" id="sysDialogControls">
+        <button class="btn cancel" id="sysCancelBtn">Cancelar</button>
+        <button class="btn ok" id="sysOkBtn">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bloquear zoom por doble tap y pellizco en Safari/iOS -->
+  <script>
+    (function () {
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (e) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) e.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+      document.addEventListener('touchmove', function (e) {
+        if (e.touches && e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+    })();
+  </script>
+
+  <script type="module">
+    const DEFAULT_SECONDS = 60 * 60;
+    let remaining = DEFAULT_SECONDS;
+    let intervalId = null;
+    let isPaused = false;
+
+    const introPanel = document.getElementById('introPanel');
+    const gamePanel = document.getElementById('gamePanel');
+    const startBtn = document.getElementById('startBtn');
+    const gameTimerEl = document.getElementById('gameTimer');
+    const actionBtn = document.getElementById('actionBtn');
+    const hintBtn = document.getElementById('hintBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resumeBtn = document.getElementById('resumeBtn');
+    const stopBtn = document.getElementById('stopBtn');
+
+    const numModal = document.getElementById('numModal');
+    const numDisplay = document.getElementById('numDisplay');
+    const numMessage = document.getElementById('numMessage');
+    const numKeys = Array.from(document.querySelectorAll('.num-key'));
+    const numOk = document.getElementById('numOk');
+    const numCancel = document.getElementById('numCancel');
+    const numClear = document.getElementById('numClear');
+    const openAnywayWrap = document.getElementById('openAnywayWrap');
+    const openAnywayBtn = document.getElementById('openAnyway');
+
+    const sysDialog = document.getElementById('sysDialog');
+    const sysDialogMsg = document.getElementById('sysDialogMsg');
+    const sysOkBtn = document.getElementById('sysOkBtn');
+    const sysCancelBtn = document.getElementById('sysCancelBtn');
+
+    let entered = "";
+    let pendingUse = null;
+
+    function formatTime(s){
+      const h=Math.floor(s/3600).toString().padStart(2,'0');
+      const m=Math.floor((s%3600)/60).toString().padStart(2,'0');
+      const sec=Math.floor(s%60).toString().padStart(2,'0');
+      return `${h}:${m}:${sec}`;
+    }
+    function updateDisplay(){
+      gameTimerEl.textContent = formatTime(remaining);
+      gameTimerEl.style.color = remaining <= 300 ? "#ffb3b3" : "#fff";
+    }
+    function tick(){
+      if(!isPaused){
+        remaining--;
+        if(remaining<0){
+          clearInterval(intervalId);
+          gameTimerEl.textContent="00:00:00 — TIEMPO";
+          return;
+        }
+        updateDisplay();
+      }
+    }
+
+    const videoOverlay = document.getElementById('videoOverlay');
+    const introVideo = document.getElementById('introVideo');
+    const skipVideoBtn = document.getElementById('skipVideoBtn');
+    let partidaIniciada = false;
+
+    function empezarPartida() {
+      if (partidaIniciada) return;
+      partidaIniciada = true;
+      try { introVideo.pause(); } catch (e) { /* ignore */ }
+      videoOverlay.style.display = 'none';
+      introPanel.style.display='none';
+      gamePanel.style.display='block';
+      remaining=DEFAULT_SECONDS;
+      updateDisplay();
+      pauseBtn.style.display='inline-flex';
+      resumeBtn.style.display='none';
+      isPaused=false;
+      if(intervalId) clearInterval(intervalId);
+      intervalId=setInterval(tick,1000);
+    }
+
+    // El vídeo de introducción va en ./video/videoInicial.mp4. Si no existe o falla, la partida empieza igual.
+    startBtn.addEventListener('click', () => {
+      partidaIniciada = false;
+      videoOverlay.style.display = 'flex';
+      try {
+        introVideo.currentTime = 0;
+        const p = introVideo.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(() => {
+            if (introVideo.error) empezarPartida();
+            else introVideo.setAttribute('controls', 'controls');
+          });
+        }
+      } catch (e) {
+        empezarPartida();
+      }
+    });
+    introVideo.addEventListener('ended', empezarPartida);
+    introVideo.addEventListener('error', () => {
+      if (videoOverlay.style.display === 'flex') empezarPartida();
+    });
+    skipVideoBtn.addEventListener('click', empezarPartida);
+
+    function renderNum(){
+      numDisplay.textContent = entered==="" ? "—" : entered;
+    }
+    function openNumModal(){
+      entered="";
+      numMessage.textContent="";
+      renderNum();
+      numModal.classList.remove('closing');
+      numModal.style.display='flex';
+      numModal.setAttribute('aria-hidden','false');
+      if(location.protocol==='file:') openAnywayWrap.style.display='block';
+      else openAnywayWrap.style.display='none';
+      const first=numKeys.find(k=>!k.classList.contains('action'));
+      if(first) first.focus();
+    }
+    function closeNumModalImmediate(){
+      numModal.style.display='none';
+      numModal.classList.remove('closing');
+      numModal.setAttribute('aria-hidden','true');
+      actionBtn.focus();
+    }
+    function closeNumModal(){
+      numModal.classList.add('closing');
+      numModal.setAttribute('aria-hidden','true');
+      setTimeout(()=> { closeNumModalImmediate(); }, 150);
+    }
+    function cancelNumModal(){
+      pendingUse = null;
+      closeNumModal();
+    }
+
+    numKeys.forEach(k=>{
+      k.addEventListener('click', ()=>{
+        const key=k.dataset.key;
+        if(!key) return;
+        if(entered.length>=4) return;
+        entered+=key;
+        renderNum();
+      });
+    });
+    numClear.addEventListener('click', ()=>{
+      entered = entered.slice(0,-1);
+      renderNum();
+    });
+    numCancel.addEventListener('click', ()=> { cancelNumModal(); });
+
+    actionBtn.addEventListener('click', ()=>{
+      pendingUse='accion';
+      openNumModal();
+    });
+    hintBtn.addEventListener('click', ()=>{
+      pendingUse='pista';
+      openNumModal();
+    });
+
+    function showSysDialog(message, {showCancel=false, okText='Aceptar', cancelText='Cancelar'} = {}) {
+      return new Promise((resolve)=> {
+        sysDialogMsg.textContent = message;
+        sysOkBtn.textContent = okText;
+        sysCancelBtn.textContent = cancelText;
+        sysCancelBtn.style.display = showCancel ? 'inline-block' : 'none';
+        sysDialog.style.display = 'flex';
+        sysDialog.setAttribute('aria-hidden','false');
+        sysOkBtn.focus();
+        function cleanup(){
+          sysDialog.style.display = 'none';
+          sysDialog.setAttribute('aria-hidden','true');
+          sysOkBtn.removeEventListener('click', onOk);
+          sysCancelBtn.removeEventListener('click', onCancel);
+        }
+        function onOk(){ cleanup(); resolve({ok:true}); }
+        function onCancel(){ cleanup(); resolve({ok:false}); }
+        sysOkBtn.addEventListener('click', onOk);
+        sysCancelBtn.addEventListener('click', onCancel);
+      });
+    }
+    function showAlert(message){
+      try{ showSysDialog(message, { showCancel:false, okText:'Aceptar' }); }
+      catch(e){ console.log(message); }
+    }
+    function showConfirm(message){
+      return showSysDialog(message, { showCancel:true, okText:'Sí', cancelText:'No' }).then(r=> !!r.ok);
+    }
+    window.alert = function(msg){ showAlert(String(msg)); };
+
+    numOk.addEventListener('click', async ()=>{
+      if(!entered || entered.trim()==="") {
+        numMessage.textContent = "Introduce un número.";
+        return;
+      }
+      const card = entered.trim();
+
+      if (pendingUse === 'pista') {
+        numMessage.textContent = "";
+        try {
+          const module = await import('./pistas.js');
+          if (module && typeof module.openPistas === 'function') {
+            closeNumModal();
+            module.openPistas(card, {
+              onClose: () => { pendingUse = null; hintBtn.focus(); }
+            });
+          } else {
+            numMessage.textContent = "No se pudo cargar el sistema de pistas.";
+          }
+        } catch (err) {
+          console.warn("No se pudo cargar el módulo de pistas:", err);
+          numMessage.textContent = "No hay pistas para esta carta. Prueba con otra.";
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden', 'false');
+        }
+        return;
+      }
+
+      await checkAndOpen(card);
+      pendingUse = null;
+    });
+
+    async function tryImportModule(modulePath){
+      try{
+        const resolvedPath = new URL(modulePath, import.meta.url).href;
+        const module = await import(resolvedPath);
+        return { ok:true, module };
+      }catch(err){
+        return { ok:false, err };
+      }
+    }
+
+    // Mapa código de carta -> módulo de minijuego
+    const MINIGAMES = {
+      '15': './minijuegos/15-cuaderno.js',
+      '36': './minijuegos/36-puerta.js',
+      '52': './minijuegos/52-morse.js',
+      '70': './minijuegos/70-espejos.js',
+      '85': './minijuegos/85-radio.js',
+      '95': './minijuegos/95-arranque.js'
+    };
+
+    async function checkAndOpen(code){
+      numMessage.textContent = "";
+      if(code.trim()===""){
+        numMessage.textContent = "Introduce un número.";
+        numModal.style.display='flex';
+        numModal.setAttribute('aria-hidden','false');
+        return;
+      }
+      if(code.trim().toUpperCase() === 'P'){
+        numMessage.textContent = "La carta P no es de acción. Pide su pista con el botón Pista.";
+        numModal.style.display='flex';
+        numModal.setAttribute('aria-hidden','false');
+        return;
+      }
+      if(!/^\d+$/.test(code)){
+        numMessage.textContent = "Solo se permiten dígitos.";
+        numModal.style.display='flex';
+        numModal.setAttribute('aria-hidden','false');
+        return;
+      }
+      const c = String(Number(code)); // normaliza '02' -> '2', etc.
+
+      const modulePath = MINIGAMES[c];
+      if(modulePath){
+        const res = await tryImportModule(modulePath);
+        if(!res.ok){
+          console.error(`Error cargando minijuego ${c}:`, res.err);
+          numMessage.textContent = `No se pudo cargar el minijuego (${c}). Comprueba que el archivo exista y usa un servidor local.`;
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
+          return;
+        }
+        const module = res.module;
+        if(typeof module.startMinigame === 'function'){
+          closeNumModal();
+          module.startMinigame({
+            onClose: ()=> actionBtn.focus(),
+            pauseGameTimer: ()=> { isPaused = true; },
+            resumeGameTimer: ()=> { isPaused = false; }
+          });
+        } else {
+          numMessage.textContent = `Módulo ${c} cargado, pero no exporta startMinigame.`;
+          numModal.style.display = 'flex';
+          numModal.setAttribute('aria-hidden','false');
+        }
+        return;
+      }
+
+      numMessage.textContent = "Esa carta no es de acción. Prueba con otra.";
+      numModal.style.display = 'flex';
+      numModal.setAttribute('aria-hidden','false');
+    }
+
+    document.addEventListener('keydown', (e)=>{
+      if(numModal.style.display === 'flex'){
+        if(e.key === 'Escape'){ cancelNumModal(); e.preventDefault(); return; }
+        if(e.key === 'Enter'){ document.getElementById('numOk').click(); e.preventDefault(); return; }
+        if(e.key === 'Backspace'){ entered = entered.slice(0,-1); renderNum(); e.preventDefault(); return; }
+        if(/^[0-9pP]$/.test(e.key) && entered.length < 4){ entered += e.key.toUpperCase(); renderNum(); e.preventDefault(); }
+      }
+    });
+
+    pauseBtn.addEventListener('click', ()=>{
+      isPaused = true;
+      pauseBtn.style.display='none';
+      resumeBtn.style.display='inline-flex';
+    });
+    resumeBtn.addEventListener('click', ()=>{
+      isPaused = false;
+      pauseBtn.style.display='inline-flex';
+      resumeBtn.style.display='none';
+    });
+
+    stopBtn.addEventListener('click', async ()=>{
+      const ok = await showConfirm("¿Seguro que quieres salir? Perderás el progreso actual.");
+      if(ok){
+        if(intervalId) clearInterval(intervalId);
+        introPanel.style.display='block';
+        gamePanel.style.display='none';
+      }
+    });
+
+    function volver(){
+      window.location.href = '../../index.html';
+    }
+    window.volver = volver;
+
+    document.addEventListener('keydown', (e)=> {
+      if(sysDialog.style.display === 'flex' && e.key === 'Escape') {
+        if(sysCancelBtn.style.display !== 'none') sysCancelBtn.click();
+        else sysOkBtn.click();
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 # Guía de diseño: cómo crear un juego Unlock nuevo
 
-El juego de referencia es **El Faro de Cabo Niebla** (`Unlock-El-Faro/`). Sigue su patrón: su flujo está comprobado y los manuales de las aventuras salen del mismo método.
+El juego de referencia es **El Faro de Cabo Niebla** (`juegos/el-faro/`). Sigue su patrón: su flujo está comprobado y los manuales de las aventuras salen del mismo método.
 
 ## 1. Reglas de diseño (innegociables)
 
@@ -21,13 +21,13 @@ pc.html         mesa virtual: mazo boca abajo, mesa, descartes
 cartas.json     guion completo (ver §3)
 pistas.js       visor de pistas (genérico, lee cartas.json)
 style.css       estilos
-juegos/         ui.js (base común) + un módulo por minijuego; lector.js para cartas de solo lectura
+minijuegos/     ui.js (base común) + un módulo por minijuego; lector.js para cartas de solo lectura
 img/            ilustraciones JPG (520 px) usadas por el Modo PC e imprimir.html
 video/          videoInicial.mp4 (opcional: si no está, la partida empieza sin vídeo)
 MANUAL.md       manual de partida generado y verificado
 ```
 
-Cada minijuego exporta `startMinigame(opts)` y se registra en el mapa `MINIGAMES` de `index.html` (`'36': './juegos/36-puerta.js'`). Usa `openGame` de `ui.js`; los lectores no pausan el temporizador.
+Cada minijuego exporta `startMinigame(opts)` y se registra en el mapa `MINIGAMES` de `index.html` (`'36': './minijuegos/36-puerta.js'`). Usa `openGame` de `ui.js`; los lectores no pausan el temporizador.
 
 ## 3. `cartas.json`
 
@@ -65,6 +65,10 @@ Por carta (la clave es el número, `P` para la inicial):
 5. `herramientas/crear_manual_md.py` genera `MANUAL.md` a partir de los mismos pasos.
 
 ## 6. Ilustraciones y vídeo
+
+**Ropa distinta en cada juego, ambientada en la época.** La cara, el pelo y los rasgos de Cristina y Alberto salen de la hoja de personajes (`personajes/hoja.png`, ropa actual); la ropa la define `_meta.personajes` de cada juego (Egipto: ropa actual de viaje; Marte: monos de colonia marciana). Al crear un juego nuevo, escribe su vestuario en `personajes` y en la `hoja` de `datos_<juego>.py`.
+
+**Generación automática con ChatGPT:** `herramientas/abrir_chrome_chatgpt.ps1` abre un Chrome normal (inicia sesión y pasa ahí la verificación «soy humano») y `python herramientas/chatgpt_imagenes.py --conectar juegos/aventuras-ca/<Juego>` genera y guarda todas las cartas. No cierres ese Chrome mientras trabaja.
 
 `prompts.html` (en las aventuras) da el prompt de la hoja de personajes, el de cada carta y el del vídeo. Las imágenes se guardan en `arte/` (local), se convierten con `herramientas/preparar_imagenes.py` y se suben como `img/*.jpg`.
 

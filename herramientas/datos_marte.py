@@ -3,14 +3,14 @@ ESTILO = ("Ilustración digital de ciencia ficción realista con estética de pe
           "Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.")
 
 PERSONAJES = {
-    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Lleva ropa actual y cómoda (vaqueros, zapatillas, camiseta y una chaqueta ligera).",
-    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Lleva ropa actual (vaqueros, zapatillas, sudadera con capucha y una mochila)."
+    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Lleva ropa de colonia marciana: mono técnico ajustado blanco con detalles naranjas, parches de la colonia Aurora, botas de suela gruesa y guantes cortos (el casco solo cuando la escena lo pida).",
+    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Lleva ropa de colonia marciana: mono técnico gris oscuro con detalles naranjas, parches de la colonia Aurora, botas de suela gruesa y una mochila de herramientas (el casco solo cuando la escena lo pida)."
 }
 
 HOJA = ("Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. "
         "Mantén su parecido real con la foto (cara, pelo, barba, ojos). "
-        "Cristina: mujer de 26 años, profesora, pelo rubio y rizado, ojos azules, vaqueros, zapatillas, camiseta y chaqueta ligera. "
-        "Alberto: hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones, vaqueros, zapatillas, sudadera con capucha y mochila. "
+        "Cristina: mujer de 26 años, profesora, pelo rubio y rizado, ojos azules, mono técnico ajustado blanco con detalles naranjas y botas de colonia marciana. "
+        "Alberto: hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones, mono técnico gris oscuro con detalles naranjas, botas de colonia marciana y mochila de herramientas. "
         "Estilo: " + ESTILO)
 
 FOTO = ("Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). "
@@ -31,7 +31,7 @@ J = {
             "Dentro de una hora la tormenta cortará las comunicaciones y el soporte vital se apagará del todo. Hay que recargar el aparato antes.",
             "Coged las cartas 10 y 16."],
         pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 16."],
-        arte="Hangar de la colonia Aurora en Marte, oscuro y cubierto de polvo rojizo, con luces de emergencia rojas parpadeando; por una ventana se ve una tormenta de polvo. En el suelo, el Cronoportal humea. Cristina y Alberto, con ropa actual, se levantan desconcertados."),
+        arte="Hangar de la colonia Aurora en Marte, oscuro y cubierto de polvo rojizo, con luces de emergencia rojas parpadeando; por una ventana se ve una tormenta de polvo. En el suelo, el Cronoportal humea. Cristina y Alberto, con sus monos de colonia marciana, se levantan desconcertados."),
     "16": dict(
         titulo="Carta 16 — Cronoportal sin energía", tipo="azul", combina=[54, 70],
         descripcion=[

@@ -1,6 +1,6 @@
 """Ejecuta los pasos del manual en navegador y comprueba la mesa tras cada paso.
 uso: python herramientas/ejecutar_manual.py <BASE> <carpeta_juego> <modulo_datos> <modulo_solvers>
-ej.: python herramientas/ejecutar_manual.py http://127.0.0.1:8810 Unlock-El-Faro datos_faro solvers_faro"""
+ej.: python herramientas/ejecutar_manual.py http://127.0.0.1:8810 juegos/el-faro datos_faro solvers_faro"""
 import importlib, sys
 sys.path.insert(0, __import__("os").path.dirname(__import__("os").path.abspath(__file__)))
 from bot_core import *
