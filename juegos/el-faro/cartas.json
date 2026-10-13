@@ -391,14 +391,14 @@
     "titulo": "Carta 70 — Espejos de la lente",
     "tipo": "verde",
     "descripcion": [
-      "Es un juego de la app: un tablero con espejos. La luz sale por la izquierda y tiene que llegar a la lámpara del fondo. Tocad un espejo para girarlo.",
-      "La pista del nido (carta 27) os dice por dónde debe ir la luz.",
+      "Es un juego de la app: el tablero de la lente, con once espejos, tres rocas que bloquean la luz y tres puntos: la galería, la lente y la lámpara. El rayo del foco sale por la izquierda. Tocad un espejo para girarlo.",
+      "La pista del nido (carta 27) os dice en qué orden debe tocar la luz esos tres puntos. Algunos espejos sobran.",
       "Al conseguirlo, el mecanismo queda alineado. Descartad las cartas 70 y 27."
     ],
     "pistas": [
-      "Probad los espejos que están en el camino de la luz.",
-      "La luz debe subir, cruzar y bajar hasta la lámpara de abajo a la derecha.",
-      "Los tres espejos del camino: el primero y el segundo con «/», el tercero con «\\»."
+      "El papel del nido dice «La luz sube, cruza y baja»: pensad en la galería (arriba), la lente (en medio) y la lámpara (abajo).",
+      "Seguid el rayo desde el foco y girad cada espejo hasta que mande la luz hacia el siguiente punto. Las rocas la detienen y hay cuatro espejos que sobran.",
+      "Camino de la luz: B4 «/», B3 «/», D3 «/», D2 «/», G2 «\\», G3 «/», F3 «/» (columna y fila). Pasa por la galería (E2), la lente (F5) y la lámpara (F6)."
     ],
     "arte": "Panel de espejos de bronce ajustables sobre un tablero de madera con raíles, con un pequeño rayo de luz dorada rebotando entre ellos."
   },

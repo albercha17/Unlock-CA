@@ -18,13 +18,17 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-lamp{width:84px;height:84px;margin:0 auto 10px;border-radius:50%;background:#1a2430;border:3px solid #3a4a5c;transition:background .05s,box-shadow .05s}
-    .far-lamp.on{background:#fff6c8;box-shadow:0 0 40px 14px rgba(255,236,150,.85);border-color:#fff6c8}
+    .far-lamp{position:relative;width:170px;height:176px;margin:0 auto 10px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#0f1b28,#050a10 72%);border:1px solid rgba(201,164,90,.4);display:flex;align-items:center;justify-content:center;overflow:visible}
+    .far-lamp img{position:absolute;max-width:150px;max-height:158px;object-fit:contain;mix-blend-mode:screen;transition:opacity .04s}
+    .far-lamp .enc{opacity:0}
+    .far-lamp.on .enc{opacity:1}
+    .far-lamp.on{box-shadow:0 0 60px 22px rgba(255,236,150,.55)}
   `;
   ui.body.appendChild(style);
 
   const lamp = document.createElement('div');
   lamp.className = 'far-lamp';
+  lamp.innerHTML = '<img class="apa" alt="" src="./img/ui/morse/linterna-apagada.jpg"><img class="enc" alt="" src="./img/ui/morse/linterna-encendida.jpg">';
   const display = document.createElement('div');
   display.className = 'far-display';
   const kb = document.createElement('div');
