@@ -10,6 +10,7 @@ export function startMinigame(opts = {}) {
     ...opts
   });
 
+  ui.textura('f36.jpg', { opacidad: 0.5 });
   const display = document.createElement('div');
   display.className = 'far-display';
   const pad = document.createElement('div');

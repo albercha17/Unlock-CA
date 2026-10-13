@@ -11,7 +11,7 @@ const TEMAS = {
     fuente: "'Playfair Display', Georgia, 'Times New Roman', serif", mayus: false, trazo: '.02em',
     tinte: '4,16,28', panel: 'rgba(8,24,38,.90)', panel2: 'rgba(4,12,22,.94)',
     borde: '#c9a45a', acento: '#ffd27a', brillo: '255,210,122', boton: 'linear-gradient(180deg,#ffd27a,#d79a2a)', botonTxt: '#2a1600',
-    particulas: 'lluvia', simbolo: '✦', textura: 'panel.jpg'
+    particulas: 'lluvia', simbolo: '✦', textura: 'panel.jpg', papel: 'papel.jpg'
   },
   egipto: {
     fuente: "'Cinzel', Georgia, 'Times New Roman', serif", mayus: true, trazo: '.1em',
@@ -102,6 +102,7 @@ function injectStyle() {
     .far-key:active{transform:translateY(1px) scale(.97)}
     .far-key:hover:not(:disabled){background:linear-gradient(180deg,rgba(var(--far-brillo,255,255,255),.2),rgba(255,255,255,.04))}
     .far-key:disabled{opacity:.45;cursor:not-allowed}
+    .far-overlay .far-hoja.papiro,.far-overlay[data-tema="faro"] .far-hoja{background-image:var(--far-papel);background-size:cover;background-position:center;background-blend-mode:multiply}
     .far-overlay[data-mayus="1"] .far-title{text-transform:uppercase;font-size:1.02rem}
     .far-overlay[data-tema="florencia"] .far-title{font-size:1.5rem;font-style:italic}
     .far-overlay[data-tema="marte"] .far-display{font-family:"Orbitron","IBM Plex Mono",ui-monospace,monospace;color:#ffb085}
@@ -223,6 +224,7 @@ export function openGame({ title, instr, pauseGameTimer, resumeGameTimer, onClos
     '--far-borde': T.borde, '--far-acento': T.acento, '--far-brillo': T.brillo, '--far-boton': T.boton, '--far-botontxt': T.botonTxt,
     '--far-fuente': T.fuente, '--far-trazo': T.trazo
   };
+  if (T.papel) vars['--far-papel'] = 'url("./img/ui/' + T.papel + '")';
   Object.keys(vars).forEach(k => overlay.style.setProperty(k, vars[k]));
 
   const num = (String(title).match(/Carta\s+([0-9P]+)/) || [])[1];
@@ -321,6 +323,13 @@ export function openGame({ title, instr, pauseGameTimer, resumeGameTimer, onClos
     button,
     close,
     onClose(fn) { closers.push(fn); },
+    /** Cambia la textura del panel por una propia del minijuego (./img/ui/<nombre>). */
+    textura(nombre, { opacidad = 0.45, mezcla = 'normal' } = {}) {
+      const tx = overlay.querySelector('.far-textura');
+      tx.style.backgroundImage = 'url("./img/ui/' + nombre + '")';
+      tx.style.opacity = String(opacidad);
+      tx.style.mixBlendMode = mezcla;
+    },
     say(text, kind) {
       feedback.textContent = text;
       feedback.className = 'far-feedback' + (kind ? ' ' + kind : '');

@@ -24,18 +24,18 @@ export function startMinigame(opts = {}) {
 
   const style = document.createElement('style');
   style.textContent = `
-    .far-radio{background:linear-gradient(180deg,#6a4426,#3b2414);border:3px solid #24150a;border-radius:16px;padding:12px 12px 14px;box-shadow:inset 0 0 18px rgba(0,0,0,.6),0 8px 20px rgba(0,0,0,.5)}
+    .far-radio{background:linear-gradient(rgba(20,10,4,.18),rgba(20,10,4,.35)),url(./img/ui/radio-madera.jpg) center/cover,#3b2414;border:3px solid #24150a;border-radius:16px;padding:12px 12px 14px;box-shadow:inset 0 0 18px rgba(0,0,0,.6),0 8px 20px rgba(0,0,0,.5)}
     .far-escala{background:linear-gradient(180deg,#f1dfae,#d9c186);border:3px solid #24150a;border-radius:8px;box-shadow:inset 0 0 14px rgba(120,70,10,.45)}
     .far-escala svg{display:block;width:100%}
     .far-panel{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
     .far-lectura{flex:0 0 auto;font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;font-weight:700;font-size:1.25rem;color:#ffb347;background:#150c05;border:2px solid #24150a;border-radius:6px;padding:4px 10px;text-shadow:0 0 8px rgba(255,160,40,.8)}
     .far-ruedas{display:flex;justify-content:space-around;align-items:flex-end;margin-top:12px}
     .far-rueda{display:flex;flex-direction:column;align-items:center;gap:6px;color:#e8d3a8;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
-    .far-knob{position:relative;width:116px;height:116px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#a78358,#4a3220 60%,#2b1b0e);border:4px solid #1b1007;box-shadow:0 6px 14px rgba(0,0,0,.6),inset 0 2px 4px rgba(255,255,255,.18);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+    .far-knob{position:relative;width:116px;height:116px;border-radius:50%;background:url(./img/ui/radio-perilla.jpg) center/cover,#1b1007;background-blend-mode:screen;border:4px solid #1b1007;box-shadow:0 6px 14px rgba(0,0,0,.6),inset 0 2px 4px rgba(255,255,255,.18);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
     .far-knob:active{cursor:grabbing}
     .far-knob:focus-visible{outline:3px solid #ffd27a;outline-offset:4px}
     .far-knob.fino{width:78px;height:78px}
-    .far-knob::before{content:"";position:absolute;inset:10%;border-radius:50%;background:repeating-conic-gradient(rgba(0,0,0,.28) 0 6deg,rgba(255,255,255,.06) 6deg 12deg)}
+    .far-knob::before{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 14px rgba(0,0,0,.55)}
     .far-knob .nota{position:absolute;left:50%;top:5px;width:7px;height:24px;margin-left:-3.5px;border-radius:4px;background:#ffd27a;box-shadow:0 0 6px rgba(255,210,122,.8)}
     .far-knob.fino .nota{height:16px}
     .far-msg{min-height:3.4em;margin-top:10px;color:#cfe0ef;font-size:.9rem;font-style:italic}

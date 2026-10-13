@@ -102,7 +102,7 @@ Las cartas 72 (bidón) y 10 (lámpara vacía) son combinables: 72 + 10 = 82. Cog
 
 ### Paso 13 — Alinea los espejos
 
-En el móvil: Acción, 70. El papel del nido (27) dice que la luz sube, cruza y baja: pon los tres espejos del camino. El mensaje te dice que descartes la 70 y la 27.
+En el móvil: Acción, 70. El papel del nido (27) dice que la luz sube, cruza y baja: lleva el rayo a la galería, luego a la lente y por último a la lámpara (gira los espejos B4, B3, D3, D2, G2, G3 y F3). El mensaje te dice que descartes la 70 y la 27.
 
 - **En el móvil:** Acción → `70`
 - **La mesa queda con:** `12` `15` `18` `78` `82` `95`
@@ -143,7 +143,7 @@ Lee la carta 99. Te manda descartar 78, 95, 82, 15, 12 y 18. En la mesa solo que
 | 40 | Escalera de caracol | Normal | Coge 52, 30, 27, 18; Descarta 7, 36, 21, 19 | La escalera: da las cartas del rellano y descarta lo que ya no hace falta. | 4 |
 | 52 | Ventana de señales | App | — | Ventana de señales (app): se descifra el morse y sale la palabra ANCLA. | 5 |
 | 63 | Sala de máquinas | Normal | Coge 74, 85, 72, 3; Descarta 33, 30, 40 | Sala de máquinas: es el resultado de 33 + 30. | 8 |
-| 70 | Espejos de la lente | App | — | Espejos (app): subir, cruzar y bajar; al acabar manda descartar la 70 y la 27. | 11 |
+| 70 | Espejos de la lente | App | — | Espejos (app): llevar el rayo por la galería, la lente y la lámpara, en ese orden; al acabar manda descartar la 70 y la 27. | 11 |
 | 72 | Bidón de aceite | Combina | Combinable: suma los números | Bidón de aceite: se combina con la 10. | 9 |
 | 74 | Mapa náutico | Normal | Texto: «Nota al margen: FARO — onda corta 91,_ MHz» | Mapa: la frecuencia del faro es 91,_ MHz (falta la décima). | 9 |
 | 78 | Sala de la lente | Normal | Coge 70, 10, 95; Descarta 63, 85, 74, 3 | Sala de la lente: da las cartas de la lente y descarta las de la sala de máquinas. | 10 |

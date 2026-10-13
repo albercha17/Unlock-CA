@@ -55,7 +55,7 @@ PASOS = [{'t': 'Empieza la partida',
   'acciones': [('combinar', '72', '10'), ('leer', '82')],
   'mesa': ['15', '12', '27', '18', '78', '70', '95', '82']},
  {'t': 'Alinea los espejos',
-  'que': 'En el móvil: Acción, 70. El papel del nido (27) dice que la luz sube, cruza y baja: pon los tres espejos del camino. El mensaje te dice '
+  'que': 'En el móvil: Acción, 70. El papel del nido (27) dice que la luz sube, cruza y baja: lleva el rayo a la galería, luego a la lente y por último a la lámpara (gira los espejos B4, B3, D3, D2, G2, G3 y F3). El mensaje te dice '
          'que descartes la 70 y la 27.',
   'acciones': [('app', '70', 'Descartad las cartas 70 y 27')],
   'mesa': ['15', '12', '18', '78', '95', '82']},
@@ -92,7 +92,7 @@ PARA_QUE = {
     "78": "Sala de la lente: da las cartas de la lente y descarta las de la sala de máquinas.",
     "10": "Lámpara vacía: se combina con la 72.",
     "82": "Lámpara llena: es el resultado de 72 + 10; hace falta para el arranque.",
-    "70": "Espejos (app): subir, cruzar y bajar; al acabar manda descartar la 70 y la 27.",
+    "70": "Espejos (app): llevar el rayo por la galería, la lente y la lámpara, en ese orden; al acabar manda descartar la 70 y la 27.",
     "95": "Panel de arranque (app): ordenar los cinco pasos del arranque.",
     "99": "Final de la partida."
 }
