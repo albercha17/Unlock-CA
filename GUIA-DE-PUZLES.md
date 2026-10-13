@@ -220,6 +220,8 @@ Lista de mejoras (para la tarea de interfaz):
 8. Robustez: la app no se rompe si se cierra o recarga (reanudar), sin dependencias de red salvo las fuentes (tener respaldo) y `touch-action: manipulation` en todos los botones.
 9. Reglas mínimas visibles en un solo lugar («qué es una carta combinable», «qué hacer al ver Coge/Descarta»).
 
+10. **Opcional:** escanear la carta con la cámara (QR en `imprimir.html`) en lugar de teclear su número, con teclado de respaldo; **accesibilidad básica** (texto grande, contraste alto, respetar `prefers-reduced-motion`, ajustes que se recuerdan, volúmenes separados para efectos y música).
+
 ### 7.6 Qué permite el navegador del móvil (nuestro caso: GitHub Pages = HTTPS)
 
 | Función | Estado | Cómo usarla |
@@ -230,6 +232,8 @@ Lista de mejoras (para la tarea de interfaz):
 | **Micrófono** | `getUserMedia` con HTTPS; AnalyserNode; calibrar en dB y exigir nivel sostenido | Solo con alternativa táctil |
 | **Sonido sin archivos** | Web Audio (`OscillatorNode`), creado o reanudado dentro de un gesto; programar con `ctx.currentTime` | Morse: unidad = 1,2 / WPM s; con equivalente visual |
 | **Instalar y jugar sin conexión (PWA)** | manifest + service worker; Android lo ofrece solo, iOS «Añadir a pantalla de inicio» | Rutas relativas (el sitio vive bajo `/Unlock-CA/`), versionar la caché |
+| **Escanear cartas con la cámara (QR)** | `BarcodeDetector` solo en Chrome/Android; iOS no lo tiene (hace falta jsQR o un polyfill con ZXing); la cámara pide HTTPS | Opcional: `imprimir.html` podría generar un QR por carta (SVG) y la app leer el número en vez de teclearlo; siempre con el teclado como alternativa |
+| **Guardar la partida** | `localStorage` sirve durante una partida, pero Safari borra los datos de un sitio tras 7 días de uso del navegador sin interacción (`navigator.storage.persist()` suele devolver false) | Guardado automático para «Continuar partida» el mismo día; ofrecer «Copiar informe/estado» como respaldo |
 | Gestos | `touch-action: manipulation` en botones; `none` solo en la superficie de arrastre; Pointer Events con `setPointerCapture` | `user-select:none` en piezas arrastrables |
 
 ### 7.7 Cómo probar un juego con personas (protocolo)
@@ -244,8 +248,61 @@ Lista de mejoras (para la tarea de interfaz):
 ### 7.8 Herramientas que salen de esta investigación
 
 - `herramientas/generadores_puzles.py`: generadores con **solución única comprobada** de nonograma, luces (Akari), rascacielos, tabla lógica (zebra), caballeros y bribones, caja negra, Rush Hour, puentes (Hashi), lengua inventada (Rosetta), luces en cruz, puente y linterna y tubos de colores. `python herramientas/generadores_puzles.py --prueba` los ejecuta todos.
+- `juegos/laboratorio/` (hub `index.html`): **prototipos jugables** de seis de estas ideas (mural de píxeles, velas y sombras, cámara de pruebas, traductor, tabla lógica, caballeros y bribones) con instancias de solución única; se generan con `herramientas/crear_laboratorio.py [semilla]` y se prueban con `herramientas/probar_laboratorio.py <URL>`. Sirven para probar el tacto en el móvil y decidir qué entra en el próximo juego.
 - `herramientas/auditar_minijuegos.py`: revisa cada minijuego y cada carta de app contra las reglas (mensaje de acierto con «Coged la carta», sin emojis, mensajes de fallo, número de pistas, anchos fijos, texto alternativo).
 
-### 7.9 Fuentes principales
+### 7.9 Seis fichas de puzle listas para implementar (las que más aportan a la saga)
+
+Cada ficha lleva: **qué se ve y se toca**, **qué dicen las cartas**, **cómo se comprueba que es justo**, **imágenes que pedir a ChatGPT** (objetos sobre negro puro + mezcla `screen`, ver §6b de la guía de juegos), **ganchos para el solucionador** y **tiempo estimado**.
+
+**1. Cámara de pruebas (caja negra)** — *tema: laboratorio de Marte, máquina de los dioses en Egipto, taller de Leonardo*
+- *Se ve y se toca:* una máquina con tres huecos y una bandeja de fichas (color × forma × tamaño). Se arrastran tres fichas a los huecos y se pulsa «Probar»: la máquina se enciende (cumple la regla oculta) o se apaga (no la cumple). Un registro lista los intentos con su resultado (sin repetir).
+- *Cartas:* cuatro ejemplos ya probados (con su resultado) y la pregunta final («Colocad la combinación que enciende la máquina y que además tenga una ficha azul»). La carta es imprescindible: sin ella no hay punto de partida.
+- *Justicia:* `generadores_puzles.caja_negra()` elige una regla de la biblioteca y los ejemplos que la distinguen de todas las demás (comprobado). La respuesta final es autovalidante (la máquina se enciende).
+- *Imágenes:* 12 fichas (3 colores × 2 formas × 2 tamaños) y la máquina con huecos (hoja 4×3 + 1 imagen).
+- *Solucionador:* conoce la regla; coloca la combinación; ganchos `.cam-hueco[data-i]`, `.cam-ficha[data-id]`.
+- *Tiempo:* 4-6 min.
+
+**2. Traductor (lengua inventada, estilo Rosetta)** — *tema: glifos mayas, escritura alienígena en Marte, jeroglíficos*
+- *Se ve y se toca:* una pared con 3 frases en glifos (cada glifo es una imagen) y, debajo, su traducción en castellano en la CARTA. Un panel de «oraciones» donde se arman frases tocando palabras de un banco; botón «Traducir».
+- *Cartas:* 5 pares glifos/traducción (3 en una carta y 2 en otra) para obligar a combinar; la pregunta es traducir una frase nueva.
+- *Justicia:* `generadores_puzles.rosetta()` comprueba que las 5 frases fijan orden de frase, posición del adjetivo y plural: todas las hipótesis consistentes dan la misma traducción de la frase pedida.
+- *Imágenes:* 10-12 glifos (hoja 4×3) sobre negro, estilo de la época.
+- *Notas de diseño:* cuaderno que guarda las hipótesis del jugador (gris = tentativo; opaco = confirmado) como en Chants of Sennaar; no confirmar palabra a palabra (evita fuerza bruta).
+- *Tiempo:* 5-7 min.
+
+**3. Mural de pixels (nonograma que revela un código)** — *tema: pintura rupestre, tapiz, mosaico romano, azulejos*
+- *Se ve y se toca:* una rejilla de 6×6 a 8×8 con pistas de filas arriba y de columnas a la izquierda; tocar rellena, tocar de nuevo marca una cruz, arrastrar pinta varias. Al terminar aparece el dibujo, que es un símbolo o un número.
+- *Cartas:* la mitad de las pistas (columnas) están impresas en la carta y la otra mitad en la app; sin la carta no se puede resolver.
+- *Justicia:* `generadores_puzles.nonograma()` solo devuelve instancias con solución única.
+- *Imágenes:* textura de fondo del tapiz y un sprite de «pigmento» para el relleno; el dibujo final lo pinta el propio mosaico.
+- *Solucionador:* rellena las casillas de la solución; gancho `.mur-cell[data-i]`.
+- *Tiempo:* 4-7 min (rejilla 6×6).
+
+**4. Faros y velas (Akari)** — *tema: Faro, taller de Leonardo, catacumbas*
+- *Se ve y se toca:* un plano con muros (algunos con número). Se toca una casilla para poner una vela (ilumina fila y columna hasta el muro); el humo oscuro desaparece donde llega la luz. Números en muros = velas vecinas.
+- *Cartas:* una carta explica la regla con un ejemplo corto y marca un muro como «el de la entrada»: la carta es el tutorial.
+- *Justicia:* `generadores_puzles.akari()` valida la solución única.
+- *Imágenes:* sprite de vela/farolillo, textura de suelo con zonas oscuras (humo) y de luz (halo).
+- *Solucionador:* coloca las velas de la solución; gancho `.aka-cell[data-c]`.
+- *Tiempo:* 3-5 min.
+
+**5. Salto corto (el Cronoportal como mecánica)** — *tema: cualquier época; el mismo lugar en dos épocas*
+- *Se ve y se toca:* dos paneles, «Antes» y «Ahora», del mismo lugar. Con el aparato abierto en el pasado se pueden hacer 3 acciones (plantar una semilla, cavar, encender un fuego, mover una piedra). Cada acción cambia el presente según reglas que explica una carta del pasado: una semilla es un árbol en el presente; cavar deja un foso; el fuego deja ceniza; la piedra sigue donde esté. El objetivo es abrir un camino en el presente (carta con el plano actual).
+- *Cartas:* plano del presente y tabla de «qué hace cada acción con el tiempo» (cada una en una carta distinta del mismo lugar: una «de antes» y una «de ahora»).
+- *Justicia:* se enumeran todas las combinaciones de 3 acciones sobre una cuadrícula pequeña y se comprueba que hay una solución única (o un conjunto mínimo único).
+- *Imágenes:* el lugar en los dos estados (antes/ahora) y sprites de cada resultado (árbol, foso, ceniza, piedra).
+- *Tiempo:* 5-8 min. Es el puzle más propio de la saga y todavía no existe.
+
+**6. Vidriera (paneles superpuestos con luz)** — *tema: catedral, templo, taller; Gorogoa + nuestro `screen`*
+- *Se ve y se toca:* dos o tres capas de dibujo sobre negro que se arrastran y se superponen (mezcla `screen`): cuando se alinean, la suma de luces forma un símbolo. Un destello avisa de que ha encajado (feedback explícito, sin medidor de cercanía).
+- *Cartas:* una carta con los símbolos posibles y qué significa cada uno (la carta traduce el símbolo a un número o palabra).
+- *Justicia:* cada capa solo forma símbolo con una posición y una combinación; la comprobación es por tolerancia de posición.
+- *Imágenes:* 2-3 «medios símbolos» complementarios sobre negro (que ChatGPT genere por pares) y un marco de vidriera.
+- *Tiempo:* 3-4 min. Aprovecha lo que ya sabemos hacer (sprites sobre negro).
+
+*Antes de implementar cualquiera:* ejecutar el generador correspondiente, guardar la instancia en el fichero del minijuego como constante, escribir el solucionador antes que el aspecto y pasar `auditar_minijuegos.py`, `probar_apps.py` y las pruebas del juego completo.
+
+### 7.10 Fuentes principales
 
 Unlock! (reseñas y ficha de la app), Exit (reseñas), Deckscape, Escape Tales, Chronicles of Crime, MicroMacro, Room Escape Artist (pistas, priming, puzzle hunts, fracaso, equipos divididos), The Codex (13 reglas, «aha» frente a proceso, player loop, mímesis y diégesis), Rita Orlov/PostCurious (qué hace bueno un puzle, equilibrio, cifrado de símbolos, accesibilidad, playtest), Scott Nicholson «Ask Why» (texto completo), Society of Curiosities, Immersology (cuellos de botella, temático frente a inmersivo), Puzzlecraft (Selinker y Snyder), Game Maker's Toolkit, The Room/Gorogoa/Witness/Obra Dinn/Heaven's Vault/Chants of Sennaar/Day of the Tentacle (análisis de diseño), Keep Talking and Nobody Explodes (manual), Puzzles Wiki y Clontz (tipos de puzle y extracción), catálogos de escape rooms (escaperoom.com.au, escapely, escaperoomtips, erworkshop), Nikoli/Simon Tatham (reglas) y documentación web (MDN, caniuse) sobre Wake Lock, vibración, orientación, micrófono, Web Audio y PWA.

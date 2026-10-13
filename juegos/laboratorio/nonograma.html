@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Mural de píxeles</title><link rel="stylesheet" href="lab.css"></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Mural de píxeles (nonograma)</h1>
+<p class="sub">Idea de la guía §7.2 · solución única comprobada por script</p>
+<div class="regla">Cada número de una fila (a la izquierda) o columna (arriba) dice cuántas casillas <b>seguidas</b> hay rellenas; entre bloques hay al menos una vacía. Toca una casilla para rellenarla, otra vez para marcar una cruz, otra para vaciarla.</div>
+<div class="tabla"><div id="malla"></div></div>
+<div class="msg" id="msg" aria-live="polite"></div>
+<div class="fila-btn"><button class="btn" id="reiniciar">Reiniciar</button></div>
+<p class="pista">En un juego, la mitad de las pistas irían en una carta y el dibujo final sería un símbolo con significado.</p>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.nonograma;
+  const F = D.solucion.length, C = D.solucion[0].length;
+  const estado = Array(F * C).fill(0); // 0 vacío, 1 relleno, 2 cruz
+  const malla = document.getElementById('malla');
+  const msg = document.getElementById('msg');
+  malla.style.cssText = 'display:grid;gap:3px;grid-template-columns:auto repeat(' + C + ',1fr)';
+  let resuelto = false;
+  const celdas = [];
+  // esquina vacía + pistas de columnas
+  malla.appendChild(document.createElement('div'));
+  D.columnas.forEach((p, c) => {
+    const d = document.createElement('div');
+    d.style.cssText = 'display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-size:.8rem;font-weight:700;color:#ffd27a;line-height:1.15;padding-bottom:2px';
+    d.innerHTML = p.length ? p.map(n => '<span>' + n + '</span>').join('') : '<span>0</span>';
+    malla.appendChild(d);
+  });
+  for (let r = 0; r < F; r++) {
+    const p = document.createElement('div');
+    p.style.cssText = 'display:flex;justify-content:flex-end;align-items:center;gap:5px;font-size:.8rem;font-weight:700;color:#ffd27a;padding-right:4px';
+    p.innerHTML = D.filas[r].length ? D.filas[r].map(n => '<span>' + n + '</span>').join('') : '<span>0</span>';
+    malla.appendChild(p);
+    for (let c = 0; c < C; c++) {
+      const i = r * C + c;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'celda';
+      b.dataset.i = String(i);
+      b.setAttribute('aria-label', 'Casilla fila ' + (r + 1) + ' columna ' + (c + 1));
+      b.addEventListener('click', () => {
+        if (resuelto) return;
+        estado[i] = (estado[i] + 1) % 3;
+        pintar();
+        comprobar();
+      });
+      celdas.push(b);
+      malla.appendChild(b);
+    }
+  }
+  function pintar() {
+    celdas.forEach((b, i) => {
+      b.dataset.v = String(estado[i]);
+      b.style.background = estado[i] === 1 ? 'linear-gradient(180deg,#ffd27a,#d79a2a)' : '';
+      b.textContent = estado[i] === 2 ? '×' : '';
+      b.style.color = estado[i] === 2 ? '#9fb4c8' : '';
+    });
+  }
+  function comprobar() {
+    for (let r = 0; r < F; r++) for (let c = 0; c < C; c++) {
+      if ((estado[r * C + c] === 1) !== (D.solucion[r][c] === 1)) { return; }
+    }
+    resuelto = true;
+    msg.className = 'msg ok';
+    msg.textContent = '¡Mural completo! El dibujo revela el símbolo.';
+  }
+  document.getElementById('reiniciar').addEventListener('click', () => { estado.fill(0); resuelto = false; msg.textContent = ''; pintar(); });
+  pintar();
+})();
+</script></body></html>

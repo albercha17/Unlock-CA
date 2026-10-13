@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Cámara de pruebas (caja negra)</title><link rel="stylesheet" href="lab.css">
+<style>
+.ficha{width:54px;height:54px;border:3px solid rgba(255,255,255,.35);display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;cursor:pointer;padding:0;background:none}
+.ficha .f{display:block;border:0}
+.banco{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;justify-items:center}
+.huecos{display:flex;gap:10px;justify-content:center;margin:10px 0}
+.hueco{width:68px;height:68px;border-radius:14px;border:2px dashed var(--linea);background:var(--panel2);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.maquina{margin:10px auto;width:150px;height:46px;border-radius:12px;border:2px solid var(--linea);background:#0a1018;display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.12em;color:#4a5a6a;transition:all .25s}
+.maquina.si{background:#12351f;border-color:#7dffb0;color:#7dffb0;box-shadow:0 0 22px rgba(125,255,176,.55)}
+.maquina.no{background:#2a1414;border-color:#ff9d9d;color:#ff9d9d}
+.reg{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--linea);font-size:.8rem}
+.reg .tag{min-width:34px;text-align:center;border-radius:6px;padding:2px 6px;font-weight:800}
+.reg .tag.s{background:#12351f;color:#7dffb0}.reg .tag.n{background:#2a1414;color:#ff9d9d}
+.mini{width:26px;height:26px;display:inline-block;margin-right:4px;vertical-align:middle}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Cámara de pruebas (caja negra)</h1>
+<p class="sub">Idea de la guía §7.9 · Zendo/Eleusis · la regla se distingue de las demás por script</p>
+<div class="regla">La máquina se enciende solo con ciertas combinaciones de <b>tres fichas</b>. Mira los ejemplos de la carta, prueba tú mismo y averigua la regla. <b>Consigue que se encienda con tres combinaciones distintas</b>.</div>
+<div class="tabla"><div style="font-size:.78rem;color:var(--suave);margin-bottom:4px">Ejemplos de la carta</div><div id="ejemplos"></div></div>
+<div class="tabla">
+  <div class="maquina" id="maquina">APAGADA</div>
+  <div class="huecos" id="huecos"></div>
+  <div class="fila-btn"><button class="btn primario" id="probar">Probar</button><button class="btn" id="vaciar">Vaciar</button></div>
+  <div class="msg" id="msg" aria-live="polite"></div>
+  <div class="banco" id="banco"></div>
+</div>
+<div class="tabla"><div style="font-size:.78rem;color:var(--suave);margin-bottom:4px">Tus pruebas · encendidas distintas: <b id="cuenta">0</b>/3</div><div id="registro"></div></div>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  const D = window.LAB.cajaNegra;
+  const COLOR = { rojo: '#e8504a', azul: '#3f8fe8', verde: '#3fbf6a' };
+  const REGLAS = {
+    'todas rojas': f => f.every(x => x[0] === 'rojo'),
+    'alguna redonda': f => f.some(x => x[1] === 'redonda'),
+    'más grandes que pequeñas': f => f.filter(x => x[2] === 'grande').length > f.filter(x => x[2] === 'pequeña').length,
+    'no hay dos del mismo color': f => new Set(f.map(x => x[0])).size === f.length,
+    'el primero es azul': f => f[0][0] === 'azul',
+    'hay tantas cuadradas como redondas': f => f.filter(x => x[1] === 'cuadrada').length === f.filter(x => x[1] === 'redonda').length
+  };
+  const regla = REGLAS[D.regla];
+  const FICHAS = [];
+  ['rojo', 'azul', 'verde'].forEach(c => ['redonda', 'cuadrada'].forEach(f => ['grande', 'pequeña'].forEach(t => FICHAS.push([c, f, t]))));
+  function dibujo(f, tam) {
+    const lado = (f[2] === 'grande' ? 0.82 : 0.5) * tam;
+    const s = document.createElement('span');
+    s.className = 'f';
+    s.style.cssText = 'width:' + lado + 'px;height:' + lado + 'px;background:' + COLOR[f[0]] + ';border-radius:' + (f[1] === 'redonda' ? '50%' : '4px');
+    return s;
+  }
+  function ficha(f, tam, clase) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = clase || 'ficha';
+    b.style.width = b.style.height = tam + 'px';
+    b.style.borderRadius = '12px';
+    b.setAttribute('aria-label', f[2] + ' ' + f[1] + ' ' + f[0]);
+    b.appendChild(dibujo(f, tam - 8));
+    return b;
+  }
+  // ejemplos
+  const ej = document.getElementById('ejemplos');
+  D.ejemplos.forEach(([combo, si]) => {
+    const d = document.createElement('div');
+    d.className = 'reg';
+    d.innerHTML = '<span class="tag ' + (si ? 's' : 'n') + '">' + (si ? 'SÍ' : 'NO') + '</span>';
+    combo.forEach(f => { const m = document.createElement('span'); m.className = 'mini'; m.style.cssText = 'width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center'; m.appendChild(dibujo(f, 26)); d.appendChild(m); });
+    ej.appendChild(d);
+  });
+  // banco y huecos
+  const banco = document.getElementById('banco');
+  const huecosEl = document.getElementById('huecos');
+  const actual = [null, null, null];
+  const huecos = [0, 1, 2].map(i => {
+    const h = document.createElement('button');
+    h.type = 'button';
+    h.className = 'hueco';
+    h.dataset.i = String(i);
+    h.setAttribute('aria-label', 'Hueco ' + (i + 1));
+    h.addEventListener('click', () => { actual[i] = null; pintar(); });
+    huecosEl.appendChild(h);
+    return h;
+  });
+  FICHAS.forEach((f, id) => {
+    const b = ficha(f, 54);
+    b.dataset.id = String(id);
+    b.addEventListener('click', () => {
+      const i = actual.indexOf(null);
+      if (i >= 0) { actual[i] = id; pintar(); }
+    });
+    banco.appendChild(b);
+  });
+  const maquina = document.getElementById('maquina');
+  const msg = document.getElementById('msg');
+  const registro = document.getElementById('registro');
+  const encendidas = new Set();
+  function pintar() {
+    huecos.forEach((h, i) => {
+      h.innerHTML = '';
+      if (actual[i] !== null) h.appendChild(dibujo(FICHAS[actual[i]], 62));
+    });
+  }
+  document.getElementById('vaciar').addEventListener('click', () => { actual.fill(null); pintar(); maquina.className = 'maquina'; maquina.textContent = 'APAGADA'; });
+  document.getElementById('probar').addEventListener('click', () => {
+    if (actual.includes(null)) { msg.className = 'msg bad'; msg.textContent = 'Pon tres fichas en los huecos.'; return; }
+    const combo = actual.map(id => FICHAS[id]);
+    const clave = actual.join('-');
+    const si = regla(combo);
+    maquina.className = 'maquina ' + (si ? 'si' : 'no');
+    maquina.textContent = si ? 'ENCENDIDA' : 'NO ENCIENDE';
+    const d = document.createElement('div');
+    d.className = 'reg';
+    d.innerHTML = '<span class="tag ' + (si ? 's' : 'n') + '">' + (si ? 'SÍ' : 'NO') + '</span>';
+    combo.forEach(f => { const m = document.createElement('span'); m.style.cssText = 'width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center'; m.appendChild(dibujo(f, 26)); d.appendChild(m); });
+    registro.prepend(d);
+    if (si) encendidas.add(clave);
+    document.getElementById('cuenta').textContent = String(encendidas.size);
+    if (encendidas.size >= 3) { msg.className = 'msg ok'; msg.textContent = '¡La máquina se enciende tres veces con combinaciones distintas! Has deducido la regla.'; }
+    else { msg.className = 'msg'; msg.textContent = ''; }
+  });
+  pintar();
+})();
+</script></body></html>
