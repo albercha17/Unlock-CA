@@ -37,7 +37,7 @@ def main():
     for cj in sorted(glob.glob(os.path.join(raiz, "juegos", "**", "cartas.json"), recursive=True)):
         carpeta = os.path.dirname(cj)
         if not any(os.path.exists(os.path.join(carpeta, p)) for p in ("pc.html", "imprimir.html", "prompts.html")):
-            continue  # juegos sin esas paginas (p. ej. el Barrio)
+            continue  # juegos sin esas paginas
         destino = os.path.join(carpeta, "cartas-data.js")
         nuevo = contenido(cj)
         actual = open(destino, encoding="utf-8", newline="").read().replace("\r\n", "\n") if os.path.exists(destino) else None
