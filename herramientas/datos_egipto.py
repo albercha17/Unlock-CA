@@ -114,7 +114,7 @@ J = {
         titulo="Carta 71 — Anillos de Ra", tipo="verde",
         descripcion=[
             "Es un juego de la app: tres anillos giratorios con símbolos. Hay que dejar arriba los tres que indica el acertijo de la cartela (carta 26).",
-            "Al encajarlos se abre la puerta del tesoro. Coged la carta 80."],
+            "Al encajarlos se abre la puerta de la sala del sarcófago. Coged la carta 33."],
         pistas=["Leed el acertijo de la cartela.", "Sol, ojo y escarabajo, en ese orden.", "Poned ☀️, 👁️ y 🐞 de izquierda a derecha."],
         arte="Primer plano de tres anillos de piedra concéntricos girables, grabados con símbolos (sol, ojo, escarabajo, serpiente, agua, halcón) alrededor de un disco central dorado."),
     "26": dict(
@@ -124,11 +124,11 @@ J = {
         textoCarta=["Nace en el horizonte.", "Todo lo ve.", "Renace cada día."],
         arte="Cartela de piedra con una tablilla tallada con tres pequeñas imágenes sin texto, junto a un pebetero de bronce."),
     "80": dict(
-        titulo="Carta 80 — Cámara del tesoro", tipo="gris", coge=[60, 44], descarta=[63, 71, 26],
+        titulo="Carta 80 — Cámara del tesoro", tipo="gris", coge=[60, 44], descarta=[33, 37, 28, 34, 46, 55, 25],
         descripcion=[
-            "La puerta se abre a la cámara del tesoro: oro, vasijas y estatuas. Sobre un pedestal brilla el Ojo de Horus (carta 60) y, vigilando, una estatua colosal de un guardián (carta 44).",
-            "Coged las cartas 60 y 44. Descartad las cartas 63, 71 y 26."],
-        pistas=["Un haz de luz señala lo que buscáis.", "Coged las cartas 60 y 44. Descartad las cartas 63, 71 y 26."],
+            "La llave-escarabajo gira en la cerradura y la puerta de la cámara del tesoro se abre: oro, vasijas y estatuas. Sobre un pedestal brilla el Ojo de Horus (carta 60) y, vigilando, una estatua colosal de un guardián (carta 44).",
+            "Coged las cartas 60 y 44. Descartad las cartas 33, 37, 28, 34, 46, 55 y 25."],
+        pistas=["Un haz de luz señala lo que buscáis.", "Coged las cartas 60 y 44. Descartad las cartas 33, 37, 28, 34, 46, 55 y 25."],
         arte="Cámara del tesoro llena de oro, vasijas, cofres y estatuas, con un haz de luz solar que cae sobre un pedestal central; al fondo, la estatua de un guardián. Cristina y Alberto asombrados en la entrada."),
     "60": dict(
         titulo="Carta 60 — Ojo de Horus", tipo="roja", combina=[14, 74],
@@ -157,6 +157,53 @@ J = {
             "Al acertar, el portal de vuelta se abre. Coged la carta 99."],
         pistas=["Juntad el papiro (carta 15) y la estatua (carta 44).", "Nilo, Sol, Sangre, Papiro, Sol.", "Azul, amarillo, rojo, verde, amarillo."],
         arte="Primer plano de la consola del Cronoportal con cuatro cristales de colores (amarillo, azul, verde, rojo) dispuestos alrededor del Ojo de Horus, apagados."),
+    "33": dict(
+        titulo="Carta 33 — Sala del sarcófago", tipo="gris", coge=[37, 28, 34, 46], descarta=[63, 71, 26],
+        descripcion=[
+            "Los anillos giran y la puerta de piedra se abre a la sala del sarcófago: un sarcófago dorado sellado (carta 34), una tablilla rota sobre un pedestal (carta 37) y, en las paredes, dos inscripciones: una con el orden de los dioses (carta 28) y otra con una cifra grabada (carta 46).",
+            "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."],
+        pistas=["Hay dos puzles en esta sala: la tablilla y el sarcófago.", "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."],
+        arte="Sala funeraria de piedra con un sarcófago dorado sellado en el centro, una tablilla de piedra rota sobre un pedestal y dos inscripciones talladas en las paredes; luz de antorchas. Cristina y Alberto examinan el sarcófago."),
+    "37": dict(
+        titulo="Carta 37 — Tablilla rota", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: una tablilla de piedra dividida en 9 casillas con una pieza ausente. Hay que deslizar las piezas hasta ordenarla como indica el orden de los dioses (carta 28).",
+            "Al recomponerla cae un escarabajo de oro. Coged la carta 55."],
+        pistas=["Mirad el modelo que hay grabado en la pared (carta 28).", "Colocad primero la fila de arriba y después la del medio.", "Arriba: sol, ojo, escarabajo. En medio: serpiente, agua, halcón. Abajo: vasija, toro y el hueco."],
+        arte="Una tablilla de piedra rota en nueve piezas cuadradas con símbolos grabados (sol, ojo, escarabajo, serpiente, agua, halcón, vasija, toro) y una pieza ausente, sobre un pedestal."),
+    "28": dict(
+        titulo="Carta 28 — Orden de los dioses", tipo="gris",
+        descripcion=["Una inscripción en la pared con nueve casillas que muestra el orden en que van los símbolos de la tablilla rota (carta 37)."],
+        pistas=["Es el modelo de la tablilla.", "Sirve para la tablilla rota (carta 37)."],
+        textoCarta=["☀️ 👁️ 🐞", "🐍 🌊 🦅", "🏺 🐂 (hueco)"],
+        arte="Una inscripción tallada en la pared con una cuadrícula de tres por tres casillas con símbolos (sol, ojo, escarabajo, serpiente, agua, halcón, vasija, toro) y una casilla vacía."),
+    "34": dict(
+        titulo="Carta 34 — Sarcófago sellado", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: el sarcófago está sellado con un código de 4 cifras. La cifra está grabada en la pared con signos del sistema de numeración egipcio (carta 46).",
+            "Al romper el sello aparece una cerradura de bronce. Coged la carta 25."],
+        pistas=["Leed la inscripción de la pared (carta 46).", "Cada clase de signo vale una potencia de diez: sumad los de cada clase.", "❀❀ ◎◎◎ ∩∩∩∩ ||| = 2343. El código es 2343."],
+        arte="Sarcófago dorado de un faraón, cerrado con un sello de cera, en el centro de una sala funeraria; sobre la tapa, un hueco con una cerradura de bronce."),
+    "46": dict(
+        titulo="Carta 46 — Inscripción numérica", tipo="gris",
+        descripcion=["Una inscripción con signos del sistema de numeración egipcio: cada clase de signo vale una potencia de diez. Es la cifra que abre el sarcófago (carta 34)."],
+        pistas=["Sumad los signos de cada clase.", "Sirve para el sarcófago sellado (carta 34)."],
+        textoCarta=["| = 1   ∩ = 10   ◎ = 100   ❀ = 1000", "❀❀  ◎◎◎", "∩∩∩∩  |||"],
+        arte="Una inscripción tallada en la pared con signos numéricos del antiguo Egipto (flores de loto, espirales, arcos y trazos verticales) en filas ordenadas; sin texto legible."),
+    "55": dict(
+        titulo="Carta 55 — Escarabajo de oro", tipo="roja", combina=[25, 80],
+        descripcion=[
+            "Un escarabajo de oro con las alas desplegadas que cayó de la tablilla. Su parte inferior es plana y está grabada como una llave: encaja en una cerradura de bronce (carta 25).",
+            "Combinadlos: sumad sus números (55 + 25 = 80) y coged la carta 80."],
+        pistas=["Es una llave con forma de escarabajo.", "Combinad la carta 55 con la carta 25.", "Sumad los números de las dos cartas: 55 + 25 = 80."],
+        arte="Un escarabajo de oro con las alas desplegadas, con la parte inferior plana y grabada como una llave, sobre un cojín de lino."),
+    "25": dict(
+        titulo="Carta 25 — Cerradura de bronce", tipo="azul", combina=[55, 80],
+        descripcion=[
+            "Una cerradura de bronce con una cavidad en forma de escarabajo, sacada del sarcófago. Le falta la llave (carta 55).",
+            "Combinadlas: sumad sus números (25 + 55 = 80) y coged la carta 80."],
+        pistas=["Una cerradura sin llave no abre nada.", "Combinad la carta 25 con la carta 55.", "Sumad los números de las dos cartas: 25 + 55 = 80."],
+        arte="Una cerradura de bronce con una cavidad en forma de escarabajo, atornillada a una puerta de piedra."),
     "99": dict(
         titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74, 95, 15, 44],
         descripcion=[
@@ -174,7 +221,7 @@ META = dict(
 
 SPEC = dict(
     final="99",
-    needs={"18": ["23", "31"], "40": ["18", "22"], "63": ["47", "52"], "80": ["71", "26"], "74": ["14", "60"], "99": ["95", "15", "44"]},
+    needs={"18": ["23", "31"], "40": ["18", "22"], "63": ["47", "52"], "33": ["71", "26"], "55": ["37", "28"], "25": ["34", "46"], "80": ["55", "25"], "74": ["14", "60"], "99": ["95", "15", "44"]},
     eventos={},
 )
 
@@ -193,7 +240,14 @@ PARA_QUE = {
     "63": "Pasillo de los anillos: aparece al equilibrar la balanza.",
     "71": "Anillos de Ra (app): dejar arriba sol, ojo y escarabajo.",
     "26": "Cartela con el acertijo de los tres símbolos.",
-    "80": "Cámara del tesoro: aparece al encajar los anillos.",
+    "33": "Sala del sarcófago: aparece al encajar los anillos; reparte las cartas de la sala.",
+    "37": "Tablilla rota (app): puzle deslizante 3×3.",
+    "28": "Orden de los dioses: el modelo de la tablilla (37).",
+    "34": "Sarcófago sellado (app): código de 4 cifras.",
+    "46": "Inscripción numérica: la cifra del sarcófago (34) en numeración egipcia.",
+    "55": "Escarabajo de oro: llave; se combina con la cerradura (25).",
+    "25": "Cerradura de bronce: se combina con el escarabajo (55).",
+    "80": "Cámara del tesoro: resultado de 55 + 25.",
     "60": "Ojo de Horus: se combina con el Cronoportal (14).",
     "44": "Estatua del guardián: orden de los cristales (Nilo, Sol, Sangre, Papiro, Sol).",
     "74": "Cronoportal cargado: resultado de 14 + 60.",
@@ -219,9 +273,17 @@ PASOS = [
          acciones=[("app", "47", "carta 63")], mesa=["14", "15", "40", "47", "52", "63"]),
     dict(t="El pasillo de los anillos", que="Lee la carta 63. Descarta 40, 47 y 52 y coge 71 y 26. La cartela (26) dice: «Nace en el horizonte. Todo lo ve. Renace cada día»: sol, ojo y escarabajo.",
          acciones=[("leer", "63")], mesa=["14", "15", "63", "71", "26"]),
-    dict(t="Gira los anillos", que="En el móvil: Acción, 71. Deja arriba el sol, el ojo y el escarabajo, en ese orden, y pulsa Comprobar. El mensaje te dice que cojas la 80.",
-         acciones=[("app", "71", "carta 80")], mesa=["14", "15", "63", "71", "26", "80"]),
-    dict(t="La cámara del tesoro", que="Lee la carta 80. Descarta 63, 71 y 26 y coge 60 (Ojo de Horus) y 44 (estatua del guardián). Lee la estatua: «Los cristales despiertan: Nilo, Sol, Sangre, Papiro, Sol».",
+    dict(t="Gira los anillos", que="En el móvil: Acción, 71. Deja arriba el sol, el ojo y el escarabajo, en ese orden, y pulsa Comprobar. El mensaje te dice que cojas la 33.",
+         acciones=[("app", "71", "carta 33")], mesa=["14", "15", "63", "71", "26", "33"]),
+    dict(t="La sala del sarcófago", que="Lee la carta 33. Descarta 63, 71 y 26 y coge 37, 28, 34 y 46. Hay dos puzles: la tablilla (37, con el modelo de la 28) y el sarcófago (34, con la cifra de la 46).",
+         acciones=[("leer", "33")], mesa=["14", "15", "33", "37", "28", "34", "46"]),
+    dict(t="Recompón la tablilla", que="En el móvil: Acción, 37. Desliza las piezas hasta dejarlas como en la carta 28: arriba sol, ojo, escarabajo; en medio serpiente, agua, halcón; abajo vasija, toro y el hueco. El mensaje te dice que cojas la 55.",
+         acciones=[("app", "37", "carta 55")], mesa=["14", "15", "33", "37", "28", "34", "46", "55"]),
+    dict(t="Abre el sarcófago", que="La inscripción (46) usa la numeración egipcia: ❀ = 1000, ◎ = 100, ∩ = 10, | = 1. Dos ❀, tres ◎, cuatro ∩ y tres | son 2343. En el móvil: Acción, 34, código 2343. El mensaje te dice que cojas la 25.",
+         acciones=[("app", "34", "carta 25")], mesa=["14", "15", "33", "37", "28", "34", "46", "55", "25"]),
+    dict(t="Combina la llave y la cerradura", que="El escarabajo de oro (55) y la cerradura de bronce (25) son combinables: 55 + 25 = 80. Coge la 80.",
+         acciones=[("combinar", "55", "25")], mesa=["14", "15", "33", "37", "28", "34", "46", "55", "25", "80"]),
+    dict(t="La cámara del tesoro", que="Lee la carta 80. Descarta 33, 37, 28, 34, 46, 55 y 25 y coge 60 (Ojo de Horus) y 44 (estatua del guardián). Lee la estatua: «Los cristales despiertan: Nilo, Sol, Sangre, Papiro, Sol».",
          acciones=[("leer", "80")], mesa=["14", "15", "80", "60", "44"]),
     dict(t="Carga el Cronoportal", que="El Cronoportal (14) y el Ojo de Horus (60) son combinables: 14 + 60 = 74. Coge la 74 y léela: te manda descartar 14, 60 y 80 y coger la 95.",
          acciones=[("combinar", "14", "60"), ("leer", "74")], mesa=["15", "44", "74", "95"]),

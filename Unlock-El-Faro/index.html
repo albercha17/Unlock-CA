@@ -420,7 +420,7 @@
         <button class="num-key" data-key="9">9</button>
         <button class="num-key action" id="numClear">⌫</button>
         <button class="num-key" data-key="0">0</button>
-        <button class="num-key action" style="visibility:hidden">.</button>
+        <button class="num-key" data-key="P" aria-label="Carta P">P</button>
       </div>
 
       <p id="numMessage" class="num-message" aria-live="assertive"></p>
@@ -707,6 +707,12 @@
         numModal.setAttribute('aria-hidden','false');
         return;
       }
+      if(code.trim().toUpperCase() === 'P'){
+        numMessage.textContent = "La carta P no es de acción. Pide su pista con el botón Pista.";
+        numModal.style.display='flex';
+        numModal.setAttribute('aria-hidden','false');
+        return;
+      }
       if(!/^\d+$/.test(code)){
         numMessage.textContent = "Solo se permiten dígitos.";
         numModal.style.display='flex';
@@ -751,7 +757,7 @@
         if(e.key === 'Escape'){ cancelNumModal(); e.preventDefault(); return; }
         if(e.key === 'Enter'){ document.getElementById('numOk').click(); e.preventDefault(); return; }
         if(e.key === 'Backspace'){ entered = entered.slice(0,-1); renderNum(); e.preventDefault(); return; }
-        if(/^[0-9]$/.test(e.key) && entered.length < 4){ entered += e.key; renderNum(); e.preventDefault(); }
+        if(/^[0-9pP]$/.test(e.key) && entered.length < 4){ entered += e.key.toUpperCase(); renderNum(); e.preventDefault(); }
       }
     });
 

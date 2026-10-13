@@ -55,19 +55,19 @@
       25,
       17,
       23,
-      33,
+      35,
       36
     ],
     "descarta": [
       "P"
     ],
     "descripcion": [
-      "El hangar: una terminal de seguridad con la puerta bloqueada (carta 21), notas adhesivas pegadas en un monitor (carta 25), un traje espacial colgado sin casco (carta 17), un casco sobre una caja (carta 23), una tableta con un diario (carta 33) y una tomatera bajo una luz violeta de cultivo (carta 36).",
-      "Coged las cartas 21, 25, 17, 23, 33 y 36. Descartad la carta P."
+      "El hangar: una terminal de seguridad con la puerta bloqueada (carta 21), notas adhesivas pegadas en un monitor (carta 25), un traje espacial colgado sin casco (carta 17), un casco sobre una caja (carta 23), una tableta con un diario (carta 35) y una tomatera bajo una luz violeta de cultivo (carta 36).",
+      "Coged las cartas 21, 25, 17, 23, 35 y 36. Descartad la carta P."
     ],
     "pistas": [
       "Fijaos en todo lo que hay en el hangar.",
-      "Coged las cartas 21, 25, 17, 23, 33 y 36. Descartad la carta P."
+      "Coged las cartas 21, 25, 17, 23, 35 y 36. Descartad la carta P."
     ],
     "arte": "Hangar amplio de la colonia: estantes de herramientas, una terminal de seguridad con pantalla, un traje espacial colgado sin casco, un casco sobre una caja, notas adhesivas en un monitor, una tableta y una pequeña tomatera en una maceta bajo una luz violeta de cultivo. Cristina y Alberto exploran con linternas."
   },
@@ -209,7 +209,7 @@
     "tipo": "verde",
     "descripcion": [
       "Es un juego de la app: la esclusa se abre con un código en binario de 8 interruptores. El plano (carta 28) da el número en decimal; hay que traducirlo. Necesitáis el traje completo (carta 40).",
-      "Al abrirla, cruzáis al reactor. Coged la carta 79."
+      "Al abrirla, salís a la superficie de Marte. Coged la carta 41."
     ],
     "pistas": [
       "Cada interruptor vale el doble que el siguiente: 128, 64, 32, 16, 8, 4, 2, 1.",
@@ -222,22 +222,22 @@
     "titulo": "Carta 79 — Sala del reactor",
     "tipo": "gris",
     "coge": [
-      54
+      62,
+      59,
+      51
     ],
     "descarta": [
-      44,
-      52,
-      66,
-      28,
-      40
+      41,
+      48,
+      57
     ],
     "descripcion": [
-      "La sala del reactor: un cilindro de cristal apagado, pasarelas y tuberías. En el centro, un soporte con el núcleo de fusión (carta 54).",
-      "Coged la carta 54. Descartad las cartas 44, 52, 66, 28 y 40."
+      "El rover llega al anexo y la puerta se abre: la sala del reactor, con un cilindro de cristal apagado. Hay un panel de energía (carta 62), un protocolo pegado en la pared (carta 59) y un esquema del Cronoportal que dejó la doctora (carta 51).",
+      "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."
     ],
     "pistas": [
-      "Ahí está lo que buscáis.",
-      "Coged la carta 54. Descartad las cartas 44, 52, 66, 28 y 40."
+      "Hay tres cosas que mirar.",
+      "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."
     ],
     "arte": "Sala del reactor de la colonia con un cilindro central de cristal con luz azul apagada, pasarelas y tuberías, y un soporte con una esfera de cristal brillante en el centro. Cristina y Alberto con trajes espaciales."
   },
@@ -249,7 +249,7 @@
       70
     ],
     "descripcion": [
-      "Una esfera de cristal con luz azul brillante sobre un soporte de metal. Es la fuente de energía que necesita el Cronoportal (carta 16).",
+      "Una esfera de cristal con luz azul brillante, ya libre de su soporte. Es la fuente de energía que necesita el Cronoportal (carta 16).",
       "Combinadlos: sumad sus números (54 + 16 = 70) y coged la carta 70."
     ],
     "pistas": [
@@ -268,15 +268,17 @@
     "descarta": [
       16,
       54,
-      79
+      79,
+      62,
+      59
     ],
     "descripcion": [
       "El núcleo encaja en el anillo central y el Cronoportal despierta, pero hay que calibrarlo para volver a la fecha correcta (carta 88).",
-      "Coged la carta 88. Descartad las cartas 16, 54 y 79."
+      "Coged la carta 88. Descartad las cartas 16, 54, 79, 62 y 59."
     ],
     "pistas": [
       "El aparato ya tiene energía.",
-      "Coged la carta 88. Descartad las cartas 16, 54 y 79."
+      "Coged la carta 88. Descartad las cartas 16, 54, 79, 62 y 59."
     ],
     "arte": "El Cronoportal con el núcleo de fusión encajado en su anillo central, brillando con luz azul intensa y arcos de energía. Alberto ajusta un dial y Cristina vigila la puerta."
   },
@@ -284,26 +286,26 @@
     "titulo": "Carta 88 — Calibrador del Cronoportal",
     "tipo": "verde",
     "descripcion": [
-      "Es un juego de la app: hay que ajustar la amplitud y la frecuencia de la señal del Cronoportal. La amplitud la da el diario de la doctora Reyes (carta 33) y la frecuencia, su tomatera (carta 36).",
+      "Es un juego de la app: hay que ajustar la amplitud, la frecuencia y la fase de la señal del Cronoportal. La amplitud la da el diario de la doctora Reyes (carta 35), la frecuencia, su tomatera (carta 36) y la fase, el esquema del Cronoportal (carta 51).",
       "Al calibrarlo, el portal de vuelta se abre. Coged la carta 99."
     ],
     "pistas": [
-      "Leed el diario (carta 33) y mirad la tomatera (carta 36).",
-      "Amplitud 3. Frecuencia 5.",
-      "Poned amplitud 3 y frecuencia 5."
+      "Leed el diario (carta 35), mirad la tomatera (carta 36) y el esquema (carta 51).",
+      "Amplitud 3, frecuencia 5 y fase 2.",
+      "Poned amplitud 3, frecuencia 5 y fase 2."
     ],
     "arte": "Primer plano de dos diales de calibración del Cronoportal con un pequeño osciloscopio verde."
   },
-  "33": {
-    "titulo": "Carta 33 — Diario de la doctora Reyes",
+  "35": {
+    "titulo": "Carta 35 — Diario de la doctora Reyes",
     "tipo": "verde",
     "descripcion": [
       "El diario de voz de la doctora Reyes, jefa de la colonia. Es un juego de la app, pero no hay nada que resolver: es un lector con varias páginas (no pausa el temporizador).",
-      "Contiene la amplitud del calibrador (carta 88), una explicación de la esclusa y avisos sobre el núcleo de fusión.",
+      "Contiene la amplitud del calibrador (carta 88), una explicación de la esclusa y avisos sobre el reactor.",
       "Podéis volver a abrirlo siempre que lo necesitéis."
     ],
     "pistas": [
-      "Abrid la carta 33 en la app y pasad las páginas.",
+      "Abrid la carta 35 en la app y pasad las páginas.",
       "Fijaos en la calibración del Cronoportal.",
       "La frecuencia no está aquí: la dejó en otro sitio."
     ],
@@ -325,18 +327,119 @@
     ],
     "arte": "Pequeña tomatera en una maceta bajo una luz violeta de cultivo, con ramas con hojas en grupos de cinco y un cartel pequeño sin texto legible."
   },
+  "41": {
+    "titulo": "Carta 41 — Superficie de Marte",
+    "tipo": "gris",
+    "coge": [
+      48,
+      57
+    ],
+    "descarta": [
+      44,
+      52,
+      66,
+      28,
+      40
+    ],
+    "descripcion": [
+      "Con el traje puesto salís a la superficie: un desierto rojo bajo la tormenta. A lo lejos, el anexo del reactor. Junto a la esclusa hay un rover (carta 48) y, clavada en el suelo, una baliza con una anotación (carta 57).",
+      "Coged las cartas 48 y 57. Descartad las cartas 44, 52, 66, 28 y 40."
+    ],
+    "pistas": [
+      "Mirad el rover y la baliza.",
+      "Coged las cartas 48 y 57. Descartad las cartas 44, 52, 66, 28 y 40."
+    ],
+    "arte": "Superficie de Marte bajo una tormenta de polvo, con la esclusa de la cúpula detrás, un pequeño rover de seis ruedas aparcado y una baliza luminosa clavada en el suelo; a lo lejos, un edificio bajo. Cristina y Alberto con trajes espaciales."
+  },
+  "48": {
+    "titulo": "Carta 48 — Rover de superficie",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: hay que programar la ruta del rover sobre un mapa con rocas. Las coordenadas de la baliza del anexo están anotadas en la carta 57.",
+      "Al llegar a la baliza se abre el acceso al anexo del reactor. Coged la carta 79."
+    ],
+    "pistas": [
+      "Mirad la anotación de la baliza (carta 57).",
+      "El mapa tiene columnas de la A a la G y filas de la 1 a la 5. El rover sale de A5 y las rocas lo bloquean.",
+      "Ruta: ↑ ↑ → → ↑ ↑ → → ↓ →"
+    ],
+    "arte": "Un pequeño rover de seis ruedas con antena y cámara sobre el suelo rojo de Marte, con una tableta de control conectada."
+  },
+  "57": {
+    "titulo": "Carta 57 — Baliza del anexo",
+    "tipo": "gris",
+    "descripcion": [
+      "Una baliza luminosa clavada en el suelo con una anotación de la doctora Reyes: las coordenadas del acceso al anexo del reactor. Sirve para el rover (carta 48)."
+    ],
+    "pistas": [
+      "Leed las coordenadas.",
+      "Sirven para programar el rover (carta 48)."
+    ],
+    "textoCarta": [
+      "Baliza del anexo:",
+      "columna F, fila 2"
+    ],
+    "arte": "Una baliza luminosa de metal clavada en el suelo rojo de Marte, con una pequeña placa; sin texto legible."
+  },
+  "62": {
+    "titulo": "Carta 62 — Panel de energía",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: seis sistemas con su consumo en MW. Hay que activar los que sumen justo la capacidad del reactor. La capacidad y la regla del escudo están en el protocolo (carta 59).",
+      "Al conectar bien el reactor, el núcleo de fusión queda libre. Coged la carta 54."
+    ],
+    "pistas": [
+      "Leed el protocolo del reactor (carta 59).",
+      "El escudo debe estar activo y la suma de los sistemas activos debe ser 15.",
+      "Escudo (8) + Radio (4) + Luz (3) = 15."
+    ],
+    "arte": "Panel de control con seis interruptores grandes con iconos (escudo, radio, bombilla, gota, llama, ordenador) y barras de consumo luminosas."
+  },
+  "59": {
+    "titulo": "Carta 59 — Protocolo del reactor",
+    "tipo": "gris",
+    "descripcion": [
+      "Un protocolo plastificado pegado en la pared del reactor con las normas de arranque. Sirve para el panel de energía (carta 62)."
+    ],
+    "pistas": [
+      "Leed las normas.",
+      "Sirve para el panel de energía (carta 62)."
+    ],
+    "textoCarta": [
+      "Capacidad: 15 MW",
+      "El escudo, siempre activo"
+    ],
+    "arte": "Un cartel plastificado amarillo de normas de seguridad pegado en una pared metálica, con pictogramas; sin texto legible."
+  },
+  "51": {
+    "titulo": "Carta 51 — Esquema del Cronoportal",
+    "tipo": "gris",
+    "descripcion": [
+      "Un esquema técnico del Cronoportal dibujado por la doctora Reyes, con una anotación sobre la fase de calibración. Sirve para el calibrador (carta 88)."
+    ],
+    "pistas": [
+      "Leed la anotación del esquema.",
+      "Hace falta para el calibrador (carta 88)."
+    ],
+    "textoCarta": [
+      "Esquema del Cronoportal",
+      "Fase de calibración: 2"
+    ],
+    "arte": "Un esquema técnico dibujado a mano del Cronoportal, con flechas, formas de onda y anotaciones sin texto legible, sobre papel cuadriculado."
+  },
   "99": {
     "titulo": "Carta 99 — De vuelta a casa (FIN)",
     "tipo": "gris",
     "descarta": [
       70,
       88,
-      33,
-      36
+      35,
+      36,
+      51
     ],
     "descripcion": [
       "El Cronoportal se calibra y se abre un portal de luz azul. Cristina y Alberto saltan justo cuando el soporte vital termina de reactivarse en toda la cúpula.",
-      "Aterrizan en su salón. Cristina deja una tomatera sobre la mesa: «Me la he traído». Alberto, riendo: «Mañana, otro destino». Descartad las cartas 70, 88, 33 y 36.",
+      "Aterrizan en su salón. Cristina deja una tomatera sobre la mesa: «Me la he traído». Alberto, riendo: «Mañana, otro destino». Descartad las cartas 70, 88, 35, 36 y 51.",
       "FIN."
     ],
     "pistas": [],

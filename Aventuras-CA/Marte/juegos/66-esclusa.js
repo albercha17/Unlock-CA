@@ -56,7 +56,7 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     if (total() === CODIGO) {
       resuelto = true;
-      ui.say('ESCLUSA ABIERTA. Con el traje puesto, cruzáis al reactor. Coged la carta 79.', 'ok');
+      ui.say('ESCLUSA ABIERTA. Con el traje puesto, salís a la superficie de Marte. Coged la carta 41.', 'ok');
     } else {
       ui.say('Código incorrecto (' + total() + '). La esclusa permanece cerrada.', 'bad');
     }

@@ -1,4 +1,4 @@
-// Carta 33 — Diario de la doctora Reyes: lector. Contiene la amplitud del calibrador (carta 88).
+// Carta 35 — Diario de la doctora Reyes: lector. Contiene la amplitud del calibrador (carta 88).
 import { abrirLector } from './lector.js';
 
 const PAGINAS = [
@@ -13,7 +13,7 @@ const PAGINAS = [
     titulo: 'Registro 014 — Viajeros',
     texto: [
       'Llevo años estudiando las leyendas sobre aparatos de portales. Si algún día aparece uno en mi hangar, esto le ayudará.',
-      'Calibración del Cronoportal: amplitud 3. La frecuencia la anoté donde nunca se me olvida: en mi tomatera favorita.'
+      'Calibración del Cronoportal: amplitud 3. La frecuencia la anoté donde nunca se me olvida: en mi tomatera favorita. Y la fase está en el esquema que dejé en la sala del reactor.'
     ]
   },
   {
@@ -34,7 +34,7 @@ const PAGINAS = [
 
 export function startMinigame(opts = {}) {
   return abrirLector({
-    titulo: 'Carta 33 — Diario de la doctora Reyes',
+    titulo: 'Carta 35 — Diario de la doctora Reyes',
     instr: 'Pasa las páginas con calma. Aquí hay datos que os harán falta.',
     paginas: PAGINAS,
     tema: 'terminal',

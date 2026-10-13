@@ -1,15 +1,16 @@
-// Carta 88 — Calibrador del Cronoportal: amplitud 3 (diario, carta 33) y frecuencia 5 (tomatera, carta 36).
+// Carta 88 — Calibrador del Cronoportal: amplitud 3 (diario, carta 35) y frecuencia 5 (tomatera, carta 36).
 // No hay ninguna indicación de cercanía: solo la forma de la onda del propio calibrador.
 import { openGame } from './ui.js';
 
 const AMPLITUD = 3;
 const FRECUENCIA = 5;
+const FASE = 2;
 const NS = 'http://www.w3.org/2000/svg';
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 88 — Calibrador del Cronoportal',
-    instr: 'Ajusta la amplitud y la frecuencia con los datos que habéis reunido y pulsa Calibrar.',
+    instr: 'Ajusta la amplitud, la frecuencia y la fase con los datos que habéis reunido y pulsa Calibrar.',
     ...opts
   });
 
@@ -39,35 +40,38 @@ export function startMinigame(opts = {}) {
   ajustes.className = 'far-ajuste';
   ajustes.innerHTML =
     '<label for="marAmp">Amplitud</label><input type="range" id="marAmp" min="1" max="6" step="1" value="1"><output id="marAmpV">1</output>' +
-    '<label for="marFrec">Frecuencia</label><input type="range" id="marFrec" min="1" max="8" step="1" value="1"><output id="marFrecV">1</output>';
+    '<label for="marFrec">Frecuencia</label><input type="range" id="marFrec" min="1" max="8" step="1" value="1"><output id="marFrecV">1</output>' +
+    '<label for="marFase">Fase</label><input type="range" id="marFase" min="0" max="3" step="1" value="0"><output id="marFaseV">0</output>';
   ui.body.append(svg, ajustes);
 
   const amp = ajustes.querySelector('#marAmp');
   const frec = ajustes.querySelector('#marFrec');
+  const fase = ajustes.querySelector('#marFase');
   let resuelto = false;
 
   function pintar() {
-    const a = Number(amp.value), f = Number(frec.value);
+    const a = Number(amp.value), f = Number(frec.value), ph = Number(fase.value);
     ajustes.querySelector('#marAmpV').textContent = a;
     ajustes.querySelector('#marFrecV').textContent = f;
+    ajustes.querySelector('#marFaseV').textContent = ph;
     const pts = [];
     for (let x = 0; x <= 300; x += 2) {
-      pts.push(x + ',' + (50 - a * 7 * Math.sin(2 * Math.PI * f * x / 300)).toFixed(1));
+      pts.push(x + ',' + (50 - a * 7 * Math.sin(2 * Math.PI * f * x / 300 + ph * Math.PI / 2)).toFixed(1));
     }
     linea.setAttribute('points', pts.join(' '));
   }
-  amp.addEventListener('input', () => { if (!resuelto) { ui.say(''); pintar(); } });
-  frec.addEventListener('input', () => { if (!resuelto) { ui.say(''); pintar(); } });
+  [amp, frec, fase].forEach(c => c.addEventListener('input', () => { if (!resuelto) { ui.say(''); pintar(); } }));
 
   ui.button('Calibrar', 'primary', () => {
     if (resuelto) return;
-    if (Number(amp.value) === AMPLITUD && Number(frec.value) === FRECUENCIA) {
+    if (Number(amp.value) === AMPLITUD && Number(frec.value) === FRECUENCIA && Number(fase.value) === FASE) {
       resuelto = true;
       amp.disabled = true;
       frec.disabled = true;
+      fase.disabled = true;
       ui.say('¡Señal sincronizada! El Cronoportal está calibrado. Coged la carta 99.', 'ok');
     } else {
-      ui.say('SEÑAL INESTABLE. Alguno de los dos valores no es correcto.', 'bad');
+      ui.say('SEÑAL INESTABLE. Alguno de los tres valores no es correcto.', 'bad');
     }
   });
 

@@ -77,5 +77,61 @@ def s95(d):
     return m
 
 
-SOLVERS = {"15": s15, "23": s23, "47": s47, "71": s71, "95": s95}
-REQUIERE = {"23": ["31"], "47": ["52"], "71": ["26"], "95": ["15", "44"]}
+def s37(d):
+    """Tablilla deslizante: lee el estado del tablero y lo resuelve con una busqueda (BFS)."""
+    from collections import deque
+    abrir_carta(d, "37")
+    codigos = {0x2600: 1, 0x1F441: 2, 0x1F41E: 3, 0x1F40D: 4, 0x1F30A: 5, 0x1F985: 6, 0x1F3FA: 7, 0x1F402: 8}
+    piezas = d.find_elements(By.CSS_SELECTOR, ".far-pieza")
+    estado = tuple(codigos[ord(p.text.strip()[0])] if p.text.strip() else 0 for p in piezas)
+    meta = (1, 2, 3, 4, 5, 6, 7, 8, 0)
+    previo = {estado: None}
+    cola = deque([estado])
+    while cola:
+        s = cola.popleft()
+        if s == meta:
+            break
+        i = s.index(0)
+        r, c = divmod(i, 3)
+        for dr, dc in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < 3 and 0 <= nc < 3:
+                j = nr * 3 + nc
+                l = list(s)
+                l[i], l[j] = l[j], l[i]
+                t = tuple(l)
+                if t not in previo:
+                    previo[t] = (s, j)
+                    cola.append(t)
+    clics = []
+    s = meta
+    while previo[s] is not None:
+        s, j = previo[s]
+        clics.append(j)
+    clics.reverse()
+    assert len(clics) == 16, f"se esperaban 16 movimientos y hay {len(clics)}"
+    for j in clics:
+        d.find_element(By.CSS_SELECTOR, f".far-pieza[data-pos='{j}']").click()
+        time.sleep(0.03)
+    time.sleep(0.2)
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s34(d):
+    abrir_carta(d, "34")
+    for ch in "1111":
+        tecla(d, ch)
+    tecla(d, "✓")
+    assert "no cede" in feedback(d), feedback(d)
+    for ch in "2343":
+        tecla(d, ch)
+    tecla(d, "✓")
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS = {"15": s15, "23": s23, "47": s47, "71": s71, "95": s95, "37": s37, "34": s34}
+REQUIERE = {"23": ["31"], "47": ["52"], "71": ["26"], "37": ["28"], "34": ["46"], "95": ["15", "44"]}

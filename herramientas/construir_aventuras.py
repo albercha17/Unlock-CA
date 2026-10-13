@@ -28,13 +28,13 @@ JUEGOS = {
         datos=E, titulo="Egipto, 1274 a.C.: El Ojo de Horus", emoji="🏺",
         grad="#4a3512,#150f05", acento="#e0b04a", acento2="#f2d27a", bg1="#120d05", bg2="#2a1d0a",
         sinopsis="Cristina y Alberto estrenan su Cronoportal y aterrizan en una cámara secreta bajo un templo de Tebas, en el año 1274 a.C. Con el aparato sin energía y solo una hora antes de que lleguen los sacerdotes, tienen que encontrar el Ojo de Horus.",
-        minigames={"15": "15-papiro.js", "23": "23-muro.js", "47": "47-balanza.js", "71": "71-anillos.js", "95": "95-cristales.js"},
+        minigames={"15": "15-papiro.js", "23": "23-muro.js", "47": "47-balanza.js", "71": "71-anillos.js", "95": "95-cristales.js", "37": "37-tablilla.js", "34": "34-sarcofago.js"},
         pal=("#7a5a1e", "#2a1d0a")),
     "Marte": dict(
         datos=M, titulo="Marte, 2157: Cúpula Aurora", emoji="🚀",
         grad="#5a2a14,#12060a", acento="#ff8a50", acento2="#ffb085", bg1="#12070a", bg2="#2a120c",
         sinopsis="Segundo salto del Cronoportal: Marte, año 2157. La cúpula Aurora está a oscuras por una tormenta de polvo y el soporte vital se apaga. Cristina y Alberto tienen una hora para encontrar el núcleo de fusión y volver a casa.",
-        minigames={"21": "21-terminal.js", "52": "52-tuberias.js", "66": "66-esclusa.js", "88": "88-calibrador.js", "33": "33-diario.js"},
+        minigames={"21": "21-terminal.js", "52": "52-tuberias.js", "66": "66-esclusa.js", "88": "88-calibrador.js", "35": "35-diario.js", "48": "48-rover.js", "62": "62-energia.js"},
         pal=("#8a3a1a", "#1c0c10")),
 }
 
@@ -124,6 +124,9 @@ for nombre, cfg in JUEGOS.items():
     pc = pc_faro
     pc = sustituir(pc, "<title>El Faro de Cabo Niebla — Modo PC</title>", f"<title>{cfg['titulo']} — Modo PC</title>")
     pc = sustituir(pc, "<h1>El Faro de Cabo Niebla<small>", f"<h1>{cfg['titulo']}<small>")
+    # textos con simbolos (emojis): letra mas grande para que se lean al imprimir
+    pc = sustituir(pc, "  .acc{position:absolute;", "  .texto.emoji{font-size:calc(4.4 * var(--mm));line-height:1.35;letter-spacing:.12em}\n  .acc{position:absolute;")
+    pc = sustituir(pc, """h += '<div class="texto">' + c.textoCarta""", """h += '<div class="texto' + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + '">' + c.textoCarta""")
     escribir(f"{base}/pc.html", pc)
 
     # cartas.json
@@ -146,6 +149,9 @@ for nombre, cfg in JUEGOS.items():
     im = sustituir(im, "})();\n</script>\n</body>", "})();\n}).catch(function(){ document.body.insertAdjacentHTML('beforeend', '<p style=\"padding:20px\">No se pudo cargar cartas.json. Abre esta página desde el sitio web publicado.</p>'); });\n</script>\n</body>")
     im = im.replace("'arte/'", "'img/'").replace("url(\"arte/", "url(\"img/")
     im = sustituir(im, "exts = ['png','jpg','jpeg','webp']", "exts = ['jpg']")
+    im = sustituir(im, "  .texto.chico{", "  .texto.emoji{font-size:4.4mm;line-height:1.35;letter-spacing:.12em}\n  .texto.chico{")
+    im = sustituir(im, "var clase = c.textoCarta.length <= 3 ? ' chico' : ' largo';",
+                   "var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '');")
     im = sustituir(im, """      document.getElementById('resumen').textContent = faltan.length
         ? 'Faltan ilustraciones: ' + faltan.join(', ')
         : 'Todas las ilustraciones están listas.';""",

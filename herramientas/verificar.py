@@ -140,11 +140,26 @@ def obtener(c, mano):
     return True
 
 
+accidentales = set()
+
+
+def revisar_combinaciones(mano):
+    """Dos cartas combinables que coinciden en la mano no deben sumar el numero de OTRA carta aun no obtenida."""
+    comb = [c for c in mano if c in cartas and cartas[c].get("combina")]
+    for i, a in enumerate(comb):
+        for b in comb[i + 1:]:
+            s = str(int(a) + int(b))
+            previsto = str(b) == str(cartas[a]["combina"][0])
+            if not previsto and s in ids:
+                accidentales.add((min(a, b, key=int), max(a, b, key=int), s))
+
+
 def partida(rng):
     mano = set()
     obtener("P", mano)
     pend = [c for c in needs] + list(eventos)
     for _ in range(300):
+        revisar_combinaciones(mano)
         if final in mano:
             return True, mano
         ops = [c for c in pend if all(r in mano for r in (needs[c] if c in needs else eventos[c]["needs"]))]
@@ -168,6 +183,8 @@ for _ in range(3000):
         fallos += 1
         if fallos <= 3:
             err(f"partida atascada o con descarte invalido; mano: {sorted(mano)}")
+for a, b, s in sorted(accidentales):
+    err(f"COMBINACION ACCIDENTAL posible: {a} + {b} = {s}, que es otra carta del juego que aun no se tiene")
 print(f"simulaciones: 3000, atascadas: {fallos}; manos finales: {sorted(finales)[:3]}")
 print("RESULTADO:", "OK" if not errores else f"{len(errores)} errores")
 sys.exit(1 if errores else 0)
