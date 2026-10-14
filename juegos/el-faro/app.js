@@ -1,7 +1,8 @@
 // app.js — lógica de la app de Unlock C&A / Aventuras C&A. Común a todos los juegos: se edita en juegos/el-faro y se propaga con
 // herramientas/regenerar_index.py. La configuración de cada juego (segundos, carta final, minijuegos) está en window.APP_CONFIG (index.html).
 
-const CFG = Object.assign({ segundos: 3600, final: '99', volver: '../index.html', minijuegos: {} }, window.APP_CONFIG || {});
+const CFG = Object.assign({ segundos: 3600, dificultad: 0, final: '99', volver: '../index.html', minijuegos: {} }, window.APP_CONFIG || {});
+const NIVELES = ['', 'Muy fácil', 'Fácil', 'Media', 'Difícil', 'Muy difícil'];
 const $ = (id) => document.getElementById(id);
 const TEMA = document.documentElement.dataset.tema || 'faro';
 const TITULO = (document.querySelector('[data-juego-titulo]') || {}).textContent || document.title;
@@ -611,6 +612,14 @@ $('introMin').textContent = textoDuracion(TOTAL);
 $('reglasTexto').innerHTML = REGLAS;
 $('panelReglas').innerHTML = REGLAS;
 $('relojEtiqueta').textContent = ETIQUETA_RELOJ[TEMA] || 'El tiempo corre';
+(function pintarDificultad() {
+  const el = $('dificultad');
+  const n = Math.max(0, Math.min(5, Math.round(CFG.dificultad || 0)));
+  if (!el || !n) { if (el) el.hidden = true; return; }
+  el.setAttribute('aria-label', 'Dificultad: ' + NIVELES[n] + ' (' + n + ' de 5)');
+  el.innerHTML = '<span>Dificultad</span><span class="puntos" aria-hidden="true">' +
+    [1, 2, 3, 4, 5].map((k) => '<i class="' + (k <= n ? 'on' : '') + '"></i>').join('') + '</span><span>' + NIVELES[n] + '</span>';
+})();
 gameTimerEl.textContent = formatTime(TOTAL);
 mostrarContinuar();
 cargarCartas();
