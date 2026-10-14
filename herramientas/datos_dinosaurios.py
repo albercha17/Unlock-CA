@@ -187,7 +187,7 @@ J = {
             "Con la linterna encendida, Alberto descubre la entrada de una cueva en la ladera, de donde sale un calor extraño: el núcleo debió de rodar hasta aquí. La entrada está cerrada por una pared de cristales apagados (carta 64) y, al lado, un dibujo rupestre muestra cómo deben brillar (carta 66).",
             "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
         pistas=["Hay un puzle: la pared de cristales.", "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
-        arte="La entrada de una cueva en una ladera rocosa del Cretácico, iluminada por un haz de linterna; una pared de cristales apagados tapa el paso y a un lado hay un dibujo rupestre de cristales brillantes. Cristina y Alberto avanzan con la linterna."),
+        arte="La entrada de una cueva en una ladera rocosa del Cretácico, iluminada por un haz de linterna; una pared de cristales apagados tapa el paso y a un lado hay un dibujo rupestre de cristales brillantes. Cristina y Alberto avanzan con la linterna. Cristina con cara de curiosidad y sorpresa; Alberto con miedo contenido y los ojos muy abiertos."),
     "64": dict(
         titulo="Carta 64 — Cristales de la cueva", tipo="verde",
         descripcion=[
@@ -207,7 +207,7 @@ J = {
             "La pared se abre y entráis en una cámara caliente, iluminada por la lava lejana. En el suelo hay tres nidos: uno de ramas, uno de piedras y uno de plumas, y en el primero, cuatro huevos enormes de distinto tamaño apilados (carta 69). Una nota de Ibarra (carta 70) cuelga de un palo.",
             "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
         pistas=["Hay un puzle: los huevos y los nidos.", "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
-        arte="Una cámara de cueva caliente con tres nidos en el suelo (uno de ramas, uno de piedras y uno de plumas) y cuatro huevos de dinosaurio enormes apilados de mayor a menor en el nido de ramas, con el resplandor naranja de lava al fondo. Cristina y Alberto entran con cautela."),
+        arte="Una cámara de cueva caliente con tres nidos en el suelo (uno de ramas, uno de piedras y uno de plumas) y cuatro huevos de dinosaurio enormes apilados de mayor a menor en el nido de ramas, con el resplandor naranja de lava al fondo. Cristina y Alberto entran con cautela. Cristina con los ojos muy abiertos de asombro y una sonrisa nerviosa; Alberto con expresión de cautela y desconfianza, una ceja levantada."),
     "69": dict(
         titulo="Carta 69 — Huevos y nidos", tipo="verde",
         descripcion=[
@@ -227,7 +227,7 @@ J = {
             "Con los huevos a salvo, queda a la vista un hueco de roca caliente: el núcleo del Cronoportal brilla dentro, sobre la boca de un géiser a punto de estallar. Hay tres válvulas de bronce con manómetros (carta 72) y unas marcas de Ibarra con la presión segura (carta 76).",
             "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
         pistas=["Hay que calmar el géiser antes de coger el núcleo.", "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
-        arte="El hueco de una cueva con un pequeño géiser humeante y, sobre su boca, un núcleo de energía brillante de color azul; al lado, tres válvulas de bronce con manómetros circulares conectadas por tubos. Cristina y Alberto se acercan protegiéndose del vapor."),
+        arte="El hueco de una cueva con un pequeño géiser humeante y, sobre su boca, un núcleo de energía brillante de color azul; al lado, tres válvulas de bronce con manómetros circulares conectadas por tubos. Cristina y Alberto se acercan protegiéndose del vapor. Cristina con gesto de esfuerzo, entrecerrando los ojos por el vapor; Alberto con expresión de preocupación y la mano alzada para protegerse."),
     "72": dict(
         titulo="Carta 72 — Válvulas del géiser", tipo="verde",
         descripcion=[
@@ -247,7 +247,7 @@ J = {
             "El géiser se apaga con un suspiro de vapor. Cristina recoge con unas pinzas el núcleo, caliente y brillante.",
             "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
         pistas=["Recoged el núcleo.", "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
-        arte="Cristina sostiene con unas pinzas largas un núcleo de energía esférico y brillante de color azul, junto a la boca de un géiser ya apagado; Alberto la ilumina con una linterna, en una cueva con vapor."),
+        arte="Cristina sostiene con unas pinzas largas un núcleo de energía esférico y brillante de color azul, junto a la boca de un géiser ya apagado; Alberto la ilumina con una linterna, en una cueva con vapor. Cristina muy concentrada, con la lengua entre los dientes; Alberto sonriendo aliviado."),
     "62": dict(
         titulo="Carta 62 — Núcleo de energía", tipo="roja", combina=[12, 74],
         descripcion=["El núcleo del Cronoportal: una esfera de cristal azul con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
@@ -259,7 +259,7 @@ J = {
             "El núcleo encaja con un chasquido y el Cronoportal se enciende, pero su energía se escapa: el aparato necesita un conductor. Las notas de Ibarra (carta 86) hablan de un esqueleto fósil que se encuentra junto al claro, «el fósil de la tormenta», un tiranosaurio. Hay que reconstruirlo (carta 84) para que su estructura de huesos haga de antena.",
             "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
         pistas=["El portal necesita un conductor de energía.", "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con el núcleo azul encajado en su pecho, en un claro al atardecer; a pocos pasos, los huesos sueltos de un gran tiranosaurio fosilizado esparcidos sobre la tierra, y en el cielo el asteroide cada vez más grande. Cristina y Alberto miran los huesos con determinación."),
+        arte="El Cronoportal encendido con el núcleo azul encajado en su pecho, en un claro al atardecer; a pocos pasos, los huesos sueltos de un gran tiranosaurio fosilizado esparcidos sobre la tierra, y en el cielo el asteroide cada vez más grande. Cristina y Alberto miran los huesos con determinación. Cristina con ceño fruncido y gesto de determinación; Alberto con la boca abierta de asombro mirando el cielo."),
     "84": dict(
         titulo="Carta 84 — El esqueleto", tipo="verde",
         descripcion=[
@@ -280,7 +280,7 @@ J = {
             "Aterrizan en su salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 74, 84 y 86.",
             "FIN."],
         pistas=[],
-        arte="Cristina y Alberto saltando a través de un portal circular de luz azul y dorada junto al esqueleto de un tiranosaurio recién montado; detrás, el cielo naranja del Cretácico con el asteroide, y delante un destello de su salón actual."),
+        arte="Cristina y Alberto saltando a través de un portal circular de luz azul y dorada junto al esqueleto de un tiranosaurio recién montado; detrás, el cielo naranja del Cretácico con el asteroide, y delante un destello de su salón actual. Cristina riendo a carcajadas, llena de alegría; Alberto con una mezcla de euforia y pánico divertido."),
 }
 
 META = dict(

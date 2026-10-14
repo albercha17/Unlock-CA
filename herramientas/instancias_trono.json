@@ -1,0 +1,585 @@
+{
+ "14": {
+  "desplazamiento": 3,
+  "claro": "BAJAD AL ARCHIVO",
+  "cifrado": "EDMDG DO DUFKLYR"
+ },
+ "20": {
+  "casas": [
+   "Lobo Gris",
+   "León Dorado",
+   "Halcón Plateado",
+   "Oso Pardo"
+  ],
+  "regalos": [
+   "espada",
+   "copa",
+   "pieles",
+   "cuerno"
+  ],
+  "solucion": [
+   [
+    "León Dorado",
+    "copa"
+   ],
+   [
+    "Lobo Gris",
+    "pieles"
+   ],
+   [
+    "Oso Pardo",
+    "espada"
+   ],
+   [
+    "Halcón Plateado",
+    "cuerno"
+   ]
+  ],
+  "carta": [
+   "El Halcón Plateado ocupa el último asiento.",
+   "Quien trae la espada no se sienta en ninguna de las dos puntas de la mesa."
+  ],
+  "app": [
+   "El cuerno lo trae la casa sentada justo a la derecha del Oso Pardo.",
+   "El Oso Pardo no trae las pieles.",
+   "El Lobo Gris se sienta más a la derecha que el León Dorado.",
+   "Las pieles no las trae ni el Halcón Plateado ni el León Dorado."
+  ]
+ },
+ "40": {
+  "n": 7,
+  "castillos": [
+   {
+    "letra": "A",
+    "r": 1,
+    "c": 1,
+    "grado": 2,
+    "oculto": false
+   },
+   {
+    "letra": "B",
+    "r": 1,
+    "c": 3,
+    "grado": 2,
+    "oculto": false
+   },
+   {
+    "letra": "C",
+    "r": 1,
+    "c": 4,
+    "grado": 2,
+    "oculto": false
+   },
+   {
+    "letra": "D",
+    "r": 1,
+    "c": 6,
+    "grado": 1,
+    "oculto": false
+   },
+   {
+    "letra": "E",
+    "r": 2,
+    "c": 1,
+    "grado": 3,
+    "oculto": true
+   },
+   {
+    "letra": "F",
+    "r": 6,
+    "c": 0,
+    "grado": 1,
+    "oculto": false
+   },
+   {
+    "letra": "G",
+    "r": 6,
+    "c": 1,
+    "grado": 4,
+    "oculto": true
+   },
+   {
+    "letra": "H",
+    "r": 6,
+    "c": 2,
+    "grado": 1,
+    "oculto": false
+   }
+  ],
+  "solucion": [
+   [
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     3
+    ],
+    1
+   ],
+   [
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     1
+    ],
+    1
+   ],
+   [
+    [
+     1,
+     4
+    ],
+    [
+     1,
+     6
+    ],
+    1
+   ],
+   [
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     4
+    ],
+    1
+   ],
+   [
+    [
+     6,
+     1
+    ],
+    [
+     6,
+     2
+    ],
+    1
+   ],
+   [
+    [
+     2,
+     1
+    ],
+    [
+     6,
+     1
+    ],
+    2
+   ],
+   [
+    [
+     6,
+     0
+    ],
+    [
+     6,
+     1
+    ],
+    1
+   ]
+  ],
+  "semilla": 1
+ },
+ "46": {
+  "frases": [
+   [
+    "El lobo ve al cuervo",
+    "ur kra sil"
+   ],
+   [
+    "El dragón negro ve al lobo",
+    "zeh ska ur sil"
+   ],
+   [
+    "Los lobos grandes ven al cuervo",
+    "uri mori kra sil"
+   ],
+   [
+    "El cuervo teme al dragón",
+    "kra zeh ven"
+   ],
+   [
+    "El guerrero grande ve al lobo",
+    "hod mor ur sil"
+   ],
+   [
+    "Los dragones temen al cuervo",
+    "zehi kra ven"
+   ]
+  ],
+  "pregunta": [
+   "Los cuervos negros temen al guerrero",
+   "krai skai hod ven"
+  ],
+  "carta48": [
+   [
+    "El lobo ve al cuervo",
+    "ur kra sil"
+   ],
+   [
+    "El dragón negro ve al lobo",
+    "zeh ska ur sil"
+   ],
+   [
+    "Los lobos grandes ven al cuervo",
+    "uri mori kra sil"
+   ]
+  ],
+  "carta37": [
+   [
+    "El cuervo teme al dragón",
+    "kra zeh ven"
+   ],
+   [
+    "El guerrero grande ve al lobo",
+    "hod mor ur sil"
+   ],
+   [
+    "Los dragones temen al cuervo",
+    "zehi kra ven"
+   ]
+  ],
+  "hipotesis": 1
+ },
+ "51": {
+  "nombres": [
+   "Aldric",
+   "Brenna",
+   "Corvin",
+   "Dalia"
+  ],
+  "leales": [
+   false,
+   false,
+   true,
+   true
+  ],
+  "frases": [
+   "Aldric: «Brenna y Corvin son leales.»",
+   "Brenna: «Aldric es leal.»",
+   "Corvin: «Brenna es un traidor.»",
+   "Dalia: «Corvin es leal.»"
+  ],
+  "semilla": 1,
+  "carta26": [
+   "Aldric: «Brenna y Corvin son leales.»",
+   "Brenna: «Aldric es leal.»"
+  ],
+  "carta52": [
+   "Corvin: «Brenna es un traidor.»",
+   "Dalia: «Corvin es leal.»"
+  ]
+ },
+ "64": {
+  "n": 6,
+  "muros": [
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    4,
+    0
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ]
+  ],
+  "numeros": {
+   "0,2": 2,
+   "1,5": 2,
+   "2,2": 0,
+   "3,2": 2
+  },
+  "en_carta": [
+   "0,2",
+   "2,2"
+  ],
+  "bombillas": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    5,
+    0
+   ]
+  ],
+  "semilla": 1
+ },
+ "69": {
+  "n": 6,
+  "coches": [
+   [
+    2,
+    0,
+    2,
+    true
+   ],
+   [
+    0,
+    4,
+    3,
+    false
+   ],
+   [
+    4,
+    5,
+    2,
+    false
+   ],
+   [
+    4,
+    3,
+    2,
+    false
+   ],
+   [
+    3,
+    4,
+    2,
+    true
+   ],
+   [
+    1,
+    2,
+    2,
+    false
+   ]
+  ],
+  "movimientos_minimos": 10,
+  "ruta": [
+   [
+    4,
+    -1
+   ],
+   [
+    4,
+    -1
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    5,
+    -1
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "semilla": 1
+ },
+ "72": {
+  "solucion": [
+   [
+    0,
+    0,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    0,
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    1,
+    0,
+    0
+   ]
+  ],
+  "filas": [
+   [
+    2
+   ],
+   [
+    4
+   ],
+   [
+    6
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    4
+   ],
+   [
+    2
+   ]
+  ],
+  "columnas": [
+   [
+    2
+   ],
+   [
+    4
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    4
+   ],
+   [
+    2
+   ]
+  ]
+ },
+ "84": {
+  "frase": [
+   "SOLO",
+   "EL",
+   "FUEGO",
+   "VENCERÁ",
+   "AL",
+   "HIELO",
+   "DEL",
+   "NORTE"
+  ],
+  "palabra_de": {
+   "14": "HIELO",
+   "20": "SOLO",
+   "40": "VENCERÁ",
+   "46": "DEL",
+   "51": "FUEGO",
+   "64": "NORTE",
+   "69": "AL",
+   "72": "EL"
+  },
+  "reglas": [
+   "La profecía empieza con SOLO.",
+   "FUEGO va justo después de EL.",
+   "VENCERÁ va justo después de FUEGO.",
+   "AL va justo antes de HIELO.",
+   "VENCERÁ va antes que HIELO.",
+   "DEL va justo antes de NORTE.",
+   "NORTE es la última palabra."
+  ]
+ }
+}

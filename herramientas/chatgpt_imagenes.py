@@ -131,12 +131,23 @@ class Chat:
         else:
             ActionChains(self.d).send_keys(Keys.ENTER).perform()
 
+    def reintentar_si_error(self):
+        """Si ChatGPT muestra «Unknown error» con el botón Reintentar, lo pulsa. Devuelve True si lo ha pulsado."""
+        return bool(self.d.execute_script(
+            "const b=[...document.querySelectorAll('button')].find(x=>/^(reintentar|retry)$/i.test((x.innerText||'').trim()));"
+            "if(b){b.click();return true;}return false;"))
+
     def esperar_imagen(self):
-        t0, estable = time.time(), 0
+        t0, estable, reintentos = time.time(), 0, 0
         while time.time() - t0 < MAX_ESPERA_IMAGEN:
             time.sleep(3)
             nuevas = [s for s in self.d.execute_script(JS_IMAGENES) if s not in self.vistas]
             generando = bool(self.d.find_elements(By.CSS_SELECTOR, "button[data-testid='stop-button']"))
+            if not nuevas and not generando and reintentos < 3 and self.reintentar_si_error():
+                reintentos += 1
+                print(f"  (error de ChatGPT: pulso Reintentar, intento {reintentos})")
+                t0 = time.time()
+                continue
             if nuevas and not generando:
                 estable += 1
                 if estable >= 2:

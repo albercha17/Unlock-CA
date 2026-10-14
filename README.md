@@ -11,6 +11,8 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* | [`juegos/aventuras-ca/marte/`](juegos/aventuras-ca/marte/) | [MANUAL.md](juegos/aventuras-ca/marte/MANUAL.md) |
 | &nbsp;&nbsp;Florencia, 1503 — *El Taller de Leonardo* | [`juegos/aventuras-ca/florencia/`](juegos/aventuras-ca/florencia/) | [MANUAL.md](juegos/aventuras-ca/florencia/MANUAL.md) |
 | &nbsp;&nbsp;Cretácico, hace 66 millones de años — *El Valle de los Gigantes* | [`juegos/aventuras-ca/dinosaurios/`](juegos/aventuras-ca/dinosaurios/) | [MANUAL.md](juegos/aventuras-ca/dinosaurios/MANUAL.md) |
+| &nbsp;&nbsp;Dentro de un cuento animado — *Érase una vez: El Libro de los Finales Felices* | [`juegos/aventuras-ca/cuento/`](juegos/aventuras-ca/cuento/) | [MANUAL.md](juegos/aventuras-ca/cuento/MANUAL.md) |
+| &nbsp;&nbsp;Reino de hielo y fuego — *La Corona del Dragón* (fantasía medieval, dificultad difícil) | [`juegos/aventuras-ca/trono/`](juegos/aventuras-ca/trono/) | [MANUAL.md](juegos/aventuras-ca/trono/MANUAL.md) |
 | &nbsp;&nbsp;Apagón en el Colegio | repositorio propio, clonado en `juegos/apagon-colegio/` (enlace externo) | — |
 | **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
@@ -32,7 +34,7 @@ index.html                       menú principal
 assets/                          estilos e imágenes del menú
 juegos/
   aventuras-ca/                  hub «Aventuras C&A»
-    egipto/  marte/  florencia/  dinosaurios/  una carpeta por juego
+    egipto/  marte/  florencia/  dinosaurios/  cuento/  trono/  una carpeta por juego
   el-faro/                       juego de referencia
   apagon-colegio/                OTRO repositorio (solo local; ver .gitignore)
 herramientas/                    verificador, bots de prueba, manuales, ChatGPT y conversor de imágenes

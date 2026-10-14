@@ -36,6 +36,18 @@ const TEMAS = {
     tinte: '6,22,10', panel: 'rgba(14,38,20,.90)', panel2: 'rgba(6,18,10,.94)',
     borde: '#9bc94a', acento: '#b5e35b', brillo: '181,227,91', boton: 'linear-gradient(180deg,#c7ef6a,#6fae2a)', botonTxt: '#0c1f06',
     particulas: 'polvo', simbolo: '✧', textura: 'panel.jpg', papel: 'papel.jpg'
+  },
+  cuento: {
+    fuente: "'Fredoka', 'Poppins', system-ui, sans-serif", mayus: false, trazo: '.02em',
+    tinte: '16,8,40', panel: 'rgba(44,26,92,.90)', panel2: 'rgba(22,12,52,.94)',
+    borde: '#f6c453', acento: '#ffe08a', brillo: '255,224,138', boton: 'linear-gradient(180deg,#ffe08a,#f2a93a)', botonTxt: '#2a1450',
+    particulas: 'chispa', simbolo: '✦', textura: 'panel.jpg', papel: 'papel.jpg'
+  },
+  trono: {
+    fuente: "'MedievalSharp', 'Cinzel', Georgia, serif", mayus: false, trazo: '.03em',
+    tinte: '8,12,18', panel: 'rgba(22,28,36,.92)', panel2: 'rgba(10,14,20,.95)',
+    borde: '#9fb8cc', acento: '#d6e8f5', brillo: '159,200,230', boton: 'linear-gradient(180deg,#d6e8f5,#8aa6bc)', botonTxt: '#0d1822',
+    particulas: 'nieve', simbolo: '❖', textura: 'panel.jpg', papel: 'papel.jpg'
   }
 };
 
@@ -44,6 +56,8 @@ function detectarTema() {
   if (t && TEMAS[t]) return t;
   const p = location.pathname;
   if (/dinosaurios/.test(p)) return 'dinosaurios';
+  if (/cuento/.test(p)) return 'cuento';
+  if (/trono/.test(p)) return 'trono';
   if (/florencia/.test(p)) return 'florencia';
   if (/egipto/.test(p)) return 'egipto';
   if (/marte/.test(p)) return 'marte';
@@ -59,7 +73,7 @@ function injectFonts() {
   const l = document.createElement('link');
   l.id = FONT_ID;
   l.rel = 'stylesheet';
-  l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Orbitron:wght@600;800&family=Playfair+Display:wght@600;800&family=Bevan&display=swap';
+  l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Orbitron:wght@600;800&family=Playfair+Display:wght@600;800&family=Bevan&family=Fredoka:wght@500;700&family=MedievalSharp&display=swap';
   document.head.appendChild(l);
 }
 
@@ -120,6 +134,12 @@ function injectStyle() {
     .far-overlay[data-tema="florencia"] .far-key:disabled{filter:grayscale(.5)}
     .far-overlay[data-tema="dinosaurios"] .far-key{background:linear-gradient(180deg,#6f8d45,#3d5a24);border:1px solid #b5e35b;color:#f2ffd6;box-shadow:inset 0 1px 0 rgba(235,255,190,.35),0 3px 0 #1f3410;text-shadow:0 1px 0 rgba(0,0,0,.5)}
     .far-overlay[data-tema="dinosaurios"] .far-title{font-size:1.25rem}
+    .far-overlay[data-tema="cuento"] .far-title{font-size:1.3rem}
+    .far-overlay[data-tema="cuento"] .far-key{background:linear-gradient(180deg,#8a63d8,#5a3aa8);border:1px solid #ffe08a;color:#fff7d6;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #2c1a66;text-shadow:0 1px 0 rgba(0,0,0,.4);border-radius:14px}
+    .far-overlay[data-tema="trono"] .far-title{font-size:1.2rem;letter-spacing:.05em}
+    .far-overlay[data-tema="trono"] .far-key{background:linear-gradient(180deg,#56626e,#2c343c);border:1px solid #9fb8cc;color:#e6f1f9;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 3px 0 #0f1318;text-shadow:0 1px 0 rgba(0,0,0,.55);border-radius:4px}
+    .far-copo{position:absolute;top:-10px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,255,255,0));animation:far-nieve linear infinite}
+    @keyframes far-nieve{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}100%{transform:translate(-40px,112vh);opacity:.3}}
     .far-sonido{position:absolute;top:10px;right:34px;z-index:6;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:.95rem;line-height:1;cursor:pointer;padding:0}
     .far-sonido:hover{background:rgba(0,0,0,.65)}
     .far-overlay[data-escaneo="1"] .far-box::after{content:"";position:absolute;inset:0;border-radius:16px;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);pointer-events:none;z-index:4;animation:far-parpadeo 5s steps(1) infinite}
@@ -166,7 +186,9 @@ const SONIDO = {
   egipto: { onda: 'sine', base: 440 },
   marte: { onda: 'square', base: 330 },
   florencia: { onda: 'sine', base: 392 },
-  dinosaurios: { onda: 'triangle', base: 349 }
+  dinosaurios: { onda: 'triangle', base: 349 },
+  cuento: { onda: 'sine', base: 523 },
+  trono: { onda: 'sawtooth', base: 294 }
 };
 function sonar(tipo, tema) {
   if (!sonidoActivo()) return;
@@ -211,6 +233,8 @@ function particulas(cont, tipo) {
     for (let i = 0; i < 24; i++) { const t = aleatorio(2, 5); crea('far-mota', { left: aleatorio(0, 100) + '%', width: t + 'px', height: t + 'px', animationDuration: aleatorio(9, 18) + 's', animationDelay: -aleatorio(0, 18) + 's' }); }
   } else if (tipo === 'racha') {
     for (let i = 0; i < 18; i++) crea('far-racha', { top: aleatorio(0, 100) + '%', width: aleatorio(28, 90) + 'px', animationDuration: aleatorio(2.2, 5) + 's', animationDelay: -aleatorio(0, 5) + 's', opacity: String(aleatorio(0.25, 0.8)) });
+  } else if (tipo === 'nieve') {
+    for (let i = 0; i < 40; i++) { const t = aleatorio(2, 5); crea('far-copo', { left: aleatorio(0, 105) + '%', width: t + 'px', height: t + 'px', animationDuration: aleatorio(6, 14) + 's', animationDelay: -aleatorio(0, 14) + 's' }); }
   } else if (tipo === 'chispa') {
     for (let i = 0; i < 22; i++) { const t = aleatorio(2, 4); crea('far-chispa', { left: aleatorio(0, 100) + '%', width: t + 'px', height: t + 'px', animationDuration: aleatorio(5, 11) + 's', animationDelay: -aleatorio(0, 11) + 's' }); }
   }

@@ -89,6 +89,8 @@ Por carta (la clave es el número, `P` para la inicial):
 
 **Generación automática con ChatGPT** (la hoja de personajes `personajes/hoja.png` solo da las caras; la ropa sale de `_meta.personajes` de cada juego): `herramientas/abrir_chrome_chatgpt.ps1` abre un Chrome normal (inicia sesión y pasa ahí la verificación «soy humano») y `python herramientas/chatgpt_imagenes.py --conectar juegos/aventuras-ca/<Juego>` genera y guarda todas las cartas. No cierres ese Chrome mientras trabaja.
 
+**Expresiones distintas en cada imagen.** En el campo `arte` de cada carta, indica la emoción concreta de Cristina y de Alberto según la escena (sorpresa, concentración, miedo, alegría, duda, esfuerzo…). Evita el «sonríen» por defecto: con la misma cara en todas las cartas el juego se ve plano.
+
 `prompts.html` (en las aventuras) da el prompt de la hoja de personajes, el de cada carta y el del vídeo. Las imágenes se guardan en `arte/` (local), se convierten con `herramientas/preparar_imagenes.py` y se suben como `img/*.jpg`.
 
 ## 6b. Aspecto de los minijuegos (ambientación)
