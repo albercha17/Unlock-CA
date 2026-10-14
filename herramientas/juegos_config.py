@@ -8,6 +8,7 @@ import datos_egipto as E
 import datos_marte as M
 import datos_florencia as F
 import datos_dinosaurios as D
+import datos_cuento as C
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -56,6 +57,13 @@ JUEGOS = {
         minigames={"14": "14-huellas.js", "20": "20-excavacion.js", "42": "42-diario.js", "40": "40-balsa.js", "46": "46-adn.js",
                    "51": "51-estratos.js", "64": "64-cristales.js", "69": "69-nidos.js", "72": "72-geiser.js", "84": "84-esqueleto.js"},
         pal=("#2f5a22", "#0a160c")),
+    "Cuento": dict(
+        datos=C, dificultad=2, tema="cuento", titulo="Érase una vez: El Libro de los Finales Felices", emoji="📖", minutos=75,
+        grad="#4a2a8a,#120a2a", acento="#f6c453", acento2="#ffe08a", bg1="#0e0820", bg2="#241450",
+        sinopsis="Quinto salto del Cronoportal, y esta vez no cae en una época sino dentro de un libro de cuentos: Cristina y Alberto se convierten en personajes de dibujos animados. El libro se está quedando sin color y sin tinta, y el último cuento no tiene final. Tienen setenta y cinco minutos para escribirlo antes de que el libro se cierre con ellos dentro.",
+        minigames={"14": "14-cartel.js", "20": "20-puente.js", "40": "40-salto.js", "42": "42-cuento.js", "46": "46-vidriera.js",
+                   "51": "51-hadas.js", "64": "64-rayos.js", "69": "69-tarros.js", "72": "72-caja.js", "84": "84-pagina.js"},
+        pal=("#5a3aa8", "#1a0e3a")),
 }
 
 
