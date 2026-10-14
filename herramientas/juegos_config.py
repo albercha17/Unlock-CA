@@ -9,6 +9,7 @@ import datos_marte as M
 import datos_florencia as F
 import datos_dinosaurios as D
 import datos_cuento as C
+import datos_trono as T
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -64,6 +65,13 @@ JUEGOS = {
         minigames={"14": "14-cartel.js", "20": "20-puente.js", "40": "40-salto.js", "42": "42-cuento.js", "46": "46-vidriera.js",
                    "51": "51-hadas.js", "64": "64-rayos.js", "69": "69-tarros.js", "72": "72-caja.js", "84": "84-pagina.js"},
         pal=("#5a3aa8", "#1a0e3a")),
+    "Trono": dict(
+        datos=T, dificultad=4, tema="trono", titulo="Reino de Hielo y Fuego: La Corona del Dragón", emoji="🐉", minutos=100,
+        grad="#2c3a4a,#0a0f16", acento="#8fc7ee", acento2="#cfe8fb", bg1="#06090e", bg2="#121a24",
+        sinopsis="Sexto salto del Cronoportal: un reino de hielo y fuego, en pleno invierno. Cristina y Alberto aterrizan en el patio de armas de la fortaleza de Piedra Negra, en mitad de una ventisca, con el aparato sin energía. Solo una esquirla de dragón puede encenderlo, y la tormenta cierra los pasos de montaña: tienen cien minutos antes de quedar atrapados hasta la primavera.",
+        minigames={"14": "14-cuervo.js", "20": "20-banquete.js", "40": "40-caminos.js", "42": "42-cronica.js", "46": "46-lengua.js",
+                   "51": "51-consejeros.js", "64": "64-antorchas.js", "69": "69-puerta.js", "72": "72-tapiz.js", "84": "84-profecia.js"},
+        pal=("#3a4c60", "#0c121a")),
 }
 
 

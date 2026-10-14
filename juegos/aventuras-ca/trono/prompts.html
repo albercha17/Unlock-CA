@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompts — Reino de Hielo y Fuego: La Corona del Dragón</title>
+<style>
+  :root{--bg:#0d141b;--panel:#16212c;--line:#273545;--tx:#e8eef4;--mut:#93a4b5;--acc:#ffd27a;
+    --gris:#8a94a3;--verde:#2f9e58;--roja:#c0453d;--azul:#3b78c9}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}
+  h1{margin:0 0 4px;font-size:1.6rem}
+  h2{font-size:1.05rem;margin:0 0 6px}
+  p{margin:0 0 10px;color:var(--mut)}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:16px}
+  ol{margin:8px 0 0;padding-left:20px;color:var(--mut)} li{margin-bottom:4px} li b{color:var(--tx)}
+  pre{margin:8px 0 0;white-space:pre-wrap;word-break:break-word;font:13px/1.5 ui-monospace,Consolas,monospace;background:#080d12;border:1px solid var(--line);border-radius:8px;padding:12px;color:#d6e2ee}
+  button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:#1f2d3b;color:var(--tx);padding:6px 12px;font-weight:600}
+  button:hover{background:var(--acc);color:#2a1600;border-color:var(--acc)}
+  button.ok{background:#2f9e58;color:#fff;border-color:#2f9e58}
+  .card{display:grid;grid-template-columns:1fr 110px;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--c,var(--gris));border-radius:12px;padding:14px;margin-top:12px}
+  .card.hecha{opacity:.55}
+  .head{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .num{font:700 .85rem ui-monospace,Consolas,monospace;background:#0b1118;border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+  .head h3{margin:0;font-size:1rem}
+  .tag{margin-left:auto;font:600 .68rem ui-monospace,Consolas,monospace;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--c,var(--gris));border-radius:5px;padding:2px 7px}
+  .file{font:.8rem ui-monospace,Consolas,monospace;color:var(--acc)}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+  .thumb{width:110px;height:154px;border-radius:8px;border:1px dashed var(--line);background:#0b1118;object-fit:cover;display:block}
+  label.chk{color:var(--mut);font-size:.85rem;display:flex;gap:6px;align-items:center}
+  @media (max-width:560px){.card{grid-template-columns:1fr}.thumb{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Prompts — <span id="juego"></span></h1>
+  <p>Una ilustración por carta, sin texto: el número, el título, las franjas de coger/descartar y los textos los pone <b>imprimir.html</b>. Mientras no haya ilustración, las cartas salen con un fondo de relleno.</p>
+
+  <div class="box">
+    <h2>Cómo hacerlo con ChatGPT</h2>
+    <ol>
+      <li><b>Paso 0 (una vez):</b> <span id="foto"></span></li>
+      <li>Abre un chat nuevo, adjunta la foto y pega el prompt de la <b>hoja de personajes</b> de abajo. Repite hasta que os veas parecidos.</li>
+      <li>En <b>ese mismo chat</b>, pega los prompts de cada carta («Copiar prompt»). Así el parecido y el estilo se mantienen.</li>
+      <li>Guarda cada imagen con el nombre indicado (por ejemplo <span class="file">8.png</span>) en una carpeta <b>arte</b> dentro de la carpeta de este juego y <b>avísame</b>: yo las convierto a un formato ligero y las subo.</li>
+    </ol>
+    <p style="margin-top:8px">Si el estilo se desvía, abre otro chat con la hoja de personajes y la primera imagen que te gustó adjuntas. Pídele siempre «sin ningún texto, letra ni número en la imagen».</p>
+  </div>
+
+  <div class="box">
+    <h2>Paso 0 — Hoja de personajes (con la foto adjunta)</h2>
+    <pre id="hoja"></pre>
+    <div class="row"><button data-copy="hoja">Copiar prompt</button></div>
+  </div>
+
+  <div class="box">
+    <h2>Vídeo de introducción</h2>
+    <p>Se reproduce al pulsar «Empezar» en el juego. Guárdalo como <span class="file">video/videoInicial.mp4</span> (vertical 9:16, idealmente menos de 25 MB). Adjunta la hoja de personajes para que se os parezca. Si sale con texto, pídele: «Repítelo sin ningún texto ni subtítulos».</p>
+    <pre id="video"></pre>
+    <div class="row"><button data-copy="video">Copiar prompt</button></div>
+  </div>
+
+  <div id="lista"></div>
+</div>
+
+<script src="cartas-data.js"></script>
+<script>
+(function(){
+  var KEY = 'prompts-trono';
+  var COLORES = {gris:'#8a94a3',verde:'#2f9e58',roja:'#c0453d',azul:'#3b78c9'};
+  var ETIQ = {gris:'objeto',verde:'minijuego app',roja:'combina',azul:'combina'};
+
+  function copiar(texto, btn){
+    function ok(){ var t = btn.textContent; btn.textContent = 'Copiado'; btn.classList.add('ok'); setTimeout(function(){ btn.textContent = t; btn.classList.remove('ok'); }, 1200); }
+    function viejo(){
+      var ta = document.createElement('textarea'); ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta); ok();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(ok, viejo); else viejo();
+  }
+
+  fetchCartas().then(function(r){ return r.json(); }).then(function(J){
+    var meta = J._meta, nombres = Object.keys(meta.personajes);
+    document.getElementById('juego').textContent = meta.juego;
+    document.getElementById('foto').textContent = meta.foto;
+    document.getElementById('hoja').textContent = meta.hoja;
+    document.getElementById('video').textContent = meta.video;
+
+    function promptDe(c){
+      var quienes = nombres.filter(function(n){ return c.arte.indexOf(n) >= 0; });
+      var p = 'Crea una ilustración vertical con proporción 2:3 para una carta de juego de escape room. ' + c.arte;
+      if (quienes.length) p += '\nPersonajes (mismo parecido que en la foto adjunta y mismo aspecto que en la hoja de personajes): ' + quienes.map(function(n){ return meta.personajes[n]; }).join(' ');
+      return p + '\n' + meta.estilo;
+    }
+    var ids = Object.keys(J).filter(function(k){ return k.charAt(0) !== '_'; }).sort(function(a, b){
+      if (a === 'P') return -1; if (b === 'P') return 1; return Number(a) - Number(b);
+    });
+    var hechas = {};
+    try { hechas = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+    function guardar(){ try { localStorage.setItem(KEY, JSON.stringify(hechas)); } catch(e) {} }
+
+    var lista = document.getElementById('lista');
+    ids.forEach(function(id){
+      var c = J[id], full = promptDe(c);
+      var div = document.createElement('div');
+      div.className = 'card' + (hechas[id] ? ' hecha' : '');
+      div.style.setProperty('--c', COLORES[c.tipo] || COLORES.gris);
+      div.innerHTML =
+        '<div><div class="head"><span class="num"></span><h3></h3><span class="tag"></span></div>' +
+        '<div class="row"><span class="file"></span></div><pre></pre>' +
+        '<div class="row"><button type="button">Copiar prompt</button><label class="chk"><input type="checkbox"> Hecha</label></div></div>' +
+        '<img class="thumb" alt="">';
+      div.querySelector('.num').textContent = id;
+      div.querySelector('h3').textContent = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
+      div.querySelector('.tag').textContent = ETIQ[c.tipo] || c.tipo;
+      div.querySelector('.file').textContent = 'Guardar como: ' + id + '.png';
+      div.querySelector('pre').textContent = full;
+      div.querySelector('button').addEventListener('click', function(e){ copiar(full, e.currentTarget); });
+      var chk = div.querySelector('input');
+      chk.checked = !!hechas[id];
+      chk.addEventListener('change', function(){ hechas[id] = chk.checked; div.classList.toggle('hecha', chk.checked); guardar(); });
+      div.querySelector('img').src = 'img/' + id + '.jpg?v=' + Date.now();
+      lista.appendChild(div);
+    });
+    document.querySelectorAll('[data-copy]').forEach(function(b){
+      b.addEventListener('click', function(){ copiar(document.getElementById(b.dataset.copy).textContent, b); });
+    });
+  }).catch(function(){
+    document.querySelector('.wrap').insertAdjacentHTML('beforeend', '<p>No se pudo cargar las cartas. Ejecuta python herramientas/sincronizar_cartas.py o abre la página desde el sitio web.</p>');
+  });
+})();
+</script>
+</body>
+</html>

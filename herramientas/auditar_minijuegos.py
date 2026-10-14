@@ -92,7 +92,7 @@ def main():
     for carpeta in carpetas:
         print(f"== {carpeta}")
         for ruta in sorted(glob.glob(os.path.join(carpeta, "minijuegos", "*.js"))):
-            if os.path.basename(ruta) in ("ui.js", "lector.js", "libro.js"):
+            if os.path.basename(ruta) in ("ui.js", "lector.js", "libro.js", "comun.js"):  # módulos de apoyo, no minijuegos
                 continue
             nombre, graves, avisos = auditar_js(ruta)
             marca = "ERROR" if graves else ("aviso" if avisos else "ok")
