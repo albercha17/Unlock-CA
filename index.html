@@ -2,7 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#071013">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unlock C&A">
+
   <title>Unlock C&A</title>
 
   <!-- Google font -->
@@ -10,6 +19,7 @@
 
   <!-- External stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/menu.css">
   <style>
     .grupo{margin:26px 0 0;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
     .grupo:first-of-type{margin-top:6px}
@@ -18,7 +28,7 @@
   </style>
 </head>
 
-<body>
+<body data-raiz="">
   <div class="container layout">
     <div class="panel-card">
 
@@ -33,11 +43,13 @@
 
       <!-- MAIN -->
       <main>
+        <div id="cuenta"></div>
 
         <h2 class="grupo">Aventuras C&amp;A<small>Cristina y Alberto, su Cronoportal y todos sus juegos</small></h2>
         <section class="cards" aria-label="Aventuras C&A">
           <div
             class="option solid"
+            data-hub="aventuras"
             role="button"
             tabindex="0"
             onclick="openGame('juegos/aventuras-ca/index.html')"
@@ -55,6 +67,7 @@
         <section class="cards" aria-label="Más misterios">
           <div
             class="option"
+            data-juego="faro"
             role="button"
             tabindex="0"
             onclick="openGame('juegos/el-faro/index.html')"
@@ -68,7 +81,7 @@
           </div>
         </section>
 
-        <div class="small-footer">© 2025 Unlock C&A | Creado por Alberto para Cristina</div>
+        <div class="small-footer"><a href="instalar.html" style="color:inherit">Instalar en el móvil</a> · <a href="perfil.html" style="color:inherit">Mis partidas</a><br>© 2025 Unlock C&A | Creado por Alberto para Cristina</div>
       </main>
     </div>
   </div>
@@ -86,6 +99,8 @@
       });
     });
   </script>
+  <script src="assets/js/pwa.js"></script>
+  <script type="module" src="assets/js/menu.js"></script>
 
 </body>
 </html>

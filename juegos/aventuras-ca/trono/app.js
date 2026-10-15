@@ -3,7 +3,7 @@
 
 import { crearMusica } from './musica.js';
 
-const CFG = Object.assign({ segundos: 3600, dificultad: 0, final: '99', volver: '../index.html', minijuegos: {} }, window.APP_CONFIG || {});
+const CFG = Object.assign({ juego: '', assets: '../../assets/', segundos: 3600, dificultad: 0, final: '99', volver: '../index.html', minijuegos: {} }, window.APP_CONFIG || {});
 const NIVELES = ['', 'Muy fácil', 'Fácil', 'Media', 'Difícil', 'Muy difícil'];
 const $ = (id) => document.getElementById(id);
 const TEMA = document.documentElement.dataset.tema || 'faro';
@@ -602,9 +602,48 @@ function mostrarFinal(exito) {
     ? `Lo habéis conseguido con ${mmss(estado.restante)} de margen.`
     : `Lo habéis conseguido, con ${mmss(-estado.restante)} de más sobre el tiempo previsto.`;
   $('informeTexto').textContent = construirInforme(exito);
+  if (exito) registrarPartida();
   [440, 554, 659, 880].forEach((f, i) => setTimeout(() => pitido(f, 220, 'triangle', 0.07), i * 160));
   window.scrollTo(0, 0);
 }
+// ---------------------------------------------------------------- registro de la partida (cuenta y dispositivo)
+function guardarLocalDeEmergencia(reg) {
+  try {
+    const l = JSON.parse(localStorage.getItem('ca-hechas') || '[]');
+    l.push(Object.assign({ cliente_id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8), fin: new Date().toISOString(), sync: false }, reg));
+    localStorage.setItem('ca-hechas', JSON.stringify(l.slice(-300)));
+  } catch (e) { /* sin almacenamiento */ }
+}
+async function registrarPartida() {
+  const estadoEl = $('guardadoEstado');
+  const btn = $('guardarCuentaBtn');
+  const usado = TOTAL - estado.restante;
+  const reg = {
+    juego: CFG.juego || TEMA, tiempo_seg: Math.round(usado), pistas: Object.values(estado.pistas).reduce((a, b) => a + b, 0),
+    cartas: estado.log.filter((e) => e.uso === 'accion' && e.card !== String(CFG.final)).length, informe: construirInforme(true)
+  };
+  estadoEl.textContent = 'Guardando la partida…';
+  try {
+    const url = (f) => new URL(CFG.assets + 'js/' + f, import.meta.url).href;
+    const cuenta = await import(url('cuenta.js'));
+    const antes = cuenta.resumenLocal()[reg.juego];
+    const r = await cuenta.guardarPartida(reg);
+    const mejor = !antes || reg.tiempo_seg < antes.mejor;
+    estadoEl.textContent = r.mensaje + (mejor && antes ? ' ¡Nuevo mejor tiempo!' : '');
+    if (!r.nube) {
+      btn.hidden = false;
+      btn.onclick = async () => {
+        const ui = await import(url('cuenta-ui.js'));
+        const u = await ui.abrirLogin({ motivo: 'Entra para guardar esta partida (' + cuenta.formatoTiempo(reg.tiempo_seg) + ') en tu cuenta.' });
+        if (u) { const s = await cuenta.sincronizar(); estadoEl.textContent = s.ok ? 'Partida guardada en tu cuenta.' : (s.mensaje || 'Se guardará en cuanto haya conexión.'); btn.hidden = s.ok; }
+      };
+    }
+  } catch (e) {
+    guardarLocalDeEmergencia(reg);
+    estadoEl.textContent = 'Partida guardada en este dispositivo.';
+  }
+}
+
 $('copyReportBtn').addEventListener('click', async () => {
   const texto = $('informeTexto').textContent;
   const pre = $('informeTexto');
@@ -634,6 +673,34 @@ function mostrarContinuar() {
 }
 function volver() { window.location.href = CFG.volver; }
 window.volver = volver;
+
+// ---------------------------------------------------------------- modo sin conexión (PWA)
+function iniciarOffline() {
+  const btn = $('offlineBtn'), est = $('offlineEstado');
+  if (!btn || !window.CA_PWA || !window.CA_PWA.soportado || location.protocol === 'file:') return;
+  const clave = 'ca-offline:' + (CFG.juego || TEMA);
+  let hecho = false;
+  try { hecho = localStorage.getItem(clave) === '1'; } catch (e) { /* nada */ }
+  btn.hidden = false;
+  if (hecho) { btn.textContent = 'Actualizar la descarga sin conexión'; est.hidden = false; est.textContent = 'Este juego ya funciona sin conexión.'; }
+  btn.onclick = async () => {
+    btn.disabled = true; est.hidden = false; est.textContent = 'Descargando…';
+    try {
+      const lista = await (await fetch('./precache.json', { cache: 'no-store' })).json();
+      const r = await window.CA_PWA.descargar(lista, (p) => { est.textContent = 'Descargando… ' + Math.round((100 * p.hechos) / Math.max(1, p.total)) + ' %'; });
+      if (r.fallos > 0) est.textContent = 'Se descargó casi todo, pero ' + r.fallos + ' ficheros fallaron: vuelve a intentarlo con buena conexión.';
+      else { est.textContent = 'Listo: este juego funciona sin conexión.'; try { localStorage.setItem(clave, '1'); } catch (e) { /* nada */ } }
+    } catch (e) { est.textContent = (e && e.message) || 'No se pudo descargar.'; }
+    btn.disabled = false;
+  };
+}
+(function cargarPwa() {
+  if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
+  const s = document.createElement('script');
+  s.src = new URL(CFG.assets + 'js/pwa.js', import.meta.url).href;
+  s.onload = iniciarOffline;
+  document.head.appendChild(s);
+})();
 
 $('introMin').textContent = textoDuracion(TOTAL);
 $('reglasTexto').innerHTML = REGLAS;

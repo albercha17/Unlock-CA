@@ -3,8 +3,15 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#05060a">
+  <link rel="manifest" href="../../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../../assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../../../assets/icons/favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unlock C&A">
   <title>Aventuras C&amp;A - Egipto, 1274 a.C.: El Ojo de Horus</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -46,6 +53,8 @@
 
       <div class="intro-acciones">
         <button class="boton primario grande" id="startBtn">Empezar</button>
+        <button class="boton suave" id="offlineBtn" hidden>Descargar para jugar sin conexión</button>
+        <p class="offline-estado" id="offlineEstado" aria-live="polite" hidden></p>
         <button class="boton" id="continueBtn" hidden>Continuar partida</button>
         <div class="intro-secundarios">
           <a class="boton suave" href="pc.html">Modo PC</a>
@@ -122,6 +131,8 @@
         <button class="boton" id="replayBtn">Jugar otra vez</button>
         <button class="boton suave" onclick="volver()">← Volver a Aventuras C&amp;A</button>
       </div>
+      <p class="guardado" id="guardadoEstado" aria-live="polite"></p>
+      <div class="final-acciones" style="margin-top:6px"><button class="boton" id="guardarCuentaBtn" hidden>Iniciar sesión para guardarla</button></div>
       <pre id="informeTexto" hidden></pre>
     </div>
   </div>
@@ -220,6 +231,8 @@
   <!-- Configuración propia de este juego (lo demás es común: app.js) -->
   <script>
     window.APP_CONFIG = {
+      juego: 'egipto',
+      assets: '../../../assets/',
       segundos: 3600,
       dificultad: 3,
       final: '99',

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "faro",
+    "nombre": "El Faro de Cabo Niebla",
+    "ruta": "juegos/el-faro/",
+    "dificultad": 2,
+    "minutos": 60,
+    "cartas": 24
+  },
+  {
+    "id": "egipto",
+    "nombre": "Egipto, 1274 a.C.: El Ojo de Horus",
+    "ruta": "juegos/aventuras-ca/egipto/",
+    "dificultad": 3,
+    "minutos": 60,
+    "cartas": 27
+  },
+  {
+    "id": "marte",
+    "nombre": "Marte, 2157: Cúpula Aurora",
+    "ruta": "juegos/aventuras-ca/marte/",
+    "dificultad": 3,
+    "minutos": 60,
+    "cartas": 25
+  },
+  {
+    "id": "florencia",
+    "nombre": "Florencia, 1503: El Taller de Leonardo",
+    "ruta": "juegos/aventuras-ca/florencia/",
+    "dificultad": 4,
+    "minutos": 60,
+    "cartas": 30
+  },
+  {
+    "id": "dinosaurios",
+    "nombre": "Cretácico, hace 66 millones de años: El Valle de los Gigantes",
+    "ruta": "juegos/aventuras-ca/dinosaurios/",
+    "dificultad": 3,
+    "minutos": 90,
+    "cartas": 39
+  },
+  {
+    "id": "cuento",
+    "nombre": "Érase una vez: El Libro de los Finales Felices",
+    "ruta": "juegos/aventuras-ca/cuento/",
+    "dificultad": 2,
+    "minutos": 75,
+    "cartas": 39
+  },
+  {
+    "id": "trono",
+    "nombre": "Reino de Hielo y Fuego: La Corona del Dragón",
+    "ruta": "juegos/aventuras-ca/trono/",
+    "dificultad": 4,
+    "minutos": 100,
+    "cartas": 39
+  }
+]

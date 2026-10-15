@@ -1,0 +1,22 @@
+/* cuenta.css — ventana de inicio de sesión y botón de cuenta. Usa las variables de color de cada página con valores por defecto. */
+.cac-widget { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; margin: 0 0 14px; }
+.cac-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line, rgba(255,255,255,.2)); background: rgba(255,255,255,.08); color: var(--tx, #fff); font: 700 .86rem "Poppins", system-ui, sans-serif; text-decoration: none; cursor: pointer; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cac-btn:hover, .cac-btn:focus-visible { border-color: var(--laton, var(--accent, #f0c773)); }
+.cac-btn.suave { background: transparent; color: var(--mut, rgba(255,255,255,.75)); }
+.cac-fondo { position: fixed; inset: 0; z-index: 20000; display: flex; align-items: center; justify-content: center; padding: 14px; background: rgba(0,0,0,.72); font-family: "Poppins", system-ui, sans-serif; }
+.cac-caja { width: min(420px, 100%); max-height: 94vh; overflow: auto; background: #101a24; color: #eef3f8; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 20px; box-shadow: 0 24px 70px rgba(0,0,0,.65); }
+.cac-caja h2 { margin: 0 0 6px; font-size: 1.25rem; color: #ffd27a; }
+.cac-motivo { margin: 0 0 12px; font-size: .9rem; color: #b6c4d2; line-height: 1.45; }
+.cac-caja label { display: block; margin: 10px 0 0; font-size: .8rem; color: #b6c4d2; font-weight: 600; }
+.cac-caja input { display: block; width: 100%; margin-top: 4px; min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.2); background: rgba(0,0,0,.35); color: #fff; font: 1rem "Poppins", system-ui, sans-serif; }
+.cac-caja input:focus-visible { outline: 3px solid #ffd27a; outline-offset: 1px; }
+.cac-msg { min-height: 1.4em; margin: 10px 0 0; font-size: .86rem; font-weight: 600; color: #b6c4d2; }
+.cac-msg.mal { color: #ff9d9d; }
+.cac-msg.ok { color: #9dffb0; }
+.cac-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+.cac-botones button, .cac-cerrar { min-height: 50px; border-radius: 12px; border: 0; font: 800 .95rem "Poppins", system-ui, sans-serif; cursor: pointer; }
+.cac-primario { background: linear-gradient(180deg, #ffd27a, #e0a030); color: #2a1600; }
+.cac-sec { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.2) !important; }
+.cac-botones button:disabled { opacity: .55; cursor: wait; }
+.cac-cerrar { display: block; width: 100%; margin-top: 10px; background: transparent; color: #b6c4d2; }
+.cac-nota { margin: 10px 0 0; font-size: .74rem; color: #8fa2b4; line-height: 1.4; text-align: center; }

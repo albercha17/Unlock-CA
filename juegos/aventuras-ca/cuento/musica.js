@@ -301,6 +301,15 @@ export function crearMusica(tema, { contexto = null, destino = null } = {}) {
         if (master && ctx) master.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.4);
       } catch (e) { /* nada */ }
     },
+    /** Solo para pruebas con OfflineAudioContext: programa de golpe `seg` segundos de música y abre el volumen. */
+    renderizarPrueba(seg) {
+      if (!master && !montar()) return false;
+      activo = true; siguiente = 0.05; paso = 0; proximaSirena = 8;
+      while (siguiente < seg) { programar(siguiente); siguiente += seg16(); }
+      master.gain.setValueAtTime(volumen, 0);
+      activo = false;
+      return true;
+    },
     /** Baja el volumen mientras hay un minijuego o una pausa. */
     duck(si) { bajo = !!si; try { aplicarVolumen(true); } catch (e) { /* nada */ } },
     volumen(v) { volumen = Math.max(0, Math.min(1, v)); try { aplicarVolumen(true); } catch (e) { /* nada */ } },

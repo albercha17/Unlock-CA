@@ -1,0 +1,12 @@
+/* menu.css — dificultad, duración y marca de «completada» en las tarjetas de los menús. */
+.dif-fila { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 6px 0 4px; font-size: .78rem; color: var(--mut, var(--muted, rgba(255,255,255,.78))); }
+.dif-t { font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-size: .66rem; }
+.dif-fila .puntos { display: inline-flex; gap: 3px; }
+.dif-fila .puntos i { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--laton2, var(--accent-2, #f0c773)); display: block; }
+.dif-fila .puntos i.on { background: var(--laton2, var(--accent-2, #f0c773)); box-shadow: 0 0 6px var(--laton2, var(--accent-2, #f0c773)); }
+.dif-n { font-size: .8rem; color: var(--tx, #fff); }
+.dif-n.n1, .dif-n.n2 { color: #9dffb0; }
+.dif-n.n3 { color: #ffe27a; }
+.dif-n.n4, .dif-n.n5 { color: #ff9d8a; }
+.dif-meta { opacity: .85; }
+.hecha { margin-top: 6px; font-size: .78rem; font-weight: 700; color: #9dffb0; }
