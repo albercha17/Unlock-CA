@@ -83,6 +83,10 @@ def generar_index(index_faro, cfg):
     ix = sustituir(ix, FARO_SINOPSIS, cfg["sinopsis"])
     ix = sustituir(ix, '<div class="serie">Unlock C&amp;A</div>', '<div class="serie">Aventuras C&amp;A</div>')
     ix = sustituir(ix, "El Faro de Cabo Niebla", cfg["titulo"], veces=None)
+    ix = sustituir(ix, "juego: 'faro',", f"juego: '{cfg['tema']}',")
+    ix = sustituir(ix, "assets: '../../assets/',", "assets: '../../../assets/',")
+    for viejo in ('href="../../manifest.webmanifest"', 'href="../../assets/icons/apple-touch-icon.png"', 'href="../../assets/icons/favicon.png"'):
+        ix = sustituir(ix, viejo, viejo.replace('"../../', '"../../../'))
     ix = sustituir(ix, "segundos: 3600,", f"segundos: {cfg.get('minutos', 60) * 60},")
     ix = sustituir(ix, "dificultad: 2,", f"dificultad: {cfg.get('dificultad', 3)},")
     ix = sustituir(ix, "← Volver al menú", "← Volver a Aventuras C&amp;A", veces=None)

@@ -25,6 +25,7 @@ Cuando se pida «crea un juego» (con o sin temática), se entrega **todo**, sin
 6. **Una carta que descarta otra debe poder descartarla siempre**, en cualquier orden legal de juego.
 7. **Las ilustraciones no llevan texto.** El número, el título, las franjas y los textos los pone `imprimir.html` / el Modo PC.
 8. **Un minijuego no debe delatar la respuesta:** sin medidores de cercanía ni cintas con la solución. La guía son las cartas (y, si procede, el sonido).
+9. **Puzles y pistas visuales en las cartas.** Mucho de lo que el jugador resuelve debe estar en las propias cartas (cartas que se juntan y dan un número, ilustraciones que contienen la pista), no en texto largo ni en la app. Lo que enseña una ilustración no se repite en la app. Catálogo de ideas en GUIA-DE-PUZLES §7.21. Las franjas «Coge/Descarta» son una sola línea compacta para no tapar la ilustración.
 
 ## 2. Anatomía de un juego
 
@@ -32,6 +33,10 @@ Cuando se pida «crea un juego» (con o sin temática), se entrega **todo**, sin
 index.html      estructura de la app + `window.APP_CONFIG` (segundos, carta final, mapa de minijuegos)
 app.css / app.js  aspecto y lógica comunes de la app: inicio con reglas, reloj diegético, Acción, Pista, teclado con vista previa,
                 cuaderno (registro + notas + reglas), guardado automático, pantalla final con informe, Wake Lock
+precache.json   lista de ficheros del juego para el botón «Descargar para jugar sin conexión» (la genera `generar_pwa.py`)
+musica.js       música de fondo generativa (WebAudio, sin archivos): un preset por tema en `PRESETS` (faro, egipto, marte, florencia,
+                dinosaurios, cuento, trono). Al crear un juego nuevo con tema propio, añade su preset (escala, tempo, instrumentos y ambiente)
+                y prueba el sonido en `juegos/laboratorio/musica.html`. La app baja el volumen en minijuegos/pausas y tiene botón para quitarla.
 pc.html         mesa virtual: mazo boca abajo, mesa, descartes
 cartas.json     guion completo (ver §3)
 cartas-data.js  copia generada de cartas.json para abrir pc/imprimir/prompts con doble clic (no editar)

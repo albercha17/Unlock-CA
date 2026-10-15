@@ -19,7 +19,7 @@
   .arte{position:absolute;inset:0;background:linear-gradient(160deg,#2a3b4c,#101a24) center/cover no-repeat}
   .num{position:absolute;top:1.4mm;left:1.4mm;width:9.5mm;height:9.5mm;border-radius:50%;background:var(--c,var(--gris));border:.5mm solid #fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12pt;box-shadow:0 .4mm 1mm rgba(0,0,0,.5)}
   .etq{position:absolute;top:2mm;right:2mm;background:var(--c,var(--gris));font-size:5.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.7mm 1.8mm;border-radius:1mm}
-  .tit{position:absolute;left:0;right:0;bottom:0;padding:5mm 2.5mm 2.2mm;background:linear-gradient(transparent,rgba(5,10,16,.94) 45%);font-weight:700;font-size:8.5pt;text-align:center;line-height:1.15}
+  .tit{position:absolute;left:0;right:0;bottom:0;padding:3mm 2.5mm 1.5mm;background:linear-gradient(transparent,rgba(5,10,16,.9) 40%);font-weight:700;font-size:7.5pt;text-align:center;line-height:1.15}
   .texto{position:absolute;left:3mm;right:3mm;top:12mm;bottom:12mm;background:rgba(244,234,208,.95);color:#2a2012;border-radius:1.5mm;padding:2mm 2.2mm;font-size:6.2pt;line-height:1.3;overflow:hidden;font-family:Georgia,"Times New Roman",serif}
   .texto.chico{top:auto;bottom:11.5mm;font-size:7pt;text-align:center}
   .texto.largo{top:auto;bottom:11.5mm;left:2.5mm;right:2.5mm;padding:1.4mm 1.8mm;font-size:5.3pt;line-height:1.22;background:rgba(244,234,208,.93)}
@@ -29,10 +29,11 @@
   .texto div+div{margin-top:.8mm}
 
   .texto.espejo{transform:scaleX(-1)}
-  .acc{position:absolute;left:2.2mm;right:2.2mm;bottom:10.5mm;display:flex;flex-direction:column;gap:.8mm}
-  .acc .g{display:flex;flex-wrap:wrap;align-items:center;gap:.9mm;background:rgba(5,10,16,.84);border-radius:1.2mm;padding:.8mm 1.4mm;font-size:2.4mm;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+  .acc{position:absolute;left:1.8mm;right:1.8mm;bottom:8mm;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.6mm}
+  .carta.conacc .texto.chico,.carta.conacc .texto.largo{bottom:17mm}
+  .acc .g{display:flex;flex-wrap:wrap;align-items:center;gap:.6mm;background:rgba(5,10,16,.74);border-radius:1.2mm;padding:.5mm 1mm;font-size:2mm;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
   .acc .g b{margin-right:.6mm}
-  .acc .g i{font-style:normal;min-width:5.6mm;height:4.8mm;padding:0 1.1mm;border-radius:2.4mm;background:#fff;color:#111;display:inline-flex;align-items:center;justify-content:center;font-size:3mm;letter-spacing:0}
+  .acc .g i{font-style:normal;min-width:4.4mm;height:3.8mm;padding:0 .9mm;border-radius:1.9mm;background:#fff;color:#111;display:inline-flex;align-items:center;justify-content:center;font-size:2.6mm;letter-spacing:0}
   .acc .coge b{color:#7be495}.acc .des b{color:#ff8f8f}.acc .comb b{color:#ffd27a}
 
   .dorso{--c:#ffd27a;background:radial-gradient(circle at 50% 38%,#ffe9a8 0,#ffd27a 6%,#1c3a4d 7%,#0a1218 70%)}
@@ -74,7 +75,8 @@ window.JUEGO = datos;
   function cartaHTML(id){
     var c = J[id], color = COLORES[c.tipo] || COLORES.gris;
     var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
-    var html = '<div class="carta" style="--c:' + color + '"><div class="arte" data-id="' + esc(id) + '"></div>' +
+    var conacc = !!((c.coge && c.coge.length) || (c.descarta && c.descarta.length) || c.combina);
+    var html = '<div class="carta' + (conacc ? ' conacc' : '') + '" style="--c:' + color + '"><div class="arte" data-id="' + esc(id) + '"></div>' +
       '<div class="num">' + esc(id) + '</div>';
     if (ETIQ[c.tipo]) html += '<div class="etq">' + ETIQ[c.tipo] + '</div>';
     if (c.textoCarta && c.textoCarta.length) {

@@ -2,9 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#071013">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../../assets/icons/favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unlock C&A">
+
   <title>Aventuras C&amp;A</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/menu.css">
   <style>
     :root{
       --bg:#071013;--panel:#0e1d22;--panel2:#13292f;--line:#21404a;--tx:#e8f1f3;--mut:#8fb0b8;
@@ -13,7 +23,7 @@
     *{box-sizing:border-box}
     html,body{margin:0;background:radial-gradient(circle at 50% 0,#10303a 0,var(--bg) 60%);color:var(--tx);
       font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100%}
-    body{padding-block:28px 56px}
+    body{padding-block:max(28px,env(safe-area-inset-top)) max(56px,env(safe-area-inset-bottom));overscroll-behavior-y:none}
     .wrap{max-width:900px;margin-inline:auto;padding-inline:18px}
     .eyebrow{margin:0 0 6px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cian);font-weight:700}
     h1{margin:0;font-size:clamp(2rem,6vw,3rem);line-height:1.05;letter-spacing:-.01em}
@@ -60,8 +70,9 @@
     .volver:focus-visible{outline:3px solid var(--cian);outline-offset:3px}
   </style>
 </head>
-<body>
+<body data-raiz="../../">
 <div class="wrap">
+  <div id="cuenta"></div>
   <header>
     <p class="eyebrow">Cristina y Alberto · el Cronoportal</p>
     <h1>Aventuras <span>C&amp;A</span></h1>
@@ -80,51 +91,51 @@
   <h2 class="seccion">Saltos con el Cronoportal</h2>
   <p class="sub">Cada aventura se juega con las cartas (impresas o en el Modo PC) y el móvil.</p>
   <div class="saltos">
-    <a class="salto egipto" href="egipto/index.html">
+    <a class="salto egipto" data-juego="egipto" href="egipto/index.html">
       <div class="cartel" aria-hidden="true"><img src="egipto/img/P.jpg" alt=""></div>
       <div class="cuerpo">
         <h3>El Ojo de Horus</h3>
-        <div class="chips"><span class="chip epoca">Egipto · 1274 a.C.</span><span class="chip">Dificultad: media</span><span class="chip">Jeroglíficos</span><span class="chip">Balanza de Maat</span><span class="chip">Anillos de Ra</span><span class="chip">Tablilla deslizante</span><span class="chip">Numeración egipcia</span></div>
+        <div class="chips"><span class="chip epoca">Egipto · 1274 a.C.</span><span class="chip">Jeroglíficos</span><span class="chip">Balanza de Maat</span><span class="chip">Anillos de Ra</span><span class="chip">Tablilla deslizante</span><span class="chip">Numeración egipcia</span></div>
         <p>Una cámara secreta bajo el templo de Karnak, una sala funeraria sellada, un amuleto que brilla con luz propia y una hora antes de que lleguen los sacerdotes.</p>
       </div>
     </a>
-    <a class="salto marte" href="marte/index.html">
+    <a class="salto marte" data-juego="marte" href="marte/index.html">
       <div class="cartel" aria-hidden="true"><img src="marte/img/P.jpg" alt=""></div>
       <div class="cuerpo">
         <h3>Cúpula Aurora</h3>
-        <div class="chips"><span class="chip epoca">Marte · 2157</span><span class="chip">Dificultad: media</span><span class="chip">Hackeo</span><span class="chip">Tuberías</span><span class="chip">Binario</span><span class="chip">Rover</span><span class="chip">Reactor</span></div>
+        <div class="chips"><span class="chip epoca">Marte · 2157</span><span class="chip">Hackeo</span><span class="chip">Tuberías</span><span class="chip">Binario</span><span class="chip">Rover</span><span class="chip">Reactor</span></div>
         <p>Una colonia a oscuras por una tormenta de polvo, el oxígeno en las últimas y un núcleo de fusión al otro lado de la esclusa, en la superficie.</p>
       </div>
     </a>
-    <a class="salto florencia" href="florencia/index.html">
+    <a class="salto florencia" data-juego="florencia" href="florencia/index.html">
       <div class="cartel" aria-hidden="true"><img src="florencia/img/P.jpg" alt=""></div>
       <div class="cuerpo">
         <h3>El Taller de Leonardo</h3>
-        <div class="chips"><span class="chip epoca">Florencia · 1503</span><span class="chip">Dificultad: difícil</span><span class="chip">Escritura en espejo</span><span class="chip">Disco de Alberti</span><span class="chip">Engranajes</span><span class="chip">Cuadrado mágico</span><span class="chip">Jarras</span><span class="chip">Ornitóptero</span><span class="chip">Espejos</span></div>
+        <div class="chips"><span class="chip epoca">Florencia · 1503</span><span class="chip">Escritura en espejo</span><span class="chip">Disco de Alberti</span><span class="chip">Engranajes</span><span class="chip">Cuadrado mágico</span><span class="chip">Jarras</span><span class="chip">Ornitóptero</span><span class="chip">Espejos</span></div>
         <p>De noche, en el taller de Leonardo da Vinci: un cofre con escritura al revés, un león mecánico, una lente perfecta y una sola hora hasta que el amanecer pueda recargar el Cronoportal.</p>
       </div>
     </a>
-    <a class="salto dinosaurios" href="dinosaurios/index.html">
+    <a class="salto dinosaurios" data-juego="dinosaurios" href="dinosaurios/index.html">
       <div class="cartel" aria-hidden="true"><img src="dinosaurios/img/P.jpg" alt=""></div>
       <div class="cuerpo">
         <h3>El Valle de los Gigantes</h3>
-        <div class="chips"><span class="chip epoca">Cretácico · hace 66 millones de años</span><span class="chip">Dificultad: media</span><span class="chip">Huellas</span><span class="chip">Excavación</span><span class="chip">Balsa</span><span class="chip">ADN</span><span class="chip">Estratos</span><span class="chip">Cristales</span><span class="chip">Huevos</span><span class="chip">Géiser</span><span class="chip">Esqueleto</span></div>
+        <div class="chips"><span class="chip epoca">Cretácico · hace 66 millones de años</span><span class="chip">Huellas</span><span class="chip">Excavación</span><span class="chip">Balsa</span><span class="chip">ADN</span><span class="chip">Estratos</span><span class="chip">Cristales</span><span class="chip">Huevos</span><span class="chip">Géiser</span><span class="chip">Esqueleto</span></div>
         <p>La aventura más larga: un valle lleno de dinosaurios, un núcleo de energía perdido y un asteroide en el cielo. Hora y media y diez puzles para volver a casa.</p>
       </div>
     </a>
-    <a class="salto cuento" href="cuento/index.html">
+    <a class="salto cuento" data-juego="cuento" href="cuento/index.html">
       <div class="cartel" aria-hidden="true"><img src="cuento/img/P.jpg" alt=""></div>
       <div class="cuerpo">
         <h3>Érase una vez: El Libro de los Finales Felices</h3>
-        <div class="chips"><span class="chip epoca">Dentro de un cuento · dibujos animados</span><span class="chip">Dificultad: fácil</span><span class="chip">Cerillas</span><span class="chip">Puente y farolillo</span><span class="chip">Salto en el tiempo</span><span class="chip">Vidriera</span><span class="chip">Hadas</span><span class="chip">Rayos y espejos</span><span class="chip">Tarros de colores</span><span class="chip">Caja de música</span></div>
+        <div class="chips"><span class="chip epoca">Dentro de un cuento · dibujos animados</span><span class="chip">Cerillas</span><span class="chip">Puente y farolillo</span><span class="chip">Salto en el tiempo</span><span class="chip">Vidriera</span><span class="chip">Hadas</span><span class="chip">Rayos y espejos</span><span class="chip">Tarros de colores</span><span class="chip">Caja de música</span></div>
         <p>El Cronoportal cae dentro de un libro de cuentos y Cristina y Alberto se vuelven dibujos animados. El libro pierde el color y la tinta, y el último cuento no tiene final. Setenta y cinco minutos para escribirlo.</p>
       </div>
     </a>
-    <a class="salto trono" href="trono/index.html">
+    <a class="salto trono" data-juego="trono" href="trono/index.html">
       <div class="cartel" aria-hidden="true"><img src="trono/img/P.jpg" alt=""></div>
       <div class="cuerpo">
         <h3>Reino de Hielo y Fuego: La Corona del Dragón</h3>
-        <div class="chips"><span class="chip epoca">Fantasía medieval · pleno invierno</span><span class="chip">Dificultad: difícil</span><span class="chip">Cifra del cuervo</span><span class="chip">Banquete</span><span class="chip">Caminos</span><span class="chip">Lengua inventada</span><span class="chip">Consejeros</span><span class="chip">Antorchas</span><span class="chip">Atasco</span><span class="chip">Tapiz</span><span class="chip">Profecía</span></div>
+        <div class="chips"><span class="chip epoca">Fantasía medieval · pleno invierno</span><span class="chip">Cifra del cuervo</span><span class="chip">Banquete</span><span class="chip">Caminos</span><span class="chip">Lengua inventada</span><span class="chip">Consejeros</span><span class="chip">Antorchas</span><span class="chip">Atasco</span><span class="chip">Tapiz</span><span class="chip">Profecía</span></div>
         <p>Una fortaleza de piedra negra en mitad de la ventisca, casas nobles que mienten, un dragón dormido y una esquirla de fuego que es lo único que puede encender el Cronoportal. Cien minutos antes de que la nieve cierre los pasos.</p>
       </div>
     </a>
@@ -145,5 +156,7 @@
 
   <a class="volver" href="../../index.html">← Volver al menú</a>
 </div>
+<script src="../../assets/js/pwa.js"></script>
+<script type="module" src="../../assets/js/menu.js"></script>
 </body>
 </html>

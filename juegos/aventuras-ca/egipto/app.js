@@ -1,13 +1,19 @@
 // app.js — lógica de la app de Unlock C&A / Aventuras C&A. Común a todos los juegos: se edita en juegos/el-faro y se propaga con
 // herramientas/regenerar_index.py. La configuración de cada juego (segundos, carta final, minijuegos) está en window.APP_CONFIG (index.html).
 
-const CFG = Object.assign({ segundos: 3600, dificultad: 0, final: '99', volver: '../index.html', minijuegos: {} }, window.APP_CONFIG || {});
+import { crearMusica } from './musica.js';
+
+const CFG = Object.assign({ juego: '', assets: '../../assets/', segundos: 3600, dificultad: 0, final: '99', volver: '../index.html', minijuegos: {} }, window.APP_CONFIG || {});
 const NIVELES = ['', 'Muy fácil', 'Fácil', 'Media', 'Difícil', 'Muy difícil'];
 const $ = (id) => document.getElementById(id);
 const TEMA = document.documentElement.dataset.tema || 'faro';
 const TITULO = (document.querySelector('[data-juego-titulo]') || {}).textContent || document.title;
 const CLAVE_GUARDADO = 'ca-partida:' + location.pathname.replace(/index\.html$/, '');
 const CLAVE_RELOJ = 'ca-reloj-oculto';
+const CLAVE_MUSICA = 'ca-musica';
+const musica = crearMusica(TEMA);
+let musicaOn = true;
+try { musicaOn = localStorage.getItem(CLAVE_MUSICA) !== '0'; } catch (e) { /* por defecto, con música */ }
 
 // texto del reloj según la historia (el reloj es parte del juego, no solo un número)
 const ETIQUETA_RELOJ = {
@@ -196,7 +202,8 @@ function soltarPantalla() {
   wakeLock = null;
 }
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible' && partidaIniciada && !estado.fin) pedirPantallaEncendida();
+  if (document.visibilityState === 'visible' && partidaIniciada && !estado.fin) { pedirPantallaEncendida(); musica.reanudar(); }
+  else if (document.visibilityState === 'hidden') musica.suspender();
 });
 
 // ---------------------------------------------------------------- inicio de partida
@@ -212,6 +219,7 @@ function prepararPantallaJuego() {
   actualizarReloj();
   arrancarReloj();
   pedirPantallaEncendida();
+  if (musicaOn) musica.iniciar();
   guardar();
   window.scrollTo(0, 0);
 }
@@ -429,8 +437,8 @@ async function checkAndOpen(code) {
       registrar(c, 'accion');
       module.startMinigame({
         onClose: () => actionBtn.focus(),
-        pauseGameTimer: () => { isPaused = true; },
-        resumeGameTimer: () => { isPaused = false; }
+        pauseGameTimer: () => { isPaused = true; musica.duck(true); },
+        resumeGameTimer: () => { isPaused = false; musica.duck(false); }
       });
     } else {
       mostrarErrorNum(`Módulo ${c} cargado, pero no exporta startMinigame.`);
@@ -459,11 +467,13 @@ document.addEventListener('keydown', (e) => {
 // ---------------------------------------------------------------- pausa y salida
 pauseBtn.addEventListener('click', () => {
   isPaused = true;
+  musica.duck(true);
   pauseBtn.style.display = 'none';
   resumeBtn.style.display = 'inline-flex';
 });
 resumeBtn.addEventListener('click', () => {
   isPaused = false;
+  musica.duck(false);
   pauseBtn.style.display = 'inline-flex';
   resumeBtn.style.display = 'none';
 });
@@ -473,6 +483,7 @@ stopBtn.addEventListener('click', async () => {
   guardar();
   if (intervalId) clearInterval(intervalId);
   soltarPantalla();
+  musica.parar();
   partidaIniciada = false;
   introPanel.style.display = 'block';
   gamePanel.style.display = 'none';
@@ -489,6 +500,21 @@ function aplicarRelojOculto(oculto) {
 }
 clockToggle.addEventListener('click', () => aplicarRelojOculto(!relojEl.classList.contains('oculto')));
 try { if (localStorage.getItem(CLAVE_RELOJ) === '1') aplicarRelojOculto(true); } catch (e) { /* nada */ }
+
+// ---------------------------------------------------------------- música
+const musicBtn = $('musicBtn');
+function pintarMusica() {
+  musicBtn.setAttribute('aria-pressed', String(musicaOn));
+  musicBtn.classList.toggle('apagado', !musicaOn);
+  musicBtn.setAttribute('aria-label', musicaOn ? 'Quitar la música de fondo' : 'Poner la música de fondo');
+}
+musicBtn.addEventListener('click', () => {
+  musicaOn = !musicaOn;
+  try { localStorage.setItem(CLAVE_MUSICA, musicaOn ? '1' : '0'); } catch (e) { /* nada */ }
+  if (musicaOn && partidaIniciada && !estado.fin) musica.iniciar(); else musica.parar();
+  pintarMusica();
+});
+pintarMusica();
 
 // ---------------------------------------------------------------- cuaderno
 const cuaderno = $('cuaderno');
@@ -562,6 +588,7 @@ function mostrarFinal(exito) {
   escribirGuardado(null);
   if (intervalId) clearInterval(intervalId);
   soltarPantalla();
+  musica.parar();
   gamePanel.style.display = 'none';
   introPanel.style.display = 'none';
   finalPanel.style.display = 'block';
@@ -575,9 +602,48 @@ function mostrarFinal(exito) {
     ? `Lo habéis conseguido con ${mmss(estado.restante)} de margen.`
     : `Lo habéis conseguido, con ${mmss(-estado.restante)} de más sobre el tiempo previsto.`;
   $('informeTexto').textContent = construirInforme(exito);
+  if (exito) registrarPartida();
   [440, 554, 659, 880].forEach((f, i) => setTimeout(() => pitido(f, 220, 'triangle', 0.07), i * 160));
   window.scrollTo(0, 0);
 }
+// ---------------------------------------------------------------- registro de la partida (cuenta y dispositivo)
+function guardarLocalDeEmergencia(reg) {
+  try {
+    const l = JSON.parse(localStorage.getItem('ca-hechas') || '[]');
+    l.push(Object.assign({ cliente_id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8), fin: new Date().toISOString(), sync: false }, reg));
+    localStorage.setItem('ca-hechas', JSON.stringify(l.slice(-300)));
+  } catch (e) { /* sin almacenamiento */ }
+}
+async function registrarPartida() {
+  const estadoEl = $('guardadoEstado');
+  const btn = $('guardarCuentaBtn');
+  const usado = TOTAL - estado.restante;
+  const reg = {
+    juego: CFG.juego || TEMA, tiempo_seg: Math.round(usado), pistas: Object.values(estado.pistas).reduce((a, b) => a + b, 0),
+    cartas: estado.log.filter((e) => e.uso === 'accion' && e.card !== String(CFG.final)).length, informe: construirInforme(true)
+  };
+  estadoEl.textContent = 'Guardando la partida…';
+  try {
+    const url = (f) => new URL(CFG.assets + 'js/' + f, import.meta.url).href;
+    const cuenta = await import(url('cuenta.js'));
+    const antes = cuenta.resumenLocal()[reg.juego];
+    const r = await cuenta.guardarPartida(reg);
+    const mejor = !antes || reg.tiempo_seg < antes.mejor;
+    estadoEl.textContent = r.mensaje + (mejor && antes ? ' ¡Nuevo mejor tiempo!' : '');
+    if (!r.nube) {
+      btn.hidden = false;
+      btn.onclick = async () => {
+        const ui = await import(url('cuenta-ui.js'));
+        const u = await ui.abrirLogin({ motivo: 'Entra para guardar esta partida (' + cuenta.formatoTiempo(reg.tiempo_seg) + ') en tu cuenta.' });
+        if (u) { const s = await cuenta.sincronizar(); estadoEl.textContent = s.ok ? 'Partida guardada en tu cuenta.' : (s.mensaje || 'Se guardará en cuanto haya conexión.'); btn.hidden = s.ok; }
+      };
+    }
+  } catch (e) {
+    guardarLocalDeEmergencia(reg);
+    estadoEl.textContent = 'Partida guardada en este dispositivo.';
+  }
+}
+
 $('copyReportBtn').addEventListener('click', async () => {
   const texto = $('informeTexto').textContent;
   const pre = $('informeTexto');
@@ -607,6 +673,34 @@ function mostrarContinuar() {
 }
 function volver() { window.location.href = CFG.volver; }
 window.volver = volver;
+
+// ---------------------------------------------------------------- modo sin conexión (PWA)
+function iniciarOffline() {
+  const btn = $('offlineBtn'), est = $('offlineEstado');
+  if (!btn || !window.CA_PWA || !window.CA_PWA.soportado || location.protocol === 'file:') return;
+  const clave = 'ca-offline:' + (CFG.juego || TEMA);
+  let hecho = false;
+  try { hecho = localStorage.getItem(clave) === '1'; } catch (e) { /* nada */ }
+  btn.hidden = false;
+  if (hecho) { btn.textContent = 'Actualizar la descarga sin conexión'; est.hidden = false; est.textContent = 'Este juego ya funciona sin conexión.'; }
+  btn.onclick = async () => {
+    btn.disabled = true; est.hidden = false; est.textContent = 'Descargando…';
+    try {
+      const lista = await (await fetch('./precache.json', { cache: 'no-store' })).json();
+      const r = await window.CA_PWA.descargar(lista, (p) => { est.textContent = 'Descargando… ' + Math.round((100 * p.hechos) / Math.max(1, p.total)) + ' %'; });
+      if (r.fallos > 0) est.textContent = 'Se descargó casi todo, pero ' + r.fallos + ' ficheros fallaron: vuelve a intentarlo con buena conexión.';
+      else { est.textContent = 'Listo: este juego funciona sin conexión.'; try { localStorage.setItem(clave, '1'); } catch (e) { /* nada */ } }
+    } catch (e) { est.textContent = (e && e.message) || 'No se pudo descargar.'; }
+    btn.disabled = false;
+  };
+}
+(function cargarPwa() {
+  if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
+  const s = document.createElement('script');
+  s.src = new URL(CFG.assets + 'js/pwa.js', import.meta.url).href;
+  s.onload = iniciarOffline;
+  document.head.appendChild(s);
+})();
 
 $('introMin').textContent = textoDuracion(TOTAL);
 $('reglasTexto').innerHTML = REGLAS;

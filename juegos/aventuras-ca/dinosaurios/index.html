@@ -3,8 +3,15 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#05060a">
+  <link rel="manifest" href="../../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../../assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../../../assets/icons/favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unlock C&A">
   <title>Aventuras C&amp;A - Cretácico, hace 66 millones de años: El Valle de los Gigantes</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -46,6 +53,8 @@
 
       <div class="intro-acciones">
         <button class="boton primario grande" id="startBtn">Empezar</button>
+        <button class="boton suave" id="offlineBtn" hidden>Descargar para jugar sin conexión</button>
+        <p class="offline-estado" id="offlineEstado" aria-live="polite" hidden></p>
         <button class="boton" id="continueBtn" hidden>Continuar partida</button>
         <div class="intro-secundarios">
           <a class="boton suave" href="pc.html">Modo PC</a>
@@ -62,6 +71,9 @@
         <div class="iconos">
           <button class="icono" id="clockToggle" aria-pressed="false" aria-label="Ocultar el número del reloj" title="Ocultar/mostrar el número del reloj">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C7 5 2.7 8.1 1 12c1.7 3.9 6 7 11 7s9.3-3.1 11-7c-1.7-3.9-6-7-11-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+          </button>
+          <button class="icono" id="musicBtn" aria-pressed="true" aria-label="Quitar la música de fondo" title="Música de fondo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
           </button>
           <button class="icono" id="notebookBtn" aria-label="Abrir el cuaderno" title="Cuaderno">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h13a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 2v16h11V4H7zm2 3h7v2H9V7zm0 4h7v2H9v-2z"/></svg>
@@ -119,6 +131,8 @@
         <button class="boton" id="replayBtn">Jugar otra vez</button>
         <button class="boton suave" onclick="volver()">← Volver a Aventuras C&amp;A</button>
       </div>
+      <p class="guardado" id="guardadoEstado" aria-live="polite"></p>
+      <div class="final-acciones" style="margin-top:6px"><button class="boton" id="guardarCuentaBtn" hidden>Iniciar sesión para guardarla</button></div>
       <pre id="informeTexto" hidden></pre>
     </div>
   </div>
@@ -217,6 +231,8 @@
   <!-- Configuración propia de este juego (lo demás es común: app.js) -->
   <script>
     window.APP_CONFIG = {
+      juego: 'dinosaurios',
+      assets: '../../../assets/',
       segundos: 5400,
       dificultad: 3,
       final: '99',

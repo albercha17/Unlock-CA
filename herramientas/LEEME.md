@@ -24,6 +24,10 @@ Todo se ejecuta **desde la raíz del repositorio**. Necesitan Python 3, Pillow y
 | `chatgpt_imagenes.py [--foto F --hoja] [carpeta…]` | Maneja la web de ChatGPT con Selenium: hoja de personajes desde la foto (`personajes/hoja.png`) y luego las ilustraciones de cada carta (`<juego>/arte/ID.png`), y las convierte con `preparar_imagenes.py`. Perfil de Chrome fuera del repo (`~/.unlock-chatgpt-profile`). |
 | `sincronizar_cartas.py [--comprobar]` | Genera `cartas-data.js` junto a cada `cartas.json`: es la copia que usan `pc.html`, `imprimir.html` y `prompts.html` cuando se abren con **doble clic** (el navegador bloquea `fetch` en `file://`). Con servidor siguen leyendo `cartas.json`. Hay que ejecutarlo tras cambiar un `cartas.json`; `verificar.py` avisa si está desfasado. |
 | `preparar_imagenes.py <carpeta>` | Convierte `arte/*.png` en `img/*.jpg` ligeros y actualiza `img/pendientes.json`. |
+| `generar_pwa.py [--comprobar]` | Escribe `sw.js` (con versión automática) y `precache.json` de cada juego. Ejecutar tras cambiar cualquier fichero del sitio. |
+| `generar_catalogo.py` | Escribe `juegos/catalogo.json` (dificultad, minutos y cartas de cada juego) para los menús, «Mis partidas» y las partidas guardadas. |
+| `generar_iconos.py` | Dibuja los iconos de la app instalable en `assets/icons/`. |
+| `probar_pwa.py [juego]` | Prueba menús, service worker, modo sin conexión y cuentas (con Supabase simulado). Arranca su propio servidor. |
 | `regenerar_index.py [--probar] [Juego]` | Regenera el `index.html` de cada juego de Aventuras C&A desde la plantilla del Faro y copia `app.css`/`app.js` (la app se edita solo en `juegos/el-faro`). La configuración de cada juego está en `juegos_config.py`. |
 | `construir_aventuras.py` | Plantilla que generó las carpetas de Egipto y Marte (no sobrescribe juegos existentes). |
 

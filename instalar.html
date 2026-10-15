@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#071013">
+  <title>Instalar en el móvil — Unlock C&amp;A</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unlock C&A">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#071013;--panel:#0e1d22;--panel2:#13292f;--line:#21404a;--tx:#e8f1f3;--mut:#8fb0b8;--laton:#d9a441;--laton2:#f0c773;--cian:#3dd6c6}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(circle at 50% 0,#10303a 0,var(--bg) 60%);color:var(--tx);font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100%}
+    body{padding:max(22px,env(safe-area-inset-top)) 16px max(40px,env(safe-area-inset-bottom))}
+    .wrap{max-width:640px;margin:0 auto}
+    .volver{display:inline-block;margin:0 0 16px;color:var(--mut);text-decoration:none;font-size:.9rem;border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+    h1{margin:0 0 6px;font-size:1.8rem;color:var(--laton2)}
+    .lede{color:var(--mut);line-height:1.55;margin:0 0 18px}
+    .estado{border-radius:14px;padding:12px 14px;margin:0 0 16px;font-size:.92rem;line-height:1.45;border:1px solid var(--line);background:var(--panel)}
+    .estado.ok{border-color:#2f9e58;color:#9dffb0}
+    ol.pasos{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:p}
+    ol.pasos li{position:relative;padding:14px 14px 14px 58px;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;line-height:1.5;counter-increment:p}
+    ol.pasos li::before{content:counter(p);position:absolute;left:14px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:var(--laton);color:#1a1000;font-weight:800;display:flex;align-items:center;justify-content:center}
+    .compartir{display:inline-block;vertical-align:-4px;width:22px;height:22px;fill:none;stroke:var(--cian);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    h2{margin:26px 0 8px;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;color:var(--laton2)}
+    ul{margin:0;padding-left:20px;color:var(--mut);line-height:1.6;font-size:.92rem}
+    button.grande{display:block;width:100%;min-height:54px;margin:0 0 16px;border:0;border-radius:14px;background:linear-gradient(180deg,#ffd27a,#e0a030);color:#2a1600;font:800 1rem "Poppins",system-ui,sans-serif;cursor:pointer}
+    .android{display:none}
+    b{color:var(--tx)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <a class="volver" href="index.html">← Volver al menú</a>
+  <h1>Instalar en el móvil</h1>
+  <p class="lede">Unlock C&amp;A se puede tener como una app más, con su icono, a pantalla completa y funcionando <b>sin conexión</b>. No hace falta la App Store.</p>
+
+  <div class="estado" id="estado">Comprobando…</div>
+  <button class="grande android" id="instalar" type="button">Instalar la app</button>
+
+  <h2>En iPhone (Safari)</h2>
+  <ol class="pasos">
+    <li>Abre esta web en <b>Safari</b> (no desde otra app ni en el navegador de Chrome).</li>
+    <li>Pulsa el botón <b>Compartir</b>
+      <svg class="compartir" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-1"/></svg>
+      (el cuadrado con la flecha hacia arriba, abajo en el centro).</li>
+    <li>Desliza y elige <b>Añadir a pantalla de inicio</b> y pulsa <b>Añadir</b>. Ya tienes el icono del Cronoportal.</li>
+  </ol>
+
+  <h2>En Android (Chrome)</h2>
+  <ol class="pasos">
+    <li>Pulsa el botón <b>Instalar la app</b> de arriba, o el menú ⋮ → <b>Instalar aplicación</b>.</li>
+  </ol>
+
+  <h2>Para jugar sin conexión</h2>
+  <ul>
+    <li>Abre la aventura una vez con conexión y pulsa <b>Descargar para jugar sin conexión</b> en su pantalla de inicio (tarda un minuto; ocupa unos 5 MB).</li>
+    <li>Después la puedes jugar en el tren, sin datos o sin wifi. Las partidas terminadas se subirán a tu cuenta cuando vuelvas a tener red.</li>
+    <li>La música, las cartas del Modo PC y los minijuegos también funcionan sin conexión. Solo el vídeo de introducción necesita red.</li>
+  </ul>
+
+  <h2>Cosas del iPhone que conviene saber</h2>
+  <ul>
+    <li>El iPhone no tiene vibración para webs: usamos luz y sonido en su lugar.</li>
+    <li>El sonido empieza al tocar la pantalla (norma de Apple). Pon el interruptor lateral con sonido.</li>
+    <li>Si dejas de usar la app varias semanas, iOS puede borrar los datos guardados en el teléfono; con tu cuenta, tus partidas terminadas están a salvo.</li>
+  </ul>
+</div>
+<script src="assets/js/pwa.js"></script>
+<script>
+  var e = document.getElementById('estado');
+  var inst = window.CA_PWA && CA_PWA.instalada();
+  if (inst) { e.className = 'estado ok'; e.textContent = 'Ya la tienes instalada: estás usando la app.'; }
+  else if (CA_PWA && CA_PWA.esIOS()) e.textContent = 'Estás en un iPhone o iPad: sigue los tres pasos de «En iPhone».';
+  else e.textContent = 'Aún no está instalada en este dispositivo.';
+  var pedido = null;
+  window.addEventListener('beforeinstallprompt', function (ev) {
+    ev.preventDefault(); pedido = ev;
+    var b = document.getElementById('instalar'); b.style.display = 'block';
+    b.onclick = function () { pedido.prompt(); pedido.userChoice.then(function () { b.style.display = 'none'; }); };
+  });
+</script>
+</body>
+</html>

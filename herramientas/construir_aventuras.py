@@ -72,6 +72,7 @@ for nombre, cfg in JUEGOS.items():
     shutil.copy(f"{FARO}/minijuegos/ui.js", f"{base}/minijuegos/ui.js")
     shutil.copy(f"{FARO}/app.css", f"{base}/app.css")
     shutil.copy(f"{FARO}/app.js", f"{base}/app.js")
+    shutil.copy(f"{FARO}/musica.js", f"{base}/musica.js")
     if nombre != "Egipto":
         shutil.copy("juegos/aventuras-ca/egipto/minijuegos/lector.js", f"{base}/minijuegos/lector.js")
     css = leer(f"{FARO}/style.css")
