@@ -79,6 +79,14 @@ def main():
     normal.resize((180, 180), Image.LANCZOS).save("assets/icons/apple-touch-icon.png", optimize=True)
     normal.resize((64, 64), Image.LANCZOS).save("assets/icons/favicon.png", optimize=True)
     print("iconos escritos en assets/icons/")
+    # imágenes de arranque de iPhone (apple-touch-startup-image): fondo liso y el Cronoportal en el centro
+    os.makedirs("assets/splash", exist_ok=True)
+    for w, h in ((1290, 2796), (1179, 2556), (1284, 2778), (1170, 2532), (1125, 2436), (1242, 2688), (828, 1792), (750, 1334)):
+        lienzo = Image.new("RGB", (w, h), (7, 16, 19))
+        lado = int(w * 0.30)
+        lienzo.paste(normal.resize((lado, lado), Image.LANCZOS), ((w - lado) // 2, int(h * 0.40) - lado // 2))
+        lienzo.save(f"assets/splash/iphone-{w}x{h}.png", optimize=True)
+    print("imágenes de arranque escritas en assets/splash/")
 
 
 if __name__ == "__main__":

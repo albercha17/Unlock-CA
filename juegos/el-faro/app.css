@@ -70,10 +70,10 @@ details.reglas summary { cursor: pointer; padding: 10px 0; font-weight: 700; fon
 .reglas-texto p { margin: 0 0 8px; }
 
 /* ===== pantalla de juego ===== */
-.cabecera { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.cabecera { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 4px; }
 .cabecera .logo { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex: none; border: 2px solid var(--linea); background: #000; }
 .cabecera .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.cabecera h2 { margin: 0; font-size: .98rem; line-height: 1.2; flex: 1; min-width: 0; }
+.cabecera h2 { margin: 0; font-size: .98rem; line-height: 1.2; flex: 1 1 130px; min-width: 0; }
 .iconos { display: flex; gap: 8px; flex: none; }
 .icono { width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--linea); background: rgba(255, 255, 255, .08); color: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
 .icono svg { width: 24px; height: 24px; fill: currentColor; }
@@ -111,6 +111,10 @@ details.reglas summary { cursor: pointer; padding: 10px 0; font-weight: 700; fon
 .num-modal-box { background: linear-gradient(180deg, #121a2a, #0b1220); border: 1px solid var(--linea); border-bottom: 0; padding: 16px 14px calc(14px + env(safe-area-inset-bottom)); border-radius: 18px 18px 0 0;
   width: 100%; max-width: 480px; color: #eaeef2; transition: transform var(--fade-ms) ease; }
 .num-modal.closing .num-modal-box { transform: translateY(10px); }
+.num-modal-box::before, .cuaderno-caja::before { content: ""; display: block; width: 44px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, .3); margin: -4px auto 10px; }
+.num-modal-box { animation: ca-sube .26s cubic-bezier(.2, .85, .25, 1); }
+.cuaderno.abierto .cuaderno-caja { animation: ca-sube .28s cubic-bezier(.2, .85, .25, 1); }
+@keyframes ca-sube { from { transform: translateY(36px); opacity: 0; } to { transform: none; opacity: 1; } }
 .num-modal-box h3 { margin: 0 0 8px; font-size: 1rem; text-align: center; color: var(--accent-2); }
 .num-display { font-size: 2.2rem; font-weight: 800; letter-spacing: .3em; text-align: center; padding: 6px 0; background: rgba(255, 255, 255, .05); border-radius: 12px; font-variant-numeric: tabular-nums; }
 .num-titulo { min-height: 1.5em; text-align: center; font-size: .86rem; color: var(--accent-2); margin: 6px 0 8px; }
@@ -173,3 +177,12 @@ details.reglas summary { cursor: pointer; padding: 10px 0; font-weight: 700; fon
   .cuaderno { align-items: center; }
   .cuaderno-caja { border-radius: 18px; border-bottom: 1px solid var(--linea); }
 }
+
+/* transiciones entre páginas (como una app): navegadores con View Transitions; el resto, un fundido */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: ca-vt-sale .16s ease both; }
+::view-transition-new(root) { animation: ca-vt-entra .22s ease both; }
+@keyframes ca-vt-sale { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes ca-vt-entra { from { opacity: 0; transform: translateY(10px); } }
+@supports not (view-transition-name: a) { body { animation: ca-vt-entra .25s ease-out; } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } body { animation: none !important; } }

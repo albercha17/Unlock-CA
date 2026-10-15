@@ -10,3 +10,12 @@
 .dif-n.n4, .dif-n.n5 { color: #ff9d8a; }
 .dif-meta { opacity: .85; }
 .hecha { margin-top: 6px; font-size: .78rem; font-weight: 700; color: #9dffb0; }
+
+/* transiciones entre páginas (como una app): navegadores con View Transitions; el resto, un fundido */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: ca-vt-sale .16s ease both; }
+::view-transition-new(root) { animation: ca-vt-entra .22s ease both; }
+@keyframes ca-vt-sale { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes ca-vt-entra { from { opacity: 0; transform: translateY(10px); } }
+@supports not (view-transition-name: a) { body { animation: ca-vt-entra .25s ease-out; } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } body { animation: none !important; } }
