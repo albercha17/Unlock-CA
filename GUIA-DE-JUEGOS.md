@@ -25,6 +25,7 @@ Cuando se pida «crea un juego» (con o sin temática), se entrega **todo**, sin
 6. **Una carta que descarta otra debe poder descartarla siempre**, en cualquier orden legal de juego.
 7. **Las ilustraciones no llevan texto.** El número, el título, las franjas y los textos los pone `imprimir.html` / el Modo PC.
 8. **Un minijuego no debe delatar la respuesta:** sin medidores de cercanía ni cintas con la solución. La guía son las cartas (y, si procede, el sonido).
+9. **Puzles y pistas visuales en las cartas.** Mucho de lo que el jugador resuelve debe estar en las propias cartas (cartas que se juntan y dan un número, ilustraciones que contienen la pista), no en texto largo ni en la app. Lo que enseña una ilustración no se repite en la app. Catálogo de ideas en GUIA-DE-PUZLES §7.21. Las franjas «Coge/Descarta» son una sola línea compacta para no tapar la ilustración.
 
 ## 2. Anatomía de un juego
 

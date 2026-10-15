@@ -387,6 +387,22 @@ Cada ficha lleva: **qué se ve y se toca**, **qué dicen las cartas**, **cómo s
 - Almacenamiento: Safari borra el almacenamiento de un sitio tras 7 días de uso sin interacción; las apps añadidas a la pantalla de inicio llevan su propio contador (y parece haber casos dudosos). Por eso la partida se guarda en `localStorage` **solo para continuar el mismo día** y el **informe copiable** es la copia de seguridad.
 - No se implementa todavía porque un service worker mal versionado hace que las pruebas y los jugadores vean ficheros caducados; hacerlo con una prueba automática que compruebe la versión.
 
+### 7.21 Puzles y pistas VISUALES en las propias cartas (petición del usuario, 15 oct 2026)
+
+**Regla:** en cada juego nuevo, una parte importante de los puzles se resuelve **mirando y combinando cartas físicas** (también en el Modo PC), no leyendo texto ni en la app. La app solo hace de máquina que valida o de minijuego de manos. Lo que enseña la ilustración de una carta **no se repite** en la app (ejemplo: la melodía de animales de la carta 72 de Cuento está dibujada en su ilustración; la app solo tiene las teclas).
+
+Ideas que cumplen la regla (todas con solución única comprobable):
+- **Cartas que se juntan y forman un número o un símbolo:** 2-4 cartas llevan cada una una parte de un dibujo (mitades de dígitos de siete segmentos, cuartos de un número grande, trozos de un símbolo); puestas lado a lado (o una sobre otra en el Modo PC con mezcla `screen`) forman el código.
+- **Mapa en piezas:** 4-6 cartas contiguas forman un mapa o un tapiz; la ruta o el dato está en el conjunto, no en una sola carta.
+- **Ilustración con pista escondida a plena vista:** una escena donde un detalle repetido (siete animales en fila, velas apagadas, ventanas iluminadas) da la secuencia, el número o el orden; otra carta dice solo *qué* mirar, no el resultado.
+- **Orden de viñetas:** cartas-viñeta que hay que ordenar (causa → efecto); el orden correcto da un código por la posición de un detalle.
+- **Cartas con «ventana» (plantilla de Cardan):** una carta con huecos se superpone a otra; en el Modo PC, cartas translúcidas.
+- **Símbolo que cambia de significado:** la misma imagen en dos cartas distintas significa números distintos según el marco o el color; se combina con una tercera.
+- **Cuenta visual:** contar elementos en una ilustración (el número de ventanas iluminadas) es el dígito del código.
+- **Cartas que se alinean por el borde:** los bordes de cartas contiguas dibujan una figura continua (un camino, un río, una serpiente) que sólo cuadra con el orden correcto.
+
+Cómo comprobarlo: el verificador ya garantiza que cada carta sirve; añadir al guion de pruebas un **solucionador visual** (por ejemplo, que las piezas de dígitos coincidan con el número esperado) y revisar con la hoja de contacto que lo que debe verse **se ve** en la carta impresa (sin franjas que lo tapen). Las franjas «Coge/Descarta» son una sola línea compacta precisamente para no tapar la ilustración.
+
 ### 7.10 Fuentes principales
 
 Unlock! (reseñas y ficha de la app), Exit (reseñas), Deckscape, Escape Tales, Chronicles of Crime, MicroMacro, Room Escape Artist (pistas, priming, puzzle hunts, fracaso, equipos divididos), The Codex (13 reglas, «aha» frente a proceso, player loop, mímesis y diégesis), Rita Orlov/PostCurious (qué hace bueno un puzle, equilibrio, cifrado de símbolos, accesibilidad, playtest), Scott Nicholson «Ask Why» (texto completo), Society of Curiosities, Immersology (cuellos de botella, temático frente a inmersivo), Puzzlecraft (Selinker y Snyder), Game Maker's Toolkit, The Room/Gorogoa/Witness/Obra Dinn/Heaven's Vault/Chants of Sennaar/Day of the Tentacle (análisis de diseño), Keep Talking and Nobody Explodes (manual), Puzzles Wiki y Clontz (tipos de puzle y extracción), catálogos de escape rooms (escaperoom.com.au, escapely, escaperoomtips, erworkshop), Nikoli/Simon Tatham (reglas) y documentación web (MDN, caniuse) sobre Wake Lock, vibración, orientación, micrófono, Web Audio y PWA.
