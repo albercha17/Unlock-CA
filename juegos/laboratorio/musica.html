@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorio — Música de los juegos</title><link rel="stylesheet" href="lab.css">
+<style>
+.lista{display:grid;gap:10px}
+.tema{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:12px 14px}
+.tema h2{margin:0;font-size:1rem;color:var(--acento)}
+.tema p{margin:2px 0 0;font-size:.8rem;color:var(--suave)}
+.tema.suena{border-color:var(--acento);box-shadow:0 0 14px rgba(255,210,122,.25)}
+</style></head>
+<body><div class="lab">
+<a class="volver" href="index.html">← Laboratorio</a>
+<h1>Música de los juegos</h1>
+<p class="sub">Generada en el navegador (sin archivos): un estilo por ambientación</p>
+<div class="regla">Pulsa <b>Escuchar</b> para oír el estilo de cada juego; al pulsar otro, el anterior se para. En el juego la música baja sola al abrir un minijuego o poner pausa y tiene su botón para quitarla.</div>
+<div class="tabla"><label class="pista" style="display:flex;gap:10px;align-items:center;justify-content:center">Volumen <input type="range" id="vol" min="0" max="100" value="50" aria-label="Volumen"></label></div>
+<div class="lista" id="lista"></div>
+</div>
+<script type="module">
+import { crearMusica } from '../el-faro/musica.js';
+const TEMAS = [
+  ['faro', 'El Faro de Cabo Niebla', 'Tormenta, lluvia, campana lejana y sirena de niebla (La menor, muy lento).'],
+  ['egipto', 'Egipto', 'Modo frigio dominante, tambor de marco y laúd.'],
+  ['marte', 'Marte', 'Sintetizadores fríos, pulso grave y viento de polvo.'],
+  ['florencia', 'Florencia', 'Laúd arpegiado y flauta suave (modo dórico).'],
+  ['dinosaurios', 'Dinosaurios', 'Tambores tribales, selva con insectos y cuerno grave.'],
+  ['cuento', 'Cuento', 'Caja de música y arpa, vals luminoso.'],
+  ['trono', 'Trono', 'Cuerdas graves, tambor de guerra y viento helado.']
+];
+const lista = document.getElementById('lista');
+let actual = null, vol = 0.5;
+const instancias = {};
+TEMAS.forEach(([id, nombre, desc]) => {
+  const d = document.createElement('div');
+  d.className = 'tema';
+  d.innerHTML = '<div><h2></h2><p></p></div>';
+  d.querySelector('h2').textContent = nombre;
+  d.querySelector('p').textContent = desc;
+  const b = document.createElement('button');
+  b.className = 'btn primario';
+  b.textContent = 'Escuchar';
+  b.dataset.tema = id;
+  b.addEventListener('click', () => {
+    if (actual && actual.id === id) { actual.m.parar(); actual.d.classList.remove('suena'); actual.b.textContent = 'Escuchar'; actual = null; return; }
+    if (actual) { actual.m.parar(); actual.d.classList.remove('suena'); actual.b.textContent = 'Escuchar'; }
+    const m = instancias[id] || (instancias[id] = crearMusica(id));
+    m.volumen(vol);
+    m.iniciar();
+    d.classList.add('suena');
+    b.textContent = 'Parar';
+    actual = { id, m, d, b };
+  });
+  d.appendChild(b);
+  lista.appendChild(d);
+});
+document.getElementById('vol').addEventListener('input', (e) => { vol = e.target.value / 100; if (actual) actual.m.volumen(vol); });
+</script></body></html>

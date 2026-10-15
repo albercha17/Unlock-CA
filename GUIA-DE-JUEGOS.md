@@ -33,6 +33,9 @@ Cuando se pida «crea un juego» (con o sin temática), se entrega **todo**, sin
 index.html      estructura de la app + `window.APP_CONFIG` (segundos, carta final, mapa de minijuegos)
 app.css / app.js  aspecto y lógica comunes de la app: inicio con reglas, reloj diegético, Acción, Pista, teclado con vista previa,
                 cuaderno (registro + notas + reglas), guardado automático, pantalla final con informe, Wake Lock
+musica.js       música de fondo generativa (WebAudio, sin archivos): un preset por tema en `PRESETS` (faro, egipto, marte, florencia,
+                dinosaurios, cuento, trono). Al crear un juego nuevo con tema propio, añade su preset (escala, tempo, instrumentos y ambiente)
+                y prueba el sonido en `juegos/laboratorio/musica.html`. La app baja el volumen en minijuegos/pausas y tiene botón para quitarla.
 pc.html         mesa virtual: mazo boca abajo, mesa, descartes
 cartas.json     guion completo (ver §3)
 cartas-data.js  copia generada de cartas.json para abrir pc/imprimir/prompts con doble clic (no editar)

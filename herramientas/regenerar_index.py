@@ -17,7 +17,7 @@ from juegos_config import FARO, JUEGOS, generar_index, leer, escribir  # noqa: E
 
 PROBAR = "--probar" in sys.argv
 SOLO = [a.lower() for a in sys.argv[1:] if not a.startswith("--")]
-COMUNES = ("app.css", "app.js", "pistas.js")
+COMUNES = ("app.css", "app.js", "pistas.js", "musica.js")
 plantilla = leer(f"{FARO}/index.html")
 cambios = 0
 for nombre, cfg in JUEGOS.items():
