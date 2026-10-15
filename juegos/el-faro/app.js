@@ -324,6 +324,20 @@ numKeys.forEach((k) => {
 numClear.addEventListener('click', () => { entered = entered.slice(0, -1); renderNum(); });
 numCancel.addEventListener('click', cancelNumModal);
 
+// escáner de cartas (QR de la esquina de cada carta impresa); el teclado sigue siendo la alternativa
+const scanBtn = $('scanBtn');
+if (scanBtn && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && location.protocol !== 'file:') {
+  scanBtn.hidden = false;
+  scanBtn.addEventListener('click', async () => {
+    numMessage.textContent = '';
+    try {
+      const mod = await import(new URL(CFG.assets + 'js/escaner.js', import.meta.url).href);
+      const r = await mod.escanear({ juego: CFG.juego || TEMA });
+      if (r.id) { entered = r.id; renderNum(); } else if (r.error) { numMessage.textContent = r.error; }
+    } catch (e) { numMessage.textContent = 'No se pudo abrir el escáner. Escribe el número de la carta.'; }
+  });
+}
+
 actionBtn.addEventListener('click', async () => { pendingUse = 'accion'; await cargarCartas(); openNumModal(); });
 hintBtn.addEventListener('click', async () => { pendingUse = 'pista'; await cargarCartas(); openNumModal(); });
 

@@ -212,6 +212,8 @@ def main():
         esperar(lambda: len(d.find_elements(By.CSS_SELECTOR, "table tbody tr")) >= 2)
         ok(len(d.find_elements(By.CSS_SELECTOR, "table tbody tr")) == 2, "«Mis partidas» lista las 2 partidas")
         ok("cristina@ejemplo.es" in d.find_element(By.ID, "sub").text, "«Mis partidas» muestra la sesión iniciada")
+        ganados = d.find_elements(By.CSS_SELECTOR, ".logro.on")
+        ok(len(ganados) >= 3 and any("Primera aventura" in g.text for g in ganados), f"«Mis partidas» muestra logros ganados ({len(ganados)})")
         d.get(URL + "juegos/aventuras-ca/index.html" if JUEGO != "faro" else URL + "index.html")
         esperar(lambda: d.find_elements(By.CSS_SELECTOR, ".hecha"))
         ok(len(d.find_elements(By.CSS_SELECTOR, ".hecha")) >= 1 and "Completada" in d.find_element(By.CSS_SELECTOR, ".hecha").text, "el menú marca la aventura como completada con su mejor tiempo")

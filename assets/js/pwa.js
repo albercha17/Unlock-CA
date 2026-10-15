@@ -34,6 +34,31 @@
     }
   });
   if (!API.soportado) return;
+  // Aviso «versión nueva»: solo cuando la app ya estaba controlada por un service worker y llega otro (no en la primera instalación)
+  var yaControlada = !!navigator.serviceWorker.controller;
+  var avisado = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (!yaControlada || avisado) return;
+    avisado = true;
+    var b = document.createElement('div');
+    b.setAttribute('role', 'status');
+    b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:30000;display:flex;gap:10px;align-items:center;justify-content:space-between;' +
+      'background:#101a24;color:#eef3f8;border:1px solid #ffd27a;border-radius:14px;padding:12px 14px;font:600 .88rem Poppins,system-ui,sans-serif;box-shadow:0 12px 40px rgba(0,0,0,.6)';
+    b.innerHTML = '<span>Hay una versión nueva de Unlock C&amp;A.</span>';
+    var act = document.createElement('button');
+    act.textContent = 'Actualizar';
+    act.style.cssText = 'min-height:44px;padding:0 16px;border:0;border-radius:10px;background:#ffd27a;color:#2a1600;font:800 .9rem Poppins,system-ui,sans-serif;cursor:pointer';
+    act.onclick = function () { location.reload(); };
+    var luego = document.createElement('button');
+    luego.textContent = 'Luego';
+    luego.style.cssText = 'min-height:44px;padding:0 10px;border:0;background:transparent;color:#b6c4d2;font:700 .85rem Poppins,system-ui,sans-serif;cursor:pointer';
+    luego.onclick = function () { b.remove(); };
+    var fila = document.createElement('span');
+    fila.style.cssText = 'display:flex;gap:6px';
+    fila.append(luego, act);
+    b.appendChild(fila);
+    document.body.appendChild(b);
+  });
   window.addEventListener('load', function () {
     navigator.serviceWorker.register(new URL('sw.js', base).href, { scope: base.href }).then(function (reg) {
       // si hay una versión nueva esperando, activarla en cuanto se pueda

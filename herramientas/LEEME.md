@@ -25,6 +25,7 @@ Todo se ejecuta **desde la raíz del repositorio**. Necesitan Python 3, Pillow y
 | `sincronizar_cartas.py [--comprobar]` | Genera `cartas-data.js` junto a cada `cartas.json`: es la copia que usan `pc.html`, `imprimir.html` y `prompts.html` cuando se abren con **doble clic** (el navegador bloquea `fetch` en `file://`). Con servidor siguen leyendo `cartas.json`. Hay que ejecutarlo tras cambiar un `cartas.json`; `verificar.py` avisa si está desfasado. |
 | `preparar_imagenes.py <carpeta>` | Convierte `arte/*.png` en `img/*.jpg` ligeros y actualiza `img/pendientes.json`. |
 | `generar_pwa.py [--comprobar]` | Escribe `sw.js` (con versión automática) y `precache.json` de cada juego. Ejecutar tras cambiar cualquier fichero del sitio. |
+| `probar_qr.py` | Comprueba (sin cámara) que el QR impreso en cada carta de los 7 juegos se lee con el mismo lector que usa la app. Arranca su propio servidor. |
 | `generar_catalogo.py` | Escribe `juegos/catalogo.json` (dificultad, minutos y cartas de cada juego) para los menús, «Mis partidas» y las partidas guardadas. |
 | `generar_iconos.py` | Dibuja los iconos de la app instalable en `assets/icons/`. |
 | `probar_pwa.py [juego]` | Prueba menús, service worker, modo sin conexión y cuentas (con Supabase simulado). Arranca su propio servidor. |

@@ -82,7 +82,7 @@ function injectStyle() {
   const s = document.createElement('style');
   s.id = STYLE_ID;
   s.textContent = `
-    .far-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(var(--far-tinte,2,6,12),.86);z-index:2500;padding:12px;font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden;animation:far-entra .25s ease-out}
+    .far-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(var(--far-tinte,2,6,12),.86);z-index:2500;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden;animation:far-entra .25s ease-out}
     .far-bg{position:absolute;inset:-24px;background-size:cover;background-position:center;filter:blur(8px) brightness(.55) saturate(1.2);transform:scale(1.08);pointer-events:none}
     .far-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(var(--far-tinte),0) 0%,rgba(var(--far-tinte),.82) 100%)}
     .far-ambiente{position:absolute;inset:0;pointer-events:none;overflow:hidden}
