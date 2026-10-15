@@ -12,6 +12,9 @@ const CLAVE_GUARDADO = 'ca-partida:' + location.pathname.replace(/index\.html$/,
 const CLAVE_RELOJ = 'ca-reloj-oculto';
 const CLAVE_MUSICA = 'ca-musica';
 const musica = crearMusica(TEMA);
+const volumenAjustado = () => { try { return window.CA_AJUSTES ? window.CA_AJUSTES.leer().volMusica : 0.5; } catch (e) { return 0.5; } };
+musica.volumen(volumenAjustado());
+window.addEventListener('ca-ajustes', () => musica.volumen(volumenAjustado()));
 let musicaOn = true;
 try { musicaOn = localStorage.getItem(CLAVE_MUSICA) !== '0'; } catch (e) { /* por defecto, con música */ }
 
@@ -44,6 +47,7 @@ function escribirGuardado(valor) {
   } catch (e) { /* sin almacenamiento: la partida sigue, solo no se guarda */ }
 }
 function prefiereMenosMovimiento() {
+  if (document.documentElement.getAttribute('data-movimiento') === 'reducido') return true; // ajuste de la app
   return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 }
 function pitido(freq, ms, tipo = 'sine', vol = 0.06) {
@@ -269,6 +273,34 @@ continueBtn.addEventListener('click', () => {
   prepararPantallaJuego();
 });
 
+// ---------------------------------------------------------------- gestos: deslizar hacia abajo para cerrar una hoja
+function gestoCerrar(caja, cerrar) {
+  let y0 = null, dy = 0, t0 = 0;
+  caja.addEventListener('touchstart', (e) => {
+    const r = caja.getBoundingClientRect();
+    const t = e.touches[0];
+    if (t.clientY - r.top > 64 || caja.scrollTop > 0) { y0 = null; return; }
+    y0 = t.clientY; dy = 0; t0 = Date.now(); caja.style.transition = 'none';
+  }, { passive: true });
+  caja.addEventListener('touchmove', (e) => {
+    if (y0 === null) return;
+    dy = Math.max(0, e.touches[0].clientY - y0);
+    caja.style.transform = 'translateY(' + dy + 'px)';
+  }, { passive: true });
+  const fin = () => {
+    if (y0 === null) return;
+    caja.style.transition = 'transform .2s ease';
+    const rapido = dy / Math.max(1, Date.now() - t0) > 0.6;
+    const cierra = dy > 90 || (dy > 30 && rapido);
+    caja.style.transform = '';
+    y0 = null; dy = 0;
+    if (cierra) cerrar();
+  };
+  caja.addEventListener('touchend', fin);
+  caja.addEventListener('touchcancel', fin);
+}
+function toquecito() { try { if (navigator.vibrate) navigator.vibrate(6); } catch (e) { /* iPhone no vibra */ } }
+
 // ---------------------------------------------------------------- teclado de cartas
 function renderNum() {
   numDisplay.textContent = entered === '' ? '—' : entered;
@@ -317,12 +349,14 @@ numKeys.forEach((k) => {
   k.addEventListener('click', () => {
     const key = k.dataset.key;
     if (!key || entered.length >= 4) return;
+    toquecito();
     entered += key;
     renderNum();
   });
 });
 numClear.addEventListener('click', () => { entered = entered.slice(0, -1); renderNum(); });
 numCancel.addEventListener('click', cancelNumModal);
+gestoCerrar(document.querySelector('.num-modal-box'), cancelNumModal);
 
 // escáner de cartas (QR de la esquina de cada carta impresa); el teclado sigue siendo la alternativa
 const scanBtn = $('scanBtn');
@@ -572,6 +606,7 @@ async function pintarRegistro() {
 }
 $('notebookBtn').addEventListener('click', () => abrirCuaderno('registro'));
 $('cuadernoCerrar').addEventListener('click', cerrarCuaderno);
+gestoCerrar(document.querySelector('.cuaderno-caja'), cerrarCuaderno);
 cuaderno.addEventListener('click', (e) => { if (e.target === cuaderno) cerrarCuaderno(); });
 document.querySelectorAll('.pestanas button').forEach((b) => b.addEventListener('click', () => elegirPestana(b.dataset.tab)));
 $('notasTexto').addEventListener('input', (e) => { estado.notas = e.target.value; guardar(); });

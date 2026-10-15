@@ -221,6 +221,47 @@ def main():
         d.find_element(By.CSS_SELECTOR, ".cac-btn.suave").click()
         esperar(lambda: "Iniciar sesión" in d.find_element(By.CSS_SELECTOR, ".cac-widget").text or "Entrar" in d.find_element(By.CSS_SELECTOR, ".cac-widget").text)
         ok("Mis partidas" not in d.find_element(By.CSS_SELECTOR, ".cac-widget").text, "cerrar sesión devuelve el botón de entrar")
+        # ---------- 6. app nativa: barra inferior, ajustes, arranque y gestos
+        for pag, activa in (("index.html", "Inicio"), ("juegos/aventuras-ca/index.html", "Aventuras"), ("perfil.html", "Partidas"), ("ajustes.html", "Ajustes")):
+            d.get(URL + pag)
+            esperar(lambda: d.find_elements(By.CSS_SELECTOR, ".ca-barra .ca-tab"))
+            tabs = d.find_elements(By.CSS_SELECTOR, ".ca-barra .ca-tab")
+            act = [t.text for t in d.find_elements(By.CSS_SELECTOR, ".ca-tab[aria-current='page']")]
+            ok(len(tabs) == 4 and act == [activa], f"barra inferior en {pag}: 4 pestañas y activa «{activa}» ({act})")
+        d.get(URL + "ajustes.html")
+        esperar(lambda: d.find_elements(By.ID, "contraste"))
+        d.execute_script("document.getElementById('contraste').click(); document.getElementById('movimiento').click(); document.querySelector(\".tam button[data-t='1.25']\").click();")
+        time.sleep(0.4)
+        d.get(URL + RUTA + "index.html")
+        esperar(lambda: d.find_element(By.ID, "startBtn").is_displayed())
+        h = d.execute_script("const h=document.documentElement; return [h.getAttribute('data-contraste'), h.getAttribute('data-movimiento'), h.style.zoom]")
+        ok(h == ["alto", "reducido", "1.25"], f"los ajustes (contraste, movimiento, texto) se aplican en el juego ({h})")
+        d.get(URL + "ajustes.html")
+        esperar(lambda: d.find_elements(By.ID, "contraste"))
+        d.execute_script("document.getElementById('contraste').click(); document.getElementById('movimiento').click(); document.querySelector(\".tam button[data-t='1']\").click();")
+        time.sleep(0.3)
+        d.get(URL + "index.html?splash")
+        visto = esperar(lambda: d.find_elements(By.ID, "ca-splash"), 5, 0.1)
+        ok(bool(visto), "la pantalla de arranque aparece al abrir la app")
+        gone = esperar(lambda: not d.find_elements(By.ID, "ca-splash"), 8)
+        ok(bool(gone), "y desaparece sola")
+        # gesto: deslizar hacia abajo cierra el cuaderno
+        d.execute_cdp_cmd("Emulation.setTouchEmulationEnabled", {"enabled": True})
+        d.get(URL + RUTA + "index.html")
+        esperar(lambda: d.find_element(By.ID, "startBtn").is_displayed())
+        d.find_element(By.ID, "startBtn").click()
+        time.sleep(1.2)
+        if not d.find_element(By.ID, "gamePanel").is_displayed():
+            d.find_element(By.ID, "skipVideoBtn").click()
+        d.find_element(By.ID, "notebookBtn").click()
+        time.sleep(0.6)
+        r = d.execute_script("const r=document.querySelector('.cuaderno-caja').getBoundingClientRect(); return [r.left+r.width/2, r.top+20]")
+        for tipo, y in (("touchStart", r[1]), ("touchMove", r[1] + 60), ("touchMove", r[1] + 160), ("touchEnd", r[1] + 160)):
+            d.execute_cdp_cmd("Input.dispatchTouchEvent", {"type": tipo, "touchPoints": [] if tipo == "touchEnd" else [{"x": r[0], "y": y}]})
+            time.sleep(0.05)
+        time.sleep(0.6)
+        cerrado = d.execute_script("return !document.getElementById('cuaderno').classList.contains('abierto')")
+        ok(cerrado, "deslizar hacia abajo cierra el cuaderno")
         errores = [e for e in d.get_log("browser") if e["level"] == "SEVERE" and "favicon" not in e["message"] and "fonts.g" not in e["message"] and "ERR_INTERNET_DISCONNECTED" not in e["message"] and "net::ERR_FAILED" not in e["message"] and "videoInicial" not in e["message"]]
         ok(not errores, "sin errores de consola " + str([e["message"][:120] for e in errores[:3]]))
     finally:

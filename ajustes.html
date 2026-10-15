@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#071013">
+  <title>Ajustes — Unlock C&amp;A</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unlock C&A">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/menu.css">
+  <script src="assets/js/ajustes.js"></script>
+  <style>
+    :root{--bg:#071013;--panel:#0e1d22;--panel2:#13292f;--line:#21404a;--tx:#e8f1f3;--mut:#8fb0b8;--laton:#d9a441;--laton2:#f0c773;--cian:#3dd6c6}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(circle at 50% 0,#10303a 0,var(--bg) 60%);color:var(--tx);font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100%}
+    body{padding:max(22px,env(safe-area-inset-top)) 16px 40px;overscroll-behavior-y:none}
+    .wrap{max-width:640px;margin:0 auto}
+    h1{margin:0 0 4px;font-size:1.8rem;color:var(--laton2)}
+    .sub{margin:0 0 14px;color:var(--mut);font-size:.92rem}
+    h2{margin:24px 0 8px;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:var(--laton2)}
+    .grupo{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    .fila-aj{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);min-height:56px}
+    .fila-aj:last-child{border-bottom:0}
+    .fila-aj span b{display:block;font-size:.95rem}
+    .fila-aj span small{display:block;color:var(--mut);font-size:.76rem;line-height:1.35;margin-top:1px}
+    /* interruptor */
+    .sw{position:relative;flex:none;width:52px;height:30px}
+    .sw input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}
+    .sw i{position:absolute;inset:0;border-radius:999px;background:#31454d;transition:background .2s}
+    .sw i::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s}
+    .sw input:checked + i{background:var(--cian)}
+    .sw input:checked + i::after{transform:translateX(22px)}
+    .sw input:focus-visible + i{outline:3px solid var(--laton2);outline-offset:2px}
+    input[type=range]{width:150px;accent-color:var(--laton2)}
+    .tam{display:flex;gap:6px}
+    .tam button{min-width:46px;min-height:44px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--tx);font:700 1rem "Poppins",system-ui,sans-serif;cursor:pointer}
+    .tam button[aria-pressed="true"]{background:var(--laton2);color:#1a1000;border-color:transparent}
+    button.accion{min-height:46px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--tx);font:700 .85rem "Poppins",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+    button.peligro{border-color:#7a3a3a;color:#ffb3b3}
+    .estado{font-size:.8rem;color:var(--mut);padding:8px 2px;min-height:1.6em}
+    .version{margin-top:22px;text-align:center;color:var(--mut);font-size:.76rem;line-height:1.6}
+    .version a{color:var(--laton2)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Ajustes</h1>
+  <p class="sub">Todo se guarda en este dispositivo.</p>
+  <div id="cuenta"></div>
+
+  <h2>Sonido</h2>
+  <div class="grupo">
+    <label class="fila-aj"><span><b>Música de fondo</b><small>Cada aventura tiene su propia música.</small></span><span class="sw"><input type="checkbox" role="switch" id="musica"><i></i></span></label>
+    <label class="fila-aj"><span><b>Volumen de la música</b></span><input type="range" id="volMusica" min="0" max="100" step="5" aria-label="Volumen de la música"></label>
+    <label class="fila-aj"><span><b>Sonidos de los minijuegos</b><small>Aciertos, fallos y teclas.</small></span><span class="sw"><input type="checkbox" role="switch" id="efectos"><i></i></span></label>
+  </div>
+
+  <h2>Pantalla</h2>
+  <div class="grupo">
+    <div class="fila-aj"><span><b>Tamaño del texto</b><small>Se aplica a toda la app.</small></span>
+      <span class="tam" role="group" aria-label="Tamaño del texto"><button data-t="1" aria-label="Normal" style="font-size:.9rem">A</button><button data-t="1.12" aria-label="Grande" style="font-size:1.1rem">A</button><button data-t="1.25" aria-label="Muy grande" style="font-size:1.3rem">A</button></span></div>
+    <label class="fila-aj"><span><b>Contraste alto</b><small>Bordes y textos más marcados.</small></span><span class="sw"><input type="checkbox" role="switch" id="contraste"><i></i></span></label>
+    <label class="fila-aj"><span><b>Reducir movimiento</b><small>Sin animaciones ni transiciones.</small></span><span class="sw"><input type="checkbox" role="switch" id="movimiento"><i></i></span></label>
+  </div>
+
+  <h2>Sin conexión y datos</h2>
+  <div class="grupo">
+    <div class="fila-aj"><span><b>Juegos descargados</b><small id="descargados">Calculando…</small></span><button class="accion" id="quitarDescargas">Quitar</button></div>
+    <div class="fila-aj"><span><b>Partidas guardadas aquí</b><small id="nPartidas">—</small></span><button class="accion peligro" id="borrarPartidas">Borrar</button></div>
+    <div class="fila-aj"><span><b>Partidas en curso</b><small>Las que puedes continuar desde el inicio de cada juego.</small></span><button class="accion peligro" id="borrarEnCurso">Borrar</button></div>
+  </div>
+  <div class="estado" id="estado" aria-live="polite"></div>
+
+  <div class="version"><span id="version">Unlock C&amp;A</span><br><a href="instalar.html">Instalar en el móvil</a></div>
+</div>
+<script src="assets/js/pwa.js"></script>
+<script src="assets/js/barra.js"></script>
+<script type="module">
+import { montarCuenta } from './assets/js/cuenta-ui.js';
+montarCuenta(document.getElementById('cuenta'), { perfil: 'perfil.html' });
+const A = window.CA_AJUSTES;
+const $ = (id) => document.getElementById(id);
+const estado = (t) => { $('estado').textContent = t; };
+
+function pintar() {
+  const a = A.leer();
+  $('musica').checked = a.musica; $('efectos').checked = a.efectos; $('contraste').checked = a.contraste; $('movimiento').checked = a.movimiento;
+  $('volMusica').value = Math.round(a.volMusica * 100);
+  document.querySelectorAll('.tam button').forEach((b) => b.setAttribute('aria-pressed', String(Math.abs(parseFloat(b.dataset.t) - a.texto) < 0.01)));
+}
+['musica', 'efectos', 'contraste', 'movimiento'].forEach((k) => $(k).addEventListener('change', (e) => { A.guardar(k, e.target.checked); estado('Guardado.'); }));
+$('volMusica').addEventListener('input', (e) => A.guardar('volMusica', e.target.value / 100));
+document.querySelectorAll('.tam button').forEach((b) => b.addEventListener('click', () => { A.guardar('texto', parseFloat(b.dataset.t)); pintar(); estado('Guardado.'); }));
+pintar();
+
+const claves = (pref) => { const r = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.indexOf(pref) === 0) r.push(k); } } catch (e) { /* nada */ } return r; };
+let nombres = {};
+async function refrescar() {
+  try { (await (await fetch('juegos/catalogo.json')).json()).forEach((j) => { nombres[j.id] = j.nombre.split(':').slice(-1)[0].trim(); }); } catch (e) { /* sin catálogo */ }
+  const desc = claves('ca-offline:').map((k) => nombres[k.slice(11)] || k.slice(11));
+  $('descargados').textContent = desc.length ? desc.join(', ') : 'Ninguno. Se descargan desde la pantalla de inicio de cada juego.';
+  let n = 0; try { n = JSON.parse(localStorage.getItem('ca-hechas') || '[]').length; } catch (e) { /* nada */ }
+  $('nPartidas').textContent = n ? n + (n === 1 ? ' partida terminada' : ' partidas terminadas') + ' en este dispositivo' : 'Ninguna';
+  try { const ks = await caches.keys(); const v = ks.map((k) => k.replace('unlock-ca-', '')).find((k) => k); if (v) $('version').textContent = 'Unlock C&A · versión ' + v; } catch (e) { /* sin caché */ }
+}
+$('quitarDescargas').addEventListener('click', async () => {
+  try {
+    for (const nombre of await caches.keys()) {
+      const c = await caches.open(nombre);
+      for (const req of await c.keys()) { const p = new URL(req.url).pathname; if (p.indexOf('/juegos/') >= 0 && !/catalogo\.json|aventuras-ca\/index\.html$/.test(p)) await c.delete(req); }
+    }
+  } catch (e) { /* sin caché */ }
+  claves('ca-offline:').forEach((k) => { try { localStorage.removeItem(k); } catch (e) { /* nada */ } });
+  estado('Descargas quitadas. Los juegos seguirán funcionando con conexión.'); refrescar();
+});
+$('borrarPartidas').addEventListener('click', () => {
+  if (!confirm('¿Borrar las partidas guardadas solo en este dispositivo? Las que estén en tu cuenta no se tocan.')) return;
+  try { localStorage.removeItem('ca-hechas'); } catch (e) { /* nada */ }
+  estado('Partidas del dispositivo borradas.'); refrescar();
+});
+$('borrarEnCurso').addEventListener('click', () => {
+  if (!confirm('¿Borrar las partidas en curso? No podrás continuarlas.')) return;
+  claves('ca-partida:').forEach((k) => { try { localStorage.removeItem(k); } catch (e) { /* nada */ } });
+  estado('Partidas en curso borradas.');
+});
+refrescar();
+</script>
+</body>
+</html>

@@ -65,6 +65,7 @@ function detectarTema() {
 }
 
 function sinMovimiento() {
+  if (document.documentElement.getAttribute('data-movimiento') === 'reducido') return true; // ajuste de la app
   return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 }
 
@@ -351,6 +352,26 @@ export function openGame({ title, instr, pauseGameTimer, resumeGameTimer, onClos
     box.classList.add('far-error');
     setTimeout(() => box.classList.remove('far-error'), 450);
   }
+
+  // deslizar hacia abajo desde la parte de arriba de la ventana la cierra (como una hoja de app)
+  (function gesto() {
+    let y0 = null, dy = 0, t0 = 0;
+    box.addEventListener('touchstart', (e) => {
+      const r = box.getBoundingClientRect(), t = e.touches[0];
+      if (t.clientY - r.top > 64 || box.scrollTop > 0) { y0 = null; return; }
+      y0 = t.clientY; dy = 0; t0 = Date.now(); box.style.transition = 'none';
+    }, { passive: true });
+    box.addEventListener('touchmove', (e) => { if (y0 === null) return; dy = Math.max(0, e.touches[0].clientY - y0); box.style.transform = 'translateY(' + dy + 'px)'; }, { passive: true });
+    const fin = () => {
+      if (y0 === null) return;
+      box.style.transition = 'transform .2s ease';
+      const cierra = dy > 100 || (dy > 30 && dy / Math.max(1, Date.now() - t0) > 0.6);
+      box.style.transform = ''; y0 = null; dy = 0;
+      if (cierra) close();
+    };
+    box.addEventListener('touchend', fin);
+    box.addEventListener('touchcancel', fin);
+  })();
 
   return {
     body,
