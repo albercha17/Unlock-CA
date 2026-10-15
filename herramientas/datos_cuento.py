@@ -240,9 +240,9 @@ J = {
     "72": dict(
         titulo="Carta 72 — La caja de música", tipo="verde",
         descripcion=[
-            "Es un juego de la app: la partitura de la caja es una fila de animales, uno por nota, y hay que tocar las notas en el mismo orden. Cada animal toca una nota distinta, según la tabla de la carta 76. Las notas suenan con sonido y también se iluminan, para quien no pueda oírlas.",
+            "Es un juego de la app: tocar la melodía de la caja de música. Los siete animales de la melodía están dibujados en la ilustración de esta carta, de izquierda a derecha, y cada animal toca una nota distinta, según la tabla de la carta 76. Las notas suenan con sonido y también se iluminan, para quien no pueda oírlas.",
             "Al acertar, la caja se abre. Coged la carta 82."],
-        pistas=["La carta 76 dice qué nota toca cada animal.", "Tocad las notas en el mismo orden en que aparecen los animales de la partitura.", "Las notas son: Fa, Do, Sol, Mi, Re, La y Fa."],
+        pistas=["La carta 76 dice qué nota toca cada animal.", "Mirad el orden de los siete animales en la ilustración de esta carta y tocad la nota de cada uno, de izquierda a derecha.", "Las notas son: Fa, Do, Sol, Mi, Re, La y Fa."],
         arte="Una gran caja de música dorada abierta con un peine de notas y siete animales del bosque tallados en fila (rana, conejo, ardilla, búho, ciervo, zorro y otra rana) sobre una partitura. Cristina pulsa una tecla de cristal con el dedo levantado y la boca en un suspiro de emoción, y Alberto escucha con los ojos cerrados y una sonrisa de paz."),
     "76": dict(
         titulo="Carta 76 — Tabla de notas", tipo="gris",
@@ -331,7 +331,7 @@ PARA_QUE = {
     "69": "Tarros de colores (app): ordenar capas de pintura (como destilar).",
     "70": "Nota de la Cocinera: orden final de los tarros.",
     "80": "La sala de la caja de música: reparte la caja y la tabla.",
-    "72": "La caja de música (app): traducir una partitura de animales a notas.",
+    "72": "La caja de música (app): tocar la melodía que muestran los animales de la ilustración, traduciéndolos a notas con la carta 76.",
     "76": "Tabla de notas: qué nota toca cada animal.",
     "82": "El Tintero Dorado: reparte el tintero.",
     "62": "Tintero Dorado: se combina con el Cronoportal (12).",

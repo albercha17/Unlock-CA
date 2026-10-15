@@ -1,9 +1,9 @@
-// Carta 72 — La caja de música: la partitura es una fila de siete animales; la carta 76 dice qué nota toca cada animal
-// (conejo Do, ciervo Re, búho Mi, rana Fa, ardilla Sol, zorro La). Hay que tocar las notas en el orden de la partitura:
-// rana, conejo, ardilla, búho, ciervo, zorro, rana = Fa, Do, Sol, Mi, Re, La, Fa. Las notas suenan y también se iluminan (alternativa visual).
+// Carta 72 — La caja de música: los siete animales de la melodía están dibujados en la ILUSTRACIÓN de la carta 72 (no en la app);
+// la carta 76 dice qué nota toca cada animal (conejo Do, ciervo Re, búho Mi, rana Fa, ardilla Sol, zorro La).
+// Melodía: rana, conejo, ardilla, búho, ciervo, zorro, rana = Fa, Do, Sol, Mi, Re, La, Fa. Las notas suenan y también se iluminan (alternativa visual).
 // Esta app no da letra del libro.
 import { openGame } from './ui.js';
-import { estilo, conImagen } from './libro.js';
+import { estilo } from './libro.js';
 
 const TABLA = { conejo: 'Do', ciervo: 'Re', 'búho': 'Mi', rana: 'Fa', ardilla: 'Sol', zorro: 'La' };
 const PARTITURA = ['rana', 'conejo', 'ardilla', 'búho', 'ciervo', 'zorro', 'rana'];
@@ -11,7 +11,6 @@ const NOTAS = [
   { n: 'Do', f: 261.63, c: '#ff8a8a' }, { n: 'Re', f: 293.66, c: '#ffb86b' }, { n: 'Mi', f: 329.63, c: '#ffe27a' },
   { n: 'Fa', f: 349.23, c: '#8fe28f' }, { n: 'Sol', f: 392.0, c: '#6fd6e8' }, { n: 'La', f: 440.0, c: '#8fa8ff' }, { n: 'Si', f: 493.88, c: '#d6a0ff' }
 ];
-const COLOR_ANIMAL = { conejo: '#e8d9f5', ciervo: '#c98f55', 'búho': '#8a7a6a', rana: '#7ccf6a', ardilla: '#d9743a', zorro: '#f08a3a' };
 
 let ctx = null;
 function sonar(freq) {
@@ -37,46 +36,37 @@ function sonar(freq) {
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 72 — La caja de música',
-    instr: 'La partitura es una fila de animales. Toca las notas en el mismo orden; la carta 76 dice qué nota toca cada animal. Las notas suenan y se iluminan.',
+    instr: 'Mira los siete animales de la caja de música en la ilustración de la carta 72: la melodía es su orden, de izquierda a derecha. La carta 76 dice qué nota toca cada animal. Las notas suenan y se iluminan.',
     ...opts
   });
   estilo('cu-caja-estilo', `
-    .caj-partitura{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:4px 0 10px}
-    .caj-animal{position:relative;aspect-ratio:1/1.3;border-radius:10px;border:2px solid rgba(255,224,138,.35);background:rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:6px 2px 4px;font:700 .62rem/1.1 inherit;font-family:inherit;color:#fff;text-align:center;min-width:0}
-    .caj-animal .cuerpo{width:70%;aspect-ratio:1;border-radius:50% 50% 44% 44%;background:var(--c);border:2px solid rgba(0,0,0,.3);position:relative}
-    .caj-animal .cuerpo::before,.caj-animal .cuerpo::after{content:"";position:absolute;top:32%;width:12%;aspect-ratio:1;border-radius:50%;background:#1a0e30}
-    .caj-animal .cuerpo::before{left:26%}.caj-animal .cuerpo::after{right:26%}
-    .caj-animal.hecho{border-color:#9dffb0;background:rgba(120,255,160,.16)}
-    .caj-animal.ahora{border-color:#ffe08a;box-shadow:0 0 14px rgba(255,224,138,.8)}
+    .caj-puntos{display:flex;justify-content:center;gap:8px;margin:6px 0 12px}
+    .caj-punto{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,224,138,.6);background:rgba(255,255,255,.08);transition:all .2s}
+    .caj-punto.hecho{background:#9dffb0;border-color:#9dffb0;box-shadow:0 0 10px rgba(120,255,160,.6)}
+    .caj-punto.ahora{border-color:#ffe08a;box-shadow:0 0 12px rgba(255,224,138,.9)}
     .caj-teclas{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px}
     .caj-nota{min-height:84px;border-radius:8px 8px 14px 14px;border:2px solid rgba(255,255,255,.6);background:linear-gradient(180deg,#fff,var(--c));color:#2a1450;font:800 .85rem inherit;font-family:inherit;cursor:pointer;padding:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;min-width:0}
     .caj-nota.suena{filter:brightness(1.15);box-shadow:0 0 22px var(--c),inset 0 0 18px #fff;transform:translateY(3px)}
     .caj-cont{font-size:.85rem;color:#d8e2ee}
-    .caj-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;pointer-events:none}
   `);
 
-  const partitura = document.createElement('div');
-  partitura.className = 'caj-partitura';
-  partitura.setAttribute('role', 'list');
+  const puntos = document.createElement('div');
+  puntos.className = 'caj-puntos';
+  puntos.setAttribute('aria-hidden', 'true');
   const teclas = document.createElement('div');
   teclas.className = 'caj-teclas';
   teclas.setAttribute('role', 'group');
   teclas.setAttribute('aria-label', 'Teclas de la caja de música');
   const cont = document.createElement('div');
   cont.className = 'caj-cont';
-  ui.body.append(partitura, teclas, cont);
+  ui.body.append(puntos, teclas, cont);
 
   const tiles = [];
-  PARTITURA.forEach((a, i) => {
-    const t = document.createElement('div');
-    t.className = 'caj-animal';
-    t.setAttribute('role', 'listitem');
-    t.dataset.i = String(i);
-    t.dataset.a = a;
-    t.innerHTML = '<span class="cuerpo" style="--c:' + COLOR_ANIMAL[a] + '"></span><span>' + a.charAt(0).toUpperCase() + a.slice(1) + '</span>';
-    partitura.appendChild(t);
-    tiles.push(t);
-    conImagen(t, 'animales/' + a.normalize('NFD').replace(/[̀-ͯ]/g, '') + '.jpg', { clase: 'caj-img', mezcla: 'screen' });
+  PARTITURA.forEach(() => {
+    const p = document.createElement('i');
+    p.className = 'caj-punto';
+    puntos.appendChild(p);
+    tiles.push(p);
   });
 
   let paso = 0;
@@ -118,7 +108,7 @@ export function startMinigame(opts = {}) {
     } else {
       paso = 0;
       pintar();
-      ui.say('Esa no es la nota del ' + animal + ' según la tabla de la carta 76. La melodía vuelve a empezar desde el primer animal.', 'bad');
+      ui.say('Esa no es la nota del animal número ' + (paso + 1) + ' según la tabla de la carta 76. La melodía vuelve a empezar desde el primer animal.', 'bad');
     }
   }
 
