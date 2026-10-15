@@ -58,6 +58,7 @@ def clips(clave, carpeta):
     estilos = "Mantén exactamente el mismo estilo visual, la misma paleta y los mismos personajes que en los demás clips de esta serie."
     salida = []
     for i, esc in enumerate(g["escenas"]):
+        esc = esc[0].upper() + esc[1:]
         t = (f"Vídeo vertical 9:16 de 5 segundos, {g['estilo']}. {esc} {estilos} "
              f"Sin ningún texto, letra, número ni subtítulo en pantalla. Sonido: {g['sonido']}.")
         salida.append(dict(n=i + 1, prompt=t, imagen=imagenes[i], url=f"{WEB}{carpeta}img/{imagenes[i]}.jpg"))
