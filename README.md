@@ -57,6 +57,10 @@ Están hechas con ChatGPT de forma automática (Selenium), con la cara de Cristi
 
 - **Instalable (PWA):** desde Safari en iPhone (o Chrome en Android) se añade a la pantalla de inicio y funciona a pantalla completa y **sin conexión** (cada juego tiene un botón «Descargar para jugar sin conexión»). Guía para jugadores: `instalar.html`.
 - **Cuentas y partidas:** inicio de sesión con correo y contraseña (el Supabase de «Noches de Cine»: el de «La Arena» está pausado). Al terminar un juego se guardan el tiempo y las pistas; `perfil.html` («Mis partidas») muestra el historial y el mejor tiempo, y los menús marcan las aventuras completadas. Sin cuenta, o sin red, las partidas se guardan en el dispositivo y se suben después. **Hay que crear la tabla una vez** ejecutando `supabase/unlock_partidas.sql` en el editor SQL de Supabase.
+- **Escanear cartas:** cada carta impresa (`imprimir.html`) lleva un QR en la esquina superior derecha («CA:juego:número»). En la app, **Acción/Pista → «Escanear la carta con la cámara»** rellena el número (en iPhone también, con jsQR); el teclado sigue siendo la alternativa. `python herramientas/probar_qr.py` comprueba que los QR de todos los juegos se leen.
+- **Logros y récords:** `perfil.html` calcula insignias (primera aventura, sin pistas, a todo gas, impecable, valiente, viajera del tiempo, coleccionista, repetidora) con las partidas guardadas.
+- **Aviso de versión nueva:** la app instalada avisa con «Actualizar» cuando hay una versión nueva (`assets/js/pwa.js`).
+- **iPhone:** márgenes para la muesca y la barra inferior en la app y los minijuegos (`env(safe-area-inset-*)`).
 - **Dificultad antes de elegir:** cada tarjeta de los menús muestra dificultad, minutos y número de cartas (`juegos/catalogo.json`, generado con `python herramientas/generar_catalogo.py`).
 - Tras cambiar **cualquier** fichero del sitio, ejecuta `python herramientas/generar_pwa.py` (actualiza `sw.js` y las listas `precache.json` para que los móviles reciban los cambios). `python herramientas/probar_pwa.py` comprueba menús, modo sin conexión y cuentas con un Supabase simulado.
 

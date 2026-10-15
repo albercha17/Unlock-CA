@@ -17,7 +17,7 @@ import sys
 RAIZ_SITIO_CASCARON = [
     "./", "index.html", "perfil.html", "instalar.html", "manifest.webmanifest",
     "assets/css/style.css", "assets/css/menu.css", "assets/css/cuenta.css",
-    "assets/js/menu.js", "assets/js/cuenta.js", "assets/js/cuenta-ui.js", "assets/js/pwa.js", "assets/js/vendor/supabase.js",
+    "assets/js/menu.js", "assets/js/cuenta.js", "assets/js/cuenta-ui.js", "assets/js/pwa.js", "assets/js/escaner.js", "assets/js/vendor/supabase.js", "assets/js/vendor/jsQR.js", "assets/js/vendor/qrcode.js",
     "assets/images/logo.png", "assets/images/faro.jpg",
     "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.png",
     "juegos/catalogo.json", "juegos/aventuras-ca/index.html",

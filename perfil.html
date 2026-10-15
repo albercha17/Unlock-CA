@@ -39,6 +39,12 @@
     tr:last-child td{border-bottom:0}
     .tag{font-size:.68rem;color:#ffd9a0;border:1px solid #6a4a22;border-radius:999px;padding:1px 7px;margin-left:6px}
     .tabla-scroll{overflow-x:auto}
+    .logros{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+    .logro{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;opacity:.6}
+    .logro.on{opacity:1;border-color:var(--laton);background:linear-gradient(180deg,#2a2210,var(--panel))}
+    .logro b{display:block;font-size:.9rem}
+    .logro.on b{color:var(--laton2)}
+    .logro small{display:block;margin-top:2px;color:var(--mut);font-size:.76rem;line-height:1.35}
   </style>
 </head>
 <body data-raiz="">
@@ -78,7 +84,25 @@ async function pintar() {
     const j = NOMBRES[p.juego];
     return '<tr><td>' + esc(j ? j.nombre.split(':').slice(-1)[0].trim() : p.juego) + '</td><td class="n">' + formatoTiempo(p.tiempo_seg) + '</td><td class="n">' + p.pistas + '</td><td class="n">' + esc(fecha(p.fin)) + (p.pendiente ? '<span class="tag">sin subir</span>' : '') + '</td></tr>';
   }).join('');
-  cont.innerHTML = '<h2>Por aventura</h2><div class="resumen">' + tarjetas + '</div>' +
+  // ---- logros (se calculan con las partidas; no se guardan aparte)
+  const hechas = ids.filter((i) => res[i]);
+  const sinPistas = r.partidas.filter((p) => p.pistas === 0);
+  const veloz = r.partidas.filter((p) => NOMBRES[p.juego] && p.tiempo_seg <= NOMBRES[p.juego].minutos * 30);
+  const impecable = r.partidas.filter((p) => NOMBRES[p.juego] && p.pistas === 0 && p.tiempo_seg <= NOMBRES[p.juego].minutos * 45);
+  const dificil = r.partidas.filter((p) => NOMBRES[p.juego] && NOMBRES[p.juego].dificultad >= 4);
+  const LOGROS = [
+    ['Primera aventura', 'Completa tu primera aventura.', r.partidas.length >= 1],
+    ['Sin pistas', 'Termina una aventura sin pedir ninguna pista.', sinPistas.length >= 1],
+    ['A todo gas', 'Termina una aventura en la mitad del tiempo previsto o menos.', veloz.length >= 1],
+    ['Impecable', 'Sin pistas y en tres cuartos del tiempo o menos.', impecable.length >= 1],
+    ['Valiente', 'Completa una aventura de dificultad difícil.', dificil.length >= 1],
+    ['Viajera del tiempo', 'Completa 3 aventuras distintas.', hechas.length >= 3],
+    ['Coleccionista', 'Completa todas las aventuras (' + ids.length + ').', ids.length > 0 && hechas.length === ids.length],
+    ['Repetidora', 'Repite una aventura para mejorar tu tiempo.', Object.values(res).some((x) => x.veces >= 2)]
+  ];
+  const logrosHTML = '<h2>Logros · ' + LOGROS.filter((l) => l[2]).length + ' de ' + LOGROS.length + '</h2><div class="logros">' +
+    LOGROS.map((l) => '<div class="logro ' + (l[2] ? 'on' : '') + '"><b>' + (l[2] ? '★ ' : '☆ ') + esc(l[0]) + '</b><small>' + esc(l[1]) + '</small></div>').join('') + '</div>';
+  cont.innerHTML = logrosHTML + '<h2>Por aventura</h2><div class="resumen">' + tarjetas + '</div>' +
     '<h2>Historial</h2><div class="tabla-scroll"><table><thead><tr><th>Aventura</th><th>Tiempo</th><th>Pistas</th><th>Fecha</th></tr></thead><tbody>' + filas + '</tbody></table></div>';
 }
 pintar();
