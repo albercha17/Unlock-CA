@@ -3,10 +3,11 @@
 // las partidas se guardan en este dispositivo y se sincronizan cuando haya sesión y red.
 //
 // La clave «publishable» es pública por diseño: la seguridad la da el RLS de supabase/unlock_partidas.sql.
-// Es el mismo proyecto de Supabase que «La Arena»: una misma cuenta sirve para las dos webs.
+// Es el mismo proyecto de Supabase que «Noches de Cine» (el de «La Arena» está pausado): las cuentas viven en ese proyecto.
+// Si algún día se cambia de proyecto, las cuentas y las partidas no se mueven solas.
 
-const SUPABASE_URL = 'https://gclhhejlnrngdhbxtxug.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_0enIF3ofyens_YREqw3vPg_UcTaMFQY';
+const SUPABASE_URL = 'https://tomwaoskswxfbwxsrkkl.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_GcN8b2gK-85Fqpeomul48g_DhUAPTZY';
 const TABLA = 'unlock_partidas';
 const K_HECHAS = 'ca-hechas';
 const K_USUARIO = 'ca-usuario';

@@ -1,5 +1,6 @@
 -- Tabla de partidas de Unlock C&A (tiempos y aventuras completadas).
--- Se ejecuta UNA vez en Supabase: proyecto «Supervivencia» → SQL Editor → New query → pegar todo → Run.
+-- Se ejecuta UNA vez en Supabase: proyecto de «Noches de Cine» (tomwaoskswxfbwxsrkkl) → SQL Editor → New query → pegar todo → Run.
+-- (El proyecto «Supervivencia» de La Arena está pausado. Este proyecto ya tiene sus tablas items/settings/secrets: no se tocan.)
 -- Es seguro repetirlo (usa IF NOT EXISTS). Cada persona solo ve y crea sus propias partidas (RLS).
 
 create table if not exists public.unlock_partidas (

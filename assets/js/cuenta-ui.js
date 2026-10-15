@@ -30,7 +30,7 @@ export function abrirLogin({ motivo = '' } = {}) {
       '<button type="button" class="cac-sec" data-accion="crear">Crear cuenta</button></div>' +
       '</form>' +
       '<button type="button" class="cac-cerrar">Ahora no</button>' +
-      '<p class="cac-nota">Es la misma cuenta que usas en La Arena. Sin cuenta, tus partidas se guardan solo en este dispositivo.</p>' +
+      '<p class="cac-nota">Crea tu cuenta con tu correo (solo sirve para guardar tus partidas). Sin cuenta, tus partidas se guardan solo en este dispositivo.</p>' +
       '</div>';
     document.body.appendChild(fondo);
     const form = fondo.querySelector('form');
