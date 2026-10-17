@@ -322,7 +322,28 @@ def abrir_chat():
                 break
             time.sleep(1)
         time.sleep(5)
-    return ci.Chat(PUERTO_CHROME)
+    chat = ci.Chat(PUERTO_CHROME)
+    # comprobar la sesión sin esperar los 10 minutos de chatgpt_imagenes: si no hay, se avisa en el panel y se
+    # deja la ventana abierta para que el usuario inicie sesión; la siguiente vuelta sigue sola
+    chat.d.get(ci.URL)
+    for _ in range(25):
+        if chat.hay_cuadro():
+            return chat
+        time.sleep(1)
+    raise SinSesion()
+
+
+class SinSesion(Exception):
+    """ChatGPT no tiene la sesión iniciada en el Chrome de depuración."""
+
+
+def resumir(e):
+    """Primera línea del error, corta y legible para el panel."""
+    texto = str(e).strip().splitlines()[0] if str(e).strip() else type(e).__name__
+    texto = texto.replace("Message: ", "")
+    if re.search(r"invalid session|not connected|disconnected|no such window", texto, re.I):
+        return "Se cerró la ventana de Chrome de ChatGPT (no la cierres mientras trabaja)."
+    return (texto[:180] + "…") if len(texto) > 180 else texto + "."
 
 
 class ChatSimulado:
@@ -526,12 +547,15 @@ def main():
             try:
                 if not producir(sb, cfg, pedido, fabrica, not args.sin_publicar):
                     break  # sin cupo de ChatGPT: los siguientes tampoco podrían avanzar
-            except SystemExit as e:  # chatgpt_imagenes sale así si no hay sesión de ChatGPT
-                sb.cambiar(pedido["id"], progreso=f"Parado: {e}. Abre Chrome con ChatGPT e inicia sesión; seguirá solo.")
+            except (SinSesion, SystemExit):  # SystemExit: chatgpt_imagenes sale así si no encuentra ChatGPT
+                sb.cambiar(pedido["id"], progreso="Parado: ChatGPT no tiene la sesión iniciada. Inicia sesión en la ventana "
+                           "de Chrome que se ha abierto (la de ChatGPT) y déjala abierta; seguirá solo en unos minutos.")
                 break
             except Exception as e:  # noqa: BLE001
                 log(traceback.format_exc())
-                sb.cambiar(pedido["id"], progreso=f"Error: {e}. Lo reintento en la próxima vuelta.")
+                sb.cambiar(pedido["id"], progreso=f"Error: {resumir(e)} Lo reintento en la próxima vuelta.")
+                if re.search(r"invalid session|not connected|disconnected|no such window", str(e), re.I):
+                    break  # se cerró Chrome: los siguientes pedidos fallarían igual
     finally:
         cerrojo.unlink(missing_ok=True)
 
