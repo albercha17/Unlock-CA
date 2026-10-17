@@ -2,7 +2,7 @@
 
 1. Las piezas de arte/ coinciden con el mosaico entero (mosaico-<nombre>.png) en el orden que dice cartas.json (_meta.mosaicos).
 2. Ninguna pieza está en su sitio al empezar la Mesa de montaje, y la Mesa de montaje se puede resolver tocando piezas en el Modo PC.
-3. Cada carta-mosaico se ve en pc.html con su número y sin franjas, y en imprimir.html con su número y su QR.
+3. Cada carta-mosaico se ve en pc.html con su número y sin franjas, y en imprimir.html con su número.
 
 Uso (desde la raíz del repo, con un servidor local en marcha: python -m http.server 8890):
     python herramientas/probar_mosaicos.py http://127.0.0.1:8890 juegos/aventuras-ca/pompeya [carpeta_capturas]
@@ -95,8 +95,8 @@ def main(base, carpeta, capturas=None):
         for k, m in meta.items():
             for c in m["cartas"]:
                 el = [e for e in d.find_elements(By.CSS_SELECTOR, ".hoja .carta") if e.find_element(By.CSS_SELECTOR, ".num").text == c]
-                if len(el) != 1 or not el[0].find_elements(By.CSS_SELECTOR, ".qr svg") or el[0].find_elements(By.CSS_SELECTOR, ".acc, .tit, .texto"):
-                    malos.append(f"{k}: la carta {c} impresa no tiene QR o lleva franjas")
+                if len(el) != 1 or el[0].find_elements(By.CSS_SELECTOR, ".acc, .tit, .texto"):
+                    malos.append(f"{k}: la carta {c} impresa falta o lleva franjas")
         if capturas:
             hoja = d.find_elements(By.CSS_SELECTOR, ".hoja")[0]
             hoja.screenshot(f"{capturas}/hoja1.png")
