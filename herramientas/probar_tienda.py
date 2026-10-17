@@ -91,11 +91,18 @@ def flujo(d, url):
         d.execute_script(f"document.querySelector('[name=p{i}-genero]').value = '{'mujer' if i == 0 else 'hombre'}'")
         d.find_element(By.CSS_SELECTOR, f'[data-subir="{i}"]').send_keys(FOTO)
         time.sleep(0.8)
+    # con una sola foto por persona no deja enviar
+    js("document.getElementById('enviar').click()")
+    time.sleep(0.4)
+    comprobar("Faltan fotos" in d.find_element(By.CSS_SELECTOR, '[data-error="p0-fotos"]').text, "exige 2 fotos por persona")
+    for i in range(2):
+        d.find_element(By.CSS_SELECTOR, f'[data-subir="{i}"]').send_keys(FOTO)
+        time.sleep(0.8)
     d.find_element(By.CSS_SELECTOR, '[data-subir="0"]').send_keys(FOTO)
     time.sleep(0.8)
-    comprobar(len(d.find_elements(By.CSS_SELECTOR, '[data-fotos="0"] .foto-mini')) == 2, "dos fotos en el protagonista 1")
-    js("document.querySelector('[data-quitar=\"0-1\"]').click()")
-    comprobar(len(d.find_elements(By.CSS_SELECTOR, '[data-fotos="0"] .foto-mini')) == 1, "quitar una foto")
+    comprobar(len(d.find_elements(By.CSS_SELECTOR, '[data-fotos="0"] .foto-mini')) == 3, "tres fotos en el protagonista 1")
+    js("document.querySelector('[data-quitar=\"0-2\"]').click()")
+    comprobar(len(d.find_elements(By.CSS_SELECTOR, '[data-fotos="0"] .foto-mini')) == 2, "quitar una foto")
     comprobar("Lucía y Marcos" in d.find_element(By.ID, "resumen-protas").text, "resumen con los protagonistas")
 
     # impreso: pide dirección y cambia el precio
