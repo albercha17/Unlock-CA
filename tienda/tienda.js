@@ -118,6 +118,16 @@
         <div class="fotos" data-fotos="${i}"></div>
         <span class="error" data-error="p${i}-fotos"></span>
       </div>
+      <label>Es…
+        <select name="p${i}-genero">
+          <option value="">Elegid</option>
+          <option value="mujer">Mujer</option>
+          <option value="hombre">Hombre</option>
+          <option value="niña">Niña</option>
+          <option value="niño">Niño</option>
+        </select>
+        <span class="error" data-error="p${i}-genero"></span>
+      </label>
       <label>Edad aproximada <small>(para dibujaros bien)</small>
         <input name="p${i}-edad" maxlength="20" inputmode="numeric" placeholder="${i === 0 ? '34' : '36'}">
       </label>
@@ -230,6 +240,7 @@
     protas.forEach((p, i) => {
       marca(`p${i}-nombre`, f[`p${i}-nombre`].value.trim() ? '' : 'Falta el nombre.');
       marca(`p${i}-fotos`, p.fotos.length ? '' : 'Falta al menos una foto.');
+      marca(`p${i}-genero`, f[`p${i}-genero`].value ? '' : 'Elegid una opción: nos ayuda a dibujarle bien.');
     });
     marca('direccion', formato() === 'impreso' && !f.direccion.value.trim() ? 'Necesitamos la dirección para enviar la caja.' : '');
     marca('nombre', f.nombre.value.trim() ? '' : 'Falta vuestro nombre.');
@@ -289,7 +300,7 @@
           }
           rutas.push(ruta);
         }
-        datosProtas.push({ nombre: f[`p${i}-nombre`].value.trim(), edad: f[`p${i}-edad`].value.trim(), sobre: f[`p${i}-sobre`].value.trim(), fotos: rutas });
+        datosProtas.push({ nombre: f[`p${i}-nombre`].value.trim(), genero: f[`p${i}-genero`].value, edad: f[`p${i}-edad`].value.trim(), sobre: f[`p${i}-sobre`].value.trim(), fotos: rutas });
       }
 
       btn.textContent = 'Enviando pedido…';
