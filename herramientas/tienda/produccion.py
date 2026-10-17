@@ -451,6 +451,8 @@ def publicar(token, pedido, sitio, carpeta):
         info = netlify(token, "POST", "/sites", {"name": nombre})
         info = {"id": info["id"], "url": info.get("ssl_url") or info["url"]}
         info_ruta.write_text(json.dumps(info), encoding="utf-8")
+    # el equipo de Netlify protege los sitios nuevos con su login: el pack tiene que abrirse sin cuenta
+    netlify(token, "PATCH", f"/sites/{info['id']}", {"sso_login": False})
     dep = netlify(token, "POST", f"/sites/{info['id']}/deploys", comprimir(sitio), "application/zip")
     for _ in range(60):
         if dep.get("state") == "ready":
