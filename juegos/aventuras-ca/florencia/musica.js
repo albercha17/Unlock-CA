@@ -85,6 +85,16 @@ const PRESETS = {
     arpegio: { onda: 'sine', vol: 0.06, paso: 4, octava: 3, patron: [4, 2, 0, 2], filtro: 6000, pulsada: true, campana: true },
     ritmo: { tipo: 'taiko', patron: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0], vol: 0.46, tono: 62 },
     ruido: { tipo: 'viento', vol: 0.13 }
+  },
+  // Pompeya: lira arpegiada y flauta en modo dórico, tambor suave y un viento con ceniza.
+  pompeya: {
+    bpm: 72, raiz: 50, escala: ESC.dorica, compases: 2, reverb: 2.4,
+    acordes: [[0, 2, 4], [3, 5, 0], [4, 6, 1], [0, 2, 4]],
+    pad: { onda: 'triangle', filtro: 900, vol: 0.13, octava: -1, ataque: 2.2 },
+    arpegio: { onda: 'triangle', vol: 0.15, paso: 2, octava: 1, patron: [0, 2, 1, 3, 2, 4, 3, 2], filtro: 4200, pulsada: true, campana: true },
+    melodia: { onda: 'sine', vol: 0.13, octava: 2, prob: 0.24, dur: 1.5, ataque: 0.1, filtro: 3000, vibrato: 4 },
+    ritmo: { tipo: 'tambor', patron: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], vol: 0.26, tono: 80 },
+    ruido: { tipo: 'viento', vol: 0.08 }
   }
 };
 

@@ -14,7 +14,7 @@ pc_faro = leer(f"{FARO}/pc.html")
 imprimir_faro = leer(f"{FARO}/imprimir.html")
 prompts_tpl = leer(os.path.join(TMP, "prompts_plantilla.html"))
 
-ORDEN_CAMPOS = ["titulo", "tipo", "coge", "descarta", "combina", "descripcion", "pistas", "textoCarta", "textoEspejo", "arte"]
+ORDEN_CAMPOS = ["titulo", "tipo", "coge", "descarta", "combina", "descripcion", "pistas", "textoCarta", "textoEspejo", "mosaico", "arte"]
 
 
 def fuente(tam):
@@ -122,7 +122,9 @@ for nombre, cfg in JUEGOS.items():
     escribir(f"{base}/prompts.html", prompts_tpl.replace("{{TITULO}}", cfg["titulo"]).replace("{{KEY}}", f"prompts-{nombre.lower()}"))
     im = imprimir_faro
     im = sustituir(im, "<title>Imprimir cartas — El Faro de Cabo Niebla</title>", f"<title>Imprimir cartas — {cfg['titulo']}</title>")
-    im = sustituir(im, "  .texto.chico{", "  .texto.emoji{font-size:4.4mm;line-height:1.35;letter-spacing:.12em}\n  .texto.chico{")
+    im = sustituir(im, '<script src="../../assets/js/vendor/qrcode.js"></script>', '<script src="../../../assets/js/vendor/qrcode.js"></script>')
+    im = sustituir(im, "var CLAVE_JUEGO = 'faro';", f"var CLAVE_JUEGO = '{cfg['tema']}';")
+    im = sustituir(im, "  .texto.chico{","  .texto.emoji{font-size:4.4mm;line-height:1.35;letter-spacing:.12em}\n  .texto.chico{")
     im = sustituir(im, "var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (c.textoEspejo ? ' espejo' : '');",
                    "var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + (c.textoEspejo ? ' espejo' : '');")
     im = sustituir(im, """      document.getElementById('resumen').textContent = faltan.length

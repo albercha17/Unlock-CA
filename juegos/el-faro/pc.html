@@ -52,6 +52,24 @@
   .acc .g i{font-style:normal;min-width:calc(4.4 * var(--mm));height:calc(3.8 * var(--mm));padding:0 calc(.9 * var(--mm));border-radius:calc(1.9 * var(--mm));background:#fff;color:#111;display:inline-flex;align-items:center;justify-content:center;font-size:calc(2.6 * var(--mm));letter-spacing:0}
   .acc .coge b{color:#7be495}.acc .des b{color:#ff8f8f}.acc .comb b{color:#ffd27a}
 
+  /* ===== Cartas-mosaico: piezas sin borde que se juntan; el número va en la esquina exterior del mosaico ===== */
+  .carta.mosaico{border:0}
+  .carta.mosaico.mz-r .num{left:auto;right:calc(1.4 * var(--mm))}
+  .carta.mosaico.mz-b .num{top:auto;bottom:calc(1.4 * var(--mm))}
+  .montajes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .montajes:empty{display:none}
+  #montaje{position:fixed;inset:0;z-index:60;background:rgba(2,6,12,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:auto}
+  #montaje[hidden]{display:none}
+  #montaje h3{margin:0;font-size:1.1rem}
+  #montaje .aviso{margin:0;text-align:center;max-width:520px}
+  .mt-grid{--cw:min(38vw,230px,calc(33vh * 63 / 88));display:grid;grid-template-columns:repeat(var(--cols),var(--cw));grid-auto-rows:calc(var(--cw) * 88 / 63);gap:0;border:2px solid var(--line);border-radius:6px;overflow:hidden;background:#000}
+  .mt-grid.una{--cw:min(60vw,300px,calc(33vh * 63 / 88))}
+  .mt-tile{padding:0;border:0;border-radius:0;background:#1b2733 center/cover no-repeat;cursor:pointer;outline:1px solid rgba(255,255,255,.22);outline-offset:-1px}
+  .mt-tile.sel{outline:3px solid var(--acc);outline-offset:-3px;filter:brightness(1.18)}
+  .mt-grid.hecho{border-color:#7be495;box-shadow:0 0 30px rgba(123,228,149,.55)}
+  .mt-grid.hecho .mt-tile{outline:0;cursor:default}
+  #mMsg{min-height:1.5em;margin:0;font-weight:600;color:#7be495;text-align:center}
+
   .dorso{--c:#ffd27a;background:radial-gradient(circle at 50% 36%,#ffe9a8 0,#ffd27a 5%,#1c3a4d 6%,#0a1218 72%)}
   .dorso::before{content:"";position:absolute;left:50%;top:36%;width:130%;height:calc(14 * var(--mm));transform:translate(0,-50%) rotate(-12deg);transform-origin:0 50%;background:linear-gradient(90deg,rgba(255,226,150,.55),transparent)}
   .dorso .big{position:absolute;left:50%;top:64%;transform:translate(-50%,-50%);min-width:calc(26 * var(--mm));padding:calc(2 * var(--mm)) calc(3 * var(--mm));border-radius:calc(13 * var(--mm));background:rgba(5,10,16,.82);border:calc(.6 * var(--mm)) solid #ffd27a;text-align:center;font-weight:800;font-size:calc(11 * var(--mm));line-height:1;color:#ffd27a}
@@ -82,6 +100,8 @@
   <p class="aviso">Los minijuegos y las pistas se hacen en el móvil: abre <a href="index.html">el juego</a> en tu teléfono, pulsa <strong>Empezar</strong> y usa <strong>Acción</strong> / <strong>Pista</strong> con el número de la carta.</p>
   <div id="msg" role="status" aria-live="polite"></div>
 
+  <div id="montajes" class="montajes"></div>
+
   <section class="mesa" aria-label="Cartas en mesa">
     <h2>En mesa <span id="nMesa"></span></h2>
     <div class="fila" id="mesa"></div>
@@ -98,6 +118,14 @@
   </section>
 </div>
 
+<div id="montaje" hidden role="dialog" aria-modal="true" aria-label="Mesa de montaje">
+  <h3 id="mTitulo"></h3>
+  <p class="aviso">Toca una pieza y luego otra para cambiarlas de sitio, hasta que los bordes del dibujo continúen de una a otra.</p>
+  <div id="mGrid" class="mt-grid"></div>
+  <p id="mMsg" role="status" aria-live="polite"></p>
+  <button type="button" id="mCerrar">Cerrar</button>
+</div>
+
 <div id="zoom" hidden role="dialog" aria-modal="true" aria-label="Carta ampliada">
   <div id="zoomCarta"></div>
   <div class="fila">
@@ -111,7 +139,7 @@
 (function(){
   var COLORES = {gris:'#8a94a3',verde:'#2f9e58',roja:'#c0453d',azul:'#3b78c9'};
   var ETIQ = {verde:'App',roja:'Combina',azul:'Combina'};
-  var KEY = 'faro-pc-v1';
+  var KEY = 'pc-v1:' + location.pathname; // una partida guardada por juego
   var DATA = null, estado = null, zoomId = null;
 
   function $(id){ return document.getElementById(id); }
@@ -142,6 +170,7 @@
 
   function frente(id){
     var c = DATA[id], color = COLORES[c.tipo] || COLORES.gris;
+    if (c.mosaico) return frenteMosaico(id, c);
     var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
     var conacc = !!((c.coge && c.coge.length) || (c.descarta && c.descarta.length) || c.combina);
     var h = '<div class="carta' + (conacc ? ' conacc' : '') + '" style="--c:' + color + '"><div class="arte" style="background-image:url(\'img/' + esc(id) + '.jpg\')"></div><div class="num">' + esc(id) + '</div>';
@@ -179,6 +208,7 @@
       it.appendChild(b); it.appendChild(d); mesa.appendChild(it);
     });
     recienTomada = null;
+    pintarMontajes();
 
     var mz = $('mazo'); mz.innerHTML = '';
     if (!m.length) mz.innerHTML = '<p class="vacio">El mazo está vacío.</p>';
@@ -230,6 +260,68 @@
   $('zDescartar').addEventListener('click', function(){ if (zoomId) descartar(zoomId); });
   $('zoom').addEventListener('click', function(e){ if (e.target === $('zoom')) cerrarZoom(); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !$('zoom').hidden) cerrarZoom(); });
+
+  function frenteMosaico(id, c){
+    var m = c.mosaico;
+    var cls = 'carta mosaico' + (m.filas > 1 && m.fila >= m.filas - 1 ? ' mz-b' : '') + (m.cols > 1 && m.col >= m.cols - 1 ? ' mz-r' : '');
+    return '<div class="' + cls + '" style="--c:#8a94a3"><div class="arte" style="background-image:url(\'img/' + esc(id) + '.jpg\')"></div><div class="num">' + esc(id) + '</div></div>';
+  }
+
+  // ----- Mesa de montaje: se tocan dos piezas para cambiarlas de sitio hasta que el dibujo encaje -----
+  var MONT = {}, montActual = null, montSel = null;
+  function mosaicos(){ return (DATA._meta && DATA._meta.mosaicos) || {}; }
+  function pintarMontajes(){
+    var cont = $('montajes'); cont.innerHTML = '';
+    var ms = mosaicos();
+    Object.keys(ms).forEach(function(k){
+      var m = ms[k];
+      if (!m.cartas.every(function(id){ return estado.mesa.indexOf(id) >= 0; })) return;
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'montar primario'; b.dataset.mosaico = k;
+      b.textContent = (MONT[k] && MONT[k].hecho ? '✔ ' : '') + 'Mesa de montaje: ' + m.titulo;
+      b.addEventListener('click', function(){ abrirMontaje(k); });
+      cont.appendChild(b);
+    });
+  }
+  function barajaInicial(c){
+    // permutación fija en la que ninguna pieza empieza en su sitio
+    if (c.length === 2) return [c[1], c[0]];
+    return [c[1], c[3], c[0], c[2]];
+  }
+  function abrirMontaje(k){
+    var m = mosaicos()[k];
+    if (!MONT[k]) MONT[k] = {perm: barajaInicial(m.cartas), hecho: false};
+    montActual = k; montSel = null;
+    $('mTitulo').textContent = m.titulo;
+    pintarMontaje();
+    $('montaje').hidden = false; $('mCerrar').focus();
+  }
+  function pintarMontaje(){
+    var m = mosaicos()[montActual], s = MONT[montActual], g = $('mGrid');
+    g.className = 'mt-grid' + (m.cols === 1 ? ' una' : '') + (s.hecho ? ' hecho' : '');
+    g.style.setProperty('--cols', m.cols);
+    g.innerHTML = '';
+    s.perm.forEach(function(id, i){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'mt-tile' + (montSel === i ? ' sel' : '');
+      b.dataset.pos = i; b.dataset.id = id; b.style.backgroundImage = "url('img/" + id + ".jpg')";
+      b.setAttribute('aria-label', 'Pieza de la posición ' + (i + 1) + (montSel === i ? ' (elegida)' : ''));
+      b.addEventListener('click', function(){ tocarPieza(i); });
+      g.appendChild(b);
+    });
+    $('mMsg').textContent = s.hecho ? '¡Encajan! Ya se ve el dibujo entero.' : '';
+  }
+  function tocarPieza(i){
+    var s = MONT[montActual], m = mosaicos()[montActual];
+    if (s.hecho) return;
+    if (montSel === null) montSel = i;
+    else if (montSel === i) montSel = null;
+    else { var t = s.perm[i]; s.perm[i] = s.perm[montSel]; s.perm[montSel] = t; montSel = null; }
+    s.hecho = s.perm.every(function(id, j){ return id === m.cartas[j]; });
+    pintarMontaje();
+    if (s.hecho) pintarMontajes();
+  }
+  function cerrarMontaje(){ montActual = null; $('montaje').hidden = true; }
+  $('mCerrar').addEventListener('click', cerrarMontaje);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !$('montaje').hidden) cerrarMontaje(); });
 
   fetchCartas().then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }).then(function(d){
     DATA = d;

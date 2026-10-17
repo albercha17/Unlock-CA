@@ -54,5 +54,13 @@
     "dificultad": 4,
     "minutos": 100,
     "cartas": 39
+  },
+  {
+    "id": "pompeya",
+    "nombre": "Pompeya, 79 d.C.: El Mosaico del Mundo",
+    "ruta": "juegos/aventuras-ca/pompeya/",
+    "dificultad": 3,
+    "minutos": 90,
+    "cartas": 44
   }
 ]

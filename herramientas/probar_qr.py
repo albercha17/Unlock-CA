@@ -21,7 +21,7 @@ PUERTO = 8897
 URL = f"http://127.0.0.1:{PUERTO}/"
 JUEGOS = [("faro", "juegos/el-faro/"), ("egipto", "juegos/aventuras-ca/egipto/"), ("marte", "juegos/aventuras-ca/marte/"),
           ("florencia", "juegos/aventuras-ca/florencia/"), ("dinosaurios", "juegos/aventuras-ca/dinosaurios/"),
-          ("cuento", "juegos/aventuras-ca/cuento/"), ("trono", "juegos/aventuras-ca/trono/")]
+          ("cuento", "juegos/aventuras-ca/cuento/"), ("trono", "juegos/aventuras-ca/trono/"), ("pompeya", "juegos/aventuras-ca/pompeya/")]
 
 
 class H(http.server.SimpleHTTPRequestHandler):

@@ -25,6 +25,9 @@ Todo se ejecuta **desde la raíz del repositorio**. Necesitan Python 3, Pillow y
 | `sincronizar_cartas.py [--comprobar]` | Genera `cartas-data.js` junto a cada `cartas.json`: es la copia que usan `pc.html`, `imprimir.html` y `prompts.html` cuando se abren con **doble clic** (el navegador bloquea `fetch` en `file://`). Con servidor siguen leyendo `cartas.json`. Hay que ejecutarlo tras cambiar un `cartas.json`; `verificar.py` avisa si está desfasado. |
 | `preparar_imagenes.py <carpeta>` | Convierte `arte/*.png` en `img/*.jpg` ligeros y actualiza `img/pendientes.json`. |
 | `generar_pwa.py [--comprobar]` | Escribe `sw.js` (con versión automática) y `precache.json` de cada juego. Ejecutar tras cambiar cualquier fichero del sitio. |
+| `mosaicos.py` | Dibuja por código (teselas con juntas) los mosaicos de «Pompeya», los corta en placas (`arte/<carta>.png`) y escribe `codigos_pompeya.json` con el código de cada uno (los solucionadores lo leen de ahí). Los números de placa deben coincidir con `MOSAICOS` de `datos_pompeya.py`. |
+| `probar_mosaicos.py <URL> <carpeta> [capturas]` | Comprueba que las placas reconstruyen el mosaico, que la «Mesa de montaje» del Modo PC se puede resolver y que las cartas-mosaico se ven bien en `pc.html` e `imprimir.html`. |
+| `parche_mosaicos.py` | Añade a todos los `pc.html` e `imprimir.html` el soporte de cartas-mosaico (campo `mosaico` de `cartas.json`) y la Mesa de montaje. Idempotente. |
 | `probar_qr.py` | Comprueba (sin cámara) que el QR impreso en cada carta de los 7 juegos se lee con el mismo lector que usa la app. Arranca su propio servidor. |
 | `generar_catalogo.py` | Escribe `juegos/catalogo.json` (dificultad, minutos y cartas de cada juego) para los menús, «Mis partidas» y las partidas guardadas. |
 | `generar_iconos.py` | Dibuja los iconos de la app instalable en `assets/icons/`. |

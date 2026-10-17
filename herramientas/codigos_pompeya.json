@@ -1,0 +1,35 @@
+{
+ "atrio": {
+  "formas": [
+   "triangulo",
+   "estrella",
+   "circulo",
+   "cruz"
+  ]
+ },
+ "peristilo": {
+  "flechas": [
+   "abajo",
+   "abajo",
+   "derecha",
+   "arriba"
+  ]
+ },
+ "rosetas": {
+  "petalos": [
+   5,
+   3,
+   7
+  ]
+ },
+ "digitos": {
+  "digitos": [
+   4,
+   7,
+   2
+  ]
+ },
+ "reloj": {
+  "marca": 7
+ }
+}
