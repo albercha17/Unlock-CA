@@ -52,6 +52,9 @@ ORIGINALES = ("Cristina", "Alberto")          # huecos de las historias: [0] la 
 NO_COPIAR = {"arte", "video", "MANUAL.md", "prompts.html", "precache.json", "__pycache__"}
 EXT_TEXTO = (".html", ".js", ".json", ".css", ".md", ".txt")
 PUERTO_CHROME = 9222
+# carpeta privada de los pedidos (fotos, hoja, ilustraciones): fuera del repo y de la copia que se actualiza sola
+_UNLOCK = Path.home() / "Documents" / "MIS PROGRAMAS" / "Unlock"
+CARPETA_PEDIDOS = (_UNLOCK if _UNLOCK.exists() else CONFIG_DIR) / "pedidos-tienda"
 
 
 def log(*a):
@@ -64,7 +67,7 @@ def leer_config():
     ruta = CONFIG_DIR / "config.json"
     cfg = json.loads(ruta.read_text(encoding="utf-8")) if ruta.exists() else {}
     cfg.setdefault("supabase_url", "https://tomwaoskswxfbwxsrkkl.supabase.co")
-    cfg.setdefault("carpeta", str(RAIZ.parent / "pedidos-tienda"))
+    cfg.setdefault("carpeta", str(CARPETA_PEDIDOS))
     return cfg
 
 
@@ -471,12 +474,14 @@ def instalar():
     cfg_ruta = CONFIG_DIR / "config.json"
     if not cfg_ruta.exists():
         cfg_ruta.write_text(json.dumps({"supabase_url": "https://tomwaoskswxfbwxsrkkl.supabase.co", "service_key": "",
-                                        "netlify_token": "", "carpeta": str(RAIZ.parent / "pedidos-tienda")}, indent=1),
+                                        "netlify_token": "", "carpeta": str(CARPETA_PEDIDOS)}, indent=1),
                             encoding="utf-8")
         print(f"Configuración creada: {cfg_ruta} (rellena service_key y netlify_token)")
+    lanzador = CONFIG_DIR / "lanzador.py"
+    shutil.copy2(Path(__file__).with_name("lanzador.py"), lanzador)
     pythonw = Path(sys.executable).with_name("pythonw.exe")
     ps = f"""
-$accion = New-ScheduledTaskAction -Execute '{pythonw}' -Argument '"{Path(__file__).resolve()}"' -WorkingDirectory '{RAIZ}'
+$accion = New-ScheduledTaskAction -Execute '{pythonw}' -Argument '"{lanzador}"' -WorkingDirectory '{CONFIG_DIR}'
 $disparo = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 10)
 $ajustes = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -StartWhenAvailable -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 6)
 Register-ScheduledTask -TaskName 'Cronoportal pedidos' -Action $accion -Trigger $disparo -Settings $ajustes -Force | Out-Null
