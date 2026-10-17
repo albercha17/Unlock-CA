@@ -280,7 +280,7 @@ J = {
             "Aterrizan en su salón, con copos de nieve aún en el pelo. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 74, 84 y 86.",
             "FIN."],
         pistas=[],
-        arte="Cristina y Alberto saltando a través de un portal circular de luz azul y dorada en la guarida de un dragón negro que acaba de abrir un ojo dorado; Cristina hace una reverencia con una sonrisa radiante y Alberto se despide con la mano y la risa en la cara; al fondo, un destello de su salón actual."),
+        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ve la guarida de un dragón negro que abre un ojo dorado. Llevan aún su ropa medieval de invierno con copos de nieve que se derriten. Cristina sonríe radiante y Alberto se ríe sacudiéndose la nieve. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
 META = dict(

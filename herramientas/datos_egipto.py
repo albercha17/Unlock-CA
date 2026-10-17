@@ -211,7 +211,7 @@ J = {
             "Aterrizan en su salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 74, 95, 15 y 44.",
             "FIN."],
         pistas=[],
-        arte="Cristina y Alberto saltando a través de un portal circular de luz azul que se abre en la cámara; detrás se ve el tesoro dorado y, delante, un destello de su salón actual."),
+        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven la cámara del templo de Karnak y el tesoro dorado. Llevan aún su ropa de la aventura, cubierta de arena, y caen sobre la alfombra entre risas. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
 META = dict(

@@ -195,7 +195,7 @@ J = {
             "Aterrizan en su salón. Cristina deja una tomatera sobre la mesa: «Me la he traído». Alberto, riendo: «Mañana, otro destino». Descartad las cartas 70, 88, 35, 36 y 51.",
             "FIN."],
         pistas=[],
-        arte="Cristina y Alberto saltando a través de un portal circular de luz azul que se abre en el hangar; detrás, la cúpula iluminándose y, delante, un destello de su salón actual; Cristina lleva una pequeña maceta con una tomatera."),
+        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven el hangar de la colonia Aurora y la cúpula iluminándose bajo el cielo rojizo. Llevan aún sus monos de colonia marciana con polvo rojo, y Cristina sostiene una pequeña maceta con una tomatera. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
 META = dict(juego="Marte, 2157 — Cúpula Aurora", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO)

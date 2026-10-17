@@ -96,6 +96,8 @@ Por carta (la clave es el número, `P` para la inicial):
 
 **Expresiones distintas en cada imagen.** En el campo `arte` de cada carta, indica la emoción concreta de Cristina y de Alberto según la escena (sorpresa, concentración, miedo, alegría, duda, esfuerzo…). Evita el «sonríen» por defecto: con la misma cara en todas las cartas el juego se ve plano.
 
+**La carta final ocurre EN CASA, al volver.** El `arte` de la carta final (99) describe el salón de su casa actual: Cristina y Alberto acaban de salir del portal, de cara a nosotros y aún con la ropa de la aventura; el mundo de la aventura solo se ve a través del portal, detrás de ellos, mientras se cierra. Nunca «saltando a través de un portal» en el escenario de la aventura: ChatGPT lo dibuja como si se fueran, no como si volvieran.
+
 `prompts.html` (en las aventuras) da el prompt de la hoja de personajes, el de cada carta y el del vídeo. Las imágenes se guardan en `arte/` (local), se convierten con `herramientas/preparar_imagenes.py` y se suben como `img/*.jpg`.
 
 ## 6b. Aspecto de los minijuegos (ambientación)

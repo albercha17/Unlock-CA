@@ -5,7 +5,7 @@
    - Mensaje {tipo:'cachear', urls:[...]}: descarga un juego entero para jugarlo sin conexión (responde con el progreso).
    - No toca vídeo (los rangos de vídeo de iOS no se pueden servir bien desde la caché) ni las llamadas a Supabase.
    La versión cambia sola cuando cambia el cascarón: así los móviles reciben los ficheros nuevos. */
-const VERSION = 'cd36f2e30a';
+const VERSION = '6e044fde4b';
 const CACHE = 'unlock-ca-' + VERSION;
 const CASCARON = ["./", "index.html", "perfil.html", "instalar.html", "ajustes.html", "manifest.webmanifest", "assets/css/style.css", "assets/css/menu.css", "assets/css/cuenta.css", "assets/css/barra.css", "assets/js/menu.js", "assets/js/ajustes.js", "assets/js/barra.js", "assets/js/splash.js", "assets/js/cuenta.js", "assets/js/cuenta-ui.js", "assets/js/pwa.js", "assets/js/vendor/supabase.js", "assets/images/logo.png", "assets/images/faro.jpg", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.png", "juegos/catalogo.json", "juegos/aventuras-ca/index.html"];
 
