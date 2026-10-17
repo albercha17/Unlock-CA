@@ -9,7 +9,8 @@
   const PLAZOS = { digital: '7 días', impreso: '12 días' };
   const POR_PACK = 4;
   const PROTAGONISTAS = 2;
-  const FOTOS_MAX = 3;                                      // por protagonista
+  const FOTOS_MIN = 2;                                      // por protagonista: con dos, ChatGPT acierta más el parecido
+  const FOTOS_MAX = 3;
   const LADO_MAX = 1600;                                    // px: las fotos se reducen antes de subirlas
 
   // La clave «publishable» es pública por diseño: la seguridad la da el RLS de supabase/tienda_pedidos.sql.
@@ -143,7 +144,7 @@
       <div class="foto-mini"><img src="${f.url}" alt="Foto ${j + 1} de protagonista ${i + 1}">
         <button type="button" data-quitar="${i}-${j}" aria-label="Quitar foto ${j + 1}">✕</button></div>`).join('')
       + (p.fotos.length < FOTOS_MAX
-        ? `<label class="subir"><span><b>+</b>${p.fotos.length ? 'Otra foto' : 'Subir foto'}</span><input type="file" accept="image/*" data-subir="${i}" ${FOTOS_MAX - p.fotos.length > 1 ? 'multiple' : ''}></label>`
+        ? `<label class="subir"><span><b>+</b>${p.fotos.length >= FOTOS_MIN ? 'Otra foto (opcional)' : `Foto ${p.fotos.length + 1} de ${FOTOS_MIN}`}</span><input type="file" accept="image/*" data-subir="${i}" ${FOTOS_MAX - p.fotos.length > 1 ? 'multiple' : ''}></label>`
         : '');
     pintarResumen();
   }
@@ -239,7 +240,8 @@
     marca('aventuras', elegidas.size === POR_PACK ? '' : `Elegid ${POR_PACK} aventuras (lleváis ${elegidas.size}).`);
     protas.forEach((p, i) => {
       marca(`p${i}-nombre`, f[`p${i}-nombre`].value.trim() ? '' : 'Falta el nombre.');
-      marca(`p${i}-fotos`, p.fotos.length ? '' : 'Falta al menos una foto.');
+      marca(`p${i}-fotos`, p.fotos.length >= FOTOS_MIN ? ''
+        : `Faltan fotos: ${p.fotos.length ? 'falta 1 más' : `subid ${FOTOS_MIN}`} (dos fotos distintas de la cara).`);
       marca(`p${i}-genero`, f[`p${i}-genero`].value ? '' : 'Elegid una opción: nos ayuda a dibujarle bien.');
     });
     marca('direccion', formato() === 'impreso' && !f.direccion.value.trim() ? 'Necesitamos la dirección para enviar la caja.' : '');

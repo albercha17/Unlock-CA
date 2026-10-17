@@ -325,7 +325,8 @@ def prompt_hoja(protas, n_fotos):
         inicio += n
     p = ("Crea una imagen: hoja de personajes (character sheet) con las dos personas de las fotos adjuntas: "
          + "; ".join(partes) + ". De cuerpo entero y de frente, una al lado de la otra, sobre fondo claro y neutro. "
-         "Mantén su parecido real con las fotos (cara, forma de la cara, pelo, ojos, barba si la tiene, gafas si las lleva). "
+         "Fíjate en TODAS las fotos de cada persona (están tomadas desde ángulos distintos) para captar bien su cara. "
+         "Mantén su parecido real con las fotos (cara, forma de la cara, nariz, cejas, pelo, ojos, barba si la tiene, gafas si las lleva). "
          "Ropa actual y cómoda: vaqueros, zapatillas y una chaqueta ligera. "
          "Estilo: ilustración digital pintada con estética de película de aventuras, trazo limpio y colores naturales, "
          "formato vertical 2:3. Sin ningún texto ni letras en la imagen.")
