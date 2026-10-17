@@ -712,7 +712,7 @@ window.JUEGO_LOCAL = {
    "FIN."
   ],
   "pistas": [],
-  "arte": "Cristina y Alberto, dibujados en 2D clásico y ya a todo color, cruzan un portal circular de luz azul y dorada saludando con la mano al Búho Narrador, mientras detrás la aldea, la torre y el castillo brillan llenos de color y los personajes del cuento bailan. Ella ríe a carcajadas con los ojos entornados y él lanza un beso con la mano con los ojos cerrados, radiante."
+  "arte": "Dibujo en 2D clásico. La escena final ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto, ya a todo color, acaban de salir de un portal circular de luz azul y dorada que surge de un gran libro de cuentos abierto sobre la mesa del salón; a través del portal todavía se ven la aldea, la torre y el castillo del cuento y al Búho Narrador diciendo adiós con el ala. Ella ríe a carcajadas con los ojos entornados y él lanza un beso hacia el libro, radiante. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
  }
 };
 window.fetchCartas = function () {

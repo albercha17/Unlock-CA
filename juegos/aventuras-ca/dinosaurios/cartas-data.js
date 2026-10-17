@@ -703,7 +703,7 @@ window.JUEGO_LOCAL = {
    "FIN."
   ],
   "pistas": [],
-  "arte": "Cristina y Alberto saltando a través de un portal circular de luz azul y dorada junto al esqueleto de un tiranosaurio recién montado; detrás, el cielo naranja del Cretácico con el asteroide, y delante un destello de su salón actual. Cristina riendo a carcajadas, llena de alegría; Alberto con una mezcla de euforia y pánico divertido."
+  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven el cielo naranja del Cretácico, el asteroide y el esqueleto de un tiranosaurio. Llevan aún su ropa de expedición con barro. Cristina ríe a carcajadas, llena de alegría; Alberto, con una mezcla de euforia y alivio divertido. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
  }
 };
 window.fetchCartas = function () {

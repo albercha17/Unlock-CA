@@ -932,7 +932,7 @@ window.JUEGO_LOCAL = {
    "FIN."
   ],
   "pistas": [],
-  "arte": "Cristina y Alberto saltando a través de un portal circular de luz azul y dorada en un atrio romano cubierto de ceniza; detrás, el Vesubio con su columna de humo y un suelo de mosaico, y delante un destello de su salón actual. Cristina ríe a carcajadas con una tesela de oro en la mano y Alberto grita de euforia con los brazos en alto."
+  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven un atrio romano cubierto de ceniza y el Vesubio con su columna de humo. Llevan aún su ropa romana manchada de ceniza. Cristina ríe a carcajadas con una tesela de oro en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
  }
 };
 window.fetchCartas = function () {
