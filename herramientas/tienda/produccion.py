@@ -137,7 +137,11 @@ def fotos_de(carpeta, prota):
 
 def repartir(protagonistas):
     """Coloca a cada protagonista en el hueco de Cristina (ella) o Alberto (él) según su género."""
-    protas = list(protagonistas)[:2]
+    protas = [dict(p) for p in list(protagonistas)[:2]]
+    for p in protas:  # pedidos sin género (formulario antiguo): se deduce del nombre (en español, -a suele ser femenino)
+        if not p.get("genero"):
+            nombre = (p.get("nombre") or "").strip().split(" ")[0].lower()
+            p["genero"] = "mujer" if nombre.endswith("a") else "hombre" if nombre else None
     fem = lambda p: p.get("genero") in ("mujer", "niña")  # noqa: E731
     if len(protas) == 2 and not fem(protas[0]) and fem(protas[1]):
         protas.reverse()
