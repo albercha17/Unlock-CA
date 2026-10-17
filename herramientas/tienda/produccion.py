@@ -109,6 +109,33 @@ class Supabase:
         self._pedir("POST", f"/storage/v1/object/tienda-fotos/{ruta}", datos,
                     {"Content-Type": "image/jpeg", "x-upsert": "true"})
 
+    def estados(self):
+        return {p["id"]: p["estado"] for p in self._pedir("GET", "/rest/v1/tienda_pedidos?select=id,estado")}
+
+    def borrar_fotos(self, pid):
+        nombres = [f["name"] for f in self._pedir("POST", "/storage/v1/object/list/tienda-fotos", {"prefix": pid, "limit": 100}) or []]
+        if nombres:
+            self._pedir("DELETE", "/storage/v1/object/tienda-fotos", {"prefixes": [f"{pid}/{n}" for n in nombres]})
+        return len(nombres)
+
+
+def limpiar(sb, cfg):
+    """Cumple la promesa de la tienda: las fotos se borran al entregar (o cancelar) y al borrar el pedido."""
+    estados = sb.estados()
+    for pid, estado in estados.items():
+        if estado in ("entregado", "cancelado"):
+            local = Path(cfg["carpeta"]) / pid[:8].upper() / "fotos"
+            if local.exists():
+                shutil.rmtree(local, ignore_errors=True)
+            if sb.borrar_fotos(pid):
+                log(f"[{pid[:8].upper()}] {estado}: fotos borradas")
+    vivos = {pid[:8].upper() for pid in estados}
+    raiz = Path(cfg["carpeta"])
+    for carpeta in raiz.iterdir() if raiz.exists() else []:
+        if carpeta.is_dir() and re.fullmatch(r"[0-9A-F]{8}", carpeta.name) and carpeta.name not in vivos:
+            shutil.rmtree(carpeta, ignore_errors=True)
+            log(f"[{carpeta.name}] pedido borrado en el panel: carpeta local eliminada")
+
 
 class SinSupabase:
     """Para --local: imprime lo que se mandaría a Supabase."""
@@ -437,14 +464,18 @@ def publicar(token, pedido, sitio, carpeta):
 
 # ---------------------------------------------------------------- un pedido
 
-def producir(sb, cfg, pedido, chat_fabrica, publicar_web=True):
+def producir(sb, cfg, pedido, chat_fabrica, publicar_web=True, limite=None):
     pid, codigo = pedido["id"], pedido["id"][:8].upper()
     carpeta = Path(cfg["carpeta"]) / codigo
     sitio = carpeta / "sitio"
     avisar = lambda texto, **extra: (log(f"[{codigo}] {texto}"), sb.cambiar(pid, progreso=texto, **extra))  # noqa: E731
+    if limite:  # prueba: solo las primeras aventuras del pedido (ahorra cupo de ChatGPT)
+        pedido = dict(pedido, aventuras=pedido["aventuras"][:limite])
 
     if pedido["estado"] == "desarrollar":
-        avisar("Empezando: descargo las fotos y preparo las 4 aventuras.", estado="en_produccion")
+        n = len(pedido["aventuras"])
+        avisar(f"Empezando: descargo las fotos y preparo {n} aventura{'s' if n > 1 else ''}"
+               + (" (prueba)." if limite else "."), estado="en_produccion")
     if not isinstance(sb, SinSupabase):
         descargar(sb, pedido, carpeta)
     protas = repartir(pedido["protagonistas"])
@@ -522,6 +553,7 @@ def main():
     ap.add_argument("--simular", action="store_true", help="sin ChatGPT (reutiliza las ilustraciones)")
     ap.add_argument("--local", help="carpeta con datos.json y fotos/ (sin Supabase)")
     ap.add_argument("--sin-publicar", action="store_true")
+    ap.add_argument("--aventuras", type=int, help="prueba: producir solo las N primeras aventuras de cada pedido")
     ap.add_argument("--instalar", action="store_true")
     args = ap.parse_args()
     if args.instalar:
@@ -540,12 +572,16 @@ def main():
             carpeta = Path(args.local)
             pedido = json.loads((carpeta / "datos.json").read_text(encoding="utf-8"))
             cfg["carpeta"] = str(carpeta.parent)
-            producir(SinSupabase(), cfg, pedido, fabrica, not args.sin_publicar)
+            producir(SinSupabase(), cfg, pedido, fabrica, not args.sin_publicar, args.aventuras)
             return
         sb = Supabase(cfg)
+        try:
+            limpiar(sb, cfg)
+        except Exception as e:  # noqa: BLE001  la limpieza nunca debe frenar la producción
+            log(f"Limpieza: {resumir(e)}")
         for pedido in sb.pendientes():
             try:
-                if not producir(sb, cfg, pedido, fabrica, not args.sin_publicar):
+                if not producir(sb, cfg, pedido, fabrica, not args.sin_publicar, args.aventuras):
                     break  # sin cupo de ChatGPT: los siguientes tampoco podrían avanzar
             except (SinSesion, SystemExit):  # SystemExit: chatgpt_imagenes sale así si no encuentra ChatGPT
                 sb.cambiar(pedido["id"], progreso="Parado: ChatGPT no tiene la sesión iniciada. Inicia sesión en la ventana "
