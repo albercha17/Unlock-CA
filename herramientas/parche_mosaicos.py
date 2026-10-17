@@ -121,21 +121,18 @@ def parchear_pc(p):
     return True
 
 
-IMP_CSS = """  /* cartas-mosaico: sin borde, para que al juntarlas el dibujo continúe; número y QR en la esquina exterior */
+IMP_CSS = """  /* cartas-mosaico: sin borde, para que al juntarlas el dibujo continúe; número en la esquina exterior */
   .carta.mosaico{border:0}
   .carta.mosaico .num{top:1.4mm;left:1.4mm}
   .carta.mosaico.mz-r .num{left:auto;right:1.4mm}
   .carta.mosaico.mz-b .num{top:auto;bottom:1.4mm}
-  .carta.mosaico .qr{top:auto;bottom:1.4mm;left:1.4mm;right:auto}
-  .carta.mosaico.mz-r .qr{left:auto;right:1.4mm}
-  .carta.mosaico.mz-b .qr{bottom:auto;top:1.4mm}
 
 """
 
 IMP_JS = """    if (c.mosaico) {
       var mz = c.mosaico;
       return '<div class="carta mosaico' + (mz.filas > 1 && mz.fila >= mz.filas - 1 ? ' mz-b' : '') + (mz.cols > 1 && mz.col >= mz.cols - 1 ? ' mz-r' : '') + '" style="--c:#8a94a3"><div class="arte" data-id="' + esc(id) + '"></div>' +
-        '<div class="num">' + esc(id) + '</div><div class="qr" data-qr="CA:' + CLAVE_JUEGO + ':' + esc(id) + '" aria-hidden="true"></div></div>';
+        '<div class="num">' + esc(id) + '</div></div>';
     }
 """
 

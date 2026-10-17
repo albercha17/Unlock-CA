@@ -30,8 +30,6 @@
   .texto div+div{margin-top:.8mm}
 
   .texto.espejo{transform:scaleX(-1)}
-  .qr{position:absolute;top:8mm;right:1.8mm;width:11.5mm;height:11.5mm;padding:.8mm;background:#fff;border-radius:1mm;box-shadow:0 .3mm 1mm rgba(0,0,0,.5)}
-  .qr svg{display:block;width:100%;height:100%}
   .acc{position:absolute;left:1.8mm;right:1.8mm;bottom:8mm;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.6mm}
   .carta.conacc .texto.chico,.carta.conacc .texto.largo{bottom:17mm}
   .acc .g{display:flex;flex-wrap:wrap;align-items:center;gap:.6mm;background:rgba(5,10,16,.74);border-radius:1.2mm;padding:.5mm 1mm;font-size:2mm;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
@@ -44,14 +42,11 @@
   .dorso .t{position:absolute;left:0;right:0;bottom:9mm;text-align:center;font-weight:800;letter-spacing:.25em;font-size:10pt;color:#ffd27a}
   .dorso .s{position:absolute;left:0;right:0;bottom:4.5mm;text-align:center;font-size:6pt;letter-spacing:.2em;color:#9fb4c8}
 
-  /* cartas-mosaico: sin borde, para que al juntarlas el dibujo continúe; número y QR en la esquina exterior */
+  /* cartas-mosaico: sin borde, para que al juntarlas el dibujo continúe; número en la esquina exterior */
   .carta.mosaico{border:0}
   .carta.mosaico .num{top:1.4mm;left:1.4mm}
   .carta.mosaico.mz-r .num{left:auto;right:1.4mm}
   .carta.mosaico.mz-b .num{top:auto;bottom:1.4mm}
-  .carta.mosaico .qr{top:auto;bottom:1.4mm;left:1.4mm;right:auto}
-  .carta.mosaico.mz-r .qr{left:auto;right:1.4mm}
-  .carta.mosaico.mz-b .qr{bottom:auto;top:1.4mm}
 
   @page{size:A4;margin:0}
   @media print{
@@ -71,7 +66,6 @@
 <div id="hojas"></div>
 
 <script src="cartas-data.js"></script>
-<script src="../../../assets/js/vendor/qrcode.js"></script>
 <script>var CLAVE_JUEGO = 'trono';</script>
 <script>
 fetchCartas().then(function(r){ return r.json(); }).then(function(datos){
@@ -91,12 +85,12 @@ window.JUEGO = datos;
     if (c.mosaico) {
       var mz = c.mosaico;
       return '<div class="carta mosaico' + (mz.filas > 1 && mz.fila >= mz.filas - 1 ? ' mz-b' : '') + (mz.cols > 1 && mz.col >= mz.cols - 1 ? ' mz-r' : '') + '" style="--c:#8a94a3"><div class="arte" data-id="' + esc(id) + '"></div>' +
-        '<div class="num">' + esc(id) + '</div><div class="qr" data-qr="CA:' + CLAVE_JUEGO + ':' + esc(id) + '" aria-hidden="true"></div></div>';
+        '<div class="num">' + esc(id) + '</div></div>';
     }
     var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
     var conacc = !!((c.coge && c.coge.length) || (c.descarta && c.descarta.length) || c.combina);
     var html = '<div class="carta' + (conacc ? ' conacc' : '') + '" style="--c:' + color + '"><div class="arte" data-id="' + esc(id) + '"></div>' +
-      '<div class="num">' + esc(id) + '</div><div class="qr" data-qr="CA:' + CLAVE_JUEGO + ':' + esc(id) + '" aria-hidden="true"></div>';
+      '<div class="num">' + esc(id) + '</div>';
     if (ETIQ[c.tipo]) html += '<div class="etq">' + ETIQ[c.tipo] + '</div>';
     if (c.textoCarta && c.textoCarta.length) {
       var clase = (c.textoCarta.length <= 3 ? ' chico' : ' largo') + (/\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + (c.textoEspejo ? ' espejo' : '');
@@ -121,9 +115,6 @@ window.JUEGO = datos;
     hojas.map(function(h){ return '<div class="hoja guias">' + h.join('') + '</div>'; }).join('') +
     '<div class="hoja guias">' + dorsos + '</div>';
 
-  document.querySelectorAll('.qr').forEach(function(el){
-    try { var q = qrcode(0, 'M'); q.addData(el.dataset.qr); q.make(); el.innerHTML = q.createSvgTag({cellSize: 2, margin: 0, scalable: true}); } catch (e) { el.remove(); }
-  });
   document.getElementById('guias').addEventListener('change', function(e){
     document.querySelectorAll('.hoja').forEach(function(h){ h.classList.toggle('guias', e.target.checked); });
   });

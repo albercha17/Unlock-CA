@@ -242,7 +242,7 @@ Lista de mejoras (para la tarea de interfaz):
 | **Micrófono** | `getUserMedia` con HTTPS; AnalyserNode; calibrar en dB y exigir nivel sostenido | Solo con alternativa táctil |
 | **Sonido sin archivos** | Web Audio (`OscillatorNode`), creado o reanudado dentro de un gesto; programar con `ctx.currentTime` | Morse: unidad = 1,2 / WPM s; con equivalente visual |
 | **Instalar y jugar sin conexión (PWA)** | manifest + service worker; Android lo ofrece solo, iOS «Añadir a pantalla de inicio» | Rutas relativas (el sitio vive bajo `/Unlock-CA/`), versionar la caché |
-| **Escanear cartas con la cámara (QR)** | `BarcodeDetector` solo en Chrome/Android; iOS no lo tiene (hace falta jsQR o un polyfill con ZXing); la cámara pide HTTPS | Opcional: `imprimir.html` podría generar un QR por carta (SVG) y la app leer el número en vez de teclearlo; siempre con el teclado como alternativa |
+| **Escanear cartas con la cámara (QR)** | Descartado: no se quieren QR en las cartas (17 oct 2026) | El número de la carta se teclea en la app |
 | **Guardar la partida** | `localStorage` sirve durante una partida, pero Safari borra los datos de un sitio tras 7 días de uso del navegador sin interacción (`navigator.storage.persist()` suele devolver false) | Guardado automático para «Continuar partida» el mismo día; ofrecer «Copiar informe/estado» como respaldo |
 | Gestos | `touch-action: manipulation` en botones; `none` solo en la superficie de arrastre; Pointer Events con `setPointerCapture` | `user-select:none` en piezas arrastrables |
 

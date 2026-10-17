@@ -123,7 +123,6 @@ details.reglas summary { cursor: pointer; padding: 10px 0; font-weight: 700; fon
 .num-key:active { filter: brightness(1.4); }
 .num-key.action { background: linear-gradient(180deg, #34343a, #1a1a1e); }
 .num-key[data-key="P"] { color: var(--accent-2); }
-#scanBtn { width: 100%; min-height: 48px; margin: 0 0 8px; font-size: .9rem; }
 .num-message { color: #ffb3b3; min-height: 1.3em; margin: 8px 0 0; text-align: center; font-size: .9rem; }
 .btn-open-anyway { background: #ffb86b; border: none; padding: 10px 14px; border-radius: 10px; cursor: pointer; color: #111; font-weight: 700; }
 .num-modal-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 10px; }
