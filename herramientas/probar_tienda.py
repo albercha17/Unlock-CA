@@ -88,6 +88,7 @@ def flujo(d, url):
     # protagonistas con fotos
     for i, nombre in enumerate(["Lucía", "Marcos"]):
         d.find_element(By.NAME, f"p{i}-nombre").send_keys(nombre)
+        d.execute_script(f"document.querySelector('[name=p{i}-genero]').value = '{'mujer' if i == 0 else 'hombre'}'")
         d.find_element(By.CSS_SELECTOR, f'[data-subir="{i}"]').send_keys(FOTO)
         time.sleep(0.8)
     d.find_element(By.CSS_SELECTOR, '[data-subir="0"]').send_keys(FOTO)

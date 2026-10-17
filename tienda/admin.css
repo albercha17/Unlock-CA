@@ -1,0 +1,63 @@
+/* admin.css — panel de pedidos (tienda/admin.html). Se apoya en tienda.css. */
+.nav-titulo { color: var(--suave); font-size: .95rem; margin-right: auto; padding-left: 12px; border-left: 1px solid var(--borde); }
+.admin { max-width: 1160px; margin: 0 auto; padding: 28px 20px 60px; }
+.cargando { color: var(--suave); text-align: center; padding: 60px 0; }
+
+.login { max-width: 380px; margin: 40px auto; background: var(--panel); border: 1px solid var(--borde); border-radius: var(--radio); padding: 30px; }
+.login h1 { font-size: 1.8rem; }
+.login form { display: grid; gap: 14px; margin-top: 20px; }
+.enlace { background: none; border: 0; color: var(--oro-2); cursor: pointer; font: inherit; font-size: .85rem; text-decoration: underline; justify-self: center; }
+
+.barra { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.filtros { display: flex; flex-wrap: wrap; gap: 6px; }
+.filtros button { background: var(--panel); color: var(--suave); border: 1px solid var(--borde); border-radius: 999px; padding: 7px 14px; font: 500 .88rem var(--sans); cursor: pointer; }
+.filtros button span { opacity: .7; margin-left: 2px; }
+.filtros button[aria-selected="true"] { background: rgba(233, 182, 92, .16); border-color: var(--oro); color: var(--texto); }
+
+.lista { display: grid; gap: 16px; transition: opacity .2s; }
+.cargando-lista { opacity: .5; }
+.vacio { color: var(--tenue); text-align: center; padding: 40px 0; }
+
+.pedido-admin { background: var(--panel); border: 1px solid var(--borde); border-radius: var(--radio); overflow: hidden; }
+.pedido-admin.resaltado { border-color: var(--oro); box-shadow: 0 0 0 1px var(--oro); }
+.pedido-admin > header { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--borde); background: rgba(0, 0, 0, .18); }
+.pedido-admin > header select { width: auto; padding: 6px 10px; font-size: .88rem; }
+.codigo { font: 700 1.05rem var(--serif); margin-right: 8px; letter-spacing: .04em; }
+.cuando { color: var(--tenue); font-size: .85rem; margin-left: 8px; }
+.chip { font-size: .75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--panel-2); color: var(--suave); }
+.chip-nuevo { background: rgba(124, 200, 255, .16); color: var(--azul); }
+.chip-pagado { background: rgba(233, 182, 92, .18); color: var(--oro-2); }
+.chip-desarrollar, .chip-en_produccion { background: rgba(200, 150, 255, .18); color: #d6b4ff; }
+.chip-listo { background: rgba(143, 227, 176, .16); color: var(--ok); }
+.chip-cancelado { background: rgba(255, 143, 122, .14); color: var(--error); }
+
+.cuerpo { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 18px; }
+.col { min-width: 0; display: grid; gap: 12px; align-content: start; }
+.cliente { margin: 0; overflow-wrap: anywhere; }
+.aventuras-admin { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.aventuras-admin span { font-size: .8rem; padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(233, 182, 92, .4); color: var(--oro-2); }
+.pedido-admin dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: .9rem; }
+.pedido-admin dt { color: var(--tenue); }
+.pedido-admin dd { margin: 0; overflow-wrap: anywhere; white-space: pre-line; }
+
+.prota-admin { display: flex; gap: 12px; align-items: center; }
+.prota-admin small { color: var(--suave); }
+.fotos-admin { display: flex; gap: 6px; flex: none; }
+.fotos-admin img, .sin-foto { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; display: grid; place-items: center; background: var(--panel-2); color: var(--tenue); font-size: .7rem; }
+.hoja { display: grid; gap: 4px; }
+.hoja img { max-height: 220px; width: auto; border-radius: 10px; }
+.hoja small { color: var(--tenue); }
+
+.progreso { margin: 0 18px 4px; padding: 10px 14px; border-radius: 10px; background: rgba(200, 150, 255, .1); color: #e2ccff; font-size: .9rem; }
+.progreso.vivo::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #d6b4ff; margin-right: 8px; animation: latir 1.4s infinite; }
+@keyframes latir { 50% { opacity: .25; } }
+
+.pedido-admin > footer { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 18px 18px; }
+.btn-peligro { background: transparent; color: var(--error); border: 1px solid rgba(255, 143, 122, .4); margin-left: auto; }
+.btn-peligro:hover { background: rgba(255, 143, 122, .1); }
+
+@media (max-width: 760px) {
+  .cuerpo { grid-template-columns: 1fr; }
+  .admin { padding: 20px 16px 48px; }
+  .btn-peligro { margin-left: 0; }
+}
