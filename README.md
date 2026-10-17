@@ -13,6 +13,7 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | &nbsp;&nbsp;Cretácico, hace 66 millones de años — *El Valle de los Gigantes* | [`juegos/aventuras-ca/dinosaurios/`](juegos/aventuras-ca/dinosaurios/) | [MANUAL.md](juegos/aventuras-ca/dinosaurios/MANUAL.md) |
 | &nbsp;&nbsp;Dentro de un cuento animado — *Érase una vez: El Libro de los Finales Felices* | [`juegos/aventuras-ca/cuento/`](juegos/aventuras-ca/cuento/) | [MANUAL.md](juegos/aventuras-ca/cuento/MANUAL.md) |
 | &nbsp;&nbsp;Reino de hielo y fuego — *La Corona del Dragón* (fantasía medieval, dificultad difícil) | [`juegos/aventuras-ca/trono/`](juegos/aventuras-ca/trono/) | [MANUAL.md](juegos/aventuras-ca/trono/MANUAL.md) |
+| &nbsp;&nbsp;Pompeya, 79 d.C. — *El Mosaico del Mundo* (cartas que se **juntan** para formar mosaicos y frescos) | [`juegos/aventuras-ca/pompeya/`](juegos/aventuras-ca/pompeya/) | [MANUAL.md](juegos/aventuras-ca/pompeya/MANUAL.md) |
 | &nbsp;&nbsp;Apagón en el Colegio | repositorio propio, clonado en `juegos/apagon-colegio/` (enlace externo) | — |
 | **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
@@ -34,7 +35,7 @@ index.html                       menú principal
 assets/                          estilos e imágenes del menú
 juegos/
   aventuras-ca/                  hub «Aventuras C&A»
-    egipto/  marte/  florencia/  dinosaurios/  cuento/  trono/  una carpeta por juego
+    egipto/  marte/  florencia/  dinosaurios/  cuento/  trono/  pompeya/  una carpeta por juego
   el-faro/                       juego de referencia
   apagon-colegio/                OTRO repositorio (solo local; ver .gitignore)
 herramientas/                    verificador, bots de prueba, manuales, ChatGPT y conversor de imágenes
@@ -42,6 +43,14 @@ GUIA-DE-JUEGOS.md                cómo diseñar y crear un juego nuevo
 ```
 
 Dentro de cada juego: `index.html` (app), `pc.html` (Modo PC), `cartas.json` (guion, pistas, textos impresos y prompts de ilustración), `pistas.js`, `minijuegos/` (un módulo por minijuego), `img/` (ilustraciones ligeras que se publican), `MANUAL.md`. Los juegos con ilustraciones añaden `prompts.html` (prompts para ChatGPT) e `imprimir.html`. Los originales pesados van en `arte/` y no se suben.
+
+## Cartas que se juntan (mosaicos)
+
+Algunos puzles no se leen en una carta sino **entre varias**: Pompeya tiene cinco mosaicos y frescos partidos en 2×2 o en dos mitades. Al juntar las placas se ve un dibujo (un camino con figuras, estatuas con flechas, rosetas con pétalos, un número, un reloj de sol) y de él sale el código del minijuego. Los números de las placas no siguen el orden de lectura, y las placas llevan el número y el QR solo en la esquina exterior del mosaico y no llevan borde, para que el dibujo continúe de una a otra.
+
+- **Impresas:** `imprimir.html` las saca sin borde; se juntan sobre la mesa.
+- **Modo PC:** cuando las piezas están en la mesa sale el botón **Mesa de montaje**: se tocan dos piezas para cambiarlas de sitio hasta que el dibujo encaje.
+- **Cómo se hacen:** `python herramientas/mosaicos.py` dibuja los mosaicos por código (teselas con juntas), los corta en placas y guarda en `herramientas/codigos_pompeya.json` el código de cada uno (los solucionadores de prueba lo leen de ahí). `python herramientas/probar_mosaicos.py URL carpeta` comprueba que las placas reconstruyen el dibujo y que la mesa de montaje se resuelve.
 
 ## Ilustraciones (Aventuras C&A)
 

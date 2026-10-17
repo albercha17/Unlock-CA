@@ -44,6 +44,15 @@
   .dorso .t{position:absolute;left:0;right:0;bottom:9mm;text-align:center;font-weight:800;letter-spacing:.25em;font-size:10pt;color:#ffd27a}
   .dorso .s{position:absolute;left:0;right:0;bottom:4.5mm;text-align:center;font-size:6pt;letter-spacing:.2em;color:#9fb4c8}
 
+  /* cartas-mosaico: sin borde, para que al juntarlas el dibujo continúe; número y QR en la esquina exterior */
+  .carta.mosaico{border:0}
+  .carta.mosaico .num{top:1.4mm;left:1.4mm}
+  .carta.mosaico.mz-r .num{left:auto;right:1.4mm}
+  .carta.mosaico.mz-b .num{top:auto;bottom:1.4mm}
+  .carta.mosaico .qr{top:auto;bottom:1.4mm;left:1.4mm;right:auto}
+  .carta.mosaico.mz-r .qr{left:auto;right:1.4mm}
+  .carta.mosaico.mz-b .qr{bottom:auto;top:1.4mm}
+
   @page{size:A4;margin:0}
   @media print{
     body{background:#fff}
@@ -79,6 +88,11 @@ window.JUEGO = datos;
 
   function cartaHTML(id){
     var c = J[id], color = COLORES[c.tipo] || COLORES.gris;
+    if (c.mosaico) {
+      var mz = c.mosaico;
+      return '<div class="carta mosaico' + (mz.filas > 1 && mz.fila >= mz.filas - 1 ? ' mz-b' : '') + (mz.cols > 1 && mz.col >= mz.cols - 1 ? ' mz-r' : '') + '" style="--c:#8a94a3"><div class="arte" data-id="' + esc(id) + '"></div>' +
+        '<div class="num">' + esc(id) + '</div><div class="qr" data-qr="CA:' + CLAVE_JUEGO + ':' + esc(id) + '" aria-hidden="true"></div></div>';
+    }
     var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
     var conacc = !!((c.coge && c.coge.length) || (c.descarta && c.descarta.length) || c.combina);
     var html = '<div class="carta' + (conacc ? ' conacc' : '') + '" style="--c:' + color + '"><div class="arte" data-id="' + esc(id) + '"></div>' +

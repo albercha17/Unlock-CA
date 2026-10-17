@@ -24,7 +24,8 @@ const ETIQUETA_RELOJ = {
   egipto: 'Los sacerdotes se acercan al templo',
   marte: 'El oxígeno de la cúpula se agota',
   florencia: 'El alba se acerca',
-  dinosaurios: 'El asteroide se acerca'
+  dinosaurios: 'El asteroide se acerca',
+  pompeya: 'La ceniza se acerca'
 };
 
 const REGLAS = [

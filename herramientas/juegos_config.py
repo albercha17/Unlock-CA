@@ -10,6 +10,7 @@ import datos_florencia as F
 import datos_dinosaurios as D
 import datos_cuento as C
 import datos_trono as T
+import datos_pompeya as P
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -72,6 +73,12 @@ JUEGOS = {
         minigames={"14": "14-cuervo.js", "20": "20-banquete.js", "40": "40-caminos.js", "42": "42-cronica.js", "46": "46-lengua.js",
                    "51": "51-consejeros.js", "64": "64-antorchas.js", "69": "69-puerta.js", "72": "72-tapiz.js", "84": "84-profecia.js"},
         pal=("#3a4c60", "#0c121a")),
+    "Pompeya": dict(
+        datos=P, dificultad=3, tema="pompeya", titulo="Pompeya, 79 d.C.: El Mosaico del Mundo", emoji="🌋", minutos=90,
+        grad="#6a3418,#150a06", acento="#e08a4a", acento2="#f5c08a", bg1="#120805", bg2="#2e150b",
+        sinopsis="Séptimo salto del Cronoportal: Pompeya, 24 de agosto del año 79. Cristina y Alberto aterrizan en el atrio de una rica villa mientras el Vesubio humea en el horizonte, y el cristal de energía del aparato sale rodando. Para encontrarlo hay que reconstruir los mosaicos y frescos de la casa juntando varias cartas. Tienen hora y media antes de que caiga la ceniza.",
+        minigames={"20": "20-formas.js", "24": "24-flechas.js", "46": "46-rosetas.js", "48": "48-abaco.js", "69": "69-reloj.js"},
+        pal=("#7a3a1a", "#1c0c08")),
 }
 
 
