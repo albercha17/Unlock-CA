@@ -147,10 +147,65 @@ def parchear_imprimir(p):
     return True
 
 
+def ampliar_pc(p):
+    """Mosaicos de 3 o más columnas: la pieza central lleva el número arriba en el centro y la baraja inicial vale para cualquier tamaño."""
+    t = open(p, encoding="utf-8").read()
+    if "mz-m" in t:
+        return False
+    t = una(t, "(m.cols > 1 && m.col >= m.cols - 1 ? ' mz-r' : '');", "(m.cols > 1 && m.col >= m.cols - 1 ? ' mz-r' : (m.cols > 2 && m.col > 0 ? ' mz-m' : ''));")
+    t = una(t, "  .carta.mosaico.mz-b .num{top:auto;bottom:calc(1.4 * var(--mm))}\n", "  .carta.mosaico.mz-b .num{top:auto;bottom:calc(1.4 * var(--mm))}\n  .carta.mosaico.mz-m .num{left:calc(50% - 4.75 * var(--mm))}\n")
+    t = una(t, "    if (c.length === 2) return [c[1], c[0]];\n    return [c[1], c[3], c[0], c[2]];",
+            "    var n = c.length;\n    if (n === 4) return [c[1], c[3], c[0], c[2]];\n    return c.map(function(x, i){ return c[(i + (n === 6 ? 2 : 1)) % n]; });")
+    open(p, "w", encoding="utf-8", newline="\n").write(t)
+    return True
+
+
+def ampliar_giro_pc(p):
+    """Placas entregadas boca abajo (`giros` en _meta.mosaicos): la mesa de montaje tiene un botón para darles la vuelta."""
+    t = open(p, encoding="utf-8").read()
+    if "mGirar" in t:
+        return False
+    t = una(t, '  <button type="button" id="mCerrar">Cerrar</button>', '  <button type="button" id="mGirar" hidden>Dar la vuelta a la pieza elegida</button>\n  <button type="button" id="mCerrar">Cerrar</button>')
+    t = una(t, "MONT[k] = {perm: barajaInicial(m.cartas), hecho: false};", "MONT[k] = {perm: barajaInicial(m.cartas), hecho: false, rot: JSON.parse(JSON.stringify(m.giros || {}))};")
+    t = una(t, "    $('mTitulo').textContent = m.titulo;\n", "    $('mTitulo').textContent = m.titulo;\n    $('mGirar').hidden = !(m.giros && Object.keys(m.giros).length);\n")
+    t = una(t, "b.dataset.pos = i; b.dataset.id = id; b.style.backgroundImage = \"url('img/\" + id + \".jpg')\";",
+            "b.dataset.pos = i; b.dataset.id = id; b.style.backgroundImage = \"url('img/\" + id + \".jpg')\";\n      if (s.rot[id]) b.style.transform = 'rotate(' + s.rot[id] + 'deg)';")
+    t = una(t, "    s.hecho = s.perm.every(function(id, j){ return id === m.cartas[j]; });\n    pintarMontaje();",
+            "    s.hecho = enSuSitio(s, m);\n    pintarMontaje();")
+    t = una(t, "  function tocarPieza(i){", """  function enSuSitio(s, m){
+    return s.perm.every(function(id, j){ return id === m.cartas[j] && !((s.rot[id] || 0) % 360); });
+  }
+  function girarPieza(){
+    var s = MONT[montActual], m = mosaicos()[montActual];
+    if (!s || s.hecho) return;
+    if (montSel === null) { $('mMsg').textContent = 'Toca primero la pieza que quieres girar.'; return; }
+    var id = s.perm[montSel];
+    s.rot[id] = ((s.rot[id] || 0) + 180) % 360;
+    montSel = null;
+    s.hecho = enSuSitio(s, m);
+    pintarMontaje();
+    if (s.hecho) pintarMontajes();
+  }
+  function tocarPieza(i){""")
+    t = una(t, "  $('mCerrar').addEventListener('click', cerrarMontaje);\n", "  $('mCerrar').addEventListener('click', cerrarMontaje);\n  $('mGirar').addEventListener('click', girarPieza);\n")
+    open(p, "w", encoding="utf-8", newline="\n").write(t)
+    return True
+
+
+def ampliar_imprimir(p):
+    t = open(p, encoding="utf-8").read()
+    if "mz-m" in t:
+        return False
+    t = una(t, "(mz.cols > 1 && mz.col >= mz.cols - 1 ? ' mz-r' : '')", "(mz.cols > 1 && mz.col >= mz.cols - 1 ? ' mz-r' : (mz.cols > 2 && mz.col > 0 ? ' mz-m' : ''))")
+    t = una(t, "  .carta.mosaico.mz-b .num{top:auto;bottom:1.4mm}\n", "  .carta.mosaico.mz-b .num{top:auto;bottom:1.4mm}\n  .carta.mosaico.mz-m .num{left:calc(50% - 4.75mm)}\n")
+    open(p, "w", encoding="utf-8", newline="\n").write(t)
+    return True
+
+
 if __name__ == "__main__":
     carpetas = ["juegos/el-faro"] + [os.path.dirname(f).replace("\\", "/").replace(RAIZ.replace("\\", "/") + "/", "") for f in glob.glob(os.path.join(RAIZ, "juegos", "aventuras-ca", "*", "pc.html"))]
     for c in sorted(set(carpetas)):
-        for nombre, fn in (("pc.html", parchear_pc), ("imprimir.html", parchear_imprimir)):
+        for nombre, fn in (("pc.html", parchear_pc), ("pc.html", ampliar_pc), ("pc.html", ampliar_giro_pc),("imprimir.html", parchear_imprimir), ("imprimir.html", ampliar_imprimir)):
             ruta = os.path.join(RAIZ, c, nombre)
             if os.path.exists(ruta):
                 print(("parcheado " if fn(ruta) else "al dia    ") + os.path.join(c, nombre))

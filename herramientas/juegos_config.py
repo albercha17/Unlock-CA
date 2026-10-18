@@ -11,6 +11,7 @@ import datos_dinosaurios as D
 import datos_cuento as C
 import datos_trono as T
 import datos_pompeya as P
+import datos_arcade as A
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -79,6 +80,12 @@ JUEGOS = {
         sinopsis="Séptimo salto del Cronoportal: Pompeya, 24 de agosto del año 79. Cristina y Alberto aterrizan en el atrio de una rica villa mientras el Vesubio humea en el horizonte, y el cristal de energía del aparato sale rodando. Para encontrarlo hay que reconstruir los mosaicos y frescos de la casa juntando varias cartas. Tienen hora y media antes de que caiga la ceniza.",
         minigames={"20": "20-formas.js", "24": "24-flechas.js", "46": "46-rosetas.js", "48": "48-abaco.js", "69": "69-reloj.js"},
         pal=("#7a3a1a", "#1c0c08")),
+    "Arcade": dict(
+        datos=A, dificultad=3, tema="arcade", titulo="Game Over, 1985: La Última Moneda", emoji="🕹️", minutos=75,
+        grad="#4a1a7a,#07040f", acento="#ff5ad8", acento2="#8ffcff", bg1="#07050f", bg2="#1a0a2e",
+        sinopsis="Octavo salto del Cronoportal: un salón recreativo de 1985, a medianoche. El aparato golpea la máquina COSMIC QUEST y su cristal de energía cae por la ranura de las fichas: Cristina y Alberto quedan atrapados dentro, convertidos en píxeles. Para salir tienen que superar seis niveles (circuitos, radar, mandos, autopista y un jefe de bloques) antes de que el contador llegue a GAME OVER, en setenta y cinco minutos.",
+        minigames={"20": "20-terminal.js", "24": "24-radar.js", "46": "46-mando.js", "48": "48-autopista.js", "69": "69-pozo.js"},
+        pal=("#5a2a9a", "#0e0620")),
 }
 
 

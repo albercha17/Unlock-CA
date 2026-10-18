@@ -46,6 +46,7 @@
   .carta.mosaico .num{top:1.4mm;left:1.4mm}
   .carta.mosaico.mz-r .num{left:auto;right:1.4mm}
   .carta.mosaico.mz-b .num{top:auto;bottom:1.4mm}
+  .carta.mosaico.mz-m .num{left:calc(50% - 4.75mm)}
 
   @page{size:A4;margin:0}
   @media print{
@@ -83,7 +84,7 @@ window.JUEGO = datos;
     var c = J[id], color = COLORES[c.tipo] || COLORES.gris;
     if (c.mosaico) {
       var mz = c.mosaico;
-      return '<div class="carta mosaico' + (mz.filas > 1 && mz.fila >= mz.filas - 1 ? ' mz-b' : '') + (mz.cols > 1 && mz.col >= mz.cols - 1 ? ' mz-r' : '') + '" style="--c:#8a94a3"><div class="arte" data-id="' + esc(id) + '"></div>' +
+      return '<div class="carta mosaico' + (mz.filas > 1 && mz.fila >= mz.filas - 1 ? ' mz-b' : '') + (mz.cols > 1 && mz.col >= mz.cols - 1 ? ' mz-r' : (mz.cols > 2 && mz.col > 0 ? ' mz-m' : '')) + '" style="--c:#8a94a3"><div class="arte" data-id="' + esc(id) + '"></div>' +
         '<div class="num">' + esc(id) + '</div></div>';
     }
     var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');

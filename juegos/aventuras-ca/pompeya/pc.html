@@ -57,6 +57,7 @@
   .carta.mosaico{border:0}
   .carta.mosaico.mz-r .num{left:auto;right:calc(1.4 * var(--mm))}
   .carta.mosaico.mz-b .num{top:auto;bottom:calc(1.4 * var(--mm))}
+  .carta.mosaico.mz-m .num{left:calc(50% - 4.75 * var(--mm))}
   .montajes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
   .montajes:empty{display:none}
   #montaje{position:fixed;inset:0;z-index:60;background:rgba(2,6,12,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:auto}
@@ -124,6 +125,7 @@
   <p class="aviso">Toca una pieza y luego otra para cambiarlas de sitio, hasta que los bordes del dibujo continúen de una a otra.</p>
   <div id="mGrid" class="mt-grid"></div>
   <p id="mMsg" role="status" aria-live="polite"></p>
+  <button type="button" id="mGirar" hidden>Dar la vuelta a la pieza elegida</button>
   <button type="button" id="mCerrar">Cerrar</button>
 </div>
 
@@ -264,7 +266,7 @@
 
   function frenteMosaico(id, c){
     var m = c.mosaico;
-    var cls = 'carta mosaico' + (m.filas > 1 && m.fila >= m.filas - 1 ? ' mz-b' : '') + (m.cols > 1 && m.col >= m.cols - 1 ? ' mz-r' : '');
+    var cls = 'carta mosaico' + (m.filas > 1 && m.fila >= m.filas - 1 ? ' mz-b' : '') + (m.cols > 1 && m.col >= m.cols - 1 ? ' mz-r' : (m.cols > 2 && m.col > 0 ? ' mz-m' : ''));
     return '<div class="' + cls + '" style="--c:#8a94a3"><div class="arte" style="background-image:url(\'img/' + esc(id) + '.jpg\')"></div><div class="num">' + esc(id) + '</div></div>';
   }
 
@@ -285,14 +287,16 @@
   }
   function barajaInicial(c){
     // permutación fija en la que ninguna pieza empieza en su sitio
-    if (c.length === 2) return [c[1], c[0]];
-    return [c[1], c[3], c[0], c[2]];
+    var n = c.length;
+    if (n === 4) return [c[1], c[3], c[0], c[2]];
+    return c.map(function(x, i){ return c[(i + (n === 6 ? 2 : 1)) % n]; });
   }
   function abrirMontaje(k){
     var m = mosaicos()[k];
-    if (!MONT[k]) MONT[k] = {perm: barajaInicial(m.cartas), hecho: false};
+    if (!MONT[k]) MONT[k] = {perm: barajaInicial(m.cartas), hecho: false, rot: JSON.parse(JSON.stringify(m.giros || {}))};
     montActual = k; montSel = null;
     $('mTitulo').textContent = m.titulo;
+    $('mGirar').hidden = !(m.giros && Object.keys(m.giros).length);
     pintarMontaje();
     $('montaje').hidden = false; $('mCerrar').focus();
   }
@@ -304,11 +308,26 @@
     s.perm.forEach(function(id, i){
       var b = document.createElement('button'); b.type = 'button'; b.className = 'mt-tile' + (montSel === i ? ' sel' : '');
       b.dataset.pos = i; b.dataset.id = id; b.style.backgroundImage = "url('img/" + id + ".jpg')";
+      if (s.rot[id]) b.style.transform = 'rotate(' + s.rot[id] + 'deg)';
       b.setAttribute('aria-label', 'Pieza de la posición ' + (i + 1) + (montSel === i ? ' (elegida)' : ''));
       b.addEventListener('click', function(){ tocarPieza(i); });
       g.appendChild(b);
     });
     $('mMsg').textContent = s.hecho ? '¡Encajan! Ya se ve el dibujo entero.' : '';
+  }
+  function enSuSitio(s, m){
+    return s.perm.every(function(id, j){ return id === m.cartas[j] && !((s.rot[id] || 0) % 360); });
+  }
+  function girarPieza(){
+    var s = MONT[montActual], m = mosaicos()[montActual];
+    if (!s || s.hecho) return;
+    if (montSel === null) { $('mMsg').textContent = 'Toca primero la pieza que quieres girar.'; return; }
+    var id = s.perm[montSel];
+    s.rot[id] = ((s.rot[id] || 0) + 180) % 360;
+    montSel = null;
+    s.hecho = enSuSitio(s, m);
+    pintarMontaje();
+    if (s.hecho) pintarMontajes();
   }
   function tocarPieza(i){
     var s = MONT[montActual], m = mosaicos()[montActual];
@@ -316,12 +335,13 @@
     if (montSel === null) montSel = i;
     else if (montSel === i) montSel = null;
     else { var t = s.perm[i]; s.perm[i] = s.perm[montSel]; s.perm[montSel] = t; montSel = null; }
-    s.hecho = s.perm.every(function(id, j){ return id === m.cartas[j]; });
+    s.hecho = enSuSitio(s, m);
     pintarMontaje();
     if (s.hecho) pintarMontajes();
   }
   function cerrarMontaje(){ montActual = null; $('montaje').hidden = true; }
   $('mCerrar').addEventListener('click', cerrarMontaje);
+  $('mGirar').addEventListener('click', girarPieza);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !$('montaje').hidden) cerrarMontaje(); });
 
   fetchCartas().then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }).then(function(d){
