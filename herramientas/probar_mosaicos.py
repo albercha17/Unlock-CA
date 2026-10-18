@@ -26,6 +26,8 @@ def comprobar_arte(carpeta, meta):
             f, col = divmod(i, m["cols"])
             trozo = maestro.crop((col * w, f * h, (col + 1) * w, (f + 1) * h))
             pieza = Image.open(f"{carpeta}/arte/{c}.png").convert("RGB")
+            if c in m.get("giros", {}):
+                pieza = pieza.rotate(m["giros"][c])        # se entrega girada: al darle la vuelta encaja
             if pieza.size != trozo.size or ImageChops.difference(pieza, trozo).getbbox():
                 malos.append(f"{k}: la carta {c} no es el trozo {i} del mosaico")
     return malos
@@ -38,7 +40,10 @@ def main(base, carpeta, capturas=None):
     for k, m in meta.items():
         for i, c in enumerate(m["cartas"]):
             mo = datos[c].get("mosaico")
-            if mo != {"id": k, "filas": m["filas"], "cols": m["cols"], "fila": i // m["cols"], "col": i % m["cols"]}:
+            esperado = {"id": k, "filas": m["filas"], "cols": m["cols"], "fila": i // m["cols"], "col": i % m["cols"]}
+            if c in m.get("giros", {}):
+                esperado["giro"] = m["giros"][c]
+            if mo != esperado:
                 malos.append(f"la carta {c} tiene un campo mosaico distinto: {mo}")
     print("piezas del arte:", "OK" if not malos else malos)
 
@@ -64,7 +69,7 @@ def main(base, carpeta, capturas=None):
                 it = [e for e in d.find_elements(By.CSS_SELECTOR, "#mesa .item") if e.find_element(By.CSS_SELECTOR, ".num").text == c][0]
                 if it.find_elements(By.CSS_SELECTOR, ".acc, .tit, .texto, .etq"):
                     malos.append(f"{k}: la carta {c} en pc.html lleva franjas o título")
-            if capturas and k in ("atrio", "digitos"):
+            if capturas:
                 d.find_element(By.ID, "mesa").screenshot(f"{capturas}/mesa-{k}.png")
             btn[0].click()
             time.sleep(0.3)
@@ -81,6 +86,16 @@ def main(base, carpeta, capturas=None):
                     d.find_elements(By.CSS_SELECTOR, ".mt-tile")[i].click()
                     d.find_elements(By.CSS_SELECTOR, ".mt-tile")[j].click()
                     time.sleep(0.1)
+            if m.get("giros"):
+                if d.find_elements(By.CSS_SELECTOR, ".mt-grid.hecho"):
+                    malos.append(f"{k}: se da por resuelto con placas boca abajo")
+                if capturas:
+                    d.save_screenshot(f"{capturas}/montaje-{k}-colocado.png")
+                for i, c in enumerate(m["cartas"]):          # dar la vuelta a las placas boca abajo
+                    if c in m["giros"]:
+                        d.find_elements(By.CSS_SELECTOR, ".mt-tile")[i].click()
+                        d.find_element(By.ID, "mGirar").click()
+                        time.sleep(0.1)
             if tiles() != m["cartas"] or not d.find_elements(By.CSS_SELECTOR, ".mt-grid.hecho"):
                 malos.append(f"{k}: la Mesa de montaje no queda resuelta ({tiles()})")
             if capturas:

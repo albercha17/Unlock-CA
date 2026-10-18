@@ -54,6 +54,12 @@ const TEMAS = {
     tinte: '30,12,6', panel: 'rgba(52,22,10,.90)', panel2: 'rgba(26,10,5,.94)',
     borde: '#e08a4a', acento: '#f5c08a', brillo: '245,192,138', boton: 'linear-gradient(180deg,#f5c08a,#c9672a)', botonTxt: '#2a1004',
     particulas: 'polvo', simbolo: '✦', textura: 'panel.jpg', papel: 'papel.jpg'
+  },
+  arcade: {
+    fuente: "'Press Start 2P', 'Orbitron', ui-monospace, monospace", mayus: false, trazo: '0',
+    tinte: '10,4,30', panel: 'rgba(22,8,52,.92)', panel2: 'rgba(8,3,22,.95)',
+    borde: '#ff5ad8', acento: '#8ffcff', brillo: '255,90,216', boton: 'linear-gradient(180deg,#ff8ae6,#c0289c)', botonTxt: '#1c0a30',
+    particulas: 'chispa', simbolo: '▪', textura: 'panel.jpg', escaneo: true
   }
 };
 
@@ -62,6 +68,7 @@ function detectarTema() {
   if (t && TEMAS[t]) return t;
   const p = location.pathname;
   if (/pompeya/.test(p)) return 'pompeya';
+  if (/arcade/.test(p)) return 'arcade';
   if (/dinosaurios/.test(p)) return 'dinosaurios';
   if (/cuento/.test(p)) return 'cuento';
   if (/trono/.test(p)) return 'trono';
@@ -81,7 +88,7 @@ function injectFonts() {
   const l = document.createElement('link');
   l.id = FONT_ID;
   l.rel = 'stylesheet';
-  l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Orbitron:wght@600;800&family=Playfair+Display:wght@600;800&family=Bevan&family=Fredoka:wght@500;700&family=MedievalSharp&display=swap';
+  l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Orbitron:wght@600;800&family=Playfair+Display:wght@600;800&family=Bevan&family=Fredoka:wght@500;700&family=MedievalSharp&family=Press+Start+2P&display=swap';
   document.head.appendChild(l);
 }
 
@@ -145,6 +152,8 @@ function injectStyle() {
     .far-overlay[data-tema="cuento"] .far-title{font-size:1.3rem}
     .far-overlay[data-tema="cuento"] .far-key{background:linear-gradient(180deg,#8a63d8,#5a3aa8);border:1px solid #ffe08a;color:#fff7d6;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #2c1a66;text-shadow:0 1px 0 rgba(0,0,0,.4);border-radius:14px}
     .far-overlay[data-tema="trono"] .far-title{font-size:1.2rem;letter-spacing:.05em}
+    .far-overlay[data-tema="arcade"] .far-title{font-size:.8rem;line-height:1.5}
+    .far-overlay[data-tema="arcade"] .far-key{background:linear-gradient(180deg,#6a2a9a,#34104e);border:1px solid #ff5ad8;color:#ffe6fa;box-shadow:inset 0 1px 0 rgba(255,200,250,.3),0 3px 0 #150626;text-shadow:0 1px 0 rgba(0,0,0,.5)}
     .far-overlay[data-tema="pompeya"] .far-title{font-size:1.25rem;letter-spacing:.04em}
     .far-overlay[data-tema="pompeya"] .far-key{background:linear-gradient(180deg,#a8602e,#6a3418);border:1px solid #f5c08a;color:#fff0dc;box-shadow:inset 0 1px 0 rgba(255,225,190,.35),0 3px 0 #2e1507;text-shadow:0 1px 0 rgba(0,0,0,.5)}
     .far-overlay[data-tema="trono"] .far-key{background:linear-gradient(180deg,#56626e,#2c343c);border:1px solid #9fb8cc;color:#e6f1f9;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 3px 0 #0f1318;text-shadow:0 1px 0 rgba(0,0,0,.55);border-radius:4px}
@@ -199,7 +208,8 @@ const SONIDO = {
   dinosaurios: { onda: 'triangle', base: 349 },
   cuento: { onda: 'sine', base: 523 },
   trono: { onda: 'sawtooth', base: 294 },
-  pompeya: { onda: 'triangle', base: 370 }
+  pompeya: { onda: 'triangle', base: 370 },
+  arcade: { onda: 'square', base: 440 }
 };
 function sonar(tipo, tema) {
   if (!sonidoActivo()) return;

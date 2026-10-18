@@ -14,6 +14,7 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | &nbsp;&nbsp;Dentro de un cuento animado — *Érase una vez: El Libro de los Finales Felices* | [`juegos/aventuras-ca/cuento/`](juegos/aventuras-ca/cuento/) | [MANUAL.md](juegos/aventuras-ca/cuento/MANUAL.md) |
 | &nbsp;&nbsp;Reino de hielo y fuego — *La Corona del Dragón* (fantasía medieval, dificultad difícil) | [`juegos/aventuras-ca/trono/`](juegos/aventuras-ca/trono/) | [MANUAL.md](juegos/aventuras-ca/trono/MANUAL.md) |
 | &nbsp;&nbsp;Pompeya, 79 d.C. — *El Mosaico del Mundo* (cartas que se **juntan** para formar mosaicos y frescos) | [`juegos/aventuras-ca/pompeya/`](juegos/aventuras-ca/pompeya/) | [MANUAL.md](juegos/aventuras-ca/pompeya/MANUAL.md) |
+| &nbsp;&nbsp;Dentro de una recreativa, 1985 — *Game Over: La Última Moneda* (placa con piezas **boca abajo**, radar, mando, autopista y pozo de bloques) | [`juegos/aventuras-ca/arcade/`](juegos/aventuras-ca/arcade/) | [MANUAL.md](juegos/aventuras-ca/arcade/MANUAL.md) |
 | &nbsp;&nbsp;Apagón en el Colegio | repositorio propio, clonado en `juegos/apagon-colegio/` (enlace externo) | — |
 | **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
@@ -35,7 +36,7 @@ index.html                       menú principal
 assets/                          estilos e imágenes del menú
 juegos/
   aventuras-ca/                  hub «Aventuras C&A»
-    egipto/  marte/  florencia/  dinosaurios/  cuento/  trono/  pompeya/  una carpeta por juego
+    egipto/  marte/  florencia/  dinosaurios/  cuento/  trono/  pompeya/  arcade/  una carpeta por juego
   el-faro/                       juego de referencia
   apagon-colegio/                OTRO repositorio (solo local; ver .gitignore)
 herramientas/                    verificador, bots de prueba, manuales, ChatGPT y conversor de imágenes
@@ -50,6 +51,7 @@ Algunos puzles no se leen en una carta sino **entre varias**: Pompeya tiene cinc
 
 - **Impresas:** `imprimir.html` las saca sin borde; se juntan sobre la mesa.
 - **Modo PC:** cuando las piezas están en la mesa sale el botón **Mesa de montaje**: se tocan dos piezas para cambiarlas de sitio hasta que el dibujo encaje.
+- **Piezas boca abajo y 3 columnas:** «Game Over, 1985» tiene una placa de 3×2 piezas en la que algunas se entregan giradas 180° (con las letras al revés): la Mesa de montaje tiene un botón «Dar la vuelta». Sus dibujos de píxeles los hace `python herramientas/pixeles.py`; las instancias de la autopista y del pozo de bloques, `python herramientas/instancias_arcade.py` (búsqueda con solución comprobada).
 - **Cómo se hacen:** `python herramientas/mosaicos.py` dibuja los mosaicos por código (teselas con juntas), los corta en placas y guarda en `herramientas/codigos_pompeya.json` el código de cada uno (los solucionadores de prueba lo leen de ahí). `python herramientas/probar_mosaicos.py URL carpeta` comprueba que las placas reconstruyen el dibujo y que la mesa de montaje se resuelve.
 
 ## Ilustraciones (Aventuras C&A)

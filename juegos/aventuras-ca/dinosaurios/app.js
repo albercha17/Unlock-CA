@@ -25,7 +25,8 @@ const ETIQUETA_RELOJ = {
   marte: 'El oxígeno de la cúpula se agota',
   florencia: 'El alba se acerca',
   dinosaurios: 'El asteroide se acerca',
-  pompeya: 'La ceniza se acerca'
+  pompeya: 'La ceniza se acerca',
+  arcade: 'El contador llega a GAME OVER'
 };
 
 const REGLAS = [

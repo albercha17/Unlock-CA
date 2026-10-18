@@ -26,6 +26,8 @@ Todo se ejecuta **desde la raíz del repositorio**. Necesitan Python 3, Pillow y
 | `preparar_imagenes.py <carpeta>` | Convierte `arte/*.png` en `img/*.jpg` ligeros y actualiza `img/pendientes.json`. |
 | `generar_pwa.py [--comprobar]` | Escribe `sw.js` (con versión automática) y `precache.json` de cada juego. Ejecutar tras cambiar cualquier fichero del sitio. |
 | `mosaicos.py` | Dibuja por código (teselas con juntas) los mosaicos de «Pompeya», los corta en placas (`arte/<carta>.png`) y escribe `codigos_pompeya.json` con el código de cada uno (los solucionadores lo leen de ahí). Los números de placa deben coincidir con `MOSAICOS` de `datos_pompeya.py`. |
+| `pixeles.py` | Igual que `mosaicos.py` pero con pantallas de píxeles de neón para «Game Over, 1985»: placa base 3×2 con placas boca abajo, radar 2×2, marquesina 1×3 y las cartas sueltas 52 (tráfico) y 70 (piezas). Escribe `codigos_arcade.json`. |
+| `instancias_arcade.py` | Busca con semilla fija, y comprueba por fuerza bruta, la autopista (Frogger por turnos, solución mínima por BFS) y el pozo de bloques (teselado único) de «Game Over»; escribe `instancias_arcade.json`, que leen `pixeles.py` y los solucionadores. |
 | `probar_mosaicos.py <URL> <carpeta> [capturas]` | Comprueba que las placas reconstruyen el mosaico, que la «Mesa de montaje» del Modo PC se puede resolver y que las cartas-mosaico se ven bien en `pc.html` e `imprimir.html`. |
 | `parche_mosaicos.py` | Añade a todos los `pc.html` e `imprimir.html` el soporte de cartas-mosaico (campo `mosaico` de `cartas.json`) y la Mesa de montaje. Idempotente. |
 | `probar_qr.py` | Comprueba (sin cámara) que el QR impreso en cada carta de los 7 juegos se lee con el mismo lector que usa la app. Arranca su propio servidor. |

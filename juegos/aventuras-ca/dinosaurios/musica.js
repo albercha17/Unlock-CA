@@ -95,6 +95,16 @@ const PRESETS = {
     melodia: { onda: 'sine', vol: 0.13, octava: 2, prob: 0.24, dur: 1.5, ataque: 0.1, filtro: 3000, vibrato: 4 },
     ritmo: { tipo: 'tambor', patron: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], vol: 0.26, tono: 80 },
     ruido: { tipo: 'viento', vol: 0.08 }
+  },
+  // Arcade: chiptune de ocho bits, arpegio de onda cuadrada rápido y bombo constante.
+  arcade: {
+    bpm: 132, raiz: 57, escala: ESC.menor, compases: 2, reverb: 0.5,
+    acordes: [[0, 2, 4], [5, 0, 2], [3, 5, 0], [4, 6, 1]],
+    pad: { onda: 'square', filtro: 1400, vol: 0.05, octava: -1, ataque: 0.05 },
+    arpegio: { onda: 'square', vol: 0.09, paso: 2, octava: 1, patron: [0, 2, 4, 2, 5, 4, 2, 0], filtro: 4800, pulsada: true, campana: false },
+    melodia: { onda: 'square', vol: 0.07, octava: 2, prob: 0.3, dur: 0.3, ataque: 0.005, filtro: 4200, vibrato: 0 },
+    ritmo: { tipo: 'pulso', patron: [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0], vol: 0.3, tono: 60 },
+    ruido: null
   }
 };
 
