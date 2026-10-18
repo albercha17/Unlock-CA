@@ -60,11 +60,13 @@
   .montajes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
   .montajes:empty{display:none}
   #montaje{position:fixed;inset:0;z-index:60;background:rgba(2,6,12,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:auto}
-  #montaje[hidden]{display:none}
+  #montaje[hidden],#mGirar[hidden]{display:none}
   #montaje h3{margin:0;font-size:1.1rem}
   #montaje .aviso{margin:0;text-align:center;max-width:520px}
   .mt-grid{--cw:min(38vw,230px,calc(33vh * 63 / 88));display:grid;grid-template-columns:repeat(var(--cols),var(--cw));grid-auto-rows:calc(var(--cw) * 88 / 63);gap:0;border:2px solid var(--line);border-radius:6px;overflow:hidden;background:#000}
   .mt-grid.una{--cw:min(60vw,300px,calc(33vh * 63 / 88))}
+  .mt-grid.ancha{--cw:min(17vw,150px,calc(33vh * 63 / 88))}
+  .mt-grid.tres{--cw:min(60vw,230px,calc(22vh * 63 / 88))}
   .mt-tile{padding:0;border:0;border-radius:0;background:#1b2733 center/cover no-repeat;cursor:pointer;outline:1px solid rgba(255,255,255,.22);outline-offset:-1px}
   .mt-tile.sel{outline:3px solid var(--acc);outline-offset:-3px;filter:brightness(1.18)}
   .mt-grid.hecho{border-color:#7be495;box-shadow:0 0 30px rgba(123,228,149,.55)}
@@ -301,7 +303,7 @@
   }
   function pintarMontaje(){
     var m = mosaicos()[montActual], s = MONT[montActual], g = $('mGrid');
-    g.className = 'mt-grid' + (m.cols === 1 ? ' una' : '') + (s.hecho ? ' hecho' : '');
+    g.className = 'mt-grid' + (m.cols === 1 ? ' una' : '') + (m.cols >= 5 ? ' ancha' : '') + (m.filas >= 3 ? ' tres' : '') + (s.hecho ? ' hecho' : '');
     g.style.setProperty('--cols', m.cols);
     g.innerHTML = '';
     s.perm.forEach(function(id, i){

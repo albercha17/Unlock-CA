@@ -18,7 +18,7 @@ PC_CSS = """  /* ===== Cartas-mosaico: piezas sin borde que se juntan; el númer
   .montajes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
   .montajes:empty{display:none}
   #montaje{position:fixed;inset:0;z-index:60;background:rgba(2,6,12,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:auto}
-  #montaje[hidden]{display:none}
+  #montaje[hidden],#mGirar[hidden]{display:none}
   #montaje h3{margin:0;font-size:1.1rem}
   #montaje .aviso{margin:0;text-align:center;max-width:520px}
   .mt-grid{--cw:min(38vw,230px,calc(33vh * 63 / 88));display:grid;grid-template-columns:repeat(var(--cols),var(--cw));grid-auto-rows:calc(var(--cw) * 88 / 63);gap:0;border:2px solid var(--line);border-radius:6px;overflow:hidden;background:#000}
@@ -192,6 +192,19 @@ def ampliar_giro_pc(p):
     return True
 
 
+def ampliar_formas_pc(p):
+    """Mesa de montaje para mosaicos en fila larga (5 o más columnas) y en columna alta (3 o más filas): piezas más pequeñas para que quepan."""
+    t = open(p, encoding="utf-8").read()
+    if "mt-grid.ancha" in t:
+        return False
+    t = una(t, "  .mt-grid.una{--cw:min(60vw,300px,calc(33vh * 63 / 88))}\n",
+            "  .mt-grid.una{--cw:min(60vw,300px,calc(33vh * 63 / 88))}\n  .mt-grid.ancha{--cw:min(17vw,150px,calc(33vh * 63 / 88))}\n  .mt-grid.tres{--cw:min(60vw,230px,calc(22vh * 63 / 88))}\n")
+    t = una(t, "g.className = 'mt-grid' + (m.cols === 1 ? ' una' : '') + (s.hecho ? ' hecho' : '');",
+            "g.className = 'mt-grid' + (m.cols === 1 ? ' una' : '') + (m.cols >= 5 ? ' ancha' : '') + (m.filas >= 3 ? ' tres' : '') + (s.hecho ? ' hecho' : '');")
+    open(p, "w", encoding="utf-8", newline="\n").write(t)
+    return True
+
+
 def ampliar_imprimir(p):
     t = open(p, encoding="utf-8").read()
     if "mz-m" in t:
@@ -205,7 +218,7 @@ def ampliar_imprimir(p):
 if __name__ == "__main__":
     carpetas = ["juegos/el-faro"] + [os.path.dirname(f).replace("\\", "/").replace(RAIZ.replace("\\", "/") + "/", "") for f in glob.glob(os.path.join(RAIZ, "juegos", "aventuras-ca", "*", "pc.html"))]
     for c in sorted(set(carpetas)):
-        for nombre, fn in (("pc.html", parchear_pc), ("pc.html", ampliar_pc), ("pc.html", ampliar_giro_pc),("imprimir.html", parchear_imprimir), ("imprimir.html", ampliar_imprimir)):
+        for nombre, fn in (("pc.html", parchear_pc), ("pc.html", ampliar_pc), ("pc.html", ampliar_giro_pc), ("pc.html", ampliar_formas_pc), ("imprimir.html", parchear_imprimir), ("imprimir.html", ampliar_imprimir)):
             ruta = os.path.join(RAIZ, c, nombre)
             if os.path.exists(ruta):
                 print(("parcheado " if fn(ruta) else "al dia    ") + os.path.join(c, nombre))

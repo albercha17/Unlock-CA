@@ -1,0 +1,347 @@
+"""Dry Gulch, 1878: El Tren del Oro. Novena parada del Cronoportal: el Lejano Oeste. Los puzles reparten la información entre cartas de formas distintas:
+un tren de cinco vagones que se ENGANCHAN en fila por los símbolos de sus extremos, un cartel de «Se busca» partido en TRES cartas en columna que hay que
+comparar con el libro del sheriff, un mapa 2x2 con rayitas que cruzan las juntas, y dos minijuegos clásicos de lateralidad (las dos mechas y la barra de oro falsa)
+con sus reglas en cartas sueltas. Los dibujos de las piezas y de las cartas 36, 52 y 70 los hace herramientas/oeste.py (códigos exactos en codigos_oeste.json)."""
+
+ESTILO = ("Ilustración pictórica semirrealista con aire de película del Oeste (western clásico y spaghetti western), luz dorada y polvorienta de atardecer, tonos ocres, rojos y azules "
+          "pálidos, pueblo de madera con saloon, estación de tren, mina y desierto con mesetas al fondo, formato vertical 2:3. Sin texto, letras ni números legibles en la imagen; los carteles, "
+          "papeles y letreros solo muestran rayas decorativas. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. "
+          "Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).")
+
+PERSONAJES = {
+    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado con trenza lateral, ojos azules. Viste ropa del Oeste de 1878: camisa de cuadros con las mangas remangadas, falda larga de lona marrón, chaleco de cuero, pañuelo rojo al cuello, botas y un sombrero vaquero de ala ancha colgado a la espalda.",
+    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Viste ropa del Oeste de 1878: camisa blanca remangada, chaleco de cuero, pañuelo azul al cuello, pantalones de lona, cinturón con hebilla grande, botas con espuelas y un sombrero marrón de ala ancha.",
+}
+
+HOJA = ("Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. "
+        "Mantén su parecido real con la foto (cara, pelo, barba, ojos). "
+        "Cristina: mujer de 26 años, profesora, pelo rubio y rizado con trenza lateral, ojos azules, camisa de cuadros con las mangas remangadas, falda larga de lona marrón, chaleco de cuero, pañuelo rojo al cuello, botas y sombrero vaquero colgado a la espalda. "
+        "Alberto: hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones, camisa blanca remangada, chaleco de cuero, pañuelo azul al cuello, pantalones de lona, cinturón con hebilla grande, botas con espuelas y sombrero marrón de ala ancha. "
+        "Estilo: " + ESTILO)
+
+FOTO = ("Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). "
+        "Pídele que mantenga el parecido real, pero con el estilo de ilustración de este juego.")
+
+VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfico de western clásico, luz dorada de atardecer y mucho polvo en el aire. Sin ningún texto, letra ni subtítulo en pantalla. "
+         "Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Cristina señala una foto antigua de un tren de vapor en un libro. "
+         "Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul y dorada y los dos son absorbidos por un túnel de luz. "
+         "Escena 3 (8-12 s): caen sobre el apartadero de una estación del Oeste en 1878, entre barriles y sacos; el aparato golpea un barril y su cristal sale rodando mientras un jinete con pañuelo en la cara huye a galope. "
+         "Escena 4 (12-15 s): primer plano de Cristina y Alberto, con ropa del Oeste, asombrados, mirando cómo se aleja el jinete entre una nube de polvo; fundido a negro. "
+         "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, silbato de tren, galope y armónica con guitarra, sin voz de narrador.")
+
+
+def pieza(titulo, donde):
+    return f"Pieza dibujada por código (herramientas/oeste.py; no se pide a ChatGPT): {donde} de «{titulo}»."
+
+
+# id del mosaico -> filas, columnas, cartas en orden de lectura (izquierda→derecha, arriba→abajo), título
+MOSAICOS = {
+    "tren": dict(filas=1, cols=5, cartas=["16", "18", "14", "17", "15"], titulo="El tren de carga", giros={}),
+    "cartel": dict(filas=3, cols=1, cartas=["31", "32", "30"], titulo="El cartel de «Se busca»", giros={}),
+    "mapa": dict(filas=2, cols=2, cartas=["42", "40", "43", "41"], titulo="El mapa del arroyo seco", giros={}),
+}
+POS = {5: ["a la izquierda del todo", "la segunda", "en el centro", "la cuarta", "a la derecha del todo"],
+       3: ["arriba", "en el centro", "abajo"], 4: ["arriba a la izquierda", "arriba a la derecha", "abajo a la izquierda", "abajo a la derecha"]}
+
+
+def _ficha_pieza(carta):
+    for k, m in MOSAICOS.items():
+        if carta in m["cartas"]:
+            i = m["cartas"].index(carta)
+            return dict(id=k, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"])
+    raise KeyError(carta)
+
+
+def _mapa(m):
+    c = m["cartas"]
+    if m["cols"] == 5:
+        return f"En fila, de izquierda a derecha: {c[0]}, {c[1]}, {c[2]}, {c[3]} y {c[4]}."
+    if m["filas"] == 3:
+        return f"En columna, de arriba abajo: {c[0]}, {c[1]} y {c[2]}."
+    return f"Arriba, de izquierda a derecha: {c[0]} y {c[1]}. Abajo: {c[2]} y {c[3]}."
+
+
+def _pieza_carta(carta, mosaico, que_es, extra):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[len(m["cartas"])][i]
+    lista = ", ".join(m["cartas"][:-1]) + " y " + m["cartas"][-1]
+    return dict(
+        titulo=f"Carta {carta} — Pieza de «{m['titulo']}» ({pos})", tipo="gris", mosaico=_ficha_pieza(carta),
+        descripcion=[f"{que_es} Es una pieza suelta: juntad las cartas {lista} para ver la lámina entera."],
+        pistas=["Las piezas encajan formando una sola lámina.", extra, _mapa(m)],
+        arte=pieza(m["titulo"], pos))
+
+
+def _tiles(ids, mosaico, que, extra):
+    return {i: _pieza_carta(i, mosaico, que, extra) for i in ids}
+
+
+_TREN = "Los vagones se enganchan por los símbolos de los extremos: el de la derecha de un vagón debe ser igual al de la izquierda del siguiente."
+_CARTEL = "El retrato está partido en tres: cada carta tiene una parte de la cara. Si no encaja, cambiad las piezas de sitio."
+_MAPA = "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio."
+
+
+J = {
+    "P": dict(
+        titulo="Carta P — Llegada a Dry Gulch", tipo="gris", coge=[10, 12],
+        descripcion=[
+            "Novena parada del Cronoportal: Dry Gulch, un pueblo del Lejano Oeste, en 1878, a media tarde. Aterrizáis en el apartadero de la estación, entre barriles y sacos de correo, justo cuando un jinete con un pañuelo en la cara sale a galope. El aparato golpea un barril y su cristal de energía sale rodando... y el jinete, que cree haber encontrado una joya, lo recoge al vuelo y se esfuma entre una nube de polvo.",
+            "Sin el cristal, el Cronoportal está muerto. En el cartel de la estación pone que el tren del oro sale a las seis y que el sheriff lleva una semana buscando a la banda que lo asalta. Tenéis hora y media antes de que el tren (y los bandidos) se marchen.",
+            "Coged las cartas 10 y 12."],
+        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
+        arte="El apartadero de la estación de un pueblo del Oeste en 1878 a media tarde: raíles, barriles, sacos de correo y un cartel de madera sin texto legible; a lo lejos, un jinete con un pañuelo en la cara huye a galope levantando polvo. En primer plano, el Cronoportal, un aparato de latón y cristal, humea contra un barril con la luz azul apagándose. Cristina, con la boca abierta y los ojos muy abiertos de asombro, y Alberto, con el sombrero caído sobre un ojo y gesto de incredulidad, se levantan aturdidos con ropa del Oeste."),
+    "10": dict(
+        titulo="Carta 10 — La estación de Dry Gulch", tipo="gris", coge=[14, 15, 16, 17, 18, 20, 22], descarta=["P"],
+        descripcion=[
+            "La estación de Dry Gulch. Por orden del sheriff, el tren del correo se ha desenganchado en cinco vagones sueltos (cartas 14, 15, 16, 17 y 18) para que no se escape. El furgón del correo tiene un candado de cinco ruedas con letras (carta 20) y, entre el carbón de la locomotora, brilla la mitad de una llave (carta 22).",
+            "Coged las cartas 14, 15, 16, 17, 18, 20 y 22. Descartad la carta P."],
+        pistas=["Hay un puzle: los vagones y el candado del furgón.", "Los cinco vagones (14 a 18) se juntan en fila formando un tren.", "Coged las cartas 14, 15, 16, 17, 18, 20 y 22. Descartad la carta P."],
+        arte="Una vía muerta de una estación del Oeste con cinco vagones de tren desenganchados y separados unos metros, y en el furgón del correo un candado de latón grande; entre el carbón de la locomotora brilla una llave partida. Cristina empuja un vagón con el ceño fruncido de esfuerzo y Alberto examina el candado con la lengua entre los dientes, concentrado."),
+    "12": dict(
+        titulo="Carta 12 — Cronoportal sin cristal", tipo="azul", combina=[62, 74],
+        descripcion=[
+            "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía. Alberto: «Sin el cristal no hay portal. Se lo ha llevado ese jinete... y no tardará en descubrir que no es una joya».",
+            "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
+        pistas=["Le falta una pieza: el cristal de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
+        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, apoyado en una tabla de madera de un andén del Oeste, con un tren de vapor desenfocado al fondo."),
+    **_tiles(["14", "15", "16", "17", "18"], "tren", "Un vagón del tren del correo.", _TREN),
+    "20": dict(
+        titulo="Carta 20 — El candado del furgón", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: un candado de cinco ruedas con letras. Hay que poner la palabra que forman las letras pintadas en los vagones, de atrás (la cola) hacia delante (la locomotora), una vez enganchados en el orden correcto (juntad las cartas 14 a 18).",
+            "Al acertar, el candado se abre. Coged la carta 26."],
+        pistas=["Juntad los cinco vagones en fila: se enganchan por los símbolos de los extremos.", "El símbolo de la derecha de un vagón debe ser igual al de la izquierda del siguiente. Leed después las letras de izquierda a derecha.", "La palabra es TEXAS."],
+        arte="Un candado de latón grande con cinco ruedas con letras (sin letras legibles, solo muescas) colgado de la puerta de un furgón de correo de tren, bajo la luz dorada de la tarde. Alberto gira una rueda con los ojos entrecerrados, concentrado, y Cristina vigila a un lado con los brazos cruzados y una ceja arqueada de duda."),
+    "22": dict(
+        titulo="Carta 22 — Media llave", tipo="azul", combina=[35, 57],
+        descripcion=["La mitad de una llave de hierro, con el ojo y la mitad del paletón. Combinadla con la otra mitad (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
+        pistas=["Es solo la mitad de una llave.", "Cuando encontréis la otra mitad, combinadlas.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
+        arte="Una mitad de llave de hierro forjado con un ojo redondo y la mitad de un paletón dentado, sobre un montón de carbón brillante, vista de cerca con luz dorada de tarde."),
+    "26": dict(
+        titulo="Carta 26 — La oficina del sheriff", tipo="gris", coge=[24, 30, 31, 32, 36], descarta=[14, 15, 16, 17, 18, 20],
+        descripcion=[
+            "El candado se abre y dentro del furgón encontráis un telegrama: el sheriff os espera. En su oficina hay un cartel de «Se busca» arrancado y partido en tres trozos (cartas 30, 31 y 32), el libro del sheriff con los seis sospechosos de la zona (carta 36) y una celda con un prisionero (carta 24): sabe dónde se esconde la banda, pero solo hablará con el que la encargue... si le decís quién es el bandido.",
+            "Coged las cartas 24, 30, 31, 32 y 36. Descartad las cartas 14, 15, 16, 17, 18 y 20."],
+        pistas=["Hay un puzle: el cartel partido, el libro y la celda.", "Coged las cartas 24, 30, 31, 32 y 36. Descartad las cartas 14, 15, 16, 17, 18 y 20."],
+        arte="La oficina de un sheriff del Oeste: escritorio de madera con un libro grande abierto, una estrella de sheriff colgada, una pared con carteles y una celda con barrotes al fondo con una silueta sentada. Cristina estudia un cartel partido en tres trozos sobre la mesa con los ojos entrecerrados de concentración y Alberto se rasca la barba con gesto de duda."),
+    "24": dict(
+        titulo="Carta 24 — La celda", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: la celda del prisionero, con una lista de seis nombres. Hay que señalar al bandido del cartel de «Se busca» (juntad las cartas 30, 31 y 32) comparando su sombrero, su cicatriz y su bigote con el libro del sheriff (carta 36).",
+            "Al acertar, el prisionero confiesa. Coged la carta 28."],
+        pistas=["Juntad las tres cartas del cartel: el retrato está partido en tres.", "Fijaos en el sombrero, la cicatriz y el bigote y comparadlos con el libro del sheriff: solo un sospechoso coincide en los tres rasgos.", "Es Pete Cuchillo: sombrero de ala ancha, cicatriz en el lado izquierdo del retrato y bigote de manillar."],
+        arte="Una celda de sheriff con barrotes de hierro y un prisionero sentado de espaldas en un camastro; en primer plano, un cartel de «Se busca» sujeto a los barrotes (sin texto legible). Alberto señala el cartel con el dedo y una sonrisa de triunfo, y Cristina lo mira con los ojos muy abiertos de expectación."),
+    **_tiles(["30", "31", "32"], "cartel", "Un trozo del cartel de «Se busca».", _CARTEL),
+    "36": dict(
+        titulo="Carta 36 — El libro del sheriff", tipo="gris",
+        descripcion=["Un libro con los seis sospechosos de la zona. De cada uno hay tres dibujos: el sombrero, la cicatriz (o ninguna) y el bigote, y su nombre."],
+        pistas=["Es el libro del sheriff: sirve para la celda (carta 24).", "Comparad los tres dibujos de cada sospechoso con el retrato del cartel.", "Solo un sospechoso coincide con el cartel en el sombrero, la cicatriz y el bigote a la vez."],
+        arte="Carta dibujada por código (herramientas/oeste.py): el libro del sheriff con los seis sospechosos."),
+    "28": dict(
+        titulo="Carta 28 — El arroyo seco", tipo="gris", coge=[35, 40, 41, 42, 43, 46], descarta=[26, 30, 31, 32, 36, 24],
+        descripcion=[
+            "Pete Cuchillo confiesa: la banda se esconde en una vieja mina junto al arroyo seco, y para entrar hay que abrir una caja fuerte oculta en una roca. Él guardó en el bolsillo un mapa (cartas 40, 41, 42 y 43) que ha roto en cuatro trozos y, junto a la roca, Cristina encuentra la otra mitad de la llave (carta 35). En la roca hay una caja fuerte con una rueda de combinación (carta 46).",
+            "Coged las cartas 35, 40, 41, 42, 43 y 46. Descartad las cartas 26, 30, 31, 32, 36 y 24."],
+        pistas=["Hay dos cosas: la otra mitad de la llave y el mapa con la caja fuerte.", "Las cartas 22 y 35 son combinables. Los trozos 40 a 43 forman el mapa.", "Coged las cartas 35, 40, 41, 42, 43 y 46. Descartad las cartas 26, 30, 31, 32, 36 y 24."],
+        arte="Un arroyo seco en el desierto al atardecer, con grandes rocas rojizas, un cactus alto y un esqueleto de vaca; en una roca hay una pequeña caja fuerte de hierro con una rueda de combinación. Cristina levanta del suelo una mitad de llave con una sonrisa de alegría y Alberto corre hacia la roca con gesto de alivio, secándose la frente."),
+    "35": dict(
+        titulo="Carta 35 — Otra media llave", tipo="roja", combina=[22, 57],
+        descripcion=["La otra mitad de la llave de hierro, con el resto del paletón. Combinadla con la primera mitad (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
+        pistas=["Es la otra mitad de la llave.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
+        arte="La otra mitad de una llave de hierro forjado, con el resto del paletón dentado, sobre una roca rojiza del desierto con unas gotas de agua, bajo la luz dorada del atardecer."),
+    **_tiles(["40", "41", "42", "43"], "mapa", "Un trozo del mapa del arroyo seco.", _MAPA),
+    "46": dict(
+        titulo="Carta 46 — La caja fuerte", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: una caja fuerte con una rueda de combinación. Se gira a la derecha hasta el primer número, a la izquierda hasta el segundo y a la derecha hasta el tercero. Los tres números son las rayitas que hay junto a los tres hitos del mapa (juntad las cartas 40 a 43), en el orden del camino desde la hoguera.",
+            "Al acertar, la caja se abre. Coged la carta 44."],
+        pistas=["Juntad las cuatro piezas del mapa. Las rayitas se cuentan en grupos de cinco (cuatro palitos y una raya cruzada).", "Seguid el camino desde la hoguera: el primer número son las rayitas de la roca, el segundo las del cactus y el tercero las de la calavera.", "Catorce, siete y veintinueve: derecha hasta 14, izquierda hasta 7 y derecha hasta 29."],
+        arte="Una caja fuerte de hierro oxidado con una rueda de combinación grande, empotrada en una roca del desierto, con la puerta entreabierta y un resplandor dorado. Alberto gira la rueda con la oreja pegada a la caja y los ojos cerrados, concentrado, y Cristina cuenta con los dedos con cara de ilusión."),
+    "44": dict(
+        titulo="Carta 44 — La mina vieja", tipo="gris", coge=[38], descarta=[28, 40, 41, 42, 43, 46],
+        descripcion=[
+            "La caja fuerte se abre con un clic y la roca se desliza: detrás hay la entrada de la vieja mina, con un banco de trabajo del orfebre de la banda. Sobre el banco, Alberto encuentra unos platillos de balanza de latón (carta 38).",
+            "Coged la carta 38. Descartad las cartas 28, 40, 41, 42, 43 y 46."],
+        pistas=["Mirad lo que hay sobre el banco de trabajo.", "La carta 38 es combinable.", "Coged la carta 38. Descartad las cartas 28, 40, 41, 42, 43 y 46."],
+        arte="La entrada de una mina vieja con vigas de madera, vagonetas oxidadas sobre raíles y un banco de trabajo con herramientas, bajo la luz de un farol. Alberto levanta unos platillos de balanza de latón con una sonrisa de triunfo y Cristina lo mira con los ojos brillantes de entusiasmo."),
+    "38": dict(
+        titulo="Carta 38 — Platillos de balanza", tipo="azul", combina=[56, 94],
+        descripcion=["Dos platillos de latón con sus cadenas, la mitad de una balanza de orfebre. Combinadlos con las barras de oro (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
+        pistas=["Son los platillos de una balanza.", "Cuando tengáis las barras de oro, combinadlas con los platillos.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
+        arte="Dos platillos de latón con sus cadenas colgando, sobre un banco de madera junto a un farol de aceite, en una mina; la luz cálida hace brillar el metal."),
+    "57": dict(
+        titulo="Carta 57 — El polvorín", tipo="gris", coge=[48, 52], descarta=[22, 35, 10],
+        descripcion=[
+            "Las dos mitades encajan y giran: la llave abre el polvorín de la mina. Dentro hay dinamita y dos mechas. Un derrumbe tapa el túnel que lleva al escondite de la banda, y solo se puede volar con la dinamita a una hora exacta (carta 52), para que la explosión coincida con el paso del tren sobre la mina y nadie se entere. El panel de las mechas (carta 48) espera.",
+            "Coged las cartas 48 y 52. Descartad las cartas 22, 35 y 10."],
+        pistas=["Hay un puzle: las mechas y el reloj del capataz.", "El reloj (carta 52) dice a qué hora tiene que saltar la dinamita.", "Coged las cartas 48 y 52. Descartad las cartas 22, 35 y 10."],
+        arte="El polvorín de una mina: una cueva con cajas de madera de dinamita, dos mechas largas sobre una mesa y un reloj de bolsillo colgado de un clavo. Cristina gira la llave de hierro en una puerta con una sonrisa de orgullo y Alberto mira las mechas con cara de impaciencia."),
+    "52": dict(
+        titulo="Carta 52 — El reloj del capataz", tipo="gris",
+        descripcion=["El reloj de bolsillo del capataz: la aguja marca a los cuántos minutos tiene que saltar la dinamita."],
+        pistas=["Es el reloj del capataz: sirve para las mechas (carta 48).", "La aguja marca los minutos que hay que esperar.", "La dinamita debe saltar a los 45 minutos."],
+        arte="Carta dibujada por código (herramientas/oeste.py): el reloj del capataz con la aguja en los minutos."),
+    "48": dict(
+        titulo="Carta 48 — Las mechas", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: dos mechas que tardan exactamente una hora en consumirse, pero no a ritmo constante. Hay que encenderlas por uno o por los dos extremos y dar la señal en el momento justo que marca el reloj del capataz (carta 52).",
+            "Al dar la señal a la hora exacta, la dinamita salta. Coged la carta 58."],
+        pistas=["Cada mecha tarda una hora en consumirse entera; si se enciende por los dos extremos a la vez, tarda la mitad.", "Encended la primera mecha por los dos extremos y la segunda por uno solo. Cuando se apague la primera, encended el otro extremo de la segunda.", "Primera mecha por los dos extremos y segunda por uno; esperad a que se apague la primera, encended el otro extremo de la segunda, esperad a que se apague y dad la señal."],
+        arte="Dos mechas largas de dinamita tendidas sobre una mesa de madera con una caja de dinamita al fondo, junto a una vela encendida que ilumina la cueva. Alberto acerca una cerilla con el pulso firme y gesto de concentración, y Cristina mira el reloj con el ceño fruncido de impaciencia."),
+    "58": dict(
+        titulo="Carta 58 — El escondite", tipo="gris", coge=[56], descarta=[48, 52, 57],
+        descripcion=[
+            "La explosión retumba, el polvo se asienta y el túnel queda libre. Al fondo, en el escondite de la banda, hay nueve barras de oro apiladas, el botín de los asaltos al tren.",
+            "Coged la carta 56. Descartad las cartas 48, 52 y 57."],
+        pistas=["Mirad lo que había al final del túnel.", "La carta 56 es combinable.", "Coged la carta 56. Descartad las cartas 48, 52 y 57."],
+        arte="El escondite de una banda de forajidos al fondo de una mina: nueve barras de oro apiladas sobre unas cajas, con una nube de polvo asentándose y luz de farol; Cristina toma una barra con una sonrisa radiante de alegría y Alberto se asoma con cara de alivio, tosiendo por el polvo."),
+    "56": dict(
+        titulo="Carta 56 — Barras de oro", tipo="roja", combina=[38, 94],
+        descripcion=["Nueve barras de oro idénticas en apariencia. Combinadlas con los platillos de balanza (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
+        pistas=["Son nueve barras casi iguales.", "Cuando tengáis los platillos, combinadlos con las barras.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
+        arte="Nueve barras de oro apiladas en tres filas sobre un paño rojo, brillando bajo la luz cálida de un farol, vistas de cerca."),
+    "94": dict(
+        titulo="Carta 94 — La balanza del orfebre", tipo="gris", coge=[69, 70], descarta=[56, 38, 44, 58],
+        descripcion=[
+            "Con los platillos colgados de una viga, tenéis una balanza de orfebre. En un cajón, el informe del orfebre de la banda (carta 70) explica algo importante: una de las nueve barras es falsa. La báscula (carta 69) espera. Esa barra falsa, piensa Alberto, es el único sitio donde un ladrón con prisa guardaría algo que no es oro.",
+            "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
+        pistas=["Hay un puzle: la balanza y el informe del orfebre.", "El informe (carta 70) cuenta cuántas pesadas se pueden hacer.", "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
+        arte="Una balanza de orfebre improvisada con dos platillos de latón colgados de una viga en una mina, con un platillo cargado de barras de oro, a la luz de un farol. Cristina observa los platillos con la cabeza ladeada y gesto de duda, y Alberto acerca un cajón con papeles con los ojos muy abiertos de interés."),
+    "70": dict(
+        titulo="Carta 70 — El informe del orfebre", tipo="gris",
+        descripcion=["El informe del orfebre de la banda sobre las nueve barras de oro."],
+        pistas=["Es el informe del orfebre: sirve para la báscula (carta 69).", "Una barra es falsa y pesa menos que las otras; solo se puede pesar dos veces.", "Dividid las barras en tres grupos de tres: la primera pesada dice en qué grupo está la falsa y la segunda, cuál es."],
+        arte="Carta dibujada por código (herramientas/oeste.py): el informe del orfebre con las nueve barras."),
+    "69": dict(
+        titulo="Carta 69 — La báscula", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: una balanza de dos platillos y nueve barras de oro. Hay que poner barras en cada platillo, pesar (solo dos veces, como dice el informe del orfebre, carta 70) y señalar cuál es la barra falsa, la que pesa menos.",
+            "Al encontrar la barra falsa, se abre. Coged la carta 82."],
+        pistas=["Leed el informe del orfebre: una barra pesa menos y solo hay dos pesadas.", "Dividid las nueve barras en tres grupos de tres. Primera pesada: un grupo contra otro. Si pesan igual, la falsa está en el grupo que no pesasteis; si no, en el platillo más ligero.", "Segunda pesada: dos barras del grupo sospechoso, una contra otra. La más ligera es la falsa; si pesan igual, es la tercera."],
+        arte="Una balanza de orfebre con dos platillos de latón, uno con tres barras de oro y otro con tres barras, inclinada ligeramente, sobre un banco de madera en una mina, con luz de farol. Alberto coloca una barra con cuidado y gesto de concentración, y Cristina cuenta con los dedos en el aire con cara de ilusión."),
+    "82": dict(
+        titulo="Carta 82 — La barra falsa", tipo="gris", coge=[62], descarta=[69, 70, 94],
+        descripcion=[
+            "La barra falsa se parte por la mitad: es de yeso pintado de dorado y, dentro, escondido por el jinete, brilla el cristal de energía, tal y como cayó.",
+            "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
+        pistas=["Mirad dentro de la barra falsa.", "La carta 62 es combinable con el Cronoportal.", "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
+        arte="Una barra de yeso pintado de dorado partida por la mitad sobre un banco de madera, con un cristal rojo brillante en el interior, a la luz de un farol en una mina. Cristina lo toma con ambas manos con los ojos llenos de lágrimas de emoción y Alberto la mira con una sonrisa enorme."),
+    "62": dict(
+        titulo="Carta 62 — Cristal de energía", tipo="roja", combina=[12, 74],
+        descripcion=["El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
+        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
+        arte="Un cristal rojo facetado con un fulgor interior de brasa y finas líneas de energía, sostenido sobre la palma de una mano, con polvo dorado flotando en el aire."),
+    "74": dict(
+        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[99], descarta=[62, 12, 82],
+        descripcion=[
+            "El cristal encaja con un chasquido y el Cronoportal se enciende. Pero fuera suena el silbato del tren del oro y se oyen caballos: la banda ha descubierto que le falta su botín. No hay tiempo que perder: activad el aparato antes de que lleguen.",
+            "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
+        pistas=["El portal ya funciona. Solo queda activarlo.", "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
+        arte="El Cronoportal encendido con un cristal rojo encajado en su pecho, en la boca de una mina, con un arco de luz azul y dorada en el anillo; a lo lejos, una nube de polvo de jinetes que se acercan al galope. Cristina, con la cara desencajada de urgencia, tira de Alberto, que carga el aparato con gesto de esfuerzo."),
+    "99": dict(
+        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
+        descripcion=[
+            "El anillo se abre en un arco de luz justo cuando los jinetes llegan a la boca de la mina. Cristina y Alberto salen disparados del Oeste y aterrizan en su salón, con el corazón a mil.",
+            "Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo una pequeña estrella de sheriff. Descartad la carta 74.",
+            "FIN."],
+        pistas=[],
+        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven una mina del Oeste, una nube de polvo y jinetes a lo lejos. Llevan aún su ropa del Oeste cubierta de polvo. Cristina ríe a carcajadas con una estrella de sheriff en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+}
+
+META = dict(
+    juego="Dry Gulch, 1878 — El Tren del Oro",
+    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+    mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()},
+)
+
+SPEC = dict(
+    final="99",
+    needs={"26": ["14", "15", "16", "17", "18", "20"], "28": ["30", "31", "32", "36", "24"], "44": ["40", "41", "42", "43", "46"],
+           "57": ["22", "35"], "58": ["48", "52"], "94": ["56", "38"], "82": ["69", "70"], "74": ["62", "12"]},
+    eventos={},
+)
+
+PARA_QUE = {
+    "P": "Inicio: llegada a Dry Gulch. Te manda coger la 10 y la 12.",
+    "10": "La estación: reparte los cinco vagones, el candado del furgón y la mitad de la llave.",
+    "12": "El Cronoportal sin cristal: se combina con el cristal de energía (62).",
+    "14": "Vagón del tren.", "15": "Vagón del tren.", "16": "Vagón del tren.", "17": "Vagón del tren.", "18": "Vagón del tren.",
+    "20": "El candado del furgón (app): la palabra que forman los vagones enganchados.",
+    "22": "Media llave: se combina con la otra mitad (35).",
+    "24": "La celda (app): señalar al bandido del cartel.",
+    "26": "La oficina del sheriff: reparte el cartel partido, el libro y la celda; te manda descartar la estación.",
+    "28": "El arroyo seco: reparte la otra media llave, el mapa y la caja fuerte.",
+    "30": "Trozo del cartel de «Se busca».", "31": "Trozo del cartel de «Se busca».", "32": "Trozo del cartel de «Se busca».",
+    "35": "Otra media llave: se combina con la 22.",
+    "36": "El libro del sheriff con los seis sospechosos.",
+    "40": "Trozo del mapa del arroyo seco.", "41": "Trozo del mapa del arroyo seco.", "42": "Trozo del mapa del arroyo seco.", "43": "Trozo del mapa del arroyo seco.",
+    "46": "La caja fuerte (app): la combinación con las rayitas del mapa.",
+    "44": "La mina vieja: reparte los platillos de balanza.",
+    "38": "Platillos de balanza: se combinan con las barras de oro (56).",
+    "57": "El polvorín (22 + 35): reparte las mechas y el reloj del capataz.",
+    "52": "El reloj del capataz: a los cuántos minutos salta la dinamita.",
+    "48": "Las mechas (app): dar la señal a la hora exacta.",
+    "58": "El escondite: reparte las barras de oro.",
+    "56": "Barras de oro: se combinan con los platillos (38).",
+    "94": "La balanza del orfebre (56 + 38): reparte la báscula y el informe.",
+    "70": "El informe del orfebre: una barra falsa más ligera y dos pesadas.",
+    "69": "La báscula (app): encontrar la barra falsa en dos pesadas.",
+    "82": "La barra falsa: reparte el cristal de energía.",
+    "62": "Cristal de energía: se combina con el Cronoportal (12).",
+    "74": "Cronoportal reconectado (62 + 12): reparte la 99.",
+    "99": "Final de la aventura, ya en casa.",
+}
+
+# ---------------------------------------------------------------- manual (los estados de la mesa se calculan simulando las cartas)
+_TEXTOS = [
+    ("leer", "P", "Llegada a Dry Gulch", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
+    ("leer", "10", "La estación", "Lee la carta 10. Descarta la P y coge 14, 15, 16, 17, 18, 20 y 22. Junta los cinco vagones (14 a 18) en fila, de manera que los símbolos de los extremos coincidan (en el Modo PC, botón «Mesa de montaje»: toca dos piezas para cambiarlas de sitio)."),
+    ("app", "20", "El candado del furgón", "En el móvil: Acción, 20. Pon la palabra que forman las letras de los vagones, de izquierda a derecha: TEXAS. El mensaje te dice que cojas la 26.", "carta 26"),
+    ("leer", "26", "La oficina del sheriff", "Lee la carta 26. Descarta 14, 15, 16, 17, 18 y 20 y coge 24, 30, 31, 32 y 36. Junta las tres cartas del cartel (30, 31 y 32) en columna y compáralo con el libro del sheriff (36)."),
+    ("app", "24", "La celda", "En el móvil: Acción, 24. Señala al bandido del cartel: Pete Cuchillo (sombrero de ala ancha, cicatriz a la izquierda y bigote de manillar). El mensaje te dice que cojas la 28.", "carta 28"),
+    ("leer", "28", "El arroyo seco", "Lee la carta 28. Descarta 26, 30, 31, 32, 36 y 24 y coge 35, 40, 41, 42, 43 y 46. Junta las cuatro piezas del mapa (40 a 43). Las cartas 22 y 35 son combinables."),
+    ("app", "46", "La caja fuerte", "En el móvil: Acción, 46. Con las rayitas del mapa, desde la hoguera: derecha hasta 14, izquierda hasta 7 y derecha hasta 29. El mensaje te dice que cojas la 44.", "carta 44"),
+    ("leer", "44", "La mina vieja", "Lee la carta 44. Descarta 28, 40, 41, 42, 43 y 46 y coge la 38, unos platillos de balanza."),
+    ("combinar", "22", "35", "La llave del polvorín", "Las dos mitades de la llave (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "El polvorín", "Lee la carta 57. Descarta 22, 35 y 10 y coge 48 y 52. La carta 52 es el reloj del capataz: a los cuántos minutos tiene que saltar la dinamita."),
+    ("app", "48", "Las mechas", "En el móvil: Acción, 48. Enciende la mecha A por los dos extremos y la B por uno; cuando se apague la A, enciende el otro extremo de la B; cuando se apague, da la señal (45 minutos). El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "El escondite", "Lee la carta 58. Descarta 48, 52 y 57 y coge la 56, nueve barras de oro."),
+    ("combinar", "56", "38", "Barras y platillos", "Las barras de oro (56) y los platillos (38) son combinables: 56 + 38 = 94. Coge la 94."),
+    ("leer", "94", "La balanza del orfebre", "Lee la carta 94. Descarta 56, 38, 44 y 58 y coge 69 y 70. La carta 70 es el informe del orfebre."),
+    ("app", "69", "La báscula", "En el móvil: Acción, 69. Pesa tres barras contra otras tres; con el resultado, pesa dos barras del grupo sospechoso y señala la barra falsa. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "La barra falsa", "Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía."),
+    ("combinar", "12", "62", "Cristal en el Cronoportal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12 y 82 y coge la 99."),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!"),
+]
+
+
+def _pasos():
+    mesa = set()
+    pasos = []
+    for p in _TEXTOS:
+        if p[0] == "leer":
+            c = J[p[1]]
+            for d in c.get("descarta", []):
+                mesa.discard(str(d))
+            for h in c.get("coge", []):
+                mesa.add(str(h))
+            if p[1] == "P":
+                mesa = {"P", "10", "12"}
+            pasos.append(dict(t=p[2], que=p[3], acciones=[("leer", p[1])], mesa=_orden(mesa)))
+        elif p[0] == "app":
+            res = p[4].split()[-1]
+            mesa.add(res)
+            pasos.append(dict(t=p[2], que=p[3], acciones=[("app", p[1], p[4])], mesa=_orden(mesa)))
+        else:
+            mesa.add(str(int(p[1]) + int(p[2])))
+            pasos.append(dict(t=p[3], que=p[4], acciones=[("combinar", p[1], p[2])], mesa=_orden(mesa)))
+    return pasos
+
+
+def _orden(m):
+    return sorted(m, key=lambda x: (x != "P", int(x) if x != "P" else 0))
+
+
+PASOS = _pasos()

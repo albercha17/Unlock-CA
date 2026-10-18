@@ -73,6 +73,8 @@ def main(base, carpeta, capturas=None):
                 d.find_element(By.ID, "mesa").screenshot(f"{capturas}/mesa-{k}.png")
             btn[0].click()
             time.sleep(0.3)
+            if bool(m.get("giros")) != d.find_element(By.ID, "mGirar").is_displayed():
+                malos.append(f"{k}: el botón «Dar la vuelta» debe verse solo si hay piezas boca abajo")
             tiles = lambda: [t.get_attribute("data-id") for t in d.find_elements(By.CSS_SELECTOR, ".mt-tile")]  # noqa: E731
             inicial = tiles()
             if any(a == b for a, b in zip(inicial, m["cartas"])):

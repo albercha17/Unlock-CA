@@ -26,7 +26,8 @@ const ETIQUETA_RELOJ = {
   florencia: 'El alba se acerca',
   dinosaurios: 'El asteroide se acerca',
   pompeya: 'La ceniza se acerca',
-  arcade: 'El contador llega a GAME OVER'
+  arcade: 'El contador llega a GAME OVER',
+  oeste: 'El tren del oro está a punto de salir'
 };
 
 const REGLAS = [

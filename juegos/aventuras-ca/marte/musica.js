@@ -105,6 +105,16 @@ const PRESETS = {
     melodia: { onda: 'square', vol: 0.07, octava: 2, prob: 0.3, dur: 0.3, ataque: 0.005, filtro: 4200, vibrato: 0 },
     ritmo: { tipo: 'pulso', patron: [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0], vol: 0.3, tono: 60 },
     ruido: null
+  },
+  // Oeste: guitarra pulsada, armónica lejana, galope de caballos y viento seco.
+  oeste: {
+    bpm: 92, raiz: 45, escala: ESC.pentatonica, compases: 2, reverb: 1.8,
+    acordes: [[0, 2], [0, 3], [2, 4], [0, 2]],
+    pad: { onda: 'triangle', filtro: 700, vol: 0.1, octava: -1, ataque: 1.8 },
+    arpegio: { onda: 'triangle', vol: 0.12, paso: 2, octava: 1, patron: [0, 2, 1, 3, 2, 1], filtro: 3600, pulsada: true, campana: true },
+    melodia: { onda: 'sine', vol: 0.12, octava: 2, prob: 0.2, dur: 2.2, ataque: 0.15, filtro: 2400, vibrato: 5 },
+    ritmo: { tipo: 'tambor', patron: [1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0], vol: 0.22, tono: 85 },
+    ruido: { tipo: 'viento', vol: 0.1 }
   }
 };
 

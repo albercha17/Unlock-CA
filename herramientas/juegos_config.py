@@ -12,6 +12,7 @@ import datos_cuento as C
 import datos_trono as T
 import datos_pompeya as P
 import datos_arcade as A
+import datos_oeste as W
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -86,6 +87,12 @@ JUEGOS = {
         sinopsis="Octavo salto del Cronoportal: un salón recreativo de 1985, a medianoche. El aparato golpea la máquina COSMIC QUEST y su cristal de energía cae por la ranura de las fichas: Cristina y Alberto quedan atrapados dentro, convertidos en píxeles. Para salir tienen que superar seis niveles (circuitos, radar, mandos, autopista y un jefe de bloques) antes de que el contador llegue a GAME OVER, en setenta y cinco minutos.",
         minigames={"20": "20-terminal.js", "24": "24-radar.js", "46": "46-mando.js", "48": "48-autopista.js", "69": "69-pozo.js"},
         pal=("#5a2a9a", "#0e0620")),
+    "Oeste": dict(
+        datos=W, dificultad=3, tema="oeste", titulo="Dry Gulch, 1878: El Tren del Oro", emoji="🤠", minutos=90,
+        grad="#7a4a1e,#160d06", acento="#e0a040", acento2="#f5d48a", bg1="#140c05", bg2="#33200e",
+        sinopsis="Novena parada del Cronoportal: Dry Gulch, un pueblo del Lejano Oeste en 1878. El aparato golpea un barril en el apartadero de la estación y un jinete enmascarado, que cree haber encontrado una joya, se lleva el cristal de energía. Para recuperarlo hay que enganchar un tren, reconocer a un bandido en un cartel de «Se busca», seguir un mapa, volar un túnel con dos mechas y encontrar una barra de oro falsa, antes de que salga el tren del oro, dentro de hora y media.",
+        minigames={"20": "20-candado.js", "24": "24-celda.js", "46": "46-caja.js", "48": "48-mechas.js", "69": "69-bascula.js"},
+        pal=("#8a5a2a", "#1c1008")),
 }
 
 
