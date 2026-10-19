@@ -30,7 +30,8 @@ const ETIQUETA_RELOJ = {
   oeste: 'El tren del oro está a punto de salir',
   espia: 'El yate del Dr. Noche zarpa a medianoche',
   futbol: 'Faltan minutos para el pitido inicial',
-  piratas: 'La marea sube hacia la cueva'
+  piratas: 'La marea sube hacia la cueva',
+  juguetes: 'El camión de la mudanza llega al amanecer'
 };
 
 const REGLAS = [
