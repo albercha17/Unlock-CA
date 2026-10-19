@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montecarlo, 1965: Operación Cristal — Modo PC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070d13;--panel:#0f1a24;--line:#223445;--tx:#e8eef4;--mut:#93a4b5;--acc:#ffd27a;
+    --gris:#8a94a3;--verde:#2f9e58;--roja:#c0453d;--azul:#3b78c9;--morada:#7b4fd0}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(circle at 50% 0,#10202d,var(--bg) 60%);color:var(--tx);font:15px/1.5 "Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px 16px 60px}
+  header{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:6px}
+  h1{margin:0;font-size:1.35rem}
+  h1 small{display:block;font-size:.8rem;color:var(--mut);font-weight:400}
+  .barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .barra label{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:.88rem}
+  input[type=text]{width:74px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:#0a121a;color:var(--tx);font:inherit;text-align:center}
+  button,.btn{font:inherit;font-weight:600;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#182838;color:var(--tx);padding:8px 14px;text-decoration:none;display:inline-block}
+  button:hover,.btn:hover{border-color:var(--acc)}
+  button:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+  .primario{background:linear-gradient(180deg,#ffd27a,#f0a020);color:#2a1600;border-color:transparent}
+  .aviso{margin:8px 0 0;color:var(--mut);font-size:.88rem}
+  .aviso a{color:var(--acc)}
+  #msg{min-height:1.5em;margin:8px 0 0;font-weight:600;color:var(--acc)}
+
+  section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:16px}
+  section h2{margin:0 0 10px;font-size:1rem;display:flex;gap:10px;align-items:baseline}
+  section h2 span{font-size:.8rem;color:var(--mut);font-weight:400}
+  .fila{display:flex;flex-wrap:wrap;gap:14px}
+  .vacio{color:var(--mut);font-size:.9rem;margin:2px 0}
+  .item{display:flex;flex-direction:column;gap:6px;align-items:center}
+  .item .mini{padding:5px 12px;font-size:.8rem}
+  .carta-btn{padding:0;border:0;background:none;border-radius:0;cursor:pointer;display:block}
+  .carta-btn:hover .carta,.carta-btn:focus-visible .carta{transform:translateY(-4px)}
+
+  /* ===== Carta (tamaño por --cw; --mm = 1 mm de la carta impresa de 63 mm) ===== */
+  .carta{--mm:calc(var(--cw) / 63);position:relative;width:var(--cw);height:calc(88 * var(--mm));border-radius:calc(3 * var(--mm));overflow:hidden;background:#1b2733;border:calc(1.6 * var(--mm)) solid var(--c,var(--gris));color:#fff;flex:0 0 auto;transition:transform .15s;box-shadow:0 8px 22px rgba(0,0,0,.55);font-family:"Poppins",system-ui,sans-serif}
+  .mesa .carta{--cw:250px}
+  .mazo .carta,.descartes .carta{--cw:96px}
+  .arte{position:absolute;inset:0;background:#1c2b3a center/cover no-repeat}
+  .num{position:absolute;top:calc(1.4 * var(--mm));left:calc(1.4 * var(--mm));width:calc(9.5 * var(--mm));height:calc(9.5 * var(--mm));border-radius:50%;background:var(--c);border:calc(.5 * var(--mm)) solid #fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:calc(4.2 * var(--mm));box-shadow:0 calc(.4 * var(--mm)) calc(1 * var(--mm)) rgba(0,0,0,.5)}
+  .etq{position:absolute;top:calc(2 * var(--mm));right:calc(2 * var(--mm));background:var(--c);font-size:calc(1.9 * var(--mm));font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:calc(.7 * var(--mm)) calc(1.8 * var(--mm));border-radius:calc(1 * var(--mm))}
+  .tit{position:absolute;left:0;right:0;bottom:0;padding:calc(3 * var(--mm)) calc(2.5 * var(--mm)) calc(1.5 * var(--mm));background:linear-gradient(transparent,rgba(5,10,16,.9) 40%);font-weight:700;font-size:calc(2.6 * var(--mm));text-align:center;line-height:1.15}
+  .texto{position:absolute;left:calc(3 * var(--mm));right:calc(3 * var(--mm));bottom:calc(11.5 * var(--mm));background:rgba(244,234,208,.95);color:#2a2012;border-radius:calc(1.5 * var(--mm));padding:calc(2 * var(--mm)) calc(2.2 * var(--mm));font-size:calc(2.5 * var(--mm));line-height:1.3;text-align:center;font-family:Georgia,"Times New Roman",serif}
+  .texto.espejo{transform:scaleX(-1)}
+  .texto.emoji{font-size:calc(4.4 * var(--mm));line-height:1.35;letter-spacing:.12em}
+  .acc{position:absolute;left:calc(1.8 * var(--mm));right:calc(1.8 * var(--mm));bottom:calc(8 * var(--mm));display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:calc(.6 * var(--mm))}
+  .carta.conacc .texto{bottom:calc(17 * var(--mm))}
+  .acc .g{display:flex;flex-wrap:wrap;align-items:center;gap:calc(.6 * var(--mm));background:rgba(5,10,16,.74);border-radius:calc(1.2 * var(--mm));padding:calc(.5 * var(--mm)) calc(1 * var(--mm));font-size:calc(2 * var(--mm));font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+  .acc .g b{margin-right:calc(.6 * var(--mm))}
+  .acc .g i{font-style:normal;min-width:calc(4.4 * var(--mm));height:calc(3.8 * var(--mm));padding:0 calc(.9 * var(--mm));border-radius:calc(1.9 * var(--mm));background:#fff;color:#111;display:inline-flex;align-items:center;justify-content:center;font-size:calc(2.6 * var(--mm));letter-spacing:0}
+  .acc .coge b{color:#7be495}.acc .des b{color:#ff8f8f}.acc .comb b{color:#ffd27a}
+
+  /* ===== Cartas-mosaico: piezas sin borde que se juntan; el número va en la esquina exterior del mosaico ===== */
+  .carta.mosaico{border:0}
+  .carta.mosaico.mz-r .num{left:auto;right:calc(1.4 * var(--mm))}
+  .carta.mosaico.mz-b .num{top:auto;bottom:calc(1.4 * var(--mm))}
+  .carta.mosaico.mz-m .num{left:calc(50% - 4.75 * var(--mm))}
+  .montajes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .montajes:empty{display:none}
+  #montaje{position:fixed;inset:0;z-index:60;background:rgba(2,6,12,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:auto}
+  #montaje[hidden],#mGirar[hidden]{display:none}
+  #montaje h3{margin:0;font-size:1.1rem}
+  #montaje .aviso{margin:0;text-align:center;max-width:520px}
+  .mt-grid{--cw:min(38vw,230px,calc(33vh * 63 / 88));display:grid;grid-template-columns:repeat(var(--cols),var(--cw));grid-auto-rows:calc(var(--cw) * 88 / 63);gap:0;border:2px solid var(--line);border-radius:6px;overflow:hidden;background:#000}
+  .mt-grid.una{--cw:min(60vw,300px,calc(33vh * 63 / 88))}
+  .mt-grid.ancha{--cw:min(17vw,150px,calc(33vh * 63 / 88))}
+  .mt-grid.tres{--cw:min(60vw,230px,calc(22vh * 63 / 88))}
+  .mt-tile{padding:0;border:0;border-radius:0;background:#1b2733 center/cover no-repeat;cursor:pointer;outline:1px solid rgba(255,255,255,.22);outline-offset:-1px}
+  .mt-tile.sel{outline:3px solid var(--acc);outline-offset:-3px;filter:brightness(1.18)}
+  .mt-grid.hecho{border-color:#7be495;box-shadow:0 0 30px rgba(123,228,149,.55)}
+  .mt-grid.hecho .mt-tile{outline:0;cursor:default}
+  /* ===== Superponer: dos cartas una encima de otra (la de encima se multiplica sobre la de abajo y se mueve con flechas hasta que coinciden) ===== */
+  #mCapas{display:flex;flex-direction:column;align-items:center}
+  #mCapas[hidden],#mGrid[hidden]{display:none}
+  .mt-pila{--w:min(74vw,300px);position:relative;width:var(--w);aspect-ratio:63 / 88;background:#fff;border:2px solid var(--line);border-radius:6px;overflow:hidden}
+  .mt-pila .cap{position:absolute;inset:0;background:center / 100% 100% no-repeat}
+  .mt-pila .sup{mix-blend-mode:multiply;transform:translate(calc(var(--dx, 0) * var(--w) / 63),calc(var(--dy, 0) * var(--w) / 63))}
+  .mt-pila.hecho{border-color:#7be495;box-shadow:0 0 30px rgba(123,228,149,.55)}
+  .mt-mando{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,44px);gap:6px;justify-content:center;margin-top:8px}
+  .mt-mando button{padding:0;font-size:1.2rem}
+  .mt-mando button[data-d="arriba"]{grid-column:2;grid-row:1}
+  .mt-mando button[data-d="izquierda"]{grid-column:1;grid-row:2}
+  .mt-mando button[data-d="abajo"]{grid-column:2;grid-row:2}
+  .mt-mando button[data-d="derecha"]{grid-column:3;grid-row:2}
+  #mMsg{min-height:1.5em;margin:0;font-weight:600;color:#7be495;text-align:center}
+
+  .dorso{--c:#ffd27a;background:radial-gradient(circle at 50% 36%,#ffe9a8 0,#ffd27a 5%,#1c3a4d 6%,#0a1218 72%)}
+  .dorso::before{content:"";position:absolute;left:50%;top:36%;width:130%;height:calc(14 * var(--mm));transform:translate(0,-50%) rotate(-12deg);transform-origin:0 50%;background:linear-gradient(90deg,rgba(255,226,150,.55),transparent)}
+  .dorso .big{position:absolute;left:50%;top:64%;transform:translate(-50%,-50%);min-width:calc(26 * var(--mm));padding:calc(2 * var(--mm)) calc(3 * var(--mm));border-radius:calc(13 * var(--mm));background:rgba(5,10,16,.82);border:calc(.6 * var(--mm)) solid #ffd27a;text-align:center;font-weight:800;font-size:calc(11 * var(--mm));line-height:1;color:#ffd27a}
+  .dorso .s{position:absolute;left:0;right:0;bottom:calc(4 * var(--mm));text-align:center;font-size:calc(3.4 * var(--mm));font-weight:700;letter-spacing:.14em;color:#9fb4c8}
+  .nueva{animation:aparece .45s ease-out}
+  @keyframes aparece{from{transform:rotateY(90deg) scale(.9);opacity:.2}to{transform:none;opacity:1}}
+  @media (prefers-reduced-motion:reduce){.nueva{animation:none}.carta{transition:none}}
+
+  #zoom{position:fixed;inset:0;z-index:50;background:rgba(2,6,12,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}
+  #zoom[hidden]{display:none}
+  #zoom .carta{--cw:min(86vw, 360px, calc(78vh * 63 / 88))}
+  #zoom .fila{gap:10px}
+  @media (max-width:560px){.mesa .carta{--cw:160px}.mazo .carta,.descartes .carta{--cw:84px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Montecarlo, 1965: Operación Cristal<small>Modo PC: las cartas, en pantalla</small></h1>
+    <div class="barra">
+      <label for="qn">Coger carta nº</label>
+      <input type="text" id="qn" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="7">
+      <button type="button" id="qb" class="primario">Coger</button>
+      <button type="button" id="reset">Reiniciar</button>
+      <a class="btn" href="index.html">Volver al juego</a>
+    </div>
+  </header>
+  <p class="aviso">Los minijuegos y las pistas se hacen en el móvil: abre <a href="index.html">el juego</a> en tu teléfono, pulsa <strong>Empezar</strong> y usa <strong>Acción</strong> / <strong>Pista</strong> con el número de la carta.</p>
+  <div id="msg" role="status" aria-live="polite"></div>
+
+  <div id="montajes" class="montajes"></div>
+
+  <section class="mesa" aria-label="Cartas en mesa">
+    <h2>En mesa <span id="nMesa"></span></h2>
+    <div class="fila" id="mesa"></div>
+  </section>
+
+  <section class="mazo" aria-label="Mazo">
+    <h2>Mazo <span id="nMazo"></span></h2>
+    <div class="fila" id="mazo"></div>
+  </section>
+
+  <section class="descartes" aria-label="Descartes">
+    <h2>Descartes <span id="nDesc"></span></h2>
+    <div class="fila" id="descartes"></div>
+  </section>
+</div>
+
+<div id="montaje" hidden role="dialog" aria-modal="true" aria-label="Mesa de montaje">
+  <h3 id="mTitulo"></h3>
+  <p class="aviso" id="mAyuda">Toca una pieza y luego otra para cambiarlas de sitio, hasta que los bordes del dibujo continúen de una a otra.</p>
+  <div id="mGrid" class="mt-grid"></div>
+  <div id="mCapas" hidden>
+    <div id="mPila" class="mt-pila"><div class="cap base"></div><div class="cap sup"></div></div>
+    <div class="mt-mando">
+      <button type="button" data-d="arriba" aria-label="Subir la carta de encima">▲</button>
+      <button type="button" data-d="izquierda" aria-label="Mover a la izquierda la carta de encima">◀</button>
+      <button type="button" data-d="abajo" aria-label="Bajar la carta de encima">▼</button>
+      <button type="button" data-d="derecha" aria-label="Mover a la derecha la carta de encima">▶</button>
+    </div>
+  </div>
+  <p id="mMsg" role="status" aria-live="polite"></p>
+  <button type="button" id="mGirar" hidden>Dar la vuelta a la pieza elegida</button>
+  <button type="button" id="mCerrar">Cerrar</button>
+</div>
+
+<div id="zoom" hidden role="dialog" aria-modal="true" aria-label="Carta ampliada">
+  <div id="zoomCarta"></div>
+  <div class="fila">
+    <button type="button" id="zDescartar" class="primario">Descartar</button>
+    <button type="button" id="zCerrar">Cerrar</button>
+  </div>
+</div>
+
+<script src="cartas-data.js"></script>
+<script>
+(function(){
+  var COLORES = {gris:'#8a94a3',verde:'#2f9e58',roja:'#c0453d',azul:'#3b78c9'};
+  var ETIQ = {verde:'App',roja:'Combina',azul:'Combina'};
+  var KEY = 'pc-v1:' + location.pathname; // una partida guardada por juego
+  var DATA = null, estado = null, zoomId = null;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function orden(a, b){ if (a === 'P') return -1; if (b === 'P') return 1; return Number(a) - Number(b); }
+  function mensaje(t){ $('msg').textContent = t || ''; }
+
+  function cargarEstado(){
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY));
+      if (s && Array.isArray(s.mesa) && Array.isArray(s.descartes)) return s;
+    } catch(e) {}
+    return null;
+  }
+  function guardar(){ try { localStorage.setItem(KEY, JSON.stringify(estado)); } catch(e) {} }
+  function nuevoEstado(){ return {mesa:['P'], descartes:[]}; }
+  function limpiar(s){
+    var vistos = {};
+    function ok(id){ if (!DATA[id] || vistos[id]) return false; vistos[id] = true; return true; }
+    s.mesa = s.mesa.filter(ok);
+    s.descartes = s.descartes.filter(ok);
+    if (!vistos.P) s.mesa.unshift('P');
+    return s;
+  }
+  function mazo(){
+    return Object.keys(DATA).filter(function(k){ return k.charAt(0) !== '_' && estado.mesa.indexOf(k) < 0 && estado.descartes.indexOf(k) < 0; }).sort(orden);
+  }
+
+  function frente(id){
+    var c = DATA[id], color = COLORES[c.tipo] || COLORES.gris;
+    if (c.mosaico) return frenteMosaico(id, c);
+    var titulo = c.titulo.replace(/^Carta\s+\S+\s+—\s+/, '');
+    var conacc = !!((c.coge && c.coge.length) || (c.descarta && c.descarta.length) || c.combina);
+    var h = '<div class="carta' + (conacc ? ' conacc' : '') + '" style="--c:' + color + '"><div class="arte" style="background-image:url(\'img/' + esc(id) + '.jpg\')"></div><div class="num">' + esc(id) + '</div>';
+    if (ETIQ[c.tipo]) h += '<div class="etq">' + ETIQ[c.tipo] + '</div>';
+    if (c.textoCarta && c.textoCarta.length) h += '<div class="texto' + (/\p{Extended_Pictographic}/u.test(c.textoCarta.join('')) ? ' emoji' : '') + (c.textoEspejo ? ' espejo' : '') + '">' + c.textoCarta.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>';
+    function chips(n){ return n.map(function(x){ return '<i>' + esc(x) + '</i>'; }).join(''); }
+    var acc = '';
+    if (c.coge && c.coge.length) acc += '<div class="g coge"><b>Coge</b>' + chips(c.coge) + '</div>';
+    if (c.descarta && c.descarta.length) acc += '<div class="g des"><b>Descarta</b>' + chips(c.descarta) + '</div>';
+    if (c.combina) acc += '<div class="g comb"><b>Combinable:</b> ' + (String(c.combina[0]).charAt(0) === '+' ? 'suma el modificador de la app' : 'suma los números') + '</div>';
+    if (acc) h += '<div class="acc">' + acc + '</div>';
+    return h + '<div class="tit">' + esc(titulo) + '</div></div>';
+  }
+  function dorso(id){
+    return '<div class="carta dorso"><div class="big">' + esc(id) + '</div><div class="s">UNLOCK</div></div>';
+  }
+
+  var recienTomada = null;
+  function pintar(){
+    var m = mazo();
+    $('nMesa').textContent = estado.mesa.length + (estado.mesa.length === 1 ? ' carta' : ' cartas');
+    $('nMazo').textContent = m.length + ' boca abajo';
+    $('nDesc').textContent = estado.descartes.length + (estado.descartes.length === 1 ? ' carta' : ' cartas');
+
+    var mesa = $('mesa'); mesa.innerHTML = '';
+    if (!estado.mesa.length) mesa.innerHTML = '<p class="vacio">No tienes ninguna carta en mesa. Coge una del mazo o recupera alguna de los descartes.</p>';
+    estado.mesa.forEach(function(id){
+      var it = document.createElement('div'); it.className = 'item';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'carta-btn'; b.title = 'Ampliar la carta ' + id;
+      b.innerHTML = frente(id);
+      if (id === recienTomada) b.firstChild.classList.add('nueva');
+      b.addEventListener('click', function(){ abrirZoom(id); });
+      var d = document.createElement('button'); d.type = 'button'; d.className = 'mini'; d.textContent = 'Descartar';
+      d.addEventListener('click', function(){ descartar(id); });
+      it.appendChild(b); it.appendChild(d); mesa.appendChild(it);
+    });
+    recienTomada = null;
+    pintarMontajes();
+
+    var mz = $('mazo'); mz.innerHTML = '';
+    if (!m.length) mz.innerHTML = '<p class="vacio">El mazo está vacío.</p>';
+    m.forEach(function(id){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'carta-btn'; b.title = 'Coger la carta ' + id;
+      b.innerHTML = dorso(id);
+      b.addEventListener('click', function(){ coger(id); });
+      mz.appendChild(b);
+    });
+
+    var ds = $('descartes'); ds.innerHTML = '';
+    if (!estado.descartes.length) ds.innerHTML = '<p class="vacio">Aún no has descartado nada. Si te equivocas, aquí podrás recuperar la carta.</p>';
+    estado.descartes.forEach(function(id){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'carta-btn'; b.title = 'Recuperar la carta ' + id;
+      b.innerHTML = dorso(id);
+      b.addEventListener('click', function(){ recuperar(id); });
+      ds.appendChild(b);
+    });
+  }
+
+  function quitar(arr, id){ var i = arr.indexOf(id); if (i >= 0) arr.splice(i, 1); }
+  function coger(id){ quitar(estado.descartes, id); if (estado.mesa.indexOf(id) < 0) estado.mesa.push(id); recienTomada = id; mensaje('Has cogido la carta ' + id + '.'); guardar(); pintar(); }
+  function descartar(id){ quitar(estado.mesa, id); if (estado.descartes.indexOf(id) < 0) estado.descartes.push(id); mensaje('Carta ' + id + ' descartada.'); cerrarZoom(); guardar(); pintar(); }
+  function recuperar(id){ quitar(estado.descartes, id); estado.mesa.push(id); recienTomada = id; mensaje('Has recuperado la carta ' + id + '.'); guardar(); pintar(); }
+
+  function cogerPorNumero(){
+    var v = $('qn').value.trim().toUpperCase();
+    $('qn').value = '';
+    if (!v) return;
+    var id = v === 'P' ? 'P' : String(parseInt(v, 10));
+    if (!DATA[id] || id.charAt(0) === '_') { mensaje('La carta ' + v + ' no existe en este juego.'); return; }
+    if (estado.mesa.indexOf(id) >= 0) { mensaje('La carta ' + id + ' ya está en la mesa.'); return; }
+    if (estado.descartes.indexOf(id) >= 0) { recuperar(id); return; }
+    coger(id);
+  }
+
+  function abrirZoom(id){
+    zoomId = id; $('zoomCarta').innerHTML = frente(id); $('zoom').hidden = false; $('zCerrar').focus();
+  }
+  function cerrarZoom(){ zoomId = null; $('zoom').hidden = true; }
+
+  $('qb').addEventListener('click', cogerPorNumero);
+  $('qn').addEventListener('keydown', function(e){ if (e.key === 'Enter') cogerPorNumero(); });
+  $('reset').addEventListener('click', function(){
+    if (!confirm('¿Reiniciar la partida? Todas las cartas vuelven al mazo y solo queda la carta P en la mesa.')) return;
+    estado = nuevoEstado(); guardar(); mensaje('Partida reiniciada.'); pintar();
+  });
+  $('zCerrar').addEventListener('click', cerrarZoom);
+  $('zDescartar').addEventListener('click', function(){ if (zoomId) descartar(zoomId); });
+  $('zoom').addEventListener('click', function(e){ if (e.target === $('zoom')) cerrarZoom(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !$('zoom').hidden) cerrarZoom(); });
+
+  function frenteMosaico(id, c){
+    var m = c.mosaico;
+    var cls = 'carta mosaico' + (m.filas > 1 && m.fila >= m.filas - 1 ? ' mz-b' : '') + (m.cols > 1 && m.col >= m.cols - 1 ? ' mz-r' : (m.cols > 2 && m.col > 0 ? ' mz-m' : ''));
+    return '<div class="' + cls + '" style="--c:#8a94a3"><div class="arte" style="background-image:url(\'img/' + esc(id) + '.jpg\')"></div><div class="num">' + esc(id) + '</div></div>';
+  }
+
+  // ----- Mesa de montaje: se tocan dos piezas para cambiarlas de sitio hasta que el dibujo encaje -----
+  var MONT = {}, montActual = null, montSel = null;
+  function mosaicos(){ return (DATA._meta && DATA._meta.mosaicos) || {}; }
+  function pintarMontajes(){
+    var cont = $('montajes'); cont.innerHTML = '';
+    var ms = mosaicos();
+    Object.keys(ms).forEach(function(k){
+      var m = ms[k];
+      if (!m.cartas.every(function(id){ return estado.mesa.indexOf(id) >= 0; })) return;
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'montar primario'; b.dataset.mosaico = k;
+      b.textContent = (MONT[k] && MONT[k].hecho ? '✔ ' : '') + (m.capas ? 'Superponer las cartas: ' : 'Mesa de montaje: ') + m.titulo;
+      b.addEventListener('click', function(){ abrirMontaje(k); });
+      cont.appendChild(b);
+    });
+  }
+  function barajaInicial(c){
+    // permutación fija en la que ninguna pieza empieza en su sitio
+    var n = c.length;
+    if (n === 4) return [c[1], c[3], c[0], c[2]];
+    return c.map(function(x, i){ return c[(i + (n === 6 ? 2 : 1)) % n]; });
+  }
+  function abrirMontaje(k){
+    var m = mosaicos()[k];
+    if (m.capas) { abrirCapas(k, m); return; }
+    $('mGrid').hidden = false; $('mCapas').hidden = true;
+    $('mAyuda').textContent = 'Toca una pieza y luego otra para cambiarlas de sitio, hasta que los bordes del dibujo continúen de una a otra.';
+    if (!MONT[k]) MONT[k] = {perm: barajaInicial(m.cartas), hecho: false, rot: JSON.parse(JSON.stringify(m.giros || {}))};
+    montActual = k; montSel = null;
+    $('mTitulo').textContent = m.titulo;
+    $('mGirar').hidden = !(m.giros && Object.keys(m.giros).length);
+    pintarMontaje();
+    $('montaje').hidden = false; $('mCerrar').focus();
+  }
+  function pintarMontaje(){
+    var m = mosaicos()[montActual], s = MONT[montActual], g = $('mGrid');
+    g.className = 'mt-grid' + (m.cols === 1 ? ' una' : '') + (m.cols >= 5 ? ' ancha' : '') + (m.filas >= 3 ? ' tres' : '') + (s.hecho ? ' hecho' : '');
+    g.style.setProperty('--cols', m.cols);
+    g.innerHTML = '';
+    s.perm.forEach(function(id, i){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'mt-tile' + (montSel === i ? ' sel' : '');
+      b.dataset.pos = i; b.dataset.id = id; b.style.backgroundImage = "url('img/" + id + ".jpg')";
+      if (s.rot[id]) b.style.transform = 'rotate(' + s.rot[id] + 'deg)';
+      b.setAttribute('aria-label', 'Pieza de la posición ' + (i + 1) + (montSel === i ? ' (elegida)' : ''));
+      b.addEventListener('click', function(){ tocarPieza(i); });
+      g.appendChild(b);
+    });
+    $('mMsg').textContent = s.hecho ? '¡Encajan! Ya se ve el dibujo entero.' : '';
+  }
+  function enSuSitio(s, m){
+    return s.perm.every(function(id, j){ return id === m.cartas[j] && !((s.rot[id] || 0) % 360); });
+  }
+  function girarPieza(){
+    var s = MONT[montActual], m = mosaicos()[montActual];
+    if (!s || s.hecho) return;
+    if (montSel === null) { $('mMsg').textContent = 'Toca primero la pieza que quieres girar.'; return; }
+    var id = s.perm[montSel];
+    s.rot[id] = ((s.rot[id] || 0) + 180) % 360;
+    montSel = null;
+    s.hecho = enSuSitio(s, m);
+    pintarMontaje();
+    if (s.hecho) pintarMontajes();
+  }
+  function tocarPieza(i){
+    var s = MONT[montActual], m = mosaicos()[montActual];
+    if (s.hecho) return;
+    if (montSel === null) montSel = i;
+    else if (montSel === i) montSel = null;
+    else { var t = s.perm[i]; s.perm[i] = s.perm[montSel]; s.perm[montSel] = t; montSel = null; }
+    s.hecho = enSuSitio(s, m);
+    pintarMontaje();
+    if (s.hecho) pintarMontajes();
+  }
+  function abrirCapas(k, m){
+    if (!MONT[k]) MONT[k] = {dx: m.desfase[0], dy: m.desfase[1], hecho: false};
+    montActual = k; montSel = null;
+    $('mTitulo').textContent = m.titulo;
+    $('mAyuda').textContent = 'Una carta encima de la otra: muévela con las flechas hasta que los marcos coincidan y se vea el dibujo. En papel, ponlas una sobre otra y míralas a contraluz.';
+    $('mGrid').hidden = true; $('mGirar').hidden = true; $('mCapas').hidden = false;
+    var p = $('mPila').children;
+    p[0].style.backgroundImage = "url('img/" + m.cartas[0] + ".jpg')";
+    p[1].style.backgroundImage = "url('img/" + m.cartas[1] + ".jpg')";
+    pintarCapas();
+    $('montaje').hidden = false; $('mCerrar').focus();
+  }
+  function pintarCapas(){
+    var s = MONT[montActual], pila = $('mPila');
+    pila.style.setProperty('--dx', s.dx); pila.style.setProperty('--dy', s.dy);
+    pila.className = 'mt-pila' + (s.hecho ? ' hecho' : '');
+    $('mMsg').textContent = s.hecho ? '¡Alineadas! Ya se ve el dibujo entero.' : '';
+  }
+  function moverCapa(d){
+    var s = MONT[montActual];
+    if (!s || s.hecho) return;
+    if (d === 'izquierda') s.dx--; else if (d === 'derecha') s.dx++; else if (d === 'arriba') s.dy--; else s.dy++;
+    s.hecho = s.dx === 0 && s.dy === 0;
+    pintarCapas();
+    if (s.hecho) pintarMontajes();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.mt-mando button'), function(b){ b.addEventListener('click', function(){ moverCapa(b.dataset.d); }); });
+  function cerrarMontaje(){ montActual = null; $('montaje').hidden = true; }
+  $('mCerrar').addEventListener('click', cerrarMontaje);
+  $('mGirar').addEventListener('click', girarPieza);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !$('montaje').hidden) cerrarMontaje(); });
+
+  fetchCartas().then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }).then(function(d){
+    DATA = d;
+    estado = limpiar(cargarEstado() || nuevoEstado());
+    guardar();
+    pintar();
+  }).catch(function(){
+    $('msg').textContent = 'No se pudo cargar cartas.json. Falta cartas-data.js: ejecuta python herramientas/sincronizar_cartas.py.';
+  });
+})();
+</script>
+</body>
+</html>

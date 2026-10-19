@@ -20,6 +20,8 @@ from PIL import Image, ImageChops  # noqa: E402
 def comprobar_arte(carpeta, meta):
     malos = []
     for k, m in meta.items():
+        if m.get("capas"):
+            continue                       # las cartas que se superponen no vienen de un dibujo cortado
         maestro = Image.open(f"{carpeta}/arte/mosaico-{k}.png").convert("RGB")
         w, h = maestro.size[0] // m["cols"], maestro.size[1] // m["filas"]
         for i, c in enumerate(m["cartas"]):
@@ -43,6 +45,8 @@ def main(base, carpeta, capturas=None):
             esperado = {"id": k, "filas": m["filas"], "cols": m["cols"], "fila": i // m["cols"], "col": i % m["cols"]}
             if c in m.get("giros", {}):
                 esperado["giro"] = m["giros"][c]
+            if m.get("capas"):
+                esperado = {"id": k, "filas": 1, "cols": 1, "fila": 0, "col": 0, "capas": True}
             if mo != esperado:
                 malos.append(f"la carta {c} tiene un campo mosaico distinto: {mo}")
     print("piezas del arte:", "OK" if not malos else malos)
@@ -73,6 +77,22 @@ def main(base, carpeta, capturas=None):
                 d.find_element(By.ID, "mesa").screenshot(f"{capturas}/mesa-{k}.png")
             btn[0].click()
             time.sleep(0.3)
+            if m.get("capas"):                                  # superponer: mover la carta de encima hasta que coincidan
+                if not d.find_element(By.ID, "mPila").is_displayed() or d.find_element(By.ID, "mGrid").is_displayed():
+                    malos.append(f"{k}: el modo Superponer no se ve bien")
+                dx, dy = m["desfase"]
+                if capturas:
+                    d.save_screenshot(f"{capturas}/capas-{k}-0.png")
+                for _ in range(abs(dx)):
+                    d.find_element(By.CSS_SELECTOR, f".mt-mando button[data-d='{'izquierda' if dx > 0 else 'derecha'}']").click()
+                for _ in range(abs(dy)):
+                    d.find_element(By.CSS_SELECTOR, f".mt-mando button[data-d='{'arriba' if dy > 0 else 'abajo'}']").click()
+                if "hecho" not in d.find_element(By.ID, "mPila").get_attribute("class"):
+                    malos.append(f"{k}: las cartas no quedan alineadas")
+                if capturas:
+                    d.save_screenshot(f"{capturas}/capas-{k}-1.png")
+                d.find_element(By.ID, "mCerrar").click()
+                continue
             if bool(m.get("giros")) != d.find_element(By.ID, "mGirar").is_displayed():
                 malos.append(f"{k}: el botón «Dar la vuelta» debe verse solo si hay piezas boca abajo")
             tiles = lambda: [t.get_attribute("data-id") for t in d.find_elements(By.CSS_SELECTOR, ".mt-tile")]  # noqa: E731

@@ -115,6 +115,16 @@ const PRESETS = {
     melodia: { onda: 'sine', vol: 0.12, octava: 2, prob: 0.2, dur: 2.2, ataque: 0.15, filtro: 2400, vibrato: 5 },
     ritmo: { tipo: 'tambor', patron: [1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0], vol: 0.22, tono: 85 },
     ruido: { tipo: 'viento', vol: 0.1 }
+  },
+  // Espía: bajo de big band, vibráfono pulsado y melodía de misterio en modo menor armónico aproximado (menor).
+  espia: {
+    bpm: 112, raiz: 40, escala: ESC.menor, compases: 2, reverb: 1.2,
+    acordes: [[0, 2, 4], [0, 2, 5], [3, 5, 0], [4, 6, 1]],
+    pad: { onda: 'triangle', filtro: 800, vol: 0.09, octava: -1, ataque: 0.6 },
+    arpegio: { onda: 'sine', vol: 0.12, paso: 2, octava: 2, patron: [0, 2, 4, 2, 0, 3, 5, 3], filtro: 5200, pulsada: true, campana: true },
+    melodia: { onda: 'triangle', vol: 0.1, octava: 1, prob: 0.3, dur: 0.5, ataque: 0.02, filtro: 2600, vibrato: 4 },
+    ritmo: { tipo: 'pulso', patron: [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0], vol: 0.26, tono: 55 },
+    ruido: null
   }
 };
 
