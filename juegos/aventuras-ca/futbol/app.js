@@ -29,7 +29,8 @@ const ETIQUETA_RELOJ = {
   arcade: 'El contador llega a GAME OVER',
   oeste: 'El tren del oro está a punto de salir',
   espia: 'El yate del Dr. Noche zarpa a medianoche',
-  futbol: 'Faltan minutos para el pitido inicial'
+  futbol: 'Faltan minutos para el pitido inicial',
+  piratas: 'La marea sube hacia la cueva'
 };
 
 const REGLAS = [

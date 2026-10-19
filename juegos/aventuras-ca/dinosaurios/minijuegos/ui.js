@@ -78,6 +78,12 @@ const TEMAS = {
     tinte: '6,30,14', panel: 'rgba(14,52,26,.92)', panel2: 'rgba(6,24,12,.95)',
     borde: '#f2c230', acento: '#a8ec96', brillo: '242,194,48', boton: 'linear-gradient(180deg,#f8d868,#c89a14)', botonTxt: '#1a2a06',
     particulas: 'polvo', simbolo: '⚽', textura: 'panel.jpg', papel: 'papel.jpg'
+  },
+  piratas: {
+    fuente: "'Pirata One', Georgia, 'Times New Roman', serif", mayus: false, trazo: '.03em',
+    tinte: '6,24,30', panel: 'rgba(16,46,56,.92)', panel2: 'rgba(6,20,26,.95)',
+    borde: '#e8b84a', acento: '#9fe0e0', brillo: '232,184,74', boton: 'linear-gradient(180deg,#f2cf78,#b88a26)', botonTxt: '#1e1404',
+    particulas: 'lluvia', simbolo: '⚓', textura: 'panel.jpg', papel: 'papel.jpg'
   }
 };
 
@@ -90,6 +96,7 @@ function detectarTema() {
   if (/oeste/.test(p)) return 'oeste';
   if (/espia/.test(p)) return 'espia';
   if (/futbol/.test(p)) return 'futbol';
+  if (/piratas/.test(p)) return 'piratas';
   if (/dinosaurios/.test(p)) return 'dinosaurios';
   if (/cuento/.test(p)) return 'cuento';
   if (/trono/.test(p)) return 'trono';
@@ -109,7 +116,7 @@ function injectFonts() {
   const l = document.createElement('link');
   l.id = FONT_ID;
   l.rel = 'stylesheet';
-  l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Orbitron:wght@600;800&family=Playfair+Display:wght@600;800&family=Bevan&family=Fredoka:wght@500;700&family=MedievalSharp&family=Press+Start+2P&family=Rye&family=Special+Elite&display=swap';
+  l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Orbitron:wght@600;800&family=Playfair+Display:wght@600;800&family=Bevan&family=Fredoka:wght@500;700&family=MedievalSharp&family=Press+Start+2P&family=Rye&family=Special+Elite&family=Pirata+One&display=swap';
   document.head.appendChild(l);
 }
 
@@ -174,6 +181,8 @@ function injectStyle() {
     .far-overlay[data-tema="cuento"] .far-key{background:linear-gradient(180deg,#8a63d8,#5a3aa8);border:1px solid #ffe08a;color:#fff7d6;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #2c1a66;text-shadow:0 1px 0 rgba(0,0,0,.4);border-radius:14px}
     .far-overlay[data-tema="trono"] .far-title{font-size:1.2rem;letter-spacing:.05em}
     .far-overlay[data-tema="futbol"] .far-title{font-size:1.2rem}
+    .far-overlay[data-tema="piratas"] .far-title{font-size:1.35rem;letter-spacing:.02em}
+    .far-overlay[data-tema="piratas"] .far-key{background:linear-gradient(180deg,#2a6070,#123844);border:1px solid #e8b84a;color:#f4fbff;box-shadow:inset 0 1px 0 rgba(180,240,255,.3),0 3px 0 #061a20;text-shadow:0 1px 0 rgba(0,0,0,.5)}
     .far-overlay[data-tema="futbol"] .far-key{background:linear-gradient(180deg,#2e7a42,#164a26);border:1px solid #f2c230;color:#f6fff0;box-shadow:inset 0 1px 0 rgba(200,255,200,.3),0 3px 0 #0a2412;text-shadow:0 1px 0 rgba(0,0,0,.5)}
     .far-overlay[data-tema="espia"] .far-title{font-size:1.15rem;letter-spacing:.04em}
     .far-overlay[data-tema="espia"] .far-key{background:linear-gradient(180deg,#2a6a7a,#12384a);border:1px solid #ff6fa8;color:#eafcff;box-shadow:inset 0 1px 0 rgba(180,240,255,.3),0 3px 0 #061820;text-shadow:0 1px 0 rgba(0,0,0,.5)}
@@ -239,7 +248,8 @@ const SONIDO = {
   arcade: { onda: 'square', base: 440 },
   oeste: { onda: 'triangle', base: 330 },
   espia: { onda: 'sine', base: 392 },
-  futbol: { onda: 'triangle', base: 523 }
+  futbol: { onda: 'triangle', base: 523 },
+  piratas: { onda: 'triangle', base: 392 }
 };
 function sonar(tipo, tema) {
   if (!sonidoActivo()) return;

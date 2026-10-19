@@ -135,6 +135,16 @@ const PRESETS = {
     melodia: { onda: 'triangle', vol: 0.12, octava: 2, prob: 0.4, dur: 0.45, ataque: 0.02, filtro: 3200, vibrato: 3 },
     ritmo: { tipo: 'tambor', patron: [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1], vol: 0.3, tono: 70 },
     ruido: { tipo: 'lluvia', vol: 0.05 }
+  },
+  // Piratas: balada marinera en dórico con acordeón (cuadrada filtrada), bombo de compás de 6/8 y olas.
+  piratas: {
+    bpm: 96, raiz: 50, escala: ESC.dorica, compases: 2, reverb: 2.2,
+    acordes: [[0, 2], [3, 0], [4, 2], [6, 0]],
+    pad: { onda: 'sawtooth', filtro: 900, vol: 0.08, octava: -1, ataque: 0.5 },
+    arpegio: { onda: 'square', vol: 0.06, paso: 2, octava: 1, patron: [0, 2, 4, 2, 4, 2], filtro: 2400, pulsada: true, campana: false },
+    melodia: { onda: 'triangle', vol: 0.12, octava: 2, prob: 0.38, dur: 0.6, ataque: 0.03, filtro: 2800, vibrato: 5 },
+    ritmo: { tipo: 'tambor', patron: [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1], vol: 0.26, tono: 60 },
+    ruido: { tipo: 'lluvia', vol: 0.07 }
   }
 };
 
