@@ -205,6 +205,81 @@ def ampliar_formas_pc(p):
     return True
 
 
+CAPAS_CSS = """  /* ===== Superponer: dos cartas una encima de otra (la de encima se multiplica sobre la de abajo y se mueve con flechas hasta que coinciden) ===== */
+  #mCapas{display:flex;flex-direction:column;align-items:center}
+  #mCapas[hidden],#mGrid[hidden]{display:none}
+  .mt-pila{--w:min(74vw,300px);position:relative;width:var(--w);aspect-ratio:63 / 88;background:#fff;border:2px solid var(--line);border-radius:6px;overflow:hidden}
+  .mt-pila .cap{position:absolute;inset:0;background:center / 100% 100% no-repeat}
+  .mt-pila .sup{mix-blend-mode:multiply;transform:translate(calc(var(--dx, 0) * var(--w) / 63),calc(var(--dy, 0) * var(--w) / 63))}
+  .mt-pila.hecho{border-color:#7be495;box-shadow:0 0 30px rgba(123,228,149,.55)}
+  .mt-mando{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,44px);gap:6px;justify-content:center;margin-top:8px}
+  .mt-mando button{padding:0;font-size:1.2rem}
+  .mt-mando button[data-d="arriba"]{grid-column:2;grid-row:1}
+  .mt-mando button[data-d="izquierda"]{grid-column:1;grid-row:2}
+  .mt-mando button[data-d="abajo"]{grid-column:2;grid-row:2}
+  .mt-mando button[data-d="derecha"]{grid-column:3;grid-row:2}
+"""
+
+CAPAS_HTML = """  <div id="mCapas" hidden>
+    <div id="mPila" class="mt-pila"><div class="cap base"></div><div class="cap sup"></div></div>
+    <div class="mt-mando">
+      <button type="button" data-d="arriba" aria-label="Subir la carta de encima">▲</button>
+      <button type="button" data-d="izquierda" aria-label="Mover a la izquierda la carta de encima">◀</button>
+      <button type="button" data-d="abajo" aria-label="Bajar la carta de encima">▼</button>
+      <button type="button" data-d="derecha" aria-label="Mover a la derecha la carta de encima">▶</button>
+    </div>
+  </div>
+"""
+
+CAPAS_JS = """  function abrirCapas(k, m){
+    if (!MONT[k]) MONT[k] = {dx: m.desfase[0], dy: m.desfase[1], hecho: false};
+    montActual = k; montSel = null;
+    $('mTitulo').textContent = m.titulo;
+    $('mAyuda').textContent = 'Una carta encima de la otra: muévela con las flechas hasta que los marcos coincidan y se vea el dibujo. En papel, ponlas una sobre otra y míralas a contraluz.';
+    $('mGrid').hidden = true; $('mGirar').hidden = true; $('mCapas').hidden = false;
+    var p = $('mPila').children;
+    p[0].style.backgroundImage = "url('img/" + m.cartas[0] + ".jpg')";
+    p[1].style.backgroundImage = "url('img/" + m.cartas[1] + ".jpg')";
+    pintarCapas();
+    $('montaje').hidden = false; $('mCerrar').focus();
+  }
+  function pintarCapas(){
+    var s = MONT[montActual], pila = $('mPila');
+    pila.style.setProperty('--dx', s.dx); pila.style.setProperty('--dy', s.dy);
+    pila.className = 'mt-pila' + (s.hecho ? ' hecho' : '');
+    $('mMsg').textContent = s.hecho ? '¡Alineadas! Ya se ve el dibujo entero.' : '';
+  }
+  function moverCapa(d){
+    var s = MONT[montActual];
+    if (!s || s.hecho) return;
+    if (d === 'izquierda') s.dx--; else if (d === 'derecha') s.dx++; else if (d === 'arriba') s.dy--; else s.dy++;
+    s.hecho = s.dx === 0 && s.dy === 0;
+    pintarCapas();
+    if (s.hecho) pintarMontajes();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.mt-mando button'), function(b){ b.addEventListener('click', function(){ moverCapa(b.dataset.d); }); });
+"""
+
+
+def ampliar_capas_pc(p):
+    """Modo «Superponer»: mosaicos con `capas` (dos cartas que se ven a contraluz una encima de otra)."""
+    t = open(p, encoding="utf-8").read()
+    if "mCapas" in t:
+        return False
+    t = una(t, '<p class="aviso">Toca una pieza y luego otra para cambiarlas de sitio, hasta que los bordes del dibujo continúen de una a otra.</p>',
+            '<p class="aviso" id="mAyuda">Toca una pieza y luego otra para cambiarlas de sitio, hasta que los bordes del dibujo continúen de una a otra.</p>')
+    t = una(t, '  <div id="mGrid" class="mt-grid"></div>\n', '  <div id="mGrid" class="mt-grid"></div>\n' + CAPAS_HTML)
+    t = una(t, "  #mMsg{min-height:1.5em;", CAPAS_CSS + "  #mMsg{min-height:1.5em;")
+    t = una(t, "    if (!MONT[k]) MONT[k] = {perm: barajaInicial(m.cartas), hecho: false, rot: JSON.parse(JSON.stringify(m.giros || {}))};\n",
+            "    if (m.capas) { abrirCapas(k, m); return; }\n    $('mGrid').hidden = false; $('mCapas').hidden = true;\n"
+            "    $('mAyuda').textContent = 'Toca una pieza y luego otra para cambiarlas de sitio, hasta que los bordes del dibujo continúen de una a otra.';\n"
+            "    if (!MONT[k]) MONT[k] = {perm: barajaInicial(m.cartas), hecho: false, rot: JSON.parse(JSON.stringify(m.giros || {}))};\n")
+    t = una(t, "  function cerrarMontaje(){", CAPAS_JS + "  function cerrarMontaje(){")
+    t = una(t, "'Mesa de montaje: ' + m.titulo", "(m.capas ? 'Superponer las cartas: ' : 'Mesa de montaje: ') + m.titulo")
+    open(p, "w", encoding="utf-8", newline="\n").write(t)
+    return True
+
+
 def ampliar_imprimir(p):
     t = open(p, encoding="utf-8").read()
     if "mz-m" in t:
@@ -218,7 +293,7 @@ def ampliar_imprimir(p):
 if __name__ == "__main__":
     carpetas = ["juegos/el-faro"] + [os.path.dirname(f).replace("\\", "/").replace(RAIZ.replace("\\", "/") + "/", "") for f in glob.glob(os.path.join(RAIZ, "juegos", "aventuras-ca", "*", "pc.html"))]
     for c in sorted(set(carpetas)):
-        for nombre, fn in (("pc.html", parchear_pc), ("pc.html", ampliar_pc), ("pc.html", ampliar_giro_pc), ("pc.html", ampliar_formas_pc), ("imprimir.html", parchear_imprimir), ("imprimir.html", ampliar_imprimir)):
+        for nombre, fn in (("pc.html", parchear_pc), ("pc.html", ampliar_pc), ("pc.html", ampliar_giro_pc), ("pc.html", ampliar_formas_pc), ("pc.html", ampliar_capas_pc),("imprimir.html", parchear_imprimir), ("imprimir.html", ampliar_imprimir)):
             ruta = os.path.join(RAIZ, c, nombre)
             if os.path.exists(ruta):
                 print(("parcheado " if fn(ruta) else "al dia    ") + os.path.join(c, nombre))

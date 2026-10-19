@@ -13,6 +13,7 @@ import datos_trono as T
 import datos_pompeya as P
 import datos_arcade as A
 import datos_oeste as W
+import datos_espia as S
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -93,6 +94,12 @@ JUEGOS = {
         sinopsis="Novena parada del Cronoportal: Dry Gulch, un pueblo del Lejano Oeste en 1878. El aparato golpea un barril en el apartadero de la estación y un jinete enmascarado, que cree haber encontrado una joya, se lleva el cristal de energía. Para recuperarlo hay que enganchar un tren, reconocer a un bandido en un cartel de «Se busca», seguir un mapa, volar un túnel con dos mechas y encontrar una barra de oro falsa, antes de que salga el tren del oro, dentro de hora y media.",
         minigames={"20": "20-candado.js", "24": "24-celda.js", "46": "46-caja.js", "48": "48-mechas.js", "69": "69-bascula.js"},
         pal=("#8a5a2a", "#1c1008")),
+    "Espia": dict(
+        datos=S, dificultad=3, tema="espia", titulo="Montecarlo, 1965: Operación Cristal", emoji="🕵️", minutos=75,
+        grad="#0e5a6a,#07121a", acento="#ff6fa8", acento2="#7fe8f0", bg1="#06131a", bg2="#0e2a36",
+        sinopsis="Décima parada del Cronoportal: Montecarlo, 1965, noche de gala. El aparato golpea una mesa del casino y el Dr. Noche, un villano con capa que colecciona gemas, se lleva el cristal de energía a su yate. Con la Agente Zorro, Cristina y Alberto tienen setenta y cinco minutos, hasta que el yate zarpe a medianoche, para superponer hojas transparentes, usar una rejilla de cifrado, cruzar un yate a ciegas, descifrar un skyline y desactivar cuatro cargas con un manual.",
+        minigames={"20": "20-caja.js", "24": "24-teletipo.js", "46": "46-pasillos.js", "48": "48-skyline.js", "69": "69-desactivador.js"},
+        pal=("#1c7a8a", "#07202a")),
 }
 
 

@@ -27,7 +27,8 @@ const ETIQUETA_RELOJ = {
   dinosaurios: 'El asteroide se acerca',
   pompeya: 'La ceniza se acerca',
   arcade: 'El contador llega a GAME OVER',
-  oeste: 'El tren del oro está a punto de salir'
+  oeste: 'El tren del oro está a punto de salir',
+  espia: 'El yate del Dr. Noche zarpa a medianoche'
 };
 
 const REGLAS = [
