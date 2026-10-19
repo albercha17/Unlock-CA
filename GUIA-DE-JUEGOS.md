@@ -80,7 +80,7 @@ Por carta (la clave es el número, `P` para la inicial):
 
 ## 5. Verificación (antes de dar un juego por terminado)
 
-0. `herramientas/probar_impresion.py`: comprueba que cada carta de `imprimir.html` muestra sus franjas Coge/Descarta/Combinable exactamente como dice `cartas.json`.
+0. `herramientas/probar_impresion.py`: comprueba que cada carta de `imprimir.html` muestra sus franjas Coge/Descarta/Combinable exactamente como dice `cartas.json` y que cada **reverso** (con el número de la carta, en el diseño del juego) queda detrás de su carta al imprimir a doble cara. Un juego nuevo necesita su entrada en `TABLA` de `herramientas/parche_dorsos.py` (colores, emoji, título y patrón del reverso); después hay que ejecutar ese script.
 1. `herramientas/verificar.py`: simula 3.000 partidas en orden aleatorio legal. Falla si una partida se atasca, si al terminar no queda solo la carta final, si una carta descarta algo que no se tiene o que aún hace falta, si hay números impresos antes de tiempo, si una suma no cuadra o si una carta no sirve para nada. Necesita un `spec_*.json` con las dependencias (`needs`) de las cartas que no salen de un «coge».
 2. `herramientas/ejecutar_manual.py`: juega el manual completo en un navegador (Selenium + Chrome) con el Modo PC y la app reales y comprueba la mesa tras cada paso.
 3. `herramientas/bot_aventuras.py` (o `bot_faro.py`): partida autónoma que solo hace lo que dicen las cartas y los mensajes. `herramientas/bot_azar.py`: **muchas partidas en orden aleatorio** (mínimo 10 por juego): cada semilla elige otro orden de leer, coger, descartar, combinar y resolver apps.

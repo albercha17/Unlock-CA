@@ -2,7 +2,7 @@
 
 1. Cada reverso (img/<id>r.jpg) existe y tiene el mismo tamaño que el anverso.
 2. En pc.html solo las cartas con reverso tienen «Dar la vuelta»; al pulsarlo la carta muestra su reverso y al volver a pulsarlo, el anverso; en la carta ampliada también.
-3. En imprimir.html cada hoja con cartas de dos caras va seguida de su hoja de reversos, con cada reverso detrás de su carta (las columnas van invertidas).
+3. En imprimir.html hay hojas de reversos y las cartas de dos caras llevan su reverso ilustrado (la colocación de todos los reversos la comprueba probar_impresion.py).
 
 Uso (desde la raíz del repo, con un servidor local en marcha: python -m http.server 8890):
     python herramientas/probar_reversos.py http://127.0.0.1:8890 juegos/aventuras-ca/futbol [carpeta_capturas]
@@ -89,20 +89,9 @@ def main(base, carpeta, capturas=None):
         revs = d.find_elements(By.CSS_SELECTOR, ".rev")
         if sorted(r.find_element(By.CSS_SELECTOR, ".arte-rev").get_attribute("data-rev") for r in revs) != sorted(con):
             malos.append("las hojas de reversos no tienen exactamente un reverso por carta con dos caras")
-        for i, h in enumerate(hojas):
-            frente = [c.find_element(By.CSS_SELECTOR, ".num").text for c in h.find_elements(By.CSS_SELECTOR, ".carta")]
-            if any(k in con for k in frente) and frente:
-                atras = hojas[i + 1].find_elements(By.CSS_SELECTOR, ".rev, .dorso")
-                esperado = []
-                for f in range(3):
-                    fila = frente[f * 3:f * 3 + 3]
-                    fila = fila + [None] * (3 - len(fila))
-                    esperado += fila[::-1]
-                for cel, k in zip(atras, esperado):
-                    r = cel.find_elements(By.CSS_SELECTOR, ".arte-rev")
-                    if (k in con) != bool(r) or (r and r[0].get_attribute("data-rev") != k):
-                        malos.append(f"hoja {i + 1}: el reverso de {k} no está detrás de su carta")
-                        break
+        # la colocación de TODOS los reversos de todas las hojas (cartas normales y de dos caras) la comprueba probar_impresion.py
+        if not any(h.get_attribute("class") and "hoja-reverso" in h.get_attribute("class") for h in hojas):
+            malos.append("no hay hojas de reversos en imprimir.html")
         if capturas and revs:
             hojas[1].screenshot(f"{capturas}/hoja-reversos.png")
     finally:

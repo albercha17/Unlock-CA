@@ -25,6 +25,29 @@ return [...document.querySelectorAll('.hoja .carta')].map(c => ({
 """
 
 
+# Reversos: cada hoja de cartas va seguida de su hoja de reversos (columnas invertidas) y cada reverso lleva el número de su carta (o su ilustración si es de dos caras).
+JS_REVERSOS = """
+var hojas = [...document.querySelectorAll('.hoja')], out = [];
+for (var i = 0; i < hojas.length; i++) {
+  var cartas = [...hojas[i].querySelectorAll('.carta')];
+  if (!cartas.length) continue;
+  var ids = cartas.map(c => c.querySelector('.num').textContent.trim());
+  var atras = hojas[i + 1];
+  if (!atras || !atras.classList.contains('hoja-reverso')) { out.push('la hoja ' + (i + 1) + ' no va seguida de su hoja de reversos'); continue; }
+  var celdas = [...atras.children];
+  if (celdas.length !== 9) { out.push('la hoja de reversos tras la ' + (i + 1) + ' no tiene 9 celdas'); continue; }
+  for (var f = 0; f < 3; f++) for (var j = 0; j < 3; j++) {
+    var k = ids[f * 3 + (2 - j)], cel = celdas[f * 3 + j];
+    var num = cel.querySelector('.dn-num'), rev = cel.querySelector('.arte-rev');
+    if (k === undefined) { if (cel.children.length) out.push('sobra un reverso en la hoja ' + (i + 1)); }
+    else if (rev) { if (rev.dataset.rev !== k) out.push('reverso ilustrado de ' + rev.dataset.rev + ' donde iba el de ' + k); }
+    else if (!num || num.textContent.trim() !== k) out.push('el reverso de la carta ' + k + ' no está detrás de ella (hoja ' + (i + 1) + ')');
+  }
+}
+return out;
+"""
+
+
 def main(carpetas):
     raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     o = Options()
@@ -42,6 +65,7 @@ def main(carpetas):
             sobra = [k for k in impresas if k not in datos]
             errores = [f"faltan cartas impresas: {falta}"] if falta else []
             errores += [f"sobran cartas impresas: {sobra}"] if sobra else []
+            errores += d.execute_script(JS_REVERSOS)
             sin_arte = []
             for k, c in datos.items():
                 if k == "_meta" or k not in impresas:

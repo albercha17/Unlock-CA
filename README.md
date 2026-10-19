@@ -30,7 +30,7 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 3. Las cartas **de combinar** (rojas y azules) se suman: el resultado es el número de la carta que se coge.
 4. Solo hay tres tipos de carta: **normal**, **de app** y **de combinar**. Todas sirven para algo.
 5. **Modo PC** (`pc.html` en cada juego): mesa virtual con el mazo boca abajo (número en el dorso), las cartas en mesa y los descartes (recuperables). Sustituye a las cartas impresas; los minijuegos se hacen en el móvil.
-6. Para imprimir: `imprimir.html` de cada aventura (hojas A4 de 9 cartas + dorsos).
+6. Para imprimir: `imprimir.html` de cada aventura. **A doble cara:** cada hoja A4 de 9 cartas va seguida de su hoja de **reversos** (volteando por el lado largo). Cada carta tiene su reverso con su **número** en grande y el diseño propio del juego (colores, dibujo repetido, emoji y título), y las columnas de la hoja de reversos están invertidas para que cada reverso quede justo detrás de su carta. Las cartas con dos caras de verdad llevan su reverso ilustrado. El diseño de cada juego está en `herramientas/parche_dorsos.py` (`TABLA`).
 
 ## Estructura
 
