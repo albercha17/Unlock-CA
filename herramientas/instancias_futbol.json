@@ -1,0 +1,354 @@
+{
+ "cromos": {
+  "14": {
+   "dorsal": 4,
+   "nombre": "Toni Roca",
+   "pos": "Defensa",
+   "pie": "Diestro",
+   "altura": 182,
+   "edad": 24
+  },
+  "15": {
+   "dorsal": 10,
+   "nombre": "Beto Pase",
+   "pos": "Centrocampista",
+   "pie": "Zurdo",
+   "altura": 178,
+   "edad": 29
+  },
+  "16": {
+   "dorsal": 1,
+   "nombre": "Paco Guante",
+   "pos": "Portero",
+   "pie": "Diestro",
+   "altura": 188,
+   "edad": 31
+  },
+  "17": {
+   "dorsal": 9,
+   "nombre": "Rafa Gol",
+   "pos": "Delantero",
+   "pie": "Zurdo",
+   "altura": 184,
+   "edad": 26
+  },
+  "18": {
+   "dorsal": 3,
+   "nombre": "Luis Muro",
+   "pos": "Defensa",
+   "pie": "Zurdo",
+   "altura": 176,
+   "edad": 27
+  },
+  "19": {
+   "dorsal": 7,
+   "nombre": "Nico Regate",
+   "pos": "Centrocampista",
+   "pie": "Diestro",
+   "altura": 170,
+   "edad": 22
+  }
+ },
+ "convocatoria": "15",
+ "alineacion": {
+  "dorsales": [
+   1,
+   2,
+   5,
+   6,
+   8,
+   11
+  ],
+  "solucion": {
+   "P": 1,
+   "DI": 6,
+   "DD": 2,
+   "MI": 11,
+   "MD": 5,
+   "DEL": 8
+  },
+  "pistas": [
+   "El 1 juega de portero.",
+   "El 8 juega más adelantado que el 5.",
+   "El 11 juega en la línea de centro del campo.",
+   "El 11 juega por la izquierda.",
+   "El 6 juega por la izquierda.",
+   "El 2 juega en la línea de defensa."
+  ]
+ },
+ "var": [
+  {
+   "nombre": "A",
+   "defensas": [
+    [
+     "P",
+     103,
+     34
+    ],
+    [
+     "D",
+     62,
+     18
+    ],
+    [
+     "D",
+     70,
+     44
+    ],
+    [
+     "D",
+     58,
+     28
+    ]
+   ],
+   "ataca": [
+    [
+     "pase",
+     60,
+     30
+    ],
+    [
+     "recibe",
+     78,
+     40
+    ],
+    [
+     "otro",
+     52,
+     12
+    ]
+   ],
+   "fuera": true
+  },
+  {
+   "nombre": "B",
+   "defensas": [
+    [
+     "P",
+     103,
+     34
+    ],
+    [
+     "D",
+     66,
+     20
+    ],
+    [
+     "D",
+     72,
+     46
+    ],
+    [
+     "D",
+     59,
+     32
+    ]
+   ],
+   "ataca": [
+    [
+     "pase",
+     88,
+     14
+    ],
+    [
+     "recibe",
+     80,
+     30
+    ],
+    [
+     "otro",
+     64,
+     54
+    ]
+   ],
+   "fuera": false
+  },
+  {
+   "nombre": "C",
+   "defensas": [
+    [
+     "P",
+     103,
+     34
+    ],
+    [
+     "D",
+     70,
+     22
+    ],
+    [
+     "D",
+     77,
+     50
+    ],
+    [
+     "D",
+     64,
+     36
+    ]
+   ],
+   "ataca": [
+    [
+     "pase",
+     55,
+     40
+    ],
+    [
+     "recibe",
+     70,
+     14
+    ],
+    [
+     "otro",
+     85,
+     28
+    ]
+   ],
+   "fuera": false
+  },
+  {
+   "nombre": "D",
+   "defensas": [
+    [
+     "P",
+     103,
+     34
+    ],
+    [
+     "D",
+     52,
+     24
+    ],
+    [
+     "D",
+     85,
+     52
+    ],
+    [
+     "D",
+     60,
+     38
+    ]
+   ],
+   "ataca": [
+    [
+     "pase",
+     70,
+     22
+    ],
+    [
+     "recibe",
+     91,
+     36
+    ],
+    [
+     "otro",
+     97,
+     10
+    ]
+   ],
+   "fuera": true
+  }
+ ],
+ "liguilla": {
+  "equipos": [
+   "Rayos",
+   "Leones",
+   "Águilas",
+   "Toros"
+  ],
+  "partidos": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    3
+   ]
+  ],
+  "resultados": [
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    1
+   ]
+  ],
+  "conocidos": [
+   1,
+   4,
+   5
+  ],
+  "desconocidos": [
+   0,
+   2,
+   3
+  ],
+  "tabla": [
+   [
+    6,
+    3,
+    3
+   ],
+   [
+    6,
+    5,
+    3
+   ],
+   [
+    3,
+    3,
+    6
+   ],
+   [
+    3,
+    5,
+    4
+   ]
+  ]
+ },
+ "penaltis": {
+  "ejemplo": [
+   "derecha",
+   "izquierda",
+   "centro",
+   "derecha",
+   "izquierda"
+  ]
+ }
+}

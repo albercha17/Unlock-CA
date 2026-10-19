@@ -14,7 +14,7 @@ pc_faro = leer(f"{FARO}/pc.html")
 imprimir_faro = leer(f"{FARO}/imprimir.html")
 prompts_tpl = leer(os.path.join(TMP, "prompts_plantilla.html"))
 
-ORDEN_CAMPOS = ["titulo", "tipo", "coge", "descarta", "combina", "descripcion", "pistas", "textoCarta", "textoEspejo", "mosaico", "arte"]
+ORDEN_CAMPOS = ["titulo", "tipo", "coge", "descarta", "combina", "descripcion", "pistas", "textoCarta", "textoEspejo", "mosaico", "reverso", "arte"]
 
 
 def fuente(tam):

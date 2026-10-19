@@ -125,6 +125,16 @@ const PRESETS = {
     melodia: { onda: 'triangle', vol: 0.1, octava: 1, prob: 0.3, dur: 0.5, ataque: 0.02, filtro: 2600, vibrato: 4 },
     ritmo: { tipo: 'pulso', patron: [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0], vol: 0.26, tono: 55 },
     ruido: null
+  },
+  // Fútbol: organillo alegre en modo mayor, bombo de himno y ambiente de grada.
+  futbol: {
+    bpm: 118, raiz: 55, escala: ESC.mayorPent, compases: 2, reverb: 1.6,
+    acordes: [[0, 2], [3, 0], [4, 2], [0, 2]],
+    pad: { onda: 'triangle', filtro: 1200, vol: 0.09, octava: -1, ataque: 0.4 },
+    arpegio: { onda: 'square', vol: 0.07, paso: 2, octava: 1, patron: [0, 2, 4, 2, 0, 2, 3, 1], filtro: 3800, pulsada: true, campana: false },
+    melodia: { onda: 'triangle', vol: 0.12, octava: 2, prob: 0.4, dur: 0.45, ataque: 0.02, filtro: 3200, vibrato: 3 },
+    ritmo: { tipo: 'tambor', patron: [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1], vol: 0.3, tono: 70 },
+    ruido: { tipo: 'lluvia', vol: 0.05 }
   }
 };
 

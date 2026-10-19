@@ -280,6 +280,67 @@ def ampliar_capas_pc(p):
     return True
 
 
+def ampliar_reverso_pc(p):
+    """Cartas con dos caras (campo `reverso` en cartas.json; el reverso es img/<id>r.jpg): botón «Dar la vuelta» en la mesa y en la carta ampliada."""
+    t = open(p, encoding="utf-8").read()
+    if "voltear" in t:
+        return False
+    t = una(t, "  var DATA = null, estado = null, zoomId = null;", "  var DATA = null, estado = null, zoomId = null, VOLT = {};")
+    t = una(t, """style="--c:' + color + '"><div class="arte" style="background-image:url(\\'img/' + esc(id) + '.jpg\\')"></div>""",
+            """style="--c:' + color + '"><div class="arte" style="background-image:url(\\'img/' + esc(id) + (c.reverso && VOLT[id] ? 'r' : '') + '.jpg\\')"></div>""")
+    t = una(t, "      it.appendChild(b); it.appendChild(d); mesa.appendChild(it);\n",
+            "      it.appendChild(b); it.appendChild(d);\n"
+            "      if (DATA[id].reverso) { var v = document.createElement('button'); v.type = 'button'; v.className = 'voltear'; v.textContent = 'Dar la vuelta'; v.addEventListener('click', function(){ VOLT[id] = !VOLT[id]; pintar(); }); it.appendChild(v); }\n"
+            "      mesa.appendChild(it);\n")
+    t = una(t, "  .item .mini{", "  .item .voltear{padding:5px 12px;font-size:.8rem}\n  .item .mini{")
+    t = una(t, '    <button type="button" id="zDescartar" class="primario">Descartar</button>',
+            '    <button type="button" id="zVoltear" class="voltear" hidden>Dar la vuelta</button>\n    <button type="button" id="zDescartar" class="primario">Descartar</button>')
+    t = una(t, "zoomId = id; $('zoomCarta').innerHTML = frente(id); $('zoom').hidden = false;", "zoomId = id; $('zoomCarta').innerHTML = frente(id); $('zVoltear').hidden = !DATA[id].reverso; $('zoom').hidden = false;")
+    t = una(t, "  $('zDescartar').addEventListener('click', function(){ if (zoomId) descartar(zoomId); });\n",
+            "  $('zDescartar').addEventListener('click', function(){ if (zoomId) descartar(zoomId); });\n"
+            "  $('zVoltear').addEventListener('click', function(){ if (zoomId) { VOLT[zoomId] = !VOLT[zoomId]; $('zoomCarta').innerHTML = frente(zoomId); pintar(); } });\n")
+    t = una(t, "  #mMsg{min-height:1.5em;", "  #zVoltear[hidden]{display:none}\n  #mMsg{min-height:1.5em;")
+    open(p, "w", encoding="utf-8", newline="\n").write(t)
+    return True
+
+
+REV_CSS = """  /* reversos de las cartas con dos caras (hoja para imprimir a doble cara, con las columnas invertidas para que cada reverso quede detrás de su carta) */
+  .rev{position:relative;width:63mm;height:88mm;border-radius:3mm;overflow:hidden;background:#1b2733;border:1.6mm solid #8a94a3;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rev .arte-rev{position:absolute;inset:0;background:center / cover no-repeat}
+  .rev .nr{position:absolute;top:1.4mm;right:1.4mm;width:9.5mm;height:9.5mm;border-radius:50%;background:#8a94a3;border:.5mm solid #fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:9pt;color:#fff}
+  .guias .rev{outline:.2mm dashed #888;outline-offset:.6mm}
+"""
+
+REV_JS = """  var hayReversos = ids.some(function(k){ return J[k].reverso; });
+  function hojaReverso(grupo){
+    if (!grupo.some(function(k){ return J[k].reverso; })) return '';
+    var celdas = [];
+    for (var f = 0; f < 3; f++) for (var c = 2; c >= 0; c--) {
+      var k = grupo[f * 3 + c];
+      if (k && J[k].reverso) celdas.push('<div class="rev"><div class="arte-rev" data-rev="' + esc(k) + '"></div><div class="nr">R' + esc(k) + '</div></div>');
+      else celdas.push('<div class="dorso"><div class="t">UNLOCK</div><div class="s">' + esc(J._meta.juego.toUpperCase()) + '</div></div>');
+    }
+    return '<div class="hoja guias">' + celdas.join('') + '</div>';
+  }
+"""
+
+
+def ampliar_reverso_imprimir(p):
+    t = open(p, encoding="utf-8").read()
+    if "arte-rev" in t:
+        return False
+    t = una(t, "  @page{size:A4;margin:0}", REV_CSS + "  @page{size:A4;margin:0}")
+    t = una(t, "  var tarjetas = ids.map(cartaHTML);\n", REV_JS + "  var tarjetas = ids.map(cartaHTML);\n")
+    t = una(t, "    hojas.map(function(h){ return '<div class=\"hoja guias\">' + h.join('') + '</div>'; }).join('') +\n",
+            "    hojas.map(function(h, n){ return '<div class=\"hoja guias\">' + h.join('') + '</div>' + hojaReverso(ids.slice(n * 9, n * 9 + 9)); }).join('') +\n")
+    t = una(t, "  document.getElementById('guias').addEventListener('change', function(e){",
+            "  document.querySelectorAll('.arte-rev').forEach(function(el){ el.style.backgroundImage = 'url(\"img/' + el.dataset.rev + 'r.jpg\")'; });\n"
+            "  if (hayReversos) document.querySelector('.barra').insertAdjacentHTML('beforeend', '<span class=\"n\">Cartas con dos caras: tras cada hoja de cartas viene su hoja de reversos; imprímelas a doble cara, volteando por el lado largo.</span>');\n"
+            "  document.getElementById('guias').addEventListener('change', function(e){")
+    open(p, "w", encoding="utf-8", newline="\n").write(t)
+    return True
+
+
 def ampliar_imprimir(p):
     t = open(p, encoding="utf-8").read()
     if "mz-m" in t:
@@ -293,7 +354,7 @@ def ampliar_imprimir(p):
 if __name__ == "__main__":
     carpetas = ["juegos/el-faro"] + [os.path.dirname(f).replace("\\", "/").replace(RAIZ.replace("\\", "/") + "/", "") for f in glob.glob(os.path.join(RAIZ, "juegos", "aventuras-ca", "*", "pc.html"))]
     for c in sorted(set(carpetas)):
-        for nombre, fn in (("pc.html", parchear_pc), ("pc.html", ampliar_pc), ("pc.html", ampliar_giro_pc), ("pc.html", ampliar_formas_pc), ("pc.html", ampliar_capas_pc),("imprimir.html", parchear_imprimir), ("imprimir.html", ampliar_imprimir)):
+        for nombre, fn in (("pc.html", parchear_pc), ("pc.html", ampliar_pc), ("pc.html", ampliar_giro_pc), ("pc.html", ampliar_formas_pc), ("pc.html", ampliar_capas_pc), ("pc.html", ampliar_reverso_pc), ("imprimir.html", parchear_imprimir), ("imprimir.html", ampliar_imprimir), ("imprimir.html", ampliar_reverso_imprimir)):
             ruta = os.path.join(RAIZ, c, nombre)
             if os.path.exists(ruta):
                 print(("parcheado " if fn(ruta) else "al dia    ") + os.path.join(c, nombre))

@@ -48,6 +48,11 @@
   .carta.mosaico.mz-b .num{top:auto;bottom:1.4mm}
   .carta.mosaico.mz-m .num{left:calc(50% - 4.75mm)}
 
+  /* reversos de las cartas con dos caras (hoja para imprimir a doble cara, con las columnas invertidas para que cada reverso quede detrás de su carta) */
+  .rev{position:relative;width:63mm;height:88mm;border-radius:3mm;overflow:hidden;background:#1b2733;border:1.6mm solid #8a94a3;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rev .arte-rev{position:absolute;inset:0;background:center / cover no-repeat}
+  .rev .nr{position:absolute;top:1.4mm;right:1.4mm;width:9.5mm;height:9.5mm;border-radius:50%;background:#8a94a3;border:.5mm solid #fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:9pt;color:#fff}
+  .guias .rev{outline:.2mm dashed #888;outline-offset:.6mm}
   @page{size:A4;margin:0}
   @media print{
     body{background:#fff}
@@ -105,6 +110,17 @@ window.JUEGO = datos;
     return html + '<div class="tit">' + esc(titulo) + '</div></div>';
   }
 
+  var hayReversos = ids.some(function(k){ return J[k].reverso; });
+  function hojaReverso(grupo){
+    if (!grupo.some(function(k){ return J[k].reverso; })) return '';
+    var celdas = [];
+    for (var f = 0; f < 3; f++) for (var c = 2; c >= 0; c--) {
+      var k = grupo[f * 3 + c];
+      if (k && J[k].reverso) celdas.push('<div class="rev"><div class="arte-rev" data-rev="' + esc(k) + '"></div><div class="nr">R' + esc(k) + '</div></div>');
+      else celdas.push('<div class="dorso"><div class="t">UNLOCK</div><div class="s">' + esc(J._meta.juego.toUpperCase()) + '</div></div>');
+    }
+    return '<div class="hoja guias">' + celdas.join('') + '</div>';
+  }
   var tarjetas = ids.map(cartaHTML);
   var hojas = [];
   for (var i = 0; i < tarjetas.length; i += 9) hojas.push(tarjetas.slice(i, i + 9));
@@ -112,9 +128,11 @@ window.JUEGO = datos;
   for (var k = 0; k < 9; k++) dorsos += '<div class="dorso"><div class="t">UNLOCK</div><div class="s">' + esc(J._meta.juego.toUpperCase()) + '</div></div>';
 
   document.getElementById('hojas').innerHTML =
-    hojas.map(function(h){ return '<div class="hoja guias">' + h.join('') + '</div>'; }).join('') +
+    hojas.map(function(h, n){ return '<div class="hoja guias">' + h.join('') + '</div>' + hojaReverso(ids.slice(n * 9, n * 9 + 9)); }).join('') +
     '<div class="hoja guias">' + dorsos + '</div>';
 
+  document.querySelectorAll('.arte-rev').forEach(function(el){ el.style.backgroundImage = 'url("img/' + el.dataset.rev + 'r.jpg")'; });
+  if (hayReversos) document.querySelector('.barra').insertAdjacentHTML('beforeend', '<span class="n">Cartas con dos caras: tras cada hoja de cartas viene su hoja de reversos; imprímelas a doble cara, volteando por el lado largo.</span>');
   document.getElementById('guias').addEventListener('change', function(e){
     document.querySelectorAll('.hoja').forEach(function(h){ h.classList.toggle('guias', e.target.checked); });
   });
