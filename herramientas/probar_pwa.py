@@ -41,6 +41,8 @@ window.supabase = { createClient: function () {
       signUp: function (o) { return Promise.resolve({ data: { user: { email: o.email }, session: null } }); },
       signOut: function () { localStorage.removeItem('fake-ses'); setTimeout(function () { oyentes.forEach(function (f) { f('SIGNED_OUT', null); }); }, 10); return Promise.resolve({}); }
     },
+    // administrador = correo que empieza por «admin» (ve todos los juegos; el resto, solo los suyos: ver probar_accesos.py)
+    rpc: function () { var x = leer('fake-ses', 'null'); return Promise.resolve({ data: !!(x && /^admin/.test(x.user.email)), error: null }); },
     from: function () { return {
       upsert: function (filas) { var todas = leer('fake-filas', '[]'); filas.forEach(function (f) { if (!todas.some(function (x) { return x.cliente_id === f.cliente_id; })) todas.push(f); }); localStorage.setItem('fake-filas', JSON.stringify(todas)); return Promise.resolve({ error: null }); },
       select: function () { return { order: function () { return { limit: function () { return Promise.resolve({ data: leer('fake-filas', '[]').slice().reverse(), error: null }); } }; } }; }
@@ -126,7 +128,9 @@ def main():
     srv = servidor()
     d = nuevo()
     try:
-        # ---------- 1. menús
+        # ---------- 1. menús (con la cuenta de administrador, que ve todos los juegos)
+        d.get(URL + "instalar.html")
+        d.execute_script("localStorage.setItem('fake-ses', JSON.stringify({user:{email:'admin@ejemplo.es',id:'u1'}}))")
         d.get(URL + "index.html")
         esperar(lambda: len(d.find_elements(By.CSS_SELECTOR, ".dif-fila")) >= 2)
         filas = d.find_elements(By.CSS_SELECTOR, ".dif-fila")
@@ -179,6 +183,7 @@ def main():
         ok(len(d.find_elements(By.CSS_SELECTOR, ".pst-root")) == 1, "sin conexión también funcionan las pistas")
         sin_red(d, False)
         d.execute_script("localStorage.clear()")
+        d.execute_script("localStorage.setItem('fake-ses', 'null')")
 
         # ---------- 4/5. cuentas
         # (a) sin sesión: se guarda en el dispositivo y ofrece iniciar sesión
@@ -191,7 +196,7 @@ def main():
         esperar(lambda: d.find_elements(By.CSS_SELECTOR, ".cac-caja"))
         f = d.find_element(By.CSS_SELECTOR, ".cac-caja form")
         f.find_element(By.NAME, "email").clear()
-        f.find_element(By.NAME, "email").send_keys("cristina@ejemplo.es")
+        f.find_element(By.NAME, "email").send_keys("admin@ejemplo.es")
         f.find_element(By.NAME, "clave").send_keys("mala1234")
         d.find_element(By.CSS_SELECTOR, ".cac-primario").click()
         esperar(lambda: "incorrectos" in d.find_element(By.CSS_SELECTOR, ".cac-msg").text)
@@ -211,7 +216,7 @@ def main():
         d.get(URL + "perfil.html")
         esperar(lambda: len(d.find_elements(By.CSS_SELECTOR, "table tbody tr")) >= 2)
         ok(len(d.find_elements(By.CSS_SELECTOR, "table tbody tr")) == 2, "«Mis partidas» lista las 2 partidas")
-        ok("cristina@ejemplo.es" in d.find_element(By.ID, "sub").text, "«Mis partidas» muestra la sesión iniciada")
+        ok("admin@ejemplo.es" in d.find_element(By.ID, "sub").text, "«Mis partidas» muestra la sesión iniciada")
         ganados = d.find_elements(By.CSS_SELECTOR, ".logro.on")
         ok(len(ganados) >= 3 and any("Primera aventura" in g.text for g in ganados), f"«Mis partidas» muestra logros ganados ({len(ganados)})")
         d.get(URL + "juegos/aventuras-ca/index.html" if JUEGO != "faro" else URL + "index.html")

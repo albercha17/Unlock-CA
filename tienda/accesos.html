@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Accesos · Cronoportal</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0b0a12">
+  <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tienda.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="marca" href="./"><span class="marca-anillo" aria-hidden="true"></span>Cronoportal</a>
+  <span class="nav-titulo">Accesos a los juegos</span>
+  <a class="btn btn-linea btn-sm" href="admin.html">Pedidos</a>
+  <button class="btn btn-linea btn-sm" id="salir" type="button" hidden>Salir</button>
+</header>
+
+<main class="admin">
+
+  <section class="login" id="login" hidden>
+    <h1>Accesos</h1>
+    <p class="sub">Entra con tu cuenta de administrador.</p>
+    <form id="form-login" novalidate>
+      <label>Correo <input name="email" type="email" autocomplete="username" required></label>
+      <label>Contraseña <input name="clave" type="password" autocomplete="current-password" required></label>
+      <button class="btn btn-oro btn-ancho" type="submit">Entrar</button>
+      <p class="error" id="error-login" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="panel" hidden>
+    <form class="dar" id="form-dar" novalidate>
+      <h2>Dar acceso</h2>
+      <p class="sub">Cada cuenta ve en la app solo los juegos que le des aquí. Se da por correo: vale aunque todavía no se haya creado la cuenta
+        (tendrá que crearla con ese mismo correo). Tu cuenta de administrador ve siempre todos los juegos.</p>
+      <div class="dar-campos">
+        <label>Correo del cliente <input name="email" type="email" autocomplete="off" required placeholder="cliente@correo.com"></label>
+        <label>Protagonistas <input name="quienes" type="text" maxlength="80" placeholder="Bea y Rubén"></label>
+        <label class="ancho">Web del pack personalizado <input name="pack" type="url" placeholder="https://cronoportal-xxxx.netlify.app">
+          <small>La del pedido («Ver el pack»). Las aventuras se abrirán ahí, con sus ilustraciones y su portada. Vacío = el juego normal, con Cristina y Alberto.</small></label>
+      </div>
+      <fieldset class="juegos-dar">
+        <legend>Juegos <span id="n-elegidos"></span></legend>
+        <div id="juegos"><!-- accesos.js --></div>
+      </fieldset>
+      <input type="hidden" name="pedido">
+      <div class="dar-botones">
+        <button class="btn btn-oro" type="submit">Dar acceso</button>
+        <p class="error" id="error-dar" role="alert"></p>
+      </div>
+    </form>
+
+    <div class="barra">
+      <h2>Quién tiene qué</h2>
+      <input id="buscar" type="search" placeholder="Buscar por correo o nombre" aria-label="Buscar">
+    </div>
+    <p class="error" id="error-panel" role="alert"></p>
+    <div class="lista" id="lista"><!-- accesos.js --></div>
+  </section>
+
+  <p class="cargando" id="cargando">Cargando…</p>
+</main>
+
+<script src="../assets/js/vendor/supabase.js" defer></script>
+<script src="accesos.js" defer></script>
+</body>
+</html>
