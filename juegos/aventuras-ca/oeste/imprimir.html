@@ -54,6 +54,14 @@
   .rev .arte-rev{position:absolute;inset:0;background:center / cover no-repeat}
   .rev .nr{position:absolute;top:1.4mm;right:1.4mm;width:9.5mm;height:9.5mm;border-radius:50%;background:#8a94a3;border:.5mm solid #fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:9pt;color:#fff}
   .guias .rev{outline:.2mm dashed #888;outline-offset:.6mm}
+  /* reversos ambientados (uno por carta, con su número); van en una hoja detrás de cada hoja de cartas, con las columnas invertidas */
+  .guias .dorsoN{outline:.2mm dashed #888;outline-offset:.6mm}
+  .dorsoN{position:relative;width:63mm;height:88mm;border-radius:3mm;overflow:hidden;border:1.6mm solid var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .dorsoN::after{content:"";position:absolute;inset:2.4mm;border:.4mm solid var(--ac);border-radius:1.6mm;opacity:.75}
+  .dorsoN .dn-emoji{position:absolute;font-size:44mm;line-height:1;opacity:.17}
+  .dorsoN .dn-num{position:relative;min-width:30mm;height:30mm;padding:0 4mm;border-radius:15mm;background:rgba(0,0,0,.55);border:.8mm solid var(--ac);display:flex;align-items:center;justify-content:center;font:800 34pt/1 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#fff}
+  .dorsoN .dn-t{position:absolute;left:0;right:0;top:6mm;text-align:center;font:800 6.5pt system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:.16em;color:var(--ac2);text-transform:uppercase;padding:0 5mm}
+  .dorsoN .dn-b{position:absolute;left:0;right:0;bottom:6mm;text-align:center;font:700 5.5pt system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:.22em;color:var(--ac2);opacity:.9}
   @page{size:A4;margin:0}
   @media print{
     body{background:#fff}
@@ -67,7 +75,7 @@
   <button type="button" onclick="window.print()">Imprimir</button>
   <label><input type="checkbox" id="guias" checked> Guías de corte</label>
   <span class="n" id="resumen"></span>
-  <span class="n">Consejo: imprime en A4 al 100 % (sin «ajustar a página»). La última hoja son los dorsos.</span>
+  <span class="n">Consejo: imprime en A4 al 100 % (sin «ajustar a página») y a DOBLE CARA, volteando por el lado largo: cada hoja de cartas va seguida de su hoja de reversos, con el número de cada carta, ya colocada para que cuadre.</span>
 </div>
 <div id="hojas"></div>
 
@@ -111,29 +119,31 @@ window.JUEGO = datos;
     return html + '<div class="tit">' + esc(titulo) + '</div></div>';
   }
 
+  /*DORSOS*/ var DORSOS = {"faro": {"titulo": "El Faro de Cabo Niebla", "emoji": "🌊", "c": ["#0e3a52", "#04101a"], "ac": "#c9a45a", "ac2": "#f0d9a0", "patron": "repeating-linear-gradient(115deg,rgba(255,255,255,.06) 0 6mm,transparent 6mm 12mm)"}, "egipto": {"titulo": "Egipto, 1274 a.C.", "emoji": "🏺", "c": ["#4a3512", "#150f05"], "ac": "#e0b04a", "ac2": "#f2d27a", "patron": "repeating-linear-gradient(45deg,rgba(0,0,0,.2) 0 3mm,transparent 3mm 6mm),repeating-linear-gradient(-45deg,rgba(255,255,255,.08) 0 3mm,transparent 3mm 6mm)"}, "marte": {"titulo": "Marte, 2157", "emoji": "🚀", "c": ["#5a2a14", "#12060a"], "ac": "#ff8a50", "ac2": "#ffb085", "patron": "radial-gradient(circle,rgba(255,255,255,.12) .6mm,transparent .7mm) 0 0/4mm 4mm"}, "florencia": {"titulo": "Florencia, 1503", "emoji": "🪞", "c": ["#5a3a1a", "#140c06"], "ac": "#d9a441", "ac2": "#f0c773", "patron": "repeating-linear-gradient(60deg,rgba(255,220,140,.14) 0 .5mm,transparent .5mm 5mm),repeating-linear-gradient(-60deg,rgba(255,220,140,.14) 0 .5mm,transparent .5mm 5mm)"}, "dinosaurios": {"titulo": "Cretácico", "emoji": "🦖", "c": ["#2f5a22", "#07120a"], "ac": "#b5e35b", "ac2": "#d9f59a", "patron": "radial-gradient(circle at 50% 100%,rgba(255,255,255,.12) 0 2.2mm,transparent 2.3mm) 0 0/5mm 4mm"}, "cuento": {"titulo": "Érase una vez", "emoji": "📖", "c": ["#4a2a8a", "#120a2a"], "ac": "#f6c453", "ac2": "#ffe08a", "patron": "radial-gradient(circle,rgba(255,240,170,.4) .5mm,transparent .6mm) 0 0/7mm 7mm"}, "trono": {"titulo": "Hielo y Fuego", "emoji": "🐉", "c": ["#2c3a4a", "#0a0f16"], "ac": "#8fc7ee", "ac2": "#cfe8fb", "patron": "repeating-linear-gradient(0deg,rgba(255,255,255,.07) 0 .4mm,transparent .4mm 4mm),repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 .4mm,transparent .4mm 4mm)"}, "pompeya": {"titulo": "Pompeya, 79 d.C.", "emoji": "🌋", "c": ["#6a3418", "#150a06"], "ac": "#e08a4a", "ac2": "#f5c08a", "patron": "conic-gradient(rgba(0,0,0,.2) 25%,transparent 0 50%,rgba(0,0,0,.2) 0 75%,transparent 0) 0 0/6mm 6mm"}, "arcade": {"titulo": "Game Over, 1985", "emoji": "🕹️", "c": ["#4a1a7a", "#07040f"], "ac": "#ff5ad8", "ac2": "#8ffcff", "patron": "repeating-linear-gradient(0deg,rgba(255,80,220,.28) 0 .3mm,transparent .3mm 5mm),repeating-linear-gradient(90deg,rgba(80,230,255,.28) 0 .3mm,transparent .3mm 5mm)"}, "oeste": {"titulo": "Dry Gulch, 1878", "emoji": "🤠", "c": ["#7a4a1e", "#160d06"], "ac": "#e0a040", "ac2": "#f5d48a", "patron": "repeating-linear-gradient(90deg,rgba(0,0,0,.24) 0 .4mm,transparent .4mm 8mm)"}, "espia": {"titulo": "Montecarlo, 1965", "emoji": "🕵️", "c": ["#0e5a6a", "#07121a"], "ac": "#ff6fa8", "ac2": "#7fe8f0", "patron": "radial-gradient(circle,rgba(255,255,255,.16) .7mm,transparent .8mm) 0 0/3mm 3mm"}, "futbol": {"titulo": "La Final del Siglo", "emoji": "⚽", "c": ["#1f6a30", "#06140a"], "ac": "#f2c230", "ac2": "#a8ec96", "patron": "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 8mm,transparent 8mm 16mm)"}}; /*FIN-DORSOS*/
+  var D = DORSOS[CLAVE_JUEGO] || DORSOS.faro;
   var hayReversos = ids.some(function(k){ return J[k].reverso; });
+  function dorsoCarta(k){
+    return '<div class="dorsoN" style="--ac:' + D.ac + ';--ac2:' + D.ac2 + ';background:' + D.patron + ',radial-gradient(circle at 50% 42%,' + D.c[0] + ',' + D.c[1] + ' 78%)">' +
+      '<div class="dn-t">' + esc(D.titulo) + '</div><div class="dn-emoji">' + D.emoji + '</div><div class="dn-num">' + esc(k) + '</div><div class="dn-b">UNLOCK C&amp;A</div></div>';
+  }
   function hojaReverso(grupo){
-    if (!grupo.some(function(k){ return J[k].reverso; })) return '';
     var celdas = [];
     for (var f = 0; f < 3; f++) for (var c = 2; c >= 0; c--) {
       var k = grupo[f * 3 + c];
-      if (k && J[k].reverso) celdas.push('<div class="rev"><div class="arte-rev" data-rev="' + esc(k) + '"></div><div class="nr">R' + esc(k) + '</div></div>');
-      else celdas.push('<div class="dorso"><div class="t">UNLOCK</div><div class="s">' + esc(J._meta.juego.toUpperCase()) + '</div></div>');
+      if (!k) celdas.push('<div></div>');
+      else if (J[k].reverso) celdas.push('<div class="rev"><div class="arte-rev" data-rev="' + esc(k) + '"></div><div class="nr">R' + esc(k) + '</div></div>');
+      else celdas.push(dorsoCarta(k));
     }
-    return '<div class="hoja guias">' + celdas.join('') + '</div>';
+    return '<div class="hoja guias hoja-reverso">' + celdas.join('') + '</div>';
   }
   var tarjetas = ids.map(cartaHTML);
   var hojas = [];
   for (var i = 0; i < tarjetas.length; i += 9) hojas.push(tarjetas.slice(i, i + 9));
-  var dorsos = '';
-  for (var k = 0; k < 9; k++) dorsos += '<div class="dorso"><div class="t">UNLOCK</div><div class="s">' + esc(J._meta.juego.toUpperCase()) + '</div></div>';
 
   document.getElementById('hojas').innerHTML =
-    hojas.map(function(h, n){ return '<div class="hoja guias">' + h.join('') + '</div>' + hojaReverso(ids.slice(n * 9, n * 9 + 9)); }).join('') +
-    '<div class="hoja guias">' + dorsos + '</div>';
+    hojas.map(function(h, n){ return '<div class="hoja guias">' + h.join('') + '</div>' + hojaReverso(ids.slice(n * 9, n * 9 + 9)); }).join('');
 
   document.querySelectorAll('.arte-rev').forEach(function(el){ el.style.backgroundImage = 'url("img/' + el.dataset.rev + 'r.jpg")'; });
-  if (hayReversos) document.querySelector('.barra').insertAdjacentHTML('beforeend', '<span class="n">Cartas con dos caras: tras cada hoja de cartas viene su hoja de reversos; imprímelas a doble cara, volteando por el lado largo.</span>');
   document.getElementById('guias').addEventListener('change', function(e){
     document.querySelectorAll('.hoja').forEach(function(h){ h.classList.toggle('guias', e.target.checked); });
   });
