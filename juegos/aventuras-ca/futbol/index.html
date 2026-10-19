@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="futbol">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#05060a">
+  <link rel="manifest" href="../../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../../assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../../../assets/icons/favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unlock C&A">
+  <title>Aventuras C&amp;A - La Final del Siglo, 1970: La Copa de Cristal</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="../../../assets/js/ajustes.js"></script>
+</head>
+
+<body>
+  <div class="container layout" id="mainContainer">
+
+    <!-- ===== inicio ===== -->
+    <div class="panel-card" id="introPanel">
+      <div class="portada">
+        <img src="img/P.jpg" alt="">
+        <div class="rotulo">
+          <div class="serie">Aventuras C&amp;A</div>
+          <h1 data-juego-titulo>La Final del Siglo, 1970: La Copa de Cristal</h1>
+          <div class="dificultad" id="dificultad" aria-label="Dificultad"></div>
+        </div>
+      </div>
+
+      <p class="sinopsis">Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. El cristal de energía rueda hasta caer dentro de la Copa de cristal y solo saldrá del palco con el campeón. El entrenador os toma por su cuerpo técnico: para ayudarle a ganar hay que dar la vuelta a unos cromos, deducir una alineación, decidir jugadas del VAR, reconstruir los marcadores de una liguilla y marcar una tanda de penaltis.</p>
+
+      <ol class="pasos">
+        <li>Pulsa <b>Empezar</b>: el reloj corre <span id="introMin">1 hora</span>. Podéis pausarlo cuando haga falta.</li>
+        <li><b>Acción</b>: escribe el número de una carta con app (puzle, código o minijuego) para abrirla.</li>
+        <li><b>Pista</b>: escribe el número de la carta en la que estáis atascados. Las pistas van de menos a más reveladoras.</li>
+      </ol>
+
+      <details class="reglas">
+        <summary>Cómo se juega (reglas)</summary>
+        <div class="reglas-texto" id="reglasTexto"></div>
+      </details>
+
+      <div class="aviso">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <span>Se disfruta mejor con sonido, pero todo funciona también sin él. En el móvil, la app intenta mantener la pantalla encendida.</span>
+      </div>
+
+      <div class="intro-acciones">
+        <button class="boton primario grande" id="startBtn">Empezar</button>
+        <button class="boton suave" id="offlineBtn" hidden>Descargar para jugar sin conexión</button>
+        <p class="offline-estado" id="offlineEstado" aria-live="polite" hidden></p>
+        <button class="boton" id="continueBtn" hidden>Continuar partida</button>
+        <div class="intro-secundarios">
+          <a class="boton suave" href="pc.html">Modo PC</a>
+          <button class="boton suave" onclick="volver()">← Volver a Aventuras C&amp;A</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== panel de juego ===== -->
+    <div class="panel-card" id="gamePanel" style="display:none;margin-top:18px">
+      <div class="cabecera" role="banner" aria-label="Cabecera del juego">
+        <div class="logo" aria-hidden="true"><img src="img/P.jpg" alt=""></div>
+        <h2>La Final del Siglo, 1970: La Copa de Cristal</h2>
+        <div class="iconos">
+          <button class="icono" id="clockToggle" aria-pressed="false" aria-label="Ocultar el número del reloj" title="Ocultar/mostrar el número del reloj">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C7 5 2.7 8.1 1 12c1.7 3.9 6 7 11 7s9.3-3.1 11-7c-1.7-3.9-6-7-11-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+          </button>
+          <button class="icono" id="musicBtn" aria-pressed="true" aria-label="Quitar la música de fondo" title="Música de fondo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+          </button>
+          <button class="icono" id="notebookBtn" aria-label="Abrir el cuaderno" title="Cuaderno">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h13a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 2v16h11V4H7zm2 3h7v2H9V7zm0 4h7v2H9v-2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="reloj" id="reloj">
+        <div class="reloj-etiqueta" id="relojEtiqueta">El tiempo corre</div>
+        <div id="gameTimer" class="timer-big" role="timer" aria-live="off">01:00:00</div>
+        <div class="reloj-pista" aria-hidden="true"><i id="relojBarra"></i><b id="relojMarca"></b></div>
+      </div>
+
+      <div class="action-row" role="group" aria-label="Controles de acción">
+        <button id="actionBtn" class="control-btn action-btn" aria-label="Acción importante" title="Acción">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M13 2L3 14h7l-1 8L21 10h-7l-1-8z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="label">Acción</span>
+        </button>
+
+        <button id="hintBtn" class="control-btn hint-btn" aria-label="Pedir pista" title="Pedir pista">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M9 18h6v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1z" fill="currentColor" />
+              <path d="M12 3a5 5 0 0 0-3 9v2h6v-2a5 5 0 0 0-3-9z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="label">Pista</span>
+        </button>
+      </div>
+
+      <div class="resumen" id="resumen" aria-live="polite"></div>
+
+      <div class="game-controls">
+        <button class="btn-ghost" id="pauseBtn" style="display:none">Pausar</button>
+        <button class="btn-ghost" id="resumeBtn" style="display:none">Reanudar</button>
+        <button class="btn-ghost" id="stopBtn">Salir</button>
+      </div>
+    </div>
+
+    <!-- ===== final ===== -->
+    <div class="panel-card final" id="finalPanel" style="display:none;margin-top:18px">
+      <h2 id="finalTitulo">¡Misión cumplida!</h2>
+      <p class="subtitulo" id="finalSub"></p>
+      <div class="final-datos">
+        <div><b id="finTiempo">--</b><span>tiempo</span></div>
+        <div><b id="finPistas">0</b><span>pistas</span></div>
+        <div><b id="finCartas">0</b><span>cartas abiertas</span></div>
+      </div>
+      <div class="final-acciones">
+        <button class="boton primario" id="copyReportBtn">Copiar informe de la partida</button>
+        <button class="boton" id="replayBtn">Jugar otra vez</button>
+        <button class="boton suave" onclick="volver()">← Volver a Aventuras C&amp;A</button>
+      </div>
+      <p class="guardado" id="guardadoEstado" aria-live="polite"></p>
+      <div class="final-acciones" style="margin-top:6px"><button class="boton" id="guardarCuentaBtn" hidden>Iniciar sesión para guardarla</button></div>
+      <pre id="informeTexto" hidden></pre>
+    </div>
+  </div>
+
+  <!-- Vídeo de introducción (se reproduce al pulsar Empezar) -->
+  <div id="videoOverlay" style="position:fixed;inset:0;z-index:3000;display:none;background:rgba(0,0,0,0.96);align-items:center;justify-content:center;flex-direction:column;padding:12px">
+    <video id="introVideo" src="./video/videoInicial.mp4" preload="auto" playsinline webkit-playsinline
+      style="max-width:100%;max-height:80vh;border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,0.8);background:#000"></video>
+    <button id="skipVideoBtn" type="button" class="boton primario" style="margin-top:16px">Saltar vídeo</button>
+  </div>
+
+  <!-- Cuaderno -->
+  <div class="cuaderno" id="cuaderno" aria-hidden="true">
+    <div class="cuaderno-caja" role="dialog" aria-modal="true" aria-labelledby="cuadernoTitulo">
+      <div class="cuaderno-cab">
+        <h3 id="cuadernoTitulo">Cuaderno</h3>
+        <button class="boton" id="cuadernoCerrar" style="min-height:44px">Cerrar</button>
+      </div>
+      <div class="pestanas" role="tablist">
+        <button role="tab" id="tabRegistro" aria-selected="true" data-tab="registro">Registro</button>
+        <button role="tab" id="tabNotas" aria-selected="false" data-tab="notas">Notas</button>
+        <button role="tab" id="tabReglas" aria-selected="false" data-tab="reglas">Reglas</button>
+      </div>
+      <div class="cuaderno-cuerpo">
+        <div id="panelRegistro"></div>
+        <div id="panelNotas" hidden>
+          <textarea id="notasTexto" placeholder="Anotad aquí códigos, símbolos o ideas. Se guarda solo." aria-label="Notas de la partida"></textarea>
+        </div>
+        <div id="panelReglas" class="reglas-texto" hidden></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal numérico -->
+  <div id="numModal" class="num-modal" aria-hidden="true">
+    <div class="num-modal-box" role="dialog" aria-modal="true" aria-labelledby="numModalTitle">
+      <h3 id="numModalTitle">Introduce número de carta</h3>
+      <div class="num-display" id="numDisplay" aria-live="polite">—</div>
+      <div class="num-titulo" id="numTitulo" aria-live="polite"></div>
+      <div class="num-keypad" role="group" aria-label="Teclado numérico">
+        <button class="num-key" data-key="1">1</button>
+        <button class="num-key" data-key="2">2</button>
+        <button class="num-key" data-key="3">3</button>
+        <button class="num-key" data-key="4">4</button>
+        <button class="num-key" data-key="5">5</button>
+        <button class="num-key" data-key="6">6</button>
+        <button class="num-key" data-key="7">7</button>
+        <button class="num-key" data-key="8">8</button>
+        <button class="num-key" data-key="9">9</button>
+        <button class="num-key action" id="numClear" aria-label="Borrar">⌫</button>
+        <button class="num-key" data-key="0">0</button>
+        <button class="num-key" data-key="P" aria-label="Carta P">P</button>
+      </div>
+
+      <p id="numMessage" class="num-message" aria-live="assertive"></p>
+
+      <div id="openAnywayWrap" style="display:none;margin-top:8px;text-align:center">
+        <button id="openAnyway" class="btn-open-anyway">Abrir de todos modos</button>
+      </div>
+
+      <div class="num-modal-actions">
+        <button class="btn btn-ghost" id="numCancel">Cancelar</button>
+        <button class="btn btn-primary" id="numOk">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sistema de diálogos (sustituye alert) -->
+  <div id="sysDialog" class="sys-dialog" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="box" role="document">
+      <div class="msg" id="sysDialogMsg"></div>
+      <div class="controls" id="sysDialogControls">
+        <button class="btn cancel" id="sysCancelBtn">Cancelar</button>
+        <button class="btn ok" id="sysOkBtn">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bloquear zoom por doble tap y pellizco en Safari/iOS (los botones ya llevan touch-action: manipulation; si se bloqueara
+       aquí el segundo toque, las pulsaciones rápidas del teclado de cartas se perderían) -->
+  <script>
+    (function () {
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (e) {
+        const now = Date.now();
+        const interactivo = e.target && e.target.closest && e.target.closest('button, a, input, textarea, select, summary, [role="button"]');
+        if (!interactivo && now - lastTouchEnd <= 300) e.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+      document.addEventListener('touchmove', function (e) {
+        if (e.touches && e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+    })();
+  </script>
+
+  <!-- Configuración propia de este juego (lo demás es común: app.js) -->
+  <script>
+    window.APP_CONFIG = {
+      juego: 'futbol',
+      assets: '../../../assets/',
+      segundos: 5400,
+      dificultad: 2,
+      final: '99',
+      volver: '../index.html',
+      minijuegos: {
+      '20': './minijuegos/20-cromos.js',
+      '24': './minijuegos/24-pizarra.js',
+      '46': './minijuegos/46-var.js',
+      '48': './minijuegos/48-liguilla.js',
+      '69': './minijuegos/69-penaltis.js'
+      }
+    };
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>

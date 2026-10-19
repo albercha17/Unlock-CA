@@ -4,7 +4,7 @@ Uso (desde la raiz del repo):
     python herramientas/preparar_imagenes.py juegos/aventuras-ca/egipto
     python herramientas/preparar_imagenes.py juegos/el-faro
 
-Lee juegos/aventuras-ca/egipto/arte/ID.png (o .jpg/.jpeg/.webp; ID = numero de la carta o P),
+Lee juegos/aventuras-ca/egipto/arte/ID.png (o .jpg/.jpeg/.webp; ID = numero de la carta o P; IDr.png es el reverso de una carta con `reverso`),
 escribe juegos/aventuras-ca/egipto/img/ID.jpg (520 px de ancho) y quita esa carta de img/pendientes.json
 para que la hoja de impresion deje de avisar de que es una ilustracion de relleno.
 Las originales (arte/) no se suben a git: pesan demasiado.
@@ -36,7 +36,8 @@ def main():
         base, ext = os.path.splitext(f)
         if ext.lower() not in EXT:
             continue
-        if base not in cartas:
+        es_reverso = base.endswith("r") and cartas.get(base[:-1], {}).get("reverso")     # 14r.png = el reverso de la carta 14 (cartas con dos caras)
+        if base not in cartas and not es_reverso:
             raras.append(f)
             continue
         im = Image.open(os.path.join(arte, f)).convert("RGB")

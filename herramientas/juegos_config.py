@@ -14,6 +14,7 @@ import datos_pompeya as P
 import datos_arcade as A
 import datos_oeste as W
 import datos_espia as S
+import datos_futbol as Fu
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -100,6 +101,12 @@ JUEGOS = {
         sinopsis="Décima parada del Cronoportal: Montecarlo, 1965, noche de gala. El aparato golpea una mesa del casino y el Dr. Noche, un villano con capa que colecciona gemas, se lleva el cristal de energía a su yate. Con la Agente Zorro, Cristina y Alberto tienen setenta y cinco minutos, hasta que el yate zarpe a medianoche, para superponer hojas transparentes, usar una rejilla de cifrado, cruzar un yate a ciegas, descifrar un skyline y desactivar cuatro cargas con un manual.",
         minigames={"20": "20-caja.js", "24": "24-teletipo.js", "46": "46-pasillos.js", "48": "48-skyline.js", "69": "69-desactivador.js"},
         pal=("#1c7a8a", "#07202a")),
+    "Futbol": dict(
+        datos=Fu, dificultad=2, tema="futbol", titulo="La Final del Siglo, 1970: La Copa de Cristal", emoji="⚽", minutos=90,
+        grad="#1f6a30,#06140a", acento="#f2c230", acento2="#a8ec96", bg1="#07140b", bg2="#12301a",
+        sinopsis="Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. El cristal de energía rueda hasta caer dentro de la Copa de cristal y solo saldrá del palco con el campeón. El entrenador os toma por su cuerpo técnico: para ayudarle a ganar hay que dar la vuelta a unos cromos, deducir una alineación, decidir jugadas del VAR, reconstruir los marcadores de una liguilla y marcar una tanda de penaltis.",
+        minigames={"20": "20-cromos.js", "24": "24-pizarra.js", "46": "46-var.js", "48": "48-liguilla.js", "69": "69-penaltis.js"},
+        pal=("#2f7a3a", "#0b2412")),
 }
 
 

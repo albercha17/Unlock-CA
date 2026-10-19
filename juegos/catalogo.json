@@ -86,5 +86,13 @@
     "dificultad": 3,
     "minutos": 75,
     "cartas": 30
+  },
+  {
+    "id": "futbol",
+    "nombre": "La Final del Siglo, 1970: La Copa de Cristal",
+    "ruta": "juegos/aventuras-ca/futbol/",
+    "dificultad": 2,
+    "minutos": 90,
+    "cartas": 36
   }
 ]
