@@ -19,3 +19,15 @@
 @keyframes ca-vt-entra { from { opacity: 0; transform: translateY(10px); } }
 @supports not (view-transition-name: a) { body { animation: ca-vt-entra .25s ease-out; } }
 @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } body { animation: none !important; } }
+
+/* ---------- accesos por cuenta (menu.js): mientras se decide qué ve esta cuenta, no se enseña el catálogo ---------- */
+body.accesos-pend #todo { visibility: hidden; }
+#mis .option { text-decoration: none; color: inherit; }
+.mis-vacio { margin: 10px 0 0; padding: 20px; border-radius: 16px; border: 1px solid var(--line, rgba(255,255,255,.14)); background: rgba(255,255,255,.05); line-height: 1.55; }
+.mis-vacio h2 { margin: 0 0 6px; font-size: 1.25rem; color: var(--laton2, var(--accent, #f0c773)); }
+.mis-vacio p { margin: 0 0 10px; color: var(--mut, var(--muted, rgba(255,255,255,.75))); }
+.mis-botones { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0 !important; }
+.mis-btn { display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: linear-gradient(180deg, #ffd27a, #e0a030); color: #2a1600; font: 800 .92rem "Poppins", system-ui, sans-serif; text-decoration: none; cursor: pointer; }
+.mis-btn.sec { background: transparent; color: inherit; border: 1px solid rgba(255,255,255,.25); }
+.mis-aviso { margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; background: #2a1c10; border: 1px solid #6a4a22; color: #ffd9a0; font-size: .88rem; line-height: 1.45; }
+.mis-aviso button { margin-left: 6px; padding: 4px 10px; border-radius: 8px; border: 1px solid #ffd9a0; background: transparent; color: inherit; font: 700 .82rem "Poppins", system-ui, sans-serif; cursor: pointer; }
