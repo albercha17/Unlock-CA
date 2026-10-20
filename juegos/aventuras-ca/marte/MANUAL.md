@@ -4,11 +4,11 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 24 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 15 pasos
+## Los 19 pasos
 
 ### Paso 1 — Llegada al hangar
 
@@ -80,20 +80,50 @@ Lee la carta 41. Descarta 44, 52, 66, 28 y 40 y coge 48 (rover) y 57 (baliza). L
 
 ### Paso 10 — Conduce el rover
 
-En el móvil: Acción, 48. Programa la ruta de A5 a F2 esquivando las rocas (por ejemplo ↑ ↑ → → ↑ ↑ → → ↓ →) y pulsa Ejecutar. El mensaje te dice que cojas la 79.
+En el móvil: Acción, 48. Programa la ruta de A5 a F2 esquivando las rocas (por ejemplo ↑ ↑ → → ↑ ↑ → → ↓ →) y pulsa Ejecutar. El mensaje te dice que cojas la 72.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `79`
+- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `72`
 - [ ] Hecho
 
-### Paso 11 — La sala del reactor
+### Paso 11 — La puerta del anexo
 
-Lee la carta 79. Descarta 41, 48 y 57 y coge 62 (panel), 59 (protocolo) y 51 (esquema). El protocolo dice: capacidad 15 MW y el escudo siempre activo; el esquema, fase 2.
+Lee la carta 72. Coge 74, 75, 76, 78 y 81. Las cartas 75, 76 y 78 dibujan los circuitos y la 81 explica las puertas lógicas.
+
+- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `72` `74` `75` `76` `78` `81`
+- [ ] Hecho
+
+### Paso 12 — La placa del anexo
+
+En el móvil: Acción, 74. Con los circuitos, enciende C, D, E y deja apagados A, B; pulsa Conectar. El mensaje te dice que cojas la 83.
+
+- **En el móvil:** Acción → `74`
+- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `72` `74` `75` `76` `78` `81` `83`
+- [ ] Hecho
+
+### Paso 13 — El laboratorio
+
+Lee la carta 83. Descarta 72, 74, 75, 76, 78 y 81 y coge 86, 87, 89 y 90.
+
+- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `83` `86` `87` `89` `90`
+- [ ] Hecho
+
+### Paso 14 — El analizador
+
+En el móvil: Acción, 86. Según el cuaderno, las limpias tienen cristal azul y no son rojas: muestras 6, 8. Pulsa Analizar. El mensaje te dice que cojas la 79.
+
+- **En el móvil:** Acción → `86`
+- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `79` `83` `86` `87` `89` `90`
+- [ ] Hecho
+
+### Paso 15 — La sala del reactor
+
+Lee la carta 79. Descarta 41, 48, 57, 83, 86, 87, 89 y 90 y coge 62 (panel), 59 (protocolo) y 51 (esquema). El protocolo dice: capacidad 15 MW y el escudo siempre activo; el esquema, fase 2.
 
 - **La mesa queda con:** `16` `35` `36` `51` `59` `62` `79`
 - [ ] Hecho
 
-### Paso 12 — Arranca el reactor
+### Paso 16 — Arranca el reactor
 
 En el móvil: Acción, 62. Activa sistemas que sumen justo 15 MW con el escudo encendido: Escudo (8) + Radio (4) + Luz (3). El mensaje te dice que cojas la 54.
 
@@ -101,7 +131,7 @@ En el móvil: Acción, 62. Activa sistemas que sumen justo 15 MW con el escudo e
 - **La mesa queda con:** `16` `35` `36` `51` `54` `59` `62` `79`
 - [ ] Hecho
 
-### Paso 13 — Carga el Cronoportal
+### Paso 17 — Carga el Cronoportal
 
 El Cronoportal (16) y el núcleo de fusión (54) son combinables: 16 + 54 = 70. Coge la 70 y léela: te manda descartar 16, 54, 79, 62 y 59 y coger la 88.
 
@@ -109,7 +139,7 @@ El Cronoportal (16) y el núcleo de fusión (54) son combinables: 16 + 54 = 70. 
 - **La mesa queda con:** `35` `36` `51` `70` `88`
 - [ ] Hecho
 
-### Paso 14 — Calibra el Cronoportal
+### Paso 18 — Calibra el Cronoportal
 
 En el móvil: Acción, 88. El diario dice amplitud 3, la tomatera (5 hojas por rama) frecuencia 5 y el esquema fase 2. Pulsa Calibrar. El mensaje te dice que cojas la 99.
 
@@ -117,7 +147,7 @@ En el móvil: Acción, 88. El diario dice amplitud 3, la tomatera (5 hojas por r
 - **La mesa queda con:** `35` `36` `51` `70` `88` `99`
 - [ ] Hecho
 
-### Paso 15 — Final
+### Paso 19 — Final
 
 Lee la carta 99. Descarta 70, 88, 35, 36 y 51. En la mesa solo queda la 99. ¡Fin!
 
@@ -142,17 +172,28 @@ Lee la carta 99. Descarta 70, 88, 35, 36 y 51. En la mesa solo queda la 99. ¡Fi
 | 41 | Superficie de Marte | Normal | Coge 48, 57; Descarta 44, 52, 66, 28, 40 | Superficie de Marte: aparece al abrir la esclusa. | 8 |
 | 44 | Pasillo de la cúpula | Normal | Coge 52, 28; Descarta 10, 21, 25 | Pasillo de la cúpula: aparece al abrir la terminal. | 4 |
 | 48 | Rover de superficie | App | — | Rover (app): programar una ruta de A5 hasta la baliza. | 9 |
-| 51 | Esquema del Cronoportal | Normal | Texto: «Esquema del Cronoportal Fase de calibración: 2» | Esquema del Cronoportal: fase de calibración 2. | 11 |
+| 51 | Esquema del Cronoportal | Normal | Texto: «Esquema del Cronoportal Fase de calibración: 2» | Esquema del Cronoportal: fase de calibración 2. | 15 |
 | 52 | Panel de oxígeno | App | — | Panel de oxígeno (app): girar tuberías de la entrada a la salida. | 5 |
-| 54 | Núcleo de fusión | Combina | Combinable: suma los números | Núcleo de fusión: se combina con el Cronoportal (16). | 12 |
+| 54 | Núcleo de fusión | Combina | Combinable: suma los números | Núcleo de fusión: se combina con el Cronoportal (16). | 16 |
 | 57 | Baliza del anexo | Normal | Texto: «Baliza del anexo: columna F, fila 2» | Baliza: las coordenadas del anexo del reactor (columna F, fila 2). | 9 |
-| 59 | Protocolo del reactor | Normal | Texto: «Capacidad: 15 MW El escudo, siempre activo» | Protocolo del reactor: capacidad 15 MW y escudo siempre activo. | 11 |
-| 62 | Panel de energía | App | — | Panel de energía (app): sistemas que sumen 15 MW con el escudo activo. | 11 |
+| 59 | Protocolo del reactor | Normal | Texto: «Capacidad: 15 MW El escudo, siempre activo» | Protocolo del reactor: capacidad 15 MW y escudo siempre activo. | 15 |
+| 62 | Panel de energía | App | — | Panel de energía (app): sistemas que sumen 15 MW con el escudo activo. | 15 |
 | 66 | Esclusa del reactor | App | — | Esclusa del reactor (app): 173 en binario con 8 interruptores. | 6 |
-| 70 | Cronoportal cargado | Normal | Coge 88; Descarta 16, 54, 79, 62, 59 | Cronoportal cargado: resultado de 16 + 54. | 13 |
-| 79 | Sala del reactor | Normal | Coge 62, 59, 51; Descarta 41, 48, 57 | Sala del reactor: aparece al llegar con el rover. | 10 |
-| 88 | Calibrador del Cronoportal | App | — | Calibrador (app): amplitud 3, frecuencia 5 y fase 2. | 13 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 70, 88, 35, 36, 51 | Final de la aventura. | 14 |
+| 70 | Cronoportal cargado | Normal | Coge 88; Descarta 16, 54, 79, 62, 59 | Cronoportal cargado: resultado de 16 + 54. | 17 |
+| 72 | La puerta del anexo | Normal | Coge 74, 75, 76, 78, 81 | La puerta del anexo: reparte la placa y sus dibujos. | 10 |
+| 74 | La placa del anexo | App | — | La placa (app): el circuito lógico. | 11 |
+| 75 | Placa: el motor | Normal | — | Circuito del motor. | 11 |
+| 76 | Placa: la alarma | Normal | — | Circuito de la alarma. | 11 |
+| 78 | Placa: la ventilación | Normal | — | Circuito de la ventilación. | 11 |
+| 79 | Sala del reactor | Normal | Coge 62, 59, 51; Descarta 41, 48, 57, 83, 86, 87, 89, 90 | Sala del reactor: aparece al pasar la cámara de descontaminación. | 14 |
+| 81 | Parte de averías | Normal | — | Leyenda de las puertas y estado pedido. | 11 |
+| 83 | El laboratorio del anexo | Normal | Coge 86, 87, 89, 90; Descarta 72, 74, 75, 76, 78, 81 | El laboratorio: reparte el analizador y el cuaderno. | 12 |
+| 86 | El analizador de muestras | App | — | El analizador (app): las muestras limpias. | 13 |
+| 87 | Cuaderno de muestras (1 de 3) | Normal | — | Cuaderno de muestras (1 de 3). | 13 |
+| 88 | Calibrador del Cronoportal | App | — | Calibrador (app): amplitud 3, frecuencia 5 y fase 2. | 17 |
+| 89 | Cuaderno de muestras (2 de 3) | Normal | — | Cuaderno de muestras (2 de 3). | 13 |
+| 90 | Cuaderno de muestras (3 de 3) | Normal | — | Cuaderno de muestras (3 de 3). | 13 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 70, 88, 35, 36, 51 | Final de la aventura. | 18 |
 
 ## Si algo no cuadra
 

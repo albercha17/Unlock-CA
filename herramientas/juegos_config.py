@@ -19,7 +19,7 @@ import datos_piratas as Pi
 import datos_juguetes as Ju
 
 FARO = "juegos/el-faro"
-FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
+FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Cristina y Alberto tienen hora y cuarto para encender el faro... y encontrar al abuelo Anselmo."
 
 
 def leer(p):
@@ -44,19 +44,19 @@ JUEGOS = {
         datos=E, dificultad=3, tema="egipto", titulo="Egipto, 1274 a.C.: El Ojo de Horus", emoji="🏺",
         grad="#4a3512,#150f05", acento="#e0b04a", acento2="#f2d27a", bg1="#120d05", bg2="#2a1d0a",
         sinopsis="Cristina y Alberto estrenan su Cronoportal y aterrizan en una cámara secreta bajo un templo de Tebas, en el año 1274 a.C. Con el aparato sin energía y solo una hora antes de que lleguen los sacerdotes, tienen que encontrar el Ojo de Horus.",
-        minigames={"15": "15-papiro.js", "23": "23-muro.js", "47": "47-balanza.js", "71": "71-anillos.js", "95": "95-cristales.js", "37": "37-tablilla.js", "34": "34-sarcofago.js"},
+        minigames={"15": "15-papiro.js", "23": "23-muro.js", "47": "47-balanza.js", "71": "71-anillos.js", "95": "95-cristales.js", "37": "37-tablilla.js", "34": "34-sarcofago.js", "50": "50-ofrendas.js", "42": "42-losa.js"},
         pal=("#7a5a1e", "#2a1d0a")),
     "Marte": dict(
         datos=M, dificultad=3, tema="marte", titulo="Marte, 2157: Cúpula Aurora", emoji="🚀",
         grad="#5a2a14,#12060a", acento="#ff8a50", acento2="#ffb085", bg1="#12070a", bg2="#2a120c",
         sinopsis="Segundo salto del Cronoportal: Marte, año 2157. La cúpula Aurora está a oscuras por una tormenta de polvo y el soporte vital se apaga. Cristina y Alberto tienen una hora para encontrar el núcleo de fusión y volver a casa.",
-        minigames={"21": "21-terminal.js", "52": "52-tuberias.js", "66": "66-esclusa.js", "88": "88-calibrador.js", "35": "35-diario.js", "48": "48-rover.js", "62": "62-energia.js"},
+        minigames={"21": "21-terminal.js", "52": "52-tuberias.js", "66": "66-esclusa.js", "88": "88-calibrador.js", "35": "35-diario.js", "48": "48-rover.js", "62": "62-energia.js", "74": "74-circuito.js", "86": "86-analizador.js"},
         pal=("#8a3a1a", "#1c0c10")),
     "Florencia": dict(
         datos=F, dificultad=4, tema="florencia", titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞",
         grad="#5a3a1a,#140c06", acento="#d9a441", acento2="#f0c773", bg1="#120c07", bg2="#2a1c0e",
         sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con una hora hasta el amanecer. Solo la luz del alba, concentrada por la lente del maestro, puede recargar el aparato.",
-        minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js"},
+        minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js", "46": "46-baul.js"},
         pal=("#6a4a22", "#1a1008")),
     "Dinosaurios": dict(
         datos=D, dificultad=3, tema="dinosaurios", titulo="Cretácico, hace 66 millones de años: El Valle de los Gigantes", emoji="🦖", minutos=90,
@@ -101,7 +101,7 @@ JUEGOS = {
         datos=S, dificultad=3, tema="espia", titulo="Montecarlo, 1965: Operación Cristal", emoji="🕵️", minutos=75,
         grad="#0e5a6a,#07121a", acento="#ff6fa8", acento2="#7fe8f0", bg1="#06131a", bg2="#0e2a36",
         sinopsis="Décima parada del Cronoportal: Montecarlo, 1965, noche de gala. El aparato golpea una mesa del casino y el Dr. Noche, un villano con capa que colecciona gemas, se lleva el cristal de energía a su yate. Con la Agente Zorro, Cristina y Alberto tienen setenta y cinco minutos, hasta que el yate zarpe a medianoche, para superponer hojas transparentes, usar una rejilla de cifrado, cruzar un yate a ciegas, descifrar un skyline y desactivar cuatro cargas con un manual.",
-        minigames={"20": "20-caja.js", "24": "24-teletipo.js", "46": "46-pasillos.js", "48": "48-skyline.js", "69": "69-desactivador.js"},
+        minigames={"20": "20-caja.js", "24": "24-teletipo.js", "46": "46-pasillos.js", "48": "48-skyline.js", "69": "69-desactivador.js", "36": "36-poker.js"},
         pal=("#1c7a8a", "#07202a")),
     "Futbol": dict(
         datos=Fu, dificultad=2, tema="futbol", titulo="La Final del Siglo, 1970: La Copa de Cristal", emoji="⚽", minutos=90,
@@ -113,13 +113,13 @@ JUEGOS = {
         datos=Pi, dificultad=3, tema="piratas", titulo="Mar de las Brumas, 1715: El Tesoro de la Isla Calavera", emoji="🏴‍☠️", minutos=90,
         grad="#1c5a6a,#06141a", acento="#e8b84a", acento2="#9fe0e0", bg1="#06141a", bg2="#103440",
         sinopsis="Duodécima parada del Cronoportal: la cubierta de La Gaviota, un bergantín pirata del Caribe, en 1715. Un loro se lleva el cristal de energía al cofre de la capitana Bruma, que solo lo devolverá si encontráis el tesoro del capitán Calavera antes de que la marea cubra su cueva. Hay cartas que se pliegan como los mapas antiguos: fijad el rumbo, estibad la pólvora, burlad a una fragata que persigue siempre igual, encontrad una constelación girada en la tapa de un cofre, cruzad un suelo de losas trampa y cavad donde marca el mapa.",
-        minigames={"24": "24-timon.js", "46": "46-bodega.js", "48": "48-persecucion.js", "66": "66-cofre.js", "79": "79-suelo.js", "69": "69-gruta.js"},
+        minigames={"24": "24-timon.js", "46": "46-bodega.js", "48": "48-persecucion.js", "66": "66-cofre.js", "79": "79-suelo.js", "69": "69-gruta.js", "61": "61-reloj.js"},
         pal=("#1f6a7a", "#08202a")),
     "Juguetes": dict(
         datos=Ju, dificultad=1, tema="juguetes", titulo="El Cuarto de Leo, 1995: La Noche de los Juguetes", emoji="🧸", minutos=60,
         grad="#3a6ad0,#121e48", acento="#ffcc33", acento2="#ff9ec0", bg1="#0e1838", bg2="#233f7a",
         sinopsis="Decimotercera parada del Cronoportal, y la más fácil: el aparato falla y os convierte en juguetes, una muñeca de trapo y un robot de hojalata, en el cuarto de Leo, un niño de 1995, la noche antes de la mudanza. Leo ha guardado el cristal creyendo que era una canica. Con el Capitán Pelusa y los demás juguetes, buscad las diferencias de una foto, construid una torre, desenredad una marioneta, hojead un cuaderno, cargad un tren y lanzad las canicas antes de que llegue el camión.",
-        minigames={"24": "24-estanteria.js", "46": "46-torre.js", "48": "48-marioneta.js", "66": "66-tren.js", "69": "69-canicas.js"},
+        minigames={"24": "24-estanteria.js", "46": "46-torre.js", "48": "48-marioneta.js", "66": "66-tren.js", "69": "69-canicas.js", "64": "64-cubos.js"},
         pal=("#3a6ad0", "#121e48")),
 }
 
@@ -136,7 +136,7 @@ def generar_index(index_faro, cfg):
     ix = sustituir(ix, "assets: '../../assets/',", "assets: '../../../assets/',")
     for viejo in ('src="../../assets/js/ajustes.js"', 'href="../../manifest.webmanifest"', 'href="../../assets/icons/apple-touch-icon.png"', 'href="../../assets/icons/favicon.png"'):
         ix = sustituir(ix, viejo, viejo.replace('"../../', '"../../../'))
-    ix = sustituir(ix, "segundos: 3600,", f"segundos: {cfg.get('minutos', 60) * 60},")
+    ix = sustituir(ix, "segundos: 4500,", f"segundos: {cfg.get('minutos', 60) * 60},")
     ix = sustituir(ix, "dificultad: 2,", f"dificultad: {cfg.get('dificultad', 3)},")
     ix = sustituir(ix, "← Volver al menú", "← Volver a Aventuras C&amp;A", veces=None)
     ix = sustituir(ix, "volver: '../../index.html',", "volver: '../index.html',")

@@ -304,7 +304,7 @@ window.JUEGO_LOCAL = {
   "tipo": "verde",
   "descripcion": [
    "Es un juego de la app: dos jarras (una de 3 medidas y otra de 5) y el grifo de la cisterna. Se puede llenar una jarra, vaciarla o verter una en otra. Hay que dejar justo la cantidad que pide la nota (carta 60) en la jarra grande.",
-   "Al acertar, la compuerta cede y se abre una escalera a la azotea. Coged la carta 74."
+   "Al vaciarla aparece una escalera de caracol, pero está atascada con las cajas de viaje del maestro. Coged la carta 44."
   ],
   "pistas": [
    "Solo se puede llenar, vaciar o verter de una jarra en otra hasta llenarla.",
@@ -382,15 +382,21 @@ window.JUEGO_LOCAL = {
   "descarta": [
    51,
    58,
-   60
+   60,
+   44,
+   46,
+   47,
+   48,
+   49,
+   50
   ],
   "descripcion": [
-   "La compuerta se abre y una escalera de caracol sube a la azotea, bajo el lucernario cerrado. Allí está el ornitóptero de Leonardo (carta 66) y tres notas: el cuaderno de vuelo (carta 68), una nota del viento (carta 70) y los apuntes de Salaì (carta 71). En un cofre abierto brillan los espejos ustorios del maestro (carta 72).",
-   "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58 y 60."
+   "Con el baúl cerrado, la escalera de caracol sube a la azotea, bajo el lucernario cerrado. Allí está el ornitóptero de Leonardo (carta 66) y tres notas: el cuaderno de vuelo (carta 68), una nota del viento (carta 70) y los apuntes de Salaì (carta 71). En un cofre abierto brillan los espejos ustorios del maestro (carta 72).",
+   "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58, 60, 44, 46, 47, 48, 49 y 50."
   ],
   "pistas": [
    "Hay un puzle: el ornitóptero, con tres notas.",
-   "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58 y 60."
+   "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58, 60, 44, 46, 47, 48, 49 y 50."
   ],
   "arte": "Una azotea de madera bajo el tejado de un taller, con un lucernario cerrado en el techo, un ornitóptero de madera con grandes alas de tela sobre una rampa, tres notas clavadas en una viga y un cofre abierto con espejos de bronce brillantes. Cristina y Alberto lo miran con sorpresa."
  },
@@ -542,6 +548,93 @@ window.JUEGO_LOCAL = {
   ],
   "pistas": [],
   "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven el taller de Leonardo con un rayo de amanecer, la lente brillante y el ornitóptero. Llevan aún su ropa florentina de 1503. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+ },
+ "44": {
+  "titulo": "Carta 44 — La escalera atascada",
+  "tipo": "gris",
+  "coge": [
+   46,
+   47,
+   48,
+   49,
+   50
+  ],
+  "descripcion": [
+   "La escalera de caracol sube a la azotea, pero Salaì la ha llenado con las cajas de viaje de Leonardo: mañana parten hacia Milán. Si las metéis todas en el gran baúl del rellano (carta 46), quedará libre el paso. Las cuatro cajas (cartas 47, 48, 49 y 50) tienen formas raras: la de un ornitóptero, un león, un laúd y un carro.",
+   "Coged las cartas 46, 47, 48, 49 y 50."
+  ],
+  "pistas": [
+   "Hay un puzle: el baúl y las cuatro cajas.",
+   "Cada caja está dibujada desde arriba en una carta (47 a 50).",
+   "Coged las cartas 46, 47, 48, 49 y 50."
+  ],
+  "arte": "Una escalera de caracol de piedra atascada de cajas de madera de formas extrañas, con un gran baúl de viaje abierto en el rellano, a la luz de una vela. Cristina intenta levantar una caja con cara de esfuerzo y Alberto mide el baúl con un palmo, pensativo."
+ },
+ "46": {
+  "titulo": "Carta 46 — El baúl de viaje",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: un baúl de 5 × 4 palmos y las cuatro cajas de viaje. Se elige una caja, se gira si hace falta y se toca la casilla del baúl donde va su esquina de arriba a la izquierda. Las formas están en las cartas 47, 48, 49 y 50 y tienen que caber las cuatro, sin huecos.",
+   "Al cerrar el baúl, la escalera queda libre. Coged la carta 74."
+  ],
+  "pistas": [
+   "Hacen falta las cuatro cartas de las cajas (47, 48, 49 y 50).",
+   "Empezad por las esquinas del baúl y por la caja más grande (el carro). No hay huecos de sobra: las cuatro llenan los 20 palmos.",
+   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1) (columna, fila)."
+  ],
+  "arte": "Un gran baúl de viaje renacentista de madera con herrajes de bronce, abierto, con el fondo dividido en cuadros y cuatro cajas de formas raras al lado. Alberto encaja una caja con cuidado, sacando la lengua, y Cristina le indica otra con la mano, muy segura."
+ },
+ "47": {
+  "titulo": "Carta 47 — Caja de viaje: el ornitóptero",
+  "tipo": "gris",
+  "descripcion": [
+   "La caja de viaje de el ornitóptero, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
+  ],
+  "pistas": [
+   "Es una de las cuatro cajas del baúl (carta 46).",
+   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
+   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el ornitóptero."
+ },
+ "48": {
+  "titulo": "Carta 48 — Caja de viaje: el león mecánico",
+  "tipo": "gris",
+  "descripcion": [
+   "La caja de viaje de el león mecánico, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
+  ],
+  "pistas": [
+   "Es una de las cuatro cajas del baúl (carta 46).",
+   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
+   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el león mecánico."
+ },
+ "49": {
+  "titulo": "Carta 49 — Caja de viaje: el laúd de plata",
+  "tipo": "gris",
+  "descripcion": [
+   "La caja de viaje de el laúd de plata, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
+  ],
+  "pistas": [
+   "Es una de las cuatro cajas del baúl (carta 46).",
+   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
+   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el laúd de plata."
+ },
+ "50": {
+  "titulo": "Carta 50 — Caja de viaje: el carro blindado",
+  "tipo": "gris",
+  "descripcion": [
+   "La caja de viaje de el carro blindado, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
+  ],
+  "pistas": [
+   "Es una de las cuatro cajas del baúl (carta 46).",
+   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
+   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el carro blindado."
  }
 };
 window.fetchCartas = function () {

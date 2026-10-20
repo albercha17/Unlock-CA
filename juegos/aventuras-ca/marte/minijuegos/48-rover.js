@@ -125,7 +125,7 @@ export function startMinigame(opts = {}) {
     }
     if (pos.c === META.c && pos.r === META.r) {
       resuelto = true;
-      ui.say('¡El rover llega a la baliza! Desde ahí se ve el anexo del reactor. Coged la carta 79.', 'ok');
+      ui.say('¡El rover llega a la baliza! Desde ahí se ve la puerta del anexo del reactor. Coged la carta 72.', 'ok');
     } else {
       if (!document.querySelector('.far-feedback.bad')?.textContent) ui.say('El rover se detiene en ' + LETRAS[pos.c] + (pos.r + 1) + ', lejos de la baliza.', 'bad');
       pos = { ...INICIO };

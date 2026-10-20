@@ -3,8 +3,8 @@
     "juego": "El Faro de Cabo Niebla",
     "estilo": "Ilustración pintada a mano en acuarela y gouache, estilo libro ilustrado de misterio (como un juego de escape room de mesa), texturas de papel, paleta azul petróleo, gris niebla y toques de luz ámbar cálida, iluminación dramática de tormenta nocturna, formato vertical 2:3. Sin texto, sin letras, sin números, sin marcos ni bordes. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
     "personajes": {
-      "Inés": "Inés Valcárcel, mujer de 30 años, pelo negro corto y liso, piel clara, ojos verdes, chubasquero amarillo, botas de agua, expresión decidida.",
-      "Marcos": "Marcos Ibáñez, hombre de 32 años, pelirrojo, gafas redondas, pecas, jersey azul marino de cuello alto bajo una chaqueta impermeable gris, mochila con una antena de radio asomando.",
+      "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Viste un chubasquero amarillo con capucha, un jersey grueso de lana y botas de agua, y lleva una linterna.",
+      "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Viste una chaqueta impermeable gris sobre un jersey azul marino de cuello alto y lleva una mochila con una antena de radio asomando.",
       "Anselmo": "Anselmo, hombre de unos 75 años, barba blanca, gorro de lana verde, jersey de punto grueso, mirada amable, siempre con un termo."
     }
   },
@@ -15,15 +15,15 @@
     ],
     "tipo": "gris",
     "descripcion": [
-      "Noche de tormenta. Inés y Marcos llegan al faro de Cabo Niebla. La gran lámpara está apagada y la sirena, muda. Por radio, la guardia costera avisa: el carguero «Estrella del Norte» navega a ciegas y llegará a las rocas en una hora.",
-      "Anselmo, el viejo guardián y abuelo de Inés, no responde.",
+      "Noche de tormenta. Cristina y Alberto llegan al faro de Cabo Niebla. La gran lámpara está apagada y la sirena, muda. Por radio, la guardia costera avisa: el carguero «Estrella del Norte» navega a ciegas y llegará a las rocas en una hora.",
+      "Anselmo, el viejo guardián y abuelo de Cristina, no responde.",
       "Coged la carta 7."
     ],
     "pistas": [
       "Entrad en el faro.",
       "Coged la carta 7."
     ],
-    "arte": "El faro de Cabo Niebla, torre blanca con una banda roja, sobre un acantilado en plena tormenta nocturna; la gran lámpara de la cima está apagada. En primer plano y de espaldas, Inés y Marcos caminan hacia la puerta del faro con una linterna. En el mar, muy lejos, las luces de un carguero."
+    "arte": "El faro de Cabo Niebla, torre blanca con una banda roja, sobre un acantilado en plena tormenta nocturna; la gran lámpara de la cima está apagada. En primer plano y de espaldas, Cristina y Alberto caminan hacia la puerta del faro con una linterna. En el mar, muy lejos, las luces de un carguero."
   },
   "7": {
     "titulo": "Carta 7 — Recibidor del faro",
@@ -260,7 +260,7 @@
       "Coged las cartas 74, 85, 72 y 3. Descartad las cartas 33, 30 y 40."
     ],
     "pistas": [
-      "Hay una radio. Marcos sabrá qué hacer.",
+      "Hay una radio. Alberto sabrá qué hacer.",
       "Coged las cartas 74, 85, 72 y 3. Descartad las cartas 33, 30 y 40."
     ],
     "arte": "Sala de máquinas de un faro: generador diésel antiguo parado, tuberías, cuadros de válvulas, una mesa grande con un mapa, una radio de onda corta, un bidón de aceite y una brújula, todo iluminado por luz de linterna y relámpagos por una ventana."
@@ -314,6 +314,195 @@
     ],
     "arte": "Radio de onda corta de sobremesa con un gran dial iluminado en ámbar, dos perillas grandes, altavoz de tela y un micrófono de mano, sobre una mesa del cuarto de máquinas."
   },
+  "44": {
+    "titulo": "Carta 44 — La guardia costera",
+    "tipo": "gris",
+    "coge": [
+      45,
+      46,
+      47
+    ],
+    "descripcion": [
+      "La radio cruje y responde la guardia costera: el «Estrella del Norte» ha perdido el radar y no sabe por dónde pasa el canal entre los islotes de la bahía. Anselmo dibujó la bahía en dos hojas, con cuántas casillas mide cada islote (cartas 46 y 47). En el panel de la radio (carta 45) se marca el plano y se transmite.",
+      "Coged las cartas 45, 46 y 47."
+    ],
+    "pistas": [
+      "Hay un puzle: el plano de la bahía.",
+      "El plano está partido en dos hojas: filas A a C (46) y D a F (47); la 47 trae las reglas.",
+      "Coged las cartas 45, 46 y 47."
+    ],
+    "arte": "La sala de máquinas de un faro en una noche de tormenta, con una radio de onda corta antigua encendida y una luz verde en su escala; sobre la mesa, dos hojas con un plano de islotes dibujado a lápiz. Alberto sostiene el micrófono de la radio con cara de concentración y Cristina, con el chubasquero amarillo empapado, señala las hojas con gesto de urgencia."
+  },
+  "45": {
+    "titulo": "Carta 45 — El plano de la bahía",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: la bahía en una rejilla de 6 × 6. Tocando una casilla se marca como islote. Cada islote mide lo que dice su número en el plano de Anselmo (cartas 46 y 47); dos islotes no se tocan por un lado; el mar va todo unido y nunca forma un charco de 2 × 2.",
+      "Al transmitir el plano bueno, el carguero toma el canal. Coged la carta 54."
+    ],
+    "pistas": [
+      "Hacen falta las dos hojas del plano (cartas 46 y 47).",
+      "Empezad por los islotes de 1 casilla y por las casillas que tocan a dos números distintos (esas son mar). Después, evitad los charcos de 2 × 2.",
+      "Son islote: A1, A2, A3, B5, C2, C3, C6, D4, D5, D6, E2, F2, F4, F5, F6."
+    ],
+    "arte": "El panel de una radio antigua de faro con una rejilla de botones luminosos, unos azules y otros color arena, y una aguja temblando, a la luz de una lámpara. Cristina pulsa un botón con cuidado, mordiéndose el labio, y Alberto compara con un papel, muy serio."
+  },
+  "46": {
+    "titulo": "Carta 46 — Plano de la bahía (1 de 2)",
+    "tipo": "gris",
+    "descripcion": [
+      "La primera hoja del plano de la bahía de Anselmo: las filas A, B y C, con el tamaño de cada islote."
+    ],
+    "pistas": [
+      "Es la mitad de arriba del plano (carta 45).",
+      "La otra mitad y las reglas están en la carta 47.",
+      "Son islote: A1, A2, A3, B5, C2, C3, C6, D4, D5, D6, E2, F2, F4, F5, F6."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la primera hoja del plano."
+  },
+  "47": {
+    "titulo": "Carta 47 — Plano de la bahía (2 de 2)",
+    "tipo": "gris",
+    "descripcion": [
+      "La segunda hoja del plano de la bahía de Anselmo: las filas D, E y F, con el tamaño de cada islote y las reglas del plano."
+    ],
+    "pistas": [
+      "Es la mitad de abajo del plano (carta 45) y trae las reglas.",
+      "La otra mitad está en la carta 46.",
+      "Son islote: A1, A2, A3, B5, C2, C3, C6, D4, D5, D6, E2, F2, F4, F5, F6."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la segunda hoja del plano."
+  },
+  "54": {
+    "titulo": "Carta 54 — El cuarto de guardia",
+    "tipo": "gris",
+    "coge": [
+      55,
+      56,
+      57
+    ],
+    "descarta": [
+      44,
+      45,
+      46,
+      47
+    ],
+    "descripcion": [
+      "El capitán toma el canal, pero necesita ver la luz del faro. La escalera de hierro hacia la lente tiene una trampilla con un capricho de Anselmo: en el cuarto de guardia hay una lámpara de mesa (carta 55), una sombra pintada en la pared (carta 56) y un estante con sus cosas (carta 57). La trampilla se abre si la sombra de tres cosas coincide con la pintura.",
+      "Coged las cartas 55, 56 y 57. Descartad las cartas 44, 45, 46 y 47."
+    ],
+    "pistas": [
+      "Hay un puzle: la lámpara, la sombra pintada y el estante.",
+      "La sombra (56) está hecha con tres cosas del estante (57), puestas en fila.",
+      "Coged las cartas 55, 56 y 57. Descartad las cartas 44, 45, 46 y 47."
+    ],
+    "arte": "El cuarto de guardia de un faro con una lámpara de mesa encendida, una pared con una extraña sombra pintada en negro, un estante con un farol, un ancla, una botella, una tetera, una gaviota de madera, un catalejo, una campana y una llave, y una trampilla de hierro en el techo. Alberto mira la sombra con la cabeza ladeada de curiosidad y Cristina coge la tetera con una sonrisa traviesa."
+  },
+  "55": {
+    "titulo": "Carta 55 — La lámpara de la mesa",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: la mesa de la lámpara y el estante del farero. Hay que poner tres cosas en fila, de izquierda a derecha, para que su sombra sea la que Anselmo pintó en la pared (carta 56). Las cosas del estante están dibujadas en la carta 57.",
+      "Al acertar, se abre la trampilla. Coged la carta 64."
+    ],
+    "pistas": [
+      "Comparad la sombra de la pared (56) con las cosas del estante (57).",
+      "Una cosa está tumbada, otra tiene asa y pitorro y la tercera es de hierro, con brazos curvos.",
+      "De izquierda a derecha: catalejo, tetera, ancla."
+    ],
+    "arte": "Una lámpara de mesa de latón encendida sobre una mesa de madera en un faro, proyectando sombras de objetos en una pared encalada. Cristina coloca un catalejo en la mesa, conteniendo la risa, y Alberto, agachado, mira la sombra con un ojo cerrado."
+  },
+  "56": {
+    "titulo": "Carta 56 — La sombra en la pared",
+    "tipo": "gris",
+    "descripcion": [
+      "La sombra que Anselmo pintó en la pared del cuarto de guardia: tres cosas suyas puestas en fila delante de la lámpara."
+    ],
+    "pistas": [
+      "Es la sombra que hay que reproducir con la lámpara (carta 55).",
+      "Son tres cosas del estante (carta 57), de izquierda a derecha.",
+      "De izquierda a derecha: catalejo, tetera, ancla."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la sombra en la pared."
+  },
+  "57": {
+    "titulo": "Carta 57 — El estante del farero",
+    "tipo": "gris",
+    "descripcion": [
+      "El estante de Anselmo con ocho cosas suyas numeradas: farol, ancla, botella, tetera, gaviota, catalejo, campana y llave."
+    ],
+    "pistas": [
+      "Son las cosas que se pueden poner ante la lámpara (carta 55).",
+      "Comparad sus formas con la sombra de la pared (carta 56).",
+      "De izquierda a derecha: catalejo, tetera, ancla."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el estante del farero."
+  },
+  "64": {
+    "titulo": "Carta 64 — La escalera de hierro",
+    "tipo": "gris",
+    "coge": [
+      65,
+      66,
+      67
+    ],
+    "descarta": [
+      54,
+      55,
+      56,
+      57
+    ],
+    "descripcion": [
+      "La trampilla se abre a la escalera de hierro. Antes de subir, Cristina se fija en el temporizador de la lente (carta 65): cada faro tiene su propia luz y, si el capitán ve otra, creerá que es otro faro y se estrellará. El almanaque de faros (carta 66) y una nota de Anselmo (carta 67) dicen cómo es la de Cabo Niebla.",
+      "Coged las cartas 65, 66 y 67. Descartad las cartas 54, 55, 56 y 57."
+    ],
+    "pistas": [
+      "Hay un puzle: el temporizador, el almanaque y la nota.",
+      "El almanaque (66) dice la luz de cada faro; la nota (67), cómo pasarla a segundos.",
+      "Coged las cartas 65, 66 y 67. Descartad las cartas 54, 55, 56 y 57."
+    ],
+    "arte": "Una escalera de caracol de hierro que sube hacia la cúpula de un faro, con un viejo temporizador de engranajes y doce botones junto a la barandilla y un almanaque abierto colgado de un clavo; la lluvia golpea los cristales. Cristina lee el almanaque a la luz de la linterna con los ojos entrecerrados y Alberto toca un botón del temporizador con cara de duda."
+  },
+  "65": {
+    "titulo": "Carta 65 — El temporizador de la lente",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: doce casillas, una por segundo del ciclo de la luz. Hay que encender las casillas de la luz de Cabo Niebla, que viene en el almanaque (carta 66) y se pasa a segundos con la nota de Anselmo (carta 67).",
+      "Al programarla bien, la lente queda lista. Coged la carta 78."
+    ],
+    "pistas": [
+      "Hacen falta el almanaque (66) y la nota de Anselmo (67).",
+      "Cabo Niebla: destello, destello, destello, largo. Un destello es 1 segundo de luz y uno oscuro; un largo, 2 de luz y uno oscuro.",
+      "Encended los segundos 1 3 5 7 8."
+    ],
+    "arte": "Un temporizador de engranajes de latón con doce botones en fila, unos encendidos en amarillo, junto a la escalera de un faro. Alberto pulsa un botón con decisión y Cristina cuenta los segundos con los dedos, en voz alta."
+  },
+  "66": {
+    "titulo": "Carta 66 — Almanaque de faros",
+    "tipo": "gris",
+    "descripcion": [
+      "El almanaque de faros de la costa norte de 1923: la luz de cada faro, escrita como una lista de destellos y largos."
+    ],
+    "pistas": [
+      "Sirve para el temporizador de la lente (carta 65).",
+      "Buscad Cabo Niebla y pasadlo a segundos con la nota de Anselmo (carta 67).",
+      "Encended los segundos 1 3 5 7 8."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el almanaque de faros."
+  },
+  "67": {
+    "titulo": "Carta 67 — Nota de Anselmo",
+    "tipo": "gris",
+    "descripcion": [
+      "Una nota de Anselmo que explica cómo se lee el almanaque: cuánto dura un destello, un largo y la oscuridad, con un ejemplo dibujado."
+    ],
+    "pistas": [
+      "Sirve para el temporizador de la lente (carta 65).",
+      "Mirad el ejemplo de Punta Gaviota: cada elemento ocupa su luz y un segundo oscuro.",
+      "Encended los segundos 1 3 5 7 8."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la nota de Anselmo."
+  },
   "72": {
     "titulo": "Carta 72 — Bidón de aceite",
     "combina": [
@@ -342,16 +531,20 @@
       63,
       85,
       74,
-      3
+      3,
+      64,
+      65,
+      66,
+      67
     ],
     "tipo": "gris",
     "descripcion": [
       "Lo más alto del faro. La enorme lente gira inmóvil bajo la tormenta. Veis: un panel de espejos ajustables (carta 70), una lámpara de aceite vacía (carta 10) y el panel de arranque (carta 95).",
-      "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74 y 3."
+      "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74, 3, 64, 65, 66 y 67."
     ],
     "pistas": [
       "Hay tres cosas que tocar.",
-      "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74 y 3."
+      "Coged las cartas 70, 10 y 95. Descartad las cartas 63, 85, 74, 3, 64, 65, 66 y 67."
     ],
     "arte": "Sala de la lente en lo alto de un faro: una enorme lente de Fresnel de cristal, ventanales con una tormenta nocturna detrás, un panel de espejos de bronce ajustables a un lado, una lámpara de aceite vacía en una repisa y un panel de control de latón con palancas y válvulas."
   },
@@ -434,6 +627,6 @@
       "FIN."
     ],
     "pistas": [],
-    "arte": "El faro enciende su gran luz: un haz dorado barre el mar tormentoso e ilumina un carguero que gira lejos de las rocas. En primer plano, en la galería del faro, Inés, Marcos y un anciano de barba blanca y gorro de lana con un termo, sonriendo."
+    "arte": "El faro enciende su gran luz: un haz dorado barre el mar tormentoso e ilumina un carguero que gira lejos de las rocas. En primer plano, en la galería del faro, Cristina, Alberto y un anciano de barba blanca y gorro de lana con un termo, sonriendo."
   }
 }

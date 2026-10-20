@@ -280,7 +280,7 @@
     "tipo": "verde",
     "descripcion": [
       "Es un juego de la app: un mar con rocas en cuadrícula, La Gaviota, la fragata y el banco de niebla. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según su ordenanza (carta 52). Hay que meterse en la niebla sin que os alcance. Se puede deshacer.",
-      "Al llegar a la niebla, la fragata os pierde. Coged la carta 58."
+      "Al llegar a la niebla, la fragata os pierde. Coged la carta 59."
     ],
     "pistas": [
       "Leed la ordenanza (carta 52): la fragata es rápida, pero muy previsible.",
@@ -299,16 +299,21 @@
     "descarta": [
       48,
       52,
-      57
+      57,
+      59,
+      61,
+      63,
+      65,
+      67
     ],
     "descripcion": [
-      "La fragata se pierde en la niebla y La Gaviota fondea frente a la Isla Calavera. En el viejo campamento del capitán Calavera, entre palmeras, hay un cofre cuya tapa es un cielo de tachuelas con forma de estrella (carta 66). Clavada en un poste, la carta celeste del capitán (carta 64).",
-      "Coged las cartas 64 y 66. Descartad las cartas 48, 52 y 57."
+      "La marea abre el paso y La Gaviota fondea frente a la Isla Calavera. En el viejo campamento del capitán Calavera, entre palmeras, hay un cofre cuya tapa es un cielo de tachuelas con forma de estrella (carta 66). Clavada en un poste, la carta celeste del capitán (carta 64).",
+      "Coged las cartas 64 y 66. Descartad las cartas 48, 52, 57, 59, 61, 63, 65 y 67."
     ],
     "pistas": [
       "Hay un puzle: la tapa del cofre y la carta celeste.",
       "La carta celeste (64) dibuja la constelación de la Calavera.",
-      "Coged las cartas 64 y 66. Descartad las cartas 48, 52 y 57."
+      "Coged las cartas 64 y 66. Descartad las cartas 48, 52, 57, 59, 61, 63, 65 y 67."
     ],
     "arte": "Una playa de arena blanca con palmeras al atardecer y un viejo campamento pirata: un cofre grande con la tapa cuajada de tachuelas doradas en forma de estrellas y un poste con un pergamino clavado. Cristina salta de un bote al agua con una sonrisa radiante y Alberto, todavía en el bote, mira el cofre con una ceja levantada de duda."
   },
@@ -568,5 +573,78 @@
     ],
     "pistas": [],
     "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven una gruta marina con oro y agua que sube. Llevan aún su ropa de pirata, empapados y goteando sobre la alfombra. Cristina ríe a carcajadas enseñando un doblón de oro en la palma de la mano y Alberto, con el tricornio torcido, escurre agua de su casaca con cara de alivio y risa. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+  },
+  "59": {
+    "titulo": "Carta 59 — Al pairo frente a la isla",
+    "tipo": "gris",
+    "coge": [
+      61,
+      63,
+      65,
+      67
+    ],
+    "descripcion": [
+      "La Gaviota sale de la niebla frente a la Isla Calavera, pero un cinturón de arrecifes rodea la playa. La capitana Bruma busca en su diario (carta 67): solo se puede pasar con la marea justa, y ella lo apuntó a la manera de los marinos, en campanadas. Hay que poner en hora el reloj de bitácora (carta 61) con el cuadro de guardias (carta 63) y el de campanadas (carta 65).",
+      "Coged las cartas 61, 63, 65 y 67."
+    ],
+    "pistas": [
+      "Hay un puzle: el reloj de bitácora, el diario y dos cuadros.",
+      "El diario (67) dice la guardia y las campanadas; las cartas 63 y 65 explican cómo se cuentan.",
+      "Coged las cartas 61, 63, 65 y 67."
+    ],
+    "arte": "Un barco pirata al pairo al atardecer frente a una isla con palmeras rodeada de arrecifes con espuma, con una campana de bronce colgada junto al timón. Cristina mira las rocas por encima de la borda con cara de preocupación y Alberto sostiene un diario abierto, rascándose la cabeza confundido."
+  },
+  "61": {
+    "titulo": "Carta 61 — El reloj de bitácora",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: el reloj de bitácora de La Gaviota, que se adelanta o se atrasa de media en media hora. Hay que ponerlo a la hora que apuntó la capitana en su diario (carta 67), convirtiendo la guardia y las campanadas con los cuadros de las cartas 63 y 65.",
+      "Al acertar, la marea abre el paso entre los arrecifes. Coged la carta 58."
+    ],
+    "pistas": [
+      "Hacen falta el diario (67), las guardias (63) y las campanadas (65).",
+      "La guardia de la tarde empieza a las 12; cada campanada es media hora desde que empezó la guardia.",
+      "Poned el reloj a las 14:30."
+    ],
+    "arte": "Un reloj de bitácora de latón con esfera de veinticuatro horas, montado junto a la rueda del timón de un barco pirata, con la luz dorada del atardecer. Alberto gira la corona del reloj con cuidado, sacando la lengua, y Cristina cuenta campanadas con los dedos, muy seria."
+  },
+  "63": {
+    "titulo": "Carta 63 — Las guardias",
+    "tipo": "gris",
+    "descripcion": [
+      "El cuadro de las seis guardias de a bordo: cómo se reparte el día en turnos de cuatro horas y a qué hora empieza cada uno."
+    ],
+    "pistas": [
+      "Sirve para el reloj de bitácora (carta 61).",
+      "Buscad la guardia que dice el diario (carta 67) y mirad a qué hora empieza.",
+      "La hora es las 14:30."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el cuadro de las guardias."
+  },
+  "65": {
+    "titulo": "Carta 65 — Las campanadas",
+    "tipo": "gris",
+    "descripcion": [
+      "El cuadro de las campanadas: cada media hora de guardia suena una campanada más, de una a ocho."
+    ],
+    "pistas": [
+      "Sirve para el reloj de bitácora (carta 61).",
+      "Contad las campanas del diario (carta 67): cada una es media hora desde el principio de la guardia.",
+      "La hora es las 14:30."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el cuadro de las campanadas."
+  },
+  "67": {
+    "titulo": "Carta 67 — Diario de la capitana",
+    "tipo": "gris",
+    "descripcion": [
+      "Una página del diario de la capitana Bruma: el paso entre los arrecifes se abre en la guardia de la tarde, con las campanadas dibujadas."
+    ],
+    "pistas": [
+      "Sirve para el reloj de bitácora (carta 61).",
+      "El sol dice la guardia; las campanas, cuántas medias horas han pasado desde que empezó.",
+      "La hora es las 14:30."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la página del diario."
   }
 }

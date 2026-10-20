@@ -236,7 +236,7 @@ export function startMinigame(opts = {}) {
         grande.activa = false;
         fina.activa = false;
         msg.textContent = MESSAGE;
-        ui.say('¡Sintonizado! Coged la carta 78.', 'ok');
+        ui.say('¡Sintonizado! Responde la guardia costera. Coged la carta 44.', 'ok');
         actualizar();
       }, 700);
       return;

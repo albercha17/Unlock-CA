@@ -4,11 +4,11 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 30 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 21 pasos
+## Los 23 pasos
 
 ### Paso 1 — Llegada a bordo
 
@@ -71,20 +71,35 @@ Lee la carta 57. Descarta 22 y 35 y coge 48 y 52. El código de señales está e
 
 ### Paso 9 — La persecución
 
-En el móvil: Acción, 48. La fragata se mueve según la ordenanza (carta 52). Una solución: derecha, esperar, izquierda, izquierda, arriba, izquierda, arriba, arriba, arriba, derecha, derecha, arriba, derecha. El mensaje te dice que cojas la 58.
+En el móvil: Acción, 48. La fragata se mueve según la ordenanza (carta 52). Una solución: derecha, esperar, izquierda, izquierda, arriba, izquierda, arriba, arriba, arriba, derecha, derecha, arriba, derecha. El mensaje te dice que cojas la 59.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `38` `44` `48` `52` `57` `58`
+- **La mesa queda con:** `12` `38` `44` `48` `52` `57` `59`
 - [ ] Hecho
 
-### Paso 10 — Desembarco en la Isla Calavera
+### Paso 10 — Al pairo frente a la isla
 
-Lee la carta 58. Descarta 48, 52 y 57 y coge 64 y 66.
+Lee la carta 59. Coge 61, 63, 65 y 67.
+
+- **La mesa queda con:** `12` `38` `44` `48` `52` `57` `59` `61` `63` `65` `67`
+- [ ] Hecho
+
+### Paso 11 — El reloj de bitácora
+
+En el móvil: Acción, 61. La guardia de la tarde empieza a las 12 y cada campanada es media hora: pon el reloj a las 14:30. El mensaje te dice que cojas la 58.
+
+- **En el móvil:** Acción → `61`
+- **La mesa queda con:** `12` `38` `44` `48` `52` `57` `58` `59` `61` `63` `65` `67`
+- [ ] Hecho
+
+### Paso 12 — Desembarco en la Isla Calavera
+
+Lee la carta 58. Descarta 48, 52, 57, 59, 61, 63, 65 y 67 y coge 64 y 66.
 
 - **La mesa queda con:** `12` `38` `44` `58` `64` `66`
 - [ ] Hecho
 
-### Paso 11 — La tapa del cofre
+### Paso 13 — La tapa del cofre
 
 En el móvil: Acción, 66. Busca en la tapa la Calavera de la carta celeste (64), girada un tercio de vuelta, arriba a la derecha del centro; toca sus seis tachuelas y abre. El mensaje te dice que cojas la 72.
 
@@ -92,14 +107,14 @@ En el móvil: Acción, 66. Busca en la tapa la Calavera de la carta celeste (64)
 - **La mesa queda con:** `12` `38` `44` `58` `64` `66` `72`
 - [ ] Hecho
 
-### Paso 12 — El cofre del capitán Calavera
+### Paso 14 — El cofre del capitán Calavera
 
 Lee la carta 72. Descarta 58, 64 y 66 y coge 76 y 79. El testamento (76) también se pliega.
 
 - **La mesa queda con:** `12` `38` `44` `72` `76` `79`
 - [ ] Hecho
 
-### Paso 13 — El suelo de la cueva
+### Paso 15 — El suelo de la cueva
 
 En el móvil: Acción, 79. Plegado, el testamento enseña, de arriba abajo: luna, llave, calavera, corona. Cruza el suelo de losa vecina en losa vecina siguiendo ese ciclo: luna (fila 1, columna 4), llave (fila 1, columna 3), calavera (fila 1, columna 2), corona (fila 1, columna 1), luna (fila 2, columna 1), llave (fila 2, columna 2), calavera (fila 3, columna 2), corona (fila 3, columna 1), luna (fila 4, columna 1), llave (fila 4, columna 2), calavera (fila 5, columna 2). El mensaje te dice que cojas la 80.
 
@@ -107,14 +122,14 @@ En el móvil: Acción, 79. Plegado, el testamento enseña, de arriba abajo: luna
 - **La mesa queda con:** `12` `38` `44` `72` `76` `79` `80`
 - [ ] Hecho
 
-### Paso 14 — La boca de la cueva
+### Paso 16 — La boca de la cueva
 
 Lee la carta 80. Descarta 72, 76 y 79 y coge la 56, el pedernal y el eslabón.
 
 - **La mesa queda con:** `12` `38` `44` `56` `80`
 - [ ] Hecho
 
-### Paso 15 — La antorcha encendida
+### Paso 17 — La antorcha encendida
 
 La antorcha (38) y el pedernal (56) son combinables: 38 + 56 = 94. Coge la 94.
 
@@ -122,14 +137,14 @@ La antorcha (38) y el pedernal (56) son combinables: 38 + 56 = 94. Coge la 94.
 - **La mesa queda con:** `12` `38` `44` `56` `80` `94`
 - [ ] Hecho
 
-### Paso 16 — La antorcha encendida
+### Paso 18 — La antorcha encendida
 
 Lee la carta 94. Descarta 38, 56, 44 y 80 y coge 69 y 70. El mapa (70) se pliega por los dos lados.
 
 - **La mesa queda con:** `12` `69` `70` `94`
 - [ ] Hecho
 
-### Paso 17 — Cavar en la gruta
+### Paso 19 — Cavar en la gruta
 
 En el móvil: Acción, 69. Plegado el mapa (A sobre B y C sobre D), la X está 2 casillas al este y 5 al sur de la palmera. En la gruta, con el norte a la derecha: fila 3 desde arriba, columna 2 desde la izquierda. El mensaje te dice que cojas la 82.
 
@@ -137,14 +152,14 @@ En el móvil: Acción, 69. Plegado el mapa (A sobre B y C sobre D), la X está 2
 - **La mesa queda con:** `12` `69` `70` `82` `94`
 - [ ] Hecho
 
-### Paso 18 — El tesoro de Calavera
+### Paso 20 — El tesoro de Calavera
 
 Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía.
 
 - **La mesa queda con:** `12` `62` `82`
 - [ ] Hecho
 
-### Paso 19 — Cristal en el Cronoportal
+### Paso 21 — Cristal en el Cronoportal
 
 El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74.
 
@@ -152,14 +167,14 @@ El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74.
 - **La mesa queda con:** `12` `62` `74` `82`
 - [ ] Hecho
 
-### Paso 20 — Cronoportal reconectado
+### Paso 22 — Cronoportal reconectado
 
 Lee la carta 74. Descarta 62, 12 y 82 y coge la 99.
 
 - **La mesa queda con:** `74` `99`
 - [ ] Hecho
 
-### Paso 21 — Final
+### Paso 23 — Final
 
 Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 
@@ -185,22 +200,27 @@ Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 | 46 | La bodega | App | — | La bodega (app): empujar los barriles a las X. | 4 |
 | 48 | La persecución | App | — | La persecución (app): llegar a la niebla sin que la fragata os alcance. | 8 |
 | 52 | Ordenanza de la Armada | Normal | — | Ordenanza de la Armada: cómo se mueve la fragata. | 8 |
-| 56 | Pedernal y eslabón | Combina | Combinable: suma los números | Pedernal y eslabón: se combina con la antorcha (38). | 14 |
+| 56 | Pedernal y eslabón | Combina | Combinable: suma los números | Pedernal y eslabón: se combina con la antorcha (38). | 16 |
 | 57 | El catalejo | Normal | Coge 48, 52; Descarta 22, 35 | El catalejo (22 + 35): reparte la persecución y la ordenanza. | 7 |
-| 58 | Desembarco en la Isla Calavera | Normal | Coge 64, 66; Descarta 48, 52, 57 | Desembarco: reparte la tapa del cofre y la carta celeste. | 9 |
-| 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía: se combina con el Cronoportal (12). | 18 |
-| 64 | Carta celeste | Normal | — | Carta celeste: la constelación de la Calavera. | 10 |
-| 66 | La tapa del cofre | App | — | La tapa del cofre (app): las seis tachuelas de la Calavera girada. | 10 |
-| 69 | Cavar en la gruta | App | — | Cavar en la gruta (app): la X del mapa plegado, con el suelo girado. | 16 |
-| 70 | Mapa de la isla (se pliega) | Normal | — | Mapa de la isla que se pliega por los dos lados: dónde está la X. | 16 |
-| 72 | El cofre del capitán Calavera | Normal | Coge 76, 79; Descarta 58, 64, 66 | El cofre de Calavera: reparte el testamento y el suelo de la cueva. | 11 |
-| 74 | Cronoportal reconectado | Normal | Coge 99; Descarta 62, 12, 82 | Cronoportal reconectado (62 + 12): reparte la 99. | 19 |
-| 76 | Testamento (se pliega) | Normal | — | Testamento que se pliega: el ciclo de símbolos del suelo. | 12 |
-| 79 | El suelo de la cueva | App | — | El suelo de la cueva (app): cruzar por losas vecinas siguiendo el ciclo. | 12 |
-| 80 | La boca de la cueva | Normal | Coge 56; Descarta 72, 76, 79 | La boca de la cueva: reparte el pedernal. | 13 |
-| 82 | El tesoro de Calavera | Normal | Coge 62; Descarta 69, 70, 94 | El tesoro: reparte el cristal de energía. | 17 |
-| 94 | La antorcha encendida | Normal | Coge 69, 70; Descarta 38, 56, 44, 80 | La antorcha encendida (38 + 56): reparte la gruta y el mapa. | 15 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | Final de la aventura, ya en casa. | 20 |
+| 58 | Desembarco en la Isla Calavera | Normal | Coge 64, 66; Descarta 48, 52, 57, 59, 61, 63, 65, 67 | Desembarco: aparece al pasar los arrecifes. | 11 |
+| 59 | Al pairo frente a la isla | Normal | Coge 61, 63, 65, 67 | Al pairo frente a la isla: reparte el reloj, los cuadros y el diario. | 9 |
+| 61 | El reloj de bitácora | App | — | El reloj de bitácora (app): la hora de la marea. | 10 |
+| 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía: se combina con el Cronoportal (12). | 20 |
+| 63 | Las guardias | Normal | — | Cuadro de las guardias. | 10 |
+| 64 | Carta celeste | Normal | — | Carta celeste: la constelación de la Calavera. | 12 |
+| 65 | Las campanadas | Normal | — | Cuadro de las campanadas. | 10 |
+| 66 | La tapa del cofre | App | — | La tapa del cofre (app): las seis tachuelas de la Calavera girada. | 12 |
+| 67 | Diario de la capitana | Normal | — | Diario de la capitana: guardia y campanadas. | 10 |
+| 69 | Cavar en la gruta | App | — | Cavar en la gruta (app): la X del mapa plegado, con el suelo girado. | 18 |
+| 70 | Mapa de la isla (se pliega) | Normal | — | Mapa de la isla que se pliega por los dos lados: dónde está la X. | 18 |
+| 72 | El cofre del capitán Calavera | Normal | Coge 76, 79; Descarta 58, 64, 66 | El cofre de Calavera: reparte el testamento y el suelo de la cueva. | 13 |
+| 74 | Cronoportal reconectado | Normal | Coge 99; Descarta 62, 12, 82 | Cronoportal reconectado (62 + 12): reparte la 99. | 21 |
+| 76 | Testamento (se pliega) | Normal | — | Testamento que se pliega: el ciclo de símbolos del suelo. | 14 |
+| 79 | El suelo de la cueva | App | — | El suelo de la cueva (app): cruzar por losas vecinas siguiendo el ciclo. | 14 |
+| 80 | La boca de la cueva | Normal | Coge 56; Descarta 72, 76, 79 | La boca de la cueva: reparte el pedernal. | 15 |
+| 82 | El tesoro de Calavera | Normal | Coge 62; Descarta 69, 70, 94 | El tesoro: reparte el cristal de energía. | 19 |
+| 94 | La antorcha encendida | Normal | Coge 69, 70; Descarta 38, 56, 44, 80 | La antorcha encendida (38 + 56): reparte la gruta y el mapa. | 17 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | Final de la aventura, ya en casa. | 22 |
 
 ## Si algo no cuadra
 

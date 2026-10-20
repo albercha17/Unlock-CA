@@ -229,15 +229,20 @@
     "descarta": [
       41,
       48,
-      57
+      57,
+      83,
+      86,
+      87,
+      89,
+      90
     ],
     "descripcion": [
-      "El rover llega al anexo y la puerta se abre: la sala del reactor, con un cilindro de cristal apagado. Hay un panel de energía (carta 62), un protocolo pegado en la pared (carta 59) y un esquema del Cronoportal que dejó la doctora (carta 51).",
-      "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."
+      "La cámara de descontaminación se abre: la sala del reactor, con un cilindro de cristal apagado. Hay un panel de energía (carta 62), un protocolo pegado en la pared (carta 59) y un esquema del Cronoportal que dejó la doctora (carta 51).",
+      "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48, 57, 83, 86, 87, 89 y 90."
     ],
     "pistas": [
       "Hay tres cosas que mirar.",
-      "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."
+      "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48, 57, 83, 86, 87, 89 y 90."
     ],
     "arte": "Sala del reactor de la colonia con un cilindro central de cristal con luz azul apagada, pasarelas y tuberías, y un soporte con una esfera de cristal brillante en el centro. Cristina y Alberto con trajes espaciales."
   },
@@ -356,7 +361,7 @@
     "tipo": "verde",
     "descripcion": [
       "Es un juego de la app: hay que programar la ruta del rover sobre un mapa con rocas. Las coordenadas de la baliza del anexo están anotadas en la carta 57.",
-      "Al llegar a la baliza se abre el acceso al anexo del reactor. Coged la carta 79."
+      "Al llegar a la baliza se ve la puerta del anexo del reactor. Coged la carta 72."
     ],
     "pistas": [
       "Mirad la anotación de la baliza (carta 57).",
@@ -444,5 +449,173 @@
     ],
     "pistas": [],
     "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven el hangar de la colonia Aurora y la cúpula iluminándose bajo el cielo rojizo. Llevan aún sus monos de colonia marciana con polvo rojo, y Cristina sostiene una pequeña maceta con una tomatera. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+  },
+  "72": {
+    "titulo": "Carta 72 — La puerta del anexo",
+    "tipo": "gris",
+    "coge": [
+      74,
+      75,
+      76,
+      78,
+      81
+    ],
+    "descripcion": [
+      "El rover os deja ante el anexo del reactor, pero la tormenta ha fundido su placa de control y la puerta interior no se abre. En el panel hay cinco interruptores (carta 74). La doctora Reyes dejó dibujadas las tres salidas de la placa (cartas 75, 76 y 78) y un parte de averías (carta 81).",
+      "Coged las cartas 74, 75, 76, 78 y 81."
+    ],
+    "pistas": [
+      "Hay un puzle: la placa y sus dibujos.",
+      "Cada carta dibuja una salida (motor, alarma, aire); el parte de averías (81) explica las puertas y lo que debe quedar encendido.",
+      "Coged las cartas 74, 75, 76, 78 y 81."
+    ],
+    "arte": "La entrada de un anexo de la colonia marciana bajo la tormenta de polvo, con una puerta blindada cerrada y un panel abierto lleno de cables chamuscados y cinco interruptores; el rover aparcado al lado. Alberto, con el traje espacial, mira el panel con el ceño fruncido de concentración y Cristina ilumina los cables con una linterna, mordiéndose el labio."
+  },
+  "74": {
+    "titulo": "Carta 74 — La placa del anexo",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: cinco interruptores (A, B, C, D y E) que alimentan, a través de puertas lógicas, el motor de la puerta, la alarma y la ventilación. Hay que encender el motor y la ventilación sin que salte la alarma. Los circuitos están en las cartas 75, 76 y 78 y la leyenda, en la 81.",
+      "Al acertar, la puerta interior se abre. Coged la carta 83."
+    ],
+    "pistas": [
+      "Hacen falta las tres cartas de la placa (75, 76 y 78) y el parte de averías (81).",
+      "Seguid cada circuito desde los interruptores hasta su luz: Y necesita las dos entradas; O, alguna; NO, al revés. Empezad por la alarma, que tiene que quedar apagada.",
+      "Encended C, D, E y dejad apagados A, B."
+    ],
+    "arte": "Un panel de control de una colonia marciana con cinco grandes interruptores de palanca, tres luces de colores y cables que se cruzan por detrás, iluminado por una linterna. Alberto acciona una palanca con cara de tensión y Cristina, a su lado, contiene la respiración."
+  },
+  "75": {
+    "titulo": "Carta 75 — Placa: el motor",
+    "tipo": "gris",
+    "descripcion": [
+      "El circuito que llega al motor de la puerta, con sus puertas lógicas y los interruptores de los que sale."
+    ],
+    "pistas": [
+      "Es una de las salidas de la placa (carta 74).",
+      "La leyenda de las puertas está en la carta 81.",
+      "La solución de la placa: encended C, D, E."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el circuito del motor."
+  },
+  "76": {
+    "titulo": "Carta 76 — Placa: la alarma",
+    "tipo": "gris",
+    "descripcion": [
+      "El circuito que llega a la alarma, con sus puertas lógicas y los interruptores de los que sale."
+    ],
+    "pistas": [
+      "Es una de las salidas de la placa (carta 74).",
+      "La alarma tiene que quedar APAGADA.",
+      "La solución de la placa: encended C, D, E."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el circuito de la alarma."
+  },
+  "78": {
+    "titulo": "Carta 78 — Placa: la ventilación",
+    "tipo": "gris",
+    "descripcion": [
+      "El circuito que llega a la ventilación, con sus puertas lógicas y los interruptores de los que sale."
+    ],
+    "pistas": [
+      "Es una de las salidas de la placa (carta 74).",
+      "La ventilación tiene que quedar encendida.",
+      "La solución de la placa: encended C, D, E."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el circuito de la ventilación."
+  },
+  "81": {
+    "titulo": "Carta 81 — Parte de averías",
+    "tipo": "gris",
+    "descripcion": [
+      "El parte de averías de la doctora Reyes: qué hace cada puerta lógica (Y, O y NO) y cómo deben quedar el motor, la alarma y la ventilación para abrir la puerta."
+    ],
+    "pistas": [
+      "Es la leyenda de la placa (carta 74).",
+      "Y: las dos; O: alguna; NO: al revés.",
+      "Motor encendido, alarma apagada, aire encendido."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la leyenda de la placa."
+  },
+  "83": {
+    "titulo": "Carta 83 — El laboratorio del anexo",
+    "tipo": "gris",
+    "coge": [
+      86,
+      87,
+      89,
+      90
+    ],
+    "descarta": [
+      72,
+      74,
+      75,
+      76,
+      78,
+      81
+    ],
+    "descripcion": [
+      "La puerta se abre a un laboratorio lleno de rocas marcianas. Para pasar al reactor hay una cámara de descontaminación que solo se abre si el analizador (carta 86) recibe las muestras limpias de la bandeja. La doctora no dejó escrita la regla, pero su cuaderno de muestras (cartas 87, 89 y 90) tiene ejemplos.",
+      "Coged las cartas 86, 87, 89 y 90. Descartad las cartas 72, 74, 75, 76, 78 y 81."
+    ],
+    "pistas": [
+      "Hay un puzle: el analizador y el cuaderno de muestras.",
+      "El cuaderno tiene tres páginas con ejemplos de muestras limpias y contaminadas.",
+      "Coged las cartas 86, 87, 89 y 90. Descartad las cartas 72, 74, 75, 76, 78 y 81."
+    ],
+    "arte": "Un laboratorio de geología en una colonia marciana, con estanterías llenas de rocas rojas, un microscopio, una bandeja con muestras y una cámara de descontaminación de cristal al fondo con luces amarillas. Cristina sostiene una roca a contraluz con los ojos entrecerrados de curiosidad y Alberto hojea un cuaderno con cara de sorpresa."
+  },
+  "86": {
+    "titulo": "Carta 86 — El analizador de muestras",
+    "tipo": "verde",
+    "descripcion": [
+      "Es un juego de la app: una bandeja con ocho muestras de roca. Hay que meter en el analizador las que estén limpias. La regla no está escrita: hay que deducirla de los ejemplos del cuaderno de la doctora (cartas 87, 89 y 90).",
+      "Al acertar, se abre la cámara de descontaminación. Coged la carta 79."
+    ],
+    "pistas": [
+      "Mirad las nueve muestras del cuaderno (cartas 87, 89 y 90): ¿qué tienen todas las limpias que no tengan las contaminadas?",
+      "Fijaos en el color, la forma, las vetas y el cristal azul. La regla junta dos cosas.",
+      "Limpias: con cristal azul y que no sean rojas. En la bandeja, las muestras 6, 8."
+    ],
+    "arte": "Un analizador de muestras de laboratorio con una bandeja de ocho huecos, una pantalla con una luz verde y otra roja y un brazo robótico, en una colonia marciana. Alberto coloca una roca con pinzas, sacando la lengua de concentración, y Cristina compara con un cuaderno, dudosa."
+  },
+  "87": {
+    "titulo": "Carta 87 — Cuaderno de muestras (1 de 3)",
+    "tipo": "gris",
+    "descripcion": [
+      "La primera página del cuaderno de muestras de la doctora Reyes: tres rocas, cada una marcada como limpia o contaminada."
+    ],
+    "pistas": [
+      "Son ejemplos para el analizador (carta 86).",
+      "Las otras páginas son las cartas 89 y 90.",
+      "Las limpias tienen cristal azul y no son rojas."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la primera página del cuaderno."
+  },
+  "89": {
+    "titulo": "Carta 89 — Cuaderno de muestras (2 de 3)",
+    "tipo": "gris",
+    "descripcion": [
+      "La segunda página del cuaderno de muestras de la doctora Reyes: tres rocas más, cada una marcada como limpia o contaminada."
+    ],
+    "pistas": [
+      "Son ejemplos para el analizador (carta 86).",
+      "Las otras páginas son las cartas 87 y 90.",
+      "Las limpias tienen cristal azul y no son rojas."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la segunda página del cuaderno."
+  },
+  "90": {
+    "titulo": "Carta 90 — Cuaderno de muestras (3 de 3)",
+    "tipo": "gris",
+    "descripcion": [
+      "La tercera página del cuaderno de muestras de la doctora Reyes: tres rocas más, cada una marcada como limpia o contaminada."
+    ],
+    "pistas": [
+      "Son ejemplos para el analizador (carta 86).",
+      "Las otras páginas son las cartas 87 y 89.",
+      "Las limpias tienen cristal azul y no son rojas."
+    ],
+    "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la tercera página del cuaderno."
   }
 }

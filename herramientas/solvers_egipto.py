@@ -135,3 +135,52 @@ def s34(d):
 
 SOLVERS = {"15": s15, "23": s23, "47": s47, "71": s71, "95": s95, "37": s37, "34": s34}
 REQUIERE = {"23": ["31"], "47": ["52"], "71": ["26"], "37": ["28"], "34": ["46"], "95": ["15", "44"]}
+
+
+# ---- ampliación a 36 cartas: la mesa de ofrendas y la losa
+import json as _json, os  # noqa: E402
+_AMP = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+
+
+def _clic(d, css):
+    d.execute_script("arguments[0].click()", d.find_element(By.CSS_SELECTOR, css))
+    time.sleep(0.03)
+
+
+def s50(d):
+    """Mesa de ofrendas: vacía (avisa), todo a 1 (falla) y luego la solución."""
+    abrir_carta(d, "50")
+    boton(d, "Ofrecer").click()
+    assert "vacíos" in feedback(d), feedback(d)
+    for f in range(4):
+        for c in range(4):
+            _clic(d, f".egi-hueco[data-f='{f}'][data-c='{c}']")
+    boton(d, "Ofrecer").click()
+    assert "no aceptan" in feedback(d), feedback(d)
+    boton(d, "Vaciar").click()
+    sol = _AMP["egipto_ofrendas"]["solucion"]
+    for f in range(4):
+        for c in range(4):
+            for _ in range(sol[f][c]):
+                _clic(d, f".egi-hueco[data-f='{f}'][data-c='{c}']")
+    boton(d, "Ofrecer").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s42(d):
+    """Losa: sin tapar (falla) y luego las tapadas."""
+    abrir_carta(d, "42")
+    boton(d, "Comprobar").click()
+    assert "no se mueve" in feedback(d), feedback(d)
+    for f, c in _AMP["egipto_tachar"]["tachadas"]:
+        _clic(d, f".egi-piedra[data-f='{f}'][data-c='{c}']")
+    boton(d, "Comprobar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS.update({"50": s50, "42": s42})
+REQUIERE.update({"50": ["38", "51"], "42": ["45", "48", "49"]})

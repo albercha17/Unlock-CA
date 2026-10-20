@@ -4,8 +4,8 @@
     "nombre": "El Faro de Cabo Niebla",
     "ruta": "juegos/el-faro/",
     "dificultad": 2,
-    "minutos": 60,
-    "cartas": 24
+    "minutos": 75,
+    "cartas": 36
   },
   {
     "id": "egipto",
@@ -13,7 +13,7 @@
     "ruta": "juegos/aventuras-ca/egipto/",
     "dificultad": 3,
     "minutos": 60,
-    "cartas": 27
+    "cartas": 36
   },
   {
     "id": "marte",
@@ -21,7 +21,7 @@
     "ruta": "juegos/aventuras-ca/marte/",
     "dificultad": 3,
     "minutos": 60,
-    "cartas": 25
+    "cartas": 36
   },
   {
     "id": "florencia",
@@ -29,7 +29,7 @@
     "ruta": "juegos/aventuras-ca/florencia/",
     "dificultad": 4,
     "minutos": 60,
-    "cartas": 30
+    "cartas": 36
   },
   {
     "id": "dinosaurios",
@@ -85,7 +85,7 @@
     "ruta": "juegos/aventuras-ca/espia/",
     "dificultad": 3,
     "minutos": 75,
-    "cartas": 30
+    "cartas": 36
   },
   {
     "id": "futbol",
@@ -101,7 +101,7 @@
     "ruta": "juegos/aventuras-ca/piratas/",
     "dificultad": 3,
     "minutos": 90,
-    "cartas": 31
+    "cartas": 36
   },
   {
     "id": "juguetes",
@@ -109,6 +109,6 @@
     "ruta": "juegos/aventuras-ca/juguetes/",
     "dificultad": 1,
     "minutos": 60,
-    "cartas": 33
+    "cartas": 36
   }
 ]

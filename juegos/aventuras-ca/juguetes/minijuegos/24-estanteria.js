@@ -58,7 +58,7 @@ export function startMinigame(opts = {}) {
       pintar();
       if (halladas.size === E.zonas.length) {
         resuelto = true;
-        ui.say('¡Las cinco! El Capitán Pelusa aplaude con sus patas de peluche: detrás de los juguetes revueltos asoma la caja de bloques de Leo. Coged la carta 26.', 'ok');
+        ui.say('¡Las cinco! El Capitán Pelusa aplaude con sus patas de peluche: detrás de los juguetes revueltos asoma un baúl cerrado. Coged la carta 59.', 'ok');
       } else {
         ui.say('¡Bien visto! ' + E.textos[i].charAt(0).toUpperCase() + E.textos[i].slice(1) + '.', '');
       }

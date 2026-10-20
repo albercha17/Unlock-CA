@@ -138,3 +138,48 @@ def s62(d):
 
 SOLVERS = {"35": s33, "21": s21, "52": s52, "66": s66, "88": s88, "48": s48, "62": s62}
 REQUIERE = {"21": ["25"], "66": ["28", "40"], "48": ["57"], "62": ["59"], "88": ["35", "36", "51"]}
+
+
+# ---- ampliación a 36 cartas: la placa del anexo y el analizador de muestras
+import json as _json, os  # noqa: E402
+_AMP = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+
+
+def _clic(d, css):
+    d.execute_script("arguments[0].click()", d.find_element(By.CSS_SELECTOR, css))
+    time.sleep(0.05)
+
+
+def s74(d):
+    """Placa: todo apagado (falla) y luego la única combinación."""
+    abrir_carta(d, "74")
+    boton(d, "Conectar").click()
+    assert "no se mueve" in feedback(d), feedback(d)
+    for k, on in _AMP["marte_circuito"]["solucion"].items():
+        if on:
+            _clic(d, f".mar-int[data-k='{k}']")
+    boton(d, "Conectar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s86(d):
+    """Analizador: todas las muestras (falla) y luego solo las limpias."""
+    abrir_carta(d, "86")
+    ms = _AMP["marte_muestras"]
+    for i in range(len(ms["bandeja"])):
+        _clic(d, f".mar-muestra[data-i='{i}']")
+    boton(d, "Analizar").click()
+    assert "pita" in feedback(d), feedback(d)
+    for i in range(len(ms["bandeja"])):
+        if i not in ms["solucion"]:
+            _clic(d, f".mar-muestra[data-i='{i}']")
+    boton(d, "Analizar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS.update({"74": s74, "86": s86})
+REQUIERE.update({"74": ["75", "76", "78", "81"], "86": ["87", "89", "90"]})

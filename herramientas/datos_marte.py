@@ -266,3 +266,113 @@ PASOS = [
     dict(t="Final", que="Lee la carta 99. Descarta 70, 88, 35, 36 y 51. En la mesa solo queda la 99. ¡Fin!",
          acciones=[("leer", "99")], mesa=["99"]),
 ]
+
+
+# ================================================================== ampliación a 36 cartas (20 oct 2026)
+# Entre el rover y la sala del reactor: la placa del anexo (circuito lógico) y el laboratorio (analizador de muestras, una «caja negra»).
+# Las cartas-pista 75, 76, 78, 81, 87, 89 y 90 las dibuja herramientas/dibujos_ampliacion.py (instancias_ampliacion.json).
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+import ampliacion as _amp  # noqa: E402
+
+_AMP = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+_CIR = _AMP["marte_circuito"]["solucion"]
+_ON = ", ".join(k for k, x in _CIR.items() if x)
+_OFF = ", ".join(k for k, x in _CIR.items() if not x)
+_MUE = ", ".join(str(i + 1) for i in _AMP["marte_muestras"]["solucion"])
+
+
+def _pieza(que):
+    return f"Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): {que}."
+
+
+J["48"]["descripcion"][1] = "Al llegar a la baliza se ve la puerta del anexo del reactor. Coged la carta 72."
+J.update({
+    "72": dict(
+        titulo="Carta 72 — La puerta del anexo", tipo="gris", coge=[74, 75, 76, 78, 81],
+        descripcion=[
+            "El rover os deja ante el anexo del reactor, pero la tormenta ha fundido su placa de control y la puerta interior no se abre. En el panel hay cinco interruptores (carta 74). La doctora Reyes dejó dibujadas las tres salidas de la placa (cartas 75, 76 y 78) y un parte de averías (carta 81).",
+            "Coged las cartas 74, 75, 76, 78 y 81."],
+        pistas=["Hay un puzle: la placa y sus dibujos.", "Cada carta dibuja una salida (motor, alarma, aire); el parte de averías (81) explica las puertas y lo que debe quedar encendido.", "Coged las cartas 74, 75, 76, 78 y 81."],
+        arte="La entrada de un anexo de la colonia marciana bajo la tormenta de polvo, con una puerta blindada cerrada y un panel abierto lleno de cables chamuscados y cinco interruptores; el rover aparcado al lado. Alberto, con el traje espacial, mira el panel con el ceño fruncido de concentración y Cristina ilumina los cables con una linterna, mordiéndose el labio."),
+    "74": dict(
+        titulo="Carta 74 — La placa del anexo", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: cinco interruptores (A, B, C, D y E) que alimentan, a través de puertas lógicas, el motor de la puerta, la alarma y la ventilación. Hay que encender el motor y la ventilación sin que salte la alarma. Los circuitos están en las cartas 75, 76 y 78 y la leyenda, en la 81.",
+            "Al acertar, la puerta interior se abre. Coged la carta 83."],
+        pistas=["Hacen falta las tres cartas de la placa (75, 76 y 78) y el parte de averías (81).", "Seguid cada circuito desde los interruptores hasta su luz: Y necesita las dos entradas; O, alguna; NO, al revés. Empezad por la alarma, que tiene que quedar apagada.", f"Encended {_ON} y dejad apagados {_OFF}."],
+        arte="Un panel de control de una colonia marciana con cinco grandes interruptores de palanca, tres luces de colores y cables que se cruzan por detrás, iluminado por una linterna. Alberto acciona una palanca con cara de tensión y Cristina, a su lado, contiene la respiración."),
+    "75": dict(titulo="Carta 75 — Placa: el motor", tipo="gris",
+               descripcion=["El circuito que llega al motor de la puerta, con sus puertas lógicas y los interruptores de los que sale."],
+               pistas=["Es una de las salidas de la placa (carta 74).", "La leyenda de las puertas está en la carta 81.", f"La solución de la placa: encended {_ON}."],
+               arte=_pieza("el circuito del motor")),
+    "76": dict(titulo="Carta 76 — Placa: la alarma", tipo="gris",
+               descripcion=["El circuito que llega a la alarma, con sus puertas lógicas y los interruptores de los que sale."],
+               pistas=["Es una de las salidas de la placa (carta 74).", "La alarma tiene que quedar APAGADA.", f"La solución de la placa: encended {_ON}."],
+               arte=_pieza("el circuito de la alarma")),
+    "78": dict(titulo="Carta 78 — Placa: la ventilación", tipo="gris",
+               descripcion=["El circuito que llega a la ventilación, con sus puertas lógicas y los interruptores de los que sale."],
+               pistas=["Es una de las salidas de la placa (carta 74).", "La ventilación tiene que quedar encendida.", f"La solución de la placa: encended {_ON}."],
+               arte=_pieza("el circuito de la ventilación")),
+    "81": dict(titulo="Carta 81 — Parte de averías", tipo="gris",
+               descripcion=["El parte de averías de la doctora Reyes: qué hace cada puerta lógica (Y, O y NO) y cómo deben quedar el motor, la alarma y la ventilación para abrir la puerta."],
+               pistas=["Es la leyenda de la placa (carta 74).", "Y: las dos; O: alguna; NO: al revés.", "Motor encendido, alarma apagada, aire encendido."],
+               arte=_pieza("la leyenda de la placa")),
+    "83": dict(
+        titulo="Carta 83 — El laboratorio del anexo", tipo="gris", coge=[86, 87, 89, 90], descarta=[72, 74, 75, 76, 78, 81],
+        descripcion=[
+            "La puerta se abre a un laboratorio lleno de rocas marcianas. Para pasar al reactor hay una cámara de descontaminación que solo se abre si el analizador (carta 86) recibe las muestras limpias de la bandeja. La doctora no dejó escrita la regla, pero su cuaderno de muestras (cartas 87, 89 y 90) tiene ejemplos.",
+            "Coged las cartas 86, 87, 89 y 90. Descartad las cartas 72, 74, 75, 76, 78 y 81."],
+        pistas=["Hay un puzle: el analizador y el cuaderno de muestras.", "El cuaderno tiene tres páginas con ejemplos de muestras limpias y contaminadas.", "Coged las cartas 86, 87, 89 y 90. Descartad las cartas 72, 74, 75, 76, 78 y 81."],
+        arte="Un laboratorio de geología en una colonia marciana, con estanterías llenas de rocas rojas, un microscopio, una bandeja con muestras y una cámara de descontaminación de cristal al fondo con luces amarillas. Cristina sostiene una roca a contraluz con los ojos entrecerrados de curiosidad y Alberto hojea un cuaderno con cara de sorpresa."),
+    "86": dict(
+        titulo="Carta 86 — El analizador de muestras", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: una bandeja con ocho muestras de roca. Hay que meter en el analizador las que estén limpias. La regla no está escrita: hay que deducirla de los ejemplos del cuaderno de la doctora (cartas 87, 89 y 90).",
+            "Al acertar, se abre la cámara de descontaminación. Coged la carta 79."],
+        pistas=["Mirad las nueve muestras del cuaderno (cartas 87, 89 y 90): ¿qué tienen todas las limpias que no tengan las contaminadas?", "Fijaos en el color, la forma, las vetas y el cristal azul. La regla junta dos cosas.", f"Limpias: con cristal azul y que no sean rojas. En la bandeja, las muestras {_MUE}."],
+        arte="Un analizador de muestras de laboratorio con una bandeja de ocho huecos, una pantalla con una luz verde y otra roja y un brazo robótico, en una colonia marciana. Alberto coloca una roca con pinzas, sacando la lengua de concentración, y Cristina compara con un cuaderno, dudosa."),
+    "87": dict(titulo="Carta 87 — Cuaderno de muestras (1 de 3)", tipo="gris",
+               descripcion=["La primera página del cuaderno de muestras de la doctora Reyes: tres rocas, cada una marcada como limpia o contaminada."],
+               pistas=["Son ejemplos para el analizador (carta 86).", "Las otras páginas son las cartas 89 y 90.", "Las limpias tienen cristal azul y no son rojas."],
+               arte=_pieza("la primera página del cuaderno")),
+    "89": dict(titulo="Carta 89 — Cuaderno de muestras (2 de 3)", tipo="gris",
+               descripcion=["La segunda página del cuaderno de muestras de la doctora Reyes: tres rocas más, cada una marcada como limpia o contaminada."],
+               pistas=["Son ejemplos para el analizador (carta 86).", "Las otras páginas son las cartas 87 y 90.", "Las limpias tienen cristal azul y no son rojas."],
+               arte=_pieza("la segunda página del cuaderno")),
+    "90": dict(titulo="Carta 90 — Cuaderno de muestras (3 de 3)", tipo="gris",
+               descripcion=["La tercera página del cuaderno de muestras de la doctora Reyes: tres rocas más, cada una marcada como limpia o contaminada."],
+               pistas=["Son ejemplos para el analizador (carta 86).", "Las otras páginas son las cartas 87 y 89.", "Las limpias tienen cristal azul y no son rojas."],
+               arte=_pieza("la tercera página del cuaderno")),
+})
+J["79"]["descarta"] = [41, 48, 57, 83, 86, 87, 89, 90]
+J["79"]["descripcion"] = [
+    "La cámara de descontaminación se abre: la sala del reactor, con un cilindro de cristal apagado. Hay un panel de energía (carta 62), un protocolo pegado en la pared (carta 59) y un esquema del Cronoportal que dejó la doctora (carta 51).",
+    "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48, 57, 83, 86, 87, 89 y 90."]
+J["79"]["pistas"] = ["Hay tres cosas que mirar.", "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48, 57, 83, 86, 87, 89 y 90."]
+
+SPEC["needs"].pop("79", None)
+SPEC["needs"].update({"72": ["48", "57"], "83": ["74", "75", "76", "78", "81"], "79": ["86", "87", "89", "90"]})
+PARA_QUE.update({
+    "72": "La puerta del anexo: reparte la placa y sus dibujos.", "74": "La placa (app): el circuito lógico.",
+    "75": "Circuito del motor.", "76": "Circuito de la alarma.", "78": "Circuito de la ventilación.", "81": "Leyenda de las puertas y estado pedido.",
+    "83": "El laboratorio: reparte el analizador y el cuaderno.", "86": "El analizador (app): las muestras limpias.",
+    "87": "Cuaderno de muestras (1 de 3).", "89": "Cuaderno de muestras (2 de 3).", "90": "Cuaderno de muestras (3 de 3).",
+    "79": "Sala del reactor: aparece al pasar la cámara de descontaminación.",
+})
+
+_i = next(i for i, p in enumerate(PASOS) if p["t"] == "Conduce el rover")
+PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 79", "cojas la 72")
+PASOS[_i]["acciones"] = [("app", "48", "carta 72")]
+PASOS[_i + 1:_i + 1] = [
+    dict(t="La puerta del anexo", que="Lee la carta 72. Coge 74, 75, 76, 78 y 81. Las cartas 75, 76 y 78 dibujan los circuitos y la 81 explica las puertas lógicas.",
+         acciones=[("leer", "72")]),
+    dict(t="La placa del anexo", que=f"En el móvil: Acción, 74. Con los circuitos, enciende {_ON} y deja apagados {_OFF}; pulsa Conectar. El mensaje te dice que cojas la 83.",
+         acciones=[("app", "74", "carta 83")]),
+    dict(t="El laboratorio", que="Lee la carta 83. Descarta 72, 74, 75, 76, 78 y 81 y coge 86, 87, 89 y 90.", acciones=[("leer", "83")]),
+    dict(t="El analizador", que=f"En el móvil: Acción, 86. Según el cuaderno, las limpias tienen cristal azul y no son rojas: muestras {_MUE}. Pulsa Analizar. El mensaje te dice que cojas la 79.",
+         acciones=[("app", "86", "carta 79")]),
+]
+_j = next(i for i, p in enumerate(PASOS) if p["t"] == "La sala del reactor")
+PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 41, 48 y 57", "Descarta 41, 48, 57, 83, 86, 87, 89 y 90")
+_amp.recalcular_mesas(PASOS, J)

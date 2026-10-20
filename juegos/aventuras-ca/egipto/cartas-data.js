@@ -232,7 +232,7 @@ window.JUEGO_LOCAL = {
   "tipo": "verde",
   "descripcion": [
    "Es un juego de la app: tres anillos giratorios con símbolos. Hay que dejar arriba los tres que indica el acertijo de la cartela (carta 26).",
-   "Al encajarlos se abre la puerta de la sala del sarcófago. Coged la carta 33."
+   "Al encajarlos se abre una capilla escondida. Coged la carta 35."
   ],
   "pistas": [
    "Leed el acertijo de la cartela.",
@@ -365,15 +365,20 @@ window.JUEGO_LOCAL = {
   "descarta": [
    63,
    71,
-   26
+   26,
+   41,
+   42,
+   45,
+   48,
+   49
   ],
   "descripcion": [
-   "Los anillos giran y la puerta de piedra se abre a la sala del sarcófago: un sarcófago dorado sellado (carta 34), una tablilla rota sobre un pedestal (carta 37) y, en las paredes, dos inscripciones: una con el orden de los dioses (carta 28) y otra con una cifra grabada (carta 46).",
-   "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."
+   "La losa cruje y una puerta de piedra se abre a la sala del sarcófago: un sarcófago dorado sellado (carta 34), una tablilla rota sobre un pedestal (carta 37) y, en las paredes, dos inscripciones: una con el orden de los dioses (carta 28) y otra con una cifra grabada (carta 46).",
+   "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71, 26, 41, 42, 45, 48 y 49."
   ],
   "pistas": [
    "Hay dos puzles en esta sala: la tablilla y el sarcófago.",
-   "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."
+   "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71, 26, 41, 42, 45, 48 y 49."
   ],
   "arte": "Sala funeraria de piedra con un sarcófago dorado sellado en el centro, una tablilla de piedra rota sobre un pedestal y dos inscripciones talladas en las paredes; luz de antorchas. Cristina y Alberto examinan el sarcófago."
  },
@@ -491,6 +496,144 @@ window.JUEGO_LOCAL = {
   ],
   "pistas": [],
   "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven la cámara del templo de Karnak y el tesoro dorado. Llevan aún su ropa de la aventura, cubierta de arena, y caen sobre la alfombra entre risas. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+ },
+ "35": {
+  "titulo": "Carta 35 — La capilla de las ofrendas",
+  "tipo": "gris",
+  "coge": [
+   50,
+   38,
+   51
+  ],
+  "descripcion": [
+   "La puerta de piedra no da al sarcófago, sino a una capilla estrecha con una mesa de ofrendas de dieciséis huecos (carta 50). En la pared, el plano de la mesa está tallado en dos mitades (cartas 38 y 51): cada recinto suma una cantidad de ofrendas.",
+   "Coged las cartas 50, 38 y 51."
+  ],
+  "pistas": [
+   "Hay un puzle: la mesa de ofrendas y su plano.",
+   "El plano está partido en dos cartas: la mitad de arriba (38) y la de abajo (51).",
+   "Coged las cartas 50, 38 y 51."
+  ],
+  "arte": "Una capilla egipcia estrecha iluminada por antorchas, con una mesa de piedra de dieciséis huecos y, alrededor, panes, jarras de cerveza, flores de loto e incensarios; en la pared, relieves con recintos y números tallados. Cristina se arrodilla junto a la mesa con un pan en la mano y cara de duda y Alberto señala la pared con la boca abierta de sorpresa."
+ },
+ "50": {
+  "titulo": "Carta 50 — La mesa de ofrendas",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: una mesa de 4 × 4 huecos. Tocando un hueco se cambia la ofrenda (de 1 a 4). En cada fila y en cada columna van las cuatro ofrendas, sin repetir, y cada recinto del plano (cartas 38 y 51) suma lo que dice su número rojo.",
+   "Al acertar, los dioses aceptan las ofrendas. Coged la carta 41."
+  ],
+  "pistas": [
+   "Hacen falta las dos mitades del plano (cartas 38 y 51).",
+   "Empezad por los recintos de una casilla (ya dicen su número) y por los de dos casillas con sumas extremas (3 = 1 + 2; 7 = 3 + 4).",
+   "La mesa queda así: fila 1: 2 4 3 1; fila 2: 4 1 2 3; fila 3: 3 2 1 4; fila 4: 1 3 4 2."
+  ],
+  "arte": "Una mesa de ofrendas de piedra con dieciséis huecos en cuadrícula, con panes, jarras, flores de loto e incensarios en algunos huecos, en una capilla egipcia a la luz de las antorchas. Alberto coloca una jarra con cuidado, con la lengua entre los dientes, y Cristina cuenta con los dedos, concentrada."
+ },
+ "38": {
+  "titulo": "Carta 38 — Plano de la mesa (arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "La mitad de arriba del plano de la mesa de ofrendas (filas 1 y 2): los recintos y lo que suma cada uno."
+  ],
+  "pistas": [
+   "Es la mitad de arriba del plano de la mesa (carta 50).",
+   "La mitad de abajo está en la carta 51.",
+   "La mesa queda así: fila 1: 2 4 3 1; fila 2: 4 1 2 3; fila 3: 3 2 1 4; fila 4: 1 3 4 2."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la mitad de arriba del plano."
+ },
+ "51": {
+  "titulo": "Carta 51 — Plano de la mesa (abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "La mitad de abajo del plano de la mesa de ofrendas (filas 3 y 4): los recintos y lo que suma cada uno, con la regla de las ofrendas."
+  ],
+  "pistas": [
+   "Es la mitad de abajo del plano de la mesa (carta 50).",
+   "La mitad de arriba está en la carta 38.",
+   "La mesa queda así: fila 1: 2 4 3 1; fila 2: 4 1 2 3; fila 3: 3 2 1 4; fila 4: 1 3 4 2."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la mitad de abajo del plano."
+ },
+ "41": {
+  "titulo": "Carta 41 — La losa de los números",
+  "tipo": "gris",
+  "coge": [
+   42,
+   45,
+   48,
+   49
+  ],
+  "descarta": [
+   35,
+   50,
+   38,
+   51
+  ],
+  "descripcion": [
+   "Las ofrendas desaparecen en la mesa y se abre un pasadizo. El suelo es una gran losa de 5 × 5 piedras (carta 42), pero sus números están borrados por la arena. Un escriba copió la losa en tres franjas de papiro (cartas 45, 48 y 49): hay que tapar con arena los números que sobran.",
+   "Coged las cartas 42, 45, 48 y 49. Descartad las cartas 35, 50, 38 y 51."
+  ],
+  "pistas": [
+   "Hay un puzle: la losa y sus tres franjas.",
+   "Las tres franjas (45, 48 y 49) se ponen una debajo de otra; la 49 trae la regla.",
+   "Coged las cartas 42, 45, 48 y 49. Descartad las cartas 35, 50, 38 y 51."
+  ],
+  "arte": "Un pasadizo egipcio con el suelo formado por una gran losa de piedras cuadradas cubiertas de arena, iluminado por una antorcha; al fondo, una puerta con el relieve de un sarcófago. Cristina sopla la arena de una piedra con los ojos entrecerrados y Alberto despliega una tira de papiro con cara de entusiasmo."
+ },
+ "42": {
+  "titulo": "Carta 42 — La losa",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: la losa de 5 × 5 piedras, sin números. Tocando una piedra se tapa con arena (y otra vez, se destapa). Con los números de las tres franjas de papiro (cartas 45, 48 y 49) hay que tapar los que sobran: que en ninguna fila ni columna se repita un número a la vista, que dos tapadas no se toquen por un lado y que las piedras a la vista sigan todas unidas.",
+   "Al acertar, se abre la puerta del sarcófago. Coged la carta 33."
+  ],
+  "pistas": [
+   "Juntad las tres franjas (45, 48 y 49) una debajo de otra para tener la losa entera.",
+   "Si tapar una piedra deja otra aislada, esa no se tapa; y junto a una piedra tapada, las cuatro vecinas quedan a la vista.",
+   "Tapad: fila 2 columna 2, fila 2 columna 4, fila 3 columna 3, fila 3 columna 5, fila 4 columna 2, fila 5 columna 4."
+  ],
+  "arte": "Una gran losa de piedra en el suelo de un templo egipcio, dividida en veinticinco piedras cuadradas, algunas cubiertas de arena dorada, con la luz de una antorcha. Alberto echa arena con las manos sobre una piedra, con cara de esfuerzo, y Cristina le indica otra con el dedo, muy seria."
+ },
+ "45": {
+  "titulo": "Carta 45 — Franja de papiro (1 de 3)",
+  "tipo": "gris",
+  "descripcion": [
+   "La primera franja de la copia del escriba: las filas 1 y 2 de la losa, con sus números."
+  ],
+  "pistas": [
+   "Es la parte de arriba de la losa (carta 42).",
+   "Las otras franjas son las cartas 48 y 49.",
+   "Tapad: fila 2 columna 2, fila 2 columna 4, fila 3 columna 3, fila 3 columna 5, fila 4 columna 2, fila 5 columna 4."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): las filas 1 y 2 de la losa."
+ },
+ "48": {
+  "titulo": "Carta 48 — Franja de papiro (2 de 3)",
+  "tipo": "gris",
+  "descripcion": [
+   "La segunda franja de la copia del escriba: las filas 3 y 4 de la losa, con sus números."
+  ],
+  "pistas": [
+   "Es la parte del medio de la losa (carta 42).",
+   "Las otras franjas son las cartas 45 y 49.",
+   "Tapad: fila 2 columna 2, fila 2 columna 4, fila 3 columna 3, fila 3 columna 5, fila 4 columna 2, fila 5 columna 4."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): las filas 3 y 4 de la losa."
+ },
+ "49": {
+  "titulo": "Carta 49 — Franja de papiro (3 de 3)",
+  "tipo": "gris",
+  "descripcion": [
+   "La tercera franja de la copia del escriba: la fila 5 de la losa y la regla para taparla."
+  ],
+  "pistas": [
+   "Es la parte de abajo de la losa (carta 42) y trae la regla.",
+   "Las otras franjas son las cartas 45 y 48.",
+   "Tapad: fila 2 columna 2, fila 2 columna 4, fila 3 columna 3, fila 3 columna 5, fila 4 columna 2, fila 5 columna 4."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la fila 5 de la losa y la regla."
  }
 };
 window.fetchCartas = function () {

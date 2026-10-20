@@ -89,3 +89,62 @@ def s95(d):
 
 SOLVERS = {"15": s15, "36": s36, "52": s52, "85": s85, "70": s70, "95": s95}
 REQUIERE = {"36": ["21", "19"], "52": ["15"], "85": ["74", "3"], "70": ["27"], "95": ["15", "12", "18", "82"]}
+
+
+# ---- ampliación a 36 cartas: la bahía, la lámpara de la mesa y el temporizador de la lente
+import json as _json, os  # noqa: E402
+_AMP = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+
+
+def _clic(d, css):
+    d.execute_script("arguments[0].click()", d.find_element(By.CSS_SELECTOR, css))
+    time.sleep(0.04)
+
+
+def s45(d):
+    """Bahía: sin islotes (falla) y luego los islotes de la solución."""
+    abrir_carta(d, "45")
+    boton(d, "Transmitir").click()
+    assert "no cuadra" in feedback(d), feedback(d)
+    for f, c in _AMP["faro_bahia"]["tierra"]:
+        _clic(d, f".far-cas[data-f='{f}'][data-c='{c}']")
+    boton(d, "Transmitir").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s55(d):
+    """Lámpara: las tres cosas en otro orden (falla) y luego en el orden de la sombra."""
+    abrir_carta(d, "55")
+    sol = _AMP["faro_sombras"]["solucion"]
+    for o in sol[::-1]:
+        _clic(d, f".far-obj[data-o='{o}']")
+    boton(d, "Encender la lámpara").click()
+    assert "no es la de la pared" in feedback(d), feedback(d)
+    for i in range(3):
+        _clic(d, ".far-hueco[data-i='0']")
+    for o in sol:
+        _clic(d, f".far-obj[data-o='{o}']")
+    boton(d, "Encender la lámpara").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s65(d):
+    """Temporizador: todo apagado (falla) y luego los segundos de la luz de Cabo Niebla."""
+    abrir_carta(d, "65")
+    boton(d, "Programar").click()
+    assert "otro faro" in feedback(d), feedback(d)
+    for s, v in enumerate(_AMP["faro_destellos"]["solucion"]):
+        if v:
+            _clic(d, f".far-seg[data-s='{s}']")
+    boton(d, "Programar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS.update({"45": s45, "55": s55, "65": s65})
+REQUIERE.update({"45": ["46", "47"], "55": ["56", "57"], "65": ["66", "67"]})

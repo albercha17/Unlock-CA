@@ -18,7 +18,7 @@ def n_cartas(carpeta):
     return len([k for k in d if not k.startswith("_")])
 
 
-catalogo = [dict(id="faro", nombre="El Faro de Cabo Niebla", ruta="juegos/el-faro/", dificultad=2, minutos=60, cartas=n_cartas("juegos/el-faro"))]
+catalogo = [dict(id="faro", nombre="El Faro de Cabo Niebla", ruta="juegos/el-faro/", dificultad=2, minutos=75, cartas=n_cartas("juegos/el-faro"))]
 for nombre, cfg in JUEGOS.items():
     carpeta = f"juegos/aventuras-ca/{nombre.lower()}"
     catalogo.append(dict(id=nombre.lower(), nombre=cfg["titulo"], ruta=carpeta + "/", dificultad=cfg.get("dificultad", 3),

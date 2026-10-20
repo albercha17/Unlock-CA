@@ -292,3 +292,103 @@ PASOS = [
     dict(t="Final", que="Lee la carta 99. Descarta 74, 95, 15 y 44. En la mesa solo queda la 99. ¡Fin!",
          acciones=[("leer", "99")], mesa=["99"]),
 ]
+
+
+# ================================================================== ampliación a 36 cartas (20 oct 2026)
+# Entre los anillos de Ra y la sala del sarcófago: la capilla de las ofrendas (sumas en recintos, tipo KenKen, partida en dos cartas)
+# y la losa de los números (tachar repetidos, tipo Hitori, partida en tres franjas). Láminas: herramientas/dibujos_ampliacion.py.
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+import ampliacion as _amp  # noqa: E402
+
+_AMP = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+_OF = _AMP["egipto_ofrendas"]["solucion"]
+_OFR = "; ".join(f"fila {f + 1}: {' '.join(str(x) for x in fila)}" for f, fila in enumerate(_OF))
+_TA = ", ".join(f"fila {f + 1} columna {c + 1}" for f, c in _AMP["egipto_tachar"]["tachadas"])
+
+
+def _pieza(que):
+    return f"Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): {que}."
+
+
+J["71"]["descripcion"][1] = "Al encajarlos se abre una capilla escondida. Coged la carta 35."
+J.update({
+    "35": dict(
+        titulo="Carta 35 — La capilla de las ofrendas", tipo="gris", coge=[50, 38, 51],
+        descripcion=[
+            "La puerta de piedra no da al sarcófago, sino a una capilla estrecha con una mesa de ofrendas de dieciséis huecos (carta 50). En la pared, el plano de la mesa está tallado en dos mitades (cartas 38 y 51): cada recinto suma una cantidad de ofrendas.",
+            "Coged las cartas 50, 38 y 51."],
+        pistas=["Hay un puzle: la mesa de ofrendas y su plano.", "El plano está partido en dos cartas: la mitad de arriba (38) y la de abajo (51).", "Coged las cartas 50, 38 y 51."],
+        arte="Una capilla egipcia estrecha iluminada por antorchas, con una mesa de piedra de dieciséis huecos y, alrededor, panes, jarras de cerveza, flores de loto e incensarios; en la pared, relieves con recintos y números tallados. Cristina se arrodilla junto a la mesa con un pan en la mano y cara de duda y Alberto señala la pared con la boca abierta de sorpresa."),
+    "50": dict(
+        titulo="Carta 50 — La mesa de ofrendas", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: una mesa de 4 × 4 huecos. Tocando un hueco se cambia la ofrenda (de 1 a 4). En cada fila y en cada columna van las cuatro ofrendas, sin repetir, y cada recinto del plano (cartas 38 y 51) suma lo que dice su número rojo.",
+            "Al acertar, los dioses aceptan las ofrendas. Coged la carta 41."],
+        pistas=["Hacen falta las dos mitades del plano (cartas 38 y 51).", "Empezad por los recintos de una casilla (ya dicen su número) y por los de dos casillas con sumas extremas (3 = 1 + 2; 7 = 3 + 4).", f"La mesa queda así: {_OFR}."],
+        arte="Una mesa de ofrendas de piedra con dieciséis huecos en cuadrícula, con panes, jarras, flores de loto e incensarios en algunos huecos, en una capilla egipcia a la luz de las antorchas. Alberto coloca una jarra con cuidado, con la lengua entre los dientes, y Cristina cuenta con los dedos, concentrada."),
+    "38": dict(titulo="Carta 38 — Plano de la mesa (arriba)", tipo="gris",
+               descripcion=["La mitad de arriba del plano de la mesa de ofrendas (filas 1 y 2): los recintos y lo que suma cada uno."],
+               pistas=["Es la mitad de arriba del plano de la mesa (carta 50).", "La mitad de abajo está en la carta 51.", f"La mesa queda así: {_OFR}."],
+               arte=_pieza("la mitad de arriba del plano")),
+    "51": dict(titulo="Carta 51 — Plano de la mesa (abajo)", tipo="gris",
+               descripcion=["La mitad de abajo del plano de la mesa de ofrendas (filas 3 y 4): los recintos y lo que suma cada uno, con la regla de las ofrendas."],
+               pistas=["Es la mitad de abajo del plano de la mesa (carta 50).", "La mitad de arriba está en la carta 38.", f"La mesa queda así: {_OFR}."],
+               arte=_pieza("la mitad de abajo del plano")),
+    "41": dict(
+        titulo="Carta 41 — La losa de los números", tipo="gris", coge=[42, 45, 48, 49], descarta=[35, 50, 38, 51],
+        descripcion=[
+            "Las ofrendas desaparecen en la mesa y se abre un pasadizo. El suelo es una gran losa de 5 × 5 piedras (carta 42), pero sus números están borrados por la arena. Un escriba copió la losa en tres franjas de papiro (cartas 45, 48 y 49): hay que tapar con arena los números que sobran.",
+            "Coged las cartas 42, 45, 48 y 49. Descartad las cartas 35, 50, 38 y 51."],
+        pistas=["Hay un puzle: la losa y sus tres franjas.", "Las tres franjas (45, 48 y 49) se ponen una debajo de otra; la 49 trae la regla.", "Coged las cartas 42, 45, 48 y 49. Descartad las cartas 35, 50, 38 y 51."],
+        arte="Un pasadizo egipcio con el suelo formado por una gran losa de piedras cuadradas cubiertas de arena, iluminado por una antorcha; al fondo, una puerta con el relieve de un sarcófago. Cristina sopla la arena de una piedra con los ojos entrecerrados y Alberto despliega una tira de papiro con cara de entusiasmo."),
+    "42": dict(
+        titulo="Carta 42 — La losa", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: la losa de 5 × 5 piedras, sin números. Tocando una piedra se tapa con arena (y otra vez, se destapa). Con los números de las tres franjas de papiro (cartas 45, 48 y 49) hay que tapar los que sobran: que en ninguna fila ni columna se repita un número a la vista, que dos tapadas no se toquen por un lado y que las piedras a la vista sigan todas unidas.",
+            "Al acertar, se abre la puerta del sarcófago. Coged la carta 33."],
+        pistas=["Juntad las tres franjas (45, 48 y 49) una debajo de otra para tener la losa entera.", "Si tapar una piedra deja otra aislada, esa no se tapa; y junto a una piedra tapada, las cuatro vecinas quedan a la vista.", f"Tapad: {_TA}."],
+        arte="Una gran losa de piedra en el suelo de un templo egipcio, dividida en veinticinco piedras cuadradas, algunas cubiertas de arena dorada, con la luz de una antorcha. Alberto echa arena con las manos sobre una piedra, con cara de esfuerzo, y Cristina le indica otra con el dedo, muy seria."),
+    "45": dict(titulo="Carta 45 — Franja de papiro (1 de 3)", tipo="gris",
+               descripcion=["La primera franja de la copia del escriba: las filas 1 y 2 de la losa, con sus números."],
+               pistas=["Es la parte de arriba de la losa (carta 42).", "Las otras franjas son las cartas 48 y 49.", f"Tapad: {_TA}."],
+               arte=_pieza("las filas 1 y 2 de la losa")),
+    "48": dict(titulo="Carta 48 — Franja de papiro (2 de 3)", tipo="gris",
+               descripcion=["La segunda franja de la copia del escriba: las filas 3 y 4 de la losa, con sus números."],
+               pistas=["Es la parte del medio de la losa (carta 42).", "Las otras franjas son las cartas 45 y 49.", f"Tapad: {_TA}."],
+               arte=_pieza("las filas 3 y 4 de la losa")),
+    "49": dict(titulo="Carta 49 — Franja de papiro (3 de 3)", tipo="gris",
+               descripcion=["La tercera franja de la copia del escriba: la fila 5 de la losa y la regla para taparla."],
+               pistas=["Es la parte de abajo de la losa (carta 42) y trae la regla.", "Las otras franjas son las cartas 45 y 48.", f"Tapad: {_TA}."],
+               arte=_pieza("la fila 5 de la losa y la regla")),
+})
+J["33"]["descarta"] = [63, 71, 26, 41, 42, 45, 48, 49]
+J["33"]["descripcion"][0] = J["33"]["descripcion"][0].replace("Los anillos giran y la puerta de piedra se abre", "La losa cruje y una puerta de piedra se abre")
+J["33"]["descripcion"][1] = "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71, 26, 41, 42, 45, 48 y 49."
+J["33"]["pistas"][1] = "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71, 26, 41, 42, 45, 48 y 49."
+
+SPEC["needs"].pop("33", None)
+SPEC["needs"].update({"35": ["71", "26"], "41": ["50", "38", "51"], "33": ["42", "45", "48", "49"]})
+PARA_QUE.update({
+    "35": "La capilla de las ofrendas: reparte la mesa y su plano.", "50": "La mesa de ofrendas (app): sumas en recintos.",
+    "38": "Plano de la mesa, mitad de arriba.", "51": "Plano de la mesa, mitad de abajo.",
+    "41": "La losa de los números: reparte la losa y sus franjas.", "42": "La losa (app): tapar los números que sobran.",
+    "45": "Franja de la losa (filas 1 y 2).", "48": "Franja de la losa (filas 3 y 4).", "49": "Franja de la losa (fila 5) y regla.",
+    "33": "Sala del sarcófago: aparece al resolver la losa.",
+})
+
+_i = next(i for i, p in enumerate(PASOS) if p["t"] == "Gira los anillos")
+PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 33", "cojas la 35")
+PASOS[_i]["acciones"] = [("app", "71", "carta 35")]
+PASOS[_i + 1:_i + 1] = [
+    dict(t="La capilla de las ofrendas", que="Lee la carta 35. Coge 50, 38 y 51. El plano de la mesa está partido en dos cartas (38 y 51).",
+         acciones=[("leer", "35")]),
+    dict(t="La mesa de ofrendas", que=f"En el móvil: Acción, 50. Cada recinto suma su número rojo y no se repite nada en filas ni columnas: {_OFR}. Pulsa Ofrecer. El mensaje te dice que cojas la 41.",
+         acciones=[("app", "50", "carta 41")]),
+    dict(t="La losa de los números", que="Lee la carta 41. Descarta 35, 50, 38 y 51 y coge 42, 45, 48 y 49.", acciones=[("leer", "41")]),
+    dict(t="Tapa la losa", que=f"En el móvil: Acción, 42. Con las tres franjas juntas, tapa: {_TA}. Pulsa Comprobar. El mensaje te dice que cojas la 33.",
+         acciones=[("app", "42", "carta 33")]),
+]
+_j = next(i for i, p in enumerate(PASOS) if p["t"] == "La sala del sarcófago")
+PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 63, 71 y 26", "Descarta 63, 71, 26, 41, 42, 45, 48 y 49")
+_amp.recalcular_mesas(PASOS, J)

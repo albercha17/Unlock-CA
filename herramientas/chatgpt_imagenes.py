@@ -80,6 +80,10 @@ def orden(clave):
     return (0, 0) if clave == "P" else (1, int(clave))
 
 
+ENVIAR = "button[data-testid='send-button'], button#composer-submit-button, form button[type=submit]"
+PARAR = "button[data-testid='stop-button'], button[aria-label*='Detener'], button[aria-label*='Stop']"
+
+
 class Chat:
     def __init__(self, puerto=None):
         opts = webdriver.ChromeOptions()
@@ -125,11 +129,28 @@ class Chat:
         self.vistas.update(self.d.execute_script(JS_IMAGENES))  # lo que ya habia no cuenta como respuesta nueva
         self.d.execute_script(JS_ESCRIBIR, texto)
         time.sleep(1.5)
-        botones = self.d.find_elements(By.CSS_SELECTOR, "button[data-testid='send-button']")
-        if botones:
-            botones[0].click()
-        else:
-            ActionChains(self.d).send_keys(Keys.ENTER).perform()
+        # oct 2026: ChatGPT cambió la interfaz y el botón de enviar ya no tiene data-testid (igual que en Fritanga)
+        # Si aún se está subiendo un adjunto, el clic no hace nada: se repite hasta que el cuadro de texto se vacía (mensaje enviado).
+        caja = "div[contenteditable='true'][role='textbox'], #prompt-textarea"
+        for intento in range(60):
+            botones = [b for b in self.d.find_elements(By.CSS_SELECTOR, ENVIAR) if b.is_displayed() and b.is_enabled()]
+            if intento and intento % 10 == 0:
+                print(f"  (sigo intentando enviar: {intento * 3} s)", flush=True)
+            try:
+                if botones:
+                    try:
+                        botones[0].click()
+                    except Exception:  # noqa: BLE001  (si algo tapa el botón, clic por JavaScript)
+                        self.d.execute_script("arguments[0].click()", botones[0])
+                else:
+                    self.d.find_element(By.CSS_SELECTOR, caja).send_keys(Keys.ENTER)
+            except Exception:  # noqa: BLE001
+                pass
+            time.sleep(3)
+            restos = self.d.execute_script("const c=document.querySelector(arguments[0]);return c?(c.innerText||c.value||'').trim().length:0;", caja)
+            if not restos or self.d.find_elements(By.CSS_SELECTOR, PARAR):
+                return
+        print("  ! no consigo enviar el mensaje")
 
     def reintentar_si_error(self):
         """Si ChatGPT muestra «Unknown error» con el botón Reintentar, lo pulsa. Devuelve True si lo ha pulsado."""
@@ -142,7 +163,7 @@ class Chat:
         while time.time() - t0 < MAX_ESPERA_IMAGEN:
             time.sleep(3)
             nuevas = [s for s in self.d.execute_script(JS_IMAGENES) if s not in self.vistas]
-            generando = bool(self.d.find_elements(By.CSS_SELECTOR, "button[data-testid='stop-button']"))
+            generando = bool(self.d.find_elements(By.CSS_SELECTOR, PARAR))
             if not nuevas and not generando and reintentos < 3 and self.reintentar_si_error():
                 reintentos += 1
                 print(f"  (error de ChatGPT: pulso Reintentar, intento {reintentos})")

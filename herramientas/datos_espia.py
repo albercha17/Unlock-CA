@@ -361,3 +361,75 @@ def _orden(m):
 
 
 PASOS = _pasos()
+
+
+# ================================================================== ampliación a 36 cartas (20 oct 2026)
+# Entre el skyline y la torre: la mesa de póker del casino (cuatro manos en cuatro cartas; ordenarlas de mejor a peor).
+# Láminas: herramientas/dibujos_ampliacion.py; instancia: instancias_ampliacion.json.
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+import ampliacion as _amp  # noqa: E402
+
+_AMP = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+_PO = _AMP["espia_poker"]
+_ORD = ", ".join(f"{j} ({_PO['categorias'][j]})" for j in _PO["orden"])
+
+
+def _pieza(que):
+    return f"Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): {que}."
+
+
+def _mano(carta, jugador):
+    return dict(
+        titulo=f"Carta {carta} — La mano de {jugador}", tipo="gris",
+        descripcion=[f"Las cinco cartas de {jugador} en la mesa de póker del casino. Es una de las cuatro manos que hay que ordenar (carta 36)."],
+        pistas=["Es una de las cuatro manos de la mesa (carta 36).", "Mirad bien los palos y los números: una mano puede parecer lo que no es.", f"De mejor a peor: {_ORD}."],
+        arte=_pieza(f"la mano de {jugador}"))
+
+
+J["48"]["descripcion"][1] = J["48"]["descripcion"][1].replace("Coged la carta 58", "Coged la carta 33")
+J.update({
+    "33": dict(
+        titulo="Carta 33 — El salón de póker", tipo="gris", coge=[36, 37, 39, 41, 42],
+        descripcion=[
+            "Antes de ir a la torre, la Agente Zorro os para en el salón privado del casino: el Dr. Noche acaba de jugar allí su última mano y el crupier, que trabaja para ella, solo os dará la llave del ascensor si le decís cómo quedó la partida. Las cuatro manos siguen boca arriba en el tapete (cartas 37, 39, 41 y 42) y el marcador del crupier es la carta 36.",
+            "Coged las cartas 36, 37, 39, 41 y 42."],
+        pistas=["Hay un puzle: el marcador del crupier y las cuatro manos.", "Cada carta (37, 39, 41 y 42) es la mano de un jugador; el marcador trae el orden de las jugadas.", "Coged las cartas 36, 37, 39, 41 y 42."],
+        arte="El salón privado de un casino de Montecarlo de 1965, con una mesa de póker de tapete verde, cuatro manos de cartas boca arriba, fichas de colores y un crupier con pajarita; lámparas doradas y humo de puro. Cristina, con vestido de gala, mira las cartas con una ceja arqueada de sospecha y Alberto, con esmoquin, se ajusta la pajarita nervioso."),
+    "36": dict(
+        titulo="Carta 36 — El marcador del crupier", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: el marcador del crupier con los cuatro jugadores y la lista de jugadas del póker, de la mejor a la peor. Hay que tocarlos en orden, del que ganó al que quedó último, mirando sus manos (cartas 37, 39, 41 y 42).",
+            "Al acertar, el crupier os da la llave del ascensor de la torre. Coged la carta 58."],
+        pistas=["Hacen falta las cuatro manos (cartas 37, 39, 41 y 42) y la lista de jugadas del marcador.", "Decid qué jugada tiene cada mano. Ojo: una que parece color tiene una carta de otro palo, y la que parece escalera hay que comprobarla bien.", f"De mejor a peor: {_ORD}."],
+        arte="Un marcador de casino de latón y madera lacada con los nombres de cuatro jugadores en placas y una lista de jugadas grabada, junto a un montón de fichas. Alberto señala una placa con el dedo y gesto de seguridad y Cristina cuenta con los dedos, concentrada."),
+    "37": _mano("37", _PO["jugadores"][0]),
+    "39": _mano("39", _PO["jugadores"][1]),
+    "41": _mano("41", _PO["jugadores"][2]),
+    "42": _mano("42", _PO["jugadores"][3]),
+})
+J["58"]["descarta"] = [48, 52, 53, 57, 33, 36, 37, 39, 41, 42]
+J["58"]["descripcion"][0] = J["58"]["descripcion"][0].replace("Subís en un ascensor privado", "Con la llave del crupier subís en un ascensor privado")
+J["58"]["descripcion"][1] = "Coged la carta 56. Descartad las cartas 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42."
+J["58"]["pistas"][2] = "Coged la carta 56. Descartad las cartas 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42."
+
+SPEC["needs"]["33"] = SPEC["needs"].pop("58")
+SPEC["needs"]["58"] = ["36", "37", "39", "41", "42"]
+PARA_QUE.update({
+    "33": "El salón de póker: reparte el marcador y las cuatro manos.", "36": "El marcador del crupier (app): ordenar las manos.",
+    "37": "Mano de póker.", "39": "Mano de póker.", "41": "Mano de póker.", "42": "Mano de póker.",
+    "58": "La torre del Dr. Noche: aparece al ordenar las manos.",
+})
+
+_i = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("app", "48"))
+PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 58", "cojas la 33")
+PASOS[_i]["acciones"] = [("app", "48", "carta 33")]
+PASOS[_i + 1:_i + 1] = [
+    dict(t="El salón de póker", que="Lee la carta 33. Coge 36, 37, 39, 41 y 42. Cada carta del 37 al 42 es la mano de un jugador.",
+         acciones=[("leer", "33")]),
+    dict(t="El marcador del crupier", que=f"En el móvil: Acción, 36. Toca a los jugadores de mejor a peor mano: {_ORD}. El mensaje te dice que cojas la 58.",
+         acciones=[("app", "36", "carta 58")]),
+]
+_j = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("leer", "58"))
+PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 48, 52, 53 y 57", "Descarta 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42")
+_amp.recalcular_mesas(PASOS, J)

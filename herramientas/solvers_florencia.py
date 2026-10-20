@@ -185,3 +185,45 @@ def s92(d):
 
 SOLVERS = {"24": s24, "32": s32, "38": s38, "54": s54, "58": s58, "66": s66, "92": s92}
 REQUIERE = {"24": ["26"], "32": ["28", "35"], "38": ["40", "42"], "54": ["56"], "58": ["60"], "66": ["68", "70", "71"], "92": ["84", "72", "94"]}
+
+
+# ---- ampliación a 36 cartas: el baúl de viaje
+import json as _json, os  # noqa: E402
+_AMP = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+
+
+def _clic(d, css):
+    d.execute_script("arguments[0].click()", d.find_element(By.CSS_SELECTOR, css))
+    time.sleep(0.04)
+
+
+def _girar(celdas, veces):
+    p = [tuple(c) for c in celdas]
+    for _ in range(veces):
+        p = [(y, -x) for x, y in p]
+    mx, my = min(x for x, _ in p), min(y for _, y in p)
+    return sorted((x - mx, y - my) for x, y in p)
+
+
+def s46(d):
+    """Baúl: una caja que se sale (avisa) y luego un encaje que lo llena."""
+    abrir_carta(d, "46")
+    b = _AMP["florencia_baul"]
+    _clic(d, ".flo-caja[data-p='carro']")
+    _clic(d, f".flo-celda[data-x='{b['ancho'] - 1}'][data-y='{b['alto'] - 1}']")
+    assert "no cabe" in feedback(d), feedback(d)
+    for nombre, celdas in b["soluciones"][0].items():
+        mx, my = min(x for x, _ in celdas), min(y for _, y in celdas)
+        rel = sorted((x - mx, y - my) for x, y in celdas)
+        giro = next(k for k in range(4) if _girar(b["piezas"][nombre], k) == rel)
+        _clic(d, f".flo-caja[data-p='{nombre}']")
+        for _ in range(giro):
+            boton(d, "Girar la caja").click()
+        _clic(d, f".flo-celda[data-x='{mx}'][data-y='{my}']")
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS.update({"46": s46})
+REQUIERE.update({"46": ["47", "48", "49", "50"]})

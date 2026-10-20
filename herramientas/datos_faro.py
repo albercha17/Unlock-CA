@@ -105,3 +105,57 @@ SPEC = {'final': '99',
            '82': ['72', '10'],
            '99': ['95', '82', '15', '12', '18', 'e70']},
  'eventos': {'e70': {'needs': ['70', '27'], 'descarta': ['70', '27']}}}
+
+
+# ================================================================== ampliación a 36 cartas (20 oct 2026)
+# Entre la radio y la sala de la lente: el plano de la bahía, la lámpara de la mesa y el temporizador de la lente (ampliar_faro.py).
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+
+_AQUI = _os.path.dirname(_os.path.abspath(__file__))
+_AMP = _json.load(open(_os.path.join(_AQUI, "instancias_ampliacion.json"), encoding="utf-8"))
+_J = _json.load(open(_os.path.join(_AQUI, "..", "juegos", "el-faro", "cartas.json"), encoding="utf-8"))
+_TIERRA = ", ".join(f"{'ABCDEF'[f]}{c + 1}" for f, c in _AMP["faro_bahia"]["tierra"])
+_ORDEN = ", ".join(_AMP["faro_sombras"]["solucion"])
+_LUZ = " ".join(str(s + 1) for s, v in enumerate(_AMP["faro_destellos"]["solucion"]) if v)
+
+PASOS[0]["que"] = PASOS[0]["que"].replace("23 cartas boca abajo", "35 cartas boca abajo")
+_i = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("app", "85"))
+PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 78", "cojas la 44")
+PASOS[_i]["acciones"] = [("app", "85", "carta 44")]
+_nuevos = [
+    dict(t="La guardia costera", que="Lee la carta 44. Coge 45, 46 y 47: el plano de la bahía está partido en dos hojas.", acciones=[("leer", "44")]),
+    dict(t="El plano de la bahía", que=f"En el móvil: Acción, 45. Marca como islote: {_TIERRA}. Pulsa Transmitir. El mensaje te dice que cojas la 54.",
+         acciones=[("app", "45", "carta 54")]),
+    dict(t="El cuarto de guardia", que="Lee la carta 54. Descarta 44, 45, 46 y 47 y coge 55, 56 y 57.", acciones=[("leer", "54")]),
+    dict(t="La lámpara de la mesa", que=f"En el móvil: Acción, 55. Pon en la mesa, de izquierda a derecha: {_ORDEN}. Enciende la lámpara. El mensaje te dice que cojas la 64.",
+         acciones=[("app", "55", "carta 64")]),
+    dict(t="La escalera de hierro", que="Lee la carta 64. Descarta 54, 55, 56 y 57 y coge 65, 66 y 67.", acciones=[("leer", "64")]),
+    dict(t="El temporizador de la lente", que=f"En el móvil: Acción, 65. Cabo Niebla es destello, destello, destello y largo: enciende los segundos {_LUZ}. Pulsa Programar. El mensaje te dice que cojas la 78.",
+         acciones=[("app", "65", "carta 78")]),
+]
+_mesa = set(PASOS[_i]["mesa"]) - {"78"} | {"44"}
+PASOS[_i]["mesa"] = sorted(_mesa)
+for _p in _nuevos:
+    _a = _p["acciones"][0]
+    if _a[0] == "leer":
+        _mesa -= {str(x) for x in _J[_a[1]].get("descarta", [])}
+        _mesa |= {str(x) for x in _J[_a[1]].get("coge", [])}
+    else:
+        _mesa.add(_a[2].split()[-1])
+    _p["mesa"] = sorted(_mesa)
+PASOS[_i + 1:_i + 1] = _nuevos
+_j = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("leer", "78"))
+PASOS[_j]["que"] = PASOS[_j]["que"] + " Descarta también 64, 65, 66 y 67."
+
+SPEC["needs"]["44"] = SPEC["needs"].pop("78")
+SPEC["needs"].update({"54": ["45", "46", "47"], "64": ["55", "56", "57"], "78": ["65", "66", "67"]})
+PARA_QUE.update({
+    "44": "La guardia costera: reparte el plano de la bahía.", "45": "El plano de la bahía (app): marcar los islotes.",
+    "46": "Plano de la bahía (filas A a C).", "47": "Plano de la bahía (filas D a F) y reglas.",
+    "54": "El cuarto de guardia: reparte la lámpara, la sombra y el estante.", "55": "La lámpara de la mesa (app): reproducir la sombra.",
+    "56": "La sombra pintada en la pared.", "57": "El estante del farero: las cosas que dan sombra.",
+    "64": "La escalera de hierro: reparte el temporizador, el almanaque y la nota.", "65": "El temporizador de la lente (app): la luz de Cabo Niebla.",
+    "66": "Almanaque de faros.", "67": "Nota de Anselmo: cómo leer el almanaque.",
+    "78": "Sala de la lente: aparece al programar el temporizador.",
+})

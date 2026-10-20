@@ -126,3 +126,30 @@ def s69(d):
 SOLVERS = {"20": s20, "24": s24, "46": s46, "48": s48, "69": s69}
 # cartas que hay que tener en mesa para poder resolver cada minijuego
 REQUIERE = {"20": ["14", "15"], "24": ["30", "31"], "46": ["40"], "48": ["52", "53"], "69": ["70"]}
+
+
+# ---- ampliación a 36 cartas: el marcador del crupier
+import json as _json  # noqa: E402
+_AMP = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+
+
+def s36(d):
+    """Póker: en el orden en que salen (falla) y luego de mejor a peor mano."""
+    abrir_carta(d, "36")
+    po = _AMP["espia_poker"]
+    malo = po["jugadores"] if po["jugadores"] != po["orden"] else po["jugadores"][::-1]
+    for j in malo:
+        clic(d, f".esp-jug[data-j='{j}']")
+    boton(d, "Entregar").click()
+    assert "niega" in feedback(d), feedback(d)
+    boton(d, "Borrar").click()
+    for j in po["orden"]:
+        clic(d, f".esp-jug[data-j='{j}']")
+    boton(d, "Entregar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS.update({"36": s36})
+REQUIERE.update({"36": ["37", "39", "41", "42"]})

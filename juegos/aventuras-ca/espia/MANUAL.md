@@ -4,11 +4,11 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 29 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 19 pasos
+## Los 21 pasos
 
 ### Paso 1 — Llegada a Montecarlo
 
@@ -86,20 +86,35 @@ Lee la carta 57. Descarta 22, 35 y 10 y coge 48, 52 y 53. Las cartas 52 y 53 rep
 
 ### Paso 11 — El panel del skyline
 
-En el móvil: Acción, 48. Completa el perfil con las pistas de las dos cartas (de arriba abajo: 4 3 1 2 / 2 1 4 3 / 3 4 2 1 / 1 2 3 4). El mensaje te dice que cojas la 58.
+En el móvil: Acción, 48. Completa el perfil con las pistas de las dos cartas (de arriba abajo: 4 3 1 2 / 2 1 4 3 / 3 4 2 1 / 1 2 3 4). El mensaje te dice que cojas la 33.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `38` `44` `48` `52` `53` `57` `58`
+- **La mesa queda con:** `12` `33` `38` `44` `48` `52` `53` `57`
 - [ ] Hecho
 
-### Paso 12 — La torre del Dr. Noche
+### Paso 12 — El salón de póker
 
-Lee la carta 58. Descarta 48, 52, 53 y 57 y coge la 56, un maletín con cuatro cargas.
+Lee la carta 33. Coge 36, 37, 39, 41 y 42. Cada carta del 37 al 42 es la mano de un jugador.
+
+- **La mesa queda con:** `12` `33` `36` `37` `38` `39` `41` `42` `44` `48` `52` `53` `57`
+- [ ] Hecho
+
+### Paso 13 — El marcador del crupier
+
+En el móvil: Acción, 36. Toca a los jugadores de mejor a peor mano: El Barón (full), El Dr. Noche (color), La Condesa (escalera), La Agente Zorro (dobles parejas). El mensaje te dice que cojas la 58.
+
+- **En el móvil:** Acción → `36`
+- **La mesa queda con:** `12` `33` `36` `37` `38` `39` `41` `42` `44` `48` `52` `53` `57` `58`
+- [ ] Hecho
+
+### Paso 14 — La torre del Dr. Noche
+
+Lee la carta 58. Descarta 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42 y coge la 56, un maletín con cuatro cargas.
 
 - **La mesa queda con:** `12` `38` `44` `56` `58`
 - [ ] Hecho
 
-### Paso 13 — Maletín y alicates
+### Paso 15 — Maletín y alicates
 
 El maletín (56) y los alicates (38) son combinables: 56 + 38 = 94. Coge la 94.
 
@@ -107,14 +122,14 @@ El maletín (56) y los alicates (38) son combinables: 56 + 38 = 94. Coge la 94.
 - **La mesa queda con:** `12` `38` `44` `56` `58` `94`
 - [ ] Hecho
 
-### Paso 14 — Las cuatro cargas
+### Paso 16 — Las cuatro cargas
 
 Lee la carta 94. Descarta 56, 38, 44 y 58 y coge 69 y 70. La carta 70 es el manual del desactivador.
 
 - **La mesa queda con:** `12` `69` `70` `94`
 - [ ] Hecho
 
-### Paso 15 — El desactivador
+### Paso 17 — El desactivador
 
 En el móvil: Acción, 69. Con el manual, corta un cable de cada carga (carga 1: el cable 3, carga 2: el cable 4, carga 3: el cable 1, carga 4: el cable 3). El mensaje te dice que cojas la 82.
 
@@ -122,14 +137,14 @@ En el móvil: Acción, 69. Con el manual, corta un cable de cada carga (carga 1:
 - **La mesa queda con:** `12` `69` `70` `82` `94`
 - [ ] Hecho
 
-### Paso 16 — La colección del Dr. Noche
+### Paso 18 — La colección del Dr. Noche
 
 Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía.
 
 - **La mesa queda con:** `12` `62` `82`
 - [ ] Hecho
 
-### Paso 17 — Cristal en el Cronoportal
+### Paso 19 — Cristal en el Cronoportal
 
 El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74.
 
@@ -137,14 +152,14 @@ El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74.
 - **La mesa queda con:** `12` `62` `74` `82`
 - [ ] Hecho
 
-### Paso 18 — Cronoportal reconectado
+### Paso 20 — Cronoportal reconectado
 
 Lee la carta 74. Descarta 62, 12 y 82 y coge la 99.
 
 - **La mesa queda con:** `74` `99`
 - [ ] Hecho
 
-### Paso 19 — Final
+### Paso 21 — Final
 
 Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 
@@ -167,24 +182,30 @@ Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 | 28 | El yate Neptuno | Normal | Coge 35, 40, 46; Descarta 26, 30, 31, 24 | El yate Neptuno: reparte la otra mitad del microfilm, el plano y el mando. | 5 |
 | 30 | La rejilla (carta negra con ventanas) | Normal | — | Rejilla de cifrado (carta negra con ventanas): se pone sobre la 31. | 4 |
 | 31 | Letras | Normal | — | Carta de letras: se pone debajo de la 30. | 4 |
+| 33 | El salón de póker | Normal | Coge 36, 37, 39, 41, 42 | El salón de póker: reparte el marcador y las cuatro manos. | 11 |
 | 35 | Otra mitad de microfilm | Combina | Combinable: suma los números | Otra mitad de microfilm: se combina con la 22. | 6 |
+| 36 | El marcador del crupier | App | — | El marcador del crupier (app): ordenar las manos. | 12 |
+| 37 | La mano de La Condesa | Normal | — | Mano de póker. | 12 |
 | 38 | Alicates aislantes | Combina | Combinable: suma los números | Alicates aislantes: se combinan con el maletín (56). | 8 |
+| 39 | La mano de El Barón | Normal | — | Mano de póker. | 12 |
 | 40 | El plano del yate | Normal | — | Plano del yate: el laberinto del mando (46). | 6 |
+| 41 | La mano de El Dr. Noche | Normal | — | Mano de póker. | 12 |
+| 42 | La mano de La Agente Zorro | Normal | — | Mano de póker. | 12 |
 | 44 | La sala de máquinas | Normal | Coge 38; Descarta 28, 40, 46 | La sala de máquinas: reparte los alicates. | 7 |
 | 46 | El mando de la linterna | App | — | El mando de la linterna (app): recorrer el laberinto a ciegas con el plano. | 6 |
 | 48 | El panel del skyline | App | — | El panel del skyline (app): completar el perfil de 4 × 4. | 10 |
 | 52 | Skyline: arriba e izquierda | Normal | — | Skyline: pistas de arriba e izquierda. | 10 |
 | 53 | Skyline: abajo y derecha | Normal | — | Skyline: pistas de abajo y derecha. | 10 |
-| 56 | Maletín con cuatro cargas | Combina | Combinable: suma los números | Maletín con cuatro cargas: se combina con los alicates (38). | 12 |
+| 56 | Maletín con cuatro cargas | Combina | Combinable: suma los números | Maletín con cuatro cargas: se combina con los alicates (38). | 14 |
 | 57 | El microfilm completo | Normal | Coge 48, 52, 53; Descarta 22, 35, 10 | El microfilm completo (22 + 35): reparte el panel del skyline y sus dos cartas de pistas. | 9 |
-| 58 | La torre del Dr. Noche | Normal | Coge 56; Descarta 48, 52, 53, 57 | La torre del Dr. Noche: reparte el maletín. | 11 |
-| 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía: se combina con el Cronoportal (12). | 16 |
-| 69 | El desactivador | App | — | El desactivador (app): cortar el cable correcto de cada carga. | 14 |
-| 70 | El manual del desactivador | Normal | — | Manual del desactivador: las reglas de los cables. | 14 |
-| 74 | Cronoportal reconectado | Normal | Coge 99; Descarta 62, 12, 82 | Cronoportal reconectado (62 + 12): reparte la 99. | 17 |
-| 82 | La colección del Dr. Noche | Normal | Coge 62; Descarta 69, 70, 94 | La colección del Dr. Noche: reparte el cristal de energía. | 15 |
-| 94 | Las cuatro cargas | Normal | Coge 69, 70; Descarta 56, 38, 44, 58 | Las cuatro cargas (56 + 38): reparte el desactivador y su manual. | 13 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | Final de la aventura, ya en casa. | 18 |
+| 58 | La torre del Dr. Noche | Normal | Coge 56; Descarta 48, 52, 53, 57, 33, 36, 37, 39, 41, 42 | La torre del Dr. Noche: aparece al ordenar las manos. | 13 |
+| 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía: se combina con el Cronoportal (12). | 18 |
+| 69 | El desactivador | App | — | El desactivador (app): cortar el cable correcto de cada carga. | 16 |
+| 70 | El manual del desactivador | Normal | — | Manual del desactivador: las reglas de los cables. | 16 |
+| 74 | Cronoportal reconectado | Normal | Coge 99; Descarta 62, 12, 82 | Cronoportal reconectado (62 + 12): reparte la 99. | 19 |
+| 82 | La colección del Dr. Noche | Normal | Coge 62; Descarta 69, 70, 94 | La colección del Dr. Noche: reparte el cristal de energía. | 17 |
+| 94 | Las cuatro cargas | Normal | Coge 69, 70; Descarta 56, 38, 44, 58 | Las cuatro cargas (56 + 38): reparte el desactivador y su manual. | 15 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | Final de la aventura, ya en casa. | 20 |
 
 ## Si algo no cuadra
 

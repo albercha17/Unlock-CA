@@ -310,3 +310,76 @@ PASOS = [
     dict(t="Final", que="Lee la carta 99. Descarta 84, 72, 90, 92 y 94. En la mesa solo queda la 99. ¡Fin!",
          acciones=[("leer", "99")], mesa=["99"]),
 ]
+
+
+# ================================================================== ampliación a 36 cartas (20 oct 2026)
+# Entre la cisterna y la azotea: el baúl de viaje de Leonardo (encajar cuatro cajas, cuyas formas están en cuatro cartas, en un baúl
+# de 5 x 4). Láminas: herramientas/dibujos_ampliacion.py; instancia: instancias_ampliacion.json.
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+import ampliacion as _amp  # noqa: E402
+
+_AMP = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+_NOM = {"ornitoptero": "el ornitóptero", "leon": "el león", "laud": "el laúd", "carro": "el carro"}
+_SOL = _AMP["florencia_baul"]["soluciones"][0]
+_ENC = "; ".join(f"{_NOM[k]} en las casillas {', '.join(f'({x + 1},{y + 1})' for x, y in v)}" for k, v in _SOL.items())
+
+
+def _pieza(que):
+    return f"Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): {que}."
+
+
+def _caja(carta, nombre, quien):
+    return dict(
+        titulo=f"Carta {carta} — Caja de viaje: {quien}", tipo="gris",
+        descripcion=[f"La caja de viaje de {quien}, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."],
+        pistas=["Es una de las cuatro cajas del baúl (carta 46).", "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.", f"Un encaje posible: {_ENC}."],
+        arte=_pieza(f"la caja de {quien}"))
+
+
+J["58"]["descripcion"][1] = "Al vaciarla aparece una escalera de caracol, pero está atascada con las cajas de viaje del maestro. Coged la carta 44."
+J.update({
+    "44": dict(
+        titulo="Carta 44 — La escalera atascada", tipo="gris", coge=[46, 47, 48, 49, 50],
+        descripcion=[
+            "La escalera de caracol sube a la azotea, pero Salaì la ha llenado con las cajas de viaje de Leonardo: mañana parten hacia Milán. Si las metéis todas en el gran baúl del rellano (carta 46), quedará libre el paso. Las cuatro cajas (cartas 47, 48, 49 y 50) tienen formas raras: la de un ornitóptero, un león, un laúd y un carro.",
+            "Coged las cartas 46, 47, 48, 49 y 50."],
+        pistas=["Hay un puzle: el baúl y las cuatro cajas.", "Cada caja está dibujada desde arriba en una carta (47 a 50).", "Coged las cartas 46, 47, 48, 49 y 50."],
+        arte="Una escalera de caracol de piedra atascada de cajas de madera de formas extrañas, con un gran baúl de viaje abierto en el rellano, a la luz de una vela. Cristina intenta levantar una caja con cara de esfuerzo y Alberto mide el baúl con un palmo, pensativo."),
+    "46": dict(
+        titulo="Carta 46 — El baúl de viaje", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: un baúl de 5 × 4 palmos y las cuatro cajas de viaje. Se elige una caja, se gira si hace falta y se toca la casilla del baúl donde va su esquina de arriba a la izquierda. Las formas están en las cartas 47, 48, 49 y 50 y tienen que caber las cuatro, sin huecos.",
+            "Al cerrar el baúl, la escalera queda libre. Coged la carta 74."],
+        pistas=["Hacen falta las cuatro cartas de las cajas (47, 48, 49 y 50).", "Empezad por las esquinas del baúl y por la caja más grande (el carro). No hay huecos de sobra: las cuatro llenan los 20 palmos.", f"Un encaje posible: {_ENC} (columna, fila)."],
+        arte="Un gran baúl de viaje renacentista de madera con herrajes de bronce, abierto, con el fondo dividido en cuadros y cuatro cajas de formas raras al lado. Alberto encaja una caja con cuidado, sacando la lengua, y Cristina le indica otra con la mano, muy segura."),
+    "47": _caja("47", "ornitoptero", "el ornitóptero"),
+    "48": _caja("48", "leon", "el león mecánico"),
+    "49": _caja("49", "laud", "el laúd de plata"),
+    "50": _caja("50", "carro", "el carro blindado"),
+})
+J["74"]["descarta"] = [51, 58, 60, 44, 46, 47, 48, 49, 50]
+J["74"]["descripcion"][0] = J["74"]["descripcion"][0].replace("La compuerta se abre y una escalera de caracol sube", "Con el baúl cerrado, la escalera de caracol sube")
+J["74"]["descripcion"][1] = "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58, 60, 44, 46, 47, 48, 49 y 50."
+J["74"]["pistas"][1] = "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58, 60, 44, 46, 47, 48, 49 y 50."
+
+SPEC["needs"]["44"] = SPEC["needs"].pop("74")
+SPEC["needs"]["74"] = ["46", "47", "48", "49", "50"]
+PARA_QUE.update({
+    "44": "La escalera atascada: reparte el baúl y las cuatro cajas.", "46": "El baúl de viaje (app): encajar las cuatro cajas.",
+    "47": "Caja del ornitóptero.", "48": "Caja del león.", "49": "Caja del laúd.", "50": "Caja del carro.",
+    "74": "La azotea: aparece al cerrar el baúl.",
+})
+
+_i = next(i for i, p in enumerate(PASOS) if p["t"] == "Vacía la cisterna")
+PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 74", "cojas la 44")
+PASOS[_i]["acciones"] = [("app", "58", "carta 44")]
+PASOS[_i + 1:_i + 1] = [
+    dict(t="La escalera atascada", que="Lee la carta 44. Coge 46, 47, 48, 49 y 50. Cada carta del 47 al 50 dibuja una caja desde arriba.",
+         acciones=[("leer", "44")]),
+    dict(t="Llena el baúl", que=f"En el móvil: Acción, 46. Encaja las cuatro cajas en el baúl de 5 × 4 sin huecos; por ejemplo: {_ENC} (columna, fila). El mensaje te dice que cojas la 74.",
+         acciones=[("app", "46", "carta 74")]),
+]
+_j = next(i for i, p in enumerate(PASOS) if p["t"] == "La azotea")
+PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 51, 58 y 60", "Descarta 51, 58, 60, 44, 46, 47, 48, 49 y 50")
+_amp.recalcular_mesas(PASOS, J)

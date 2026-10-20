@@ -1,0 +1,1040 @@
+{
+ "marte_circuito": {
+  "salidas": {
+   "motor": [
+    "Y",
+    [
+     "NO",
+     [
+      "O",
+      [
+       "in",
+       "A"
+      ],
+      [
+       "in",
+       "B"
+      ]
+     ]
+    ],
+    [
+     "in",
+     "D"
+    ]
+   ],
+   "alarma": [
+    "Y",
+    [
+     "NO",
+     [
+      "O",
+      [
+       "in",
+       "B"
+      ],
+      [
+       "in",
+       "E"
+      ]
+     ]
+    ],
+    [
+     "NO",
+     [
+      "in",
+      "B"
+     ]
+    ]
+   ],
+   "ventilacion": [
+    "O",
+    [
+     "O",
+     [
+      "in",
+      "B"
+     ],
+     [
+      "in",
+      "A"
+     ]
+    ],
+    [
+     "in",
+     "C"
+    ]
+   ]
+  },
+  "quiere": {
+   "motor": true,
+   "alarma": false,
+   "ventilacion": true
+  },
+  "solucion": {
+   "A": false,
+   "B": false,
+   "C": true,
+   "D": true,
+   "E": true
+  }
+ },
+ "marte_muestras": {
+  "regla": "color!=rojo y cristal=True",
+  "ejemplos": [
+   {
+    "color": "negro",
+    "forma": "angulosa",
+    "vetas": 1,
+    "cristal": false,
+    "pasa": false
+   },
+   {
+    "color": "gris",
+    "forma": "redonda",
+    "vetas": 2,
+    "cristal": true,
+    "pasa": true
+   },
+   {
+    "color": "negro",
+    "forma": "angulosa",
+    "vetas": 0,
+    "cristal": false,
+    "pasa": false
+   },
+   {
+    "color": "negro",
+    "forma": "angulosa",
+    "vetas": 2,
+    "cristal": true,
+    "pasa": true
+   },
+   {
+    "color": "rojo",
+    "forma": "angulosa",
+    "vetas": 1,
+    "cristal": false,
+    "pasa": false
+   },
+   {
+    "color": "rojo",
+    "forma": "angulosa",
+    "vetas": 1,
+    "cristal": true,
+    "pasa": false
+   },
+   {
+    "color": "negro",
+    "forma": "redonda",
+    "vetas": 1,
+    "cristal": true,
+    "pasa": true
+   },
+   {
+    "color": "gris",
+    "forma": "angulosa",
+    "vetas": 0,
+    "cristal": false,
+    "pasa": false
+   },
+   {
+    "color": "negro",
+    "forma": "redonda",
+    "vetas": 2,
+    "cristal": false,
+    "pasa": false
+   }
+  ],
+  "bandeja": [
+   {
+    "color": "rojo",
+    "forma": "redonda",
+    "vetas": 0,
+    "cristal": true
+   },
+   {
+    "color": "negro",
+    "forma": "angulosa",
+    "vetas": 2,
+    "cristal": false
+   },
+   {
+    "color": "gris",
+    "forma": "angulosa",
+    "vetas": 1,
+    "cristal": false
+   },
+   {
+    "color": "rojo",
+    "forma": "redonda",
+    "vetas": 1,
+    "cristal": false
+   },
+   {
+    "color": "rojo",
+    "forma": "angulosa",
+    "vetas": 0,
+    "cristal": false
+   },
+   {
+    "color": "gris",
+    "forma": "redonda",
+    "vetas": 1,
+    "cristal": true
+   },
+   {
+    "color": "negro",
+    "forma": "redonda",
+    "vetas": 1,
+    "cristal": false
+   },
+   {
+    "color": "gris",
+    "forma": "redonda",
+    "vetas": 0,
+    "cristal": true
+   }
+  ],
+  "solucion": [
+   5,
+   7
+  ],
+  "compatibles": 1
+ },
+ "egipto_ofrendas": {
+  "solucion": [
+   [
+    2,
+    4,
+    3,
+    1
+   ],
+   [
+    4,
+    1,
+    2,
+    3
+   ],
+   [
+    3,
+    2,
+    1,
+    4
+   ],
+   [
+    1,
+    3,
+    4,
+    2
+   ]
+  ],
+  "jaulas": [
+   [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   [
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   [
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   [
+    [
+     2,
+     3
+    ]
+   ],
+   [
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ]
+  ],
+  "sumas": [
+   7,
+   7,
+   6,
+   5,
+   7,
+   4,
+   4
+  ]
+ },
+ "egipto_tachar": {
+  "rejilla": [
+   [
+    5,
+    4,
+    1,
+    2,
+    3
+   ],
+   [
+    4,
+    4,
+    5,
+    5,
+    2
+   ],
+   [
+    3,
+    2,
+    3,
+    5,
+    3
+   ],
+   [
+    2,
+    4,
+    3,
+    4,
+    5
+   ],
+   [
+    1,
+    5,
+    2,
+    5,
+    4
+   ]
+  ],
+  "tachadas": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    3
+   ]
+  ]
+ },
+ "florencia_baul": {
+  "ancho": 5,
+  "alto": 4,
+  "piezas": {
+   "ornitoptero": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "leon": [
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "laud": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "carro": [
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ]
+   ]
+  },
+  "soluciones": [
+   {
+    "ornitoptero": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "leon": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "laud": [
+     [
+      3,
+      1
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "carro": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "ornitoptero": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "leon": [
+     [
+      3,
+      2
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "laud": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "carro": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "n_soluciones": 2
+ },
+ "espia_poker": {
+  "jugadores": [
+   "La Condesa",
+   "El Barón",
+   "El Dr. Noche",
+   "La Agente Zorro"
+  ],
+  "manos": {
+   "La Condesa": [
+    [
+     9,
+     "diamantes"
+    ],
+    [
+     10,
+     "diamantes"
+    ],
+    [
+     11,
+     "corazones"
+    ],
+    [
+     12,
+     "diamantes"
+    ],
+    [
+     13,
+     "diamantes"
+    ]
+   ],
+   "El Barón": [
+    [
+     7,
+     "picas"
+    ],
+    [
+     7,
+     "corazones"
+    ],
+    [
+     7,
+     "tréboles"
+    ],
+    [
+     2,
+     "diamantes"
+    ],
+    [
+     2,
+     "picas"
+    ]
+   ],
+   "El Dr. Noche": [
+    [
+     3,
+     "tréboles"
+    ],
+    [
+     8,
+     "tréboles"
+    ],
+    [
+     11,
+     "tréboles"
+    ],
+    [
+     5,
+     "tréboles"
+    ],
+    [
+     13,
+     "tréboles"
+    ]
+   ],
+   "La Agente Zorro": [
+    [
+     12,
+     "picas"
+    ],
+    [
+     12,
+     "corazones"
+    ],
+    [
+     4,
+     "tréboles"
+    ],
+    [
+     4,
+     "diamantes"
+    ],
+    [
+     9,
+     "picas"
+    ]
+   ]
+  },
+  "categorias": {
+   "La Condesa": "escalera",
+   "El Barón": "full",
+   "El Dr. Noche": "color",
+   "La Agente Zorro": "dobles parejas"
+  },
+  "orden": [
+   "El Barón",
+   "El Dr. Noche",
+   "La Condesa",
+   "La Agente Zorro"
+  ],
+  "ranking": [
+   "escalera de color",
+   "póker",
+   "full",
+   "color",
+   "escalera",
+   "trío",
+   "dobles parejas",
+   "pareja",
+   "carta alta"
+  ]
+ },
+ "piratas_campanas": {
+  "guardias": [
+   [
+    "Primera",
+    20
+   ],
+   [
+    "Media",
+    0
+   ],
+   [
+    "Alba",
+    4
+   ],
+   [
+    "Mañana",
+    8
+   ],
+   [
+    "Tarde",
+    12
+   ],
+   [
+    "Perro",
+    16
+   ]
+  ],
+  "guardia": "Tarde",
+  "campanadas": 5,
+  "hora": [
+   14,
+   30
+  ]
+ },
+ "juguetes_cubos": {
+  "dibujos": [
+   "perro",
+   "barco",
+   "casa",
+   "sol",
+   "cohete",
+   "arbol"
+  ],
+  "caras": [
+   [
+    "cohete",
+    "perro",
+    "casa",
+    "barco",
+    "sol",
+    "arbol"
+   ],
+   [
+    "perro",
+    "barco",
+    "casa",
+    "arbol",
+    "sol",
+    "cohete"
+   ],
+   [
+    "cohete",
+    "sol",
+    "perro",
+    "barco",
+    "arbol",
+    "casa"
+   ],
+   [
+    "casa",
+    "perro",
+    "sol",
+    "barco",
+    "arbol",
+    "cohete"
+   ]
+  ],
+  "objetivo": "perro",
+  "inicial": [
+   4,
+   2,
+   3,
+   3
+  ],
+  "solucion": [
+   1,
+   0,
+   2,
+   1
+  ]
+ },
+ "faro_bahia": {
+  "n": 6,
+  "pistas": [
+   [
+    0,
+    2,
+    3
+   ],
+   [
+    1,
+    4,
+    1
+   ],
+   [
+    2,
+    2,
+    2
+   ],
+   [
+    2,
+    5,
+    4
+   ],
+   [
+    5,
+    1,
+    2
+   ],
+   [
+    5,
+    5,
+    3
+   ]
+  ],
+  "tierra": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ]
+  ]
+ },
+ "faro_sombras": {
+  "objetos": [
+   "farol",
+   "ancla",
+   "botella",
+   "tetera",
+   "gaviota",
+   "catalejo",
+   "campana",
+   "llave"
+  ],
+  "solucion": [
+   "catalejo",
+   "tetera",
+   "ancla"
+  ]
+ },
+ "faro_destellos": {
+  "faros": {
+   "Punta Gaviota": [
+    "destello",
+    "destello"
+   ],
+   "Isla del Moro": [
+    "largo",
+    "destello",
+    "destello"
+   ],
+   "Cabo Niebla": [
+    "destello",
+    "destello",
+    "destello",
+    "largo"
+   ],
+   "Roca Negra": [
+    "largo",
+    "largo"
+   ],
+   "Puerto Viejo": [
+    "destello",
+    "destello",
+    "destello",
+    "destello"
+   ]
+  },
+  "patrones": {
+   "Punta Gaviota": "101000000000",
+   "Isla del Moro": "110101000000",
+   "Cabo Niebla": "101010110000",
+   "Roca Negra": "110110000000",
+   "Puerto Viejo": "101010100000"
+  },
+  "faro": "Cabo Niebla",
+  "solucion": [
+   1,
+   0,
+   1,
+   0,
+   1,
+   0,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0
+  ]
+ }
+}

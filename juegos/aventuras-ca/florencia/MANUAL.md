@@ -4,11 +4,11 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 29 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 18 pasos
+## Los 20 pasos
 
 ### Paso 1 — Llegada al taller
 
@@ -101,20 +101,35 @@ Lee la carta 84. Te manda descartar 22 y 62.
 
 ### Paso 13 — Vacía la cisterna
 
-La nota (60) pide cuatro medidas en la jarra grande. En el móvil: Acción, 58. Llena la grande, vierte en la pequeña, vacía la pequeña, vierte los 2 que quedan, llena la grande y vierte en la pequeña hasta llenarla. El mensaje te dice que cojas la 74.
+La nota (60) pide cuatro medidas en la jarra grande. En el móvil: Acción, 58. Llena la grande, vierte en la pequeña, vacía la pequeña, vierte los 2 que quedan, llena la grande y vierte en la pequeña hasta llenarla. El mensaje te dice que cojas la 44.
 
 - **En el móvil:** Acción → `58`
-- **La mesa queda con:** `51` `58` `60` `74` `84`
+- **La mesa queda con:** `44` `51` `58` `60` `84`
 - [ ] Hecho
 
-### Paso 14 — La azotea
+### Paso 14 — La escalera atascada
 
-Lee la carta 74. Descarta 51, 58 y 60 y coge 66, 68, 70, 71 y 72. Las tres notas (68, 70 y 71) son para el ornitóptero (66).
+Lee la carta 44. Coge 46, 47, 48, 49 y 50. Cada carta del 47 al 50 dibuja una caja desde arriba.
+
+- **La mesa queda con:** `44` `46` `47` `48` `49` `50` `51` `58` `60` `84`
+- [ ] Hecho
+
+### Paso 15 — Llena el baúl
+
+En el móvil: Acción, 46. Encaja las cuatro cajas en el baúl de 5 × 4 sin huecos; por ejemplo: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1) (columna, fila). El mensaje te dice que cojas la 74.
+
+- **En el móvil:** Acción → `46`
+- **La mesa queda con:** `44` `46` `47` `48` `49` `50` `51` `58` `60` `74` `84`
+- [ ] Hecho
+
+### Paso 16 — La azotea
+
+Lee la carta 74. Descarta 51, 58, 60, 44, 46, 47, 48, 49 y 50 y coge 66, 68, 70, 71 y 72. Las tres notas (68, 70 y 71) son para el ornitóptero (66).
 
 - **La mesa queda con:** `66` `68` `70` `71` `72` `74` `84`
 - [ ] Hecho
 
-### Paso 15 — Prepara el ornitóptero
+### Paso 17 — Prepara el ornitóptero
 
 En el móvil: Acción, 66. Con las tres notas: el lastre solo puede ser de dos sacos, la tela de seda y el ala larga. Pulsa Probar vuelo. El mensaje te dice que cojas la 90.
 
@@ -122,14 +137,14 @@ En el móvil: Acción, 66. Con las tres notas: el lastre solo puede ser de dos s
 - **La mesa queda con:** `66` `68` `70` `71` `72` `74` `84` `90`
 - [ ] Hecho
 
-### Paso 16 — El lucernario
+### Paso 18 — El lucernario
 
 Lee la carta 90. Descarta 74, 66, 68, 70 y 71 y coge 92 y 94. El plano (94) dice que la lente va en el atril de la columna B, fila 3.
 
 - **La mesa queda con:** `72` `84` `90` `92` `94`
 - [ ] Hecho
 
-### Paso 17 — Dirige el rayo del amanecer
+### Paso 19 — Dirige el rayo del amanecer
 
 En el móvil: Acción, 92. Pon la lente en B3 y tres espejos: \ en A2, \ en C2 y / en C3. Pulsa Probar. El mensaje te dice que cojas la 99.
 
@@ -137,7 +152,7 @@ En el móvil: Acción, 92. Pon la lente en B3 y tres espejos: \ en A2, \ en C2 y
 - **La mesa queda con:** `72` `84` `90` `92` `94` `99`
 - [ ] Hecho
 
-### Paso 18 — Final
+### Paso 20 — Final
 
 Lee la carta 99. Descarta 84, 72, 90, 92 y 94. En la mesa solo queda la 99. ¡Fin!
 
@@ -161,23 +176,29 @@ Lee la carta 99. Descarta 84, 72, 90, 92 y 94. En la mesa solo queda la 99. ¡Fi
 | 38 | Mecanismo del león | App | — | Mecanismo del león (app): montar una cadena de engranajes; da un modificador. | 6 |
 | 40 | Plano del mecanismo | Normal | Texto: «La cuerda del reloj debe girar igual de rápido que la manivela pero en sentido contrario.» | Plano del mecanismo: cómo debe girar la cuerda. | 6 |
 | 42 | Llave de cuerda | Combina | Combinable: suma los números | Llave de cuerda: se suma al modificador del mecanismo (42 + 9 = 51). | 6 |
+| 44 | La escalera atascada | Normal | Coge 46, 47, 48, 49, 50 | La escalera atascada: reparte el baúl y las cuatro cajas. | 13 |
+| 46 | El baúl de viaje | App | — | El baúl de viaje (app): encajar las cuatro cajas. | 14 |
+| 47 | Caja de viaje: el ornitóptero | Normal | — | Caja del ornitóptero. | 14 |
+| 48 | Caja de viaje: el león mecánico | Normal | — | Caja del león. | 14 |
+| 49 | Caja de viaje: el laúd de plata | Normal | — | Caja del laúd. | 14 |
+| 50 | Caja de viaje: el carro blindado | Normal | — | Caja del carro. | 14 |
 | 51 | El altillo | Normal | Coge 54, 56, 58, 60; Descarta 36, 38, 40, 42 | El altillo: resultado de 42 + 9; reparte la caja, el boceto y la cisterna. | 7 |
 | 54 | Caja de Pacioli | App | — | Caja de Pacioli (app): cuadrado mágico 4×4. | 8 |
 | 56 | Boceto de Pacioli | Normal | Texto: «Fila 1:  · 3 · · Fila 2:  · 10 · · Fila 3:  · · 7 ·» | Boceto de Pacioli: números del cuadrado mágico. | 8 |
 | 58 | Cisterna | App | — | Cisterna (app): puzle de las dos jarras. | 8 |
 | 60 | Nota de la cisterna | Normal | Texto: «La compuerta cede cuando la jarra grande guarda justo cuatro medidas.» | Nota de la cisterna: cuánta agua debe quedar en la jarra grande. | 8 |
 | 62 | Lente maestra | Combina | Descarta 54, 56; Combinable: suma los números | Lente maestra: sale de la caja; se combina con el Cronoportal (22). | 9 |
-| 66 | Ornitóptero | App | — | Ornitóptero (app): puzle de lógica (ala, tela y lastre). | 14 |
-| 68 | Cuaderno de vuelo | Normal | Texto: «Ala corta: no levanta ni una pluma. Con ala media, siempre dos sacos. Ala larga: tres sacos son demasiados.» | Cuaderno de vuelo: frases sobre las alas. | 14 |
-| 70 | Nota del viento | Normal | Texto: «El viento del alba empuja fuerte. Con un solo saco, el aparato cae de lado.» | Nota del viento: frase sobre el lastre. | 14 |
-| 71 | Apuntes de Salaì | Normal | Texto: «Dos sacos y tela de cuero: vuelca. Lino y dos sacos: se arruga. Ala media con seda: sin fuerza.» | Apuntes de Salaì: frases sobre las telas. | 14 |
-| 72 | Espejos ustorios | Normal | — | Espejos ustorios: sirven para la última prueba (92). | 14 |
-| 74 | La azotea | Normal | Coge 66, 68, 70, 71, 72; Descarta 51, 58, 60 | La azotea: aparece al abrir la compuerta de la cisterna; reparte el ornitóptero, las notas y los espejos. | 13 |
+| 66 | Ornitóptero | App | — | Ornitóptero (app): puzle de lógica (ala, tela y lastre). | 16 |
+| 68 | Cuaderno de vuelo | Normal | Texto: «Ala corta: no levanta ni una pluma. Con ala media, siempre dos sacos. Ala larga: tres sacos son demasiados.» | Cuaderno de vuelo: frases sobre las alas. | 16 |
+| 70 | Nota del viento | Normal | Texto: «El viento del alba empuja fuerte. Con un solo saco, el aparato cae de lado.» | Nota del viento: frase sobre el lastre. | 16 |
+| 71 | Apuntes de Salaì | Normal | Texto: «Dos sacos y tela de cuero: vuelca. Lino y dos sacos: se arruga. Ala media con seda: sin fuerza.» | Apuntes de Salaì: frases sobre las telas. | 16 |
+| 72 | Espejos ustorios | Normal | — | Espejos ustorios: sirven para la última prueba (92). | 16 |
+| 74 | La azotea | Normal | Coge 66, 68, 70, 71, 72; Descarta 51, 58, 60, 44, 46, 47, 48, 49, 50 | La azotea: aparece al cerrar el baúl. | 15 |
 | 84 | Cronoportal con lente | Normal | Descarta 22, 62 | Cronoportal con lente: resultado de 22 + 62. | 11 |
-| 90 | El lucernario | Normal | Coge 92, 94; Descarta 74, 66, 68, 70, 71 | El lucernario: aparece al volar el ornitóptero; reparte el rayo y el plano. | 15 |
-| 92 | Rayo del amanecer | App | — | Rayo del amanecer (app): colocar lente y espejos para llevar la luz al Cronoportal. | 16 |
-| 94 | Plano solar | Normal | Texto: «La lente de cristal de roca se apoya en el atril de la columna B, fila 3.» | Plano solar: en qué atril va la lente. | 16 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 84, 72, 90, 92, 94 | Final de la aventura. | 17 |
+| 90 | El lucernario | Normal | Coge 92, 94; Descarta 74, 66, 68, 70, 71 | El lucernario: aparece al volar el ornitóptero; reparte el rayo y el plano. | 17 |
+| 92 | Rayo del amanecer | App | — | Rayo del amanecer (app): colocar lente y espejos para llevar la luz al Cronoportal. | 18 |
+| 94 | Plano solar | Normal | Texto: «La lente de cristal de roca se apoya en el atril de la columna B, fila 3.» | Plano solar: en qué atril va la lente. | 18 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 84, 72, 90, 92, 94 | Final de la aventura. | 19 |
 
 ## Si algo no cuadra
 

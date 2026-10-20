@@ -116,7 +116,7 @@ window.JUEGO_LOCAL = {
   "tipo": "verde",
   "descripcion": [
    "Es un juego de la app: la estantería de Leo tal como está ahora. Hay que tocar las cinco cosas que han cambiado desde la foto Polaroid (carta 20).",
-   "Al encontrar las cinco, aparece lo que escondía el perro. Coged la carta 26."
+   "Al encontrar las cinco, aparece lo que escondía el perro. Coged la carta 59."
   ],
   "pistas": [
    "Hace falta la foto Polaroid (carta 20): así estaba la estantería antes.",
@@ -137,16 +137,19 @@ window.JUEGO_LOCAL = {
   "descarta": [
    10,
    20,
-   24
+   24,
+   59,
+   64,
+   67
   ],
   "descripcion": [
-   "Detrás de los juguetes cambiados, el Capitán Pelusa encuentra la caja de bloques de Leo con sus instrucciones (cartas 30 y 31): «Si construimos la torre de Leo junto a la cama, podremos subir». La base de la torre es la carta 46. Dentro de la caja, Alberto encuentra dos pilas (carta 35).",
-   "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20 y 24."
+   "Dentro del baúl, el Capitán Pelusa encuentra la caja de bloques de Leo con sus instrucciones (cartas 30 y 31): «Si construimos la torre de Leo junto a la cama, podremos subir». La base de la torre es la carta 46. Dentro de la caja, Alberto encuentra dos pilas (carta 35).",
+   "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20, 24, 59, 64 y 67."
   ],
   "pistas": [
    "Hay un puzle: la torre de bloques y sus instrucciones.",
    "Las instrucciones están en dos cartas: vistas de frente y de lado (30) y desde arriba (31). Las pilas (35) son combinables.",
-   "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20 y 24."
+   "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20, 24, 59, 64 y 67."
   ],
   "arte": "Una caja de bloques de construcción de colores volcada sobre la alfombra, junto a la pata de una cama enorme, con una hoja de instrucciones dibujadas. Cristina, la muñeca de trapo, levanta un bloque más grande que ella con cara de esfuerzo y Alberto, el robot de hojalata, sostiene dos pilas gigantes con una sonrisa de triunfo."
  },
@@ -584,6 +587,51 @@ window.JUEGO_LOCAL = {
   ],
   "pistas": [],
   "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto, otra vez personas de su tamaño normal, acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ve el cuarto de un niño de los años 90 con juguetes que dicen adiós. Cristina ríe a carcajadas con una canica de colores en la mano y Alberto se palpa la cara y la barba con alivio y una sonrisa enorme. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+ },
+ "59": {
+  "titulo": "Carta 59 — El baúl de los cubos",
+  "tipo": "gris",
+  "coge": [
+   64,
+   67
+  ],
+  "descripcion": [
+   "Detrás de los juguetes cambiados hay un baúl cerrado. El Capitán Pelusa sabe abrirlo: «Leo lo cierra con sus cubos de dibujos (carta 64). Hay que girarlos hasta formar el dibujo de la tapa de la caja (carta 67)».",
+   "Coged las cartas 64 y 67."
+  ],
+  "pistas": [
+   "Hay un puzle: los cubos y el dibujo de la tapa.",
+   "El dibujo que hay que formar está en la carta 67.",
+   "Coged las cartas 64 y 67."
+  ],
+  "arte": "Un baúl de juguetes de madera pintado con estrellas, cerrado, con cuatro cubos de madera con dibujos encajados en la tapa, sobre la alfombra del cuarto de un niño por la noche. Cristina, la muñeca de trapo, gira un cubo más grande que su cabeza con cara de esfuerzo y Alberto, el robot de hojalata, se rasca la cabeza de lata, desconcertado."
+ },
+ "64": {
+  "titulo": "Carta 64 — Los cubos de Leo",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: cuatro cubos de madera en un cuadrado de 2 × 2. Cada cara de cada cubo tiene un cuarto de un dibujo distinto; tocando un cubo se gira y enseña otra cara. Hay que formar el dibujo de la tapa de la caja (carta 67).",
+   "Al formarlo, el baúl se abre. Coged la carta 26."
+  ],
+  "pistas": [
+   "El dibujo que hay que formar está en la carta 67.",
+   "Cada cubo enseña un cuarto: el de arriba a la izquierda, el de arriba a la derecha, el de abajo a la izquierda y el de abajo a la derecha. Girad cada uno hasta ver su trozo del perro.",
+   "Girad los cuatro cubos hasta que salga el perro Trufo entero."
+  ],
+  "arte": "Cuatro cubos de madera con dibujos de colores en sus caras (un perro, un barco, una casa, un sol, un cohete y un árbol), encajados en un cuadrado sobre la tapa de un baúl. Alberto gira un cubo con sus pinzas y la lengua fuera y Cristina aplaude al ver aparecer media cara de perro."
+ },
+ "67": {
+  "titulo": "Carta 67 — El dibujo de Leo",
+  "tipo": "gris",
+  "descripcion": [
+   "El dibujo pegado en la tapa de la caja de cubos: Trufo, el perro de Leo, dibujado por él a los cinco años. Es el dibujo que hay que formar con los cubos (carta 64)."
+  ],
+  "pistas": [
+   "Es el dibujo que hay que formar con los cubos (carta 64).",
+   "Fijaos en qué parte del perro va en cada esquina.",
+   "Girad los cuatro cubos hasta que salga el perro Trufo entero."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el dibujo del perro."
  }
 };
 window.fetchCartas = function () {

@@ -70,7 +70,7 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     if (idx.every((v, i) => v === OBJETIVO[i])) {
       resuelto = true;
-      ui.say('¡Los anillos encajan con un clac! La puerta de piedra se abre a la sala del sarcófago. Coged la carta 33.', 'ok');
+      ui.say('¡Los anillos encajan con un clac! Una puerta de piedra se abre a una capilla escondida. Coged la carta 35.', 'ok');
     } else {
       ui.say('Los anillos no encajan. Releed el acertijo de la cartela.', 'bad');
     }
