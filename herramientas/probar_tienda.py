@@ -63,7 +63,15 @@ def flujo(d, url):
     d.get(url)
     time.sleep(1)
     js = d.execute_script
-    comprobar(len(d.find_elements(By.CSS_SELECTOR, ".aventura")) == 6, "se pintan las 6 aventuras")
+    import json as _json
+    n_cat = len([j for j in _json.load(open(os.path.join(RAIZ, "juegos", "catalogo.json"), encoding="utf-8")) if j["ruta"].startswith("juegos/aventuras-ca/")])
+    esperar_n = lambda: len(d.find_elements(By.CSS_SELECTOR, ".aventura")) == n_cat  # noqa: E731
+    for _ in range(30):
+        if esperar_n():
+            break
+        time.sleep(0.2)
+    comprobar(esperar_n(), f"se pintan todas las aventuras del catálogo ({len(d.find_elements(By.CSS_SELECTOR, '.aventura'))} de {n_cat})")
+    comprobar(len(d.find_elements(By.CSS_SELECTOR, "#selector-aventuras input")) == n_cat, "y todas se pueden elegir en el formulario")
     comprobar(d.find_element(By.ID, "resumen-precio").text == "49 €", "precio inicial 49 €")
     comprobar(not js("return [...document.images].filter(i => i.complete && i.naturalWidth === 0).map(i => i.src)"), "todas las imágenes cargan")
 
