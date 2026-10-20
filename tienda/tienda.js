@@ -78,13 +78,13 @@
 
   function pintarAventuras() {
   $('#lista-aventuras').innerHTML = AVENTURAS.map((a) => `
-    <article class="aventura" data-id="${a.id}">
+    <article class="aventura" data-id="${a.id}" data-dif="${a.dificultad}" data-buscar="${a.id}">
       <span class="sello">En vuestro pack</span>
       <img class="aventura-img" src="${portada(a.id)}" alt="Portada de ${a.nombre}" loading="lazy">
       <div class="aventura-cuerpo">
         <span class="aventura-epoca">${a.epoca}</span>
         <h3>${a.nombre}</h3>
-        <p>${a.texto}</p>
+        <p title="${a.texto}">${a.texto}</p>
         <div class="aventura-meta">
           <span class="dificultad" title="Dificultad ${a.dificultad} de 5">Dificultad ${puntos(a.dificultad)}</span>
           <span>${a.minutos} min</span>
@@ -94,14 +94,21 @@
     </article>`).join('');
 
   $('#selector-aventuras').innerHTML = AVENTURAS.map((a) => `
-    <label class="opcion">
+    <label class="opcion" data-dif="${a.dificultad}" data-buscar="${a.epoca} ${a.id}">
       <input type="checkbox" name="aventura" value="${a.id}">
       <img src="${portada(a.id)}" alt="" loading="lazy">
       <span>${a.nombre}</span>
     </label>`).join('');
-  if ($('#n-aventuras')) $('#n-aventuras').textContent = AVENTURAS.length;
+  $$('[data-n-aventuras]').forEach((el) => { el.textContent = AVENTURAS.length; });
+  filtros.forEach((f) => f && f.aplicar());
   }
+  // buscador y filtro de dificultad (assets/js/filtro-juegos.js): cada vez hay más aventuras
+  const filtros = [];
   pintarAventuras();
+  if (window.FiltroJuegos) {
+    filtros.push(window.FiltroJuegos.montar($('#lista-aventuras'), { items: '.aventura', nombre: 'aventura' }));
+    filtros.push(window.FiltroJuegos.montar($('#selector-aventuras'), { items: '.opcion', nombre: 'aventura' }));
+  }
   completarConCatalogo().then(() => { pintarAventuras(); pintarEleccion(); });
 
   function alternar(id, quiere) {
