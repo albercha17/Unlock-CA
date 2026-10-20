@@ -2,88 +2,177 @@ import json, os, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bot_core import *
 
-# La solución sale de lo que dibuja herramientas/mosaicos.py, no de una copia escrita a mano.
-CODIGOS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "codigos_pompeya.json"), encoding="utf-8"))
+# Pompeya (60 cartas): las soluciones salen de instancias_pompeya.json, no de copias escritas a mano.
+I = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_pompeya.json"), encoding="utf-8"))
 
 
 def clic(d, css):
-    """Clic por JS: los elementos pueden estar dentro de contenedores con overflow oculto."""
     d.execute_script("arguments[0].click()", d.find_element(By.CSS_SELECTOR, css))
-    time.sleep(0.05)
+    time.sleep(0.03)
 
 
-def secuencia(d, carta, clase, claves, malo, pista_fallo, boton_ok="Probar"):
-    """Formas / flechas: primero una combinación mala (falla), luego la buena."""
-    abrir_carta(d, carta)
-    boton(d, boton_ok).click()
-    assert "Faltan" in feedback(d), feedback(d)
-    for _ in claves:
-        clic(d, f".{clase}[data-k='{malo}']")
-    boton(d, boton_ok).click()
-    assert pista_fallo in feedback(d), feedback(d)
-    boton(d, "Vaciar").click()
-    for k in claves:
-        clic(d, f".{clase}[data-k='{k}']")
-    boton(d, boton_ok).click()
+def s13(d):
+    """Panel: un orden equivocado (falla) y luego las figuras del camino."""
+    abrir_carta(d, "13")
+    sol = I["laberinto"]["solucion"]
+    for f in sol[::-1]:
+        clic(d, f".pom-fig[data-f='{f}']")
+    boton(d, "Empujar la puerta").click()
+    assert "no cede" in feedback(d), feedback(d)
+    boton(d, "Quitar las figuras").click()
+    for f in sol:
+        clic(d, f".pom-fig[data-f='{f}']")
+    boton(d, "Empujar la puerta").click()
     m = feedback(d)
     cerrar(d)
     return m
+
+
+def _abaco(d, n):
+    for k, v in (("M", 1000), ("C", 100), ("X", 10), ("I", 1)):
+        dig = n // v % 10
+        if dig >= 5:
+            clic(d, f".pom-cuenta[data-col='{k}'][data-t='5']")
+        if dig % 5:
+            clic(d, f".pom-cuenta[data-col='{k}'][data-t='1'][data-i='{dig % 5 - 1}']")
 
 
 def s20(d):
-    return secuencia(d, "20", "pom-forma", CODIGOS["atrio"]["formas"], "cuadrado", "La puerta no cede")
+    """Arca: el total de Tiro (con su error) falla y luego el verdadero."""
+    abrir_carta(d, "20")
+    cu = I["cuentas"]
+    _abaco(d, sum(x["escrito"] for x in cu["dias"]))
+    boton(d, "Abrir el arca").click()
+    assert "no se mueve" in feedback(d), feedback(d)
+    cerrar(d)
+    abrir_carta(d, "20")
+    _abaco(d, cu["total"])
+    boton(d, "Abrir el arca").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
 
 
-def s24(d):
-    return secuencia(d, "24", "pom-flecha", CODIGOS["peristilo"]["flechas"], "izquierda", "La verja no se mueve")
+def s28(d):
+    """Joyero: el anillo idéntico a la impronta (falla) y luego el bueno."""
+    abrir_carta(d, "28")
+    clic(d, ".pom-anillo[data-a='b']")
+    boton(d, "Sellar").click()
+    assert "no deja esa marca" in feedback(d), feedback(d)
+    clic(d, f".pom-anillo[data-a='{I['sello']['solucion']}']")
+    boton(d, "Sellar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s33(d):
+    """Compuertas: todas abiertas (riego mal) y luego la combinación justa."""
+    abrir_carta(d, "33")
+    fu = I["fuente"]
+    for c in fu["compuertas"]:
+        clic(d, f".pom-pal[data-c='{c}']")
+    boton(d, "Abrir el agua").click()
+    assert "no reciben" in feedback(d) or "desborda" in feedback(d), feedback(d)
+    for c in fu["compuertas"]:
+        if c not in fu["solucion"]:
+            clic(d, f".pom-pal[data-c='{c}']")
+    boton(d, "Abrir el agua").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s40(d):
+    """Tablilla: SATOR (falla) y luego la palabra de la cruz."""
+    abrir_carta(d, "40")
+    for l in "SATOR":
+        clic(d, f".pom-teclas button[data-l='{l}']")
+    boton(d, "Apretar la tablilla").click()
+    assert "sigue cerrado" in feedback(d), feedback(d)
+    boton(d, "Alisar la cera").click()
+    for l in I["sator"]["solucion"]:
+        clic(d, f".pom-teclas button[data-l='{l}']")
+    boton(d, "Apretar la tablilla").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
 
 
 def s46(d):
-    """Rosetas: tres ruedas; primero todas a 1 (falla) y luego sube cada una a su número de pétalos."""
+    """Balanza: en la muesca 1 (falla) y luego en la buena."""
     abrir_carta(d, "46")
-    boton(d, "Abrir").click()
-    assert "no se abre" in feedback(d), feedback(d)
-    for i, n in enumerate(CODIGOS["rosetas"]["petalos"]):
-        for _ in range(n - 1):
-            clic(d, f".pom-rueda[data-i='{i}'] .mas")
-    boton(d, "Abrir").click()
+    boton(d, "Soltar la balanza").click()
+    assert "torcido" in feedback(d), feedback(d)
+    for _ in range(I["statera"]["muesca"] - 1):
+        clic(d, ".pom-giro button[data-d='1']")
+    boton(d, "Soltar la balanza").click()
     m = feedback(d)
     cerrar(d)
     return m
 
 
-def s48(d):
-    """Ábaco: un número mal puesto y luego las cifras del fresco partido."""
-    abrir_carta(d, "48")
-    boton(d, "Abrir el cofre").click()
-    assert "sigue cerrado" in feedback(d), feedback(d)
-    for r, n in enumerate(CODIGOS["digitos"]["digitos"]):
-        clic(d, f".pom-cuenta[data-r='{r}'][data-n='9']")
-    boton(d, "Abrir el cofre").click()
-    assert "sigue cerrado" in feedback(d), feedback(d)
-    boton(d, "Vaciar").click()
-    for r, n in enumerate(CODIGOS["digitos"]["digitos"]):
-        clic(d, f".pom-cuenta[data-r='{r}'][data-n='{n}']")
-    boton(d, "Abrir el cofre").click()
+def s55(d):
+    """Casa: la de la esquina (falla, salvo que sea la buena) y luego la que dejan los grafitos."""
+    abrir_carta(d, "55")
+    f, c = I["calles"]["solucion"]
+    mala = (0, 0) if (f, c) != (0, 0) else (0, 1)
+    clic(d, f".pom-casa[data-f='{mala[0]}'][data-c='{mala[1]}']")
+    boton(d, "Llamar a la puerta").click()
+    assert "vecino" in feedback(d), feedback(d)
+    clic(d, f".pom-casa[data-f='{f}'][data-c='{c}']")
+    boton(d, "Llamar a la puerta").click()
     m = feedback(d)
     cerrar(d)
     return m
 
 
-def s69(d):
-    """Reloj de sol: la marca 3 no es (falla) y luego la marca donde llega la sombra."""
-    abrir_carta(d, "69")
-    clic(d, ".pom-marca[data-k='3']")
-    boton(d, "Girar la rueda").click()
-    assert "Nada se mueve" in feedback(d), feedback(d)
-    clic(d, f".pom-marca[data-k='{CODIGOS['reloj']['marca']}']")
-    boton(d, "Girar la rueda").click()
+def s59(d):
+    """Calendario: el día 23 (falla: contar sin incluir las calendas) y luego el bueno."""
+    abrir_carta(d, "59")
+    dia = I["calendario"]["dia"]
+    clic(d, f".pom-dia[data-d='{dia - 1}']")
+    boton(d, "Entregar al sacerdote").click()
+    assert "no es el día" in feedback(d), feedback(d)
+    clic(d, f".pom-dia[data-d='{dia}']")
+    boton(d, "Entregar al sacerdote").click()
     m = feedback(d)
     cerrar(d)
     return m
 
 
-SOLVERS = {"20": s20, "24": s24, "46": s46, "48": s48, "69": s69}
-# cartas que hay que tener en mesa para poder resolver cada minijuego (los mosaicos se montan en la mesa)
-REQUIERE = {"20": ["14", "15", "16", "17", "18"], "24": ["30", "31", "32", "33", "36"], "46": ["40", "41", "42", "43", "45"],
-            "48": ["52", "53"], "69": ["64", "65", "66", "67", "70"]}
+def s66(d):
+    """Huida: por una calle cortada (falla) y luego la ruta buena."""
+    abrir_carta(d, "66")
+    for n in ("A", "C", "G", "P"):
+        clic(d, f".pom-nodo[data-n='{n}']")
+    boton(d, "¡Corred!").click()
+    assert "cortada" in feedback(d), feedback(d)
+    for n in I["huida"]["solucion"][1:]:
+        clic(d, f".pom-nodo[data-n='{n}']")
+    boton(d, "¡Corred!").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s70(d):
+    """Barca: todo (se hunde) y luego la carga óptima."""
+    abrir_carta(d, "70")
+    ba = I["barca"]
+    for k in ba["carga"]:
+        clic(d, f".pom-bulto[data-k='{k}']")
+    boton(d, "Zarpar").click()
+    assert "hundirse" in feedback(d), feedback(d)
+    for k in ba["carga"]:
+        if k not in ba["solucion"]:
+            clic(d, f".pom-bulto[data-k='{k}']")
+    boton(d, "Zarpar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS = {"13": s13, "20": s20, "28": s28, "33": s33, "40": s40, "46": s46, "55": s55, "59": s59, "66": s66, "70": s70}
+REQUIERE = {"13": ["14", "15", "16", "17", "18"], "20": ["21", "23", "24", "25"], "28": ["27", "29"], "33": ["36", "37"], "40": ["41", "42"],
+            "46": ["43", "45"], "55": ["51", "52", "53", "54"], "59": ["61", "63", "65"], "66": ["67", "75"], "70": ["71", "72", "76"]}

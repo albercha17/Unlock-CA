@@ -82,8 +82,8 @@ JUEGOS = {
     "Pompeya": dict(
         datos=P, dificultad=3, tema="pompeya", titulo="Pompeya, 79 d.C.: El Mosaico del Mundo", emoji="🌋", minutos=90,
         grad="#6a3418,#150a06", acento="#e08a4a", acento2="#f5c08a", bg1="#120805", bg2="#2e150b",
-        sinopsis="Séptimo salto del Cronoportal: Pompeya, 24 de agosto del año 79. Cristina y Alberto aterrizan en el atrio de una rica villa mientras el Vesubio humea en el horizonte, y el cristal de energía del aparato sale rodando. Para encontrarlo hay que reconstruir los mosaicos y frescos de la casa juntando varias cartas. Tienen hora y media antes de que caiga la ceniza.",
-        minigames={"20": "20-formas.js", "24": "24-flechas.js", "46": "46-rosetas.js", "48": "48-abaco.js", "69": "69-reloj.js"},
+        sinopsis="Séptimo salto del Cronoportal: Pompeya, 24 de agosto del año 79. Cristina y Alberto aterrizan en el atrio de una rica villa mientras el Vesubio humea en el horizonte, y el cristal de energía del aparato sale rodando. Para recuperarlo hay que seguir a su dueña por la villa, el jardín, la ciudad y el puerto: un mosaico laberinto, cuentas en números romanos, un sello, una fuente, un cuadrado mágico, una balanza romana, grafitos, el calendario romano, la huida y la barca. Hora y media antes de que caiga la ceniza.",
+        minigames={"13": "13-panel.js", "20": "20-abaco.js", "28": "28-anillos.js", "33": "33-compuertas.js", "40": "40-tablilla.js", "46": "46-statera.js", "55": "55-calles.js", "59": "59-calendario.js", "66": "66-huida.js", "70": "70-barca.js"},
         pal=("#7a3a1a", "#1c0c08")),
     "Arcade": dict(
         datos=A, dificultad=3, tema="arcade", titulo="Game Over, 1985: La Última Moneda", emoji="🕹️", minutos=75,

@@ -56,7 +56,7 @@ def escribir_cartas(nombre):
     base = os.path.join(RAIZ, "juegos", "aventuras-ca", nombre.lower())
     ruta = os.path.join(base, "cartas.json")
     viejo = json.load(open(ruta, encoding="utf-8"))
-    out = {"_meta": viejo.get("_meta", datos.META)}
+    out = {"_meta": getattr(datos, "META", None) or viejo.get("_meta")}
     for k, c in datos.J.items():
         out[k] = {campo: c[campo] for campo in ORDEN_CAMPOS if campo in c}
     with open(ruta, "w", encoding="utf-8", newline="\n") as f:
