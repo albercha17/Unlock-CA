@@ -61,7 +61,7 @@
       <li>
         <span class="paso-n">1</span>
         <h3>Elegís 4 aventuras</h3>
-        <p>Entre <span id="n-aventuras">13</span> destinos: Egipto, Marte, Pompeya, el Lejano Oeste, un barco pirata, un casino de espías, una recreativa de los 80, el cuarto de los juguetes...</p>
+        <p>Entre <span data-n-aventuras>13</span> destinos: Egipto, Marte, Pompeya, el Lejano Oeste, un barco pirata, un casino de espías, una recreativa de los 80, el cuarto de los juguetes...</p>
       </li>
       <li>
         <span class="paso-n">2</span>
@@ -100,7 +100,7 @@
   <!-- ============ AVENTURAS ============ -->
   <section class="seccion" id="aventuras">
     <p class="eyebrow">Las aventuras</p>
-    <h2>Elegid 4 de estos 6 destinos</h2>
+    <h2>Elegid 4 de estos <span data-n-aventuras>14</span> destinos</h2>
     <p class="sub">Todas empiezan igual: un salto del Cronoportal que sale un poco mal, un reloj en marcha y un puzle tras otro para volver a casa. Las imágenes de ejemplo son de nuestros primeros protagonistas, Cristina y Alberto.</p>
     <div class="aventuras" id="lista-aventuras"><!-- tienda.js --></div>
   </section>
@@ -297,6 +297,7 @@
 </footer>
 
 <script src="../assets/js/vendor/supabase.js" defer></script>
+<script src="../assets/js/filtro-juegos.js" defer></script>
 <script src="tienda.js" defer></script>
 </body>
 </html>

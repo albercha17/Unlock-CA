@@ -210,7 +210,18 @@ def main():
         cache = json.loads(d.execute_script("return localStorage.getItem('ca-accesos')") or "{}")
         ok(cache.get("cuenta") == "bea@ejemplo.es" and len(cache.get("lista", [])) == 2, "la copia queda guardada por cuenta")
 
-        # ---------- 4. cliente sin juegos
+        # ---------- 3b. cliente con muchos juegos: buscador en su lista
+        muchos = [{"id": "m" + j, "email": "muchos@ejemplo.es", "juego": j, "url": "", "portada": "", "quienes": "", "creado": "2026-10-0" + str(i)}
+                  for i, j in enumerate(["egipto", "marte", "florencia", "cuento", "trono", "juguetes"])]
+        d.execute_script("const a = JSON.parse(localStorage.getItem('fake-unlock_accesos')); localStorage.setItem('fake-unlock_accesos', JSON.stringify(a.concat(arguments[0])))", muchos)
+        sesion(d, "muchos@ejemplo.es")
+        d.get(URL + "index.html")
+        esperar(lambda: d.find_elements(By.CSS_SELECTOR, "#mis .fj input"))
+        ok(len(visibles(d, "#mis .option")) == 6 and bool(d.find_elements(By.CSS_SELECTOR, "#mis .fj")), "con más de 4 juegos, el cliente tiene buscador")
+        d.find_element(By.CSS_SELECTOR, "#mis .fj input").send_keys("marte")
+        ok(len(visibles(d, "#mis .option")) == 1, "y filtra sus juegos")
+
+                # ---------- 4. cliente sin juegos
         sesion(d, "nadie@ejemplo.es")
         d.get(URL + "index.html")
         esperar(lambda: "Todavía no hay juegos" in d.find_element(By.ID, "mis").text)
@@ -226,6 +237,14 @@ def main():
         d.get(URL + "juegos/aventuras-ca/index.html")
         esperar(lambda: len(visibles(d, "#todo .salto")) > 5)
         ok(len(visibles(d, "#todo .salto")) >= 11, f"y todas las aventuras de Cristina y Alberto ({len(visibles(d, '#todo .salto'))})")
+        caja = d.find_element(By.CSS_SELECTOR, ".fj input")
+        caja.send_keys("pompeya")
+        ok(len(visibles(d, "#todo .salto[data-juego]")) == 1, "el hub tiene buscador: «pompeya» deja una")
+        caja.clear()
+        d.execute_script("document.querySelector('.fj input').dispatchEvent(new Event('input'))")
+        d.find_element(By.CSS_SELECTOR, "[data-nivel=facil]").click()
+        difs = [int(e.get_attribute("data-dif")) for e in visibles(d, "#todo .salto[data-juego]")]
+        ok(difs and all(x <= 2 for x in difs), f"y filtro de dificultad: «Fácil» ({difs})")
         d.get(URL + "index.html?ver-como=bea@ejemplo.es")
         esperar(lambda: visibles(d, "#mis .option"))
         ok(len(visibles(d, "#mis .option")) == 2 and "viendo la app como" in d.find_element(By.ID, "mis").text, "«ver como» enseña lo que ve el cliente")
@@ -247,7 +266,7 @@ def main():
         d.get(URL + "tienda/accesos.html?email=Ana@Ejemplo.es&quienes=Ana%20y%20Luis&pack=https://pack-ana.netlify.app/&juegos=egipto,marte,faro&pedido=")
         esperar(lambda: d.find_element(By.ID, "panel").is_displayed())
         esperar(lambda: d.find_elements(By.CSS_SELECTOR, "#lista [data-email]"))
-        ok(len(d.find_elements(By.CSS_SELECTOR, "#lista [data-email]")) == 2, "el panel lista los accesos agrupados por correo")
+        ok(len(d.find_elements(By.CSS_SELECTOR, "#lista [data-email]")) == 3, "el panel lista los accesos agrupados por correo")
         marcados = [i.get_attribute("value") for i in d.find_elements(By.CSS_SELECTOR, "#juegos input:checked")]
         ok(marcados == ["faro", "egipto", "marte"], f"el enlace de un pedido rellena el formulario ({marcados})")
         d.find_element(By.CSS_SELECTOR, "#form-dar button[type=submit]").click()
@@ -260,8 +279,8 @@ def main():
            and filas["egipto"]["portada"] == "https://pack-ana.netlify.app/juegos/aventuras-ca/egipto/img/P.jpg",
            "las aventuras apuntan al pack y a su portada")
         ok(filas.get("faro", {}).get("url") == "" and filas["faro"]["quienes"] == "Ana y Luis", "el Faro queda como juego normal")
-        esperar(lambda: len(d.find_elements(By.CSS_SELECTOR, "#lista [data-email]")) == 3)
-        ok(len(d.find_elements(By.CSS_SELECTOR, "#lista [data-email]")) == 3, "la lista se actualiza con la cuenta nueva")
+        esperar(lambda: len(d.find_elements(By.CSS_SELECTOR, "#lista [data-email]")) == 4)
+        ok(len(d.find_elements(By.CSS_SELECTOR, "#lista [data-email]")) == 4, "la lista se actualiza con la cuenta nueva")
         d.execute_script("window.confirm = () => true")
         grupo = d.find_element(By.CSS_SELECTOR, "#lista [data-email='ana@ejemplo.es']")
         grupo.find_element(By.CSS_SELECTOR, "[data-accion=quitar]").click()
