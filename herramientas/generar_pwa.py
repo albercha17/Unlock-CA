@@ -34,6 +34,7 @@ def lista_juego(carpeta):
     carpeta = carpeta.rstrip("/")
     cola = []
     for dp, dn, fn in os.walk(carpeta):
+        dn[:] = [x for x in dn if not x.startswith(".")]  # carpetas ocultas (p. ej. un perfil de Chrome local): nunca al precache
         for f in sorted(fn):
             ruta = os.path.join(dp, f).replace("\\", "/")
             rel = ruta[len(carpeta) + 1:]
