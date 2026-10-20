@@ -15,6 +15,7 @@ import datos_arcade as A
 import datos_oeste as W
 import datos_espia as S
 import datos_futbol as Fu
+import datos_piratas as Pi
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Inés y Marcos tienen una hora para encender el faro... y encontrar al abuelo Anselmo."
@@ -107,6 +108,12 @@ JUEGOS = {
         sinopsis="Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. El cristal de energía rueda hasta caer dentro de la Copa de cristal y solo saldrá del palco con el campeón. El entrenador os toma por su cuerpo técnico: para ayudarle a ganar hay que dar la vuelta a unos cromos, deducir una alineación, decidir jugadas del VAR, reconstruir los marcadores de una liguilla y marcar una tanda de penaltis.",
         minigames={"20": "20-cromos.js", "24": "24-pizarra.js", "46": "46-var.js", "48": "48-liguilla.js", "69": "69-penaltis.js"},
         pal=("#2f7a3a", "#0b2412")),
+    "Piratas": dict(
+        datos=Pi, dificultad=3, tema="piratas", titulo="Mar de las Brumas, 1715: El Tesoro de la Isla Calavera", emoji="🏴‍☠️", minutos=90,
+        grad="#1c5a6a,#06141a", acento="#e8b84a", acento2="#9fe0e0", bg1="#06141a", bg2="#103440",
+        sinopsis="Duodécima parada del Cronoportal: la cubierta de La Gaviota, un bergantín pirata del Caribe, en 1715. Un loro se lleva el cristal de energía al cofre de la capitana Bruma, que solo lo devolverá si encontráis el tesoro del capitán Calavera antes de que la marea cubra su cueva. Hay cartas que se pliegan como los mapas antiguos: fijad el rumbo, estibad la pólvora, burlad a una fragata que persigue siempre igual, encontrad una constelación girada en la tapa de un cofre, cruzad un suelo de losas trampa y cavad donde marca el mapa.",
+        minigames={"24": "24-timon.js", "46": "46-bodega.js", "48": "48-persecucion.js", "66": "66-cofre.js", "79": "79-suelo.js", "69": "69-gruta.js"},
+        pal=("#1f6a7a", "#08202a")),
 }
 
 
