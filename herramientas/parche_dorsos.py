@@ -28,6 +28,7 @@ PATRONES = {
     "espia": "radial-gradient(circle,rgba(255,255,255,.16) .7mm,transparent .8mm) 0 0/3mm 3mm",
     "futbol": "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 8mm,transparent 8mm 16mm)",
     "piratas": "repeating-linear-gradient(0deg,rgba(255,255,255,.1) 0 .4mm,transparent .4mm 3mm),repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 .3mm,transparent .3mm 9mm)",
+    "juguetes": "radial-gradient(circle,rgba(255,204,51,.45) 1mm,transparent 1.1mm) 0 0/8mm 8mm,radial-gradient(circle,rgba(255,158,192,.4) .8mm,transparent .9mm) 4mm 4mm/8mm 8mm",
 }
 
 # tema -> (título corto, emoji, [color de arriba, color de abajo], color de realce, color claro)
@@ -45,6 +46,7 @@ TABLA = {
     "espia": ("Montecarlo, 1965", "🕵️", ["#0e5a6a", "#07121a"], "#ff6fa8", "#7fe8f0"),
     "futbol": ("La Final del Siglo", "⚽", ["#1f6a30", "#06140a"], "#f2c230", "#a8ec96"),
     "piratas": ("Mar de las Brumas, 1715", "🏴‍☠️", ["#1c5a6a", "#06141a"], "#e8b84a", "#9fe0e0"),
+    "juguetes": ("El Cuarto de Leo, 1995", "🧸", ["#3a6ad0", "#121e48"], "#ffcc33", "#ff9ec0"),
 }
 
 

@@ -145,6 +145,16 @@ const PRESETS = {
     melodia: { onda: 'triangle', vol: 0.12, octava: 2, prob: 0.38, dur: 0.6, ataque: 0.03, filtro: 2800, vibrato: 5 },
     ritmo: { tipo: 'tambor', patron: [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1], vol: 0.26, tono: 60 },
     ruido: { tipo: 'lluvia', vol: 0.07 }
+  },
+  // Juguetes: cajita de música en mayor, xilófono de juguete y un pulso suave de nana.
+  juguetes: {
+    bpm: 100, raiz: 60, escala: ESC.mayorPent, compases: 2, reverb: 1.8,
+    acordes: [[0, 2], [3, 2], [4, 0], [0, 2]],
+    pad: { onda: 'sine', filtro: 1400, vol: 0.07, octava: -1, ataque: 0.6 },
+    arpegio: { onda: 'triangle', vol: 0.09, paso: 2, octava: 1, patron: [0, 2, 4, 2, 0, 4, 2, 4], filtro: 4200, pulsada: false, campana: true },
+    melodia: { onda: 'sine', vol: 0.1, octava: 2, prob: 0.35, dur: 0.5, ataque: 0.01, filtro: 5000, vibrato: 0 },
+    ritmo: { tipo: 'pulso', patron: [1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0], vol: 0.18, tono: 70 },
+    ruido: null
   }
 };
 

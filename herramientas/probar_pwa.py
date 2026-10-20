@@ -138,7 +138,7 @@ def main():
         d.get(URL + "juegos/aventuras-ca/index.html")
         esperar(lambda: len(d.find_elements(By.CSS_SELECTOR, ".dif-fila")) >= 6)
         filas = d.find_elements(By.CSS_SELECTOR, ".dif-fila")
-        ok(len(filas) == 12, f"menú de aventuras: dificultad, minutos y cartas en las 12 tarjetas ({len(filas)})")
+        ok(len(filas) == 13, f"menú de aventuras: dificultad, minutos y cartas en las 13 tarjetas ({len(filas)})")
         ok(all("min" in f.text and "cartas" in f.text for f in filas), "cada fila indica minutos y número de cartas")
         # ---------- 2. service worker
         d.get(URL + "index.html")

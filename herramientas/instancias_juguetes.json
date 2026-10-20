@@ -1,0 +1,232 @@
+{
+ "estanteria": {
+  "antes": {
+   "0": [
+    [
+     "patito",
+     90
+    ],
+    [
+     "tambor",
+     230
+    ],
+    [
+     "cohete",
+     370
+    ],
+    [
+     "libro",
+     510
+    ]
+   ],
+   "1": [
+    [
+     "pelota",
+     90
+    ],
+    [
+     "coche",
+     240
+    ],
+    [
+     "osito",
+     390
+    ],
+    [
+     "barco",
+     520
+    ]
+   ],
+   "2": [
+    [
+     "cubos",
+     100
+    ],
+    [
+     "cometa",
+     250
+    ],
+    [
+     "trompo",
+     390
+    ],
+    [
+     "xilofono",
+     520
+    ]
+   ]
+  },
+  "cambios": [
+   {
+    "tipo": "color",
+    "juguete": "pelota",
+    "texto": "la pelota era roja y ahora es azul"
+   },
+   {
+    "tipo": "falta",
+    "juguete": "libro",
+    "texto": "falta el libro morado"
+   },
+   {
+    "tipo": "girado",
+    "juguete": "cohete",
+    "texto": "el cohete está boca abajo"
+   },
+   {
+    "tipo": "sobra",
+    "juguete": "dado",
+    "balda": "1",
+    "x": 455,
+    "texto": "hay un dado que no estaba"
+   },
+   {
+    "tipo": "movido",
+    "juguete": "patito",
+    "a_balda": "2",
+    "x": 175,
+    "texto": "el patito ha bajado a la balda de abajo"
+   }
+  ]
+ },
+ "torre": {
+  "alturas": [
+   [
+    3,
+    0,
+    1
+   ],
+   [
+    2,
+    1,
+    1
+   ],
+   [
+    2,
+    1,
+    1
+   ]
+  ],
+  "frente": [
+   3,
+   1,
+   1
+  ],
+  "lado": [
+   3,
+   2,
+   2
+  ],
+  "arriba": [
+   [
+    1,
+    0,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ]
+  ],
+  "bloques": 12,
+  "candidatas": 6840
+ },
+ "marioneta": {
+  "mandos": [
+   "rojo",
+   "azul",
+   "amarillo",
+   "verde"
+  ],
+  "miembros": [
+   "brazo_izq",
+   "brazo_der",
+   "pierna_izq",
+   "pierna_der"
+  ],
+  "hilos": {
+   "rojo": "pierna_der",
+   "azul": "brazo_izq",
+   "amarillo": "brazo_der",
+   "verde": "pierna_izq"
+  },
+  "postura": [
+   "brazo_der",
+   "pierna_izq"
+  ],
+  "solucion": [
+   "amarillo",
+   "verde"
+  ]
+ },
+ "folioscopio": {
+  "juguetes": [
+   "patito",
+   "pelota",
+   "tambor",
+   "cohete",
+   "cometa"
+  ],
+  "orden": [
+   "pelota",
+   "cometa",
+   "patito",
+   "tambor",
+   "cohete"
+  ],
+  "paginas": [
+   {
+    "carta": "41",
+    "paso": 0,
+    "juguete": "pelota"
+   },
+   {
+    "carta": "43",
+    "paso": 1,
+    "juguete": "cometa"
+   },
+   {
+    "carta": "51",
+    "paso": 2,
+    "juguete": "patito"
+   },
+   {
+    "carta": "45",
+    "paso": 3,
+    "juguete": "tambor"
+   },
+   {
+    "carta": "49",
+    "paso": 4,
+    "juguete": "cohete"
+   }
+  ],
+  "cartas_en_orden": [
+   "41",
+   "43",
+   "51",
+   "45",
+   "49"
+  ]
+ },
+ "pista": {
+  "tarro": "C",
+  "suelo": "A",
+  "solucion": {
+   "b1": "der",
+   "b2": "der",
+   "b3": "der"
+  },
+  "recorrido": [
+   "D",
+   "B",
+   "C"
+  ],
+  "canicas": 3
+ }
+}
