@@ -31,6 +31,20 @@
       texto: 'Caéis dentro de un libro de cuentos y os convertís en dibujos animados. El libro pierde el color y el último cuento no tiene final.' },
     { id: 'trono', nombre: 'La Corona del Dragón', epoca: 'Reino de Hielo y Fuego', dificultad: 4, minutos: 100,
       texto: 'Una fortaleza en mitad de la ventisca, casas nobles que mienten y un dragón dormido. Cien minutos antes de que la nieve cierre los pasos.' },
+    { id: 'pompeya', nombre: 'El Mosaico del Mundo', epoca: 'Pompeya, 79 d.C.', dificultad: 3, minutos: 90,
+      texto: 'Una villa romana mientras el Vesubio humea. Los mosaicos están rotos en placas sueltas: juntad las cartas para ver el dibujo entero antes de que caiga la ceniza.' },
+    { id: 'arcade', nombre: 'La Última Moneda', epoca: 'Dentro de una recreativa, 1985', dificultad: 3, minutos: 75,
+      texto: 'Quedáis atrapados dentro de una máquina recreativa, convertidos en píxeles. Seis niveles para llegar al corazón de la máquina antes del GAME OVER.' },
+    { id: 'oeste', nombre: 'El Tren del Oro', epoca: 'Lejano Oeste, 1878', dificultad: 3, minutos: 90,
+      texto: 'Un jinete enmascarado se lleva el cristal del Cronoportal. Enganchad un tren, reconoced al bandido en un cartel de «Se busca» y volad un túnel antes de que salga el tren del oro.' },
+    { id: 'espia', nombre: 'Operación Cristal', epoca: 'Montecarlo, 1965', dificultad: 3, minutos: 75,
+      texto: 'Una noche de gala en el casino y un villano con capa que huye a su yate. Hojas que se superponen, una rejilla de cifrado y cuatro cargas que desactivar antes de medianoche.' },
+    { id: 'futbol', nombre: 'La Copa de Cristal', epoca: 'La Final del Siglo, 1970', dificultad: 2, minutos: 90,
+      texto: 'El cristal cae dentro de la copa de la final del siglo. Dad la vuelta a los cromos, deducid la alineación del rival, decidid jugadas del VAR y marcad una tanda de penaltis.' },
+    { id: 'piratas', nombre: 'El Tesoro de la Isla Calavera', epoca: 'Mar de las Brumas, 1715', dificultad: 3, minutos: 90,
+      texto: 'Un loro se lleva el cristal al cofre de la capitana Bruma. Encontrad el tesoro del capitán Calavera antes de que la marea cubra su cueva, con cartas que se pliegan como mapas antiguos.' },
+    { id: 'juguetes', nombre: 'La Noche de los Juguetes', epoca: 'El Cuarto de Leo, 1995', dificultad: 1, minutos: 60,
+      texto: 'Os convertís en una muñeca de trapo y un robot de hojalata la noche antes de una mudanza. La más fácil: perfecta para estrenarse o para jugar con peques.' },
   ];
   const portada = (id) => `../juegos/aventuras-ca/${id}/img/P.jpg`;
 
@@ -46,6 +60,23 @@
 
   // ---------- aventuras: tarjetas de presentación y selector del formulario ----------
   const puntos = (n) => Array.from({ length: 5 }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('');
+
+  // juegos/catalogo.json manda: pone al día dificultad y minutos y añade cualquier aventura nueva que aún no tenga texto aquí
+  async function completarConCatalogo() {
+    try {
+      const cat = await (await fetch('../juegos/catalogo.json')).json();
+      for (const j of cat) {
+        if (!j.ruta.startsWith('juegos/aventuras-ca/')) continue;   // solo las del Cronoportal se personalizan
+        const a = AVENTURAS.find((x) => x.id === j.id);
+        if (a) { a.dificultad = j.dificultad; a.minutos = j.minutos; continue; }
+        const [epoca, nombre] = j.nombre.includes(':') ? j.nombre.split(/:\s*/, 2) : ['Nueva aventura', j.nombre];
+        AVENTURAS.push({ id: j.id, nombre, epoca, dificultad: j.dificultad, minutos: j.minutos,
+          texto: `Un nuevo salto del Cronoportal: ${j.cartas} cartas y ${j.minutos} minutos para volver a casa.` });
+      }
+    } catch { /* sin catálogo: las de la lista */ }
+  }
+
+  function pintarAventuras() {
   $('#lista-aventuras').innerHTML = AVENTURAS.map((a) => `
     <article class="aventura" data-id="${a.id}">
       <span class="sello">En vuestro pack</span>
@@ -68,6 +99,10 @@
       <img src="${portada(a.id)}" alt="" loading="lazy">
       <span>${a.nombre}</span>
     </label>`).join('');
+  if ($('#n-aventuras')) $('#n-aventuras').textContent = AVENTURAS.length;
+  }
+  pintarAventuras();
+  completarConCatalogo().then(() => { pintarAventuras(); pintarEleccion(); });
 
   function alternar(id, quiere) {
     if (quiere && elegidas.size >= POR_PACK) return false;
