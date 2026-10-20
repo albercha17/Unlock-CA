@@ -56,6 +56,9 @@ async function cliente() {
   return clientePromesa;
 }
 
+/** Cliente de Supabase ya creado (lo usan otros módulos, como accesos.js). */
+export function clienteSupabase() { return cliente(); }
+
 /** Permite engancharse a los cambios de sesión (login / logout). */
 export function alCambiarSesion(fn) { oyentes.add(fn); return () => oyentes.delete(fn); }
 

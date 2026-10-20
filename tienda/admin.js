@@ -176,11 +176,21 @@
           ? '<button class="btn btn-linea btn-sm" type="button" disabled>Desarrollándose…</button>'
           : `<button class="btn btn-oro btn-sm" type="button" data-accion="desarrollar">${p.estado === 'listo' || p.estado === 'entregado' ? 'Volver a desarrollar' : 'Desarrollarlo'}</button>`}
         ${p.entrega_url ? `<a class="btn btn-linea btn-sm" href="${esc(p.entrega_url)}" target="_blank" rel="noopener">Ver el pack</a>
-          <button class="btn btn-linea btn-sm" type="button" data-accion="mensaje">Copiar mensaje para el cliente</button>` : ''}
+          <button class="btn btn-linea btn-sm" type="button" data-accion="mensaje">Copiar mensaje para el cliente</button>
+          <a class="btn btn-oro btn-sm" href="${esc(enlaceAcceso(p))}">Dar acceso en la app</a>` : ''}
         ${p.estado === 'listo' ? '<button class="btn btn-linea btn-sm" type="button" data-accion="entregado">Marcar entregado</button>' : ''}
         <button class="btn btn-peligro btn-sm" type="button" data-accion="borrar">Borrar</button>
       </footer>
     </article>`;
+  }
+
+  // abre tienda/accesos.html ya relleno con el correo, los protagonistas, la web del pack y sus aventuras
+  function enlaceAcceso(p) {
+    const q = new URLSearchParams({
+      email: p.email, quienes: (p.protagonistas || []).map((x) => x.nombre).join(' y '),
+      pack: p.entrega_url || '', juegos: (p.aventuras || []).join(','), pedido: p.id,
+    });
+    return `accesos.html?${q}`;
   }
 
   // ---------- acciones ----------
@@ -219,7 +229,7 @@
       await actualizar(id, { estado: 'entregado' });
     } else if (accion === 'mensaje') {
       const nombres = (p.protagonistas || []).map((x) => x.nombre).join(' y ');
-      const texto = `¡Hola, ${p.nombre}!\n\nVuestro pack de escape rooms ya está listo. ${nombres} sois los protagonistas de estas cuatro aventuras:\n\n${p.entrega_url}\n\nAbrid el enlace en el móvil para jugar con la app; en cada aventura tenéis también las cartas para imprimir.\n\n¡Que lo disfrutéis!\nCronoportal`;
+      const texto = `¡Hola, ${p.nombre}!\n\nVuestro pack de escape rooms ya está listo. ${nombres} sois los protagonistas de estas cuatro aventuras:\n\n${p.entrega_url}\n\nAbrid el enlace en el móvil para jugar. También las tenéis en la app (https://albercha17.github.io/Unlock-CA/): entrad con este correo (${p.email}) y aparecerán con vuestras portadas. En cada aventura tenéis también las cartas para imprimir.\n\n¡Que lo disfrutéis!\nCronoportal`;
       try { await navigator.clipboard.writeText(texto); b.textContent = '✓ Copiado'; }
       catch { prompt('Copia este mensaje:', texto); }
     } else if (accion === 'borrar') {
