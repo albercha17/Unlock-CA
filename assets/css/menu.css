@@ -31,3 +31,13 @@ body.accesos-pend #todo { visibility: hidden; }
 .mis-btn.sec { background: transparent; color: inherit; border: 1px solid rgba(255,255,255,.25); }
 .mis-aviso { margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; background: #2a1c10; border: 1px solid #6a4a22; color: #ffd9a0; font-size: .88rem; line-height: 1.45; }
 .mis-aviso button { margin-left: 6px; padding: 4px 10px; border-radius: 8px; border: 1px solid #ffd9a0; background: transparent; color: inherit; font: 700 .82rem "Poppins", system-ui, sans-serif; cursor: pointer; }
+
+/* juegos del cliente compactos: fila con miniatura, para que 20 juegos no sean 20 pantallas de scroll */
+#mis .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+#mis .option { flex-direction: row !important; align-items: center !important; gap: 12px; padding: 10px; }
+#mis .opt-thumb { width: 74px !important; height: 74px !important; }
+#mis .opt-meta { padding-right: 0; min-width: 0; }
+#mis .opt-title { font-size: .95rem; line-height: 1.25; }
+#mis .opt-desc { margin: 2px 0 0; font-size: .78rem; }
+#mis .opt-num { display: none; }
+#mis .dif-fila { margin: 4px 0 0; font-size: .72rem; }

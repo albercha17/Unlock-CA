@@ -73,6 +73,24 @@
     .chip{font-size:.7rem;font-weight:700;letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--cian);background:#0a1a1e}
     .chip.epoca{color:var(--laton2);border-color:#5a4a22}
     .salto p{margin:0;color:var(--mut);font-size:.9rem;line-height:1.5}
+    /* compactas: cada vez hay más aventuras (buscador y filtro de dificultad encima, assets/js/filtro-juegos.js) */
+    .saltos{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+    a.salto{gap:6px}
+    .cartel{height:118px;font-size:42px}
+    .salto .cuerpo{padding:0 12px 12px}
+    .salto h3{font-size:.98rem;line-height:1.25}
+    .chips{margin:6px 0}
+    .chip:not(.epoca){display:none}
+    .salto p{font-size:.82rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .salto .dif-fila{margin:4px 0 2px}
+    @media (max-width:560px){
+      .saltos{grid-template-columns:1fr 1fr;gap:10px}
+      .cartel{height:92px}
+      .salto .cuerpo{padding:0 9px 10px}
+      .salto h3{font-size:.86rem}
+      .salto p{display:none}
+      .salto .dif-meta{display:block;width:100%}
+    }
     .volver{display:inline-block;margin-top:30px;color:var(--mut);text-decoration:none;font-size:.9rem;border:1px solid var(--line);border-radius:10px;padding:8px 14px}
     .volver:hover,.volver:focus-visible{border-color:var(--laton);color:var(--tx)}
     .volver:focus-visible{outline:3px solid var(--cian);outline-offset:3px}
@@ -226,6 +244,7 @@
 </div>
 <script src="../../assets/js/pwa.js"></script>
 <script src="../../assets/js/barra.js"></script>
+<script src="../../assets/js/filtro-juegos.js"></script>
 <script type="module" src="../../assets/js/menu.js"></script>
 </body>
 </html>
