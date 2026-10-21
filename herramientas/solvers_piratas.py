@@ -124,3 +124,28 @@ def s69(d):
 SOLVERS = {"24": s24, "46": s46, "48": s48, "66": s66, "79": s79, "69": s69}
 # cartas que hay que tener en mesa para poder resolver cada minijuego
 REQUIERE = {"24": ["30", "31"], "46": ["40"], "48": ["52"], "66": ["64"], "79": ["76"], "69": ["70"]}
+
+
+# ---- ampliación a 36 cartas: el reloj de bitácora
+_AMP = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+
+
+def s61(d):
+    """Reloj: a las 00:00 (falla) y luego a la hora del diario, de media en media hora."""
+    abrir_carta(d, "61")
+    boton(d, "Esta es la hora").click()
+    assert "no se puede pasar" in feedback(d), feedback(d)
+    h, m = _AMP["piratas_campanas"]["hora"]
+    medias = h * 2 + m // 30
+    for _ in range(medias // 4):
+        clic(d, ".pir-mandos button[data-d='4']")
+    for _ in range(medias % 4):
+        clic(d, ".pir-mandos button[data-d='1']")
+    boton(d, "Esta es la hora").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS.update({"61": s61})
+REQUIERE.update({"61": ["63", "65", "67"]})

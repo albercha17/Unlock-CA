@@ -1,11 +1,11 @@
 // Carta 46 — Vidriera de la torre: tres cristales de cuatro cuadrados (uno recto, uno en ese y uno en te) que se mueven por la ventana.
 // Deben cubrir EXACTAMENTE el dibujo de la carta 37, cada uno una vez, sin girarlos y sin solaparse (donde se solapan brillan doble).
 // Dibujo (columna,fila desde 0): fila 2 entera; fila 3 columnas 1-3; fila 4 columnas 1-4. Solución única (herramientas/instancias_cuento.py):
-// recto en (1,4), ese en (2,2), te en (0,2). Letra del libro: F.
+// recto en (1,4), ese en (2,2), te en (0,2). Letra del libro: D.
 import { openGame } from './ui.js';
 import { guardarLetra, estilo, conImagen, NOMBRES_COLUMNA } from './libro.js';
 
-const LETRA = 'F';
+const LETRA = 'D';
 const N = 5;
 const DIBUJO = ['0,2', '1,2', '2,2', '3,2', '4,2', '1,3', '2,3', '3,3', '1,4', '2,4', '3,4', '4,4'];
 const PIEZAS = [
@@ -17,7 +17,7 @@ const PIEZAS = [
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 46 — Vidriera de la torre',
-    instr: 'Toca un cristal para elegirlo y muévelo con las flechas (o arrástralo). Deben llenar el dibujo de la carta 37, sin girarlos y sin solaparse.',
+    instr: 'Toca un cristal para elegirlo y muévelo con las flechas (o arrástralo). Deben llenar el dibujo de la ventana (carta 37). Los cristales y la nota del vidriero, en las cartas 39 y 33.',
     ...opts
   });
   estilo('cu-vidriera-estilo', `
@@ -168,7 +168,7 @@ export function startMinigame(opts = {}) {
     if (!de_mas && !faltan) {
       resuelto = true;
       guardarLetra('46', LETRA);
-      ui.say('¡Los tres cristales encajan y la vidriera se enciende con todos sus colores! Coged la carta 54. Letra del libro: ' + LETRA + '.', 'ok');
+      ui.say('¡Los tres cristales encajan y la vidriera se enciende con todos sus colores! Coged la carta 56. Letra del libro: ' + LETRA + '.', 'ok');
     } else {
       ui.say('Todavía no coincide con el dibujo de la carta 37: ' + de_mas + ' cuadrado' + (de_mas === 1 ? '' : 's') + ' iluminado' + (de_mas === 1 ? '' : 's') + ' de más y ' + faltan + ' sin iluminar.', 'bad');
     }

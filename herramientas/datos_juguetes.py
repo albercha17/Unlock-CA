@@ -343,3 +343,54 @@ def _pasos():
 
 
 PASOS = _pasos()
+
+
+# ================================================================== ampliación a 36 cartas (20 oct 2026)
+# Entre la estantería y la caja de bloques: los cubos de imágenes de Leo (cuatro cubos con seis dibujos partidos en cuartos; el dibujo
+# que hay que formar está en la tapa de la caja). Lámina: herramientas/dibujos_ampliacion.py.
+import ampliacion as _amp  # noqa: E402
+
+
+J["24"]["descripcion"][1] = J["24"]["descripcion"][1].replace("Coged la carta 26", "Coged la carta 59")
+J.update({
+    "59": dict(
+        titulo="Carta 59 — El baúl de los cubos", tipo="gris", coge=[64, 67],
+        descripcion=[
+            "Detrás de los juguetes cambiados hay un baúl cerrado. El Capitán Pelusa sabe abrirlo: «Leo lo cierra con sus cubos de dibujos (carta 64). Hay que girarlos hasta formar el dibujo de la tapa de la caja (carta 67)».",
+            "Coged las cartas 64 y 67."],
+        pistas=["Hay un puzle: los cubos y el dibujo de la tapa.", "El dibujo que hay que formar está en la carta 67.", "Coged las cartas 64 y 67."],
+        arte="Un baúl de juguetes de madera pintado con estrellas, cerrado, con cuatro cubos de madera con dibujos encajados en la tapa, sobre la alfombra del cuarto de un niño por la noche. Cristina, la muñeca de trapo, gira un cubo más grande que su cabeza con cara de esfuerzo y Alberto, el robot de hojalata, se rasca la cabeza de lata, desconcertado."),
+    "64": dict(
+        titulo="Carta 64 — Los cubos de Leo", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: cuatro cubos de madera en un cuadrado de 2 × 2. Cada cara de cada cubo tiene un cuarto de un dibujo distinto; tocando un cubo se gira y enseña otra cara. Hay que formar el dibujo de la tapa de la caja (carta 67).",
+            "Al formarlo, el baúl se abre. Coged la carta 26."],
+        pistas=["El dibujo que hay que formar está en la carta 67.", "Cada cubo enseña un cuarto: el de arriba a la izquierda, el de arriba a la derecha, el de abajo a la izquierda y el de abajo a la derecha. Girad cada uno hasta ver su trozo del perro.", "Girad los cuatro cubos hasta que salga el perro Trufo entero."],
+        arte="Cuatro cubos de madera con dibujos de colores en sus caras (un perro, un barco, una casa, un sol, un cohete y un árbol), encajados en un cuadrado sobre la tapa de un baúl. Alberto gira un cubo con sus pinzas y la lengua fuera y Cristina aplaude al ver aparecer media cara de perro."),
+    "67": dict(
+        titulo="Carta 67 — El dibujo de Leo", tipo="gris",
+        descripcion=["El dibujo pegado en la tapa de la caja de cubos: Trufo, el perro de Leo, dibujado por él a los cinco años. Es el dibujo que hay que formar con los cubos (carta 64)."],
+        pistas=["Es el dibujo que hay que formar con los cubos (carta 64).", "Fijaos en qué parte del perro va en cada esquina.", "Girad los cuatro cubos hasta que salga el perro Trufo entero."],
+        arte="Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el dibujo del perro."),
+})
+J["26"]["descarta"] = [10, 20, 24, 59, 64, 67]
+J["26"]["descripcion"][0] = J["26"]["descripcion"][0].replace("Detrás de los juguetes cambiados, el Capitán Pelusa encuentra", "Dentro del baúl, el Capitán Pelusa encuentra")
+J["26"]["descripcion"][1] = "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20, 24, 59, 64 y 67."
+J["26"]["pistas"][2] = "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20, 24, 59, 64 y 67."
+
+SPEC["needs"]["59"] = SPEC["needs"].pop("26")
+SPEC["needs"]["26"] = ["64", "67"]
+PARA_QUE.update({"59": "El baúl de los cubos: reparte los cubos y el dibujo.", "64": "Los cubos de Leo (app): formar el dibujo.",
+                 "67": "El dibujo de Leo: lo que hay que formar con los cubos.", "26": "La caja de bloques: aparece al abrir el baúl."})
+
+_i = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("app", "24"))
+PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 26", "cojas la 59")
+PASOS[_i]["acciones"] = [("app", "24", "carta 59")]
+PASOS[_i + 1:_i + 1] = [
+    dict(t="El baúl de los cubos", que="Lee la carta 59. Coge 64 y 67. El dibujo de la tapa (67) es Trufo, el perro.", acciones=[("leer", "59")]),
+    dict(t="Los cubos de Leo", que="En el móvil: Acción, 64. Gira cada cubo hasta que los cuatro formen el perro de la carta 67. El mensaje te dice que cojas la 26.",
+         acciones=[("app", "64", "carta 26")]),
+]
+_j = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("leer", "26"))
+PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 10, 20 y 24", "Descarta 10, 20, 24, 59, 64 y 67")
+_amp.recalcular_mesas(PASOS, J)

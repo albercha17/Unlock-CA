@@ -2,495 +2,1110 @@
 window.JUEGO_LOCAL = {
  "_meta": {
   "juego": "Egipto, 1274 a.C. — El Ojo de Horus",
-  "estilo": "Ilustración digital pintada con estética de película de aventuras, luz cálida de antorchas y rayos de sol dorados, paleta de ocres, turquesa y azul lapislázuli, formato vertical 2:3. Sin texto, letras ni números en la imagen; los jeroglíficos solo como decoración sin significado legible. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
+  "estilo": "Ilustración digital pintada con estética de película de aventuras, luz cálida de antorchas y rayos de sol dorados, paleta de ocres, turquesa y azul lapislázuli, formato vertical 2:3. Sin texto, letras ni números en la imagen; los jeroglíficos solo como decoración sin significado legible. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).",
   "personajes": {
    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Lleva ropa actual y cómoda (vaqueros, zapatillas, camiseta y una chaqueta ligera).",
    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Lleva ropa actual (vaqueros, zapatillas, sudadera con capucha y una mochila)."
   },
   "hoja": "Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. Mantén su parecido real con la foto (cara, pelo, barba, ojos). Cristina: mujer de 26 años, profesora, pelo rubio y rizado, ojos azules, vaqueros, zapatillas, camiseta y chaqueta ligera. Alberto: hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones, vaqueros, zapatillas, sudadera con capucha y mochila. Estilo: Ilustración digital pintada con estética de película de aventuras, luz cálida de antorchas y rayos de sol dorados, paleta de ocres, turquesa y azul lapislázuli, formato vertical 2:3. Sin texto, letras ni números en la imagen; los jeroglíficos solo como decoración sin significado legible. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
   "foto": "Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). Pídele que mantenga el parecido real, pero con el estilo de ilustración de este juego.",
-  "video": "Crea un vídeo vertical 9:16 de 15 segundos, con animación de estilo ilustración pintada de película de aventuras, luz cálida y colores dorados y turquesa. Sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Alberto gira un dial con una sonrisa nerviosa. Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul, el salón se deforma y los dos son absorbidos por un túnel de luz con destellos dorados. Escena 3 (8-12 s): caen sobre un suelo de piedra en una cámara oscura bajo un templo del antiguo Egipto, con jeroglíficos en las paredes y rayos de luz por una rendija; el aparato humea y se apaga. Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, mirando alrededor; fundido a negro. Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, eco de piedra y música de aventura con tambores suaves, sin voz de narrador."
+  "video": "Crea un vídeo vertical 9:16 de 15 segundos, con animación de estilo ilustración pintada de película de aventuras, luz cálida y colores dorados y turquesa. Sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Alberto gira un dial con una sonrisa nerviosa. Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul, el salón se deforma y los dos son absorbidos por un túnel de luz con destellos dorados. Escena 3 (8-12 s): caen sobre un suelo de piedra en una cámara oscura bajo un templo del antiguo Egipto, con jeroglíficos en las paredes y rayos de luz por una rendija; el aparato humea y se apaga. Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, mirando alrededor; fundido a negro. Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, eco de piedra y música de aventura con tambores suaves, sin voz de narrador.",
+  "mosaicos": {
+   "piramide": {
+    "filas": 2,
+    "cols": 1,
+    "cartas": [
+     "19",
+     "21"
+    ],
+    "titulo": "La pirámide del escriba"
+   },
+   "friso": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "42",
+     "49"
+    ],
+    "titulo": "El friso de los animales"
+   },
+   "camaras": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "61",
+     "63"
+    ],
+    "titulo": "El plano del templo"
+   },
+   "azulejos": {
+    "filas": 2,
+    "cols": 1,
+    "cartas": [
+     "66",
+     "67"
+    ],
+    "titulo": "El friso de azulejos"
+   },
+   "tierras": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "75",
+     "79"
+    ],
+    "titulo": "El campo por repartir"
+   }
+  }
  },
  "P": {
   "titulo": "Carta P — Llegada al templo",
   "tipo": "gris",
   "coge": [
-   8,
-   14
+   10,
+   12
   ],
   "descripcion": [
-   "Cristina y Alberto estrenan el Cronoportal, el aparato de portales que Alberto ha construido con la ayuda de Cristina. Primera parada: Tebas, Egipto, año 1274 a.C.",
-   "El salto sale mal: aterrizáis en una cámara secreta bajo el templo de Karnak y el Cronoportal se queda sin energía. Los sacerdotes entrarán al salir el sol, dentro de una hora: hay que recargar el aparato antes.",
-   "Coged las cartas 8 y 14."
+   "Primer salto de vuestro Cronoportal: Tebas, el año 1274 a.C. Aterrizáis en una cámara secreta bajo un templo, con jeroglíficos en las paredes y un rayo de luz por una rendija. El aparato golpea el suelo y se apaga: su energía se ha agotado. Solo hay un sitio donde encontrar una fuente de poder tan antigua como esta ciudad: el Ojo de Horus, escondido en este mismo templo. Tenéis hora y media antes de que lleguen los sacerdotes.",
+   "Coged las cartas 10 y 12."
   ],
   "pistas": [
    "Mirad a vuestro alrededor y revisad el aparato.",
-   "Coged las cartas 8 y 14."
+   "Coged las cartas 10 y 12."
   ],
-  "arte": "Cámara de piedra secreta bajo un templo egipcio de Tebas, oscura, con columnas pintadas con jeroglíficos decorativos y rayos de sol que entran por una rendija. En el suelo, una consola de latón y cristal de aspecto retrofuturista (el Cronoportal) humea y parpadea con luces azules. Cristina y Alberto, con ropa actual, se incorporan sorprendidos entre el polvo."
+  "arte": "Una cámara secreta de piedra bajo un templo del antiguo Egipto, con jeroglíficos decorativos en las paredes y un rayo de luz dorada entrando por una rendija. En el suelo, un aparato de latón y cristal retrofuturista (el Cronoportal) humea y se apaga. Cristina y Alberto, con ropa actual (vaqueros, camiseta, chaqueta ligera, sudadera y mochila), se levantan del suelo desconcertados: ella con los ojos muy abiertos y la boca entreabierta, él con una ceja arqueada y una media sonrisa de incredulidad."
  },
- "14": {
-  "titulo": "Carta 14 — Cronoportal sin energía",
-  "tipo": "azul",
-  "combina": [
-   60,
-   74
-  ],
-  "descripcion": [
-   "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un indicador de batería casi vacío (un 3 %).",
-   "Cristina recuerda haber leído que el Ojo de Horus brillaba con luz propia. Quizá sirva de fuente de energía.",
-   "Combinad esta carta con el Ojo de Horus (carta 60): sumad sus números (14 + 60 = 74) y coged la carta 74."
-  ],
-  "pistas": [
-   "Necesita una fuente de energía muy especial.",
-   "Combinad la carta 14 con la carta 60.",
-   "Sumad los números de las dos cartas: 14 + 60 = 74."
-  ],
-  "arte": "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un indicador de batería casi vacío con una luz roja tenue, sobre una losa de piedra."
- },
- "8": {
-  "titulo": "Carta 8 — Cámara oculta",
+ "10": {
+  "titulo": "Carta 10 — La cámara oculta",
   "tipo": "gris",
   "coge": [
-   23,
-   31,
-   15,
+   14,
+   16,
+   18,
+   19,
+   20,
+   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "La cámara secreta: paredes cubiertas de jeroglíficos, una estatua de Anubis, una mesa con un papiro, una tablilla de piedra con signos y, en un muro, cinco grandes signos tallados (carta 23). Alberto encuentra además medio medallón de oro en un nicho (carta 22).",
-   "Coged las cartas 23, 31, 15 y 22. Descartad la carta P."
+   "La cámara tiene dos salidas cerradas. Una puerta de bronce guarda un granero y lleva grabado un acertijo de sacos. La otra es un muro de bloques con una pirámide escrita encima, como si un cantero hubiera dejado un recado a medias: dos láminas de piedra con medio recado cada una y un acertijo. Y en el suelo, partido en dos, un medallón.",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
   "pistas": [
-   "Recorred la cámara con la mirada.",
-   "Coged las cartas 23, 31, 15 y 22. Descartad la carta P."
+   "Hay dos puzles: el granero y la pirámide del cantero.",
+   "La pirámide son dos cartas: juntadlas, una encima de otra.",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
-  "arte": "Cámara secreta de piedra con paredes cubiertas de jeroglíficos decorativos, una pequeña estatua de Anubis en un nicho, una mesa de piedra con un papiro enrollado y una tablilla, y un gran muro con una hornacina cerrada; luz de antorchas. Cristina examina las paredes y Alberto sostiene una linterna del móvil."
+  "arte": "Una cámara secreta egipcia con una puerta de bronce con un relieve grabado a un lado y, al otro, un muro de bloques de piedra con una pirámide cincelada; en el suelo, medio medallón de oro. Cristina examina el relieve de la puerta con el ceño fruncido de concentración y Alberto toca los bloques del muro con la punta de los dedos, con gesto de duda."
  },
- "31": {
-  "titulo": "Carta 31 — Piedra de traducción",
-  "tipo": "gris",
-  "descripcion": [
-   "Una tablilla de piedra con signos y la letra que corresponde a cada uno. Cristina, que ha estudiado jeroglíficos, reconoce el sistema: sirve para leer el muro (carta 23)."
-  ],
-  "pistas": [
-   "Cada signo equivale a una letra.",
-   "Sirve para el muro de jeroglíficos (carta 23)."
-  ],
-  "textoCarta": [
-   "🏺 = H   👁️ = O   ☀️ = R   🐞 = U",
-   "🐍 = S   🦅 = A   🌊 = N   🐂 = T"
-  ],
-  "arte": "Tablilla de piedra caliza con símbolos grabados en dos columnas ordenadas (vasija, ojo, sol, escarabajo, serpiente, halcón, ondas de agua, toro), iluminada por una antorcha."
- },
- "15": {
-  "titulo": "Carta 15 — Papiro del escriba",
-  "tipo": "verde",
-  "descripcion": [
-   "El papiro del escriba Nebamón. Es un juego de la app, pero no hay nada que resolver: es un lector con varias páginas (no pausa el temporizador).",
-   "Contiene los colores de los cuatro cristales del templo, una explicación del juicio de Maat y avisos sobre el amanecer.",
-   "Podéis volver a abrirlo siempre que lo necesitéis."
-  ],
-  "pistas": [
-   "Abrid la carta 15 en la app y pasad las páginas.",
-   "Los colores de los cristales os harán falta al final (carta 95).",
-   "El orden de los cristales lo da la estatua del guardián (carta 44)."
-  ],
-  "arte": "Un papiro desenrollado sobre una mesa de piedra, con pinturas de dioses egipcios y columnas de signos decorativos, junto a un cálamo y un tintero de barro; sin texto legible."
- },
- "23": {
-  "titulo": "Carta 23 — Muro de jeroglíficos",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: un muro con una fila de cinco signos grandes. Hay que traducirlos con la piedra de traducción (carta 31) y escribir la palabra.",
-   "Al acertar se abre una hornacina con medio medallón. Coged la carta 18."
-  ],
-  "pistas": [
-   "Cada signo equivale a una letra: mirad la piedra de traducción.",
-   "La palabra tiene cinco letras y es el nombre de un dios con cabeza de halcón.",
-   "La palabra es HORUS."
-  ],
-  "arte": "Gran muro de piedra con una fila de cinco grandes jeroglíficos tallados y pintados (vasija, ojo, sol, escarabajo, serpiente) enmarcados por una cartela dorada, con una hornacina cerrada debajo; luz de antorcha. Cristina señala los signos y Alberto toma notas en su móvil."
- },
- "18": {
-  "titulo": "Carta 18 — Medallón izquierdo",
-  "tipo": "roja",
-  "combina": [
-   22,
-   40
-  ],
-  "descripcion": [
-   "La mitad izquierda de un medallón de oro con la forma del Ojo de Horus. El borde roto en zigzag encaja con la otra mitad (carta 22).",
-   "Combinadlas: sumad sus números (18 + 22 = 40) y coged la carta 40."
-  ],
-  "pistas": [
-   "Una mitad sola no sirve de nada.",
-   "Combinad la carta 18 con la carta 22.",
-   "Sumad los números de las dos cartas: 18 + 22 = 40."
-  ],
-  "arte": "La mitad izquierda de un medallón de oro con forma del Ojo de Horus, con el borde roto en zigzag, dentro de una hornacina de piedra abierta."
- },
- "22": {
-  "titulo": "Carta 22 — Medallón derecho",
+ "12": {
+  "titulo": "Carta 12 — Cronoportal sin energía",
   "tipo": "azul",
   "combina": [
-   18,
-   40
-  ],
-  "descripcion": [
-   "La mitad derecha del medallón de oro, con el borde roto en zigzag. Encaja con la otra mitad (carta 18).",
-   "Combinadlas: sumad sus números (22 + 18 = 40) y coged la carta 40."
-  ],
-  "pistas": [
-   "Falta la otra mitad.",
-   "Combinad la carta 22 con la carta 18.",
-   "Sumad los números de las dos cartas: 22 + 18 = 40."
-  ],
-  "arte": "La mitad derecha de un medallón de oro con forma del Ojo de Horus, con el borde roto en zigzag, sobre un cojín de lino."
- },
- "40": {
-  "titulo": "Carta 40 — Sala de las balanzas",
-  "tipo": "gris",
-  "coge": [
-   47,
-   52
-  ],
-  "descarta": [
-   18,
-   22,
-   8,
-   23,
-   31
-  ],
-  "descripcion": [
-   "El medallón completo abre una puerta oculta. Detrás hay una sala con una gran balanza de oro (carta 47) y un papiro pintado con el juicio de Maat (carta 52).",
-   "Coged las cartas 47 y 52. Descartad las cartas 18, 22, 8, 23 y 31."
-  ],
-  "pistas": [
-   "Mirad la balanza y el papiro.",
-   "Coged las cartas 47 y 52. Descartad las cartas 18, 22, 8, 23 y 31."
-  ],
-  "arte": "Sala amplia con una gran balanza de oro de dos platos en el centro, estatuas de chacales, columnas con flores de loto y un pasillo oscuro al fondo; luz dorada. Alberto empuja una puerta de piedra mientras Cristina mira la balanza."
- },
- "47": {
-  "titulo": "Carta 47 — Balanza de Maat",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: una balanza con un corazón de piedra en un plato. Hay que poner pesas en el otro hasta equilibrarla. El peso del corazón está en el papiro del juicio (carta 52).",
-   "Al equilibrarla se abre la puerta de la sala. Coged la carta 63."
-  ],
-  "pistas": [
-   "Fijaos en lo que dice el papiro del juicio.",
-   "El corazón pesa 17 deben. Combinad pesas hasta sumar 17.",
-   "Por ejemplo, 11 + 6."
-  ],
-  "arte": "Primer plano de la gran balanza de oro: en un plato, un corazón de piedra pulida; el otro vacío; una pluma de avestruz blanca sobre el travesaño; pesas de piedra de distintos tamaños sobre una mesa."
- },
- "52": {
-  "titulo": "Carta 52 — Papiro del juicio",
-  "tipo": "gris",
-  "descripcion": [
-   "Un papiro con una pintura del juicio de Maat: un escriba, una balanza y un corazón. Anota cuánto pesa el corazón del escriba. Sirve para la balanza (carta 47)."
-  ],
-  "pistas": [
-   "Leed la anotación del papiro.",
-   "Sirve para la balanza de Maat (carta 47)."
-  ],
-  "textoCarta": [
-   "El corazón del escriba",
-   "pesa 17 deben"
-  ],
-  "arte": "Papiro con una pintura del juicio de Maat: un escriba, una balanza y un corazón, con bordes quemados; sin texto legible."
- },
- "63": {
-  "titulo": "Carta 63 — Pasillo de los anillos",
-  "tipo": "gris",
-  "coge": [
-   71,
-   26
-  ],
-  "descarta": [
-   40,
-   47,
-   52
-  ],
-  "descripcion": [
-   "Un estrecho pasillo termina en una gran puerta circular de piedra con tres anillos concéntricos (carta 71). Junto a ella, una cartela con un acertijo (carta 26).",
-   "Coged las cartas 71 y 26. Descartad las cartas 40, 47 y 52."
-  ],
-  "pistas": [
-   "Hay un acertijo junto a la puerta.",
-   "Coged las cartas 71 y 26. Descartad las cartas 40, 47 y 52."
-  ],
-  "arte": "Pasillo estrecho de piedra que termina en una gran puerta circular de piedra con tres anillos concéntricos de símbolos, antorchas en las paredes. Cristina y Alberto delante de la puerta."
- },
- "71": {
-  "titulo": "Carta 71 — Anillos de Ra",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: tres anillos giratorios con símbolos. Hay que dejar arriba los tres que indica el acertijo de la cartela (carta 26).",
-   "Al encajarlos se abre la puerta de la sala del sarcófago. Coged la carta 33."
-  ],
-  "pistas": [
-   "Leed el acertijo de la cartela.",
-   "Sol, ojo y escarabajo, en ese orden.",
-   "Poned ☀️, 👁️ y 🐞 de izquierda a derecha."
-  ],
-  "arte": "Primer plano de tres anillos de piedra concéntricos girables, grabados con símbolos (sol, ojo, escarabajo, serpiente, agua, halcón) alrededor de un disco central dorado."
- },
- "26": {
-  "titulo": "Carta 26 — Cartela del acertijo",
-  "tipo": "gris",
-  "descripcion": [
-   "Una cartela con un acertijo de tres versos. Cada verso describe uno de los tres símbolos de los anillos (carta 71)."
-  ],
-  "pistas": [
-   "Cada verso es un símbolo.",
-   "Sol, ojo y escarabajo."
-  ],
-  "textoCarta": [
-   "Nace en el horizonte.",
-   "Todo lo ve.",
-   "Renace cada día."
-  ],
-  "arte": "Cartela de piedra con una tablilla tallada con tres pequeñas imágenes sin texto, junto a un pebetero de bronce."
- },
- "80": {
-  "titulo": "Carta 80 — Cámara del tesoro",
-  "tipo": "gris",
-  "coge": [
-   60,
-   44
-  ],
-  "descarta": [
-   33,
-   37,
-   28,
-   34,
-   46,
-   55,
-   25
-  ],
-  "descripcion": [
-   "La llave-escarabajo gira en la cerradura y la puerta de la cámara del tesoro se abre: oro, vasijas y estatuas. Sobre un pedestal brilla el Ojo de Horus (carta 60) y, vigilando, una estatua colosal de un guardián (carta 44).",
-   "Coged las cartas 60 y 44. Descartad las cartas 33, 37, 28, 34, 46, 55 y 25."
-  ],
-  "pistas": [
-   "Un haz de luz señala lo que buscáis.",
-   "Coged las cartas 60 y 44. Descartad las cartas 33, 37, 28, 34, 46, 55 y 25."
-  ],
-  "arte": "Cámara del tesoro llena de oro, vasijas, cofres y estatuas, con un haz de luz solar que cae sobre un pedestal central; al fondo, la estatua de un guardián. Cristina y Alberto asombrados en la entrada."
- },
- "60": {
-  "titulo": "Carta 60 — Ojo de Horus",
-  "tipo": "roja",
-  "combina": [
-   14,
+   62,
    74
   ],
   "descripcion": [
-   "El Ojo de Horus: un amuleto de oro y lapislázuli que irradia una luz azulada. Es la fuente de energía que necesita el Cronoportal.",
-   "Combinadlo con el Cronoportal (carta 14): sumad sus números (60 + 14 = 74) y coged la carta 74."
+   "El Cronoportal con el anillo central apagado y el hueco de su fuente de energía vacío.",
+   "Combinadla con la carta 62: sumad sus números (12 + 62 = 74) y coged la carta 74."
   ],
   "pistas": [
-   "Es lo que el aparato necesita.",
-   "Combinad la carta 60 con la carta 14.",
-   "Sumad los números de las dos cartas: 60 + 14 = 74."
+   "El Cronoportal con el anillo central apagado y el hueco de su fuente de energía vacío.",
+   "Se combina con la carta 62.",
+   "12 + 62 = 74."
   ],
-  "arte": "El Ojo de Horus: amuleto de oro y lapislázuli, grande y brillante, sobre un cojín rojo, irradiando una luz azulada suave."
+  "arte": "Sin ninguna persona en la imagen. Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre un suelo de piedra con polvo dorado."
  },
- "44": {
-  "titulo": "Carta 44 — Estatua del guardián",
+ "14": {
+  "titulo": "Carta 14 — El granero cerrado",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: la puerta del granero solo se abre diciendo cuántos sacos hay en el montón.",
+   "Al resolverlo, coged la carta 24."
+  ],
+  "pistas": [
+   "El grabado de la puerta está en la carta 16.",
+   "Lo grabado habla de un montón, de su mitad y de su cuarto, y de lo que suman. Probad con montones de números sencillos.",
+   "Hay 16 sacos."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una puerta de bronce de un granero egipcio con un relieve de sacos de cebada grabado."
+ },
+ "16": {
+  "titulo": "Carta 16 — El granero cerrado",
   "tipo": "gris",
   "descripcion": [
-   "Una estatua colosal de un guardián con cabeza de chacal. En su pecho hay cuatro cristales de colores y una inscripción: el orden en que despiertan. Os hará falta para la consola (carta 95)."
+   "El grabado de la puerta del granero."
   ],
   "pistas": [
-   "Leed la inscripción del pecho.",
-   "Los colores de cada cristal están en el papiro del escriba (carta 15)."
+   "Sirve para el granero (carta 14).",
+   "Un montón, su mitad y su cuarto suman 28 sacos.",
+   "Hay 16 sacos."
   ],
-  "textoCarta": [
-   "Los cristales despiertan:",
-   "Nilo, Sol, Sangre, Papiro, Sol"
-  ],
-  "arte": "Estatua colosal de un guardián con cabeza de chacal, de piedra negra y oro, con cuatro cristales de colores (amarillo, azul, verde, rojo) engastados en su pecho."
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): el grabado del granero."
  },
- "74": {
-  "titulo": "Carta 74 — Cronoportal cargado",
+ "18": {
+  "titulo": "Carta 18 — El acertijo del cantero",
+  "tipo": "gris",
+  "descripcion": [
+   "Un acertijo cincelado en el muro."
+  ],
+  "pistas": [
+   "Sirve para la pirámide (carta 20).",
+   "Cada piedra lleva la suma de las dos que tiene debajo.",
+   "Las cinco piedras de la base, de izquierda a derecha: 4, 3, 9, 7, 1."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): el acertijo del cantero."
+ },
+ "19": {
+  "titulo": "Carta 19 — La pirámide del escriba (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la pirámide del escriba."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 21.",
+   "Hay piedras con su peso y piedras vacías.",
+   "Las cinco piedras de la base: 4, 3, 9, 7, 1."
+  ],
+  "mosaico": {
+   "id": "piramide",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad de arriba de «La pirámide del escriba»."
+ },
+ "21": {
+  "titulo": "Carta 21 — La pirámide del escriba (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la pirámide del escriba."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 19.",
+   "Hay piedras con su peso y piedras vacías.",
+   "Las cinco piedras de la base: 4, 3, 9, 7, 1."
+  ],
+  "mosaico": {
+   "id": "piramide",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad de abajo de «La pirámide del escriba»."
+ },
+ "20": {
+  "titulo": "Carta 20 — La pirámide del escriba",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: el muro de bloques solo se abre si se pesa la base de la pirámide dibujada.",
+   "Al resolverlo, coged la carta 28."
+  ],
+  "pistas": [
+   "La pirámide, partida en dos láminas, es lo de las cartas 19 y 21; el acertijo, en la carta 18.",
+   "Empezad por una piedra cuyas dos de abajo conozcáis, o a la inversa: restad.",
+   "Las cinco piedras de la base: 4, 3, 9, 7, 1."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un muro de grandes bloques de piedra en una cámara egipcia con una pirámide de bloques cincelada y vacía."
+ },
+ "22": {
+  "titulo": "Carta 22 — Mitad de medallón",
+  "tipo": "azul",
+  "combina": [
+   35,
+   57
+  ],
+  "descripcion": [
+   "Una mitad de un medallón de oro con el sol y un uraeus grabados.",
+   "Combinadla con la carta 35: sumad sus números (22 + 35 = 57) y coged la carta 57."
+  ],
+  "pistas": [
+   "Una mitad de un medallón de oro con el sol y un uraeus grabados.",
+   "Se combina con la carta 35.",
+   "22 + 35 = 57."
+  ],
+  "arte": "Sin ninguna persona en la imagen. La mitad de un medallón de oro con un disco solar y una cobra grabados, sobre el suelo de piedra de una cámara egipcia."
+ },
+ "24": {
+  "titulo": "Carta 24 — El granero abierto",
   "tipo": "gris",
   "coge": [
-   95
+   26
   ],
   "descarta": [
    14,
-   60,
-   80
+   16
   ],
   "descripcion": [
-   "El Ojo de Horus encaja en el anillo central y el Cronoportal despierta con un zumbido. Falta activarlo con la consola (carta 95).",
-   "Coged la carta 95. Descartad las cartas 14, 60 y 80."
+   "La puerta de bronce se abre con un chirrido y deja ver un granero lleno de cebada. Entre los sacos asoma un papiro enrollado con el sello de una sacerdotisa: Henut, la guardiana de las cámaras del templo, que escondió aquí instrucciones para quien llegara hasta aquí.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
   ],
   "pistas": [
-   "El aparato ya tiene energía.",
-   "Coged la carta 95. Descartad las cartas 14, 60 y 80."
+   "El papiro de la sacerdotisa servirá más adelante.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
   ],
-  "arte": "El Cronoportal con el Ojo de Horus encajado en su anillo central, brillando con luz azul intensa y arcos de energía. Alberto ajusta un dial y Cristina mira la puerta por si llegan los sacerdotes."
+  "arte": "Un granero egipcio abierto, lleno de sacos de cebada y vasijas, con un papiro enrollado entre los sacos. Alberto levanta el papiro con una sonrisa de triunfo y Cristina, a su lado, se tapa la nariz entre toses por el polvo, con los ojos llorosos."
  },
- "95": {
-  "titulo": "Carta 95 — Consola del Cronoportal",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: cuatro cristales de colores que hay que tocar en el orden que indica la estatua del guardián (carta 44), usando los colores que da el papiro (carta 15).",
-   "Al acertar, el portal de vuelta se abre. Coged la carta 99."
-  ],
-  "pistas": [
-   "Juntad el papiro (carta 15) y la estatua (carta 44).",
-   "Nilo, Sol, Sangre, Papiro, Sol.",
-   "Azul, amarillo, rojo, verde, amarillo."
-  ],
-  "arte": "Primer plano de la consola del Cronoportal con cuatro cristales de colores (amarillo, azul, verde, rojo) dispuestos alrededor del Ojo de Horus, apagados."
- },
- "33": {
-  "titulo": "Carta 33 — Sala del sarcófago",
+ "26": {
+  "titulo": "Carta 26 — El papiro de la sacerdotisa",
   "tipo": "gris",
-  "coge": [
-   37,
-   28,
-   34,
-   46
-  ],
-  "descarta": [
-   63,
-   71,
-   26
-  ],
   "descripcion": [
-   "Los anillos giran y la puerta de piedra se abre a la sala del sarcófago: un sarcófago dorado sellado (carta 34), una tablilla rota sobre un pedestal (carta 37) y, en las paredes, dos inscripciones: una con el orden de los dioses (carta 28) y otra con una cifra grabada (carta 46).",
-   "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."
+   "Un papiro con el sello de la sacerdotisa Henut."
   ],
   "pistas": [
-   "Hay dos puzles en esta sala: la tablilla y el sarcófago.",
-   "Coged las cartas 37, 28, 34 y 46. Descartad las cartas 63, 71 y 26."
+   "Sirve para las cámaras de colores (carta 51).",
+   "Dos cámaras con una puerta entre ellas no pueden llevar la misma pintura.",
+   "Las doce cámaras: A ocre, B turquesa, C ocre, D lapislázuli, E lapislázuli, F ocre, G turquesa, H ocre, I turquesa, J lapislázuli, K ocre, L lapislázuli."
   ],
-  "arte": "Sala funeraria de piedra con un sarcófago dorado sellado en el centro, una tablilla de piedra rota sobre un pedestal y dos inscripciones talladas en las paredes; luz de antorchas. Cristina y Alberto examinan el sarcófago."
- },
- "37": {
-  "titulo": "Carta 37 — Tablilla rota",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: una tablilla de piedra dividida en 9 casillas con una pieza ausente. Hay que deslizar las piezas hasta ordenarla como indica el orden de los dioses (carta 28).",
-   "Al recomponerla cae un escarabajo de oro. Coged la carta 55."
-  ],
-  "pistas": [
-   "Mirad el modelo que hay grabado en la pared (carta 28).",
-   "Colocad primero la fila de arriba y después la del medio.",
-   "Arriba: sol, ojo, escarabajo. En medio: serpiente, agua, halcón. Abajo: vasija, toro y el hueco."
-  ],
-  "arte": "Una tablilla de piedra rota en nueve piezas cuadradas con símbolos grabados (sol, ojo, escarabajo, serpiente, agua, halcón, vasija, toro) y una pieza ausente, sobre un pedestal."
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): el papiro de la sacerdotisa."
  },
  "28": {
-  "titulo": "Carta 28 — Orden de los dioses",
+  "titulo": "Carta 28 — Tras el muro",
   "tipo": "gris",
+  "coge": [
+   35
+  ],
+  "descarta": [
+   18,
+   19,
+   20,
+   21
+  ],
   "descripcion": [
-   "Una inscripción en la pared con nueve casillas que muestra el orden en que van los símbolos de la tablilla rota (carta 37)."
+   "Los bloques se deslizan con un estruendo sordo. Detrás hay una cámara pequeña con un nicho, y en el nicho, la otra mitad del medallón. Los dos pedazos tienen los bordes irregulares y parecen hechos para encajar.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
   ],
   "pistas": [
-   "Es el modelo de la tablilla.",
-   "Sirve para la tablilla rota (carta 37)."
+   "Lo que habéis encontrado se puede juntar con algo que ya tenéis.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
   ],
-  "textoCarta": [
-   "☀️ 👁️ 🐞",
-   "🐍 🌊 🦅",
-   "🏺 🐂 (hueco)"
-  ],
-  "arte": "Una inscripción tallada en la pared con una cuadrícula de tres por tres casillas con símbolos (sol, ojo, escarabajo, serpiente, agua, halcón, vasija, toro) y una casilla vacía."
+  "arte": "Una cámara pequeña de piedra tras un muro de bloques abierto, con un nicho en el que reposa la mitad de un medallón de oro. Alberto saca la mitad del medallón con mucho cuidado, la lengua entre los dientes, y Cristina lo ilumina con la linterna del móvil con gesto de asombro, boquiabierta."
  },
- "34": {
-  "titulo": "Carta 34 — Sarcófago sellado",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: el sarcófago está sellado con un código de 4 cifras. La cifra está grabada en la pared con signos del sistema de numeración egipcio (carta 46).",
-   "Al romper el sello aparece una cerradura de bronce. Coged la carta 25."
-  ],
-  "pistas": [
-   "Leed la inscripción de la pared (carta 46).",
-   "Cada clase de signo vale una potencia de diez: sumad los de cada clase.",
-   "❀❀ ◎◎◎ ∩∩∩∩ ||| = 2343. El código es 2343."
-  ],
-  "arte": "Sarcófago dorado de un faraón, cerrado con un sello de cera, en el centro de una sala funeraria; sobre la tapa, un hueco con una cerradura de bronce."
- },
- "46": {
-  "titulo": "Carta 46 — Inscripción numérica",
-  "tipo": "gris",
-  "descripcion": [
-   "Una inscripción con signos del sistema de numeración egipcio: cada clase de signo vale una potencia de diez. Es la cifra que abre el sarcófago (carta 34)."
-  ],
-  "pistas": [
-   "Sumad los signos de cada clase.",
-   "Sirve para el sarcófago sellado (carta 34)."
-  ],
-  "textoCarta": [
-   "| = 1   ∩ = 10   ◎ = 100   ❀ = 1000",
-   "❀❀  ◎◎◎",
-   "∩∩∩∩  |||"
-  ],
-  "arte": "Una inscripción tallada en la pared con signos numéricos del antiguo Egipto (flores de loto, espirales, arcos y trazos verticales) en filas ordenadas; sin texto legible."
- },
- "55": {
-  "titulo": "Carta 55 — Escarabajo de oro",
+ "35": {
+  "titulo": "Carta 35 — Otra mitad de medallón",
   "tipo": "roja",
   "combina": [
-   25,
-   80
+   22,
+   57
   ],
   "descripcion": [
-   "Un escarabajo de oro con las alas desplegadas que cayó de la tablilla. Su parte inferior es plana y está grabada como una llave: encaja en una cerradura de bronce (carta 25).",
-   "Combinadlos: sumad sus números (55 + 25 = 80) y coged la carta 80."
+   "La otra mitad del medallón, con los rayos de un sol y la cola de una cobra.",
+   "Combinadla con la carta 22: sumad sus números (35 + 22 = 57) y coged la carta 57."
   ],
   "pistas": [
-   "Es una llave con forma de escarabajo.",
-   "Combinad la carta 55 con la carta 25.",
-   "Sumad los números de las dos cartas: 55 + 25 = 80."
+   "La otra mitad del medallón, con los rayos de un sol y la cola de una cobra.",
+   "Se combina con la carta 22.",
+   "35 + 22 = 57."
   ],
-  "arte": "Un escarabajo de oro con las alas desplegadas, con la parte inferior plana y grabada como una llave, sobre un cojín de lino."
+  "arte": "Sin ninguna persona en la imagen. La otra mitad de un medallón de oro con rayos de sol y la cola de una cobra grabados, en un nicho de piedra."
  },
- "25": {
-  "titulo": "Carta 25 — Cerradura de bronce",
-  "tipo": "azul",
-  "combina": [
-   55,
-   80
+ "57": {
+  "titulo": "Carta 57 — El medallón de Tebas",
+  "tipo": "gris",
+  "coge": [
+   31,
+   32
+  ],
+  "descarta": [
+   22,
+   35,
+   10,
+   28
   ],
   "descripcion": [
-   "Una cerradura de bronce con una cavidad en forma de escarabajo, sacada del sarcófago. Le falta la llave (carta 55).",
-   "Combinadlas: sumad sus números (25 + 55 = 80) y coged la carta 80."
+   "Las dos mitades encajan con un clic y el medallón se pone a brillar. En la pared se abre un pasadizo con dos puertas: una lleva al río, a la sala donde los sacerdotes miden la crecida del Nilo; la otra, a una larga galería de frisos. «Hay que cruzar las dos —susurra una voz que sale del medallón—. Pero la luz no os ayudará hasta el final».",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
   ],
   "pistas": [
-   "Una cerradura sin llave no abre nada.",
-   "Combinad la carta 25 con la carta 55.",
-   "Sumad los números de las dos cartas: 25 + 55 = 80."
+   "Hay dos caminos: la sala del Nilo y la galería del friso. Podéis seguir los dos.",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
   ],
-  "arte": "Una cerradura de bronce con una cavidad en forma de escarabajo, atornillada a una puerta de piedra."
+  "arte": "Una cámara egipcia con un pasadizo recién abierto con dos puertas; en el centro, un medallón de oro completo que brilla con luz dorada. Cristina sostiene el medallón en alto, deslumbrada, con una sonrisa de maravilla; Alberto mira las dos puertas alternativamente, con las cejas muy altas y la boca en una O."
+ },
+ "31": {
+  "titulo": "Carta 31 — La sala del Nilo",
+  "tipo": "gris",
+  "coge": [
+   40,
+   41,
+   43,
+   45
+  ],
+  "descripcion": [
+   "Una sala excavada junto al río. En la pared, una columna con muescas: el nilómetro. Los sacerdotes marcan en ella hasta dónde llega la crecida cada año, y hoy tienen que decidir si abren las compuertas de los canales. En una mesa, los registros de las últimas cinco crecidas y una vara de agrimensor.",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "pistas": [
+   "Los registros son dos cartas.",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una sala excavada en la roca junto al Nilo, con una columna de piedra con muescas pegada a la pared (un nilómetro), una mesa con rollos y una vara de medir dorada, y al fondo el río visto por una abertura."
+ },
+ "40": {
+  "titulo": "Carta 40 — El nilómetro",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: los sacerdotes necesitan saber a qué altura llegará la crecida de este año.",
+   "Al resolverlo, coged la carta 30."
+  ],
+  "pistas": [
+   "Las crecidas de los cinco años anteriores, dibujadas, están en las cartas 41 y 43; cuánto mide un codo y un palmo, en la 45.",
+   "Pasad cada altura a palmos y mirad cuánto sube una a otra: las subidas también siguen una pauta.",
+   "La crecida de este año: 7 codos y 6 palmos."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una columna de piedra con muescas, un nilómetro, con agua turbia subiendo en ella, en una sala excavada junto a un río."
+ },
+ "41": {
+  "titulo": "Carta 41 — Registro de crecidas (I)",
+  "tipo": "gris",
+  "descripcion": [
+   "Las marcas de las tres primeras crecidas."
+  ],
+  "pistas": [
+   "Sirve para el nilómetro (carta 40).",
+   "Contad los palmos de cada una y pasadlo a codos como dice la carta 45.",
+   "La crecida de este año: 7 codos y 6 palmos."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): las crecidas de los años 1 a 3."
+ },
+ "43": {
+  "titulo": "Carta 43 — Registro de crecidas (II)",
+  "tipo": "gris",
+  "descripcion": [
+   "Las marcas de la cuarta y la quinta crecida, y un hueco para la de este año."
+  ],
+  "pistas": [
+   "Sirve para el nilómetro (carta 40).",
+   "Comparad lo que sube cada año con lo que subió el anterior.",
+   "La crecida de este año: 7 codos y 6 palmos."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): las crecidas de los años 4 y 5."
+ },
+ "45": {
+  "titulo": "Carta 45 — La vara del agrimensor",
+  "tipo": "gris",
+  "descripcion": [
+   "Una vara dorada de un codo, partida en palmos."
+  ],
+  "pistas": [
+   "Sirve para el nilómetro (carta 40).",
+   "Contad los palmos de la vara: son los que hacen un codo.",
+   "La crecida de este año: 7 codos y 6 palmos."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): la vara del agrimensor."
+ },
+ "30": {
+  "titulo": "Carta 30 — Las compuertas",
+  "tipo": "gris",
+  "coge": [
+   38
+  ],
+  "descarta": [
+   31,
+   40,
+   41,
+   43,
+   45
+  ],
+  "descripcion": [
+   "Los sacerdotes abren las compuertas justo a tiempo y el agua del Nilo llena los canales sin desbordarse. Agradecido, uno de ellos os entrega una lámpara de aceite de bronce... apagada, claro, y sin una gota de fuego para encenderla.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+  ],
+  "pistas": [
+   "La lámpara necesita llama: buscad algo que arda.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+  ],
+  "arte": "Una compuerta de piedra abierta junto al Nilo con el agua entrando a raudales en un canal de riego; un sacerdote con túnica blanca entrega una lámpara de bronce a Alberto. Cristina aplaude emocionada, con una gran sonrisa, mientras Alberto coge la lámpara con las dos manos, mirándola con respeto reverencial."
+ },
+ "38": {
+  "titulo": "Carta 38 — Lámpara apagada",
+  "tipo": "roja",
+  "combina": [
+   56,
+   94
+  ],
+  "descripcion": [
+   "Una lámpara de aceite de bronce, con el depósito lleno pero sin llama.",
+   "Combinadla con la carta 56: sumad sus números (38 + 56 = 94) y coged la carta 94."
+  ],
+  "pistas": [
+   "Una lámpara de aceite de bronce, con el depósito lleno pero sin llama.",
+   "Se combina con la carta 56.",
+   "38 + 56 = 94."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una lámpara de aceite de bronce con la mecha seca y sin llama, sobre una mesa de piedra en una sala egipcia."
+ },
+ "32": {
+  "titulo": "Carta 32 — La galería del friso",
+  "tipo": "gris",
+  "coge": [
+   42,
+   48,
+   49,
+   53
+  ],
+  "descripcion": [
+   "Una larga galería con un friso de animales que recorre las dos paredes. Al fondo, un guardián de piedra con cabeza de chacal impide el paso: solo se aparta si se le dice la cuenta que él mismo grabó en su cerradura. El friso está partido en dos láminas que hay que juntar.",
+   "Coged las cartas 42, 48, 49 y 53."
+  ],
+  "pistas": [
+   "El friso son dos cartas: juntadlas.",
+   "Coged las cartas 42, 48, 49 y 53."
+  ],
+  "arte": "Una larga galería egipcia con un friso de animales pintado en la pared (ibis, cobras, chacales y halcones) y, al fondo, una estatua de piedra de un guardián con cabeza de chacal. Alberto mira el friso con los ojos entornados, contando con los dedos, y Cristina da un paso atrás ante el guardián con una ceja levantada y gesto de recelo."
+ },
+ "48": {
+  "titulo": "Carta 48 — El friso de los animales",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: el guardián de piedra solo deja pasar si se le dice cuántos animales de cada clase hay en el friso.",
+   "Al resolverlo, coged la carta 36."
+  ],
+  "pistas": [
+   "El friso está en las cartas 42 y 49; la cerradura del guardián, en la carta 53.",
+   "Solo cuentan los que miran hacia el sol naciente, a la derecha. Contad cada animal por separado, y sin olvidar ninguno.",
+   "Los animales de la cerradura, de izquierda a derecha: 4, 6, 3, 5."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una estatua de piedra de un guardián con cabeza de chacal ante una puerta de piedra, con un panel de cuatro huecos en el pecho."
+ },
+ "42": {
+  "titulo": "Carta 42 — El friso de los animales (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del friso de los animales."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 49.",
+   "Hay animales que miran a la derecha y otros a la izquierda, y adornos que no cuentan.",
+   "Los animales de la cerradura, de izquierda a derecha: 4, 6, 3, 5."
+  ],
+  "mosaico": {
+   "id": "friso",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad izquierda de «El friso de los animales»."
+ },
+ "49": {
+  "titulo": "Carta 49 — El friso de los animales (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del friso de los animales."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 42.",
+   "Hay animales que miran a la derecha y otros a la izquierda, y adornos que no cuentan.",
+   "Los animales de la cerradura, de izquierda a derecha: 4, 6, 3, 5."
+  ],
+  "mosaico": {
+   "id": "friso",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad derecha de «El friso de los animales»."
+ },
+ "53": {
+  "titulo": "Carta 53 — El guardián del friso",
+  "tipo": "gris",
+  "descripcion": [
+   "La cerradura del guardián de piedra: cuatro animales y cuatro huecos."
+  ],
+  "pistas": [
+   "Sirve para el friso (carta 48).",
+   "Solo cuentan los que miran hacia el sol naciente.",
+   "Los animales de la cerradura, de izquierda a derecha: 4, 6, 3, 5."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): la cerradura del guardián."
+ },
+ "36": {
+  "titulo": "Carta 36 — La casa de las medidas",
+  "tipo": "gris",
+  "coge": [
+   52,
+   54,
+   55,
+   59
+  ],
+  "descarta": [
+   32,
+   42,
+   48,
+   49,
+   53
+  ],
+  "descripcion": [
+   "El guardián se aparta y entráis en una sala con balanzas, medidas de cebada y un escriba gordo y ceñudo, Ipi, que lleva las cuentas del templo. «Hoy me han cobrado dos pagos, uno por la mañana y otro por la tarde, con las partes del amuleto del Ojo de Horus... y no me cuadra». Solo si el escriba cuadra las cuentas os dejará ver el resto del templo.",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+  ],
+  "pistas": [
+   "Los pagos son dos cartas.",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+  ],
+  "arte": "Una sala de un templo egipcio con balanzas de bronce, sacos de cebada y un escriba rechoncho de gesto ceñudo sentado ante un papiro. Cristina le habla con las manos abiertas, en gesto conciliador, y Alberto se asoma al papiro por encima del hombro del escriba, con las cejas fruncidas de concentración."
+ },
+ "52": {
+  "titulo": "Carta 52 — La medida del heqat",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: el escriba cobra con las seis partes del Ojo de Horus; hay que decir cuáles suman lo cobrado hoy.",
+   "Al resolverlo, coged la carta 44."
+  ],
+  "pistas": [
+   "Qué forma es cada parte, en la carta 54; los pagos de la mañana y de la tarde, en las 55 y 59.",
+   "Sumad los dos pagos: algunos sacos se juntan en uno más grande. Cada parte, una vez o ninguna.",
+   "Las partes: 1/2, 1/16, 1/64."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una balanza de bronce con un amuleto de seis piezas de colores (el Ojo de Horus) y un saco de cebada, en una sala del templo."
+ },
+ "54": {
+  "titulo": "Carta 54 — Las partes del ojo",
+  "tipo": "gris",
+  "descripcion": [
+   "Las seis partes del amuleto del Ojo de Horus, cada una con lo que mide."
+  ],
+  "pistas": [
+   "Sirve para la medida (carta 52).",
+   "Cada parte vale la mitad de la anterior.",
+   "Las partes: 1/2, 1/16, 1/64."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): las seis partes del ojo."
+ },
+ "55": {
+  "titulo": "Carta 55 — Pago de la mañana",
+  "tipo": "gris",
+  "descripcion": [
+   "Los tres sacos que se pagaron por la mañana."
+  ],
+  "pistas": [
+   "Sirve para la medida (carta 52).",
+   "Sumad lo que hay en los tres sacos.",
+   "Las partes: 1/2, 1/16, 1/64."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): los pagos de la mañana."
+ },
+ "59": {
+  "titulo": "Carta 59 — Pago de la tarde",
+  "tipo": "gris",
+  "descripcion": [
+   "Los tres sacos que se pagaron por la tarde."
+  ],
+  "pistas": [
+   "Sirve para la medida (carta 52).",
+   "Sumad lo que hay en los tres sacos y juntadlo con lo de la mañana.",
+   "Las partes: 1/2, 1/16, 1/64."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): los pagos de la tarde."
+ },
+ "44": {
+  "titulo": "Carta 44 — La casa del escriba",
+  "tipo": "gris",
+  "coge": [
+   33,
+   37,
+   39,
+   46,
+   51,
+   61,
+   63
+  ],
+  "descarta": [
+   36,
+   52,
+   54,
+   55,
+   59
+  ],
+  "descripcion": [
+   "Las cuentas cuadran y el escriba os agradece con un resoplido. «Pasad a mi casa. Tengo un cofre que lo cierra una suma de signos que no entiendo ni yo, y la sacerdotisa Henut necesita que alguien pinte las cámaras del templo antes de la fiesta de mañana». Tenéis delante dos encargos.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+  ],
+  "pistas": [
+   "Hay dos puzles: el cofre del escriba y las cámaras del templo. El papiro de la sacerdotisa sirve aquí.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+  ],
+  "arte": "El interior de la casa de un escriba egipcio, con papiros enrollados por todas partes, un cofre de madera con signos grabados y un plano pintado en la pared. El escriba, rechoncho, les señala el cofre con un dedo regordete, y Cristina mira el plano con la cabeza ladeada y una sonrisa curiosa mientras Alberto se rasca la barba, perplejo."
+ },
+ "46": {
+  "titulo": "Carta 46 — El cofre del escriba",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: el cofre se cierra con una suma de seis signos, cada uno una cifra distinta.",
+   "Al resolverlo, coged la carta 56."
+  ],
+  "pistas": [
+   "La suma está en la carta 37; el escriba anotó dos cosas al margen, en las cartas 39 y 33.",
+   "La suma sola admite tres soluciones: las notas dejan solo una. Los números no empiezan por cero.",
+   "Las cifras: el sol = 4; el loto = 0; el agua = 1; la pluma = 6; la corona = 8; el cetro = 5."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un cofre de madera con la tapa grabada con seis signos jeroglíficos distintos, y seis ruedas de números en el frontal."
+ },
+ "37": {
+  "titulo": "Carta 37 — La suma del escriba",
+  "tipo": "gris",
+  "descripcion": [
+   "La suma que cierra el cofre, escrita con signos."
+  ],
+  "pistas": [
+   "Sirve para el cofre (carta 46).",
+   "Cada signo es una cifra distinta; todos los números empiezan por una cifra que no es cero.",
+   "Las cifras: el sol = 4; el loto = 0; el agua = 1; la pluma = 6; la corona = 8; el cetro = 5."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): la suma de signos."
+ },
+ "39": {
+  "titulo": "Carta 39 — Primera nota",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota del escriba, al margen."
+  ],
+  "pistas": [
+   "Sirve para el cofre (carta 46).",
+   "Es una pista sobre un signo.",
+   "Las cifras: el sol = 4; el loto = 0; el agua = 1; la pluma = 6; la corona = 8; el cetro = 5."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): la primera nota."
+ },
+ "33": {
+  "titulo": "Carta 33 — Segunda nota",
+  "tipo": "gris",
+  "descripcion": [
+   "Otra nota del escriba, al margen."
+  ],
+  "pistas": [
+   "Sirve para el cofre (carta 46).",
+   "Es una pista que compara dos signos.",
+   "Las cifras: el sol = 4; el loto = 0; el agua = 1; la pluma = 6; la corona = 8; el cetro = 5."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): la segunda nota."
+ },
+ "56": {
+  "titulo": "Carta 56 — Brasa sagrada",
+  "tipo": "roja",
+  "combina": [
+   38,
+   94
+  ],
+  "descripcion": [
+   "Una brasa que nunca se apaga, guardada en el cofre en un cuenco de barro.",
+   "Combinadla con la carta 38: sumad sus números (56 + 38 = 94) y coged la carta 94."
+  ],
+  "pistas": [
+   "Una brasa que nunca se apaga, guardada en el cofre en un cuenco de barro.",
+   "Se combina con la carta 38.",
+   "56 + 38 = 94."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un cuenco de barro con una brasa naranja que brilla sin apagarse, dentro de un cofre de madera abierto."
+ },
+ "51": {
+  "titulo": "Carta 51 — Las cámaras de colores",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: pintar las doce cámaras del templo, cada una con una pintura.",
+   "Al resolverlo, coged la carta 58."
+  ],
+  "pistas": [
+   "La norma de la sacerdotisa, en la carta 26; el plano del templo, con puertas y cámaras ya pintadas, en las cartas 61 y 63.",
+   "Empezad por una cámara con pocas vecinas y con vecinas ya pintadas: así queda una sola pintura posible.",
+   "Las doce cámaras: A ocre, B turquesa, C ocre, D lapislázuli, E lapislázuli, F ocre, G turquesa, H ocre, I turquesa, J lapislázuli, K ocre, L lapislázuli."
+  ],
+  "arte": "Sin ninguna persona en la imagen. El plano de un templo egipcio con doce cámaras unidas por puertas, tres tarros de pintura (ocre, turquesa y lapislázuli) y un pincel."
+ },
+ "61": {
+  "titulo": "Carta 61 — El plano del templo (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del plano del templo."
+  ],
+  "pistas": [
+   "Es la mitad de un plano: juntadla con la carta 63.",
+   "Las líneas son puertas; las cámaras llenas ya están pintadas.",
+   "Las doce cámaras: A ocre, B turquesa, C ocre, D lapislázuli, E lapislázuli, F ocre, G turquesa, H ocre, I turquesa, J lapislázuli, K ocre, L lapislázuli."
+  ],
+  "mosaico": {
+   "id": "camaras",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad izquierda de «El plano del templo»."
+ },
+ "63": {
+  "titulo": "Carta 63 — El plano del templo (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del plano del templo."
+  ],
+  "pistas": [
+   "Es la mitad de un plano: juntadla con la carta 61.",
+   "Las líneas son puertas; las cámaras llenas ya están pintadas.",
+   "Las doce cámaras: A ocre, B turquesa, C ocre, D lapislázuli, E lapislázuli, F ocre, G turquesa, H ocre, I turquesa, J lapislázuli, K ocre, L lapislázuli."
+  ],
+  "mosaico": {
+   "id": "camaras",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad derecha de «El plano del templo»."
+ },
+ "58": {
+  "titulo": "Carta 58 — El secreto de la sacerdotisa",
+  "tipo": "gris",
+  "coge": [
+   69,
+   70,
+   71
+  ],
+  "descarta": [
+   51,
+   61,
+   63,
+   26,
+   24
+  ],
+  "descripcion": [
+   "Henut aparece, riendo entre los tarros de pintura. «Me habéis ahorrado una semana. Os diré lo que no debo: el Ojo de Horus está en la cripta, pero para bajar hay que oír antes al visir. Quiere que el agua del Nilo llegue a todos los campos del valle, sin gastar de más». Ya conocéis la nota del visir.",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+  ],
+  "pistas": [
+   "Hay que repartir el agua entre los campos.",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+  ],
+  "arte": "Un patio de templo egipcio con tarros de pintura y una sacerdotisa de túnica blanca y pelo negro con una diadema de oro, riendo con las manos en la cintura. Cristina la mira con una sonrisa de complicidad y Alberto, con restos de pintura turquesa en la mejilla, levanta un pincel con gesto triunfal."
+ },
+ "69": {
+  "titulo": "Carta 69 — Los canales de riego",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: unir con canales los siete campos del valle gastando lo menos posible.",
+   "Al resolverlo, coged la carta 80."
+  ],
+  "pistas": [
+   "El mapa de los campos, con lo que cuesta cada posible canal, en la carta 70; lo que quiere el visir, en la 71.",
+   "Empezad por el canal más barato y seguid con el siguiente más barato que no cierre un círculo de agua.",
+   "Los canales: A–G, B–C, C–D, C–E, E–F, F–G."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un valle egipcio visto desde arriba, con siete campos verdes unidos por zanjas de riego y el río azul al fondo."
+ },
+ "70": {
+  "titulo": "Carta 70 — Los campos del valle",
+  "tipo": "gris",
+  "descripcion": [
+   "El mapa de los siete campos del valle, con lo que costaría cavar un canal entre cada dos."
+  ],
+  "pistas": [
+   "Sirve para los canales (carta 69).",
+   "Los números son los codos de zanja de cada canal posible.",
+   "Los canales: A–G, B–C, C–D, C–E, E–F, F–G."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): el mapa de los campos."
+ },
+ "71": {
+  "titulo": "Carta 71 — La nota del visir",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota del visir sobre el riego."
+  ],
+  "pistas": [
+   "Sirve para los canales (carta 69).",
+   "Todos los campos con agua, sin zanjas de más.",
+   "Los canales: A–G, B–C, C–D, C–E, E–F, F–G."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): la nota del visir."
+ },
+ "80": {
+  "titulo": "Carta 80 — El visir",
+  "tipo": "gris",
+  "coge": [
+   72,
+   75,
+   79
+  ],
+  "descarta": [
+   58,
+   69,
+   70,
+   71
+  ],
+  "descripcion": [
+   "El agua corre por los canales y el visir, un hombre alto con una tira de lino dorado al pecho, os recibe con una reverencia. «Ahora el reparto: tras la crecida, el río se lleva los mojones de los campos y hay que volver a medirlos. No saben cómo. Y yo, tampoco». Os da un plano del campo con las medidas.",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+  ],
+  "pistas": [
+   "El campo por repartir son dos cartas.",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+  ],
+  "arte": "Un campo egipcio junto al Nilo tras la crecida, con un visir alto de lino blanco y collar dorado señalando con un bastón el terreno vacío, y campesinos esperando. Alberto asiente con aire de seriedad profesional, midiendo con la vista, y Cristina mira el campo con las manos en la frente a modo de visera."
+ },
+ "72": {
+  "titulo": "Carta 72 — El reparto de tierras",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: dividir el campo en parcelas rectangulares, cada una con su número de casillas.",
+   "Al resolverlo, coged la carta 82."
+  ],
+  "pistas": [
+   "El campo, con los números, son las cartas 75 y 79; la app solo muestra el campo vacío.",
+   "Cada parcela es un rectángulo con un solo número, que dice cuántas casillas tiene. Empezad por los números más grandes o por los de las esquinas.",
+   "Las parcelas, de arriba abajo y de izquierda a derecha: 2×4; 3×1; 1×2; 2×4; 1×3; 2×2; 1×2; 2×1; 2×4; 4×2; 1×2; 1×4; 1×2; 4×2."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un gran campo egipcio cuadrado, vacío, visto desde arriba, con mojones de piedra en los bordes y cuerdas tensas."
+ },
+ "75": {
+  "titulo": "Carta 75 — El campo por repartir (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del campo por repartir."
+  ],
+  "pistas": [
+   "Es la mitad de un plano: juntadla con la carta 79.",
+   "Cada número es el tamaño de una parcela.",
+   "Las parcelas: 2×4; 3×1; 1×2; 2×4; 1×3; 2×2; 1×2; 2×1; 2×4; 4×2; 1×2; 1×4; 1×2; 4×2."
+  ],
+  "mosaico": {
+   "id": "tierras",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad izquierda de «El campo por repartir»."
+ },
+ "79": {
+  "titulo": "Carta 79 — El campo por repartir (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del campo por repartir."
+  ],
+  "pistas": [
+   "Es la mitad de un plano: juntadla con la carta 75.",
+   "Cada número es el tamaño de una parcela.",
+   "Las parcelas: 2×4; 3×1; 1×2; 2×4; 1×3; 2×2; 1×2; 2×1; 2×4; 4×2; 1×2; 1×4; 1×2; 4×2."
+  ],
+  "mosaico": {
+   "id": "tierras",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad derecha de «El campo por repartir»."
+ },
+ "82": {
+  "titulo": "Carta 82 — El visir agradecido",
+  "tipo": "gris",
+  "coge": [
+   85,
+   86,
+   87
+  ],
+  "descarta": [
+   80,
+   72,
+   75,
+   79
+  ],
+  "descripcion": [
+   "Los campesinos replantan los mojones y el visir os entrega, para agradeceros, lo que guardaba un viejo sacerdote: las instrucciones para despertar a un «carro del sol» de latón y cristal. Os suena. Y una nota con dos acertijos sobre cinco sellos.",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "pistas": [
+   "La consola es el último puzle.",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "arte": "Los campesinos clavan mojones de piedra en un campo recién repartido, y el visir de lino blanco entrega a Cristina un papiro sellado. Ella lo desenrolla con una sonrisa emocionada, y Alberto, detrás, mira el aparato de latón que lleva en la mochila con las cejas muy altas."
+ },
+ "85": {
+  "titulo": "Carta 85 — La consola del Cronoportal",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: cada puzle resuelto dejó un sello en el aparato. Hay que tocar cinco en el orden de los acertijos.",
+   "Al resolverlo, coged la carta 99."
+  ],
+  "pistas": [
+   "Los acertijos de la sacerdotisa están en las cartas 86 y 87; los sellos son los signos de los puzles que ya habéis resuelto.",
+   "Cada acertijo describe un sello por lo que representa: lo que sube y baja, lo que se reparte, lo que se amasa...",
+   "Los cinco sellos, en orden: el agua, la tierra, el pan, el ojo, el escarabajo."
+  ],
+  "arte": "Sin ninguna persona en la imagen. La consola del Cronoportal: un panel de latón con diez medallones de oro, cada uno con un signo egipcio distinto, y cinco huecos en fila."
+ },
+ "86": {
+  "titulo": "Carta 86 — Primera parte del orden",
+  "tipo": "gris",
+  "descripcion": [
+   "Los tres primeros sellos, en un acertijo."
+  ],
+  "pistas": [
+   "Sirve para la consola (carta 85).",
+   "Tres sellos: lo que sube y baja con el año, lo que se reparte con cordel y lo que se amasa y se come.",
+   "Los cinco sellos, en orden: el agua, la tierra, el pan, el ojo, el escarabajo."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): los tres primeros sellos."
+ },
+ "87": {
+  "titulo": "Carta 87 — Segunda parte del orden",
+  "tipo": "gris",
+  "descripcion": [
+   "Los dos últimos sellos, en otro acertijo."
+  ],
+  "pistas": [
+   "Sirve para la consola (carta 85).",
+   "Dos sellos: el que mide con sus seis partes y el que empuja el sol.",
+   "Los cinco sellos, en orden: el agua, la tierra, el pan, el ojo, el escarabajo."
+  ],
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): los dos últimos sellos."
+ },
+ "94": {
+  "titulo": "Carta 94 — La cripta del Ojo",
+  "tipo": "gris",
+  "coge": [
+   64,
+   66,
+   67
+  ],
+  "descarta": [
+   38,
+   56,
+   30,
+   44,
+   33,
+   37,
+   39,
+   46
+  ],
+  "descripcion": [
+   "La brasa enciende la lámpara y una luz cálida baja por una escalera de piedra hasta una cripta redonda. En las paredes, un friso de azulejos con una figura que falta: un hueco entre los demás. Cuando el friso esté completo, la cripta se abrirá. El friso, dibujado, es lo único que se ve del hueco.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "pistas": [
+   "El friso son dos cartas: juntadlas.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "arte": "Una cripta circular egipcia iluminada por una lámpara de bronce con llama cálida, con un friso de azulejos de colores en la pared al que le falta uno. Cristina sostiene la lámpara en alto con gesto cauteloso y Alberto mira el friso con la cabeza ladeada, pensativo, apretando los labios."
+ },
+ "64": {
+  "titulo": "Carta 64 — El friso de azulejos",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: falta un azulejo en el friso de la cripta; hay que elegir el que lo completa entre seis.",
+   "Al resolverlo, coged la carta 62."
+  ],
+  "pistas": [
+   "El friso, partido en dos láminas, son las cartas 66 y 67.",
+   "Fijaos en cómo cambian la figura, el color y el tamaño en cada fila y en cada columna: cada cosa sigue su propia regla.",
+   "Es el azulejo n.º 3 de los seis."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un hueco cuadrado en un friso de azulejos de colores en la pared de una cripta egipcia, y seis azulejos sueltos de distintas figuras sobre una mesa de piedra."
+ },
+ "66": {
+  "titulo": "Carta 66 — El friso de azulejos (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del friso de azulejos."
+  ],
+  "pistas": [
+   "Es la mitad de un friso: juntadla con la carta 67.",
+   "Cada azulejo lleva una figura, un color y un tamaño.",
+   "Es el azulejo n.º 3 de los seis."
+  ],
+  "mosaico": {
+   "id": "azulejos",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad de arriba de «El friso de azulejos»."
+ },
+ "67": {
+  "titulo": "Carta 67 — El friso de azulejos (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del friso de azulejos."
+  ],
+  "pistas": [
+   "Es la mitad de un friso: juntadla con la carta 66.",
+   "Cada azulejo lleva una figura, un color y un tamaño.",
+   "Es el azulejo n.º 3 de los seis."
+  ],
+  "mosaico": {
+   "id": "azulejos",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/egipto.py; no se pide a ChatGPT): mitad de abajo de «El friso de azulejos»."
+ },
+ "62": {
+  "titulo": "Carta 62 — Ojo de Horus",
+  "tipo": "roja",
+  "combina": [
+   12,
+   74
+  ],
+  "descripcion": [
+   "El Ojo de Horus, una joya de oro y lapislázuli que guarda una energía azul antiquísima, escondida bajo una losa de la cripta.",
+   "Combinadla con la carta 12: sumad sus números (62 + 12 = 74) y coged la carta 74."
+  ],
+  "pistas": [
+   "El Ojo de Horus, una joya de oro y lapislázuli que guarda una energía azul antiquísima, escondida bajo una losa de la cripta.",
+   "Se combina con la carta 12.",
+   "62 + 12 = 74."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un amuleto del Ojo de Horus de oro y lapislázuli con un fulgor azul en el centro, sobre un cojín de lino en un hueco de piedra."
+ },
+ "74": {
+  "titulo": "Carta 74 — Cronoportal con energía",
+  "tipo": "gris",
+  "descarta": [
+   62,
+   12,
+   64,
+   66,
+   67,
+   94,
+   57
+  ],
+  "descripcion": [
+   "El Ojo de Horus encaja en el Cronoportal y el aparato se llena de luz... pero se queda en un zumbido: le falta orden. Los sellos de todos los puzles que habéis resuelto están grabados en su consola y piden que los pongáis en el orden correcto.",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
+  ],
+  "pistas": [
+   "Falta despertar la consola.",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
+  ],
+  "arte": "El Cronoportal con el Ojo de Horus engarzado en el pecho, brillando con luz azul, en una cripta egipcia iluminada. Alberto ajusta los diales con la lengua entre los dientes y Cristina sostiene la lámpara con una sonrisa de alivio cansado."
  },
  "99": {
   "titulo": "Carta 99 — De vuelta a casa (FIN)",
   "tipo": "gris",
   "descarta": [
    74,
-   95,
-   15,
-   44
+   82,
+   85,
+   86,
+   87
   ],
   "descripcion": [
-   "El Ojo de Horus brilla y se abre un portal de luz azul. Cristina y Alberto saltan justo cuando se oyen las voces de los sacerdotes en el pasillo.",
-   "Aterrizan en su salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 74, 95, 15 y 44.",
-   "FIN."
+   "Los cinco sellos brillan uno tras otro y el Cronoportal despierta con un zumbido grave. Salta un arco de luz azul y dorada y, en un instante, os arranca de la cripta. Aterrizáis en vuestro salón, con polvo dorado en la ropa y un amuleto del Ojo de Horus caliente en la mano. Cristina y Alberto se miran. «¿Otra vez?», dice él. FIN.",
+   "Descartad las cartas 74, 82, 85, 86 y 87."
   ],
-  "pistas": [],
-  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven la cámara del templo de Karnak y el tesoro dorado. Llevan aún su ropa de la aventura, cubierta de arena, y caen sobre la alfombra entre risas. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+  "pistas": [
+   "Descartad las cartas 74, 82, 85, 86 y 87."
+  ],
+  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ve la cripta egipcia iluminada por una lámpara. Llevan aún su ropa actual con polvo dorado y Cristina sostiene un amuleto del Ojo de Horus. Cristina ríe a carcajadas, llena de alegría; Alberto la mira con una ceja levantada y una sonrisa de incredulidad divertida. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
  }
 };
 window.fetchCartas = function () {

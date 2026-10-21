@@ -1,3 +1,18 @@
+"""Marte, 2157: Cúpula Aurora — versión de 60 cartas (21 oct 2026), mucho más difícil y variada.
+
+Once puzles de tipos que no salen en ningún otro juego de la serie, con las pistas dibujadas o en acertijo (ninguna carta explica cómo se
+resuelve su puzle): la ventana de comunicaciones de tres satélites, el «juego de la vida» del invernadero, el cableado de una placa
+(Numberlink), un campo de rocas (buscaminas), el equilibrio del brazo de una antena, una cuenta de cifras, el circuito del reactor
+(Slitherlink), el programa de un rover con bucles, los paneles de refrigeración (Lights Out), una sopa de letras con clave y la consola
+final con los datos de la misión de cuatro puzles. Solo 15 cartas tienen a Cristina y Alberto (escenas); el resto son objetos y pistas
+sin personas. Las cartas-pista las dibuja herramientas/marte.py (instancias_marte.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_marte as I  # noqa: E402
+
 ESTILO = ("Ilustración digital de ciencia ficción realista con estética de película, paleta de óxido anaranjado, grises metálicos, "
           "destellos de cian y luces de emergencia rojas, formato vertical 2:3. Sin texto, letras ni números en la imagen. "
           "Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.")
@@ -23,246 +38,310 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estética de películ
          "Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, levantándose; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, alarma lejana y viento marciano, música de ciencia ficción tensa, sin voz de narrador.")
 
+ESTILO += " Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes)."
+SIN_GENTE = "Sin ninguna persona en la imagen. "
+DOCTORA = "la doctora Reyes, botánica y jefa de la colonia, de unos cincuenta años, piel morena curtida, pelo corto y canoso, mono técnico verde con parches de la colonia Aurora y una pequeña tomatera sujeta a la mochila"
+
+MOSAICOS = {
+    "invernadero": dict(filas=2, cols=1, cartas=["19", "21"], titulo="El invernadero"),
+    "cableado": dict(filas=1, cols=2, cartas=["41", "43"], titulo="La placa de bornes"),
+    "rocas": dict(filas=1, cols=2, cartas=["42", "49"], titulo="El radar del campo de rocas"),
+    "reactor": dict(filas=1, cols=2, cartas=["61", "63"], titulo="El esquema del reactor"),
+    "paneles": dict(filas=2, cols=1, cartas=["66", "67"], titulo="Los paneles de refrigeración"),
+    "sopa": dict(filas=1, cols=2, cartas=["75", "79"], titulo="La base de datos de la colonia"),
+}
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+_COL = "ABCDEFGH"
+_c = lambda x, y: f"{_COL[x]}{y + 1}"
+
+
+def _ciclo_anillo():
+    ady = {}
+    for t, x, y in I.ANILLO["solucion"]:
+        a, b = ((x, y), (x + 1, y)) if t == "h" else ((x, y), (x, y + 1))
+        ady.setdefault(a, []).append(b)
+        ady.setdefault(b, []).append(a)
+    ini = min(ady)
+    ruta, prev, cur = [ini], None, ini
+    while True:
+        sig = next(q for q in ady[cur] if q != prev) if prev is not None else ady[cur][0]
+        if sig == ini:
+            break
+        ruta.append(sig)
+        prev, cur = cur, sig
+    return ruta
+
+
+_S_SAT = f"dentro de {I.SATELITES['solucion']} horas"
+_S_VIDA = ", ".join(_c(x, y) for y, f in enumerate(I.VIDA["solucion"]) for x, v in enumerate(f) if v)
+_S_CAB = " / ".join(f"fila {y + 1}: " + " ".join(str(c + 1) for c in f) for y, f in enumerate(I.CABLEADO["solucion"]))
+_S_ROC = ", ".join(_c(x, y) for x, y in I.ROCAS["solucion"])
+_FORMA = ["el círculo", "el cuadrado", "el triángulo"]
+_S_BRA = "; ".join(f"{_FORMA[k]} (pesa {w}) en la marca {'izquierda' if p < 0 else 'derecha'} {abs(p)}" for k, (w, p) in enumerate(zip(I.BALANCIN["libres"], I.BALANCIN["solucion"])))
+_S_CUE = ", ".join(f"{a} {op} {b} = {r}" for a, op, b, r in I.solucion_cifras(I.CIFRAS["numeros"], I.CIFRAS["objetivo"]))
+_S_ANI = " → ".join(_c(x, y) for x, y in _ciclo_anillo())
+_S_PRO = "repetir 3 veces: avanzar, girar a la izquierda, avanzar, girar a la derecha, avanzar"
+_S_PAN = ", ".join(_c(x, y) for x, y in I.PANELES["toques"])
+_S_SOP = I.SOPA["secreta"]
+_S_COD = ", ".join(str(x) for x in I.CODIGO)
+_PAL = ", ".join(I.SOPA["palabras"])
+
+
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=arte)
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
+
+
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada a la cúpula", tipo="gris", coge=[10, 16],
-        descripcion=[
-            "Segunda parada del Cronoportal: Marte, año 2157. El salto sale mal otra vez y aterrizáis en el hangar de la cúpula Aurora, la primera colonia, a oscuras por una tormenta de polvo. El Cronoportal se queda sin energía.",
-            "Dentro de una hora la tormenta cortará las comunicaciones y el soporte vital se apagará del todo. Hay que recargar el aparato antes.",
-            "Coged las cartas 10 y 16."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 16."],
-        arte="Hangar de la colonia Aurora en Marte, oscuro y cubierto de polvo rojizo, con luces de emergencia rojas parpadeando; por una ventana se ve una tormenta de polvo. En el suelo, el Cronoportal humea. Cristina y Alberto, con sus monos de colonia marciana, se levantan desconcertados."),
-    "16": dict(
-        titulo="Carta 16 — Cronoportal sin energía", tipo="azul", combina=[54, 70],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con el anillo central apagado y el indicador de batería casi vacío.",
-            "Necesita una fuente de energía enorme. En una colonia, solo hay una: el núcleo de fusión (carta 54).",
-            "Combinad esta carta con el núcleo de fusión: sumad sus números (16 + 54 = 70) y coged la carta 70."],
-        pistas=["Necesita mucha energía.", "Combinad la carta 16 con la carta 54.", "Sumad los números de las dos cartas: 16 + 54 = 70."],
-        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un indicador de batería casi vacío con una luz roja tenue, sobre el suelo metálico de un hangar."),
-    "10": dict(
-        titulo="Carta 10 — Hangar de la cúpula", tipo="gris", coge=[21, 25, 17, 23, 35, 36], descarta=["P"],
-        descripcion=[
-            "El hangar: una terminal de seguridad con la puerta bloqueada (carta 21), notas adhesivas pegadas en un monitor (carta 25), un traje espacial colgado sin casco (carta 17), un casco sobre una caja (carta 23), una tableta con un diario (carta 35) y una tomatera bajo una luz violeta de cultivo (carta 36).",
-            "Coged las cartas 21, 25, 17, 23, 35 y 36. Descartad la carta P."],
-        pistas=["Fijaos en todo lo que hay en el hangar.", "Coged las cartas 21, 25, 17, 23, 35 y 36. Descartad la carta P."],
-        arte="Hangar amplio de la colonia: estantes de herramientas, una terminal de seguridad con pantalla, un traje espacial colgado sin casco, un casco sobre una caja, notas adhesivas en un monitor, una tableta y una pequeña tomatera en una maceta bajo una luz violeta de cultivo. Cristina y Alberto exploran con linternas."),
-    "21": dict(
-        titulo="Carta 21 — Terminal de seguridad", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una terminal pide un código de 4 cifras (del 1 al 6, sin repetir). Cada intento indica cuántas cifras están bien colocadas (●) y cuántas existen pero en otro sitio (○).",
-            "La nota adhesiva (carta 25) da una pista sobre el código. Al acertar, se abre la puerta de seguridad. Coged la carta 44."],
-        pistas=["Leed la nota adhesiva (carta 25).", "El código no lleva 2 ni 5: solo usa 1, 3, 4 y 6.", "El código es 4 1 6 3."],
-        arte="Terminal informático empotrado en la pared con pantalla verde de código, teclado numérico y una luz roja de acceso denegado."),
-    "25": dict(
-        titulo="Carta 25 — Nota adhesiva", tipo="gris",
-        descripcion=["Una nota adhesiva amarilla pegada al borde de un monitor, con una pista sobre el código de la terminal (carta 21)."],
-        pistas=["Leed lo que pone la nota.", "Os sirve para la terminal de seguridad (carta 21)."],
-        textoCarta=["No lleva el 2", "ni el 5"],
-        arte="Una nota adhesiva amarilla pegada en el borde de un monitor, escrita a mano con garabatos sin texto legible."),
-    "17": dict(
-        titulo="Carta 17 — Traje sin casco", tipo="azul", combina=[23, 40],
-        descripcion=[
-            "Un traje espacial blanco con parches de la colonia, colgado de una percha. Le falta el casco (carta 23).",
-            "Combinadlos: sumad sus números (17 + 23 = 40) y coged la carta 40."],
-        pistas=["Sin casco no se puede salir.", "Combinad la carta 17 con la carta 23.", "Sumad los números de las dos cartas: 17 + 23 = 40."],
-        arte="Traje espacial blanco con parches de la colonia, colgado de una percha, sin casco, con el cuello abierto."),
-    "23": dict(
-        titulo="Carta 23 — Casco de astronauta", tipo="roja", combina=[17, 40],
-        descripcion=[
-            "Un casco con visor dorado reflectante. Es el que le falta al traje (carta 17).",
-            "Combinadlos: sumad sus números (23 + 17 = 40) y coged la carta 40."],
-        pistas=["Hace falta un traje completo.", "Combinad la carta 23 con la carta 17.", "Sumad los números de las dos cartas: 23 + 17 = 40."],
-        arte="Casco de astronauta con visor dorado reflectante, sobre una caja metálica."),
-    "40": dict(
-        titulo="Carta 40 — Traje completo", tipo="gris", descarta=[17, 23],
-        descripcion=[
-            "El traje presurizado completo, listo para usar. Sin él no se puede cruzar la esclusa del reactor (carta 66). Descartad las cartas 17 y 23."],
-        pistas=["Ya podéis salir al exterior.", "Hace falta para la esclusa del reactor (carta 66)."],
-        arte="Alberto con un traje espacial completo con casco puesto, en el hangar, con el pulgar levantado; Cristina a su lado con una linterna."),
-    "44": dict(
-        titulo="Carta 44 — Pasillo de la cúpula", tipo="gris", coge=[52, 28], descarta=[10, 21, 25],
-        descripcion=[
-            "La puerta de seguridad se abre a un pasillo curvo con ventanas al paisaje marciano. En la pared hay un panel de oxígeno abierto (carta 52) y un plano de la cúpula (carta 28).",
-            "Coged las cartas 52 y 28. Descartad las cartas 10, 21 y 25."],
-        pistas=["Mirad el panel y el plano.", "Coged las cartas 52 y 28. Descartad las cartas 10, 21 y 25."],
-        arte="Pasillo curvo de la colonia con ventanas a un paisaje marciano, tuberías, un panel de tuberías abierto y un plano de la cúpula en la pared, luces tenues. Cristina y Alberto caminan por él."),
-    "52": dict(
-        titulo="Carta 52 — Panel de oxígeno", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una red de tuberías con la entrada de oxígeno a la izquierda y la salida a la derecha. Hay que girar las piezas hasta conectarlas.",
-            "Al restaurar el oxígeno se reactiva el soporte vital y se desbloquea la esclusa. Coged la carta 66."],
-        pistas=["Tocad las tuberías para girarlas.", "Empezad por la entrada de la izquierda y seguid el camino pieza a pieza."],
-        arte="Panel de mantenimiento abierto con una red de tuberías transparentes con burbujas, válvulas redondas y un manómetro en rojo."),
-    "28": dict(
-        titulo="Carta 28 — Plano de la cúpula", tipo="gris",
-        descripcion=["Un plano técnico azul de la cúpula Aurora con una anotación sobre la esclusa del reactor. El código va en decimal (carta 66)."],
-        pistas=["Leed la anotación de la esclusa.", "Hace falta para la esclusa del reactor (carta 66)."],
-        textoCarta=["Esclusa del reactor:", "código 173"],
-        arte="Plano técnico azul (blueprint) de la cúpula Aurora con salas marcadas, flechas y anotaciones ilegibles."),
-    "66": dict(
-        titulo="Carta 66 — Esclusa del reactor", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la esclusa se abre con un código en binario de 8 interruptores. El plano (carta 28) da el número en decimal; hay que traducirlo. Necesitáis el traje completo (carta 40).",
-            "Al abrirla, salís a la superficie de Marte. Coged la carta 41."],
-        pistas=["Cada interruptor vale el doble que el siguiente: 128, 64, 32, 16, 8, 4, 2, 1.", "El código es 173: 128 + 32 + 8 + 4 + 1.", "Activad los interruptores 128, 32, 8, 4 y 1."],
-        arte="Gran puerta esclusa circular de acero con ocho pequeñas luces de código en fila y una rueda de apertura."),
-    "79": dict(
-        titulo="Carta 79 — Sala del reactor", tipo="gris", coge=[62, 59, 51], descarta=[41, 48, 57],
-        descripcion=[
-            "El rover llega al anexo y la puerta se abre: la sala del reactor, con un cilindro de cristal apagado. Hay un panel de energía (carta 62), un protocolo pegado en la pared (carta 59) y un esquema del Cronoportal que dejó la doctora (carta 51).",
-            "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."],
-        pistas=["Hay tres cosas que mirar.", "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."],
-        arte="Sala del reactor de la colonia con un cilindro central de cristal con luz azul apagada, pasarelas y tuberías, y un soporte con una esfera de cristal brillante en el centro. Cristina y Alberto con trajes espaciales."),
-    "54": dict(
-        titulo="Carta 54 — Núcleo de fusión", tipo="roja", combina=[16, 70],
-        descripcion=[
-            "Una esfera de cristal con luz azul brillante, ya libre de su soporte. Es la fuente de energía que necesita el Cronoportal (carta 16).",
-            "Combinadlos: sumad sus números (54 + 16 = 70) y coged la carta 70."],
-        pistas=["Es lo que el aparato necesita.", "Combinad la carta 54 con la carta 16.", "Sumad los números de las dos cartas: 54 + 16 = 70."],
-        arte="Núcleo de fusión: una esfera de cristal con luz azul brillante sobre un soporte de metal."),
-    "70": dict(
-        titulo="Carta 70 — Cronoportal cargado", tipo="gris", coge=[88], descarta=[16, 54, 79, 62, 59],
-        descripcion=[
-            "El núcleo encaja en el anillo central y el Cronoportal despierta, pero hay que calibrarlo para volver a la fecha correcta (carta 88).",
-            "Coged la carta 88. Descartad las cartas 16, 54, 79, 62 y 59."],
-        pistas=["El aparato ya tiene energía.", "Coged la carta 88. Descartad las cartas 16, 54, 79, 62 y 59."],
-        arte="El Cronoportal con el núcleo de fusión encajado en su anillo central, brillando con luz azul intensa y arcos de energía. Alberto ajusta un dial y Cristina vigila la puerta."),
-    "88": dict(
-        titulo="Carta 88 — Calibrador del Cronoportal", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: hay que ajustar la amplitud, la frecuencia y la fase de la señal del Cronoportal. La amplitud la da el diario de la doctora Reyes (carta 35), la frecuencia, su tomatera (carta 36) y la fase, el esquema del Cronoportal (carta 51).",
-            "Al calibrarlo, el portal de vuelta se abre. Coged la carta 99."],
-        pistas=["Leed el diario (carta 35), mirad la tomatera (carta 36) y el esquema (carta 51).", "Amplitud 3, frecuencia 5 y fase 2.", "Poned amplitud 3, frecuencia 5 y fase 2."],
-        arte="Primer plano de dos diales de calibración del Cronoportal con un pequeño osciloscopio verde."),
-    "35": dict(
-        titulo="Carta 35 — Diario de la doctora Reyes", tipo="verde",
-        descripcion=[
-            "El diario de voz de la doctora Reyes, jefa de la colonia. Es un juego de la app, pero no hay nada que resolver: es un lector con varias páginas (no pausa el temporizador).",
-            "Contiene la amplitud del calibrador (carta 88), una explicación de la esclusa y avisos sobre el reactor.",
-            "Podéis volver a abrirlo siempre que lo necesitéis."],
-        pistas=["Abrid la carta 35 en la app y pasad las páginas.", "Fijaos en la calibración del Cronoportal.", "La frecuencia no está aquí: la dejó en otro sitio."],
-        arte="Una tableta digital agrietada sobre una mesa, con la pantalla encendida mostrando una pequeña forma de onda verde y fotos de plantas."),
-    "36": dict(
-        titulo="Carta 36 — Tomatera", tipo="gris",
-        descripcion=["Una pequeña tomatera bajo una luz violeta de cultivo, con un cartel de la doctora Reyes. La frecuencia del calibrador (carta 88) está anotada aquí."],
-        pistas=["Contad las hojas de cada rama.", "Hace falta para el calibrador (carta 88)."],
-        textoCarta=["Cada rama:", "5 hojas"],
-        arte="Pequeña tomatera en una maceta bajo una luz violeta de cultivo, con ramas con hojas en grupos de cinco y un cartel pequeño sin texto legible."),
-    "41": dict(
-        titulo="Carta 41 — Superficie de Marte", tipo="gris", coge=[48, 57], descarta=[44, 52, 66, 28, 40],
-        descripcion=[
-            "Con el traje puesto salís a la superficie: un desierto rojo bajo la tormenta. A lo lejos, el anexo del reactor. Junto a la esclusa hay un rover (carta 48) y, clavada en el suelo, una baliza con una anotación (carta 57).",
-            "Coged las cartas 48 y 57. Descartad las cartas 44, 52, 66, 28 y 40."],
-        pistas=["Mirad el rover y la baliza.", "Coged las cartas 48 y 57. Descartad las cartas 44, 52, 66, 28 y 40."],
-        arte="Superficie de Marte bajo una tormenta de polvo, con la esclusa de la cúpula detrás, un pequeño rover de seis ruedas aparcado y una baliza luminosa clavada en el suelo; a lo lejos, un edificio bajo. Cristina y Alberto con trajes espaciales."),
-    "48": dict(
-        titulo="Carta 48 — Rover de superficie", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: hay que programar la ruta del rover sobre un mapa con rocas. Las coordenadas de la baliza del anexo están anotadas en la carta 57.",
-            "Al llegar a la baliza se abre el acceso al anexo del reactor. Coged la carta 79."],
-        pistas=["Mirad la anotación de la baliza (carta 57).", "El mapa tiene columnas de la A a la G y filas de la 1 a la 5. El rover sale de A5 y las rocas lo bloquean.", "Ruta: ↑ ↑ → → ↑ ↑ → → ↓ →"],
-        arte="Un pequeño rover de seis ruedas con antena y cámara sobre el suelo rojo de Marte, con una tableta de control conectada."),
-    "57": dict(
-        titulo="Carta 57 — Baliza del anexo", tipo="gris",
-        descripcion=["Una baliza luminosa clavada en el suelo con una anotación de la doctora Reyes: las coordenadas del acceso al anexo del reactor. Sirve para el rover (carta 48)."],
-        pistas=["Leed las coordenadas.", "Sirven para programar el rover (carta 48)."],
-        textoCarta=["Baliza del anexo:", "columna F, fila 2"],
-        arte="Una baliza luminosa de metal clavada en el suelo rojo de Marte, con una pequeña placa; sin texto legible."),
-    "62": dict(
-        titulo="Carta 62 — Panel de energía", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: seis sistemas con su consumo en MW. Hay que activar los que sumen justo la capacidad del reactor. La capacidad y la regla del escudo están en el protocolo (carta 59).",
-            "Al conectar bien el reactor, el núcleo de fusión queda libre. Coged la carta 54."],
-        pistas=["Leed el protocolo del reactor (carta 59).", "El escudo debe estar activo y la suma de los sistemas activos debe ser 15.", "Escudo (8) + Radio (4) + Luz (3) = 15."],
-        arte="Panel de control con seis interruptores grandes con iconos (escudo, radio, bombilla, gota, llama, ordenador) y barras de consumo luminosas."),
-    "59": dict(
-        titulo="Carta 59 — Protocolo del reactor", tipo="gris",
-        descripcion=["Un protocolo plastificado pegado en la pared del reactor con las normas de arranque. Sirve para el panel de energía (carta 62)."],
-        pistas=["Leed las normas.", "Sirve para el panel de energía (carta 62)."],
-        textoCarta=["Capacidad: 15 MW", "El escudo, siempre activo"],
-        arte="Un cartel plastificado amarillo de normas de seguridad pegado en una pared metálica, con pictogramas; sin texto legible."),
-    "51": dict(
-        titulo="Carta 51 — Esquema del Cronoportal", tipo="gris",
-        descripcion=["Un esquema técnico del Cronoportal dibujado por la doctora Reyes, con una anotación sobre la fase de calibración. Sirve para el calibrador (carta 88)."],
-        pistas=["Leed la anotación del esquema.", "Hace falta para el calibrador (carta 88)."],
-        textoCarta=["Esquema del Cronoportal", "Fase de calibración: 2"],
-        arte="Un esquema técnico dibujado a mano del Cronoportal, con flechas, formas de onda y anotaciones sin texto legible, sobre papel cuadriculado."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[70, 88, 35, 36, 51],
-        descripcion=[
-            "El Cronoportal se calibra y se abre un portal de luz azul. Cristina y Alberto saltan justo cuando el soporte vital termina de reactivarse en toda la cúpula.",
-            "Aterrizan en su salón. Cristina deja una tomatera sobre la mesa: «Me la he traído». Alberto, riendo: «Mañana, otro destino». Descartad las cartas 70, 88, 35, 36 y 51.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven el hangar de la colonia Aurora y la cúpula iluminándose bajo el cielo rojizo. Llevan aún sus monos de colonia marciana con polvo rojo, y Cristina sostiene una pequeña maceta con una tomatera. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ El hangar
+    "P": escena("P", "Llegada a la cúpula", [10, 12], [],
+                "Segunda parada del Cronoportal: Marte, año 2157. El salto sale mal otra vez y aterrizáis en el hangar de la cúpula Aurora, la primera colonia, a oscuras por una tormenta de polvo. El aparato se queda sin energía. Dentro de hora y media la tormenta cortará las comunicaciones y el soporte vital se apagará del todo: hay que recargar el Cronoportal antes.",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "El hangar de una colonia en Marte, a oscuras, con luces de emergencia rojas parpadeando, polvo rojizo flotando y una ventana por la que se ve una tormenta de polvo. En el suelo, un aparato de latón y cristal (el Cronoportal) humea y se apaga. Cristina y Alberto, con monos técnicos de la colonia Aurora, se levantan del suelo: ella con los ojos como platos y la boca abierta, él con el ceño fruncido y una ceja arqueada de incredulidad."),
+    "10": escena("10", "El hangar de la cúpula", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "En la pared del hangar, una pantalla de comunicaciones muestra los pasos de tres satélites y espera que alguien programe la llamada a la Tierra. Al otro lado de un cristal, el módulo del invernadero sigue con sus plantas vivas, y en una taquilla cuelga un traje espacial sin casco.",
+                 ["Hay dos puzles: la ventana de comunicaciones y el invernadero.", "El invernadero son dos cartas: juntadlas, una encima de otra."],
+                 "El hangar de una colonia marciana con una pantalla de comunicaciones en la pared, un cristal que deja ver un invernadero verde y, en una taquilla, un traje espacial sin casco. Cristina examina la pantalla con el dedo apoyado en la barbilla y Alberto pega la nariz al cristal del invernadero con una sonrisa de asombro."),
+    "12": combinable("12", "Cronoportal sin energía", "azul", 62, 74,
+                     "El Cronoportal con el anillo central apagado y el hueco de su núcleo de fusión vacío.",
+                     SIN_GENTE + "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre el suelo metálico de un hangar con polvo rojizo."),
+    "14": app("14", "La ventana de comunicaciones", "Es un juego de la app: la antena solo puede llamar a la Tierra cuando los tres satélites pasan a la vez; hay que decir dentro de cuántas horas.", 24,
+              ["Los pasos de cada satélite, dibujados, están en la carta 16.", "Mirad cada satélite por separado: cada cuánto pasa y cuándo pasó la primera vez. Después buscad la primera hora en que coinciden.", f"Los tres pasan a la vez {_S_SAT}."],
+              SIN_GENTE + "Una antena parabólica en el techo de una cúpula marciana, apuntando a un cielo rojizo con tres puntos de luz."),
+    "16": gris("16", "Pasos de los satélites", "Los pasos de los tres satélites por la antena, hora a hora.",
+               ["Sirve para la ventana de comunicaciones (carta 14).", "Cada satélite pasa cada tantas horas, siempre igual.", f"Los tres pasan a la vez {_S_SAT}."], codigo("los pasos de los satélites")),
+    "18": gris("18", "Las reglas del invernadero", "Las reglas del invernadero, pegadas en la puerta.",
+               ["Sirve para el invernadero (carta 20).", "Cada planta se cuenta con sus ocho vecinas. Aplicad las reglas casilla a casilla.", f"Mañana estarán vivas: {_S_VIDA}."], codigo("las reglas del invernadero")),
+    "19": pieza("19", "invernadero", "Media lámina del invernadero, tal como está hoy.", ["Es la mitad de una lámina: juntadla con la carta 21.", "Las plantas vivas son las que se ven; el resto, suelo vacío.", f"Mañana estarán vivas: {_S_VIDA}."]),
+    "21": pieza("21", "invernadero", "Media lámina del invernadero, tal como está hoy.", ["Es la mitad de una lámina: juntadla con la carta 19.", "Las plantas vivas son las que se ven; el resto, suelo vacío.", f"Mañana estarán vivas: {_S_VIDA}."]),
+    "20": app("20", "El invernadero", "Es un juego de la app: marcar qué plantas estarán vivas mañana, aplicando las reglas del invernadero.", 28,
+              ["Cómo está hoy, en las cartas 19 y 21; las reglas, en la carta 18.", "Contad, para cada casilla, cuántas vecinas vivas tiene (las ocho de alrededor) y aplicad las reglas.", f"Mañana estarán vivas: {_S_VIDA}."],
+              SIN_GENTE + "Un invernadero de una colonia marciana con bancales cuadrados de tierra roja y plantas verdes, bajo luces moradas."),
+    "22": combinable("22", "Traje sin casco", "azul", 35, 57, "Un traje espacial blanco con parches de la colonia Aurora, sin casco.",
+                     SIN_GENTE + "Un traje espacial blanco de colono marciano con parches naranjas colgado de una taquilla metálica, sin casco."),
+    "24": escena("24", "La voz de la doctora Reyes", [26], [14, 16],
+                 "La antena conecta y por el altavoz sale una voz entrecortada: «Aquí la doctora Reyes, jefa de la colonia. Estoy atrapada en el anexo, con el reactor al lado. Sin su núcleo de fusión no hay soporte vital ni nada. Os dejo una nota con lo que sé del reactor...» y la voz se pierde. En la impresora cae una hoja.",
+                 ["La nota de la doctora servirá más adelante."],
+                 "El hangar de la colonia con la antena de comunicaciones activa, un altavoz crepitando y una impresora que escupe una hoja. Alberto sostiene la hoja con los ojos muy abiertos, sorprendido, y Cristina se inclina hacia el altavoz con las manos en las orejas, tensa y atenta."),
+    "26": gris("26", "Nota de la doctora Reyes", "Una nota de la doctora Reyes sobre el circuito del reactor.",
+               ["Sirve para el circuito del reactor (carta 51).", "El circuito es un solo bucle cerrado; los números dicen por cuántos lados de su casilla pasa.", f"El anillo pasa por los puntos: {_S_ANI}."], codigo("la nota de la doctora Reyes")),
+    "28": escena("28", "El módulo del invernadero", [35], [18, 19, 20, 21],
+                 "La puerta del módulo se abre con un siseo. Dentro, entre bancales de tierra roja, una tomatera con tomates enormes y, colgado de un gancho, un casco de astronauta con un parche a medio coser.",
+                 ["Lo que habéis encontrado se puede juntar con algo que ya tenéis."],
+                 "El interior de un invernadero marciano, con bancales de tierra roja, luces moradas y una tomatera cargada de tomates; de un gancho cuelga un casco de astronauta. Cristina acaricia un tomate con una sonrisa maravillada y Alberto descuelga el casco con cara de triunfo."),
+    "35": combinable("35", "Casco de astronauta", "roja", 22, 57, "Un casco de astronauta con la visera empañada y un parche de la colonia Aurora.",
+                     SIN_GENTE + "Un casco de astronauta con la visera empañada y un parche de la colonia Aurora, colgado de un gancho en un invernadero."),
+    "57": escena("57", "El traje completo", [31, 32], [22, 35, 10, 28],
+                 "Con el casco puesto, el traje ya sirve. El hangar tiene dos salidas: una puerta interior a la sala de cableado, donde la tormenta ha cortado la energía, y la esclusa exterior, que lleva al campo de rocas y al anexo. Hay que hacer las dos cosas.",
+                 ["Hay dos caminos: la sala de cableado y la esclusa exterior. Podéis seguir los dos."],
+                 "Un hangar marciano con dos puertas: una interior de metal y la gran esclusa exterior con una luz roja. Cristina, con el traje completo y el casco bajo el brazo, hace un gesto decidido con el puño; Alberto, ya con el casco puesto, mira por la visera con los ojos muy abiertos y la boca en una O."),
+    # ------------------------------------------------------------------ Rama 1: el cableado
+    "31": escena("31", "La sala de cableado", [40, 41, 43, 45], [],
+                 "Una sala con paredes de cables y una gran placa de bornes sin conectar: la tormenta ha arrancado todos los cables de sus sitios y la cúpula funciona con baterías. Cada borne tiene un gemelo en otro punto de la placa.",
+                 ["La placa son dos cartas: juntadlas."],
+                 SIN_GENTE + "Una sala técnica de una colonia marciana con una gran placa de bornes de colores en la pared, cables sueltos colgando y chispas ocasionales."),
+    "40": app("40", "La placa de bornes", "Es un juego de la app: unir cada pareja de bornes del mismo color con un cable, sin cruzarse y sin dejar casillas vacías.", 30,
+              ["La placa, con sus bornes gemelos, está en las cartas 41 y 43; la norma, en la 45.", "Empezad por los bornes que tienen pocas salidas posibles (en una esquina o contra un borde) y seguid desde ahí.", f"La placa por filas: {_S_CAB}."],
+              SIN_GENTE + "Una placa de bornes de colores en una pared técnica, con cables de colores sin conectar colgando de ella."),
+    "41": pieza("41", "cableado", "Media lámina de la placa de bornes.", ["Es la mitad de una placa: juntadla con la carta 43.", "Cada color y número aparece dos veces en toda la placa.", f"La placa por filas: {_S_CAB}."]),
+    "43": pieza("43", "cableado", "Media lámina de la placa de bornes.", ["Es la mitad de una placa: juntadla con la carta 41.", "Cada color y número aparece dos veces en toda la placa.", f"La placa por filas: {_S_CAB}."]),
+    "45": gris("45", "La norma de los cables", "Lo que dice el manual de la cúpula sobre la placa.",
+               ["Sirve para la placa de bornes (carta 40).", "Ningún cable comparte casilla con otro y no queda ninguna vacía.", f"La placa por filas: {_S_CAB}."], codigo("la norma de los cables")),
+    "30": escena("30", "La energía vuelve", [38], [31, 40, 41, 43, 45],
+                 "La placa se enciende y las luces del pasillo vuelven con un zumbido. Una de las lámparas del techo cae: es un soldador de mano, con la batería agotada. Servirá para soldar el núcleo cuando lo encontréis.",
+                 ["Al soldador le falta energía: buscad una batería."],
+                 "Un pasillo de una colonia marciana que se ilumina de golpe, con luces blancas parpadeantes; un soldador de mano cae de un soporte del techo. Alberto lo caza al vuelo con cara de susto y Cristina aplaude con una sonrisa de alivio."),
+    "38": combinable("38", "Soldador sin batería", "roja", 56, 94, "Un soldador de mano con el compartimento de la batería vacío.",
+                     SIN_GENTE + "Un soldador de mano con una punta de cobre y el compartimento de la batería abierto y vacío, sobre una mesa de trabajo metálica."),
+    # ------------------------------------------------------------------ Rama 2: el exterior
+    "32": escena("32", "La esclusa exterior", [42, 48, 49, 53], [],
+                 "La esclusa se abre y salís a la superficie bajo un cielo anaranjado. A lo lejos se ve el anexo, pero entre él y vosotros hay un campo de rocas ocultas por la arena: el radar del traje solo sabe decir cuántas hay cerca de cada casilla despejada. El mapa del radar son dos láminas.",
+                 ["El radar son dos cartas: juntadlas."],
+                 "La superficie de Marte bajo un cielo anaranjado, con la cúpula de la colonia detrás y, a lo lejos, una pequeña construcción (el anexo); en primer plano, un campo de arena con rocas medio enterradas. Alberto mira el radar de la muñeca con los ojos entornados y Cristina, a su lado, tantea el suelo con una pierna estirada y cara de cautela."),
+    "48": app("48", "El campo de rocas", "Es un juego de la app: marcar las rocas escondidas en el campo, con los números del radar.", 36,
+              ["El radar, partido en dos láminas, son las cartas 42 y 49; el aviso del radar, la carta 53.", "Un número cuenta las rocas de las ocho casillas de alrededor; una casilla con número nunca tiene roca. Empezad por los números más bajos o los más altos.", f"Las rocas están en: {_S_ROC}."],
+              SIN_GENTE + "Un campo de arena rojiza visto desde arriba, dividido en casillas, con unas pocas rocas sobresaliendo del polvo."),
+    "42": pieza("42", "rocas", "Media lámina del radar del campo de rocas.", ["Es la mitad de un radar: juntadla con la carta 49.", "Las casillas con número están despejadas; las grises son las desconocidas.", f"Las rocas están en: {_S_ROC}."]),
+    "49": pieza("49", "rocas", "Media lámina del radar del campo de rocas.", ["Es la mitad de un radar: juntadla con la carta 42.", "Las casillas con número están despejadas; las grises son las desconocidas.", f"Las rocas están en: {_S_ROC}."]),
+    "53": gris("53", "El aviso del radar", "El mensaje automático del radar del traje.",
+               ["Sirve para el campo de rocas (carta 48).", "Dice qué cuentan los números y cuántas rocas hay en total.", f"Las rocas están en: {_S_ROC}."], codigo("el aviso del radar")),
+    "36": escena("36", "El anexo", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "El rover os espera en la puerta del anexo, un edificio bajo con una antena de brazo largo en el techo. La antena está torcida por la tormenta: hay que equilibrar su brazo con pesos de repuesto para que apunte bien a la Tierra. En el garaje, una caja de herramientas con piezas.",
+                 ["El brazo de la antena son varias cartas."],
+                 "El anexo de una colonia marciana, un edificio bajo con una antena de brazo largo en el techo, ligeramente inclinada; un pequeño rover aparcado en la puerta. Cristina señala la antena con el brazo estirado y la cabeza hacia atrás, y Alberto abre una caja de herramientas y saca una pesa con cara de esfuerzo."),
+    "52": app("52", "El brazo de la antena", "Es un juego de la app: colgar tres pesos de repuesto del brazo de la antena para que quede en equilibrio.", 44,
+              ["El brazo, con lo que ya cuelga, es la carta 54; lo que pesa cada pieza de repuesto, la 55; la norma, la 59.", "Calculad cuánto empuja cada lado: peso por distancia al eje. Lo que falta para igualar lo tienen que aportar las tres piezas.", f"Las piezas: {_S_BRA}."],
+              SIN_GENTE + "Una antena de comunicaciones con un largo brazo horizontal sobre un eje central, con unos pesos colgados en distintos puntos."),
+    "54": gris("54", "El brazo de la antena", "El brazo de la antena, con los pesos que ya cuelgan.",
+               ["Sirve para el brazo (carta 52).", "Cada marca está a una distancia del eje, a un lado o al otro.", f"Las piezas: {_S_BRA}."], codigo("el brazo de la antena")),
+    "55": gris("55", "Los pesos de repuesto", "Las tres piezas de repuesto de la caja de herramientas, con lo que pesa cada una.",
+               ["Sirve para el brazo (carta 52).", "La forma de cada pieza es la que veréis en la app.", f"Las piezas: {_S_BRA}."], codigo("los pesos de repuesto")),
+    "59": gris("59", "La norma del brazo", "Lo que dice el manual de la antena sobre su equilibrio.",
+               ["Sirve para el brazo (carta 52).", "Cada peso empuja su lado tanto como pesa por lo lejos que está del eje.", f"Las piezas: {_S_BRA}."], codigo("la norma del brazo")),
+    # ------------------------------------------------------------------ La sala de control
+    "44": escena("44", "La sala de control", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "La antena apunta bien y una puerta se abre en el anexo: es la sala de control de la doctora Reyes, llena de pantallas. Tiene dos pantallas con trabajo para vosotros: el ordenador de a bordo está calculando la trayectoria del cohete de rescate y necesita una cuenta que no sale, y el esquema del reactor tiene el circuito borrado. La doctora no está, pero su nota os servirá.",
+                 ["Hay dos puzles: la cuenta de cifras y el circuito del reactor. La nota de la doctora sirve aquí."],
+                 "Una sala de control de una colonia marciana, con pantallas verdes y naranjas, teclados y un gran esquema en la pared. Cristina escribe en un teclado con los ojos muy concentrados y la lengua entre los dientes, y Alberto se rasca la barba frente al esquema, perplejo."),
+    "46": app("46", "La cuenta de cifras", "Es un juego de la app: llegar al objetivo de la trayectoria con las piezas del ordenador y las cuatro operaciones.", 56,
+              ["Las piezas están en la carta 37, el objetivo en la 39 y la norma en la 33.", "Probad a juntar primero dos piezas pequeñas y pensad qué producto o suma os acerca al objetivo. Cada resultado vale como pieza nueva.", f"Una cuenta que vale: {_S_CUE}."],
+              SIN_GENTE + "La pantalla de un ordenador de a bordo con seis fichas numeradas y una cifra grande de objetivo en el centro, en una sala de control."),
+    "37": gris("37", "Las piezas de la cuenta", "Las seis piezas del ordenador de a bordo.",
+               ["Sirve para la cuenta (carta 46).", "Cada pieza se usa una vez como mucho.", f"Una cuenta que vale: {_S_CUE}."], codigo("las piezas de la cuenta")),
+    "39": gris("39", "El objetivo", "El número que pide el ordenador para la trayectoria.",
+               ["Sirve para la cuenta (carta 46).", "Es el resultado al que hay que llegar.", f"Una cuenta que vale: {_S_CUE}."], codigo("el objetivo de la cuenta")),
+    "33": gris("33", "La norma de la cuenta", "Lo que dice el ordenador sobre las operaciones.",
+               ["Sirve para la cuenta (carta 46).", "Todos los resultados son enteros y mayores que cero.", f"Una cuenta que vale: {_S_CUE}."], codigo("la norma de la cuenta")),
+    "56": combinable("56", "Batería de la cúpula", "roja", 38, 94, "Una batería de la cúpula, todavía cargada, que el ordenador libera al calcular la trayectoria.",
+                     SIN_GENTE + "Una batería grande de color gris con detalles naranjas y dos bornes brillantes, sobre una bandeja de una sala de control."),
+    "51": app("51", "El circuito del reactor", "Es un juego de la app: trazar un solo bucle cerrado que respete los números del esquema del reactor.", 58,
+              ["El esquema, partido en dos láminas, son las cartas 61 y 63; la nota de la doctora, la carta 26.", "Un número dice por cuántos lados de su casilla pasa el anillo. Empezad por los ceros y por las casillas con el 3 o por otras con números altos.", f"El anillo pasa por los puntos: {_S_ANI}."],
+              SIN_GENTE + "El esquema de un reactor de fusión dibujado como una rejilla de puntos con un cable naranja formando un bucle cerrado, en una pantalla."),
+    "61": pieza("61", "reactor", "Media lámina del esquema del reactor.", ["Es la mitad de un esquema: juntadla con la carta 63.", "Los números están en las casillas, entre los puntos.", f"El anillo pasa por los puntos: {_S_ANI}."]),
+    "63": pieza("63", "reactor", "Media lámina del esquema del reactor.", ["Es la mitad de un esquema: juntadla con la carta 61.", "Los números están en las casillas, entre los puntos.", f"El anillo pasa por los puntos: {_S_ANI}."]),
+    "58": escena("58", "El acceso al reactor", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "El circuito se enciende y la puerta blindada del reactor se abre un palmo. El pasillo que lleva a la sala del reactor está lleno de escombros y de radiación: no podéis pasar vosotros, pero el rover pequeño sí. Hay que programarlo.",
+                 ["El rover se programa con comandos."],
+                 "Una puerta blindada de un reactor de una colonia marciana, entreabierta, con un pasillo oscuro tras ella lleno de escombros; un pequeño rover con ruedas espera a los pies de los personajes. Alberto acaricia la carcasa del rover con una sonrisa y Cristina mira el pasillo con gesto preocupado."),
+    "69": app("69", "El programa del rover", "Es un juego de la app: programar el rover con comandos y bucles para que llegue a la bandera del fondo del pasillo.", 80,
+              ["El terreno del pasillo es la carta 70; los comandos y el límite de bloques, la 71.", "El camino sube en escalera. Si se repite un mismo trozo, un bucle ahorra muchos bloques.", f"Un programa que vale: {_S_PRO}."],
+              SIN_GENTE + "Un pequeño rover de ruedas con una antena en un pasillo de una colonia marciana, y una bandera roja al fondo."),
+    "70": gris("70", "El terreno del rover", "El pasillo visto desde el dron: muros, camino, el rover y la bandera.",
+               ["Sirve para el programa (carta 69).", "El rover sale mirando hacia la derecha.", f"Un programa que vale: {_S_PRO}."], codigo("el terreno del rover")),
+    "71": gris("71", "Los comandos del rover", "Los comandos del rover y el límite de bloques.",
+               ["Sirve para el programa (carta 69).", "El bloque de «repetir» cuenta como uno y cada comando de dentro, también.", f"Un programa que vale: {_S_PRO}."], codigo("los comandos del rover")),
+    "80": escena("80", "El archivo de la colonia", [72, 75, 79], [58, 69, 70, 71],
+                 "El rover llega al fondo del pasillo y abre desde dentro un panel con un archivo de la colonia: la base de datos con los planes del cohete de rescate. Está protegida con una clave que la doctora Reyes pensó que solo recordarían los que miraran con atención la sopa de letras que dejó.",
+                 ["La base de datos son dos cartas."],
+                 "Una pequeña sala de archivo de una colonia marciana con una pantalla encendida y un rover de ruedas con un cable conectado a un panel. Cristina mira la pantalla con una sonrisa de asombro y los ojos muy abiertos, y Alberto agita los brazos, eufórico, al ver llegar al rover sano y salvo."),
+    "72": app("72", "La base de datos", "Es un juego de la app: la clave de acceso es la palabra que forman las letras sobrantes de la sopa de letras.", 82,
+              ["La sopa y la lista de palabras, en las cartas 75 y 79 (dos mitades).", "Tachad en la sopa todas las palabras de la lista: las letras que quedan, leídas en orden de lectura, forman la clave.", f"La clave es {_S_SOP}."],
+              SIN_GENTE + "Una pantalla de un ordenador de colonia con una sopa de letras y un campo vacío para escribir una clave de acceso."),
+    "75": pieza("75", "sopa", "Media lámina de la base de datos de la colonia.", ["Es la mitad de una lámina: juntadla con la carta 79.", "Las palabras de la lista están en la rejilla, en cualquier dirección.", f"La clave es {_S_SOP}."]),
+    "79": pieza("79", "sopa", "Media lámina de la base de datos de la colonia.", ["Es la mitad de una lámina: juntadla con la carta 75.", "Las palabras de la lista están en la rejilla, en cualquier dirección.", f"La clave es {_S_SOP}."]),
+    "82": escena("82", "El control de lanzamiento", [85, 86, 87], [80, 72, 75, 79],
+                 "Los archivos se abren y entre ellos hay un pequeño aparato de latón y cristal, idéntico al vuestro: la doctora Reyes lo guardó sin saber de dónde venía. Os da una idea: sus comandos de lanzamiento, que conectan con el Cronoportal, piden una clave de cuatro cifras. Y la doctora ha dejado dos acertijos.",
+                 ["La consola es el último puzle."],
+                 "Una sala de control de lanzamiento de una colonia marciana con una gran consola de botones y pantallas, y sobre ella un aparato de latón y cristal. Cristina lo sostiene en alto con los ojos como platos y Alberto se tapa la boca con la mano, boquiabierto, mirando de él al suyo."),
+    "85": app("85", "La consola de lanzamiento", "Es un juego de la app: la clave de lanzamiento son cuatro cifras, los datos de la misión de otros puzles, en el orden de los acertijos.", 99,
+              ["Los acertijos están en las cartas 86 y 87; cada puzle que habéis resuelto mostró un «dato de la misión» en su mensaje.", "Cada acertijo describe un puzle por lo que hacía: lo que une con cobre, lo que da vueltas sobre nuestras cabezas, lo que se equilibra con pesos, lo que crece o se seca.", f"La clave: {_S_COD}."],
+              SIN_GENTE + "La consola de lanzamiento de una colonia marciana: un panel con cuatro ruedas numeradas y un gran botón rojo, bajo una luz naranja."),
+    "86": gris("86", "Primera parte de la clave", "Los dos primeros datos de la clave, en un acertijo de la doctora Reyes.",
+               ["Sirve para la consola (carta 85).", "Dos puzles: el que unía bornes con cobre y el que miraba pasar satélites.", f"La clave: {_S_COD}."], codigo("los dos primeros datos")),
+    "87": gris("87", "Segunda parte de la clave", "Los dos últimos datos de la clave, en otro acertijo de la doctora Reyes.",
+               ["Sirve para la consola (carta 85).", "Dos puzles: el que se equilibraba con pesos y el que crecía o se secaba.", f"La clave: {_S_COD}."], codigo("los dos últimos datos")),
+    # ------------------------------------------------------------------ El reactor y el final
+    "94": escena("94", "La sala del reactor", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Con el soldador cargado, los dos entráis por fin en la sala del reactor: un círculo de metal con el núcleo de fusión en el centro, rodeado de paneles de refrigeración apagados. Si no se enfrían, el núcleo no se deja tocar. El patrón de los paneles está dibujado en una pantalla.",
+                 ["El patrón son dos cartas: juntadlas."],
+                 "La sala circular de un reactor de fusión en una colonia marciana, con un núcleo brillante en el centro y paneles de refrigeración en las paredes, iluminada por luz azul. Cristina sostiene el soldador con ambas manos, con gesto cauteloso, y Alberto observa los paneles con la cabeza ladeada y los labios apretados."),
+    "64": app("64", "Los paneles de refrigeración", "Es un juego de la app: encender el patrón de la pantalla; cada panel que se toca cambia él y sus cuatro vecinos en cruz.", 62,
+              ["El patrón, con la regla, es el de las cartas 66 y 67.", "Se empieza con todos apagados. Un mismo panel tocado dos veces es como no tocarlo; el orden de los toques da igual.", f"Podéis tocar: {_S_PAN}."],
+              SIN_GENTE + "Una pared de la sala de un reactor con una cuadrícula de paneles cuadrados de refrigeración, algunos apagados y otros con luz cian."),
+    "66": pieza("66", "paneles", "Media lámina de los paneles de refrigeración.", ["Es la mitad de una lámina: juntadla con la carta 67.", "Los paneles encendidos son los círculos luminosos.", f"Podéis tocar: {_S_PAN}."]),
+    "67": pieza("67", "paneles", "Media lámina de los paneles de refrigeración.", ["Es la mitad de una lámina: juntadla con la carta 66.", "Los paneles encendidos son los círculos luminosos.", f"Podéis tocar: {_S_PAN}."]),
+    "62": combinable("62", "Núcleo de fusión", "roja", 12, 74, "El núcleo de fusión del reactor, soldado y frío, del tamaño de un puño, con una luz cian en su interior.",
+                     SIN_GENTE + "Una esfera de metal y cristal del tamaño de un puño con una luz cian palpitando en su interior, sostenida sobre una palma con guante blanco, en una sala de reactor."),
+    "74": escena("74", "Cronoportal cargado", [], [62, 12, 64, 66, 67, 94, 57],
+                 "El núcleo encaja en el pecho del Cronoportal y el aparato se llena de luz cian... pero el salto pide una clave de lanzamiento. Hay que despertarlo desde la consola.",
+                 ["Falta la clave de lanzamiento."],
+                 "El Cronoportal con el núcleo de fusión encajado en el pecho, brillando con luz cian, en una sala de control marciana. Alberto ajusta los diales con la lengua entre los dientes y Cristina lleva una tomatera bajo el brazo con una sonrisa de alivio."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87],
+                 "La clave es correcta y el Cronoportal se enciende. Se abre un portal de luz azul y saltáis justo cuando el soporte vital termina de reactivarse en toda la cúpula. Aterrizáis en vuestro salón. Cristina deja una tomatera sobre la mesa: «¡Me la he traído!». Alberto, riendo: «Mañana, otro destino». FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven el hangar de la colonia marciana y el polvo rojizo. Llevan aún los monos técnicos de colonos marcianos y Cristina deja una pequeña tomatera sobre la mesa del salón. Cristina ríe a carcajadas, orgullosa; Alberto ríe con la cabeza echada hacia atrás, aliviado. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(juego="Marte, 2157 — Cúpula Aurora", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO)
+META = dict(juego="Marte, 2157 — Cúpula Aurora", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"44": ["21", "25"], "66": ["52"], "40": ["17", "23"], "41": ["66", "28", "40"], "79": ["48", "57"], "54": ["62", "59"], "70": ["16", "54"], "99": ["88", "35", "36", "51"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada al hangar. Te manda coger la 10 y la 16.",
-    "16": "El Cronoportal sin energía: se combina con el núcleo de fusión (54).",
-    "10": "El hangar: reparte las cartas del hangar y te quita la P.",
-    "21": "Terminal de seguridad (app): código de 4 cifras tipo Mastermind.",
-    "25": "Nota adhesiva: el código no lleva 2 ni 5.",
-    "17": "Traje sin casco: se combina con el casco (23).",
-    "23": "Casco: se combina con el traje (17).",
-    "40": "Traje completo: resultado de 17 + 23; hace falta para la esclusa.",
-    "35": "Diario de la doctora Reyes (app, solo lectura): amplitud 3 del calibrador.",
-    "36": "Tomatera: «Cada rama: 5 hojas» = frecuencia 5 del calibrador.",
-    "44": "Pasillo de la cúpula: aparece al abrir la terminal.",
-    "52": "Panel de oxígeno (app): girar tuberías de la entrada a la salida.",
-    "28": "Plano: el código de la esclusa es 173.",
-    "66": "Esclusa del reactor (app): 173 en binario con 8 interruptores.",
-    "41": "Superficie de Marte: aparece al abrir la esclusa.",
-    "48": "Rover (app): programar una ruta de A5 hasta la baliza.",
-    "57": "Baliza: las coordenadas del anexo del reactor (columna F, fila 2).",
-    "79": "Sala del reactor: aparece al llegar con el rover.",
-    "62": "Panel de energía (app): sistemas que sumen 15 MW con el escudo activo.",
-    "59": "Protocolo del reactor: capacidad 15 MW y escudo siempre activo.",
-    "51": "Esquema del Cronoportal: fase de calibración 2.",
-    "54": "Núcleo de fusión: se combina con el Cronoportal (16).",
-    "70": "Cronoportal cargado: resultado de 16 + 54.",
-    "88": "Calibrador (app): amplitud 3, frecuencia 5 y fase 2.",
-    "99": "Final de la aventura.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-PASOS = [
-    dict(t="Llegada al hangar", que="Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 16.",
-         acciones=[("leer", "P")], mesa=["P", "10", "16"]),
-    dict(t="El hangar", que="Lee la carta 10. Descarta la P y coge 21, 25, 17, 23, 35 y 36. La nota (25) dice que el código no lleva el 2 ni el 5 y la tomatera (36), «Cada rama: 5 hojas».",
-         acciones=[("leer", "10")], mesa=["10", "16", "21", "25", "17", "23", "35", "36"]),
-    dict(t="Lee el diario en la app", que="En el móvil: Acción, 35. Pasa las 4 páginas: ahí está la amplitud de calibración. No hay nada que resolver y no pausa el tiempo.",
-         acciones=[("app", "35", "lector")], mesa=["10", "16", "21", "25", "17", "23", "35", "36"]),
-    dict(t="Hackea la terminal", que="En el móvil: Acción, 21. Con la pista de la nota (el código no lleva 2 ni 5, así que solo usa 1, 3, 4 y 6, sin repetir) prueba códigos y fíjate en ● y ○. El código es 4 1 6 3. El mensaje te dice que cojas la 44.",
-         acciones=[("app", "21", "carta 44")], mesa=["10", "16", "21", "25", "17", "23", "35", "36", "44"]),
-    dict(t="El pasillo", que="Lee la carta 44. Descarta 10, 21 y 25 y coge 52 y 28. El plano (28) dice que el código de la esclusa es 173.",
-         acciones=[("leer", "44")], mesa=["16", "17", "23", "35", "36", "44", "52", "28"]),
-    dict(t="Restaura el oxígeno", que="En el móvil: Acción, 52. Gira las tuberías hasta que el oxígeno llegue de la entrada (izquierda) a la salida (derecha). El mensaje te dice que cojas la 66.",
-         acciones=[("app", "52", "carta 66")], mesa=["16", "17", "23", "35", "36", "44", "52", "28", "66"]),
-    dict(t="Combina el traje", que="El traje sin casco (17) y el casco (23) son combinables: 17 + 23 = 40. Coge la 40 y léela: te manda descartar 17 y 23.",
-         acciones=[("combinar", "17", "23"), ("leer", "40")], mesa=["16", "35", "36", "44", "52", "28", "66", "40"]),
-    dict(t="Abre la esclusa", que="En el móvil: Acción, 66. El plano dice 173; en binario con 8 interruptores es 128 + 32 + 8 + 4 + 1 (10101101). Con el traje puesto, el mensaje te dice que cojas la 41.",
-         acciones=[("app", "66", "carta 41")], mesa=["16", "35", "36", "44", "52", "28", "66", "40", "41"]),
-    dict(t="La superficie de Marte", que="Lee la carta 41. Descarta 44, 52, 66, 28 y 40 y coge 48 (rover) y 57 (baliza). La baliza dice: columna F, fila 2.",
-         acciones=[("leer", "41")], mesa=["16", "35", "36", "41", "48", "57"]),
-    dict(t="Conduce el rover", que="En el móvil: Acción, 48. Programa la ruta de A5 a F2 esquivando las rocas (por ejemplo ↑ ↑ → → ↑ ↑ → → ↓ →) y pulsa Ejecutar. El mensaje te dice que cojas la 79.",
-         acciones=[("app", "48", "carta 79")], mesa=["16", "35", "36", "41", "48", "57", "79"]),
-    dict(t="La sala del reactor", que="Lee la carta 79. Descarta 41, 48 y 57 y coge 62 (panel), 59 (protocolo) y 51 (esquema). El protocolo dice: capacidad 15 MW y el escudo siempre activo; el esquema, fase 2.",
-         acciones=[("leer", "79")], mesa=["16", "35", "36", "79", "62", "59", "51"]),
-    dict(t="Arranca el reactor", que="En el móvil: Acción, 62. Activa sistemas que sumen justo 15 MW con el escudo encendido: Escudo (8) + Radio (4) + Luz (3). El mensaje te dice que cojas la 54.",
-         acciones=[("app", "62", "carta 54")], mesa=["16", "35", "36", "79", "62", "59", "51", "54"]),
-    dict(t="Carga el Cronoportal", que="El Cronoportal (16) y el núcleo de fusión (54) son combinables: 16 + 54 = 70. Coge la 70 y léela: te manda descartar 16, 54, 79, 62 y 59 y coger la 88.",
-         acciones=[("combinar", "16", "54"), ("leer", "70")], mesa=["35", "36", "51", "70", "88"]),
-    dict(t="Calibra el Cronoportal", que="En el móvil: Acción, 88. El diario dice amplitud 3, la tomatera (5 hojas por rama) frecuencia 5 y el esquema fase 2. Pulsa Calibrar. El mensaje te dice que cojas la 99.",
-         acciones=[("app", "88", "carta 99")], mesa=["35", "36", "51", "70", "88", "99"]),
-    dict(t="Final", que="Lee la carta 99. Descarta 70, 88, 35, 36 y 51. En la mesa solo queda la 99. ¡Fin!",
-         acciones=[("leer", "99")], mesa=["99"]),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "El hangar", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el invernadero: 19 arriba y 21 abajo."),
+    ("app", "14", "La ventana de comunicaciones", f"En el móvil: Acción, 14. Los pasos de los satélites (16): coinciden los tres {_S_SAT}. El mensaje te dice que cojas la 24. Anota el dato de la misión: 3.", "carta 24"),
+    ("leer", "24", "La voz de la doctora", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para el reactor)."),
+    ("app", "20", "El invernadero", f"En el móvil: Acción, 20. Con las reglas (18) y el invernadero de hoy (19 y 21): mañana estarán vivas {_S_VIDA}. El mensaje te dice que cojas la 28. Anota el dato de la misión: 8.", "carta 28"),
+    ("leer", "28", "El módulo del invernadero", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
+    ("combinar", "22", "35", "El traje", "El traje (22) y el casco (35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "El traje completo", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "La sala de cableado", "Lee la carta 31. Coge 40, 41, 43 y 45. Junta la placa: 41 a la izquierda y 43 a la derecha."),
+    ("app", "40", "La placa de bornes", f"En el móvil: Acción, 40. Cables que unen sus bornes sin cruzarse (41, 43 y 45): {_S_CAB}. El mensaje te dice que cojas la 30. Anota el dato de la misión: 5.", "carta 30"),
+    ("leer", "30", "La energía vuelve", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "La esclusa exterior", "Lee la carta 32. Coge 42, 48, 49 y 53. Junta el radar: 42 a la izquierda y 49 a la derecha."),
+    ("app", "48", "El campo de rocas", f"En el móvil: Acción, 48. Con los números del radar (42, 49 y 53): rocas en {_S_ROC}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "El anexo", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59."),
+    ("app", "52", "El brazo de la antena", f"En el móvil: Acción, 52. Con el brazo (54), las piezas (55) y la norma (59): {_S_BRA}. El mensaje te dice que cojas la 44. Anota el dato de la misión: 2.", "carta 44"),
+    ("leer", "44", "La sala de control", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el esquema: 61 a la izquierda y 63 a la derecha."),
+    ("app", "46", "La cuenta de cifras", f"En el móvil: Acción, 46. Con las piezas (37), el objetivo (39) y la norma (33): {_S_CUE}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "El circuito del reactor", f"En el móvil: Acción, 51. Con el esquema (61 y 63) y la nota (26): el anillo pasa por {_S_ANI}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "El acceso al reactor", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "El programa del rover", f"En el móvil: Acción, 69. Con el terreno (70) y los comandos (71): {_S_PRO}. El mensaje te dice que cojas la 80.", "carta 80"),
+    ("leer", "80", "El archivo de la colonia", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79. Junta la sopa: 75 a la izquierda y 79 a la derecha."),
+    ("app", "72", "La base de datos", f"En el móvil: Acción, 72. Las letras que no pertenecen a ninguna palabra de la lista (75 y 79) forman {_S_SOP}. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "El control de lanzamiento", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "El soldador", "El soldador (38) y la batería (56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "La sala del reactor", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el patrón: 66 arriba y 67 abajo."),
+    ("app", "64", "Los paneles", f"En el móvil: Acción, 64. Con el patrón (66 y 67), tocando {_S_PAN}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "El núcleo", "El Cronoportal (12) y el núcleo de fusión (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal cargado", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "La consola", f"En el móvil: Acción, 85. Con los acertijos (86 y 87) y los datos de la misión de los puzles: {_S_COD}. El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!"),
 ]
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.recalcular_mesas(PASOS, J)

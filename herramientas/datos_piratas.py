@@ -363,3 +363,73 @@ def _pasos():
 
 
 PASOS = _pasos()
+
+
+# ================================================================== ampliación a 36 cartas (20 oct 2026)
+# Entre la persecución y el desembarco: la marea entre los arrecifes. El diario de la capitana dice cuándo pasar en campanadas de una
+# guardia; dos cartas explican las guardias y las campanadas, y la app es el reloj de bitácora. Láminas: dibujos_ampliacion.py.
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+import ampliacion as _amp  # noqa: E402
+
+_AMP = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+_HORA = "{:02d}:{:02d}".format(*_AMP["piratas_campanas"]["hora"])
+
+
+def _pieza2(que):
+    return f"Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): {que}."
+
+
+J["48"]["descripcion"][1] = J["48"]["descripcion"][1].replace("Coged la carta 58", "Coged la carta 59")
+J.update({
+    "59": dict(
+        titulo="Carta 59 — Al pairo frente a la isla", tipo="gris", coge=[61, 63, 65, 67],
+        descripcion=[
+            "La Gaviota sale de la niebla frente a la Isla Calavera, pero un cinturón de arrecifes rodea la playa. La capitana Bruma busca en su diario (carta 67): solo se puede pasar con la marea justa, y ella lo apuntó a la manera de los marinos, en campanadas. Hay que poner en hora el reloj de bitácora (carta 61) con el cuadro de guardias (carta 63) y el de campanadas (carta 65).",
+            "Coged las cartas 61, 63, 65 y 67."],
+        pistas=["Hay un puzle: el reloj de bitácora, el diario y dos cuadros.", "El diario (67) dice la guardia y las campanadas; las cartas 63 y 65 explican cómo se cuentan.", "Coged las cartas 61, 63, 65 y 67."],
+        arte="Un barco pirata al pairo al atardecer frente a una isla con palmeras rodeada de arrecifes con espuma, con una campana de bronce colgada junto al timón. Cristina mira las rocas por encima de la borda con cara de preocupación y Alberto sostiene un diario abierto, rascándose la cabeza confundido."),
+    "61": dict(
+        titulo="Carta 61 — El reloj de bitácora", tipo="verde",
+        descripcion=[
+            "Es un juego de la app: el reloj de bitácora de La Gaviota, que se adelanta o se atrasa de media en media hora. Hay que ponerlo a la hora que apuntó la capitana en su diario (carta 67), convirtiendo la guardia y las campanadas con los cuadros de las cartas 63 y 65.",
+            "Al acertar, la marea abre el paso entre los arrecifes. Coged la carta 58."],
+        pistas=["Hacen falta el diario (67), las guardias (63) y las campanadas (65).", "La guardia de la tarde empieza a las 12; cada campanada es media hora desde que empezó la guardia.", f"Poned el reloj a las {_HORA}."],
+        arte="Un reloj de bitácora de latón con esfera de veinticuatro horas, montado junto a la rueda del timón de un barco pirata, con la luz dorada del atardecer. Alberto gira la corona del reloj con cuidado, sacando la lengua, y Cristina cuenta campanadas con los dedos, muy seria."),
+    "63": dict(titulo="Carta 63 — Las guardias", tipo="gris",
+               descripcion=["El cuadro de las seis guardias de a bordo: cómo se reparte el día en turnos de cuatro horas y a qué hora empieza cada uno."],
+               pistas=["Sirve para el reloj de bitácora (carta 61).", "Buscad la guardia que dice el diario (carta 67) y mirad a qué hora empieza.", f"La hora es las {_HORA}."],
+               arte=_pieza2("el cuadro de las guardias")),
+    "65": dict(titulo="Carta 65 — Las campanadas", tipo="gris",
+               descripcion=["El cuadro de las campanadas: cada media hora de guardia suena una campanada más, de una a ocho."],
+               pistas=["Sirve para el reloj de bitácora (carta 61).", "Contad las campanas del diario (carta 67): cada una es media hora desde el principio de la guardia.", f"La hora es las {_HORA}."],
+               arte=_pieza2("el cuadro de las campanadas")),
+    "67": dict(titulo="Carta 67 — Diario de la capitana", tipo="gris",
+               descripcion=["Una página del diario de la capitana Bruma: el paso entre los arrecifes se abre en la guardia de la tarde, con las campanadas dibujadas."],
+               pistas=["Sirve para el reloj de bitácora (carta 61).", "El sol dice la guardia; las campanas, cuántas medias horas han pasado desde que empezó.", f"La hora es las {_HORA}."],
+               arte=_pieza2("la página del diario")),
+})
+J["58"]["descarta"] = [48, 52, 57, 59, 61, 63, 65, 67]
+J["58"]["descripcion"][0] = J["58"]["descripcion"][0].replace("La fragata se pierde en la niebla y La Gaviota fondea", "La marea abre el paso y La Gaviota fondea")
+J["58"]["descripcion"][1] = "Coged las cartas 64 y 66. Descartad las cartas 48, 52, 57, 59, 61, 63, 65 y 67."
+J["58"]["pistas"][2] = "Coged las cartas 64 y 66. Descartad las cartas 48, 52, 57, 59, 61, 63, 65 y 67."
+
+SPEC["needs"]["59"] = SPEC["needs"].pop("58")
+SPEC["needs"]["58"] = ["61", "63", "65", "67"]
+PARA_QUE.update({
+    "59": "Al pairo frente a la isla: reparte el reloj, los cuadros y el diario.", "61": "El reloj de bitácora (app): la hora de la marea.",
+    "63": "Cuadro de las guardias.", "65": "Cuadro de las campanadas.", "67": "Diario de la capitana: guardia y campanadas.",
+    "58": "Desembarco: aparece al pasar los arrecifes.",
+})
+
+_i = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("app", "48"))
+PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 58", "cojas la 59")
+PASOS[_i]["acciones"] = [("app", "48", "carta 59")]
+PASOS[_i + 1:_i + 1] = [
+    dict(t="Al pairo frente a la isla", que="Lee la carta 59. Coge 61, 63, 65 y 67.", acciones=[("leer", "59")]),
+    dict(t="El reloj de bitácora", que=f"En el móvil: Acción, 61. La guardia de la tarde empieza a las 12 y cada campanada es media hora: pon el reloj a las {_HORA}. El mensaje te dice que cojas la 58.",
+         acciones=[("app", "61", "carta 58")]),
+]
+_j = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("leer", "58"))
+PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 48, 52 y 57", "Descarta 48, 52, 57, 59, 61, 63, 65 y 67")
+_amp.recalcular_mesas(PASOS, J)

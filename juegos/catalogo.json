@@ -4,24 +4,24 @@
     "nombre": "El Faro de Cabo Niebla",
     "ruta": "juegos/el-faro/",
     "dificultad": 2,
-    "minutos": 60,
-    "cartas": 24
+    "minutos": 75,
+    "cartas": 36
   },
   {
     "id": "egipto",
     "nombre": "Egipto, 1274 a.C.: El Ojo de Horus",
     "ruta": "juegos/aventuras-ca/egipto/",
-    "dificultad": 3,
-    "minutos": 60,
-    "cartas": 27
+    "dificultad": 4,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "marte",
     "nombre": "Marte, 2157: Cúpula Aurora",
     "ruta": "juegos/aventuras-ca/marte/",
-    "dificultad": 3,
-    "minutos": 60,
-    "cartas": 25
+    "dificultad": 4,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "florencia",
@@ -29,23 +29,23 @@
     "ruta": "juegos/aventuras-ca/florencia/",
     "dificultad": 4,
     "minutos": 60,
-    "cartas": 30
+    "cartas": 36
   },
   {
     "id": "dinosaurios",
     "nombre": "Cretácico, hace 66 millones de años: El Valle de los Gigantes",
     "ruta": "juegos/aventuras-ca/dinosaurios/",
-    "dificultad": 3,
+    "dificultad": 4,
     "minutos": 90,
-    "cartas": 39
+    "cartas": 61
   },
   {
     "id": "cuento",
     "nombre": "Érase una vez: El Libro de los Finales Felices",
     "ruta": "juegos/aventuras-ca/cuento/",
-    "dificultad": 2,
-    "minutos": 75,
-    "cartas": 39
+    "dificultad": 3,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "trono",
@@ -61,7 +61,7 @@
     "ruta": "juegos/aventuras-ca/pompeya/",
     "dificultad": 3,
     "minutos": 90,
-    "cartas": 44
+    "cartas": 60
   },
   {
     "id": "arcade",
@@ -85,7 +85,7 @@
     "ruta": "juegos/aventuras-ca/espia/",
     "dificultad": 3,
     "minutos": 75,
-    "cartas": 30
+    "cartas": 36
   },
   {
     "id": "futbol",
@@ -101,7 +101,7 @@
     "ruta": "juegos/aventuras-ca/piratas/",
     "dificultad": 3,
     "minutos": 90,
-    "cartas": 31
+    "cartas": 36
   },
   {
     "id": "juguetes",
@@ -109,6 +109,6 @@
     "ruta": "juegos/aventuras-ca/juguetes/",
     "dificultad": 1,
     "minutos": 60,
-    "cartas": 33
+    "cartas": 36
   }
 ]

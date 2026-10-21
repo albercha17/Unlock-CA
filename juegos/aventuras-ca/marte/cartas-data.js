@@ -2,449 +2,1133 @@
 window.JUEGO_LOCAL = {
  "_meta": {
   "juego": "Marte, 2157 — Cúpula Aurora",
-  "estilo": "Ilustración digital de ciencia ficción realista con estética de película, paleta de óxido anaranjado, grises metálicos, destellos de cian y luces de emergencia rojas, formato vertical 2:3. Sin texto, letras ni números en la imagen. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
+  "estilo": "Ilustración digital de ciencia ficción realista con estética de película, paleta de óxido anaranjado, grises metálicos, destellos de cian y luces de emergencia rojas, formato vertical 2:3. Sin texto, letras ni números en la imagen. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).",
   "personajes": {
    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Lleva ropa de colonia marciana: mono técnico ajustado blanco con detalles naranjas, parches de la colonia Aurora, botas de suela gruesa y guantes cortos (el casco solo cuando la escena lo pida).",
    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Lleva ropa de colonia marciana: mono técnico gris oscuro con detalles naranjas, parches de la colonia Aurora, botas de suela gruesa y una mochila de herramientas (el casco solo cuando la escena lo pida)."
   },
   "hoja": "Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. Mantén su parecido real con la foto (cara, pelo, barba, ojos). Cristina: mujer de 26 años, profesora, pelo rubio y rizado, ojos azules, mono técnico ajustado blanco con detalles naranjas y botas de colonia marciana. Alberto: hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones, mono técnico gris oscuro con detalles naranjas, botas de colonia marciana y mochila de herramientas. Estilo: Ilustración digital de ciencia ficción realista con estética de película, paleta de óxido anaranjado, grises metálicos, destellos de cian y luces de emergencia rojas, formato vertical 2:3. Sin texto, letras ni números en la imagen. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
   "foto": "Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). Pídele que mantenga el parecido real, pero con el estilo de ilustración de este juego.",
-  "video": "Crea un vídeo vertical 9:16 de 15 segundos, con estética de película de ciencia ficción realista, colores de óxido anaranjado y destellos cian. Sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Alberto teclea en el aparato y Cristina sonríe. Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul, el salón se deforma y los dos son absorbidos por un túnel de luz. Escena 3 (8-12 s): caen en un hangar oscuro de una colonia en Marte, con luces de emergencia rojas parpadeando y polvo rojizo flotando; por una ventana se ve una tormenta de polvo; el aparato humea y se apaga. Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, levantándose; fundido a negro. Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, alarma lejana y viento marciano, música de ciencia ficción tensa, sin voz de narrador."
+  "video": "Crea un vídeo vertical 9:16 de 15 segundos, con estética de película de ciencia ficción realista, colores de óxido anaranjado y destellos cian. Sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Alberto teclea en el aparato y Cristina sonríe. Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul, el salón se deforma y los dos son absorbidos por un túnel de luz. Escena 3 (8-12 s): caen en un hangar oscuro de una colonia en Marte, con luces de emergencia rojas parpadeando y polvo rojizo flotando; por una ventana se ve una tormenta de polvo; el aparato humea y se apaga. Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, levantándose; fundido a negro. Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, alarma lejana y viento marciano, música de ciencia ficción tensa, sin voz de narrador.",
+  "mosaicos": {
+   "invernadero": {
+    "filas": 2,
+    "cols": 1,
+    "cartas": [
+     "19",
+     "21"
+    ],
+    "titulo": "El invernadero"
+   },
+   "cableado": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "41",
+     "43"
+    ],
+    "titulo": "La placa de bornes"
+   },
+   "rocas": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "42",
+     "49"
+    ],
+    "titulo": "El radar del campo de rocas"
+   },
+   "reactor": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "61",
+     "63"
+    ],
+    "titulo": "El esquema del reactor"
+   },
+   "paneles": {
+    "filas": 2,
+    "cols": 1,
+    "cartas": [
+     "66",
+     "67"
+    ],
+    "titulo": "Los paneles de refrigeración"
+   },
+   "sopa": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "75",
+     "79"
+    ],
+    "titulo": "La base de datos de la colonia"
+   }
+  }
  },
  "P": {
   "titulo": "Carta P — Llegada a la cúpula",
   "tipo": "gris",
   "coge": [
    10,
-   16
+   12
   ],
   "descripcion": [
-   "Segunda parada del Cronoportal: Marte, año 2157. El salto sale mal otra vez y aterrizáis en el hangar de la cúpula Aurora, la primera colonia, a oscuras por una tormenta de polvo. El Cronoportal se queda sin energía.",
-   "Dentro de una hora la tormenta cortará las comunicaciones y el soporte vital se apagará del todo. Hay que recargar el aparato antes.",
-   "Coged las cartas 10 y 16."
+   "Segunda parada del Cronoportal: Marte, año 2157. El salto sale mal otra vez y aterrizáis en el hangar de la cúpula Aurora, la primera colonia, a oscuras por una tormenta de polvo. El aparato se queda sin energía. Dentro de hora y media la tormenta cortará las comunicaciones y el soporte vital se apagará del todo: hay que recargar el Cronoportal antes.",
+   "Coged las cartas 10 y 12."
   ],
   "pistas": [
    "Mirad a vuestro alrededor y revisad el aparato.",
-   "Coged las cartas 10 y 16."
+   "Coged las cartas 10 y 12."
   ],
-  "arte": "Hangar de la colonia Aurora en Marte, oscuro y cubierto de polvo rojizo, con luces de emergencia rojas parpadeando; por una ventana se ve una tormenta de polvo. En el suelo, el Cronoportal humea. Cristina y Alberto, con sus monos de colonia marciana, se levantan desconcertados."
- },
- "16": {
-  "titulo": "Carta 16 — Cronoportal sin energía",
-  "tipo": "azul",
-  "combina": [
-   54,
-   70
-  ],
-  "descripcion": [
-   "El Cronoportal: una consola de latón y cristal con el anillo central apagado y el indicador de batería casi vacío.",
-   "Necesita una fuente de energía enorme. En una colonia, solo hay una: el núcleo de fusión (carta 54).",
-   "Combinad esta carta con el núcleo de fusión: sumad sus números (16 + 54 = 70) y coged la carta 70."
-  ],
-  "pistas": [
-   "Necesita mucha energía.",
-   "Combinad la carta 16 con la carta 54.",
-   "Sumad los números de las dos cartas: 16 + 54 = 70."
-  ],
-  "arte": "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un indicador de batería casi vacío con una luz roja tenue, sobre el suelo metálico de un hangar."
+  "arte": "El hangar de una colonia en Marte, a oscuras, con luces de emergencia rojas parpadeando, polvo rojizo flotando y una ventana por la que se ve una tormenta de polvo. En el suelo, un aparato de latón y cristal (el Cronoportal) humea y se apaga. Cristina y Alberto, con monos técnicos de la colonia Aurora, se levantan del suelo: ella con los ojos como platos y la boca abierta, él con el ceño fruncido y una ceja arqueada de incredulidad."
  },
  "10": {
-  "titulo": "Carta 10 — Hangar de la cúpula",
+  "titulo": "Carta 10 — El hangar de la cúpula",
   "tipo": "gris",
   "coge": [
+   14,
+   16,
+   18,
+   19,
+   20,
    21,
-   25,
-   17,
-   23,
-   35,
-   36
+   22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "El hangar: una terminal de seguridad con la puerta bloqueada (carta 21), notas adhesivas pegadas en un monitor (carta 25), un traje espacial colgado sin casco (carta 17), un casco sobre una caja (carta 23), una tableta con un diario (carta 35) y una tomatera bajo una luz violeta de cultivo (carta 36).",
-   "Coged las cartas 21, 25, 17, 23, 35 y 36. Descartad la carta P."
+   "En la pared del hangar, una pantalla de comunicaciones muestra los pasos de tres satélites y espera que alguien programe la llamada a la Tierra. Al otro lado de un cristal, el módulo del invernadero sigue con sus plantas vivas, y en una taquilla cuelga un traje espacial sin casco.",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
   "pistas": [
-   "Fijaos en todo lo que hay en el hangar.",
-   "Coged las cartas 21, 25, 17, 23, 35 y 36. Descartad la carta P."
+   "Hay dos puzles: la ventana de comunicaciones y el invernadero.",
+   "El invernadero son dos cartas: juntadlas, una encima de otra.",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
-  "arte": "Hangar amplio de la colonia: estantes de herramientas, una terminal de seguridad con pantalla, un traje espacial colgado sin casco, un casco sobre una caja, notas adhesivas en un monitor, una tableta y una pequeña tomatera en una maceta bajo una luz violeta de cultivo. Cristina y Alberto exploran con linternas."
+  "arte": "El hangar de una colonia marciana con una pantalla de comunicaciones en la pared, un cristal que deja ver un invernadero verde y, en una taquilla, un traje espacial sin casco. Cristina examina la pantalla con el dedo apoyado en la barbilla y Alberto pega la nariz al cristal del invernadero con una sonrisa de asombro."
  },
- "21": {
-  "titulo": "Carta 21 — Terminal de seguridad",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: una terminal pide un código de 4 cifras (del 1 al 6, sin repetir). Cada intento indica cuántas cifras están bien colocadas (●) y cuántas existen pero en otro sitio (○).",
-   "La nota adhesiva (carta 25) da una pista sobre el código. Al acertar, se abre la puerta de seguridad. Coged la carta 44."
-  ],
-  "pistas": [
-   "Leed la nota adhesiva (carta 25).",
-   "El código no lleva 2 ni 5: solo usa 1, 3, 4 y 6.",
-   "El código es 4 1 6 3."
-  ],
-  "arte": "Terminal informático empotrado en la pared con pantalla verde de código, teclado numérico y una luz roja de acceso denegado."
- },
- "25": {
-  "titulo": "Carta 25 — Nota adhesiva",
-  "tipo": "gris",
-  "descripcion": [
-   "Una nota adhesiva amarilla pegada al borde de un monitor, con una pista sobre el código de la terminal (carta 21)."
-  ],
-  "pistas": [
-   "Leed lo que pone la nota.",
-   "Os sirve para la terminal de seguridad (carta 21)."
-  ],
-  "textoCarta": [
-   "No lleva el 2",
-   "ni el 5"
-  ],
-  "arte": "Una nota adhesiva amarilla pegada en el borde de un monitor, escrita a mano con garabatos sin texto legible."
- },
- "17": {
-  "titulo": "Carta 17 — Traje sin casco",
+ "12": {
+  "titulo": "Carta 12 — Cronoportal sin energía",
   "tipo": "azul",
   "combina": [
-   23,
-   40
-  ],
-  "descripcion": [
-   "Un traje espacial blanco con parches de la colonia, colgado de una percha. Le falta el casco (carta 23).",
-   "Combinadlos: sumad sus números (17 + 23 = 40) y coged la carta 40."
-  ],
-  "pistas": [
-   "Sin casco no se puede salir.",
-   "Combinad la carta 17 con la carta 23.",
-   "Sumad los números de las dos cartas: 17 + 23 = 40."
-  ],
-  "arte": "Traje espacial blanco con parches de la colonia, colgado de una percha, sin casco, con el cuello abierto."
- },
- "23": {
-  "titulo": "Carta 23 — Casco de astronauta",
-  "tipo": "roja",
-  "combina": [
-   17,
-   40
-  ],
-  "descripcion": [
-   "Un casco con visor dorado reflectante. Es el que le falta al traje (carta 17).",
-   "Combinadlos: sumad sus números (23 + 17 = 40) y coged la carta 40."
-  ],
-  "pistas": [
-   "Hace falta un traje completo.",
-   "Combinad la carta 23 con la carta 17.",
-   "Sumad los números de las dos cartas: 23 + 17 = 40."
-  ],
-  "arte": "Casco de astronauta con visor dorado reflectante, sobre una caja metálica."
- },
- "40": {
-  "titulo": "Carta 40 — Traje completo",
-  "tipo": "gris",
-  "descarta": [
-   17,
-   23
-  ],
-  "descripcion": [
-   "El traje presurizado completo, listo para usar. Sin él no se puede cruzar la esclusa del reactor (carta 66). Descartad las cartas 17 y 23."
-  ],
-  "pistas": [
-   "Ya podéis salir al exterior.",
-   "Hace falta para la esclusa del reactor (carta 66)."
-  ],
-  "arte": "Alberto con un traje espacial completo con casco puesto, en el hangar, con el pulgar levantado; Cristina a su lado con una linterna."
- },
- "44": {
-  "titulo": "Carta 44 — Pasillo de la cúpula",
-  "tipo": "gris",
-  "coge": [
-   52,
-   28
-  ],
-  "descarta": [
-   10,
-   21,
-   25
-  ],
-  "descripcion": [
-   "La puerta de seguridad se abre a un pasillo curvo con ventanas al paisaje marciano. En la pared hay un panel de oxígeno abierto (carta 52) y un plano de la cúpula (carta 28).",
-   "Coged las cartas 52 y 28. Descartad las cartas 10, 21 y 25."
-  ],
-  "pistas": [
-   "Mirad el panel y el plano.",
-   "Coged las cartas 52 y 28. Descartad las cartas 10, 21 y 25."
-  ],
-  "arte": "Pasillo curvo de la colonia con ventanas a un paisaje marciano, tuberías, un panel de tuberías abierto y un plano de la cúpula en la pared, luces tenues. Cristina y Alberto caminan por él."
- },
- "52": {
-  "titulo": "Carta 52 — Panel de oxígeno",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: una red de tuberías con la entrada de oxígeno a la izquierda y la salida a la derecha. Hay que girar las piezas hasta conectarlas.",
-   "Al restaurar el oxígeno se reactiva el soporte vital y se desbloquea la esclusa. Coged la carta 66."
-  ],
-  "pistas": [
-   "Tocad las tuberías para girarlas.",
-   "Empezad por la entrada de la izquierda y seguid el camino pieza a pieza."
-  ],
-  "arte": "Panel de mantenimiento abierto con una red de tuberías transparentes con burbujas, válvulas redondas y un manómetro en rojo."
- },
- "28": {
-  "titulo": "Carta 28 — Plano de la cúpula",
-  "tipo": "gris",
-  "descripcion": [
-   "Un plano técnico azul de la cúpula Aurora con una anotación sobre la esclusa del reactor. El código va en decimal (carta 66)."
-  ],
-  "pistas": [
-   "Leed la anotación de la esclusa.",
-   "Hace falta para la esclusa del reactor (carta 66)."
-  ],
-  "textoCarta": [
-   "Esclusa del reactor:",
-   "código 173"
-  ],
-  "arte": "Plano técnico azul (blueprint) de la cúpula Aurora con salas marcadas, flechas y anotaciones ilegibles."
- },
- "66": {
-  "titulo": "Carta 66 — Esclusa del reactor",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: la esclusa se abre con un código en binario de 8 interruptores. El plano (carta 28) da el número en decimal; hay que traducirlo. Necesitáis el traje completo (carta 40).",
-   "Al abrirla, salís a la superficie de Marte. Coged la carta 41."
-  ],
-  "pistas": [
-   "Cada interruptor vale el doble que el siguiente: 128, 64, 32, 16, 8, 4, 2, 1.",
-   "El código es 173: 128 + 32 + 8 + 4 + 1.",
-   "Activad los interruptores 128, 32, 8, 4 y 1."
-  ],
-  "arte": "Gran puerta esclusa circular de acero con ocho pequeñas luces de código en fila y una rueda de apertura."
- },
- "79": {
-  "titulo": "Carta 79 — Sala del reactor",
-  "tipo": "gris",
-  "coge": [
    62,
-   59,
-   51
+   74
   ],
-  "descarta": [
-   41,
-   48,
+  "descripcion": [
+   "El Cronoportal con el anillo central apagado y el hueco de su núcleo de fusión vacío.",
+   "Combinadla con la carta 62: sumad sus números (12 + 62 = 74) y coged la carta 74."
+  ],
+  "pistas": [
+   "El Cronoportal con el anillo central apagado y el hueco de su núcleo de fusión vacío.",
+   "Se combina con la carta 62.",
+   "12 + 62 = 74."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre el suelo metálico de un hangar con polvo rojizo."
+ },
+ "14": {
+  "titulo": "Carta 14 — La ventana de comunicaciones",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: la antena solo puede llamar a la Tierra cuando los tres satélites pasan a la vez; hay que decir dentro de cuántas horas.",
+   "Al resolverlo, coged la carta 24."
+  ],
+  "pistas": [
+   "Los pasos de cada satélite, dibujados, están en la carta 16.",
+   "Mirad cada satélite por separado: cada cuánto pasa y cuándo pasó la primera vez. Después buscad la primera hora en que coinciden.",
+   "Los tres pasan a la vez dentro de 53 horas."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una antena parabólica en el techo de una cúpula marciana, apuntando a un cielo rojizo con tres puntos de luz."
+ },
+ "16": {
+  "titulo": "Carta 16 — Pasos de los satélites",
+  "tipo": "gris",
+  "descripcion": [
+   "Los pasos de los tres satélites por la antena, hora a hora."
+  ],
+  "pistas": [
+   "Sirve para la ventana de comunicaciones (carta 14).",
+   "Cada satélite pasa cada tantas horas, siempre igual.",
+   "Los tres pasan a la vez dentro de 53 horas."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): los pasos de los satélites."
+ },
+ "18": {
+  "titulo": "Carta 18 — Las reglas del invernadero",
+  "tipo": "gris",
+  "descripcion": [
+   "Las reglas del invernadero, pegadas en la puerta."
+  ],
+  "pistas": [
+   "Sirve para el invernadero (carta 20).",
+   "Cada planta se cuenta con sus ocho vecinas. Aplicad las reglas casilla a casilla.",
+   "Mañana estarán vivas: B1, C1, D1, A2, E2, A3, F3, A4, F4, B6, C6."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): las reglas del invernadero."
+ },
+ "19": {
+  "titulo": "Carta 19 — El invernadero (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del invernadero, tal como está hoy."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 21.",
+   "Las plantas vivas son las que se ven; el resto, suelo vacío.",
+   "Mañana estarán vivas: B1, C1, D1, A2, E2, A3, F3, A4, F4, B6, C6."
+  ],
+  "mosaico": {
+   "id": "invernadero",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad de arriba de «El invernadero»."
+ },
+ "21": {
+  "titulo": "Carta 21 — El invernadero (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del invernadero, tal como está hoy."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 19.",
+   "Las plantas vivas son las que se ven; el resto, suelo vacío.",
+   "Mañana estarán vivas: B1, C1, D1, A2, E2, A3, F3, A4, F4, B6, C6."
+  ],
+  "mosaico": {
+   "id": "invernadero",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad de abajo de «El invernadero»."
+ },
+ "20": {
+  "titulo": "Carta 20 — El invernadero",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: marcar qué plantas estarán vivas mañana, aplicando las reglas del invernadero.",
+   "Al resolverlo, coged la carta 28."
+  ],
+  "pistas": [
+   "Cómo está hoy, en las cartas 19 y 21; las reglas, en la carta 18.",
+   "Contad, para cada casilla, cuántas vecinas vivas tiene (las ocho de alrededor) y aplicad las reglas.",
+   "Mañana estarán vivas: B1, C1, D1, A2, E2, A3, F3, A4, F4, B6, C6."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un invernadero de una colonia marciana con bancales cuadrados de tierra roja y plantas verdes, bajo luces moradas."
+ },
+ "22": {
+  "titulo": "Carta 22 — Traje sin casco",
+  "tipo": "azul",
+  "combina": [
+   35,
    57
   ],
   "descripcion": [
-   "El rover llega al anexo y la puerta se abre: la sala del reactor, con un cilindro de cristal apagado. Hay un panel de energía (carta 62), un protocolo pegado en la pared (carta 59) y un esquema del Cronoportal que dejó la doctora (carta 51).",
-   "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."
+   "Un traje espacial blanco con parches de la colonia Aurora, sin casco.",
+   "Combinadla con la carta 35: sumad sus números (22 + 35 = 57) y coged la carta 57."
   ],
   "pistas": [
-   "Hay tres cosas que mirar.",
-   "Coged las cartas 62, 59 y 51. Descartad las cartas 41, 48 y 57."
+   "Un traje espacial blanco con parches de la colonia Aurora, sin casco.",
+   "Se combina con la carta 35.",
+   "22 + 35 = 57."
   ],
-  "arte": "Sala del reactor de la colonia con un cilindro central de cristal con luz azul apagada, pasarelas y tuberías, y un soporte con una esfera de cristal brillante en el centro. Cristina y Alberto con trajes espaciales."
+  "arte": "Sin ninguna persona en la imagen. Un traje espacial blanco de colono marciano con parches naranjas colgado de una taquilla metálica, sin casco."
  },
- "54": {
-  "titulo": "Carta 54 — Núcleo de fusión",
-  "tipo": "roja",
-  "combina": [
-   16,
-   70
-  ],
-  "descripcion": [
-   "Una esfera de cristal con luz azul brillante, ya libre de su soporte. Es la fuente de energía que necesita el Cronoportal (carta 16).",
-   "Combinadlos: sumad sus números (54 + 16 = 70) y coged la carta 70."
-  ],
-  "pistas": [
-   "Es lo que el aparato necesita.",
-   "Combinad la carta 54 con la carta 16.",
-   "Sumad los números de las dos cartas: 54 + 16 = 70."
-  ],
-  "arte": "Núcleo de fusión: una esfera de cristal con luz azul brillante sobre un soporte de metal."
- },
- "70": {
-  "titulo": "Carta 70 — Cronoportal cargado",
+ "24": {
+  "titulo": "Carta 24 — La voz de la doctora Reyes",
   "tipo": "gris",
   "coge": [
-   88
+   26
   ],
   "descarta": [
-   16,
+   14,
+   16
+  ],
+  "descripcion": [
+   "La antena conecta y por el altavoz sale una voz entrecortada: «Aquí la doctora Reyes, jefa de la colonia. Estoy atrapada en el anexo, con el reactor al lado. Sin su núcleo de fusión no hay soporte vital ni nada. Os dejo una nota con lo que sé del reactor...» y la voz se pierde. En la impresora cae una hoja.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
+  ],
+  "pistas": [
+   "La nota de la doctora servirá más adelante.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
+  ],
+  "arte": "El hangar de la colonia con la antena de comunicaciones activa, un altavoz crepitando y una impresora que escupe una hoja. Alberto sostiene la hoja con los ojos muy abiertos, sorprendido, y Cristina se inclina hacia el altavoz con las manos en las orejas, tensa y atenta."
+ },
+ "26": {
+  "titulo": "Carta 26 — Nota de la doctora Reyes",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota de la doctora Reyes sobre el circuito del reactor."
+  ],
+  "pistas": [
+   "Sirve para el circuito del reactor (carta 51).",
+   "El circuito es un solo bucle cerrado; los números dicen por cuántos lados de su casilla pasa.",
+   "El anillo pasa por los puntos: A1 → B1 → B2 → C2 → C3 → D3 → E3 → E4 → E5 → E6 → F6 → F7 → E7 → D7 → C7 → B7 → A7 → A6 → A5 → A4 → A3 → A2."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): la nota de la doctora Reyes."
+ },
+ "28": {
+  "titulo": "Carta 28 — El módulo del invernadero",
+  "tipo": "gris",
+  "coge": [
+   35
+  ],
+  "descarta": [
+   18,
+   19,
+   20,
+   21
+  ],
+  "descripcion": [
+   "La puerta del módulo se abre con un siseo. Dentro, entre bancales de tierra roja, una tomatera con tomates enormes y, colgado de un gancho, un casco de astronauta con un parche a medio coser.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+  ],
+  "pistas": [
+   "Lo que habéis encontrado se puede juntar con algo que ya tenéis.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+  ],
+  "arte": "El interior de un invernadero marciano, con bancales de tierra roja, luces moradas y una tomatera cargada de tomates; de un gancho cuelga un casco de astronauta. Cristina acaricia un tomate con una sonrisa maravillada y Alberto descuelga el casco con cara de triunfo."
+ },
+ "35": {
+  "titulo": "Carta 35 — Casco de astronauta",
+  "tipo": "roja",
+  "combina": [
+   22,
+   57
+  ],
+  "descripcion": [
+   "Un casco de astronauta con la visera empañada y un parche de la colonia Aurora.",
+   "Combinadla con la carta 22: sumad sus números (35 + 22 = 57) y coged la carta 57."
+  ],
+  "pistas": [
+   "Un casco de astronauta con la visera empañada y un parche de la colonia Aurora.",
+   "Se combina con la carta 22.",
+   "35 + 22 = 57."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un casco de astronauta con la visera empañada y un parche de la colonia Aurora, colgado de un gancho en un invernadero."
+ },
+ "57": {
+  "titulo": "Carta 57 — El traje completo",
+  "tipo": "gris",
+  "coge": [
+   31,
+   32
+  ],
+  "descarta": [
+   22,
+   35,
+   10,
+   28
+  ],
+  "descripcion": [
+   "Con el casco puesto, el traje ya sirve. El hangar tiene dos salidas: una puerta interior a la sala de cableado, donde la tormenta ha cortado la energía, y la esclusa exterior, que lleva al campo de rocas y al anexo. Hay que hacer las dos cosas.",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+  ],
+  "pistas": [
+   "Hay dos caminos: la sala de cableado y la esclusa exterior. Podéis seguir los dos.",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+  ],
+  "arte": "Un hangar marciano con dos puertas: una interior de metal y la gran esclusa exterior con una luz roja. Cristina, con el traje completo y el casco bajo el brazo, hace un gesto decidido con el puño; Alberto, ya con el casco puesto, mira por la visera con los ojos muy abiertos y la boca en una O."
+ },
+ "31": {
+  "titulo": "Carta 31 — La sala de cableado",
+  "tipo": "gris",
+  "coge": [
+   40,
+   41,
+   43,
+   45
+  ],
+  "descripcion": [
+   "Una sala con paredes de cables y una gran placa de bornes sin conectar: la tormenta ha arrancado todos los cables de sus sitios y la cúpula funciona con baterías. Cada borne tiene un gemelo en otro punto de la placa.",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "pistas": [
+   "La placa son dos cartas: juntadlas.",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una sala técnica de una colonia marciana con una gran placa de bornes de colores en la pared, cables sueltos colgando y chispas ocasionales."
+ },
+ "40": {
+  "titulo": "Carta 40 — La placa de bornes",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: unir cada pareja de bornes del mismo color con un cable, sin cruzarse y sin dejar casillas vacías.",
+   "Al resolverlo, coged la carta 30."
+  ],
+  "pistas": [
+   "La placa, con sus bornes gemelos, está en las cartas 41 y 43; la norma, en la 45.",
+   "Empezad por los bornes que tienen pocas salidas posibles (en una esquina o contra un borde) y seguid desde ahí.",
+   "La placa por filas: fila 1: 3 3 3 1 1 1 / fila 2: 3 4 3 1 2 5 / fila 3: 4 4 3 3 2 5 / fila 4: 4 2 2 3 2 5 / fila 5: 5 2 2 2 2 5 / fila 6: 5 5 5 5 5 5."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una placa de bornes de colores en una pared técnica, con cables de colores sin conectar colgando de ella."
+ },
+ "41": {
+  "titulo": "Carta 41 — La placa de bornes (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la placa de bornes."
+  ],
+  "pistas": [
+   "Es la mitad de una placa: juntadla con la carta 43.",
+   "Cada color y número aparece dos veces en toda la placa.",
+   "La placa por filas: fila 1: 3 3 3 1 1 1 / fila 2: 3 4 3 1 2 5 / fila 3: 4 4 3 3 2 5 / fila 4: 4 2 2 3 2 5 / fila 5: 5 2 2 2 2 5 / fila 6: 5 5 5 5 5 5."
+  ],
+  "mosaico": {
+   "id": "cableado",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad izquierda de «La placa de bornes»."
+ },
+ "43": {
+  "titulo": "Carta 43 — La placa de bornes (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la placa de bornes."
+  ],
+  "pistas": [
+   "Es la mitad de una placa: juntadla con la carta 41.",
+   "Cada color y número aparece dos veces en toda la placa.",
+   "La placa por filas: fila 1: 3 3 3 1 1 1 / fila 2: 3 4 3 1 2 5 / fila 3: 4 4 3 3 2 5 / fila 4: 4 2 2 3 2 5 / fila 5: 5 2 2 2 2 5 / fila 6: 5 5 5 5 5 5."
+  ],
+  "mosaico": {
+   "id": "cableado",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad derecha de «La placa de bornes»."
+ },
+ "45": {
+  "titulo": "Carta 45 — La norma de los cables",
+  "tipo": "gris",
+  "descripcion": [
+   "Lo que dice el manual de la cúpula sobre la placa."
+  ],
+  "pistas": [
+   "Sirve para la placa de bornes (carta 40).",
+   "Ningún cable comparte casilla con otro y no queda ninguna vacía.",
+   "La placa por filas: fila 1: 3 3 3 1 1 1 / fila 2: 3 4 3 1 2 5 / fila 3: 4 4 3 3 2 5 / fila 4: 4 2 2 3 2 5 / fila 5: 5 2 2 2 2 5 / fila 6: 5 5 5 5 5 5."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): la norma de los cables."
+ },
+ "30": {
+  "titulo": "Carta 30 — La energía vuelve",
+  "tipo": "gris",
+  "coge": [
+   38
+  ],
+  "descarta": [
+   31,
+   40,
+   41,
+   43,
+   45
+  ],
+  "descripcion": [
+   "La placa se enciende y las luces del pasillo vuelven con un zumbido. Una de las lámparas del techo cae: es un soldador de mano, con la batería agotada. Servirá para soldar el núcleo cuando lo encontréis.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+  ],
+  "pistas": [
+   "Al soldador le falta energía: buscad una batería.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+  ],
+  "arte": "Un pasillo de una colonia marciana que se ilumina de golpe, con luces blancas parpadeantes; un soldador de mano cae de un soporte del techo. Alberto lo caza al vuelo con cara de susto y Cristina aplaude con una sonrisa de alivio."
+ },
+ "38": {
+  "titulo": "Carta 38 — Soldador sin batería",
+  "tipo": "roja",
+  "combina": [
+   56,
+   94
+  ],
+  "descripcion": [
+   "Un soldador de mano con el compartimento de la batería vacío.",
+   "Combinadla con la carta 56: sumad sus números (38 + 56 = 94) y coged la carta 94."
+  ],
+  "pistas": [
+   "Un soldador de mano con el compartimento de la batería vacío.",
+   "Se combina con la carta 56.",
+   "38 + 56 = 94."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un soldador de mano con una punta de cobre y el compartimento de la batería abierto y vacío, sobre una mesa de trabajo metálica."
+ },
+ "32": {
+  "titulo": "Carta 32 — La esclusa exterior",
+  "tipo": "gris",
+  "coge": [
+   42,
+   48,
+   49,
+   53
+  ],
+  "descripcion": [
+   "La esclusa se abre y salís a la superficie bajo un cielo anaranjado. A lo lejos se ve el anexo, pero entre él y vosotros hay un campo de rocas ocultas por la arena: el radar del traje solo sabe decir cuántas hay cerca de cada casilla despejada. El mapa del radar son dos láminas.",
+   "Coged las cartas 42, 48, 49 y 53."
+  ],
+  "pistas": [
+   "El radar son dos cartas: juntadlas.",
+   "Coged las cartas 42, 48, 49 y 53."
+  ],
+  "arte": "La superficie de Marte bajo un cielo anaranjado, con la cúpula de la colonia detrás y, a lo lejos, una pequeña construcción (el anexo); en primer plano, un campo de arena con rocas medio enterradas. Alberto mira el radar de la muñeca con los ojos entornados y Cristina, a su lado, tantea el suelo con una pierna estirada y cara de cautela."
+ },
+ "48": {
+  "titulo": "Carta 48 — El campo de rocas",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: marcar las rocas escondidas en el campo, con los números del radar.",
+   "Al resolverlo, coged la carta 36."
+  ],
+  "pistas": [
+   "El radar, partido en dos láminas, son las cartas 42 y 49; el aviso del radar, la carta 53.",
+   "Un número cuenta las rocas de las ocho casillas de alrededor; una casilla con número nunca tiene roca. Empezad por los números más bajos o los más altos.",
+   "Las rocas están en: D1, F1, G1, B2, D2, G2, F3, A4, B4, A7, B7."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un campo de arena rojiza visto desde arriba, dividido en casillas, con unas pocas rocas sobresaliendo del polvo."
+ },
+ "42": {
+  "titulo": "Carta 42 — El radar del campo de rocas (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del radar del campo de rocas."
+  ],
+  "pistas": [
+   "Es la mitad de un radar: juntadla con la carta 49.",
+   "Las casillas con número están despejadas; las grises son las desconocidas.",
+   "Las rocas están en: D1, F1, G1, B2, D2, G2, F3, A4, B4, A7, B7."
+  ],
+  "mosaico": {
+   "id": "rocas",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad izquierda de «El radar del campo de rocas»."
+ },
+ "49": {
+  "titulo": "Carta 49 — El radar del campo de rocas (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del radar del campo de rocas."
+  ],
+  "pistas": [
+   "Es la mitad de un radar: juntadla con la carta 42.",
+   "Las casillas con número están despejadas; las grises son las desconocidas.",
+   "Las rocas están en: D1, F1, G1, B2, D2, G2, F3, A4, B4, A7, B7."
+  ],
+  "mosaico": {
+   "id": "rocas",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad derecha de «El radar del campo de rocas»."
+ },
+ "53": {
+  "titulo": "Carta 53 — El aviso del radar",
+  "tipo": "gris",
+  "descripcion": [
+   "El mensaje automático del radar del traje."
+  ],
+  "pistas": [
+   "Sirve para el campo de rocas (carta 48).",
+   "Dice qué cuentan los números y cuántas rocas hay en total.",
+   "Las rocas están en: D1, F1, G1, B2, D2, G2, F3, A4, B4, A7, B7."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): el aviso del radar."
+ },
+ "36": {
+  "titulo": "Carta 36 — El anexo",
+  "tipo": "gris",
+  "coge": [
+   52,
    54,
-   79,
-   62,
+   55,
+   59
+  ],
+  "descarta": [
+   32,
+   42,
+   48,
+   49,
+   53
+  ],
+  "descripcion": [
+   "El rover os espera en la puerta del anexo, un edificio bajo con una antena de brazo largo en el techo. La antena está torcida por la tormenta: hay que equilibrar su brazo con pesos de repuesto para que apunte bien a la Tierra. En el garaje, una caja de herramientas con piezas.",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+  ],
+  "pistas": [
+   "El brazo de la antena son varias cartas.",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+  ],
+  "arte": "El anexo de una colonia marciana, un edificio bajo con una antena de brazo largo en el techo, ligeramente inclinada; un pequeño rover aparcado en la puerta. Cristina señala la antena con el brazo estirado y la cabeza hacia atrás, y Alberto abre una caja de herramientas y saca una pesa con cara de esfuerzo."
+ },
+ "52": {
+  "titulo": "Carta 52 — El brazo de la antena",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: colgar tres pesos de repuesto del brazo de la antena para que quede en equilibrio.",
+   "Al resolverlo, coged la carta 44."
+  ],
+  "pistas": [
+   "El brazo, con lo que ya cuelga, es la carta 54; lo que pesa cada pieza de repuesto, la 55; la norma, la 59.",
+   "Calculad cuánto empuja cada lado: peso por distancia al eje. Lo que falta para igualar lo tienen que aportar las tres piezas.",
+   "Las piezas: el círculo (pesa 9) en la marca izquierda 4; el cuadrado (pesa 8) en la marca izquierda 3; el triángulo (pesa 3) en la marca izquierda 1."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una antena de comunicaciones con un largo brazo horizontal sobre un eje central, con unos pesos colgados en distintos puntos."
+ },
+ "54": {
+  "titulo": "Carta 54 — El brazo de la antena",
+  "tipo": "gris",
+  "descripcion": [
+   "El brazo de la antena, con los pesos que ya cuelgan."
+  ],
+  "pistas": [
+   "Sirve para el brazo (carta 52).",
+   "Cada marca está a una distancia del eje, a un lado o al otro.",
+   "Las piezas: el círculo (pesa 9) en la marca izquierda 4; el cuadrado (pesa 8) en la marca izquierda 3; el triángulo (pesa 3) en la marca izquierda 1."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): el brazo de la antena."
+ },
+ "55": {
+  "titulo": "Carta 55 — Los pesos de repuesto",
+  "tipo": "gris",
+  "descripcion": [
+   "Las tres piezas de repuesto de la caja de herramientas, con lo que pesa cada una."
+  ],
+  "pistas": [
+   "Sirve para el brazo (carta 52).",
+   "La forma de cada pieza es la que veréis en la app.",
+   "Las piezas: el círculo (pesa 9) en la marca izquierda 4; el cuadrado (pesa 8) en la marca izquierda 3; el triángulo (pesa 3) en la marca izquierda 1."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): los pesos de repuesto."
+ },
+ "59": {
+  "titulo": "Carta 59 — La norma del brazo",
+  "tipo": "gris",
+  "descripcion": [
+   "Lo que dice el manual de la antena sobre su equilibrio."
+  ],
+  "pistas": [
+   "Sirve para el brazo (carta 52).",
+   "Cada peso empuja su lado tanto como pesa por lo lejos que está del eje.",
+   "Las piezas: el círculo (pesa 9) en la marca izquierda 4; el cuadrado (pesa 8) en la marca izquierda 3; el triángulo (pesa 3) en la marca izquierda 1."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): la norma del brazo."
+ },
+ "44": {
+  "titulo": "Carta 44 — La sala de control",
+  "tipo": "gris",
+  "coge": [
+   33,
+   37,
+   39,
+   46,
+   51,
+   61,
+   63
+  ],
+  "descarta": [
+   36,
+   52,
+   54,
+   55,
    59
   ],
   "descripcion": [
-   "El núcleo encaja en el anillo central y el Cronoportal despierta, pero hay que calibrarlo para volver a la fecha correcta (carta 88).",
-   "Coged la carta 88. Descartad las cartas 16, 54, 79, 62 y 59."
+   "La antena apunta bien y una puerta se abre en el anexo: es la sala de control de la doctora Reyes, llena de pantallas. Tiene dos pantallas con trabajo para vosotros: el ordenador de a bordo está calculando la trayectoria del cohete de rescate y necesita una cuenta que no sale, y el esquema del reactor tiene el circuito borrado. La doctora no está, pero su nota os servirá.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
-   "El aparato ya tiene energía.",
-   "Coged la carta 88. Descartad las cartas 16, 54, 79, 62 y 59."
+   "Hay dos puzles: la cuenta de cifras y el circuito del reactor. La nota de la doctora sirve aquí.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
-  "arte": "El Cronoportal con el núcleo de fusión encajado en su anillo central, brillando con luz azul intensa y arcos de energía. Alberto ajusta un dial y Cristina vigila la puerta."
+  "arte": "Una sala de control de una colonia marciana, con pantallas verdes y naranjas, teclados y un gran esquema en la pared. Cristina escribe en un teclado con los ojos muy concentrados y la lengua entre los dientes, y Alberto se rasca la barba frente al esquema, perplejo."
  },
- "88": {
-  "titulo": "Carta 88 — Calibrador del Cronoportal",
+ "46": {
+  "titulo": "Carta 46 — La cuenta de cifras",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: hay que ajustar la amplitud, la frecuencia y la fase de la señal del Cronoportal. La amplitud la da el diario de la doctora Reyes (carta 35), la frecuencia, su tomatera (carta 36) y la fase, el esquema del Cronoportal (carta 51).",
-   "Al calibrarlo, el portal de vuelta se abre. Coged la carta 99."
+   "Es un juego de la app: llegar al objetivo de la trayectoria con las piezas del ordenador y las cuatro operaciones.",
+   "Al resolverlo, coged la carta 56."
   ],
   "pistas": [
-   "Leed el diario (carta 35), mirad la tomatera (carta 36) y el esquema (carta 51).",
-   "Amplitud 3, frecuencia 5 y fase 2.",
-   "Poned amplitud 3, frecuencia 5 y fase 2."
+   "Las piezas están en la carta 37, el objetivo en la 39 y la norma en la 33.",
+   "Probad a juntar primero dos piezas pequeñas y pensad qué producto o suma os acerca al objetivo. Cada resultado vale como pieza nueva.",
+   "Una cuenta que vale: 1 + 2 = 3, 3 + 25 = 28, 9 × 30 = 270, 28 + 270 = 298, 3 × 298 = 894."
   ],
-  "arte": "Primer plano de dos diales de calibración del Cronoportal con un pequeño osciloscopio verde."
+  "arte": "Sin ninguna persona en la imagen. La pantalla de un ordenador de a bordo con seis fichas numeradas y una cifra grande de objetivo en el centro, en una sala de control."
  },
- "35": {
-  "titulo": "Carta 35 — Diario de la doctora Reyes",
-  "tipo": "verde",
-  "descripcion": [
-   "El diario de voz de la doctora Reyes, jefa de la colonia. Es un juego de la app, pero no hay nada que resolver: es un lector con varias páginas (no pausa el temporizador).",
-   "Contiene la amplitud del calibrador (carta 88), una explicación de la esclusa y avisos sobre el reactor.",
-   "Podéis volver a abrirlo siempre que lo necesitéis."
-  ],
-  "pistas": [
-   "Abrid la carta 35 en la app y pasad las páginas.",
-   "Fijaos en la calibración del Cronoportal.",
-   "La frecuencia no está aquí: la dejó en otro sitio."
-  ],
-  "arte": "Una tableta digital agrietada sobre una mesa, con la pantalla encendida mostrando una pequeña forma de onda verde y fotos de plantas."
- },
- "36": {
-  "titulo": "Carta 36 — Tomatera",
+ "37": {
+  "titulo": "Carta 37 — Las piezas de la cuenta",
   "tipo": "gris",
   "descripcion": [
-   "Una pequeña tomatera bajo una luz violeta de cultivo, con un cartel de la doctora Reyes. La frecuencia del calibrador (carta 88) está anotada aquí."
+   "Las seis piezas del ordenador de a bordo."
   ],
   "pistas": [
-   "Contad las hojas de cada rama.",
-   "Hace falta para el calibrador (carta 88)."
+   "Sirve para la cuenta (carta 46).",
+   "Cada pieza se usa una vez como mucho.",
+   "Una cuenta que vale: 1 + 2 = 3, 3 + 25 = 28, 9 × 30 = 270, 28 + 270 = 298, 3 × 298 = 894."
   ],
-  "textoCarta": [
-   "Cada rama:",
-   "5 hojas"
-  ],
-  "arte": "Pequeña tomatera en una maceta bajo una luz violeta de cultivo, con ramas con hojas en grupos de cinco y un cartel pequeño sin texto legible."
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): las piezas de la cuenta."
  },
- "41": {
-  "titulo": "Carta 41 — Superficie de Marte",
-  "tipo": "gris",
-  "coge": [
-   48,
-   57
-  ],
-  "descarta": [
-   44,
-   52,
-   66,
-   28,
-   40
-  ],
-  "descripcion": [
-   "Con el traje puesto salís a la superficie: un desierto rojo bajo la tormenta. A lo lejos, el anexo del reactor. Junto a la esclusa hay un rover (carta 48) y, clavada en el suelo, una baliza con una anotación (carta 57).",
-   "Coged las cartas 48 y 57. Descartad las cartas 44, 52, 66, 28 y 40."
-  ],
-  "pistas": [
-   "Mirad el rover y la baliza.",
-   "Coged las cartas 48 y 57. Descartad las cartas 44, 52, 66, 28 y 40."
-  ],
-  "arte": "Superficie de Marte bajo una tormenta de polvo, con la esclusa de la cúpula detrás, un pequeño rover de seis ruedas aparcado y una baliza luminosa clavada en el suelo; a lo lejos, un edificio bajo. Cristina y Alberto con trajes espaciales."
- },
- "48": {
-  "titulo": "Carta 48 — Rover de superficie",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: hay que programar la ruta del rover sobre un mapa con rocas. Las coordenadas de la baliza del anexo están anotadas en la carta 57.",
-   "Al llegar a la baliza se abre el acceso al anexo del reactor. Coged la carta 79."
-  ],
-  "pistas": [
-   "Mirad la anotación de la baliza (carta 57).",
-   "El mapa tiene columnas de la A a la G y filas de la 1 a la 5. El rover sale de A5 y las rocas lo bloquean.",
-   "Ruta: ↑ ↑ → → ↑ ↑ → → ↓ →"
-  ],
-  "arte": "Un pequeño rover de seis ruedas con antena y cámara sobre el suelo rojo de Marte, con una tableta de control conectada."
- },
- "57": {
-  "titulo": "Carta 57 — Baliza del anexo",
+ "39": {
+  "titulo": "Carta 39 — El objetivo",
   "tipo": "gris",
   "descripcion": [
-   "Una baliza luminosa clavada en el suelo con una anotación de la doctora Reyes: las coordenadas del acceso al anexo del reactor. Sirve para el rover (carta 48)."
+   "El número que pide el ordenador para la trayectoria."
   ],
   "pistas": [
-   "Leed las coordenadas.",
-   "Sirven para programar el rover (carta 48)."
+   "Sirve para la cuenta (carta 46).",
+   "Es el resultado al que hay que llegar.",
+   "Una cuenta que vale: 1 + 2 = 3, 3 + 25 = 28, 9 × 30 = 270, 28 + 270 = 298, 3 × 298 = 894."
   ],
-  "textoCarta": [
-   "Baliza del anexo:",
-   "columna F, fila 2"
-  ],
-  "arte": "Una baliza luminosa de metal clavada en el suelo rojo de Marte, con una pequeña placa; sin texto legible."
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): el objetivo de la cuenta."
  },
- "62": {
-  "titulo": "Carta 62 — Panel de energía",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: seis sistemas con su consumo en MW. Hay que activar los que sumen justo la capacidad del reactor. La capacidad y la regla del escudo están en el protocolo (carta 59).",
-   "Al conectar bien el reactor, el núcleo de fusión queda libre. Coged la carta 54."
-  ],
-  "pistas": [
-   "Leed el protocolo del reactor (carta 59).",
-   "El escudo debe estar activo y la suma de los sistemas activos debe ser 15.",
-   "Escudo (8) + Radio (4) + Luz (3) = 15."
-  ],
-  "arte": "Panel de control con seis interruptores grandes con iconos (escudo, radio, bombilla, gota, llama, ordenador) y barras de consumo luminosas."
- },
- "59": {
-  "titulo": "Carta 59 — Protocolo del reactor",
+ "33": {
+  "titulo": "Carta 33 — La norma de la cuenta",
   "tipo": "gris",
   "descripcion": [
-   "Un protocolo plastificado pegado en la pared del reactor con las normas de arranque. Sirve para el panel de energía (carta 62)."
+   "Lo que dice el ordenador sobre las operaciones."
   ],
   "pistas": [
-   "Leed las normas.",
-   "Sirve para el panel de energía (carta 62)."
+   "Sirve para la cuenta (carta 46).",
+   "Todos los resultados son enteros y mayores que cero.",
+   "Una cuenta que vale: 1 + 2 = 3, 3 + 25 = 28, 9 × 30 = 270, 28 + 270 = 298, 3 × 298 = 894."
   ],
-  "textoCarta": [
-   "Capacidad: 15 MW",
-   "El escudo, siempre activo"
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): la norma de la cuenta."
+ },
+ "56": {
+  "titulo": "Carta 56 — Batería de la cúpula",
+  "tipo": "roja",
+  "combina": [
+   38,
+   94
   ],
-  "arte": "Un cartel plastificado amarillo de normas de seguridad pegado en una pared metálica, con pictogramas; sin texto legible."
+  "descripcion": [
+   "Una batería de la cúpula, todavía cargada, que el ordenador libera al calcular la trayectoria.",
+   "Combinadla con la carta 38: sumad sus números (56 + 38 = 94) y coged la carta 94."
+  ],
+  "pistas": [
+   "Una batería de la cúpula, todavía cargada, que el ordenador libera al calcular la trayectoria.",
+   "Se combina con la carta 38.",
+   "56 + 38 = 94."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una batería grande de color gris con detalles naranjas y dos bornes brillantes, sobre una bandeja de una sala de control."
  },
  "51": {
-  "titulo": "Carta 51 — Esquema del Cronoportal",
-  "tipo": "gris",
+  "titulo": "Carta 51 — El circuito del reactor",
+  "tipo": "verde",
   "descripcion": [
-   "Un esquema técnico del Cronoportal dibujado por la doctora Reyes, con una anotación sobre la fase de calibración. Sirve para el calibrador (carta 88)."
+   "Es un juego de la app: trazar un solo bucle cerrado que respete los números del esquema del reactor.",
+   "Al resolverlo, coged la carta 58."
   ],
   "pistas": [
-   "Leed la anotación del esquema.",
-   "Hace falta para el calibrador (carta 88)."
+   "El esquema, partido en dos láminas, son las cartas 61 y 63; la nota de la doctora, la carta 26.",
+   "Un número dice por cuántos lados de su casilla pasa el anillo. Empezad por los ceros y por las casillas con el 3 o por otras con números altos.",
+   "El anillo pasa por los puntos: A1 → B1 → B2 → C2 → C3 → D3 → E3 → E4 → E5 → E6 → F6 → F7 → E7 → D7 → C7 → B7 → A7 → A6 → A5 → A4 → A3 → A2."
   ],
-  "textoCarta": [
-   "Esquema del Cronoportal",
-   "Fase de calibración: 2"
+  "arte": "Sin ninguna persona en la imagen. El esquema de un reactor de fusión dibujado como una rejilla de puntos con un cable naranja formando un bucle cerrado, en una pantalla."
+ },
+ "61": {
+  "titulo": "Carta 61 — El esquema del reactor (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del esquema del reactor."
   ],
-  "arte": "Un esquema técnico dibujado a mano del Cronoportal, con flechas, formas de onda y anotaciones sin texto legible, sobre papel cuadriculado."
+  "pistas": [
+   "Es la mitad de un esquema: juntadla con la carta 63.",
+   "Los números están en las casillas, entre los puntos.",
+   "El anillo pasa por los puntos: A1 → B1 → B2 → C2 → C3 → D3 → E3 → E4 → E5 → E6 → F6 → F7 → E7 → D7 → C7 → B7 → A7 → A6 → A5 → A4 → A3 → A2."
+  ],
+  "mosaico": {
+   "id": "reactor",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad izquierda de «El esquema del reactor»."
+ },
+ "63": {
+  "titulo": "Carta 63 — El esquema del reactor (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del esquema del reactor."
+  ],
+  "pistas": [
+   "Es la mitad de un esquema: juntadla con la carta 61.",
+   "Los números están en las casillas, entre los puntos.",
+   "El anillo pasa por los puntos: A1 → B1 → B2 → C2 → C3 → D3 → E3 → E4 → E5 → E6 → F6 → F7 → E7 → D7 → C7 → B7 → A7 → A6 → A5 → A4 → A3 → A2."
+  ],
+  "mosaico": {
+   "id": "reactor",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad derecha de «El esquema del reactor»."
+ },
+ "58": {
+  "titulo": "Carta 58 — El acceso al reactor",
+  "tipo": "gris",
+  "coge": [
+   69,
+   70,
+   71
+  ],
+  "descarta": [
+   51,
+   61,
+   63,
+   26,
+   24
+  ],
+  "descripcion": [
+   "El circuito se enciende y la puerta blindada del reactor se abre un palmo. El pasillo que lleva a la sala del reactor está lleno de escombros y de radiación: no podéis pasar vosotros, pero el rover pequeño sí. Hay que programarlo.",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+  ],
+  "pistas": [
+   "El rover se programa con comandos.",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+  ],
+  "arte": "Una puerta blindada de un reactor de una colonia marciana, entreabierta, con un pasillo oscuro tras ella lleno de escombros; un pequeño rover con ruedas espera a los pies de los personajes. Alberto acaricia la carcasa del rover con una sonrisa y Cristina mira el pasillo con gesto preocupado."
+ },
+ "69": {
+  "titulo": "Carta 69 — El programa del rover",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: programar el rover con comandos y bucles para que llegue a la bandera del fondo del pasillo.",
+   "Al resolverlo, coged la carta 80."
+  ],
+  "pistas": [
+   "El terreno del pasillo es la carta 70; los comandos y el límite de bloques, la 71.",
+   "El camino sube en escalera. Si se repite un mismo trozo, un bucle ahorra muchos bloques.",
+   "Un programa que vale: repetir 3 veces: avanzar, girar a la izquierda, avanzar, girar a la derecha, avanzar."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un pequeño rover de ruedas con una antena en un pasillo de una colonia marciana, y una bandera roja al fondo."
+ },
+ "70": {
+  "titulo": "Carta 70 — El terreno del rover",
+  "tipo": "gris",
+  "descripcion": [
+   "El pasillo visto desde el dron: muros, camino, el rover y la bandera."
+  ],
+  "pistas": [
+   "Sirve para el programa (carta 69).",
+   "El rover sale mirando hacia la derecha.",
+   "Un programa que vale: repetir 3 veces: avanzar, girar a la izquierda, avanzar, girar a la derecha, avanzar."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): el terreno del rover."
+ },
+ "71": {
+  "titulo": "Carta 71 — Los comandos del rover",
+  "tipo": "gris",
+  "descripcion": [
+   "Los comandos del rover y el límite de bloques."
+  ],
+  "pistas": [
+   "Sirve para el programa (carta 69).",
+   "El bloque de «repetir» cuenta como uno y cada comando de dentro, también.",
+   "Un programa que vale: repetir 3 veces: avanzar, girar a la izquierda, avanzar, girar a la derecha, avanzar."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): los comandos del rover."
+ },
+ "80": {
+  "titulo": "Carta 80 — El archivo de la colonia",
+  "tipo": "gris",
+  "coge": [
+   72,
+   75,
+   79
+  ],
+  "descarta": [
+   58,
+   69,
+   70,
+   71
+  ],
+  "descripcion": [
+   "El rover llega al fondo del pasillo y abre desde dentro un panel con un archivo de la colonia: la base de datos con los planes del cohete de rescate. Está protegida con una clave que la doctora Reyes pensó que solo recordarían los que miraran con atención la sopa de letras que dejó.",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+  ],
+  "pistas": [
+   "La base de datos son dos cartas.",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+  ],
+  "arte": "Una pequeña sala de archivo de una colonia marciana con una pantalla encendida y un rover de ruedas con un cable conectado a un panel. Cristina mira la pantalla con una sonrisa de asombro y los ojos muy abiertos, y Alberto agita los brazos, eufórico, al ver llegar al rover sano y salvo."
+ },
+ "72": {
+  "titulo": "Carta 72 — La base de datos",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: la clave de acceso es la palabra que forman las letras sobrantes de la sopa de letras.",
+   "Al resolverlo, coged la carta 82."
+  ],
+  "pistas": [
+   "La sopa y la lista de palabras, en las cartas 75 y 79 (dos mitades).",
+   "Tachad en la sopa todas las palabras de la lista: las letras que quedan, leídas en orden de lectura, forman la clave.",
+   "La clave es LANZADOR."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una pantalla de un ordenador de colonia con una sopa de letras y un campo vacío para escribir una clave de acceso."
+ },
+ "75": {
+  "titulo": "Carta 75 — La base de datos de la colonia (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la base de datos de la colonia."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 79.",
+   "Las palabras de la lista están en la rejilla, en cualquier dirección.",
+   "La clave es LANZADOR."
+  ],
+  "mosaico": {
+   "id": "sopa",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad izquierda de «La base de datos de la colonia»."
+ },
+ "79": {
+  "titulo": "Carta 79 — La base de datos de la colonia (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la base de datos de la colonia."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 75.",
+   "Las palabras de la lista están en la rejilla, en cualquier dirección.",
+   "La clave es LANZADOR."
+  ],
+  "mosaico": {
+   "id": "sopa",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad derecha de «La base de datos de la colonia»."
+ },
+ "82": {
+  "titulo": "Carta 82 — El control de lanzamiento",
+  "tipo": "gris",
+  "coge": [
+   85,
+   86,
+   87
+  ],
+  "descarta": [
+   80,
+   72,
+   75,
+   79
+  ],
+  "descripcion": [
+   "Los archivos se abren y entre ellos hay un pequeño aparato de latón y cristal, idéntico al vuestro: la doctora Reyes lo guardó sin saber de dónde venía. Os da una idea: sus comandos de lanzamiento, que conectan con el Cronoportal, piden una clave de cuatro cifras. Y la doctora ha dejado dos acertijos.",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "pistas": [
+   "La consola es el último puzle.",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "arte": "Una sala de control de lanzamiento de una colonia marciana con una gran consola de botones y pantallas, y sobre ella un aparato de latón y cristal. Cristina lo sostiene en alto con los ojos como platos y Alberto se tapa la boca con la mano, boquiabierto, mirando de él al suyo."
+ },
+ "85": {
+  "titulo": "Carta 85 — La consola de lanzamiento",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: la clave de lanzamiento son cuatro cifras, los datos de la misión de otros puzles, en el orden de los acertijos.",
+   "Al resolverlo, coged la carta 99."
+  ],
+  "pistas": [
+   "Los acertijos están en las cartas 86 y 87; cada puzle que habéis resuelto mostró un «dato de la misión» en su mensaje.",
+   "Cada acertijo describe un puzle por lo que hacía: lo que une con cobre, lo que da vueltas sobre nuestras cabezas, lo que se equilibra con pesos, lo que crece o se seca.",
+   "La clave: 5, 3, 2, 8."
+  ],
+  "arte": "Sin ninguna persona en la imagen. La consola de lanzamiento de una colonia marciana: un panel con cuatro ruedas numeradas y un gran botón rojo, bajo una luz naranja."
+ },
+ "86": {
+  "titulo": "Carta 86 — Primera parte de la clave",
+  "tipo": "gris",
+  "descripcion": [
+   "Los dos primeros datos de la clave, en un acertijo de la doctora Reyes."
+  ],
+  "pistas": [
+   "Sirve para la consola (carta 85).",
+   "Dos puzles: el que unía bornes con cobre y el que miraba pasar satélites.",
+   "La clave: 5, 3, 2, 8."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): los dos primeros datos."
+ },
+ "87": {
+  "titulo": "Carta 87 — Segunda parte de la clave",
+  "tipo": "gris",
+  "descripcion": [
+   "Los dos últimos datos de la clave, en otro acertijo de la doctora Reyes."
+  ],
+  "pistas": [
+   "Sirve para la consola (carta 85).",
+   "Dos puzles: el que se equilibraba con pesos y el que crecía o se secaba.",
+   "La clave: 5, 3, 2, 8."
+  ],
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): los dos últimos datos."
+ },
+ "94": {
+  "titulo": "Carta 94 — La sala del reactor",
+  "tipo": "gris",
+  "coge": [
+   64,
+   66,
+   67
+  ],
+  "descarta": [
+   38,
+   56,
+   30,
+   44,
+   33,
+   37,
+   39,
+   46
+  ],
+  "descripcion": [
+   "Con el soldador cargado, los dos entráis por fin en la sala del reactor: un círculo de metal con el núcleo de fusión en el centro, rodeado de paneles de refrigeración apagados. Si no se enfrían, el núcleo no se deja tocar. El patrón de los paneles está dibujado en una pantalla.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "pistas": [
+   "El patrón son dos cartas: juntadlas.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "arte": "La sala circular de un reactor de fusión en una colonia marciana, con un núcleo brillante en el centro y paneles de refrigeración en las paredes, iluminada por luz azul. Cristina sostiene el soldador con ambas manos, con gesto cauteloso, y Alberto observa los paneles con la cabeza ladeada y los labios apretados."
+ },
+ "64": {
+  "titulo": "Carta 64 — Los paneles de refrigeración",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: encender el patrón de la pantalla; cada panel que se toca cambia él y sus cuatro vecinos en cruz.",
+   "Al resolverlo, coged la carta 62."
+  ],
+  "pistas": [
+   "El patrón, con la regla, es el de las cartas 66 y 67.",
+   "Se empieza con todos apagados. Un mismo panel tocado dos veces es como no tocarlo; el orden de los toques da igual.",
+   "Podéis tocar: C1, D1, C2, B3, D3, E4, A5, B5, D5, E5."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una pared de la sala de un reactor con una cuadrícula de paneles cuadrados de refrigeración, algunos apagados y otros con luz cian."
+ },
+ "66": {
+  "titulo": "Carta 66 — Los paneles de refrigeración (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de los paneles de refrigeración."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 67.",
+   "Los paneles encendidos son los círculos luminosos.",
+   "Podéis tocar: C1, D1, C2, B3, D3, E4, A5, B5, D5, E5."
+  ],
+  "mosaico": {
+   "id": "paneles",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad de arriba de «Los paneles de refrigeración»."
+ },
+ "67": {
+  "titulo": "Carta 67 — Los paneles de refrigeración (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de los paneles de refrigeración."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 66.",
+   "Los paneles encendidos son los círculos luminosos.",
+   "Podéis tocar: C1, D1, C2, B3, D3, E4, A5, B5, D5, E5."
+  ],
+  "mosaico": {
+   "id": "paneles",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/marte.py; no se pide a ChatGPT): mitad de abajo de «Los paneles de refrigeración»."
+ },
+ "62": {
+  "titulo": "Carta 62 — Núcleo de fusión",
+  "tipo": "roja",
+  "combina": [
+   12,
+   74
+  ],
+  "descripcion": [
+   "El núcleo de fusión del reactor, soldado y frío, del tamaño de un puño, con una luz cian en su interior.",
+   "Combinadla con la carta 12: sumad sus números (62 + 12 = 74) y coged la carta 74."
+  ],
+  "pistas": [
+   "El núcleo de fusión del reactor, soldado y frío, del tamaño de un puño, con una luz cian en su interior.",
+   "Se combina con la carta 12.",
+   "62 + 12 = 74."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una esfera de metal y cristal del tamaño de un puño con una luz cian palpitando en su interior, sostenida sobre una palma con guante blanco, en una sala de reactor."
+ },
+ "74": {
+  "titulo": "Carta 74 — Cronoportal cargado",
+  "tipo": "gris",
+  "descarta": [
+   62,
+   12,
+   64,
+   66,
+   67,
+   94,
+   57
+  ],
+  "descripcion": [
+   "El núcleo encaja en el pecho del Cronoportal y el aparato se llena de luz cian... pero el salto pide una clave de lanzamiento. Hay que despertarlo desde la consola.",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
+  ],
+  "pistas": [
+   "Falta la clave de lanzamiento.",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
+  ],
+  "arte": "El Cronoportal con el núcleo de fusión encajado en el pecho, brillando con luz cian, en una sala de control marciana. Alberto ajusta los diales con la lengua entre los dientes y Cristina lleva una tomatera bajo el brazo con una sonrisa de alivio."
  },
  "99": {
   "titulo": "Carta 99 — De vuelta a casa (FIN)",
   "tipo": "gris",
   "descarta": [
-   70,
-   88,
-   35,
-   36,
-   51
+   74,
+   82,
+   85,
+   86,
+   87
   ],
   "descripcion": [
-   "El Cronoportal se calibra y se abre un portal de luz azul. Cristina y Alberto saltan justo cuando el soporte vital termina de reactivarse en toda la cúpula.",
-   "Aterrizan en su salón. Cristina deja una tomatera sobre la mesa: «Me la he traído». Alberto, riendo: «Mañana, otro destino». Descartad las cartas 70, 88, 35, 36 y 51.",
-   "FIN."
+   "La clave es correcta y el Cronoportal se enciende. Se abre un portal de luz azul y saltáis justo cuando el soporte vital termina de reactivarse en toda la cúpula. Aterrizáis en vuestro salón. Cristina deja una tomatera sobre la mesa: «¡Me la he traído!». Alberto, riendo: «Mañana, otro destino». FIN.",
+   "Descartad las cartas 74, 82, 85, 86 y 87."
   ],
-  "pistas": [],
-  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven el hangar de la colonia Aurora y la cúpula iluminándose bajo el cielo rojizo. Llevan aún sus monos de colonia marciana con polvo rojo, y Cristina sostiene una pequeña maceta con una tomatera. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+  "pistas": [
+   "Descartad las cartas 74, 82, 85, 86 y 87."
+  ],
+  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul que se abre detrás de ellos; a través del portal todavía se ven el hangar de la colonia marciana y el polvo rojizo. Llevan aún los monos técnicos de colonos marcianos y Cristina deja una pequeña tomatera sobre la mesa del salón. Cristina ríe a carcajadas, orgullosa; Alberto ríe con la cabeza echada hacia atrás, aliviado. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
  }
 };
 window.fetchCartas = function () {

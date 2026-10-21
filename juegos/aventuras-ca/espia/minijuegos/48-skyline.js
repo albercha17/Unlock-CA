@@ -57,7 +57,7 @@ export function startMinigame(opts = {}) {
     if (h.every((fila, f) => fila.every((x, c) => x === SOLUCION[f][c]))) {
       resuelto = true;
       pintar();
-      ui.say('El perfil encaja con todas las pistas: el panel marca la torre del Dr. Noche con un círculo rojo. Coged la carta 58.', 'ok');
+      ui.say('El perfil encaja con todas las pistas: el panel marca la torre del Dr. Noche con un círculo rojo. Pero la Agente Zorro os lleva antes al casino. Coged la carta 33.', 'ok');
     } else {
       ui.say('Las alturas no repiten, pero el perfil no cuadra con alguna pista del borde. Recordad: los edificios altos tapan a los bajos.', 'bad');
     }

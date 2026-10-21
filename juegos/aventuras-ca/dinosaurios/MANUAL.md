@@ -1,213 +1,235 @@
-# Manual de partida — Cretácico, hace 66 millones de años — El Valle de los Gigantes
+# Manual de partida — Cretácico — El Valle de los Gigantes
 
 > Este recorrido se ha ejecutado paso a paso en la web (Modo PC + app) con `herramientas/ejecutar_manual.py`: tras cada paso la mesa queda exactamente como se indica y la partida termina con solo la carta final en la mesa.
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 38 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 60 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 27 pasos
+## Los 30 pasos
 
-### Paso 1 — Llegada al Cretácico
+### Paso 1 — Llegada
 
-Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12.
+Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12.
 
 - **La mesa queda con:** `P` `10` `12`
 - [ ] Hecho
 
-### Paso 2 — El campamento
+### Paso 2 — El vado del barro
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 20 y 22. Hay dos puzles: las huellas (14, con la guía 16) y la excavación (20, con las notas 18).
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la manada: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `20` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
 - [ ] Hecho
 
-### Paso 3 — Reconoce las huellas
+### Paso 3 — El barro del vado
 
-En el móvil: Acción, 14. La guía (16) describe cada huella. De izquierda a derecha: Triceratops, Tiranosaurio, Anquilosaurio y Edmontosaurio. El mensaje te dice que cojas la 26.
+En el móvil: Acción, 14. Por las huellas que pisan a otras (16 y 18): tricerátops, tiranosaurio, edmontosaurio, anquilosaurio, velocirraptor. El mensaje te dice que cojas la 24.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `20` `22` `26`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
 - [ ] Hecho
 
-### Paso 4 — El croquis
+### Paso 4 — El campamento escondido
 
-Lee la carta 26. Te manda descartar la 14 y la 16. Guárdala: sus frases sirven para los estratos más adelante.
+Lee la carta 24. Descarta 14, 16 y 18 y coge la 26 (guárdala para el árbol).
 
-- **La mesa queda con:** `10` `12` `18` `20` `22` `26`
+- **La mesa queda con:** `10` `12` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
 
-### Paso 5 — Excava
+### Paso 5 — La manada
 
-En el móvil: Acción, 20. Las notas (18) dicen que hay siete huesos. Marca B2, C4, D1, D5, E2, E3 y F5. El mensaje te dice que cojas la 28.
+En el móvil: Acción, 20. 13 cabezas y 40 patas (19 y 21): 7 tricerátops y 6 velocirraptores. El mensaje te dice que cojas la 28.
 
 - **En el móvil:** Acción → `20`
-- **La mesa queda con:** `10` `12` `18` `20` `22` `26` `28`
+- **La mesa queda con:** `10` `12` `19` `20` `21` `22` `24` `26` `28`
 - [ ] Hecho
 
-### Paso 6 — El hallazgo
+### Paso 6 — Al otro lado
 
-Lee la carta 28. Descarta 20 y 18 y coge 35 y 37. El garfio (35) es combinable; la muestra de ámbar (37) tiene una cadena de ADN.
+Lee la carta 28. Descarta 19, 20 y 21 y coge la 35.
 
-- **La mesa queda con:** `10` `12` `22` `26` `28` `35` `37`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
 - [ ] Hecho
 
-### Paso 7 — Cuerda con garfio
+### Paso 7 — Cuerda y garfio
 
 La cuerda (22) y el garfio (35) son combinables: 22 + 35 = 57. Coge la 57.
 
 - **Suma:** `22 + 35 = 57`
-- **La mesa queda con:** `10` `12` `22` `26` `28` `35` `37` `57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
 - [ ] Hecho
 
-### Paso 8 — El barranco
+### Paso 8 — Lo alto del acantilado
 
-Lee la carta 57. Descarta 22, 35, 28 y 10 y coge 40 y 42.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **La mesa queda con:** `12` `26` `37` `40` `42` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
 - [ ] Hecho
 
-### Paso 9 — El diario de Ibarra
+### Paso 9 — La playa de los nidos
 
-En el móvil: Acción, 42. Pasa las páginas: explican qué criaturas no pueden quedarse solas en la orilla.
+Lee la carta 31. Coge 40, 41, 43 y 45.
 
-- **En el móvil:** Acción → `42`
-- **La mesa queda con:** `12` `26` `37` `40` `42` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 10 — Cruza el río
+### Paso 10 — Los nidos
 
-En el móvil: Acción, 40. Con la balsa cruza: el bebé, vuelta sin nada, el compsognato, vuelta con el bebé, los helechos, vuelta sin nada y el bebé. El mensaje te dice que cojas la 44.
+En el móvil: Acción, 40. Con las vistas (41 y 43) y la costumbre (45): nidos en A1, A5, B3, C5, E6, F2, F4. El mensaje te dice que cojas la 30.
 
 - **En el móvil:** Acción → `40`
-- **La mesa queda con:** `12` `26` `37` `40` `42` `44` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 11 — La otra orilla
+### Paso 11 — La tienda de la playa
 
-Lee la carta 44. Descarta 40, 42 y 57 y coge 46, 48, 51 y 52. Hay dos puzles: el secuenciador (46, con la muestra 37 y el manual 48) y los estratos (51, con el croquis 26 y el cuaderno 52).
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
 
-- **La mesa queda con:** `12` `26` `37` `44` `46` `48` `51` `52`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
 - [ ] Hecho
 
-### Paso 12 — Abre la caja con el ADN
+### Paso 12 — La atalaya
 
-En el móvil: Acción, 46. La muestra (37) es A T G C C G T A; el manual (48) dice que A va con T y C con G. Escribe la cadena nueva: T A C G G C A T. El mensaje te dice que cojas la 54.
+Lee la carta 32. Coge 42, 48, 49 y 53. Junta el mapa: 42 a la izquierda y 49 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 13 — El cráter
+
+En el móvil: Acción, 48. Las tres flechas de los vigías (53) se cruzan en el mapa (42 y 49) en F4. El mensaje te dice que cojas la 36.
+
+- **En el móvil:** Acción → `48`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 14 — La doctora Ibarra
+
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta la ladera: 54 a la izquierda y 55 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- [ ] Hecho
+
+### Paso 15 — La lava
+
+En el móvil: Acción, 52. Siguiendo siempre la vecina más baja (54, 55 y 59), la roca va en C2. El mensaje te dice que cojas la 44.
+
+- **En el móvil:** Acción → `52`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- [ ] Hecho
+
+### Paso 16 — El refugio
+
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta los senderos: 37 a la izquierda y 39 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
+- [ ] Hecho
+
+### Paso 17 — La ruta de la manada
+
+En el móvil: Acción, 46. Todos los senderos una vez desde la Roca Alta (37, 39 y 33): Roca Alta → Pinar → Cascada → Helechal → Nidos → Lago → Helechal → Volcán → Lago → Cascada → Roca Alta → Volcán → Pinar. El mensaje te dice que cojas la 56.
 
 - **En el móvil:** Acción → `46`
-- **La mesa queda con:** `12` `26` `37` `44` `46` `48` `51` `52` `54`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 13 — La caja abierta
+### Paso 18 — El cofre del árbol
 
-Lee la carta 54. Descarta 46, 48 y 37 y coge la 56, una batería.
-
-- **La mesa queda con:** `12` `26` `44` `51` `52` `54` `56`
-- [ ] Hecho
-
-### Paso 14 — Ordena los estratos
-
-En el móvil: Acción, 51. Con el croquis (26) y el cuaderno (52), de abajo arriba: conchas, caliza, arcilla, arenisca, carbón y ceniza. El mensaje te dice que cojas la 58.
+En el móvil: Acción, 51. Con el árbol (26) y las fichas (61 y 63): pez, cocodrilo, tricerátops, velocirraptor, ave primitiva. El mensaje te dice que cojas la 58.
 
 - **En el móvil:** Acción → `51`
-- **La mesa queda con:** `12` `26` `44` `51` `52` `54` `56` `58`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
 - [ ] Hecho
 
-### Paso 15 — El escondite
+### Paso 19 — El cofre abierto
 
-Lee la carta 58. Descarta 51, 52 y 26 y coge la 38, una linterna sin pilas.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71.
 
-- **La mesa queda con:** `12` `38` `44` `54` `56` `58`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
 
-### Paso 16 — Linterna con batería
+### Paso 20 — El corral
 
-La batería (56) y la linterna (38) son combinables: 56 + 38 = 94. Coge la 94.
-
-- **Suma:** `56 + 38 = 94`
-- **La mesa queda con:** `12` `38` `44` `54` `56` `58` `94`
-- [ ] Hecho
-
-### Paso 17 — La cueva
-
-Lee la carta 94. Descarta 56, 38, 44, 54 y 58 y coge 64 y 66. El dibujo rupestre (66) muestra cómo debe quedar la pared de cristales (64).
-
-- **La mesa queda con:** `12` `64` `66` `94`
-- [ ] Hecho
-
-### Paso 18 — La pared de cristales
-
-En el móvil: Acción, 64. Pulsa B1, A2, B2, A3 y D3 para dejar la pared como el dibujo (66). El mensaje te dice que cojas la 78.
-
-- **En el móvil:** Acción → `64`
-- **La mesa queda con:** `12` `64` `66` `78` `94`
-- [ ] Hecho
-
-### Paso 19 — La cámara del nido
-
-Lee la carta 78. Descarta 64, 66 y 94 y coge 69 y 70. La nota (70) dice que los huevos deben acabar en el nido de plumas.
-
-- **La mesa queda con:** `12` `69` `70` `78`
-- [ ] Hecho
-
-### Paso 20 — Mueve los huevos
-
-En el móvil: Acción, 69. Pasa los cuatro huevos de uno en uno, sin poner uno grande sobre uno más pequeño, hasta el nido de plumas (quince movimientos). El mensaje te dice que cojas la 80.
+En el móvil: Acción, 69. Sin depredador pared con pared con su presa (70) y con el compsognato en su sitio (71): compsognato arriba a la izquierda; edmontosaurio arriba a la derecha; protoceratops arriba en el centro; tiranosaurio abajo a la izquierda; tricerátops abajo en el centro; velocirraptor abajo a la derecha. El mensaje te dice que cojas la 80.
 
 - **En el móvil:** Acción → `69`
-- **La mesa queda con:** `12` `69` `70` `78` `80`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71` `80`
 - [ ] Hecho
 
-### Paso 21 — La boca del géiser
+### Paso 21 — El Quetzal
 
-Lee la carta 80. Descarta 69, 70 y 78 y coge 72 y 76. Las marcas (76) dan la presión segura de los tres manómetros: 7, 5 y 11.
+Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79.
 
-- **La mesa queda con:** `12` `72` `76` `80`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80`
 - [ ] Hecho
 
-### Paso 22 — Calma el géiser
+### Paso 22 — Planear
 
-En el móvil: Acción, 72. Pon las válvulas en 3, 1 y 4 para que los manómetros marquen 7, 5 y 11. El mensaje te dice que cojas la 82.
+En el móvil: Acción, 72. Pasando por los remolinos (75 y 79): derecha, derecha, derecha, abajo, izquierda, abajo, abajo, derecha, abajo, derecha, derecha, abajo. El mensaje te dice que cojas la 82.
 
 - **En el móvil:** Acción → `72`
-- **La mesa queda con:** `12` `72` `76` `80` `82`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80` `82`
 - [ ] Hecho
 
-### Paso 23 — El núcleo
+### Paso 23 — El nido en lo alto
 
-Lee la carta 82. Descarta 72, 76 y 80 y coge la 62, el núcleo de energía.
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86, 87 y 76.
 
-- **La mesa queda con:** `12` `62` `82`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `76` `82` `85` `86` `87`
 - [ ] Hecho
 
-### Paso 24 — Núcleo en el Cronoportal
+### Paso 24 — La linterna
+
+La linterna (38) y la batería (56) son combinables: 38 + 56 = 94. Coge la 94.
+
+- **Suma:** `38 + 56 = 94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `76` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 25 — La ciénaga de noche
+
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67.
+
+- **La mesa queda con:** `12` `57` `64` `66` `67` `76` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 26 — La balsa
+
+En el móvil: Acción, 64. Hasta la cueva de la carta 66, resbalando hasta chocar (67): arriba, derecha, abajo, derecha, arriba, izquierda, abajo. El mensaje te dice que cojas la 62.
+
+- **En el móvil:** Acción → `64`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `76` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 27 — El núcleo
 
 El Cronoportal (12) y el núcleo (62) son combinables: 12 + 62 = 74. Coge la 74.
 
 - **Suma:** `12 + 62 = 74`
-- **La mesa queda con:** `12` `62` `74` `82`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `74` `76` `82` `85` `86` `87` `94`
 - [ ] Hecho
 
-### Paso 25 — Cronoportal reconectado
+### Paso 28 — Cronoportal reconectado
 
-Lee la carta 74. Descarta 62, 12 y 82 y coge 84 y 86. Las notas (86) explican cómo montar el esqueleto.
+Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57.
 
-- **La mesa queda con:** `74` `84` `86`
+- **La mesa queda con:** `74` `76` `82` `85` `86` `87`
 - [ ] Hecho
 
-### Paso 26 — Monta el esqueleto
+### Paso 29 — El calibrador
 
-En el móvil: Acción, 84. Con las notas (86), coloca del cráneo a la cola las cinco piezas que encadenan sus marcas: 2-4, 4-1, 1-3, 3-2 y 2 (sobran las otras dos). El mensaje te dice que cojas la 99.
+En el móvil: Acción, 85. Alineando los anillos de los tres troncos (86, 87 y 76): 17 años. El mensaje te dice que cojas la 99.
 
-- **En el móvil:** Acción → `84`
-- **La mesa queda con:** `74` `84` `86` `99`
+- **En el móvil:** Acción → `85`
+- **La mesa queda con:** `74` `76` `82` `85` `86` `87` `99`
 - [ ] Hecho
 
-### Paso 27 — Final
+### Paso 30 — Final
 
-Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Fin!
+Lee la carta 99. Descarta 74, 82, 85, 86, 87 y 76. En la mesa solo queda la 99. ¡Fin!
 
 - **La mesa queda con:** `99`
 - [ ] Hecho
@@ -216,45 +238,67 @@ Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Fin!
 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
-| P | Llegada al Cretácico | Normal | Coge 10, 12 | Inicio: llegada al valle. Te manda coger la 10 y la 12. | 1 |
-| 10 | Campamento del doctor Ibarra | Normal | Coge 14, 16, 18, 20, 22; Descarta P | El campamento: reparte las huellas, la guía, la excavación, las notas y la cuerda. | 1 |
-| 12 | Cronoportal sin núcleo | Combina | Combinable: suma los números | El Cronoportal sin núcleo: se combina con el núcleo de energía (62). | 1 |
-| 14 | Huellas en el barro | App | — | Huellas en el barro (app): reconocer cuatro huellas de dinosaurio. | 2 |
-| 16 | Guía de huellas | Normal | Texto: «Tiranosaurio: tres dedos con garras. Edmontosaurio: tres dedos gordos, sin garras. Triceratops: huella casi redonda, cinco dedos cortos. Anquilosaurio: muy ancha, cuatro dedos.» | Guía de huellas: cómo es la huella de cada dinosaurio. | 2 |
-| 18 | Notas de excavación | Normal | Texto: «Bajo la cuadrícula hay siete huesos. Cada número dice cuántos huesos tocan esa casilla, también en diagonal. Una casilla con número no esconde ningún hueso.» | Notas de excavación: cómo leer los números de la cuadrícula. | 2 |
-| 20 | Excavación | App | — | Excavación (app): deducir dónde están los huesos, como un buscaminas. | 2 |
-| 22 | Cuerda | Combina | Combinable: suma los números | Cuerda: se combina con el garfio (35). | 2 |
-| 26 | Croquis del barranco | Normal | Descarta 14, 16; Texto: «La ceniza del volcán cubre todo: es la capa de arriba. La arena con conchas, de un mar antiguo, es la del fondo. La arcilla está justo encima de la caliza.» | Croquis del barranco: frases para ordenar las capas de roca; te manda descartar las huellas. | 3 |
-| 28 | El hallazgo | Normal | Coge 35, 37; Descarta 20, 18 | El hallazgo: reparte el garfio y el ámbar. | 5 |
-| 35 | Garfio de escalada | Combina | Combinable: suma los números | Garfio de escalada: se combina con la cuerda (22). | 6 |
-| 37 | Muestra de ámbar | Normal | Texto: «Mosquito fosilizado. Cadena de ADN: A  T  G  C  C  G  T  A» | Muestra de ámbar: la cadena de ADN del mosquito. | 6 |
-| 38 | Linterna sin pilas | Combina | Combinable: suma los números | Linterna sin pilas: se combina con la batería (56). | 15 |
-| 40 | Balsa del vado | App | — | Balsa del vado (app): puzle clásico de cruzar el río con criaturas. | 8 |
-| 42 | Diario del doctor Ibarra | App | — | Diario del doctor Ibarra (app de lectura): las normas del cruce. | 8 |
-| 44 | La otra orilla | Normal | Coge 46, 48, 51, 52; Descarta 40, 42, 57 | La otra orilla: reparte el laboratorio y las capas de roca. | 10 |
-| 46 | Secuenciador de ADN | App | — | Secuenciador de ADN (app): completar la cadena complementaria. | 11 |
-| 48 | Manual de laboratorio | Normal | Texto: «Las bases del ADN se emparejan siempre: A con T, y C con G. La cadena nueva se copia frente a la vieja, letra a letra.» | Manual de laboratorio: la regla de emparejamiento del ADN. | 11 |
-| 51 | Estratos | App | — | Estratos (app): ordenar seis capas de roca de abajo arriba. | 11 |
-| 52 | Cuaderno de capas | Normal | Texto: «El carbón está justo debajo de la ceniza. La arenisca está entre la arcilla y el carbón.» | Cuaderno de capas: dos frases sobre capas de roca. | 11 |
-| 54 | La caja abierta | Normal | Coge 56; Descarta 46, 48, 37 | La caja abierta: reparte la batería. | 12 |
-| 56 | Batería de campaña | Combina | Combinable: suma los números | Batería de campaña: se combina con la linterna (38). | 13 |
-| 57 | El barranco | Normal | Coge 40, 42; Descarta 22, 35, 28, 10 | El barranco: resultado de 22 + 35; reparte la balsa y el diario. | 7 |
-| 58 | El escondite | Normal | Coge 38; Descarta 51, 52, 26 | El escondite: reparte la linterna. | 14 |
-| 62 | Núcleo de energía | Combina | Combinable: suma los números | Núcleo de energía: se combina con el Cronoportal (12). | 23 |
-| 64 | Cristales de la cueva | App | — | Cristales de la cueva (app): apagar y encender una pared (estilo «luces»). | 17 |
-| 66 | Dibujo rupestre | Normal | Texto: «Así brilla la pared abierta: ○ ○ ● ○ ● ● ● ● ○ ○ ● ●» | Dibujo rupestre: cómo debe quedar la pared de cristales. | 17 |
-| 69 | Huevos y nidos | App | — | Huevos y nidos (app): mover huevos de uno en uno, sin poner uno grande sobre otro más pequeño. | 19 |
-| 70 | Nota de Ibarra | Normal | Texto: «El núcleo está debajo de los huevos. Pasadlos con cuidado, de uno en uno, al nido de plumas.» | Nota de Ibarra: en qué nido hay que dejar los huevos. | 19 |
-| 72 | Válvulas del géiser | App | — | Válvulas del géiser (app): ajustar tres válvulas para que tres manómetros marquen lo pedido. | 21 |
-| 74 | Cronoportal reconectado | Normal | Coge 84, 86; Descarta 62, 12, 82 | Cronoportal reconectado: resultado de 62 + 12; reparte el esqueleto y las notas. | 24 |
-| 76 | Marcas de presión | Normal | Texto: «Presión segura del géiser: primer manómetro 7, segundo 5 y tercero 11.» | Marcas de presión: la lectura que debe marcar cada manómetro. | 21 |
-| 78 | La cámara del nido | Normal | Coge 69, 70; Descarta 64, 66, 94 | La cámara del nido: reparte los huevos y la nota. | 18 |
-| 80 | La boca del géiser | Normal | Coge 72, 76; Descarta 69, 70, 78 | La boca del géiser: reparte las válvulas y las marcas. | 20 |
-| 82 | El núcleo | Normal | Coge 62; Descarta 72, 76, 80 | El núcleo: reparte el núcleo de energía. | 22 |
-| 84 | El esqueleto | App | — | El esqueleto (app): ordenar los huesos haciendo coincidir las marcas de sus articulaciones. | 25 |
-| 86 | Notas de montaje | Normal | Texto: «Los huesos solo encajan si las marcas de sus articulaciones son iguales. Una pieza no es de este esqueleto.» | Notas de montaje: la regla del esqueleto. | 25 |
-| 94 | La cueva | Normal | Coge 64, 66; Descarta 56, 38, 44, 54, 58 | La cueva: resultado de 56 + 38; reparte los cristales y el dibujo. | 16 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 84, 86 | Final de la aventura. | 26 |
+| P | Llegada al Cretácico | Normal | Coge 10, 12 | Llegada al Cretácico | 1 |
+| 10 | El vado del barro | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El vado del barro | 1 |
+| 12 | Cronoportal sin núcleo | Combina | Combinable: suma los números | Cronoportal sin núcleo | 1 |
+| 14 | El barro del vado | App | — | El barro del vado | 2 |
+| 16 | El barro del vado | Normal | — | El barro del vado | 2 |
+| 18 | Guía de huellas | Normal | — | Guía de huellas | 2 |
+| 19 | La manada del abrevadero (mitad de arriba) | Normal | — | La manada del abrevadero (mitad de arriba) | 2 |
+| 20 | La manada del abrevadero | App | — | La manada del abrevadero | 2 |
+| 21 | La manada del abrevadero (mitad de abajo) | Normal | — | La manada del abrevadero (mitad de abajo) | 2 |
+| 22 | Cuerda | Combina | Combinable: suma los números | Cuerda | 2 |
+| 24 | El campamento escondido | Normal | Coge 26; Descarta 14, 16, 18 | El campamento escondido | 3 |
+| 26 | El árbol de la doctora | Normal | — | El árbol de la doctora | 4 |
+| 28 | Al otro lado del abrevadero | Normal | Coge 35; Descarta 19, 20, 21 | Al otro lado del abrevadero | 5 |
+| 30 | La tienda de la playa | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | La tienda de la playa | 10 |
+| 31 | La playa de los nidos | Normal | Coge 40, 41, 43, 45 | La playa de los nidos | 8 |
+| 32 | La atalaya | Normal | Coge 42, 48, 49, 53 | La atalaya | 8 |
+| 33 | La ruta de los edmontosaurios | Normal | — | La ruta de los edmontosaurios | 16 |
+| 35 | Garfio de escalada | Combina | Combinable: suma los números | Garfio de escalada | 6 |
+| 36 | La doctora Ibarra | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | La doctora Ibarra | 13 |
+| 37 | Los senderos del valle (mitad izquierda) | Normal | — | Los senderos del valle (mitad izquierda) | 16 |
+| 38 | Linterna sin pilas | Combina | Combinable: suma los números | Linterna sin pilas | 11 |
+| 39 | Los senderos del valle (mitad derecha) | Normal | — | Los senderos del valle (mitad derecha) | 16 |
+| 40 | La playa de los nidos | App | — | La playa de los nidos | 9 |
+| 41 | Desde el acantilado oeste | Normal | — | Desde el acantilado oeste | 9 |
+| 42 | El valle, de ladera a ladera (mitad izquierda) | Normal | — | El valle, de ladera a ladera (mitad izquierda) | 12 |
+| 43 | Desde la duna del sur | Normal | — | Desde la duna del sur | 9 |
+| 44 | El refugio de la doctora | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | El refugio de la doctora | 15 |
+| 45 | Las madres maiasaura | Normal | — | Las madres maiasaura | 9 |
+| 46 | La ruta de la manada | App | — | La ruta de la manada | 16 |
+| 48 | El cráter | App | — | El cráter | 12 |
+| 49 | El valle, de ladera a ladera (mitad derecha) | Normal | — | El valle, de ladera a ladera (mitad derecha) | 12 |
+| 51 | El cofre del árbol | App | — | El cofre del árbol | 16 |
+| 52 | La lava | App | — | La lava | 14 |
+| 53 | Los tres vigías | Normal | — | Los tres vigías | 12 |
+| 54 | La ladera del volcán (mitad izquierda) | Normal | — | La ladera del volcán (mitad izquierda) | 14 |
+| 55 | La ladera del volcán (mitad derecha) | Normal | — | La ladera del volcán (mitad derecha) | 14 |
+| 56 | Batería de campaña | Combina | Combinable: suma los números | Batería de campaña | 17 |
+| 57 | Lo alto del acantilado | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | Lo alto del acantilado | 7 |
+| 58 | El cofre abierto | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | El cofre abierto | 18 |
+| 59 | La canción de los volcanes | Normal | — | La canción de los volcanes | 14 |
+| 61 | Fichas de la doctora (I) | Normal | — | Fichas de la doctora (I) | 16 |
+| 62 | Núcleo de energía | Combina | Combinable: suma los números | Núcleo de energía | 26 |
+| 63 | Fichas de la doctora (II) | Normal | — | Fichas de la doctora (II) | 16 |
+| 64 | La balsa en el barro | App | — | La balsa en el barro | 25 |
+| 66 | La ciénaga desde el árbol | Normal | — | La ciénaga desde el árbol | 25 |
+| 67 | Grabado en la balsa | Normal | — | Grabado en la balsa | 25 |
+| 69 | El corral | App | — | El corral | 19 |
+| 70 | Quién se come a quién | Normal | — | Quién se come a quién | 19 |
+| 71 | El plano del corral | Normal | — | El plano del corral | 19 |
+| 72 | Planear con el Quetzal | App | — | Planear con el Quetzal | 21 |
+| 74 | Cronoportal reconectado | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | Cronoportal reconectado | 27 |
+| 75 | El cielo del acantilado | Normal | — | El cielo del acantilado | 21 |
+| 76 | Tronco de la entrada | Normal | — | Tronco de la entrada | 23 |
+| 79 | Cómo planea el Quetzal | Normal | — | Cómo planea el Quetzal | 21 |
+| 80 | El Quetzal | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | El Quetzal | 20 |
+| 82 | El nido en lo alto | Normal | Coge 85, 86, 87, 76; Descarta 80, 72, 75, 79 | El nido en lo alto | 22 |
+| 85 | El calibrador | App | — | El calibrador | 23 |
+| 86 | Tronco fósil del volcán | Normal | — | Tronco fósil del volcán | 23 |
+| 87 | Tronco fósil del río | Normal | — | Tronco fósil del río | 23 |
+| 94 | La ciénaga de noche | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La ciénaga de noche | 24 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 82, 85, 86, 87, 76 | De vuelta a casa (FIN) | 29 |
 
 ## Si algo no cuadra
 

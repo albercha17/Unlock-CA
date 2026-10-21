@@ -76,7 +76,7 @@ export function startMinigame(opts = {}) {
     pintar();
     if (nivel.grande === OBJETIVO) {
       resuelto = true;
-      ui.say('La jarra grande guarda justo cuatro medidas. La compuerta cede con un crujido y aparece una escalera de caracol hacia la azotea. Coged la carta 74.', 'ok');
+      ui.say('La jarra grande guarda justo cuatro medidas. La compuerta cede con un crujido y aparece una escalera de caracol... atascada de cajas. Coged la carta 44.', 'ok');
       acciones.querySelectorAll('button').forEach(b => { b.disabled = true; });
     } else {
       ui.say('');

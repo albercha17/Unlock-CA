@@ -16,7 +16,7 @@ const DUENDES = [
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 20 — El puente del troll',
-    instr: 'Pasad a los cuatro duendes al otro lado antes de que amanezca. Solo hay un farolillo: cruzan de uno en uno o de dos en dos, y alguien debe devolverlo. Los tiempos están en la carta 18.',
+    instr: 'Pasad a los cuatro duendes al otro lado antes de que amanezca. Solo hay un farolillo: cruzan de uno en uno o de dos en dos, y alguien debe devolverlo. Lo que tarda cada duende y cuándo amanece, en las cartas 18, 19 y 21.',
     ...opts
   });
   estilo('cu-puente-estilo', `
@@ -91,7 +91,7 @@ export function startMinigame(opts = {}) {
         cont.appendChild(b);
       });
     });
-    info.textContent = 'Cruces hechos: ' + cruces + '. El sol sale dentro de ' + LIMITE + ' minutos.';
+    info.textContent = 'Cruces hechos: ' + cruces + '.';
   }
   let cruces = 0;
 
@@ -112,7 +112,7 @@ export function startMinigame(opts = {}) {
         guardarLetra('20', LETRA);
         ui.say('¡Los cuatro al otro lado en ' + gastado + ' minutos, justo antes del amanecer! El troll se aparta con un bostezo. Coged la carta 28. Letra del libro: ' + LETRA + '.', 'ok');
       } else {
-        ui.say('Habéis tardado ' + gastado + ' minutos y el sol ya ha salido (el límite era ' + LIMITE + '). Empezad de nuevo y repartid mejor quién vuelve con el farolillo.', 'bad');
+        ui.say('Habéis tardado ' + gastado + ' minutos y el sol ya ha salido. Empezad de nuevo y repartid mejor quién vuelve con el farolillo.', 'bad');
       }
     }
   }

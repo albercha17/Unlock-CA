@@ -1,15 +1,40 @@
-"""Pompeya, 79 d.C.: El Mosaico del Mundo. Primer juego con PUZLES VISUALES EN LAS CARTAS: varias cartas se juntan para formar un mosaico romano
-(2x2 o apiladas) y del dibujo entero sale el código. Los mosaicos los dibuja herramientas/mosaicos.py (códigos exactos en codigos_pompeya.json)."""
+"""Pompeya, 79 d.C.: El Mosaico del Mundo — versión de 60 cartas (20 oct 2026), mucho más difícil y variada que la primera.
 
-ESTILO = ("Ilustración pictórica semirrealista con aire de película histórica, luz cálida y dorada de primera hora de la mañana en Pompeya, "
-          "arquitectura romana (columnas, mosaicos, frescos rojos y ocres, patios con impluvio), paleta de terracotas, ocres, azules marinos y blancos de mármol, "
-          "con una columna de humo gris del Vesubio al fondo, formato vertical 2:3. Sin texto, letras ni números en la imagen; los rollos, tablillas y frescos son solo dibujos "
+Diez puzles de tipos distintos, con las pistas como acertijos o dibujadas (ninguna carta explica cómo se resuelve su puzle): el mosaico laberinto
+del atrio, las cuentas en números romanos, el sello del anillo, la fuente del jardín, el cuadrado SATOR, la balanza romana, los grafitis y el
+plano de la manzana, el calendario romano, la huida por las calles y la carga de la barca. Solo 15 cartas tienen a Cristina y Alberto (escenas);
+el resto son objetos y pistas sin personas. Las cartas-pista las dibuja herramientas/pompeya.py (instancias_pompeya.json)."""
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+
+INST = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_pompeya.json"), encoding="utf-8"))
+LAB, CU, SE, FU, SA, ST, CA, CAL, HU, BA = (INST[k] for k in ("laberinto", "cuentas", "sello", "fuente", "sator", "statera", "calles",
+                                                              "calendario", "huida", "barca"))
+FIG = {"delfin": "delfín", "anfora": "ánfora", "laurel": "laurel", "lechuza": "lechuza", "racimo": "racimo", "concha": "concha",
+       "lucerna": "lucerna", "escudo": "escudo"}
+NOM_H = {"F": "foro", "A": "templo", "B": "termas", "C": "teatro", "D": "mercado", "E": "lupanar", "G": "anfiteatro", "P": "puerto"}
+NOM_B = {"anfora_aceite": "ánfora de aceite", "anfora_vino": "ánfora de vino", "fardo_lana": "fardo de lana", "cofre_monedas": "cofre de monedas",
+         "estatua_lar": "estatua del lar", "saco_trigo": "saco de trigo"}
+_S_LAB = ", ".join(FIG[f] for f in LAB["solucion"])
+_S_FU = ", ".join(FU["solucion"])
+_S_FU_CERR = ", ".join(c for c in FU["compuertas"] if c not in FU["solucion"])
+_S_CASA = f"la casa de la fila {CA['solucion'][0] + 1} (de norte a sur) y la columna {CA['solucion'][1] + 1} (de oeste a este)"
+_S_HU = " → ".join(NOM_H[n] for n in HU["solucion"])
+_S_BA = ", ".join(NOM_B[x] for x in BA["solucion"])
+
+ESTILO = ("Ilustración pictórica semirrealista con aire de película histórica, luz cálida y dorada en Pompeya, arquitectura romana (columnas, mosaicos, "
+          "frescos rojos y ocres, patios con impluvio), paleta de terracotas, ocres, azules marinos y blancos de mármol, con la columna de humo del Vesubio "
+          "al fondo cuando se vea el cielo, formato vertical 2:3. Sin texto, letras ni números en la imagen; los rollos, tablillas y frescos son solo dibujos "
           "decorativos sin escritura legible. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. "
           "Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).")
 
 PERSONAJES = {
     "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado recogido con una cinta, ojos azules. Viste ropa romana de época: una stola larga de lino verde oliva con un manto (palla) azul sobre los hombros, sandalias de cuero y un brazalete de bronce.",
-    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Viste ropa romana de época: una túnica corta color arena con cinturón de cuero, una capa corta sobre un hombro, sandalias de correas y una bolsa de cuero.",
+    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Viste ropa romana de época: una túnica corta color arena con cinturón de cuero, una capa corta sobre un hombro, sandalias de correas y una bolsa de cuero cruzada.",
 }
 
 HOJA = ("Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. "
@@ -22,341 +47,256 @@ FOTO = ("Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos 
         "Pídele que mantenga el parecido real, pero con el estilo de ilustración de este juego.")
 
 VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfico semirrealista de película histórica, luz dorada de amanecer y tonos terracota y azul marino. Sin ningún texto, letra ni subtítulo en pantalla. "
-         "Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Cristina señala una foto de las ruinas de Pompeya en un libro. "
+         "Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. "
          "Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul y dorada y los dos son absorbidos por un túnel de luz. "
-         "Escena 3 (8-12 s): caen sobre el suelo de mosaico de un atrio romano al amanecer, entre columnas; al fondo, sobre la ciudad, el Vesubio lanza una columna de humo. El aparato humea y un cristal rojo sale rodando. "
-         "Escena 4 (12-15 s): primer plano de Cristina y Alberto, con ropa romana, asombrados, mirando al volcán; la ceniza empieza a caer; fundido a negro. "
-         "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, retumbar lejano del volcán, lira y flauta con percusión suave, sin voz de narrador.")
+         "Escena 3 (8-12 s): caen sobre el suelo de mosaico de un atrio romano al amanecer, entre columnas; al fondo, el Vesubio lanza una columna de humo. El aparato humea y un cristal rojo sale rodando. "
+         "Escena 4 (12-15 s): primer plano de Cristina y Alberto, con ropa romana, asombrados, mirando al volcán; fundido a negro. "
+         "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, retumbar lejano del volcán, lira y flauta, sin voz de narrador.")
 
-
-def pieza(mosaico, nombre_pieza):
-    return f"Pieza del mosaico (se dibuja por código con herramientas/mosaicos.py; no se pide a ChatGPT): {nombre_pieza} del mosaico «{mosaico}»."
-
-
-# ---------------------------------------------------------------- mosaicos: id -> (filas, columnas, [ids de las piezas en orden de lectura: izquierda→derecha, arriba→abajo])
 MOSAICOS = {
     "atrio": dict(filas=2, cols=2, cartas=["16", "14", "17", "15"], titulo="Mosaico del atrio"),
-    "peristilo": dict(filas=2, cols=2, cartas=["32", "30", "33", "31"], titulo="Fresco del peristilo"),
-    "rosetas": dict(filas=2, cols=2, cartas=["42", "40", "43", "41"], titulo="Suelo del triclinio"),
-    "digitos": dict(filas=2, cols=1, cartas=["53", "52"], titulo="Fresco del cubiculum"),
-    "reloj": dict(filas=2, cols=2, cartas=["65", "67", "64", "66"], titulo="Mosaico del hipocausto"),
+    "sello": dict(filas=1, cols=2, cartas=["27", "29"], titulo="El lacre partido"),
+    "calendario": dict(filas=1, cols=2, cartas=["61", "63"], titulo="El calendario de piedra"),
 }
-POS4 = ["arriba a la izquierda", "arriba a la derecha", "abajo a la izquierda", "abajo a la derecha"]
+POS = {4: ["arriba a la izquierda", "arriba a la derecha", "abajo a la izquierda", "abajo a la derecha"], 2: ["mitad izquierda", "mitad derecha"]}
 
 
-def _ficha_pieza(carta, nombre):
-    for k, m in MOSAICOS.items():
-        if carta in m["cartas"]:
-            i = m["cartas"].index(carta)
-            filas, cols = m["filas"], m["cols"]
-            return dict(id=k, filas=filas, cols=cols, fila=i // cols, col=i % cols)
-    raise KeyError(carta)
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/pompeya.py; no se pide a ChatGPT): {que}."
 
 
-def _pieza_carta(carta, mosaico, que_es, pistas_extra):
+def pieza(carta, mosaico, que, pistas):
     m = MOSAICOS[mosaico]
     i = m["cartas"].index(carta)
-    pos = POS4[i] if m["filas"] * m["cols"] == 4 else ("arriba" if i == 0 else "abajo")
-    mapa = (f"Arriba, de izquierda a derecha: {m['cartas'][0]} y {m['cartas'][1]}. Abajo: {m['cartas'][2]} y {m['cartas'][3]}." if m["filas"] * m["cols"] == 4
-            else f"Arriba, la {m['cartas'][0]}; abajo, la {m['cartas'][1]}.")
-    juntas = ", ".join(m["cartas"][:-1]) + " y " + m["cartas"][-1]
-    return dict(
-        titulo=f"Carta {carta} — Placa del mosaico ({pos})" if m["filas"] * m["cols"] == 4 else f"Carta {carta} — Mitad del fresco ({pos})",
-        tipo="gris", mosaico=_ficha_pieza(carta, mosaico),
-        descripcion=[f"{que_es} Es una pieza suelta: juntad las cartas {juntas} para ver el dibujo entero."],
-        pistas=pistas_extra + [mapa],
-        arte=pieza(m["titulo"], pos))
+    pos = POS[len(m["cartas"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=arte)
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    lineas = [texto, "Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}."]
+    if descarta:
+        lineas[-1] += " Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + "."
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", coge=coge, descarta=descarta, descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
 
 
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada a Pompeya", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Séptima parada del Cronoportal: Pompeya, 24 de agosto del año 79 d.C. Aterrizáis al amanecer en el atrio de una rica villa, entre columnas, con un estanque de lluvia en el centro y el suelo cubierto de mosaicos. Al fondo, sobre la ciudad, el Vesubio lanza al cielo una columna de humo.",
-            "El aterrizaje sale mal otra vez: el aparato golpea el borde del estanque y su cristal de energía sale volando y desaparece por la casa. Sin él, el Cronoportal está muerto. Tenéis hora y media antes de que la ceniza lo cubra todo.",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="El atrio de una villa romana de Pompeya al amanecer: columnas, un estanque de lluvia (impluvio) y un suelo de mosaico, y al fondo, sobre los tejados, la columna de humo del Vesubio. En primer plano, un aparato de latón y cristal retrofuturista (el Cronoportal) humea sobre el suelo con una luz azul que se apaga. Cristina, con los ojos muy abiertos y la boca entreabierta de asombro, y Alberto, con una ceja arqueada y gesto de incredulidad, se levantan aturdidos con ropa romana."),
-    "10": dict(
-        titulo="Carta 10 — El atrio de la villa", tipo="gris", coge=[14, 15, 16, 17, 18, 20, 22], descarta=["P"],
-        descripcion=[
-            "El atrio de la villa de Lucrecia, comerciante de aceite y de vino. El mosaico del suelo se ha roto con el golpe en cuatro placas sueltas (cartas 14, 15, 16 y 17): hay que juntarlas para ver el dibujo entero. A su lado, una nota del mosaiquista Lucio (carta 18), la puerta cerrada del tablinum con un panel de formas (carta 20) y, brillando en el fondo del estanque, la mitad de una llave de bronce (carta 22).",
-            "Coged las cartas 14, 15, 16, 17, 18, 20 y 22. Descartad la carta P."],
-        pistas=["Hay un puzle: el mosaico del suelo y la puerta del tablinum.", "Las cuatro placas (14 a 17) se juntan formando un solo dibujo.", "Coged las cartas 14, 15, 16, 17, 18, 20 y 22. Descartad la carta P."],
-        arte="Un suelo de mosaico romano roto en cuatro grandes placas sueltas sobre las losas de un atrio, junto a un estanque de lluvia; al fondo, una puerta de madera cerrada con un panel de bronce y, en el agua, el brillo de una llave de bronce partida. Cristina se agacha con el ceño fruncido de concentración y Alberto levanta una de las placas con gesto de esfuerzo."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin cristal", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía. Alberto: «Sin el cristal no hay portal. Tiene que haber rodado por aquí cerca».",
-            "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el cristal de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, sobre las losas de un atrio romano, con una columna y un fresco rojo borroso al fondo."),
-    "18": dict(
-        titulo="Carta 18 — Nota del mosaiquista", tipo="gris",
-        descripcion=["Una tablilla de cera con una nota de Lucio, el mosaiquista que hizo el suelo. Sirve para leer el mosaico del atrio y abrir la puerta del tablinum (carta 20)."],
-        pistas=["Es una nota sobre cómo leer el mosaico.", "Sirve para la puerta del tablinum (carta 20)."],
-        textoCarta=["Seguid el camino de piedras blancas", "desde la estrella de oro.", "Solo cuentan las figuras que toca el camino."],
-        arte="Una tablilla de cera con marco de madera y un estilete apoyados sobre las losas de un atrio romano, junto a unas teselas sueltas de colores y una pequeña paleta; la superficie de cera tiene solo rayas decorativas, sin escritura legible."),
-    "20": dict(
-        titulo="Carta 20 — La puerta del tablinum", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la puerta del despacho de Lucrecia tiene un panel con seis figuras y cuatro huecos. Hay que poner las figuras en el orden que dice el mosaico del atrio (juntad las placas 14, 15, 16 y 17) siguiendo la nota de Lucio (carta 18).",
-            "Al acertar, la puerta se abre. Coged la carta 26."],
-        pistas=["Juntad las cuatro placas del mosaico y seguid el camino desde la estrella de oro.", "Anotad, por orden, la figura de cada medallón por el que pasa el camino. Los medallones fuera del camino no cuentan.", "Triángulo, estrella, círculo y cruz."],
-        arte="Una puerta de madera de roble con herrajes de bronce y, en el centro, un panel de bronce con seis figuras geométricas en relieve (círculo, triángulo, cuadrado, rombo, estrella y cruz) y cuatro huecos; a un lado, una lámpara de aceite encendida. Cristina examina el panel con la lengua entre los dientes, concentrada, y Alberto sostiene la lámpara con una sonrisa de expectación."),
-    "22": dict(
-        titulo="Carta 22 — Mitad de llave", tipo="azul", combina=[35, 57],
-        descripcion=["La mitad de una llave de bronce, con un ojo y la mitad del paletón. Combinadla con la otra mitad (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Es solo la mitad de una llave.", "Cuando encontréis la otra mitad, combinadlas.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="Una mitad de llave romana de bronce, con un ojo redondo y la mitad de un paletón dentado, sobre una tela de lino, junto al agua de un estanque de lluvia; la luz de la mañana la hace brillar."),
-    "24": dict(
-        titulo="Carta 24 — La verja del peristilo", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una verja de hierro que cierra el jardín con cuatro botones de flecha (arriba, abajo, izquierda y derecha). El orden lo dan las estatuas del fresco del jardín (juntad las placas 30, 31, 32 y 33) y la nota de la carta 36.",
-            "Al acertar, la verja se abre. Coged la carta 28."],
-        pistas=["Juntad las cuatro placas del fresco: es el jardín visto desde arriba.", "Cada estatua señala una dirección con su flecha. Empezad por la de la antorcha y seguid el sentido de las agujas del reloj.", "Abajo, abajo, derecha y arriba."],
-        arte="Una verja de hierro forjado con cuatro grandes botones de bronce con forma de flecha en un pilar de piedra, cerrando la entrada de un jardín con columnas; entre las rejas se ve una fuente. Alberto empuja la verja con los dos brazos y cara de esfuerzo y Cristina señala los botones con los ojos muy abiertos de emoción."),
-    "26": dict(
-        titulo="Carta 26 — El tablinum", tipo="gris", coge=[24, 30, 31, 32, 33, 36], descarta=[14, 15, 16, 17, 18, 20],
-        descripcion=[
-            "La puerta cede y entráis en el tablinum, el despacho de Lucrecia, lleno de rollos y tablillas. En la pared del fondo, un fresco del jardín se ha desprendido en cuatro placas de yeso (cartas 30, 31, 32 y 33). Una nota de Lucrecia (carta 36) y una verja de hierro con flechas (carta 24) cierran el paso al peristilo.",
-            "Coged las cartas 24, 30, 31, 32, 33 y 36. Descartad las cartas 14, 15, 16, 17, 18 y 20."],
-        pistas=["Hay un puzle: el fresco del jardín y la verja.", "Coged las cartas 24, 30, 31, 32, 33 y 36. Descartad las cartas 14, 15, 16, 17, 18 y 20."],
-        arte="El despacho de una rica romana: una mesa con rollos de papiro, tablillas de cera, una estantería con cajas de bronce y, en la pared del fondo, un fresco rojo y verde de un jardín roto en cuatro placas de yeso caídas en el suelo. Cristina mira el fresco con la boca abierta de admiración y Alberto, a su lado, se rasca la barba con gesto de duda."),
-    "28": dict(
-        titulo="Carta 28 — El peristilo", tipo="gris", coge=[35, 40, 41, 42, 43, 45, 46], descarta=[26, 30, 31, 32, 33, 24, 36],
-        descripcion=[
-            "La verja se abre y salís al peristilo, el jardín de columnas con una fuente en el centro. Junto a la fuente brilla la otra mitad de la llave de bronce (carta 35). Al fondo, el triclinio, el comedor de la villa, cuyo suelo muestra tres rosetas rotas en cuatro placas (cartas 40, 41, 42 y 43); sobre la mesa hay una nota del jardinero (carta 45) y en la puerta, un candado de rosetas (carta 46).",
-            "Coged las cartas 35, 40, 41, 42, 43, 45 y 46. Descartad las cartas 26, 30, 31, 32, 33, 24 y 36."],
-        pistas=["Hay dos cosas: la otra mitad de la llave y el comedor con su candado.", "Las cartas 22 y 35 son combinables. Las placas 40 a 43 forman el suelo del comedor.", "Coged las cartas 35, 40, 41, 42, 43, 45 y 46. Descartad las cartas 26, 30, 31, 32, 33, 24 y 36."],
-        arte="Un peristilo romano, un jardín rodeado de columnas con una fuente de mármol en el centro, setos recortados y estatuas; al fondo, la puerta de un comedor con un candado de bronce con forma de flor. Cristina corre hacia la fuente con una sonrisa de alegría y Alberto la sigue con gesto de alivio, secándose la frente."),
-    "30": _pieza_carta("30", "peristilo", "Una placa del fresco del jardín del tablinum.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "31": _pieza_carta("31", "peristilo", "Una placa del fresco del jardín del tablinum.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "32": _pieza_carta("32", "peristilo", "Una placa del fresco del jardín del tablinum.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "33": _pieza_carta("33", "peristilo", "Una placa del fresco del jardín del tablinum.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "14": _pieza_carta("14", "atrio", "Una placa del mosaico del atrio.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "15": _pieza_carta("15", "atrio", "Una placa del mosaico del atrio.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "16": _pieza_carta("16", "atrio", "Una placa del mosaico del atrio.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "17": _pieza_carta("17", "atrio", "Una placa del mosaico del atrio.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "35": dict(
-        titulo="Carta 35 — Otra mitad de llave", tipo="roja", combina=[22, 57],
-        descripcion=["La otra mitad de la llave de bronce, con el resto del paletón. Combinadla con la primera mitad (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Es la otra mitad de la llave.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="La otra mitad de una llave romana de bronce, con el resto del paletón dentado, sobre el borde de mármol de una fuente de jardín, con gotas de agua y la luz del sol sobre el metal."),
-    "36": dict(
-        titulo="Carta 36 — Nota de Lucrecia", tipo="gris",
-        descripcion=["Una nota de Lucrecia clavada en la verja del peristilo. Sirve para leer el fresco del jardín y abrir la verja (carta 24)."],
-        pistas=["Es una nota sobre las estatuas del jardín.", "Sirve para la verja del peristilo (carta 24)."],
-        textoCarta=["Las estatuas del jardín indican el camino.", "Empezad por la que lleva la antorcha", "y seguid el sentido de las agujas del reloj."],
-        arte="Una hoja de papiro sujeta con un clavo a un pilar de piedra junto a una verja, con el borde quemado y manchas de aceite; al lado, una pequeña lámpara de arcilla. El papiro solo muestra rayas decorativas, sin escritura legible."),
-    "40": _pieza_carta("40", "rosetas", "Una placa del suelo del triclinio, el comedor de la villa.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "41": _pieza_carta("41", "rosetas", "Una placa del suelo del triclinio, el comedor de la villa.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "42": _pieza_carta("42", "rosetas", "Una placa del suelo del triclinio, el comedor de la villa.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "43": _pieza_carta("43", "rosetas", "Una placa del suelo del triclinio, el comedor de la villa.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "45": dict(
-        titulo="Carta 45 — Nota del jardinero", tipo="gris",
-        descripcion=["Una nota del jardinero sobre las rosetas del comedor. Sirve para el candado de rosetas (carta 46)."],
-        pistas=["Es una nota sobre cómo leer las rosetas.", "Sirve para el candado de rosetas (carta 46)."],
-        textoCarta=["Contad los pétalos de cada roseta,", "de arriba abajo", "y de izquierda a derecha."],
-        arte="Una tablilla de madera con un puñado de pétalos de colores y una podadera de jardinero sobre una mesa de mármol del comedor de una villa romana, junto a una copa de vino; la tablilla solo muestra rayas decorativas, sin escritura legible."),
-    "46": dict(
-        titulo="Carta 46 — El candado de rosetas", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un candado de bronce con tres ruedas que van del 1 al 9. Hay que poner en cada rueda el número de pétalos de cada roseta del suelo del comedor (juntad las placas 40, 41, 42 y 43), en el orden que dice la nota del jardinero (carta 45).",
-            "Al acertar, el candado se abre. Coged la carta 44."],
-        pistas=["Juntad las cuatro placas del suelo: son tres rosetas.", "Contad los pétalos de cada roseta, de arriba abajo y de izquierda a derecha, y poned cada número en su rueda.", "Cinco, tres y siete."],
-        arte="Un candado de bronce con forma de flor y tres ruedas numeradas (sin cifras legibles, solo muescas) en una puerta de madera de un comedor romano, con una lámpara de aceite al lado. Alberto gira una rueda con la lengua entre los dientes, concentrado, y Cristina cuenta con los dedos con cara de ilusión."),
-    "44": dict(
-        titulo="Carta 44 — El triclinio", tipo="gris", coge=[38], descarta=[28, 40, 41, 42, 43, 45, 46],
-        descripcion=[
-            "El candado cede y entráis en el triclinio, el comedor, donde aún están puestas las copas y las lámparas de una cena que no se acabó. Entre las copas, Alberto encuentra un pedernal con el que hacer fuego (carta 38).",
-            "Coged la carta 38. Descartad las cartas 28, 40, 41, 42, 43, 45 y 46."],
-        pistas=["Mirad lo que quedó en la mesa de la cena.", "La carta 38 es combinable.", "Coged la carta 38. Descartad las cartas 28, 40, 41, 42, 43, 45 y 46."],
-        arte="El triclinio de una villa romana: tres lechos para comer alrededor de una mesa baja con copas de vino, fruta y lámparas de aceite apagadas, y las paredes con frescos rojos. Alberto levanta un pedernal entre las copas con una sonrisa de triunfo y Cristina lo mira con los ojos brillantes de entusiasmo."),
-    "38": dict(
-        titulo="Carta 38 — Pedernal", tipo="azul", combina=[56, 94],
-        descripcion=["Un pedernal y un trozo de yesca para hacer fuego. Combinadlo con la lámpara de aceite (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Sirve para hacer fuego.", "Cuando tengáis la lámpara de aceite, combinadla con el pedernal.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Un pedernal gris y un trozo de yesca seca sobre una servilleta de lino, junto a una copa de vino, en una mesa del comedor de una villa romana; la luz de una ventana cae sobre ellos."),
-    "57": dict(
-        titulo="Carta 57 — El cubiculum", tipo="gris", coge=[48, 52, 53], descarta=[22, 35, 10],
-        descripcion=[
-            "Las dos mitades de la llave encajan y giran: la llave de bronce abre el cubiculum, el dormitorio de Lucrecia. A los pies de la cama hay un cofre con un ábaco (carta 48) y, en la pared, un fresco partido en dos mitades, la de arriba y la de abajo (cartas 52 y 53).",
-            "Coged las cartas 48, 52 y 53. Descartad las cartas 22, 35 y 10."],
-        pistas=["Hay un puzle: el fresco partido y el cofre con ábaco.", "Las dos mitades del fresco (52 y 53) se juntan una encima de la otra.", "Coged las cartas 48, 52 y 53. Descartad las cartas 22, 35 y 10."],
-        arte="Un dormitorio romano con una cama de madera, un cofre de bronce a sus pies con un ábaco de varillas sobre la tapa, y en la pared un fresco azul partido en dos mitades. Cristina gira la llave de bronce en la cerradura con una sonrisa de orgullo y Alberto observa por encima de su hombro con cara de impaciencia."),
-    "52": _pieza_carta("52", "digitos", "Una mitad de un fresco con un número.", ["Las dos mitades se juntan una encima de la otra.", "Las dos mitades no se pueden leer por separado: el número solo se ve con las dos juntas."]),
-    "53": _pieza_carta("53", "digitos", "Una mitad de un fresco con un número.", ["Las dos mitades se juntan una encima de la otra.", "Las dos mitades no se pueden leer por separado: el número solo se ve con las dos juntas."]),
-    "48": dict(
-        titulo="Carta 48 — El cofre del ábaco", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un cofre cerrado con un ábaco de tres varillas, unidades, decenas y centenas, con nueve cuentas cada una. Hay que dejar en el ábaco el número que muestra el fresco partido del cubiculum (juntad las cartas 52 y 53).",
-            "Al acertar, el cofre se abre. Coged la carta 58."],
-        pistas=["Juntad las dos mitades del fresco: se lee un número de tres cifras.", "Cada varilla es una cifra: centenas, decenas y unidades. Subid tantas cuentas como diga la cifra.", "El número es cuatrocientos setenta y dos."],
-        arte="Un cofre de bronce con un ábaco romano de tres varillas con cuentas de piedra sobre su tapa, en un dormitorio con una lámpara de aceite encendida. Alberto cuenta las cuentas con el dedo, con la boca fruncida de concentración, y Cristina sostiene la lámpara con los ojos muy abiertos de expectación."),
-    "58": dict(
-        titulo="Carta 58 — El cofre abierto", tipo="gris", coge=[56], descarta=[48, 52, 53, 57],
-        descripcion=[
-            "El cofre se abre con un chasquido. Dentro, sobre un paño, hay una lámpara de aceite de bronce, perfecta para bajar a oscuras.",
-            "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."],
-        pistas=["Mirad lo que había en el cofre.", "La carta 56 es combinable.", "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."],
-        arte="Un cofre de bronce abierto con una lámpara de aceite de bronce sobre un paño rojo, en un dormitorio romano de piedra; Cristina sostiene la tapa con una sonrisa radiante de alegría y Alberto se asoma con cara de alivio."),
-    "56": dict(
-        titulo="Carta 56 — Lámpara de aceite", tipo="roja", combina=[38, 94],
-        descripcion=["Una lámpara de aceite de bronce, con aceite pero sin llama. Combinadla con el pedernal (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Es una lámpara: necesita fuego.", "Cuando tengáis el pedernal, combinadlo con la lámpara.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Una lámpara de aceite romana de bronce con un asa y un pico largo, con aceite pero sin llama, sobre un paño rojo, vista de cerca, con una luz cálida lateral."),
-    "94": dict(
-        titulo="Carta 94 — El hipocausto", tipo="gris", coge=[64, 65, 66, 67, 69, 70], descarta=[56, 38, 44, 58],
-        descripcion=[
-            "Con la lámpara encendida, bajáis por una escalera al hipocausto, el sótano de columnillas por donde circulaba el aire caliente. El suelo de la sala principal es un mosaico enorme, roto en cuatro placas (cartas 64, 65, 66 y 67), con un reloj de sol en el centro. Junto a él, una nota (carta 70) y una rueda de bronce que mueve la sombra del reloj (carta 69).",
-            "Coged las cartas 64, 65, 66, 67, 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        pistas=["Hay un puzle: el mosaico del reloj y la rueda de bronce.", "Las cuatro placas (64 a 67) forman un reloj de sol.", "Coged las cartas 64, 65, 66, 67, 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        arte="Un sótano romano de columnillas de ladrillo (hipocausto) iluminado por la llama de una lámpara de aceite; en el suelo, un enorme mosaico roto en cuatro placas con un círculo central, y una rueda de bronce en la pared. Cristina avanza con la lámpara en alto, con cara de miedo contenido, y Alberto la sigue con los ojos muy abiertos y la boca entreabierta de asombro."),
-    "64": _pieza_carta("64", "reloj", "Una placa del mosaico del hipocausto.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "65": _pieza_carta("65", "reloj", "Una placa del mosaico del hipocausto.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "66": _pieza_carta("66", "reloj", "Una placa del mosaico del hipocausto.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "67": _pieza_carta("67", "reloj", "Una placa del mosaico del hipocausto.", ["Las cuatro placas encajan formando un solo dibujo.", "Es una cuadrícula de dos por dos: los bordes del dibujo continúan de una placa a otra."]),
-    "70": dict(
-        titulo="Carta 70 — Nota del relojero", tipo="gris",
-        descripcion=["Una nota del relojero que trazó el reloj de sol. Sirve para leer el mosaico del hipocausto y mover la rueda (carta 69)."],
-        pistas=["Es una nota sobre cómo leer el reloj.", "Sirve para la rueda del reloj de sol (carta 69)."],
-        textoCarta=["La estrella marca el comienzo de las horas.", "Contad las marcas en el sentido de las agujas", "del reloj hasta donde llega la sombra."],
-        arte="Una tablilla de cera con un gnomon de bronce dibujado y un compás de bronce apoyados en una piedra del suelo de un sótano romano, iluminados por la luz de una lámpara; la tablilla solo muestra rayas decorativas, sin escritura legible."),
-    "69": dict(
-        titulo="Carta 69 — La rueda del reloj de sol", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una rueda de bronce con doce marcas que gira un puntero. Hay que girarlo hasta la marca a la que llega la sombra del reloj de sol del mosaico (juntad las placas 64, 65, 66 y 67), contando desde la estrella como dice la nota del relojero (carta 70).",
-            "Al acertar, el mosaico se ilumina y se abre la sala del altar. Coged la carta 82."],
-        pistas=["Juntad las cuatro placas del mosaico: es un reloj de sol con su sombra.", "Contad las marcas en el sentido de las agujas del reloj desde la estrella (la estrella no cuenta) hasta donde llega la sombra.", "La sombra llega a la séptima marca."],
-        arte="Una gran rueda de bronce con doce muescas y un puntero giratorio en una pared de ladrillo de un sótano romano, junto a una lámpara de aceite encendida. Cristina gira la rueda con las dos manos, con los ojos entrecerrados de esfuerzo, y Alberto sostiene la lámpara con una ceja arqueada de duda."),
-    "82": dict(
-        titulo="Carta 82 — El lararium", tipo="gris", coge=[62], descarta=[64, 65, 66, 67, 69, 70, 94],
-        descripcion=[
-            "El mosaico se ilumina, la pared se abre y entráis en el lararium, el pequeño altar de los dioses de la casa. En el nicho, entre pequeñas estatuas de bronce, brilla un cristal rojo: el cristal de energía.",
-            "Coged la carta 62. Descartad las cartas 64, 65, 66, 67, 69, 70 y 94."],
-        pistas=["Mirad dentro del nicho del altar.", "La carta 62 es combinable con el Cronoportal.", "Coged la carta 62. Descartad las cartas 64, 65, 66, 67, 69, 70 y 94."],
-        arte="Un pequeño altar doméstico romano (lararium) en un nicho de pared pintado de rojo, con estatuillas de bronce y un cristal rojo brillante en el centro. Cristina lo toma con ambas manos con los ojos llenos de lágrimas de emoción y Alberto la mira con una sonrisa enorme."),
-    "62": dict(
-        titulo="Carta 62 — Cristal de energía", tipo="roja", combina=[12, 74],
-        descripcion=["El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Un cristal rojo facetado con un fulgor interior de brasa y finas líneas de energía, sostenido sobre la palma de una mano, sobre un fondo de ladrillo romano con luz cálida."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[99], descarta=[62, 12, 82],
-        descripcion=[
-            "El cristal encaja con un chasquido y el Cronoportal se enciende, pero fuera ya cae la ceniza y el suelo tiembla. No hay tiempo que perder: sacad el aparato al atrio y activadlo.",
-            "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal ya funciona. Solo queda activarlo.", "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con un cristal rojo encajado en su pecho, en un atrio romano cubierto de ceniza gris que cae del cielo, con un arco de luz azul y dorada en el anillo. Cristina, con la cara desencajada de urgencia, tira de Alberto, que carga el aparato con gesto de esfuerzo."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
-        descripcion=[
-            "El anillo se abre en un arco de luz justo cuando la primera lluvia de ceniza cubre el atrio. Cristina se despide con la mano de la casa y de su mosaico, que quedará sepultado casi dos mil años.",
-            "Aterrizan en su salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo una pequeña tesela de oro. Descartad la carta 74.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven un atrio romano cubierto de ceniza y el Vesubio con su columna de humo. Llevan aún su ropa romana manchada de ceniza. Cristina ríe a carcajadas con una tesela de oro en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    "P": escena("P", "Llegada a Pompeya", [10, 12], [],
+                "Séptima parada del Cronoportal: Pompeya, 24 de agosto del año 79. Aterrizáis en el atrio de una villa rica y el aparato golpea el borde del estanque: su cristal de energía sale volando y se pierde entre las columnas. Al fondo, el Vesubio echa humo. Nadie en la ciudad sabe lo que va a pasar hoy... salvo vosotros.",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "El atrio de una villa romana de Pompeya al amanecer: columnas, un estanque de lluvia y un suelo de mosaico; sobre los tejados, la columna de humo del Vesubio. En primer plano, un aparato de latón y cristal (el Cronoportal) humea en el suelo. Cristina, con los ojos muy abiertos de asombro, y Alberto, con una ceja arqueada de incredulidad, se levantan aturdidos con ropa romana."),
+    "10": escena("10", "El atrio", [13, 14, 15, 16, 17, 18, 22], ["P"],
+                 "Es la villa de Lucrecia, comerciante de aceite y de vino. El golpe ha partido el mosaico del suelo en cuatro placas. La puerta del despacho tiene un panel de bronce con huecos para figuras. Junto al mosaico, una tablilla firmada por Lucio, el mosaiquista. En el fondo del estanque brilla media llave de bronce.",
+                 ["Las cuatro placas son un solo mosaico.", "La tablilla de Lucio es un acertijo sobre el mosaico."],
+                 "El atrio de una villa romana con un mosaico roto en cuatro placas sobre las losas, una puerta de madera con un panel de bronce y un estanque con un brillo dorado en el fondo. Cristina se agacha junto a las placas con el ceño fruncido de concentración y Alberto mete la mano en el agua del estanque con cara de asco."),
+    "12": combinable("12", "Cronoportal sin cristal", "azul", 62, 74, "El Cronoportal sin su cristal de energía: el anillo central está apagado y el hueco del pecho, vacío.",
+                     "Primer plano del Cronoportal: una consola de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío, apoyado en el suelo de mosaico de un atrio romano."),
+    "13": app("13", "El panel del despacho", "Es un juego de la app: un panel de bronce con ocho figuras. Hay que tocar cuatro en el orden correcto.", 19,
+              ["Juntad las cuatro placas del mosaico (14 a 17) y leed despacio la tablilla de Lucio (18).", "El sol y la puerta están en el mosaico: hay un único camino blanco de uno a otro, sin volver atrás. Las figuras de los ramales sin salida no cuentan.", f"Por orden: {_S_LAB}."],
+              "Un panel de bronce en una puerta de madera romana con ocho medallones con figuras (delfín, ánfora, laurel, lechuza, racimo, concha, lucerna y escudo) y cuatro huecos vacíos."),
+    "14": pieza("14", "atrio", "Una placa del mosaico del atrio.", ["Es una de las cuatro placas: juntadlas.", "Arriba, de izquierda a derecha: 16 y 14. Abajo: 17 y 15.", "Seguid la piedra blanca."]),
+    "15": pieza("15", "atrio", "Una placa del mosaico del atrio.", ["Es una de las cuatro placas: juntadlas.", "Arriba, de izquierda a derecha: 16 y 14. Abajo: 17 y 15.", "Seguid la piedra blanca."]),
+    "16": pieza("16", "atrio", "Una placa del mosaico del atrio.", ["Es una de las cuatro placas: juntadlas.", "Arriba, de izquierda a derecha: 16 y 14. Abajo: 17 y 15.", "Seguid la piedra blanca."]),
+    "17": pieza("17", "atrio", "Una placa del mosaico del atrio.", ["Es una de las cuatro placas: juntadlas.", "Arriba, de izquierda a derecha: 16 y 14. Abajo: 17 y 15.", "Seguid la piedra blanca."]),
+    "18": gris("18", "Tablilla de Lucio", "Un acertijo en verso del mosaiquista sobre su mosaico.",
+               ["Es un acertijo sobre el mosaico del atrio.", "«Donde nace el sol» es el este, a la derecha; «donde se pone», el oeste. Solo cuenta la piedra blanca.", f"Las figuras que se saludan, en orden: {_S_LAB}."],
+               codigo("la tablilla de Lucio")),
+    "22": combinable("22", "Mitad de llave", "azul", 35, 57, "La mitad de una llave de bronce, con el ojo y medio paletón, sacada del estanque.",
+                     "La mitad de una llave romana de bronce, con el ojo y medio paletón, mojada y brillante sobre las losas de un atrio."),
+    "19": escena("19", "El despacho de Lucrecia", [20, 21, 23, 24, 25], [10, 13, 14, 15, 16, 17, 18],
+                 "El panel cede y entráis en el tablinum, el despacho de Lucrecia. Hay un arca de bronce cerrada con un ábaco en la tapa, tres tablillas de cuentas de su esclavo Tiro y, clavada en la pared, la regla del escriba.",
+                 ["El arca se abre con un número.", "Las tablillas son las cuentas de tres días."],
+                 "El despacho de una villa romana con estantes de rollos y tablillas, una mesa con tres tablillas de cera y un arca de bronce con un ábaco de cuentas en la tapa. Alberto ojea una tablilla con la boca torcida de desconfianza y Cristina mueve una cuenta del ábaco, curiosa."),
+    "20": app("20", "El arca de Lucrecia", "Es un juego de la app: el ábaco romano de la tapa del arca. Lucrecia guarda dentro el total verdadero de las ventas de los tres días.", 26,
+              ["Hacen falta las tres tablillas (21, 23 y 24) y la regla del escriba (25).", "Pasad cada importe a nuestros números y sumad cada día: una de las sumas de Tiro está mal. Sumad los tres totales de verdad.", f"El total es {CU['total']} ({CU['total_romano']})."],
+              "Un ábaco romano de bronce con cuatro columnas de cuentas sobre la tapa de un arca, con una cerradura decorada."),
+    "21": gris("21", "Cuentas de Lucrecia (día I)", "Las ventas del primer día, en números romanos, y la suma de Tiro.",
+               ["Son cuentas para el arca (carta 20).", "Leed los números romanos con la regla del escriba (carta 25).", f"El total verdadero de los tres días es {CU['total']}."], codigo("la tablilla del día I")),
+    "23": gris("23", "Cuentas de Lucrecia (día II)", "Las ventas del segundo día, en números romanos, y la suma de Tiro.",
+               ["Son cuentas para el arca (carta 20).", "Comprobad la suma de Tiro.", f"El total verdadero de los tres días es {CU['total']}."], codigo("la tablilla del día II")),
+    "24": gris("24", "Cuentas de Lucrecia (día III)", "Las ventas del tercer día, en números romanos, y la suma de Tiro.",
+               ["Son cuentas para el arca (carta 20).", "Comprobad la suma de Tiro.", f"El total verdadero de los tres días es {CU['total']}."], codigo("la tablilla del día III")),
+    "25": gris("25", "La regla del escriba", "El valor de cada letra romana y ejemplos de cómo se leen las que restan.",
+               ["Sirve para leer las cuentas (cartas 21, 23 y 24).", "Una letra pequeña delante de una grande resta: IV = 4, XC = 90.", "«Tiro suma mal»: una de las tres sumas está equivocada."], codigo("la regla del escriba")),
+    "26": escena("26", "El arca abierta", [27, 28, 29], [19, 20, 21, 23, 24, 25],
+                 "El arca se abre. Dentro hay monedas, una carta de Lucrecia cerrada con lacre, que se ha partido en dos al abrir la tapa, y un joyero con seis anillos de sello. Solo el anillo de Lucrecia rompe el hechizo del lacre, dice una inscripción... o eso cree Tiro.",
+                 ["Hay un puzle: el joyero de anillos y el lacre partido."],
+                 "Un arca de bronce abierta llena de monedas de oro, con una carta enrollada sellada con lacre rojo partido y un joyero con seis anillos de sello. Cristina sostiene la carta con los ojos brillantes de curiosidad y Alberto cuenta monedas con una sonrisa pícara."),
+    "27": pieza("27", "sello", "La mitad izquierda del lacre de la carta.", ["Juntad las dos mitades del lacre (27 y 29).", "Lo que deja un sello en el lacre es su imagen en espejo.", "El anillo bueno es el que, al revés, da esta impronta."]),
+    "29": pieza("29", "sello", "La mitad derecha del lacre de la carta.", ["Juntad las dos mitades del lacre (27 y 29).", "Lo que deja un sello en el lacre es su imagen en espejo.", "El anillo bueno es el que, al revés, da esta impronta."]),
+    "28": app("28", "El joyero de anillos", "Es un juego de la app: seis anillos de sello. Hay que elegir el que selló la carta.", 30,
+              ["Juntad las dos mitades del lacre (cartas 27 y 29).", "Un sello imprime al revés, como en un espejo: el anillo tiene que ser la impronta volteada, el delfín Y las letras. Ojo con los que solo tienen una de las dos cosas volteada.", "Es el anillo del delfín con «LVC» que se lee al derecho y el delfín mirando al otro lado que en el lacre."],
+              "Un joyero de madera forrado de tela roja con seis anillos de oro con sellos grabados."),
+    "30": escena("30", "La carta de Lucrecia", [32, 39], [26, 27, 28, 29],
+                 "La carta dice: «Tiro: me llevo la gema roja que cayó del cielo al puerto, donde nos espera la barca. El monte ruge y no me fío. Cierra la despensa con la llave partida y apaga las lámparas. Te espero en el muelle». La despensa está en el peristilo; el comedor, al otro lado.",
+                 ["El cristal lo tiene Lucrecia, camino del puerto.", "Hay que explorar el jardín y el comedor."],
+                 "Un pasillo de una villa romana que da por un lado a un jardín con columnas y por el otro a un comedor con frescos rojos. Cristina lee una carta enrollada con cara de alarma y Alberto mira hacia el volcán por una ventana, preocupado."),
+    "32": escena("32", "El peristilo", [33, 36, 37], [],
+                 "El jardín de columnas tiene una fuente seca: el acueducto no llega desde que alguien cerró mal las compuertas. Al fondo del pilón se ve algo de bronce. Hay un plano del fontanero y el plano del jardín del jardinero.",
+                 ["Hay un puzle: las compuertas de la fuente."],
+                 "Un jardín romano con columnas, parterres de rosas, laureles, viña y lirios y una fuente seca en el centro con un brillo de bronce en el fondo; en un muro, una caja de compuertas de madera. Alberto tira de una palanca con todas sus fuerzas y Cristina mira el pilón vacío con los brazos en jarras."),
+    "33": app("33", "Las compuertas", "Es un juego de la app: las nueve compuertas del acueducto de la villa. Hay que abrir y cerrar las justas para regar el jardín como quiere el jardinero.", 35,
+              ["Hacen falta el plano del fontanero (carta 36) y el del jardinero (carta 37).", "Cada arqueta reparte a partes iguales entre sus compuertas abiertas y no se puede perder nada. Contad las ánforas de cada parterre.", f"Abiertas: {_S_FU}. Cerradas: {_S_FU_CERR}."],
+              "Una caja de compuertas de madera con nueve palancas numeradas con números romanos junto a un canal de agua de piedra."),
+    "35": combinable("35", "Otra mitad de llave", "roja", 22, 57, "La otra mitad de la llave de bronce, que apareció en el fondo de la fuente al volver el agua.",
+                     "La otra mitad de una llave romana de bronce, en el fondo de una fuente de mármol con agua clara."),
+    "36": gris("36", "El acueducto de la villa", "El plano del fontanero: el agua del acueducto, las arquetas, las compuertas y los parterres.",
+               ["Sirve para las compuertas (carta 33).", "Cada arqueta reparte por igual entre sus compuertas abiertas; si todas están cerradas, se pierde.", f"Abiertas: {_S_FU}."], codigo("el plano del acueducto")),
+    "37": gris("37", "El jardín de Lucrecia", "El plano del jardinero: lo que bebe cada parterre, apuntado con ánforas.",
+               ["Sirve para las compuertas (carta 33).", "Cada ánfora es una medida de agua.", f"Abiertas: {_S_FU}."], codigo("el plano del jardín")),
+    "39": escena("39", "El triclinio", [40, 41, 42], [],
+                 "En el comedor quedan los restos de la cena. En una columna hay un grafito medio borrado y, debajo, un acertijo. Una tablilla de cera abre un nicho en la pared, si se escribe la palabra justa.",
+                 ["Hay un puzle: el grafito, el acertijo y la tablilla."],
+                 "Un comedor romano con tres lechos alrededor de una mesa con restos de una cena, paredes de frescos rojos y una columna con un grafito arañado; en un nicho, una tablilla de cera. Cristina pasa los dedos por el grafito, concentrada, y Alberto prueba una uva de la mesa con cara de culpa."),
+    "40": app("40", "La tablilla de cera", "Es un juego de la app: una tablilla de cera donde se escribe una palabra de cinco letras.", 38,
+              ["Hacen falta el grafito (carta 41) y el acertijo del sembrador (carta 42).", "El cuadrado se lee igual en las cuatro direcciones: cada letra borrada está repetida en otra casilla. La «cruz» es la fila y la columna del centro.", "La palabra es TENET."],
+              "Una tablilla de cera romana con un punzón de hueso sobre una mesa de mármol."),
+    "38": combinable("38", "Pedernal", "azul", 56, 94, "Un pedernal y un trozo de yesca para hacer fuego, que estaban en el nicho de la pared.",
+                     "Un pedernal y un trozo de yesca sobre un paño en un nicho de pared romano."),
+    "41": gris("41", "Grafito en la columna", "Un cuadrado de letras arañado en una columna, con varias letras borradas.",
+               ["Sirve para la tablilla de cera (carta 40).", "Se lee igual en todas las direcciones: completadlo.", "La palabra de la cruz es TENET."], codigo("el grafito del cuadrado")),
+    "42": gris("42", "El acertijo del sembrador", "Un acertijo en verso escrito bajo el grafito.",
+               ["Habla del cuadrado de la columna (carta 41).", "La «cruz» es la fila y la columna del centro.", "La palabra es TENET."], codigo("el acertijo del sembrador")),
+    "57": escena("57", "La despensa", [43, 45, 46], [22, 35, 32, 33, 36, 37],
+                 "La llave abre la despensa: ánforas, sacos y una balanza romana. Lucrecia ha dejado un cofre colgado del gancho con un recibo del mercader, y en la viga, tres pesadas de prueba dibujadas con carbón. Si la balanza queda en equilibrio, se suelta el pestillo del cofre.",
+                 ["Hay un puzle: la balanza romana, el recibo y las pesadas."],
+                 "Una despensa romana llena de ánforas apiladas, sacos y quesos colgados, con una balanza romana de brazo largo de la que cuelga un cofre de madera. Alberto sujeta el contrapeso con cara de concentración y Cristina compara un papel con unos dibujos de carbón en la viga, dudosa."),
+    "46": app("46", "La balanza romana", "Es un juego de la app: una balanza romana (statera) con el cofre colgado del gancho y un contrapeso que se mueve por las muescas del brazo. Hay que dejarla en equilibrio.", 56,
+              ["Hacen falta las pesadas (carta 43) y el recibo (carta 45).", "De las pesadas sale lo que pesa cada cosa. Sumad el cofre entero. Con la balanza, peso × distancia a cada lado: el cofre cuelga a una muesca del eje.", f"El cofre pesa {ST['total']} libras: muesca {ST['muesca']}."],
+              "Una balanza romana de bronce de brazo largo con muescas, un gancho con un cofre y un contrapeso con forma de cabeza."),
+    "56": combinable("56", "Lámpara de aceite", "roja", 38, 94, "Una lámpara de aceite de bronce, llena pero apagada, que estaba dentro del cofre.",
+                     "Una lámpara de aceite romana de bronce con forma de barca, llena pero apagada, sobre un paño dentro de un cofre."),
+    "43": gris("43", "Las pesadas del mercader", "Tres pesadas de prueba dibujadas con carbón en la viga, todas en equilibrio.",
+               ["Sirven para la balanza (carta 46).", "Juntad la segunda y la tercera: el vino pesa una libra más que los higos y entre los dos pesan cinco. Luego, la primera.", f"Aceite {ST['pesos']['aceite']}, vino {ST['pesos']['vino']}, higos {ST['pesos']['higos']} libras."], codigo("las pesadas")),
+    "45": gris("45", "Recibo del mercader", "Lo que contiene el cofre de Lucrecia y lo que pesa el cofre vacío.",
+               ["Sirve para la balanza (carta 46).", "No olvidéis el cofre vacío. Y el contrapeso pesa lo mismo que él.", f"El cofre pesa {ST['total']} libras: muesca {ST['muesca']}."], codigo("el recibo")),
+    "94": escena("94", "El pasadizo de la calle", [51, 52, 53, 54, 55], [38, 56, 30, 39, 40, 41, 42, 57, 43, 45, 46],
+                 "Con la lámpara encendida bajáis por el pasadizo de los esclavos hasta la calle. La ceniza empieza a caer. Tiro, el esclavo, os explica que Lucrecia no fue directa al puerto: pasó a esconder algo en una casa de la manzana. En las paredes hay grafitos sobre ella y, en el foro, el plano de la manzana.",
+                 ["Hay un puzle: la casa donde paró Lucrecia."],
+                 "Una calle de Pompeya con aceras altas, pasos de piedra y paredes pintadas llenas de grafitos, bajo una lluvia fina de ceniza gris; al fondo, el Vesubio. Cristina protege la llama de una lámpara de aceite con la mano, con cara de miedo, y Alberto lee un grafito con la nariz pegada a la pared."),
+    "55": app("55", "La casa de la manzana", "Es un juego de la app: el plano de la manzana. Hay que tocar la casa donde paró Lucrecia.", 58,
+              ["Hacen falta los tres grafitos (51, 52 y 53) y el plano (54).", "Cada grafito descarta casas: sin tienda, con la panadería pegada a un lado, con la puerta al sur y pintada de rojo.", f"Es {_S_CASA}."],
+              "Un plano de una manzana de Pompeya pintado en una pared del foro, con casas de colores y puertas marcadas."),
+    "51": gris("51", "Grafito: la casa", "Un grafito sobre la casa de Lucrecia.", ["Sirve para el plano (carta 55).", "«Solo hay casa»: no tiene tienda.", f"Es {_S_CASA}."], codigo("un grafito")),
+    "52": gris("52", "Grafito: el pan", "Otro grafito sobre la casa de Lucrecia.", ["Sirve para el plano (carta 55).", "Una panadería pegada a la izquierda o a la derecha.", f"Es {_S_CASA}."], codigo("un grafito")),
+    "53": gris("53", "Grafito: la puerta", "Otro grafito sobre la casa de Lucrecia.", ["Sirve para el plano (carta 55).", "El mar está al sur; y la casa es roja.", f"Es {_S_CASA}."], codigo("un grafito")),
+    "54": gris("54", "Plano de la manzana", "El plano de la manzana copiado de la pared del foro: casas, tiendas, colores y puertas.",
+               ["Sirve para la casa de la manzana (carta 55).", "Cruzad lo que dicen los tres grafitos.", f"Es {_S_CASA}."], codigo("el plano de la manzana")),
+    "58": escena("58", "El templo de Isis", [59, 61, 63, 65], [94, 51, 52, 53, 54, 55],
+                 "En la casa no está Lucrecia, pero sí una nota: «Dejé al sacerdote de Isis la llave de la puerta del mar». En el templo, el sacerdote solo la entrega a quien ponga en el calendario de piedra el día que dice la carta de Plinio.",
+                 ["Hay un puzle: el calendario de piedra y la carta de Plinio."],
+                 "El patio de un pequeño templo de Isis en Pompeya, con columnas, palmeras y un altar, bajo la ceniza que cae; un sacerdote con túnica de lino blanco sostiene una carta. Cristina habla con el sacerdote con gesto suplicante y Alberto mira el calendario de piedra con los ojos entrecerrados."),
+    "59": app("59", "El calendario de piedra", "Es un juego de la app: el calendario de piedra del templo, con una clavija que se pone en un día de agosto.", 64,
+              ["Hacen falta las dos mitades del calendario (61 y 63) y la carta de Plinio (65).", "Los romanos contaban hacia atrás desde las calendas, contando también el día de llegada. El ejemplo del calendario os enseña cómo.", f"Es el día {CAL['dia']} de agosto."],
+              "Un calendario romano de piedra con los días de agosto grabados en casillas y una clavija de bronce."),
+    "61": pieza("61", "calendario", "La mitad izquierda del calendario de piedra del templo.", ["Juntad las dos mitades (61 y 63).", "Fijaos en el ejemplo marcado en azul.", f"Es el día {CAL['dia']}."]),
+    "63": pieza("63", "calendario", "La mitad derecha del calendario de piedra del templo.", ["Juntad las dos mitades (61 y 63).", "Fijaos en el ejemplo marcado en azul.", f"Es el día {CAL['dia']}."]),
+    "65": gris("65", "Carta de Plinio", "Una carta de Plinio al sacerdote, con el día en que despertó el monte, a la manera romana.",
+               ["Sirve para el calendario de piedra (carta 59).", "Contad hacia atrás desde las calendas de septiembre, contándolas a ellas.", f"Es el día {CAL['dia']} de agosto."], codigo("la carta de Plinio")),
+    "64": escena("64", "La erupción", [66, 67, 75], [58, 59, 61, 63, 65],
+                 "El sacerdote os da la llave de la puerta del mar justo cuando el monte revienta: una columna negra tapa el sol y llueven piedras. Hay que llegar al puerto desde el foro antes de que la ceniza cierre la puerta, por calles que se van cortando.",
+                 ["Hay un puzle: la ruta hasta el puerto."],
+                 "Una plaza de Pompeya en plena erupción: el cielo negro, una lluvia de piedras pómez y gente huyendo con fardos; al fondo, el Vesubio con una columna de fuego. Alberto sujeta a Cristina de la mano y tira de ella con cara de pánico, y Cristina se tapa la boca con el manto, con los ojos llorosos."),
+    "66": app("66", "La huida", "Es un juego de la app: el plano de las calles. Hay que marcar la ruta del foro al puerto, cruce a cruce.", 69,
+              ["Hacen falta el mapa (carta 67) y lo que grita el vigía (carta 75).", "Quitad las calles cortadas y sumad los pasos de cada ruta posible: solo una llega a tiempo.", f"Ruta: {_S_HU} ({HU['tiempo']} pasos)."],
+              "Un plano de calles de Pompeya pintado en una tabla de madera, con los cruces marcados y ceniza encima."),
+    "67": gris("67", "Las calles hasta el puerto", "El mapa de las calles del foro al puerto, con los pasos que se tarda en cada tramo en números romanos.",
+               ["Sirve para la huida (carta 66).", "Sumad los tramos de cada ruta.", f"Ruta: {_S_HU}."], codigo("el mapa de las calles")),
+    "75": gris("75", "El vigía de la torre", "Lo que grita el vigía: calles cortadas y cuánto falta para que la ceniza cierre la puerta.",
+               ["Sirve para la huida (carta 66).", "Esas calles no se pueden usar.", f"Ruta: {_S_HU}."], codigo("los gritos del vigía")),
+    "69": escena("69", "El puerto", [70, 71, 72, 76], [64, 66, 67, 75],
+                 "En el muelle os espera Lucrecia con una barca pequeña y un montón de cosas que quiere salvar. El barquero no carga más de lo que aguanta su barca. Lucrecia os promete la gema roja si la ayudáis a cargarla bien.",
+                 ["Hay un puzle: qué cargar en la barca."],
+                 "Un muelle romano bajo la lluvia de ceniza, con una barca pequeña, un barquero viejo y un montón de ánforas, fardos y un cofre; una mujer romana rica con un collar del que cuelga un cristal rojo. Cristina negocia con la mujer con gesto decidido y Alberto, a punto de caerse al agua, sostiene un ánfora enorme con cara de agobio."),
+    "70": app("70", "La barca", "Es un juego de la app: el muelle con seis cosas y la barca. Hay que cargar lo que pide Lucrecia y zarpar.", 82,
+              ["Hacen falta el manifiesto (carta 71), el barquero (carta 72) y la tablilla de Lucrecia (carta 76).", "Lo más valioso que quepa: probad combinaciones sin pasar del peso.", f"Cargad: {_S_BA} (valor {BA['valor']})."],
+              "Una barca de madera junto a un muelle romano con ánforas, un fardo de lana, un cofre, una estatuilla y un saco de trigo."),
+    "71": gris("71", "La carga del muelle", "Las seis cosas del muelle, con lo que pesa y lo que vale cada una.", ["Sirve para la barca (carta 70).", "Pesas: peso. Monedas: valor.", f"Cargad: {_S_BA}."], codigo("el manifiesto")),
+    "72": gris("72", "El barquero", "Lo que aguanta la barca del barquero.", ["Sirve para la barca (carta 70).", "No paséis de ese peso.", f"Cargad: {_S_BA}."], codigo("el barquero")),
+    "76": gris("76", "Tablilla de Lucrecia", "Lo que pide Lucrecia que se salve.", ["Sirve para la barca (carta 70).", "Lo que más vale, sin hundir la barca.", f"Cargad: {_S_BA}."], codigo("la tablilla de Lucrecia")),
+    "82": escena("82", "La gema de Lucrecia", [62], [69, 70, 71, 72, 76],
+                 "La barca se aleja con lo que más valía y Lucrecia, agradecida, se arranca el colgante: es vuestro cristal de energía. «Que los dioses os lleven a casa», dice, antes de saltar a bordo.",
+                 ["Lucrecia os da el cristal."],
+                 "Una barca alejándose de un muelle romano bajo un cielo negro de ceniza; en primer plano, una mujer romana entrega un colgante con un cristal rojo. Cristina recibe el cristal con los ojos llenos de lágrimas de emoción y Alberto se despide con la mano, aliviado."),
+    "62": combinable("62", "Cristal de energía", "roja", 12, 74, "El cristal de energía del Cronoportal, con su fulgor rojo, colgado de una cadena.",
+                     "Un cristal rojo facetado con un fulgor interior, colgado de una cadena de oro, sobre una mano, con ceniza gris cayendo alrededor."),
+    "74": escena("74", "Cronoportal reconectado", [99], [62, 12, 82],
+                 "El cristal encaja y el Cronoportal se enciende entre la ceniza. Activadlo antes de que el aire se vuelva irrespirable.",
+                 ["El portal ya funciona."],
+                 "El Cronoportal encendido con un cristal rojo en su pecho y un arco de luz azul y dorada, en un muelle romano bajo una lluvia de ceniza. Cristina, con la cara tiznada de ceniza y gesto de urgencia, tira de Alberto, que carga el aparato tosiendo."),
+    "99": dict(titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
+               descripcion=["El anillo se abre en un arco de luz y Cristina y Alberto salen de Pompeya justo cuando la ceniza lo cubre todo. Aterrizan en su salón, tiznados de gris.",
+                            "Alberto se sacude la túnica: «Mañana, otro destino». Cristina sonríe: en el bolsillo lleva una tesela blanca del mosaico. Descartad la carta 74.", "FIN."],
+               pistas=[],
+               arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ve Pompeya bajo una nube de ceniza. Llevan aún su ropa romana, cubierta de ceniza. Cristina ríe con una tesela blanca en la mano y Alberto tose y sonríe aliviado. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="Pompeya, 79 d.C. — El Mosaico del Mundo",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-    mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()},
-)
+META = dict(juego="Pompeya, 79 d.C. — El Mosaico del Mundo", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["14", "15", "16", "17", "18", "20"], "28": ["30", "31", "32", "33", "24", "36"], "44": ["40", "41", "42", "43", "45", "46"],
-           "57": ["22", "35"], "58": ["48", "52", "53"], "94": ["56", "38"], "82": ["64", "65", "66", "67", "69", "70"], "74": ["62", "12"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "19": ["13", "14", "15", "16", "17", "18"], "26": ["20", "21", "23", "24", "25"], "30": ["28", "27", "29"], "35": ["33", "36", "37"],
+    "38": ["40", "41", "42"], "57": ["22", "35"], "56": ["46", "43", "45"], "94": ["38", "56"], "58": ["55", "51", "52", "53", "54"],
+    "64": ["59", "61", "63", "65"], "69": ["66", "67", "75"], "82": ["70", "71", "72", "76"], "74": ["62", "12"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada al atrio. Te manda coger la 10 y la 12.",
-    "10": "El atrio: reparte las placas del mosaico, la nota, la puerta y la mitad de la llave.",
-    "12": "El Cronoportal sin cristal: se combina con el cristal de energía (62).",
-    "14": "Placa del mosaico del atrio: se junta con la 15, 16 y 17.", "15": "Placa del mosaico del atrio: se junta con la 14, 16 y 17.",
-    "16": "Placa del mosaico del atrio: se junta con la 14, 15 y 17.", "17": "Placa del mosaico del atrio: se junta con la 14, 15 y 16.",
-    "18": "Nota de Lucio: cómo leer el mosaico del atrio.",
-    "20": "La puerta del tablinum (app): poner cuatro figuras en el orden del camino del mosaico.",
-    "22": "Mitad de llave: se combina con la otra mitad (35).",
-    "24": "La verja del peristilo (app): cuatro flechas en el orden de las estatuas.",
-    "26": "El tablinum: reparte las placas del fresco, la nota y la verja; te manda descartar el atrio.",
-    "28": "El peristilo: reparte la otra mitad de la llave y el comedor.",
-    "30": "Placa del fresco del jardín.", "31": "Placa del fresco del jardín.", "32": "Placa del fresco del jardín.", "33": "Placa del fresco del jardín.",
-    "35": "Otra mitad de llave: se combina con la 22.",
-    "36": "Nota de Lucrecia: cómo leer el fresco de las estatuas.",
-    "40": "Placa del suelo del triclinio.", "41": "Placa del suelo del triclinio.", "42": "Placa del suelo del triclinio.", "43": "Placa del suelo del triclinio.",
-    "45": "Nota del jardinero: cómo contar los pétalos.",
-    "46": "El candado de rosetas (app): tres ruedas con el número de pétalos.",
-    "44": "El triclinio: reparte el pedernal.",
-    "38": "Pedernal: se combina con la lámpara (56).",
-    "57": "El cubiculum: resultado de 22 + 35; reparte el fresco partido y el ábaco.",
-    "52": "Mitad del fresco con un número.", "53": "Mitad del fresco con un número.",
-    "48": "El cofre del ábaco (app): dejar en el ábaco el número del fresco.",
-    "58": "El cofre abierto: reparte la lámpara.",
-    "56": "Lámpara de aceite: se combina con el pedernal (38).",
-    "94": "El hipocausto: resultado de 56 + 38; reparte el mosaico del reloj, la nota y la rueda.",
-    "64": "Placa del mosaico del reloj de sol.", "65": "Placa del mosaico del reloj de sol.", "66": "Placa del mosaico del reloj de sol.", "67": "Placa del mosaico del reloj de sol.",
-    "70": "Nota del relojero: cómo leer la sombra del reloj.",
-    "69": "La rueda del reloj de sol (app): girar el puntero a la marca de la sombra.",
-    "82": "El lararium: reparte el cristal de energía.",
-    "62": "Cristal de energía: se combina con el Cronoportal (12).",
-    "74": "Cronoportal reconectado: resultado de 62 + 12; reparte la 99.",
-    "99": "Final de la aventura.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-# ---------------------------------------------------------------- manual (los estados de la mesa se calculan simulando las cartas)
-_TEXTOS = [
-    ("leer", "P", "Llegada a Pompeya", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
-    ("leer", "10", "El atrio de la villa", "Lee la carta 10. Descarta la P y coge 14, 15, 16, 17, 18, 20 y 22. Junta las cuatro placas (14 a 17) para ver el mosaico entero (en el Modo PC, botón «Mesa de montaje»: toca dos piezas para cambiarlas de sitio) y sigue el camino desde la estrella de oro (nota 18)."),
-    ("app", "20", "La puerta del tablinum", "En el móvil: Acción, 20. Las figuras del camino, por orden, son triángulo, estrella, círculo y cruz. El mensaje te dice que cojas la 26.", "carta 26"),
-    ("leer", "26", "El tablinum", "Lee la carta 26. Descarta 14, 15, 16, 17, 18 y 20 y coge 24, 30, 31, 32, 33 y 36. Junta las cuatro placas del fresco (30 a 33): son las estatuas del jardín."),
-    ("app", "24", "La verja del peristilo", "En el móvil: Acción, 24. Desde la estatua de la antorcha, en el sentido de las agujas del reloj: abajo, abajo, derecha y arriba. El mensaje te dice que cojas la 28.", "carta 28"),
-    ("leer", "28", "El peristilo", "Lee la carta 28. Descarta 26, 30, 31, 32, 33, 24 y 36 y coge 35, 40, 41, 42, 43, 45 y 46. Las cartas 22 y 35 son combinables."),
-    ("combinar", "22", "35", "La llave de bronce", "Las dos mitades de la llave (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
-    ("leer", "57", "El cubiculum", "Lee la carta 57. Descarta 22, 35 y 10 y coge 48, 52 y 53. Junta las dos mitades del fresco (52 y 53): se lee un número de tres cifras."),
-    ("app", "48", "El cofre del ábaco", "En el móvil: Acción, 48. Deja en el ábaco el número del fresco: 4 en las centenas, 7 en las decenas y 2 en las unidades. El mensaje te dice que cojas la 58.", "carta 58"),
-    ("leer", "58", "El cofre abierto", "Lee la carta 58. Descarta 48, 52, 53 y 57 y coge la 56, una lámpara de aceite."),
-    ("app", "46", "El candado de rosetas", "En el móvil: Acción, 46. Junta las placas 40 a 43 (tres rosetas) y, con la nota 45, pon en las ruedas los pétalos de cada roseta: 5, 3 y 7. El mensaje te dice que cojas la 44.", "carta 44"),
-    ("leer", "44", "El triclinio", "Lee la carta 44. Descarta 28, 40, 41, 42, 43, 45 y 46 y coge la 38, un pedernal."),
-    ("combinar", "56", "38", "Lámpara con pedernal", "La lámpara (56) y el pedernal (38) son combinables: 56 + 38 = 94. Coge la 94."),
-    ("leer", "94", "El hipocausto", "Lee la carta 94. Descarta 56, 38, 44 y 58 y coge 64, 65, 66, 67, 69 y 70. Junta las cuatro placas (64 a 67): es un reloj de sol con su sombra."),
-    ("app", "69", "La rueda del reloj de sol", "En el móvil: Acción, 69. Con la nota 70, cuenta desde la estrella en el sentido de las agujas del reloj hasta donde llega la sombra: la séptima marca. El mensaje te dice que cojas la 82.", "carta 82"),
-    ("leer", "82", "El lararium", "Lee la carta 82. Descarta 64, 65, 66, 67, 69, 70 y 94 y coge la 62, el cristal de energía."),
-    ("combinar", "12", "62", "Cristal en el Cronoportal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "El atrio", "Lee la carta 10. Descarta la P y coge 13, 14, 15, 16, 17, 18 y 22. Junta las placas 16 y 14 arriba y 17 y 15 abajo."),
+    ("app", "13", "El panel del despacho", f"En el móvil: Acción, 13. En el mosaico, el único camino blanco del sol (este) a la puerta (oeste) pasa por: {_S_LAB}. El mensaje te dice que cojas la 19.", "carta 19"),
+    ("leer", "19", "El despacho", "Lee la carta 19. Descarta 10, 13, 14, 15, 16, 17 y 18 y coge 20, 21, 23, 24 y 25."),
+    ("app", "20", "El arca", f"En el móvil: Acción, 20. Las sumas verdaderas de los tres días dan {CU['total']} ({CU['total_romano']}): ponlo en el ábaco. El mensaje te dice que cojas la 26.", "carta 26"),
+    ("leer", "26", "El arca abierta", "Lee la carta 26. Descarta 19, 20, 21, 23, 24 y 25 y coge 27, 28 y 29."),
+    ("app", "28", "El joyero", "En el móvil: Acción, 28. Elige el anillo cuyo sello, en espejo, da la impronta del lacre (27 y 29). El mensaje te dice que cojas la 30.", "carta 30"),
+    ("leer", "30", "La carta de Lucrecia", "Lee la carta 30. Descarta 26, 27, 28 y 29 y coge 32 y 39."),
+    ("leer", "32", "El peristilo", "Lee la carta 32. Coge 33, 36 y 37."),
+    ("app", "33", "Las compuertas", f"En el móvil: Acción, 33. Deja abiertas {_S_FU} y cerradas {_S_FU_CERR}. El mensaje te dice que cojas la 35.", "carta 35"),
+    ("combinar", "22", "35", "La llave", "Las dos mitades de la llave (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "La despensa", "Lee la carta 57. Descarta 22, 35, 32, 33, 36 y 37 y coge 43, 45 y 46."),
+    ("app", "46", "La balanza romana", f"En el móvil: Acción, 46. El cofre pesa {ST['total']} libras: pon el contrapeso en la muesca {ST['muesca']}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("leer", "39", "El triclinio", "Lee la carta 39. Coge 40, 41 y 42."),
+    ("app", "40", "La tablilla de cera", "En el móvil: Acción, 40. Completa el cuadrado por simetría: la palabra de la cruz es TENET. El mensaje te dice que cojas la 38.", "carta 38"),
+    ("combinar", "38", "56", "La lámpara", "El pedernal (38) y la lámpara (56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "El pasadizo de la calle", "Lee la carta 94. Descarta 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46 y coge 51, 52, 53, 54 y 55."),
+    ("app", "55", "La casa de la manzana", f"En el móvil: Acción, 55. Los tres grafitos dejan una sola casa: {_S_CASA}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "El templo de Isis", "Lee la carta 58. Descarta 94, 51, 52, 53, 54 y 55 y coge 59, 61, 63 y 65."),
+    ("app", "59", "El calendario", f"En el móvil: Acción, 59. Nueve días antes de las calendas de septiembre, contándolas: día {CAL['dia']}. El mensaje te dice que cojas la 64.", "carta 64"),
+    ("leer", "64", "La erupción", "Lee la carta 64. Descarta 58, 59, 61, 63 y 65 y coge 66, 67 y 75."),
+    ("app", "66", "La huida", f"En el móvil: Acción, 66. Sin las calles cortadas, la única ruta a tiempo es {_S_HU}. El mensaje te dice que cojas la 69.", "carta 69"),
+    ("leer", "69", "El puerto", "Lee la carta 69. Descarta 64, 66, 67 y 75 y coge 70, 71, 72 y 76."),
+    ("app", "70", "La barca", f"En el móvil: Acción, 70. Carga {_S_BA} y zarpa. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "La gema de Lucrecia", "Lee la carta 82. Descarta 69, 70, 71, 72 y 76 y coge la 62."),
+    ("combinar", "12", "62", "El cristal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
     ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12 y 82 y coge la 99."),
     ("leer", "99", "Final", "Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!"),
 ]
-
-
-def _pasos():
-    mesa = set()
-    pasos = []
-    for p in _TEXTOS:
-        if p[0] == "leer":
-            c = J[p[1]]
-            mesa |= {"P"} if p[1] == "P" and not mesa else set()
-            for d in c.get("descarta", []):
-                mesa.discard(str(d))
-            for h in c.get("coge", []):
-                mesa.add(str(h))
-            if p[1] == "P":
-                mesa = {"P", "10", "12"}
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("leer", p[1])], mesa=_orden(mesa)))
-        elif p[0] == "app":
-            res = p[4].split()[-1]
-            mesa.add(res)
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("app", p[1], p[4])], mesa=_orden(mesa)))
-        else:
-            mesa.add(str(int(p[1]) + int(p[2])))
-            pasos.append(dict(t=p[3], que=p[4], acciones=[("combinar", p[1], p[2])], mesa=_orden(mesa)))
-    return pasos
-
-
-def _orden(m):
-    return sorted(m, key=lambda x: (x != "P", int(x) if x != "P" else 0))
-
-
-PASOS = _pasos()
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.recalcular_mesas(PASOS, J)

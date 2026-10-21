@@ -19,7 +19,7 @@ const PAGINAS = [
     titulo: 'Avisos para mí mismo',
     texto: [
       'El reloj del recibidor está parado desde la última tormenta. Nunca lo arreglé: dejé apuntado cuánto atrasa en un sitio donde lo vería cada día.',
-      'Mi nieta Inés dice que trabajo demasiado. Tiene razón, pero el faro no se enciende solo.',
+      'Mi nieta Cristina dice que trabajo demasiado. Tiene razón, pero el faro no se enciende solo.',
       'La frecuencia de la radio del faro la tengo apuntada en el mapa, en el cuarto de máquinas; la décima me la grabé en la brújula, para no olvidarla.',
       'No dejar el termo cerca de la lente. Otra vez.'
     ]
@@ -37,7 +37,7 @@ const PAGINAS = [
     titulo: 'Diario · última entrada',
     texto: [
       'Esta noche el parte da tormenta fuerte. Pondré la lámpara a punto antes de que anochezca.',
-      'Si Inés viene a verme, que mire en la despensa: he guardado esas galletas de las que tanto presume.',
+      'Si Cristina viene a verme, que mire en la despensa: he guardado esas galletas de las que tanto presume.',
       'Voy un momento a por el termo... vuelvo enseguida.'
     ]
   }

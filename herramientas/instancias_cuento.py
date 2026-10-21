@@ -160,9 +160,57 @@ NOTAS = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"]
 FRECUENCIAS = {"Do": 261.63, "Re": 293.66, "Mi": 329.63, "Fa": 349.23, "Sol": 392.0, "La": 440.0, "Si": 493.88}
 SOLUCION_MUSICA = [TABLA[a] for a in PARTITURA]
 
-# ------------------------------------------------------------------ Letras del libro: una por cada app que se resuelve (palabra FELICES)
-LETRAS = {"14": "C", "20": "E", "40": "L", "46": "F", "51": "S", "64": "I", "69": "E"}
-PALABRA = "FELICES"
+# ------------------------------------------------------------------ Botas de siete leguas (versión de 60 cartas): los pasos saltan, por turnos,
+# DOS y TRES casillas en línea recta (por encima de lo que haya); no se puede caer en un árbol, en el agua ni fuera del mapa.
+def botas(semilla=7, n=7, saltos=(2, 3)):
+    rng = random.Random(semilla)
+    dirs = {"arriba": (0, -1), "abajo": (0, 1), "izquierda": (-1, 0), "derecha": (1, 0)}
+    for _ in range(20000):
+        obst = set()
+        while len(obst) < 14:
+            obst.add((rng.randrange(n), rng.randrange(n)))
+        ini, fin = (0, n - 1), (n - 1, 0)
+        if ini in obst or fin in obst:
+            continue
+        inicio = (ini, 0)
+        prev = {inicio: None}
+        cola = deque([inicio])
+        llegada = None
+        while cola:
+            c, k = cola.popleft()
+            if c == fin:
+                llegada = (c, k)
+                break
+            for d, (dx, dy) in dirs.items():
+                v = (c[0] + dx * saltos[k], c[1] + dy * saltos[k])
+                e = (v, 1 - k)
+                if 0 <= v[0] < n and 0 <= v[1] < n and v not in obst and e not in prev:
+                    prev[e] = ((c, k), d)
+                    cola.append(e)
+        if not llegada:
+            continue
+        camino, e = [], llegada
+        while prev[e]:
+            e, d = prev[e]
+            camino.append(d)
+        camino = camino[::-1]
+        if 7 <= len(camino) <= 10:
+            return {"n": n, "saltos": list(saltos), "obstaculos": sorted([list(o) for o in obst]), "inicio": list(ini), "fin": list(fin), "solucion": camino}
+    raise SystemExit("sin botas")
+
+
+BOTAS = botas()
+
+# ------------------------------------------------------------------ La habichuela: hojas cada día (cada día, tantas hojas nuevas como tenía anteayer)
+HOJAS = [1, 1]
+while len(HOJAS) < 12:
+    HOJAS.append(HOJAS[-1] + HOJAS[-2])
+HABICHUELA = {"dibujados": HOJAS[:6], "pregunta_dia": 9, "solucion": HOJAS[8]}
+
+
+# ------------------------------------------------------------------ Letras del libro: una por cada app que se resuelve (palabra PERDICES)
+LETRAS = {"14": "C", "20": "E", "40": "S", "46": "D", "51": "I", "64": "P", "69": "E", "72": "R"}
+PALABRA = "PERDICES"
 
 
 if __name__ == "__main__":
@@ -177,4 +225,6 @@ if __name__ == "__main__":
     assert len(s) == 1, "el salto debe tener una sola solución"
     assert sorted(LETRAS.values()) == sorted(PALABRA), "las letras no forman la palabra"
     assert len(set(PARTITURA)) <= len(TABLA) and all(a in TABLA for a in PARTITURA)
+    print("botas:", BOTAS)
+    print("habichuela:", HABICHUELA)
     print("OK")

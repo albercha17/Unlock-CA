@@ -95,7 +95,7 @@ export function startMinigame(opts = {}) {
     if (k(barco) === k(P.niebla)) {
       resuelto = true;
       pintar();
-      ui.say('¡La Gaviota se mete en el banco de niebla y la fragata pasa de largo, perdida! La capitana Bruma suelta una carcajada: «¡Tierra a la vista!». Coged la carta 58.', 'ok');
+      ui.say('¡La Gaviota se mete en el banco de niebla y la fragata pasa de largo, perdida! La capitana Bruma suelta una carcajada: «¡Tierra a la vista!». Coged la carta 59.', 'ok');
       return;
     }
     for (let i = 0; i < 2; i++) {

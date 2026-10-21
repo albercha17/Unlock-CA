@@ -107,3 +107,26 @@ def s69(d):
 SOLVERS = {"24": s24, "46": s46, "48": s48, "66": s66, "69": s69}
 # cartas que hay que tener en mesa para poder resolver cada minijuego
 REQUIERE = {"24": ["20"], "46": ["30", "31"], "48": ["52", "53"], "66": ["41", "43", "45", "49", "51"], "69": ["70"]}
+
+
+# ---- ampliación a 36 cartas: los cubos de Leo
+_AMP = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
+
+
+def s64(d):
+    """Cubos: se gira cada cubo hasta su cara del dibujo de la tapa."""
+    abrir_carta(d, "64")
+    cu = _AMP["juguetes_cubos"]
+    for i in range(4):
+        veces = (cu["solucion"][i] - cu["inicial"][i]) % len(cu["caras"][i])
+        for _ in range(veces):
+            clic(d, f".jug-cubo[data-i='{i}']")
+            time.sleep(0.25)
+    time.sleep(0.6)
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS.update({"64": s64})
+REQUIERE.update({"64": ["67"]})

@@ -416,7 +416,7 @@ window.JUEGO_LOCAL = {
   "tipo": "verde",
   "descripcion": [
    "Es un juego de la app: una cuadrícula de 4 × 4 en la que hay que poner la altura (1, 2, 3 o 4) de cada edificio. Los números del borde (cuántos edificios se ven desde cada lado) están repartidos en las cartas 52 y 53.",
-   "Al completar el perfil, el panel marca la torre del Dr. Noche. Coged la carta 58."
+   "Al completar el perfil, el panel marca la torre del Dr. Noche. Coged la carta 33."
   ],
   "pistas": [
    "Juntad las pistas de las cartas 52 y 53: algunas están arriba, otras abajo, a la izquierda y a la derecha.",
@@ -435,16 +435,22 @@ window.JUEGO_LOCAL = {
    48,
    52,
    53,
-   57
+   57,
+   33,
+   36,
+   37,
+   39,
+   41,
+   42
   ],
   "descripcion": [
-   "El skyline marca la torre del Dr. Noche, a dos calles del puerto. Subís en un ascensor privado hasta una sala llena de gemas en vitrinas, pero el villano ha huido y ha dejado un maletín plateado sobre una mesa, con una nota que dice: «Si me seguís, lo lamentaréis».",
-   "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."
+   "El skyline marca la torre del Dr. Noche, a dos calles del puerto. Con la llave del crupier subís en un ascensor privado hasta una sala llena de gemas en vitrinas, pero el villano ha huido y ha dejado un maletín plateado sobre una mesa, con una nota que dice: «Si me seguís, lo lamentaréis».",
+   "Coged la carta 56. Descartad las cartas 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42."
   ],
   "pistas": [
    "Mirad lo que hay sobre la mesa.",
    "La carta 56 es combinable.",
-   "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."
+   "Coged la carta 56. Descartad las cartas 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42."
   ],
   "arte": "La sala de una torre de lujo llena de vitrinas con gemas de colores y, en el centro, una mesa con un maletín plateado cerrado con una nota; Cristina lo señala con una ceja arqueada de sospecha y Alberto se asoma con cara de alivio mezclado con inquietud."
  },
@@ -589,6 +595,93 @@ window.JUEGO_LOCAL = {
   ],
   "pistas": [],
   "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven una sala de lujo con vitrinas de gemas y luces azules de policía. Llevan aún su ropa de espías elegantes de los años 60. Cristina ríe a carcajadas con unas gafas de sol en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+ },
+ "33": {
+  "titulo": "Carta 33 — El salón de póker",
+  "tipo": "gris",
+  "coge": [
+   36,
+   37,
+   39,
+   41,
+   42
+  ],
+  "descripcion": [
+   "Antes de ir a la torre, la Agente Zorro os para en el salón privado del casino: el Dr. Noche acaba de jugar allí su última mano y el crupier, que trabaja para ella, solo os dará la llave del ascensor si le decís cómo quedó la partida. Las cuatro manos siguen boca arriba en el tapete (cartas 37, 39, 41 y 42) y el marcador del crupier es la carta 36.",
+   "Coged las cartas 36, 37, 39, 41 y 42."
+  ],
+  "pistas": [
+   "Hay un puzle: el marcador del crupier y las cuatro manos.",
+   "Cada carta (37, 39, 41 y 42) es la mano de un jugador; el marcador trae el orden de las jugadas.",
+   "Coged las cartas 36, 37, 39, 41 y 42."
+  ],
+  "arte": "El salón privado de un casino de Montecarlo de 1965, con una mesa de póker de tapete verde, cuatro manos de cartas boca arriba, fichas de colores y un crupier con pajarita; lámparas doradas y humo de puro. Cristina, con vestido de gala, mira las cartas con una ceja arqueada de sospecha y Alberto, con esmoquin, se ajusta la pajarita nervioso."
+ },
+ "36": {
+  "titulo": "Carta 36 — El marcador del crupier",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: el marcador del crupier con los cuatro jugadores y la lista de jugadas del póker, de la mejor a la peor. Hay que tocarlos en orden, del que ganó al que quedó último, mirando sus manos (cartas 37, 39, 41 y 42).",
+   "Al acertar, el crupier os da la llave del ascensor de la torre. Coged la carta 58."
+  ],
+  "pistas": [
+   "Hacen falta las cuatro manos (cartas 37, 39, 41 y 42) y la lista de jugadas del marcador.",
+   "Decid qué jugada tiene cada mano. Ojo: una que parece color tiene una carta de otro palo, y la que parece escalera hay que comprobarla bien.",
+   "De mejor a peor: El Barón (full), El Dr. Noche (color), La Condesa (escalera), La Agente Zorro (dobles parejas)."
+  ],
+  "arte": "Un marcador de casino de latón y madera lacada con los nombres de cuatro jugadores en placas y una lista de jugadas grabada, junto a un montón de fichas. Alberto señala una placa con el dedo y gesto de seguridad y Cristina cuenta con los dedos, concentrada."
+ },
+ "37": {
+  "titulo": "Carta 37 — La mano de La Condesa",
+  "tipo": "gris",
+  "descripcion": [
+   "Las cinco cartas de La Condesa en la mesa de póker del casino. Es una de las cuatro manos que hay que ordenar (carta 36)."
+  ],
+  "pistas": [
+   "Es una de las cuatro manos de la mesa (carta 36).",
+   "Mirad bien los palos y los números: una mano puede parecer lo que no es.",
+   "De mejor a peor: El Barón (full), El Dr. Noche (color), La Condesa (escalera), La Agente Zorro (dobles parejas)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la mano de La Condesa."
+ },
+ "39": {
+  "titulo": "Carta 39 — La mano de El Barón",
+  "tipo": "gris",
+  "descripcion": [
+   "Las cinco cartas de El Barón en la mesa de póker del casino. Es una de las cuatro manos que hay que ordenar (carta 36)."
+  ],
+  "pistas": [
+   "Es una de las cuatro manos de la mesa (carta 36).",
+   "Mirad bien los palos y los números: una mano puede parecer lo que no es.",
+   "De mejor a peor: El Barón (full), El Dr. Noche (color), La Condesa (escalera), La Agente Zorro (dobles parejas)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la mano de El Barón."
+ },
+ "41": {
+  "titulo": "Carta 41 — La mano de El Dr. Noche",
+  "tipo": "gris",
+  "descripcion": [
+   "Las cinco cartas de El Dr. Noche en la mesa de póker del casino. Es una de las cuatro manos que hay que ordenar (carta 36)."
+  ],
+  "pistas": [
+   "Es una de las cuatro manos de la mesa (carta 36).",
+   "Mirad bien los palos y los números: una mano puede parecer lo que no es.",
+   "De mejor a peor: El Barón (full), El Dr. Noche (color), La Condesa (escalera), La Agente Zorro (dobles parejas)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la mano de El Dr. Noche."
+ },
+ "42": {
+  "titulo": "Carta 42 — La mano de La Agente Zorro",
+  "tipo": "gris",
+  "descripcion": [
+   "Las cinco cartas de La Agente Zorro en la mesa de póker del casino. Es una de las cuatro manos que hay que ordenar (carta 36)."
+  ],
+  "pistas": [
+   "Es una de las cuatro manos de la mesa (carta 36).",
+   "Mirad bien los palos y los números: una mano puede parecer lo que no es.",
+   "De mejor a peor: El Barón (full), El Dr. Noche (color), La Condesa (escalera), La Agente Zorro (dobles parejas)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la mano de La Agente Zorro."
  }
 };
 window.fetchCartas = function () {

@@ -4,11 +4,11 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 32 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 19 pasos
+## Los 21 pasos
 
 ### Paso 1 — Del tamaño de un juguete
 
@@ -26,20 +26,35 @@ Lee la carta 10. Descarta la P y coge 20, 22 y 24.
 
 ### Paso 3 — La estantería
 
-En el móvil: Acción, 24. Toca las cinco diferencias con la foto (carta 20): la pelota era roja y ahora es azul; falta el libro morado; el cohete está boca abajo; hay un dado que no estaba; el patito ha bajado a la balda de abajo. El mensaje te dice que cojas la 26.
+En el móvil: Acción, 24. Toca las cinco diferencias con la foto (carta 20): la pelota era roja y ahora es azul; falta el libro morado; el cohete está boca abajo; hay un dado que no estaba; el patito ha bajado a la balda de abajo. El mensaje te dice que cojas la 59.
 
 - **En el móvil:** Acción → `24`
-- **La mesa queda con:** `10` `12` `20` `22` `24` `26`
+- **La mesa queda con:** `10` `12` `20` `22` `24` `59`
 - [ ] Hecho
 
-### Paso 4 — La caja de bloques
+### Paso 4 — El baúl de los cubos
 
-Lee la carta 26. Descarta 10, 20 y 24 y coge 30, 31, 35 y 46. Las cartas 22 y 35 son combinables.
+Lee la carta 59. Coge 64 y 67. El dibujo de la tapa (67) es Trufo, el perro.
+
+- **La mesa queda con:** `10` `12` `20` `22` `24` `59` `64` `67`
+- [ ] Hecho
+
+### Paso 5 — Los cubos de Leo
+
+En el móvil: Acción, 64. Gira cada cubo hasta que los cuatro formen el perro de la carta 67. El mensaje te dice que cojas la 26.
+
+- **En el móvil:** Acción → `64`
+- **La mesa queda con:** `10` `12` `20` `22` `24` `26` `59` `64` `67`
+- [ ] Hecho
+
+### Paso 6 — La caja de bloques
+
+Lee la carta 26. Descarta 10, 20, 24, 59, 64 y 67 y coge 30, 31, 35 y 46. Las cartas 22 y 35 son combinables.
 
 - **La mesa queda con:** `12` `22` `26` `30` `31` `35` `46`
 - [ ] Hecho
 
-### Paso 5 — La torre de bloques
+### Paso 7 — La torre de bloques
 
 En el móvil: Acción, 46. Con las instrucciones (cartas 30 y 31), las alturas son: fila de delante: 3, 0, 1; fila de en medio: 2, 1, 1; fila de detrás: 2, 1, 1. El mensaje te dice que cojas la 44.
 
@@ -47,14 +62,14 @@ En el móvil: Acción, 46. Con las instrucciones (cartas 30 y 31), las alturas s
 - **La mesa queda con:** `12` `22` `26` `30` `31` `35` `44` `46`
 - [ ] Hecho
 
-### Paso 6 — Encima de la cama
+### Paso 8 — Encima de la cama
 
 Lee la carta 44. Descarta 26, 30, 31 y 46 y coge la 38, una llave de cuerda.
 
 - **La mesa queda con:** `12` `22` `35` `38` `44`
 - [ ] Hecho
 
-### Paso 7 — El coche teledirigido
+### Paso 9 — El coche teledirigido
 
 El mando (22) y las pilas (35) son combinables: 22 + 35 = 57. Coge la 57.
 
@@ -62,14 +77,14 @@ El mando (22) y las pilas (35) son combinables: 22 + 35 = 57. Coge la 57.
 - **La mesa queda con:** `12` `22` `35` `38` `44` `57`
 - [ ] Hecho
 
-### Paso 8 — El coche teledirigido
+### Paso 10 — El coche teledirigido
 
 Lee la carta 57. Descarta 22 y 35 y coge 48, 52 y 53.
 
 - **La mesa queda con:** `12` `38` `44` `48` `52` `53` `57`
 - [ ] Hecho
 
-### Paso 9 — La marioneta
+### Paso 11 — La marioneta
 
 En el móvil: Acción, 48. Siguiendo los hilos (carta 52) para la postura del cartel (carta 53), tira de los mandos amarillo (triángulo) y verde (estrella) y saluda. El mensaje te dice que cojas la 58.
 
@@ -77,14 +92,14 @@ En el móvil: Acción, 48. Siguiendo los hilos (carta 52) para la postura del ca
 - **La mesa queda con:** `12` `38` `44` `48` `52` `53` `57` `58`
 - [ ] Hecho
 
-### Paso 10 — El cajón del teatrillo
+### Paso 12 — El cajón del teatrillo
 
 Lee la carta 58. Descarta 48, 52, 53 y 57 y coge 41, 43, 45, 49, 51 y 66. Las cinco páginas son un folioscopio: en el Modo PC, botón «Hojear».
 
 - **La mesa queda con:** `12` `38` `41` `43` `44` `45` `49` `51` `58` `66`
 - [ ] Hecho
 
-### Paso 11 — El tren de Leo
+### Paso 13 — El tren de Leo
 
 En el móvil: Acción, 66. Ordenadas por el sol, las páginas son 41, 43, 51, 45, 49; los juguetes rodeados, en ese orden: pelota, cometa, patito, tambor, cohete. Cárgalos así. El mensaje te dice que cojas la 72.
 
@@ -92,14 +107,14 @@ En el móvil: Acción, 66. Ordenadas por el sol, las páginas son 41, 43, 51, 45
 - **La mesa queda con:** `12` `38` `41` `43` `44` `45` `49` `51` `58` `66` `72`
 - [ ] Hecho
 
-### Paso 12 — La estación
+### Paso 14 — La estación
 
 Lee la carta 72. Descarta 58, 41, 43, 45, 49, 51 y 66 y coge la 56, el ratón de cuerda.
 
 - **La mesa queda con:** `12` `38` `44` `56` `72`
 - [ ] Hecho
 
-### Paso 13 — Arriba, al escritorio
+### Paso 15 — Arriba, al escritorio
 
 La llave (38) y el ratón (56) son combinables: 38 + 56 = 94. Coge la 94.
 
@@ -107,14 +122,14 @@ La llave (38) y el ratón (56) son combinables: 38 + 56 = 94. Coge la 94.
 - **La mesa queda con:** `12` `38` `44` `56` `72` `94`
 - [ ] Hecho
 
-### Paso 14 — Arriba, al escritorio
+### Paso 16 — Arriba, al escritorio
 
 Lee la carta 94. Descarta 38, 56, 44 y 72 y coge 69 y 70.
 
 - **La mesa queda con:** `12` `69` `70` `94`
 - [ ] Hecho
 
-### Paso 15 — La pista de canicas
+### Paso 17 — La pista de canicas
 
 En el móvil: Acción, 69. Con las instrucciones (carta 70): balancín 1 a la derecha, balancín 2 a la derecha, balancín 3 a la derecha. Suelta las canicas. El mensaje te dice que cojas la 82.
 
@@ -122,14 +137,14 @@ En el móvil: Acción, 69. Con las instrucciones (carta 70): balancín 1 a la de
 - **La mesa queda con:** `12` `69` `70` `82` `94`
 - [ ] Hecho
 
-### Paso 16 — El cristal en el tarro
+### Paso 18 — El cristal en el tarro
 
 Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía.
 
 - **La mesa queda con:** `12` `62` `82`
 - [ ] Hecho
 
-### Paso 17 — Cristal en el Cronoportal
+### Paso 19 — Cristal en el Cronoportal
 
 El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74.
 
@@ -137,14 +152,14 @@ El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74.
 - **La mesa queda con:** `12` `62` `74` `82`
 - [ ] Hecho
 
-### Paso 18 — Cronoportal reconectado
+### Paso 20 — Cronoportal reconectado
 
 Lee la carta 74. Descarta 62, 12 y 82 y coge la 99.
 
 - **La mesa queda con:** `74` `99`
 - [ ] Hecho
 
-### Paso 19 — Final
+### Paso 21 — Final
 
 Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 
@@ -161,33 +176,36 @@ Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 | 20 | Foto Polaroid | Normal | — | Foto Polaroid: la estantería de antes. | 2 |
 | 22 | Mando sin pilas | Combina | Combinable: suma los números | Mando sin pilas: se combina con las pilas (35). | 2 |
 | 24 | La estantería | App | — | La estantería (app): las cinco diferencias. | 2 |
-| 26 | La caja de bloques | Normal | Coge 30, 31, 35, 46; Descarta 10, 20, 24 | La caja de bloques: reparte las instrucciones, la torre y las pilas. | 3 |
-| 30 | Instrucciones (1 de 2) | Normal | — | Instrucciones: vistas de frente y de lado. | 4 |
-| 31 | Instrucciones (2 de 2) | Normal | — | Instrucciones: vista desde arriba y total de bloques. | 4 |
-| 35 | Dos pilas | Combina | Combinable: suma los números | Dos pilas: se combinan con el mando (22). | 4 |
-| 38 | Llave de cuerda | Combina | Combinable: suma los números | Llave de cuerda: se combina con el ratón (56). | 6 |
-| 41 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 10 |
-| 43 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 10 |
-| 44 | Encima de la cama | Normal | Coge 38; Descarta 26, 30, 31, 46 | Encima de la cama: reparte la llave de cuerda. | 5 |
-| 45 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 10 |
-| 46 | La torre de bloques | App | — | La torre de bloques (app): construirla con sus vistas. | 4 |
-| 48 | La marioneta | App | — | La marioneta (app): tirar de los mandos de la postura del cartel. | 8 |
-| 49 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 10 |
-| 51 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 10 |
-| 52 | Los hilos de Pipo | Normal | — | Los hilos de Pipo: qué mando mueve cada mano y cada pie. | 8 |
-| 53 | Cartel de la función | Normal | — | Cartel de la función: la postura. | 8 |
-| 56 | Tic, el ratón de cuerda | Combina | Combinable: suma los números | Tic, el ratón de cuerda: se combina con la llave (38). | 12 |
-| 57 | El coche teledirigido | Normal | Coge 48, 52, 53; Descarta 22, 35 | El coche teledirigido (22 + 35): reparte la marioneta, los hilos y el cartel. | 7 |
-| 58 | El cajón del teatrillo | Normal | Coge 41, 43, 45, 49, 51, 66; Descarta 48, 52, 53, 57 | El cajón del teatrillo: reparte el folioscopio y el tren. | 9 |
-| 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía: se combina con el Cronoportal (12). | 16 |
-| 66 | El tren de Leo | App | — | El tren de Leo (app): cargar los juguetes en el orden del folioscopio. | 10 |
-| 69 | La pista de canicas | App | — | La pista de canicas (app): colocar los balancines para que el cristal caiga en el tarro. | 14 |
-| 70 | Instrucciones de la pista | Normal | — | Instrucciones de la pista: los balancines y el tarro. | 14 |
-| 72 | La estación | Normal | Coge 56; Descarta 58, 41, 43, 45, 49, 51, 66 | La estación: reparte el ratón de cuerda. | 11 |
-| 74 | Cronoportal reconectado | Normal | Coge 99; Descarta 62, 12, 82 | Cronoportal reconectado (62 + 12): reparte la 99. | 17 |
-| 82 | El cristal en el tarro | Normal | Coge 62; Descarta 69, 70, 94 | El cristal en el tarro: reparte el cristal. | 15 |
-| 94 | Arriba, al escritorio | Normal | Coge 69, 70; Descarta 38, 56, 44, 72 | Arriba, al escritorio (38 + 56): reparte la pista de canicas y sus instrucciones. | 13 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | Final de la aventura, ya en casa. | 18 |
+| 26 | La caja de bloques | Normal | Coge 30, 31, 35, 46; Descarta 10, 20, 24, 59, 64, 67 | La caja de bloques: aparece al abrir el baúl. | 5 |
+| 30 | Instrucciones (1 de 2) | Normal | — | Instrucciones: vistas de frente y de lado. | 6 |
+| 31 | Instrucciones (2 de 2) | Normal | — | Instrucciones: vista desde arriba y total de bloques. | 6 |
+| 35 | Dos pilas | Combina | Combinable: suma los números | Dos pilas: se combinan con el mando (22). | 6 |
+| 38 | Llave de cuerda | Combina | Combinable: suma los números | Llave de cuerda: se combina con el ratón (56). | 8 |
+| 41 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 12 |
+| 43 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 12 |
+| 44 | Encima de la cama | Normal | Coge 38; Descarta 26, 30, 31, 46 | Encima de la cama: reparte la llave de cuerda. | 7 |
+| 45 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 12 |
+| 46 | La torre de bloques | App | — | La torre de bloques (app): construirla con sus vistas. | 6 |
+| 48 | La marioneta | App | — | La marioneta (app): tirar de los mandos de la postura del cartel. | 10 |
+| 49 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 12 |
+| 51 | Página del cuaderno de Leo | Normal | — | Página del folioscopio. | 12 |
+| 52 | Los hilos de Pipo | Normal | — | Los hilos de Pipo: qué mando mueve cada mano y cada pie. | 10 |
+| 53 | Cartel de la función | Normal | — | Cartel de la función: la postura. | 10 |
+| 56 | Tic, el ratón de cuerda | Combina | Combinable: suma los números | Tic, el ratón de cuerda: se combina con la llave (38). | 14 |
+| 57 | El coche teledirigido | Normal | Coge 48, 52, 53; Descarta 22, 35 | El coche teledirigido (22 + 35): reparte la marioneta, los hilos y el cartel. | 9 |
+| 58 | El cajón del teatrillo | Normal | Coge 41, 43, 45, 49, 51, 66; Descarta 48, 52, 53, 57 | El cajón del teatrillo: reparte el folioscopio y el tren. | 11 |
+| 59 | El baúl de los cubos | Normal | Coge 64, 67 | El baúl de los cubos: reparte los cubos y el dibujo. | 3 |
+| 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía: se combina con el Cronoportal (12). | 18 |
+| 64 | Los cubos de Leo | App | — | Los cubos de Leo (app): formar el dibujo. | 4 |
+| 66 | El tren de Leo | App | — | El tren de Leo (app): cargar los juguetes en el orden del folioscopio. | 12 |
+| 67 | El dibujo de Leo | Normal | — | El dibujo de Leo: lo que hay que formar con los cubos. | 4 |
+| 69 | La pista de canicas | App | — | La pista de canicas (app): colocar los balancines para que el cristal caiga en el tarro. | 16 |
+| 70 | Instrucciones de la pista | Normal | — | Instrucciones de la pista: los balancines y el tarro. | 16 |
+| 72 | La estación | Normal | Coge 56; Descarta 58, 41, 43, 45, 49, 51, 66 | La estación: reparte el ratón de cuerda. | 13 |
+| 74 | Cronoportal reconectado | Normal | Coge 99; Descarta 62, 12, 82 | Cronoportal reconectado (62 + 12): reparte la 99. | 19 |
+| 82 | El cristal en el tarro | Normal | Coge 62; Descarta 69, 70, 94 | El cristal en el tarro: reparte el cristal. | 17 |
+| 94 | Arriba, al escritorio | Normal | Coge 69, 70; Descarta 38, 56, 44, 72 | Arriba, al escritorio (38 + 56): reparte la pista de canicas y sus instrucciones. | 15 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | Final de la aventura, ya en casa. | 20 |
 
 ## Si algo no cuadra
 

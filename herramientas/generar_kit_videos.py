@@ -24,9 +24,9 @@ FARO = dict(
     estilo="con estética cinematográfica semirrealista de película de aventuras, noche de tormenta, azules profundos y destellos dorados de linterna",
     escenas=[
         "Noche de tormenta sobre un acantilado: el faro de Cabo Niebla, una torre blanca con una banda roja, tiene la gran lámpara de la cima apagada; las olas rompen contra las rocas y, muy lejos, se ven las luces de un carguero.",
-        "Inés (mujer de 30 años, pelo negro corto y liso, ojos verdes, chubasquero amarillo y botas de agua) y Marcos (hombre de 32 años, pelirrojo, gafas redondas, pecas, chaqueta impermeable gris y una mochila de la que asoma una antena de radio) suben corriendo hacia la puerta del faro con una linterna bajo la lluvia.",
-        "Dentro del faro, Marcos sostiene una radio que crepita con la voz de la guardia costera mientras Inés mira con preocupación la escalera de caracol que sube a la lámpara apagada.",
-        "Primer plano de Inés y Marcos mirando hacia arriba, con el haz de la linterna sobre la lámpara apagada; un relámpago ilumina el mar y el carguero, cada vez más cerca; fundido a negro.",
+        "Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules, chubasquero amarillo y botas de agua) y Alberto (hombre de 27 años, moreno con barba, ojos marrones, chaqueta impermeable gris y mochila con una antena de radio) suben corriendo hacia la puerta del faro con una linterna bajo la lluvia.",
+        "Dentro del faro, Alberto sostiene una radio que crepita con la voz de la guardia costera mientras Cristina mira con preocupación la escalera de caracol que sube a la lámpara apagada.",
+        "Primer plano de Cristina y Alberto mirando hacia arriba, con el haz de la linterna sobre la lámpara apagada; un relámpago ilumina el mar y el carguero, cada vez más cerca; fundido a negro.",
     ],
     sonido="trueno, lluvia fuerte, olas contra las rocas, crepitar de radio, música de tensión con cuerdas graves, sin voz de narrador",
 )

@@ -4,210 +4,232 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 38 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 59 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 27 pasos
+## Los 30 pasos
 
 ### Paso 1 — Llegada al libro
 
-Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12.
+Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12.
 
 - **La mesa queda con:** `P` `10` `12`
 - [ ] Hecho
 
 ### Paso 2 — La aldea sin color
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 20 y 22. Hay dos puzles: el cartel de la panadería (14, con los precios 16) y el puente del troll (20, con la nota 18).
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la vela: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `20` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
 - [ ] Hecho
 
-### Paso 3 — Arregla el cartel
+### Paso 3 — El cartel
 
-En el móvil: Acción, 14. Los precios (16) dicen que 5 + 4 = 9: quita el palito de arriba a la derecha del 9 y ponlo arriba a la derecha del 5. El mensaje te dice que cojas la 26. Anota la letra del libro (C).
+En el móvil: Acción, 14. Los panes del escaparate (16) valen 5 y 4: mueve el palito de arriba a la derecha del 9 al 5 para que diga 5 + 4 = 9. El mensaje te dice que cojas la 24. Letra: C.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `20` `22` `26`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
 - [ ] Hecho
 
-### Paso 4 — Los chismes
+### Paso 4 — Doña Hogaza
 
-Lee la carta 26. Te manda descartar la 14 y la 16. Guárdala: dos frases de las hadas servirán más adelante.
+Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para las hadas).
 
-- **La mesa queda con:** `10` `12` `18` `20` `22` `26`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
 
 ### Paso 5 — El puente del troll
 
-En el móvil: Acción, 20. Con los tiempos de la carta 18: pasan Bigotes y Pétalo, vuelve Bigotes, pasan Gruñón y Abuela Musgo, vuelve Pétalo y pasan Bigotes y Pétalo (15 minutos). El mensaje te dice que cojas la 28. Letra del libro: E.
+En el móvil: Acción, 20. La vela (19 y 21) dura 15 minutos y los duendes (18) tardan 1, 2, 5 y 8: pasan Bigotes y Pétalo, vuelve Bigotes, pasan Gruñón y Abuela Musgo, vuelve Pétalo y pasan Bigotes y Pétalo. El mensaje te dice que cojas la 28. Letra: E.
 
 - **En el móvil:** Acción → `20`
-- **La mesa queda con:** `10` `12` `18` `20` `22` `26` `28`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26` `28`
 - [ ] Hecho
 
 ### Paso 6 — El troll se aparta
 
-Lee la carta 28. Descarta 20 y 18 y coge 35 y 37. La estrella caída (35) es combinable; el dibujo de la vidriera (37) servirá más adelante.
+Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
 
-- **La mesa queda con:** `10` `12` `22` `26` `28` `35` `37`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
 - [ ] Hecho
 
-### Paso 7 — Varita con estrella
+### Paso 7 — La varita
 
-La varita (22) y la estrella caída (35) son combinables: 22 + 35 = 57. Coge la 57.
+La varita (22) y la estrella (35) son combinables: 22 + 35 = 57. Coge la 57.
 
 - **Suma:** `22 + 35 = 57`
-- **La mesa queda con:** `10` `12` `22` `26` `28` `35` `37` `57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
 - [ ] Hecho
 
 ### Paso 8 — El bosque despierta
 
-Lee la carta 57. Descarta 22, 35, 28 y 10 y coge 40 y 42.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **La mesa queda con:** `12` `26` `37` `40` `42` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
 - [ ] Hecho
 
-### Paso 9 — El cuento del Búho
+### Paso 9 — El camino cortado
 
-En el móvil: Acción, 42. Pasa las páginas: explican qué hace cada salto al pasado.
+Lee la carta 31. Coge 40, 41, 43 y 45.
 
-- **En el móvil:** Acción → `42`
-- **La mesa queda con:** `12` `26` `37` `40` `42` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 10 — Había una vez... y ahora
+### Paso 10 — Había una vez
 
-En el móvil: Acción, 40. Con las reglas del cuento: fuego en la casilla 3 (zarzas), plantar en la 5 (río) y cavar en la 6 (roca). El mensaje te dice que cojas la 44. Letra del libro: L.
+En el móvil: Acción, 40. Con los ejemplos de 41, 43 y 45: fuego en la casilla 3, plantar en la 5 y cavar en la 6. El mensaje te dice que cojas la 30. Letra: S.
 
 - **En el móvil:** Acción → `40`
-- **La mesa queda con:** `12` `26` `37` `40` `42` `44` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 11 — La torre de las hadas
+### Paso 11 — El castillo dormido
 
-Lee la carta 44. Descarta 40, 42 y 57 y coge 46, 48, 51 y 52. Hay dos puzles: la vidriera (46, con el dibujo 37 y las reglas 48) y las hadas (51, con las frases de 26 y 52).
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
 
-- **La mesa queda con:** `12` `26` `37` `44` `46` `48` `51` `52`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
 - [ ] Hecho
 
-### Paso 12 — Enciende la vidriera
+### Paso 12 — Las botas del gigante
 
-En el móvil: Acción, 46. El cristal recto cubre B5 a E5, la te cubre A3, B3, C3 y B4, y la ese cubre D3, E3, C4 y D4. El mensaje te dice que cojas la 54. Letra del libro: F.
+Lee la carta 32. Coge 42, 48, 49 y 53. Junta el mapa: 42 a la izquierda y 49 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 13 — Las botas
+
+En el móvil: Acción, 48. Saltos de 2 y 3 por turnos, sin caer en árboles ni agua: derecha, derecha, arriba, arriba, izquierda, derecha, abajo, arriba. El mensaje te dice que cojas la 36.
+
+- **En el móvil:** Acción → `48`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 14 — La casa del leñador
+
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
+
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- [ ] Hecho
+
+### Paso 15 — La habichuela
+
+En el móvil: Acción, 52. Las hojas del diario (54, 55 y 59) son 1, 1, 2, 3, 5, 8...: la luna 9 tiene 34. El mensaje te dice que cojas la 44.
+
+- **En el móvil:** Acción → `52`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- [ ] Hecho
+
+### Paso 16 — La torre de las hadas
+
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63.
+
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
+- [ ] Hecho
+
+### Paso 17 — La vidriera
+
+En el móvil: Acción, 46. Sin girar ni solapar (33), cubre el dibujo (37) con los cristales (39): recto de B5 a E5, te en A3, B3, C3 y B4, ese en D3, E3, C4 y D4. El mensaje te dice que cojas la 56. Letra: D.
 
 - **En el móvil:** Acción → `46`
-- **La mesa queda con:** `12` `26` `37` `44` `46` `48` `51` `52` `54`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 13 — El cristal de luna
+### Paso 18 — Las cuatro hadas
 
-Lee la carta 54. Descarta 46, 48 y 37 y coge la 56, un cristal de luna.
-
-- **La mesa queda con:** `12` `26` `44` `51` `52` `54` `56`
-- [ ] Hecho
-
-### Paso 14 — Las cuatro hadas
-
-En el móvil: Acción, 51. Con las frases de las cartas 26 y 52 y la de Dalia (en la app): son de ala roja Lila y Nube. El mensaje te dice que cojas la 58. Letra del libro: S.
+En el móvil: Acción, 51. Con las frases de 26, 61 y 63 y la de Dalia: Brisa y Dalia azules, Lila y Nube rojas. El mensaje te dice que cojas la 58. Letra: I.
 
 - **En el móvil:** Acción → `51`
-- **La mesa queda con:** `12` `26` `44` `51` `52` `54` `56` `58`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
 - [ ] Hecho
 
-### Paso 15 — El secreto de las hadas
+### Paso 19 — El secreto de las hadas
 
-Lee la carta 58. Descarta 51, 52 y 26 y coge la 38, un farolillo apagado.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71.
 
-- **La mesa queda con:** `12` `38` `44` `54` `56` `58`
-- [ ] Hecho
-
-### Paso 16 — Farolillo con cristal
-
-El cristal de luna (56) y el farolillo (38) son combinables: 56 + 38 = 94. Coge la 94.
-
-- **Suma:** `56 + 38 = 94`
-- **La mesa queda con:** `12` `38` `44` `54` `56` `58` `94`
-- [ ] Hecho
-
-### Paso 17 — La sala de los espejos
-
-Lee la carta 94. Descarta 56, 38, 44, 54 y 58 y coge 64 y 66. El plano (66) dice dónde está la flor de luna.
-
-- **La mesa queda con:** `12` `64` `66` `94`
-- [ ] Hecho
-
-### Paso 18 — Rayos de luna
-
-En el móvil: Acción, 64. La flor está en E5: espejo / en A2, espejo \ en E2 y espejo / en A4. El mensaje te dice que cojas la 78. Letra del libro: I.
-
-- **En el móvil:** Acción → `64`
-- **La mesa queda con:** `12` `64` `66` `78` `94`
-- [ ] Hecho
-
-### Paso 19 — La sala de los tarros
-
-Lee la carta 78. Descarta 64, 66 y 94 y coge 69 y 70. La nota (70) dice el orden final: dorado, turquesa y rosa.
-
-- **La mesa queda con:** `12` `69` `70` `78`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
 
 ### Paso 20 — Tarros de colores
 
-En el móvil: Acción, 69. Once movimientos hasta dejar dorado, turquesa y rosa en los tres primeros tarros. El mensaje te dice que cojas la 80. Letra del libro: E.
+En el móvil: Acción, 69. Como los estandartes del tapiz (70) y la nota (71): dorado, turquesa y rosa, y los dos últimos vacíos. El mensaje te dice que cojas la 80. Letra: E.
 
 - **En el móvil:** Acción → `69`
-- **La mesa queda con:** `12` `69` `70` `78` `80`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71` `80`
 - [ ] Hecho
 
-### Paso 21 — La caja de música
+### Paso 21 — El castillo recobra el color
 
-Lee la carta 80. Descarta 69, 70 y 78 y coge 72 y 76. La tabla (76) dice qué nota toca cada animal.
+Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79.
 
-- **La mesa queda con:** `12` `72` `76` `80`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80`
 - [ ] Hecho
 
-### Paso 22 — Toca la melodía
+### Paso 22 — La caja de música
 
-En el móvil: Acción, 72. Las notas, en orden: Fa, Do, Sol, Mi, Re, La y Fa. El mensaje te dice que cojas la 82.
+En el móvil: Acción, 72. Los animales de la partitura (75) en el xilófono (79): Fa, Do, Sol, Mi, Re, La y Fa. El mensaje te dice que cojas la 82. Letra: R.
 
 - **En el móvil:** Acción → `72`
-- **La mesa queda con:** `12` `72` `76` `80` `82`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80` `82`
 - [ ] Hecho
 
-### Paso 23 — El Tintero Dorado
+### Paso 23 — La caja abierta
 
-Lee la carta 82. Descarta 72, 76 y 80 y coge la 62, el Tintero Dorado.
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
 
-- **La mesa queda con:** `12` `62` `82`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
 - [ ] Hecho
 
-### Paso 24 — Tintero en el Cronoportal
+### Paso 24 — El farolillo
+
+El farolillo (38) y el cristal de luna (56) son combinables: 38 + 56 = 94. Coge la 94.
+
+- **Suma:** `38 + 56 = 94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 25 — La sala de los espejos
+
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el plano: 66 a la izquierda y 67 a la derecha.
+
+- **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 26 — Rayos de luna
+
+En el móvil: Acción, 64. La flor está en E5 (plano 66 y 67): espejo / en A2, \ en E2 y / en A4. El mensaje te dice que cojas la 62. Letra: P.
+
+- **En el móvil:** Acción → `64`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 27 — El Tintero Dorado
 
 El Cronoportal (12) y el Tintero Dorado (62) son combinables: 12 + 62 = 74. Coge la 74.
 
 - **Suma:** `12 + 62 = 74`
-- **La mesa queda con:** `12` `62` `74` `82`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `74` `82` `85` `86` `87` `94`
 - [ ] Hecho
 
-### Paso 25 — Cronoportal con tinta
+### Paso 28 — Cronoportal con tinta
 
-Lee la carta 74. Descarta 62, 12 y 82 y coge 84 y 86. La nota del Búho (86) describe la palabra final.
+Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57.
 
-- **La mesa queda con:** `74` `84` `86`
+- **La mesa queda con:** `74` `82` `85` `86` `87`
 - [ ] Hecho
 
-### Paso 26 — La última página
+### Paso 29 — La última página
 
-En el móvil: Acción, 84. El libro guarda las siete letras: ordénalas para escribir FELICES. El mensaje te dice que cojas la 99.
+En el móvil: Acción, 85. Con la nota (86) y el banquete (87): «felices y comieron... PERDICES». El mensaje te dice que cojas la 99.
 
-- **En el móvil:** Acción → `84`
-- **La mesa queda con:** `74` `84` `86` `99`
+- **En el móvil:** Acción → `85`
+- **La mesa queda con:** `74` `82` `85` `86` `87` `99`
 - [ ] Hecho
 
-### Paso 27 — Final
+### Paso 30 — Final
 
-Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Colorín colorado, fin!
+Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Colorín colorado, fin!
 
 - **La mesa queda con:** `99`
 - [ ] Hecho
@@ -216,45 +238,66 @@ Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Colorín c
 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
-| P | Llegada al libro | Normal | Coge 10, 12 | Inicio: llegada al libro. Te manda coger la 10 y la 12. | 1 |
-| 10 | Aldea sin color | Normal | Coge 14, 16, 18, 20, 22; Descarta P | La aldea sin color: reparte el cartel, los precios, el puente, la nota de los duendes y la varita. | 1 |
-| 12 | Cronoportal sin tintero | Combina | Combinable: suma los números | El Cronoportal sin tintero: se combina con el Tintero Dorado (62). | 1 |
-| 14 | Cartel de la panadería | App | — | Cartel de la panadería (app): mover un palito de canela para arreglar una cuenta. Es el tutorial. | 2 |
-| 16 | Lista de precios | Normal | Texto: «Hogaza: 5 monedas. Bollo de nata: 4 monedas. Una hogaza y un bollo: 9 monedas.» | Lista de precios: la cuenta verdadera del cartel. | 2 |
-| 18 | Los cuatro duendes | Normal | Texto: «Bigotes cruza en 1 minuto. Pétalo, en 2 minutos. Gruñón, en 5 minutos. Abuela Musgo, en 8 minutos. El sol sale dentro de 15 minutos.» | Los cuatro duendes: lo que tarda cada uno en cruzar y el límite de tiempo. | 2 |
-| 20 | El puente del troll | App | — | Puente del troll (app): cruzar con un único farolillo en el menor tiempo. | 2 |
-| 22 | Varita sin estrella | Combina | Combinable: suma los números | Varita sin estrella: se combina con la estrella caída (35). | 2 |
-| 26 | Los chismes de Doña Hogaza | Normal | Descarta 14, 16; Texto: «Las hadas de ala azul siempre dicen la verdad. Las de ala roja siempre mienten. Brisa dijo: «Nube es de ala roja.» Lila dijo: «Dalia es de ala roja.»» | Chismes de Doña Hogaza: dos frases de las hadas; te manda descartar el cartel y los precios. | 3 |
-| 28 | El troll se aparta | Normal | Coge 35, 37; Descarta 20, 18 | El troll se aparta: reparte la estrella y el dibujo de la vidriera. | 5 |
-| 35 | Estrella caída | Combina | Combinable: suma los números | Estrella caída: se combina con la varita (22). | 6 |
-| 37 | Ventana de la torre | Normal | Texto: «La luz debe llenar esta ventana: ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ● ● ● ● ● ○ ● ● ● ○ ○ ● ● ● ●» | Ventana de la torre: el dibujo que debe quedar iluminado. | 6 |
-| 38 | Farolillo apagado | Combina | Combinable: suma los números | Farolillo apagado: se combina con el cristal de luna (56). | 15 |
-| 40 | Había una vez... y ahora | App | — | Había una vez... y ahora (app): tres saltos al pasado para abrir el camino en el presente. | 8 |
-| 42 | El cuento del Búho | App | — | El cuento del Búho (app de lectura): las reglas de los saltos. | 8 |
-| 44 | La torre de las hadas | Normal | Coge 46, 48, 51, 52; Descarta 40, 42, 57 | La torre de las hadas: reparte la vidriera, las reglas y las hadas. | 10 |
-| 46 | Vidriera de la torre | App | — | Vidriera de la torre (app): encajar tres cristales sin solaparlos. | 11 |
-| 48 | Reglas del vidriero | Normal | Texto: «Hay tres cristales de cuatro cuadrados: uno recto, uno en forma de te y uno en forma de ese. No se giran. Donde se solapan, brillan doble y la vidriera se apaga. Cubrid el dibujo entero.» | Reglas del vidriero: cómo se colocan los cristales. | 11 |
-| 51 | Las cuatro hadas | App | — | Las cuatro hadas (app): deducir quién dice la verdad y quién miente. | 11 |
-| 52 | Papelitos de las hadas | Normal | Texto: «Nube dijo: «Brisa y Lila son de ala azul.» Dalia también habló: la oiréis en la app. Recordad: las de ala azul dicen siempre la verdad.» | Papelitos de las hadas: una frase de Nube y la presentación de Dalia. | 11 |
-| 54 | La vidriera se enciende | Normal | Coge 56; Descarta 46, 48, 37 | La vidriera se enciende: reparte el cristal de luna. | 12 |
-| 56 | Cristal de luna | Combina | Combinable: suma los números | Cristal de luna: se combina con el farolillo (38). | 13 |
-| 57 | El bosque despierta | Normal | Coge 40, 42; Descarta 22, 35, 28, 10 | El bosque despierta: resultado de 22 + 35; reparte el claro y el cuento del Búho. | 7 |
-| 58 | El secreto de las hadas | Normal | Coge 38; Descarta 51, 52, 26 | El secreto de las hadas: reparte el farolillo. | 14 |
-| 62 | Tintero Dorado | Combina | Combinable: suma los números | Tintero Dorado: se combina con el Cronoportal (12). | 23 |
-| 64 | Rayos de luna | App | — | Rayos de luna (app): colocar tres espejos para llevar el rayo a la flor. | 17 |
-| 66 | Plano de la sala | Normal | Texto: «La flor de luna está en la casilla E5. Hay que usar exactamente tres espejos, y el rayo debe tocar los tres.» | Plano de la sala: dónde está la flor de luna. | 17 |
-| 69 | Tarros de colores | App | — | Tarros de colores (app): ordenar capas de pintura (como destilar). | 19 |
-| 70 | Nota de la Cocinera Real | Normal | Texto: «Los colores vuelven a su sitio, de izquierda a derecha: dorado, turquesa y rosa. Los dos últimos tarros quedan vacíos.» | Nota de la Cocinera: orden final de los tarros. | 19 |
-| 72 | La caja de música | App | — | La caja de música (app): traducir una partitura de animales a notas. | 21 |
-| 74 | Cronoportal con tinta | Normal | Coge 84, 86; Descarta 62, 12, 82 | Cronoportal con tinta: resultado de 62 + 12; reparte la última página y la nota. | 24 |
-| 76 | Tabla de notas | Normal | Texto: «Cada animal toca una nota: Conejo: Do. Ciervo: Re. Búho: Mi. Rana: Fa. Ardilla: Sol. Zorro: La.» | Tabla de notas: qué nota toca cada animal. | 21 |
-| 78 | La sala de los tarros | Normal | Coge 69, 70; Descarta 64, 66, 94 | La sala de los tarros: reparte los tarros y la nota. | 18 |
-| 80 | La sala de la caja de música | Normal | Coge 72, 76; Descarta 69, 70, 78 | La sala de la caja de música: reparte la caja y la tabla. | 20 |
-| 82 | El Tintero Dorado | Normal | Coge 62; Descarta 72, 76, 80 | El Tintero Dorado: reparte el tintero. | 22 |
-| 84 | La última página | App | — | La última página (app): ordenar las siete letras guardadas para formar la palabra final (metapuzle). | 25 |
-| 86 | Nota del Búho | Normal | Texto: «La palabra del final es lo que todo cuento desea para los suyos al terminar. Tiene siete letras y una de ellas se repite. El libro guarda las letras que ya habéis ganado.» | Nota del Búho: la pista de la palabra final. | 25 |
-| 94 | La sala de los espejos | Normal | Coge 64, 66; Descarta 56, 38, 44, 54, 58 | La sala de los espejos: resultado de 56 + 38; reparte los espejos y el plano. | 16 |
-| 99 | Colorín colorado (FIN) | Normal | Descarta 74, 84, 86 | Final de la aventura. | 26 |
+| P | Llegada al libro | Normal | Coge 10, 12 | Llegada al libro | 1 |
+| 10 | La aldea sin color | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | La aldea sin color | 1 |
+| 12 | Cronoportal sin tintero | Combina | Combinable: suma los números | Cronoportal sin tintero | 1 |
+| 14 | El cartel de la panadería | App | — | El cartel de la panadería | 2 |
+| 16 | El escaparate | Normal | — | El escaparate | 2 |
+| 18 | Los cuatro duendes | Normal | — | Los cuatro duendes | 2 |
+| 19 | La vela del troll (mitad de arriba) | Normal | — | La vela del troll (mitad de arriba) | 2 |
+| 20 | El puente del troll | App | — | El puente del troll | 2 |
+| 21 | La vela del troll (mitad de abajo) | Normal | — | La vela del troll (mitad de abajo) | 2 |
+| 22 | Varita rota | Combina | Combinable: suma los números | Varita rota | 2 |
+| 24 | Doña Hogaza | Normal | Coge 26; Descarta 14, 16 | Doña Hogaza | 3 |
+| 26 | Los chismes de Doña Hogaza | Normal | — | Los chismes de Doña Hogaza | 4 |
+| 28 | El troll se aparta | Normal | Coge 35; Descarta 18, 19, 20, 21 | El troll se aparta | 5 |
+| 30 | El castillo dormido | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | El castillo dormido | 10 |
+| 31 | El camino cortado | Normal | Coge 40, 41, 43, 45 | El camino cortado | 8 |
+| 32 | Las botas del gigante | Normal | Coge 42, 48, 49, 53 | Las botas del gigante | 8 |
+| 33 | Nota del vidriero | Normal | — | Nota del vidriero | 16 |
+| 35 | Estrella caída | Combina | Combinable: suma los números | Estrella caída | 6 |
+| 36 | La casa del leñador | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | La casa del leñador | 13 |
+| 37 | La ventana de la torre | Normal | — | La ventana de la torre | 16 |
+| 38 | Farolillo vacío | Combina | Combinable: suma los números | Farolillo vacío | 11 |
+| 39 | Los tres cristales | Normal | — | Los tres cristales | 16 |
+| 40 | Había una vez... y ahora | App | — | Había una vez... y ahora | 9 |
+| 41 | Plantar una semilla | Normal | — | Plantar una semilla | 9 |
+| 42 | El bosque de las siete leguas (mitad izquierda) | Normal | — | El bosque de las siete leguas (mitad izquierda) | 12 |
+| 43 | Cavar | Normal | — | Cavar | 9 |
+| 44 | La torre de las hadas | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La torre de las hadas | 15 |
+| 45 | Encender fuego | Normal | — | Encender fuego | 9 |
+| 46 | La vidriera de la torre | App | — | La vidriera de la torre | 16 |
+| 48 | Las botas de siete leguas | App | — | Las botas de siete leguas | 12 |
+| 49 | El bosque de las siete leguas (mitad derecha) | Normal | — | El bosque de las siete leguas (mitad derecha) | 12 |
+| 51 | Las cuatro hadas | App | — | Las cuatro hadas | 16 |
+| 52 | La habichuela mágica | App | — | La habichuela mágica | 14 |
+| 53 | La lengüeta de las botas | Normal | — | La lengüeta de las botas | 12 |
+| 54 | Diario del leñador (lunas 1 y 2) | Normal | — | Diario del leñador (lunas 1 y 2) | 14 |
+| 55 | Diario del leñador (lunas 3 y 4) | Normal | — | Diario del leñador (lunas 3 y 4) | 14 |
+| 56 | Cristal de luna | Combina | Combinable: suma los números | Cristal de luna | 17 |
+| 57 | El bosque despierta | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | El bosque despierta | 7 |
+| 58 | El secreto de las hadas | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | El secreto de las hadas | 18 |
+| 59 | Diario del leñador (lunas 5 y 6) | Normal | — | Diario del leñador (lunas 5 y 6) | 14 |
+| 61 | Un papelito de Lila | Normal | — | Un papelito de Lila | 16 |
+| 62 | Tintero Dorado | Combina | Combinable: suma los números | Tintero Dorado | 26 |
+| 63 | Un papelito de Nube | Normal | — | Un papelito de Nube | 16 |
+| 64 | Rayos de luna | App | — | Rayos de luna | 25 |
+| 66 | La sala de los espejos (mitad izquierda) | Normal | — | La sala de los espejos (mitad izquierda) | 25 |
+| 67 | La sala de los espejos (mitad derecha) | Normal | — | La sala de los espejos (mitad derecha) | 25 |
+| 69 | Tarros de colores | App | — | Tarros de colores | 19 |
+| 70 | El tapiz del salón | Normal | — | El tapiz del salón | 19 |
+| 71 | Nota de la cocinera real | Normal | — | Nota de la cocinera real | 19 |
+| 72 | La caja de música | App | — | La caja de música | 21 |
+| 74 | Cronoportal con tinta | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | Cronoportal con tinta | 27 |
+| 75 | La partitura de la caja | Normal | — | La partitura de la caja | 21 |
+| 79 | El xilófono del bosque | Normal | — | El xilófono del bosque | 21 |
+| 80 | El castillo recobra el color | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | El castillo recobra el color | 20 |
+| 82 | La caja abierta | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | La caja abierta | 22 |
+| 85 | La última página | App | — | La última página | 23 |
+| 86 | Nota del Búho Narrador | Normal | — | Nota del Búho Narrador | 23 |
+| 87 | El banquete del rey | Normal | — | El banquete del rey | 23 |
+| 94 | La sala de los espejos | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La sala de los espejos | 24 |
+| 99 | Colorín colorado (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | Colorín colorado (FIN) | 29 |
 
 ## Si algo no cuadra
 

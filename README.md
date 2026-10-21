@@ -7,13 +7,13 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | Juego | Dónde | Manual de partida |
 |---|---|---|
 | **Aventuras C&A** (hub con el Cronoportal) | [`juegos/aventuras-ca/`](juegos/aventuras-ca/index.html) | — |
-| &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* | [`juegos/aventuras-ca/egipto/`](juegos/aventuras-ca/egipto/) | [MANUAL.md](juegos/aventuras-ca/egipto/MANUAL.md) |
-| &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* | [`juegos/aventuras-ca/marte/`](juegos/aventuras-ca/marte/) | [MANUAL.md](juegos/aventuras-ca/marte/MANUAL.md) |
+| &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* (60 cartas, 11 puzles distintos: granero, pirámide, nilómetro, friso, heqat, criptograma, cámaras, canales, azulejos, tierras y consola) | [`juegos/aventuras-ca/egipto/`](juegos/aventuras-ca/egipto/) | [MANUAL.md](juegos/aventuras-ca/egipto/MANUAL.md) |
+| &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* (60 cartas, 11 puzles distintos: satélites, invernadero, cableado, rocas, brazo, cifras, reactor, rover, paneles, sopa y consola) | [`juegos/aventuras-ca/marte/`](juegos/aventuras-ca/marte/) | [MANUAL.md](juegos/aventuras-ca/marte/MANUAL.md) |
 | &nbsp;&nbsp;Florencia, 1503 — *El Taller de Leonardo* | [`juegos/aventuras-ca/florencia/`](juegos/aventuras-ca/florencia/) | [MANUAL.md](juegos/aventuras-ca/florencia/MANUAL.md) |
-| &nbsp;&nbsp;Cretácico, hace 66 millones de años — *El Valle de los Gigantes* | [`juegos/aventuras-ca/dinosaurios/`](juegos/aventuras-ca/dinosaurios/) | [MANUAL.md](juegos/aventuras-ca/dinosaurios/MANUAL.md) |
-| &nbsp;&nbsp;Dentro de un cuento animado — *Érase una vez: El Libro de los Finales Felices* | [`juegos/aventuras-ca/cuento/`](juegos/aventuras-ca/cuento/) | [MANUAL.md](juegos/aventuras-ca/cuento/MANUAL.md) |
+| &nbsp;&nbsp;Cretácico, hace 66 millones de años — *El Valle de los Gigantes* (61 cartas, 11 puzles distintos: huellas, manada, nidos, cráter, lava, senderos, árbol, corral, planear, balsa y anillos) | [`juegos/aventuras-ca/dinosaurios/`](juegos/aventuras-ca/dinosaurios/) | [MANUAL.md](juegos/aventuras-ca/dinosaurios/MANUAL.md) |
+| &nbsp;&nbsp;Dentro de un cuento animado — *Érase una vez: El Libro de los Finales Felices* (60 cartas, 11 puzles distintos: cartel, puente del troll, saltos al pasado, botas de siete leguas, habichuela, vidriera, hadas, rayos de luna, tarros, caja de música y última página) | [`juegos/aventuras-ca/cuento/`](juegos/aventuras-ca/cuento/) | [MANUAL.md](juegos/aventuras-ca/cuento/MANUAL.md) |
 | &nbsp;&nbsp;Reino de hielo y fuego — *La Corona del Dragón* (fantasía medieval, dificultad difícil) | [`juegos/aventuras-ca/trono/`](juegos/aventuras-ca/trono/) | [MANUAL.md](juegos/aventuras-ca/trono/MANUAL.md) |
-| &nbsp;&nbsp;Pompeya, 79 d.C. — *El Mosaico del Mundo* (cartas que se **juntan** para formar mosaicos y frescos) | [`juegos/aventuras-ca/pompeya/`](juegos/aventuras-ca/pompeya/) | [MANUAL.md](juegos/aventuras-ca/pompeya/MANUAL.md) |
+| &nbsp;&nbsp;Pompeya, 79 d.C. — *El Mosaico del Mundo* (60 cartas, 10 puzles distintos: mosaico laberinto, cuentas romanas, sello, fuente, cuadrado SATOR, balanza romana, grafitos, calendario, huida y barca) | [`juegos/aventuras-ca/pompeya/`](juegos/aventuras-ca/pompeya/) | [MANUAL.md](juegos/aventuras-ca/pompeya/MANUAL.md) |
 | &nbsp;&nbsp;Dentro de una recreativa, 1985 — *Game Over: La Última Moneda* (placa con piezas **boca abajo**, radar, mando, autopista y pozo de bloques) | [`juegos/aventuras-ca/arcade/`](juegos/aventuras-ca/arcade/) | [MANUAL.md](juegos/aventuras-ca/arcade/MANUAL.md) |
 | &nbsp;&nbsp;Lejano Oeste, 1878 — *Dry Gulch: El Tren del Oro* (vagones que se **enganchan** en fila, cartel de «Se busca» en columna, mapa, dos mechas y barra de oro falsa) | [`juegos/aventuras-ca/oeste/`](juegos/aventuras-ca/oeste/) | [MANUAL.md](juegos/aventuras-ca/oeste/MANUAL.md) |
 | &nbsp;&nbsp;Montecarlo, 1965 — *Operación Cristal* (espías: cartas que se **superponen** a contraluz, rejilla de cifrado, laberinto a ciegas, skyline y cables) | [`juegos/aventuras-ca/espia/`](juegos/aventuras-ca/espia/) | [MANUAL.md](juegos/aventuras-ca/espia/MANUAL.md) |
@@ -23,7 +23,7 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | &nbsp;&nbsp;Apagón en el Colegio | repositorio propio, clonado en `juegos/apagon-colegio/` (enlace externo) | — |
 | **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
-**El Faro es el juego de referencia:** su flujo está comprobado de principio a fin y los juegos nuevos se hacen igual (ver la [guía de diseño](GUIA-DE-JUEGOS.md)).
+**El Faro es el juego de referencia** (desde el 20 oct 2026 lo protagonizan también Cristina y Alberto y tiene 36 cartas): su flujo está comprobado de principio a fin y los juegos nuevos se hacen igual (ver la [guía de diseño](GUIA-DE-JUEGOS.md)).
 
 ## Cómo se juega
 
@@ -52,7 +52,7 @@ Dentro de cada juego: `index.html` (app), `pc.html` (Modo PC), `cartas.json` (gu
 
 ## Cartas que se juntan (mosaicos)
 
-Algunos puzles no se leen en una carta sino **entre varias**: Pompeya tiene cinco mosaicos y frescos partidos en 2×2 o en dos mitades. Al juntar las placas se ve un dibujo (un camino con figuras, estatuas con flechas, rosetas con pétalos, un número, un reloj de sol) y de él sale el código del minijuego. Los números de las placas no siguen el orden de lectura, y las placas llevan el número y el QR solo en la esquina exterior del mosaico y no llevan borde, para que el dibujo continúe de una a otra.
+Algunos puzles no se leen en una carta sino **entre varias**: Pompeya junta las cuatro placas de un mosaico laberinto (2×2), las dos mitades del lacre de un sello y las dos mitades de un calendario de piedra (las dibuja `python herramientas/pompeya.py`); Marte junta el invernadero, la placa de bornes, el radar, el esquema del reactor, los paneles y la sopa de letras (`python herramientas/marte.py`); Egipto junta la pirámide, el friso de animales, el plano del templo, el friso de azulejos y el campo (`python herramientas/egipto.py`); Dinosaurios junta el mapa del valle, la ladera, los senderos y la manada (`python herramientas/dinosaurios.py`); el Cuento junta las dos mitades de la vela del troll, del mapa del bosque y del plano de la sala de los espejos (`python herramientas/cuento.py`).
 
 - **Impresas:** `imprimir.html` las saca sin borde; se juntan sobre la mesa.
 - **Modo PC:** cuando las piezas están en la mesa sale el botón **Mesa de montaje**: se tocan dos piezas para cambiarlas de sitio hasta que el dibujo encaje.
