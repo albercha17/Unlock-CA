@@ -94,10 +94,11 @@ JUEGOS = {
         minigames={"20": "20-terminal.js", "24": "24-radar.js", "46": "46-mando.js", "48": "48-autopista.js", "69": "69-pozo.js"},
         pal=("#5a2a9a", "#0e0620")),
     "Oeste": dict(
-        datos=W, dificultad=3, tema="oeste", titulo="Dry Gulch, 1878: El Tren del Oro", emoji="🤠", minutos=90,
+        datos=W, dificultad=4, tema="oeste", titulo="Dry Gulch, 1878: El Tren del Oro", emoji="🤠", minutos=90,
         grad="#7a4a1e,#160d06", acento="#e0a040", acento2="#f5d48a", bg1="#140c05", bg2="#33200e",
-        sinopsis="Novena parada del Cronoportal: Dry Gulch, un pueblo del Lejano Oeste en 1878. El aparato golpea un barril en el apartadero de la estación y un jinete enmascarado, que cree haber encontrado una joya, se lleva el cristal de energía. Para recuperarlo hay que enganchar un tren, reconocer a un bandido en un cartel de «Se busca», seguir un mapa, volar un túnel con dos mechas y encontrar una barra de oro falsa, antes de que salga el tren del oro, dentro de hora y media.",
-        minigames={"20": "20-candado.js", "24": "24-celda.js", "46": "46-caja.js", "48": "48-mechas.js", "69": "69-bascula.js"},
+        sinopsis="Novena parada del Cronoportal: Dry Gulch, un pueblo del Lejano Oeste en 1878. El aparato golpea un barril en el apartadero de la estación y un jinete enmascarado, que cree haber encontrado una joya, se lleva el cristal de energía hacia el tren del oro, que sale dentro de hora y media. Para recuperarlo tendrán que descifrar un telegrama en zigzag, tachar un cuadro de banco, llenar la caja de un carro, rellenar un cuadro de apuestas, cargar un carro con la mejor ganancia, sobrevivir a un duelo en corro, empujar barriles en una bodega, arreglar una bomba de agua, ordenar vagones con un apartadero, reconocer los hierros de un ganadero y abrir la válvula de la locomotora con cinco coordenadas.",
+        minigames={"14": "14-telegrama.js", "20": "20-banco.js", "40": "40-caja.js", "48": "48-apuestas.js", "52": "52-carga.js", "46": "46-duelo.js",
+                   "51": "51-bodega.js", "64": "64-bomba.js", "69": "69-maniobra.js", "72": "72-hierros.js", "85": "85-polibio.js"},
         pal=("#8a5a2a", "#1c1008")),
     "Espia": dict(
         datos=S, dificultad=3, tema="espia", titulo="Montecarlo, 1965: Operación Cristal", emoji="🕵️", minutos=75,

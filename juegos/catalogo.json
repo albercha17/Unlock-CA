@@ -75,9 +75,9 @@
     "id": "oeste",
     "nombre": "Dry Gulch, 1878: El Tren del Oro",
     "ruta": "juegos/aventuras-ca/oeste/",
-    "dificultad": 3,
+    "dificultad": 4,
     "minutos": 90,
-    "cartas": 37
+    "cartas": 60
   },
   {
     "id": "espia",
