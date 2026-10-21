@@ -77,9 +77,9 @@ JUEGOS = {
     "Trono": dict(
         datos=T, dificultad=4, tema="trono", titulo="Reino de Hielo y Fuego: La Corona del Dragón", emoji="🐉", minutos=100,
         grad="#2c3a4a,#0a0f16", acento="#8fc7ee", acento2="#cfe8fb", bg1="#06090e", bg2="#121a24",
-        sinopsis="Sexto salto del Cronoportal: un reino de hielo y fuego, en pleno invierno. Cristina y Alberto aterrizan en el patio de armas de la fortaleza de Piedra Negra, en mitad de una ventisca, con el aparato sin energía. Solo una esquirla de dragón puede encenderlo, y la tormenta cierra los pasos de montaña: tienen cien minutos antes de quedar atrapados hasta la primavera.",
-        minigames={"14": "14-cuervo.js", "20": "20-banquete.js", "40": "40-caminos.js", "42": "42-cronica.js", "46": "46-lengua.js",
-                   "51": "51-consejeros.js", "64": "64-antorchas.js", "69": "69-puerta.js", "72": "72-tapiz.js", "84": "84-profecia.js"},
+        sinopsis="Sexto salto del Cronoportal: un reino de hielo y fuego, en pleno invierno. Cristina y Alberto aterrizan en el patio de armas de la fortaleza de Piedra Negra, en mitad de una ventisca, con el aparato sin energía. Solo una esquirla de dragón puede encenderlo, y la tormenta cierra los pasos de montaña: tienen cien minutos antes de quedar atrapados hasta la primavera. Para llegar al dragón tendrán que medir hidromiel con jarras sin marcas, poner centinelas, trazar la ruta de un cuervo, descifrar la carta de una prisionera, ganar al carcelero en el juego de las piedras, tender puentes entre castillos, resolver una sucesión, un sudoku de seis casas, unas torres de hielo y un tapiz, y abrir la puerta de la profecía.",
+        minigames={"14": "14-jarras.js", "20": "20-centinelas.js", "40": "40-cuervos.js", "48": "48-playfair.js", "52": "52-piedras.js", "46": "46-caminos.js",
+                   "51": "51-sucesion.js", "69": "69-sudoku.js", "64": "64-tapiz.js", "72": "72-torres.js", "85": "85-profecia.js"},
         pal=("#3a4c60", "#0c121a")),
     "Pompeya": dict(
         datos=P, dificultad=3, tema="pompeya", titulo="Pompeya, 79 d.C.: El Mosaico del Mundo", emoji="🌋", minutos=90,
