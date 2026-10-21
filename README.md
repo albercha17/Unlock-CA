@@ -7,7 +7,7 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | Juego | Dónde | Manual de partida |
 |---|---|---|
 | **Aventuras C&A** (hub con el Cronoportal) | [`juegos/aventuras-ca/`](juegos/aventuras-ca/index.html) | — |
-| &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* | [`juegos/aventuras-ca/egipto/`](juegos/aventuras-ca/egipto/) | [MANUAL.md](juegos/aventuras-ca/egipto/MANUAL.md) |
+| &nbsp;&nbsp;Egipto, 1274 a.C. — *El Ojo de Horus* (60 cartas, 11 puzles distintos: granero, pirámide, nilómetro, friso, heqat, criptograma, cámaras, canales, azulejos, tierras y consola) | [`juegos/aventuras-ca/egipto/`](juegos/aventuras-ca/egipto/) | [MANUAL.md](juegos/aventuras-ca/egipto/MANUAL.md) |
 | &nbsp;&nbsp;Marte, 2157 — *Cúpula Aurora* | [`juegos/aventuras-ca/marte/`](juegos/aventuras-ca/marte/) | [MANUAL.md](juegos/aventuras-ca/marte/MANUAL.md) |
 | &nbsp;&nbsp;Florencia, 1503 — *El Taller de Leonardo* | [`juegos/aventuras-ca/florencia/`](juegos/aventuras-ca/florencia/) | [MANUAL.md](juegos/aventuras-ca/florencia/MANUAL.md) |
 | &nbsp;&nbsp;Cretácico, hace 66 millones de años — *El Valle de los Gigantes* (61 cartas, 11 puzles distintos: huellas, manada, nidos, cráter, lava, senderos, árbol, corral, planear, balsa y anillos) | [`juegos/aventuras-ca/dinosaurios/`](juegos/aventuras-ca/dinosaurios/) | [MANUAL.md](juegos/aventuras-ca/dinosaurios/MANUAL.md) |
@@ -52,7 +52,7 @@ Dentro de cada juego: `index.html` (app), `pc.html` (Modo PC), `cartas.json` (gu
 
 ## Cartas que se juntan (mosaicos)
 
-Algunos puzles no se leen en una carta sino **entre varias**: Pompeya junta las cuatro placas de un mosaico laberinto (2×2), las dos mitades del lacre de un sello y las dos mitades de un calendario de piedra (las dibuja `python herramientas/pompeya.py`); Dinosaurios junta el mapa del valle, la ladera, los senderos y la manada (`python herramientas/dinosaurios.py`); el Cuento junta las dos mitades de la vela del troll, del mapa del bosque y del plano de la sala de los espejos (`python herramientas/cuento.py`).
+Algunos puzles no se leen en una carta sino **entre varias**: Pompeya junta las cuatro placas de un mosaico laberinto (2×2), las dos mitades del lacre de un sello y las dos mitades de un calendario de piedra (las dibuja `python herramientas/pompeya.py`); Egipto junta la pirámide, el friso de animales, el plano del templo, el friso de azulejos y el campo (`python herramientas/egipto.py`); Dinosaurios junta el mapa del valle, la ladera, los senderos y la manada (`python herramientas/dinosaurios.py`); el Cuento junta las dos mitades de la vela del troll, del mapa del bosque y del plano de la sala de los espejos (`python herramientas/cuento.py`).
 
 - **Impresas:** `imprimir.html` las saca sin borde; se juntan sobre la mesa.
 - **Modo PC:** cuando las piezas están en la mesa sale el botón **Mesa de montaje**: se tocan dos piezas para cambiarlas de sitio hasta que el dibujo encaje.

@@ -11,9 +11,9 @@
     "id": "egipto",
     "nombre": "Egipto, 1274 a.C.: El Ojo de Horus",
     "ruta": "juegos/aventuras-ca/egipto/",
-    "dificultad": 3,
-    "minutos": 60,
-    "cartas": 36
+    "dificultad": 4,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "marte",

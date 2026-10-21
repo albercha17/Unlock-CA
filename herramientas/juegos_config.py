@@ -41,10 +41,11 @@ def sustituir(txt, viejo, nuevo, veces=1):
 
 JUEGOS = {
     "Egipto": dict(
-        datos=E, dificultad=3, tema="egipto", titulo="Egipto, 1274 a.C.: El Ojo de Horus", emoji="🏺",
+        datos=E, dificultad=4, tema="egipto", titulo="Egipto, 1274 a.C.: El Ojo de Horus", emoji="🏺", minutos=90,
         grad="#4a3512,#150f05", acento="#e0b04a", acento2="#f2d27a", bg1="#120d05", bg2="#2a1d0a",
-        sinopsis="Cristina y Alberto estrenan su Cronoportal y aterrizan en una cámara secreta bajo un templo de Tebas, en el año 1274 a.C. Con el aparato sin energía y solo una hora antes de que lleguen los sacerdotes, tienen que encontrar el Ojo de Horus.",
-        minigames={"15": "15-papiro.js", "23": "23-muro.js", "47": "47-balanza.js", "71": "71-anillos.js", "95": "95-cristales.js", "37": "37-tablilla.js", "34": "34-sarcofago.js", "50": "50-ofrendas.js", "42": "42-losa.js"},
+        sinopsis="Cristina y Alberto estrenan su Cronoportal y aterrizan en una cámara secreta bajo un templo de Tebas, en el año 1274 a.C., con el aparato sin energía. Para encontrar el Ojo de Horus tendrán que abrir un granero con un acertijo de sacos, desbloquear una pirámide de sumas, medir la crecida del Nilo, contar los animales de un friso, cuadrar las cuentas de un escriba con las partes del ojo, descifrar un criptograma de jeroglíficos, pintar las cámaras de un templo, trazar canales de riego, repartir un campo y completar un friso de azulejos. Solo tienen hora y media antes de que lleguen los sacerdotes.",
+        minigames={"14": "14-monton.js", "20": "20-piramide.js", "40": "40-nilometro.js", "48": "48-friso.js", "52": "52-heqat.js", "46": "46-cripto.js",
+                   "51": "51-camaras.js", "69": "69-canales.js", "64": "64-azulejos.js", "72": "72-tierras.js", "85": "85-sellos.js"},
         pal=("#7a5a1e", "#2a1d0a")),
     "Marte": dict(
         datos=M, dificultad=3, tema="marte", titulo="Marte, 2157: Cúpula Aurora", emoji="🚀",
