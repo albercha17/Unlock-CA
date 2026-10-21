@@ -1,9 +1,9 @@
-// Carta 72 — La caja de música: los siete animales de la melodía están dibujados en la ILUSTRACIÓN de la carta 72 (no en la app);
-// la carta 76 dice qué nota toca cada animal (conejo Do, ciervo Re, búho Mi, rana Fa, ardilla Sol, zorro La).
+// Carta 72 — La caja de música: los siete animales de la melodía están en la partitura (carta 75, no en la app);
+// el xilófono (carta 79) dice qué nota toca cada animal (conejo Do, ciervo Re, búho Mi, rana Fa, ardilla Sol, zorro La).
 // Melodía: rana, conejo, ardilla, búho, ciervo, zorro, rana = Fa, Do, Sol, Mi, Re, La, Fa. Las notas suenan y también se iluminan (alternativa visual).
-// Esta app no da letra del libro.
+// Letra del libro: R.
 import { openGame } from './ui.js';
-import { estilo } from './libro.js';
+import { estilo, guardarLetra } from './libro.js';
 
 const TABLA = { conejo: 'Do', ciervo: 'Re', 'búho': 'Mi', rana: 'Fa', ardilla: 'Sol', zorro: 'La' };
 const PARTITURA = ['rana', 'conejo', 'ardilla', 'búho', 'ciervo', 'zorro', 'rana'];
@@ -36,7 +36,7 @@ function sonar(freq) {
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 72 — La caja de música',
-    instr: 'Mira los siete animales de la caja de música en la ilustración de la carta 72: la melodía es su orden, de izquierda a derecha. La carta 76 dice qué nota toca cada animal. Las notas suenan y se iluminan.',
+    instr: 'Tocad la melodía de la partitura (carta 75) con las teclas. Qué nota toca cada animal os lo dice el xilófono del bosque (carta 79). Las notas suenan y se iluminan.',
     ...opts
   });
   estilo('cu-caja-estilo', `
@@ -103,12 +103,13 @@ export function startMinigame(opts = {}) {
       if (paso === PARTITURA.length) {
         resuelto = true;
         pintar();
-        ui.say('¡La melodía suena entera y la caja de música se abre como una flor! Dentro brilla el Tintero Dorado. Coged la carta 82.', 'ok');
+        guardarLetra('72', 'R');
+        ui.say('¡La melodía suena entera y la caja de música se abre como una flor! Coged la carta 82. Letra del libro: R.', 'ok');
       }
     } else {
       paso = 0;
       pintar();
-      ui.say('Esa no es la nota del animal número ' + (paso + 1) + ' según la tabla de la carta 76. La melodía vuelve a empezar desde el primer animal.', 'bad');
+      ui.say('Esa no es la nota del animal número ' + (paso + 1) + ' según el xilófono de la carta 79. La melodía vuelve a empezar desde el primer animal.', 'bad');
     }
   }
 

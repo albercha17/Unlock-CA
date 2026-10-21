@@ -43,9 +43,9 @@
     "id": "cuento",
     "nombre": "Érase una vez: El Libro de los Finales Felices",
     "ruta": "juegos/aventuras-ca/cuento/",
-    "dificultad": 2,
-    "minutos": 75,
-    "cartas": 39
+    "dificultad": 3,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "trono",

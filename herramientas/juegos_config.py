@@ -66,11 +66,11 @@ JUEGOS = {
                    "51": "51-estratos.js", "64": "64-cristales.js", "69": "69-nidos.js", "72": "72-geiser.js", "84": "84-esqueleto.js"},
         pal=("#2f5a22", "#0a160c")),
     "Cuento": dict(
-        datos=C, dificultad=2, tema="cuento", titulo="Érase una vez: El Libro de los Finales Felices", emoji="📖", minutos=75,
+        datos=C, dificultad=3, tema="cuento", titulo="Érase una vez: El Libro de los Finales Felices", emoji="📖", minutos=90,
         grad="#4a2a8a,#120a2a", acento="#f6c453", acento2="#ffe08a", bg1="#0e0820", bg2="#241450",
-        sinopsis="Quinto salto del Cronoportal, y esta vez no cae en una época sino dentro de un libro de cuentos: Cristina y Alberto se convierten en personajes de dibujos animados. El libro se está quedando sin color y sin tinta, y el último cuento no tiene final. Tienen setenta y cinco minutos para escribirlo antes de que el libro se cierre con ellos dentro.",
-        minigames={"14": "14-cartel.js", "20": "20-puente.js", "40": "40-salto.js", "42": "42-cuento.js", "46": "46-vidriera.js",
-                   "51": "51-hadas.js", "64": "64-rayos.js", "69": "69-tarros.js", "72": "72-caja.js", "84": "84-pagina.js"},
+        sinopsis="Quinto salto del Cronoportal, y esta vez no cae en una época sino dentro de un libro de cuentos: Cristina y Alberto se convierten en personajes de dibujos animados. El libro se queda sin color y el último cuento no tiene final. Para escribirlo hay que convencer a una panadera, cruzar el puente del troll, cambiar el pasado, saltar con botas de siete leguas, trepar por una habichuela, encender una vidriera, desenmascarar a dos hadas mentirosas, guiar un rayo de luna, devolver los colores al castillo y abrir una caja de música. Hora y media antes de que el libro se cierre con ellos dentro.",
+        minigames={"14": "14-cartel.js", "20": "20-puente.js", "40": "40-salto.js", "48": "48-botas.js", "52": "52-habichuela.js", "46": "46-vidriera.js",
+                   "51": "51-hadas.js", "64": "64-rayos.js", "69": "69-tarros.js", "72": "72-caja.js", "85": "85-pagina.js"},
         pal=("#5a3aa8", "#1a0e3a")),
     "Trono": dict(
         datos=T, dificultad=4, tema="trono", titulo="Reino de Hielo y Fuego: La Corona del Dragón", emoji="🐉", minutos=100,

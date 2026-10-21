@@ -17,7 +17,7 @@ const NOMBRES = ['primer número', 'signo', 'segundo número', 'resultado'];
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 14 — Cartel de la panadería',
-    instr: 'La cuenta del cartel está mal. Mueve UN solo palito de canela (tócalo y luego toca un hueco vacío) para que la cuenta sea la de la lista de precios.',
+    instr: 'La cuenta del cartel está mal. Mueve UN solo palito de canela (tócalo y luego toca un hueco vacío) para que la cuenta sea cierta y cuadre con los precios del escaparate (carta 16).',
     ...opts
   });
   estilo('cu-cartel-estilo', `
@@ -116,11 +116,11 @@ export function startMinigame(opts = {}) {
     if (v) {
       resuelto = true;
       guardarLetra('14', LETRA);
-      ui.say('¡El cartel ya cuenta bien! Doña Hogaza aplaude y os cuenta lo que sabe. Coged la carta 26. Letra del libro: ' + LETRA + '.', 'ok');
+      ui.say('¡El cartel ya cuenta bien! Doña Hogaza aplaude y os cuenta lo que sabe. Coged la carta 24. Letra del libro: ' + LETRA + '.', 'ok');
     } else if (v === null) {
       ui.say('Ese número o signo no existe: los palitos no forman una cifra. Empezad de nuevo.', 'bad');
     } else {
-      ui.say('La cuenta sigue sin cuadrar con la lista de precios. Empezad de nuevo y probad otro palito.', 'bad');
+      ui.say('La cuenta sigue sin cuadrar con el escaparate. Empezad de nuevo y probad otro palito.', 'bad');
     }
   }
   function inicio() { estado = INICIAL.slice(); sel = null; movido = false; resuelto = false; ui.say(''); pintar(); }

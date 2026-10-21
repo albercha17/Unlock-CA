@@ -11,16 +11,6 @@ def clic(d, css):
     time.sleep(0.05)
 
 
-def s42(d):
-    abrir_carta(d, "42")
-    for _ in range(4):
-        boton(d, "Siguiente →").click()
-    texto = d.find_element(By.CSS_SELECTOR, ".far-hoja").text
-    assert "ceniza" in texto.lower(), texto
-    cerrar(d)
-    return "(lector) " + texto[:40]
-
-
 def s14(d):
     """Cartel: un movimiento que no forma cifra (falla) y luego el palito bueno."""
     abrir_carta(d, "14")
@@ -168,7 +158,7 @@ def s72(d):
     """Caja de música: una nota equivocada (falla) y luego la melodía."""
     abrir_carta(d, "72")
     clic(d, ".caj-nota[data-n='Do']")
-    assert "carta 76" in feedback(d), feedback(d)
+    assert "carta 79" in feedback(d), feedback(d)
     for n in IC.SOLUCION_MUSICA:
         clic(d, f".caj-nota[data-n='{n}']")
     time.sleep(0.2)
@@ -177,17 +167,17 @@ def s72(d):
     return m
 
 
-def s84(d):
+def s85(d):
     """Última página: las letras en el orden de las cartas (falla) y la palabra buena."""
-    abrir_carta(d, "84")
+    abrir_carta(d, "85")
     boton(d, "Comprobar").click()
-    assert "Colocad las siete letras" in feedback(d) or "faltan" in feedback(d).lower(), feedback(d)
-    for i in range(7):
+    assert "Colocad las ocho letras" in feedback(d) or "faltan" in feedback(d).lower(), feedback(d)
+    for i in range(8):
         clic(d, f".pag-letra[data-n='{i}']")
     boton(d, "Comprobar").click()
     assert "no es la palabra" in feedback(d), feedback(d)
     boton(d, "Quitar todas").click()
-    letras = [d.find_element(By.CSS_SELECTOR, f".pag-letra[data-n='{i}']").get_attribute("data-l") for i in range(7)]
+    letras = [d.find_element(By.CSS_SELECTOR, f".pag-letra[data-n='{i}']").get_attribute("data-l") for i in range(8)]
     usadas = set()
     for ch in IC.PALABRA:
         i = next(k for k, l in enumerate(letras) if l == ch and k not in usadas)
@@ -199,5 +189,42 @@ def s84(d):
     return m
 
 
-SOLVERS = {"42": s42, "14": s14, "20": s20, "40": s40, "46": s46, "51": s51, "64": s64, "69": s69, "72": s72, "84": s84}
-REQUIERE = {"14": ["16"], "20": ["18"], "40": ["42"], "46": ["48", "37"], "51": ["52", "26"], "64": ["66"], "69": ["70"], "72": ["76"], "84": ["86"]}
+def s48(d):
+    """Botas: un salto contra un árbol o fuera del bosque (falla) y luego la ruta buena."""
+    abrir_carta(d, "48")
+    b = IC.BOTAS
+    dirs = {"arriba": (0, -1), "abajo": (0, 1), "izquierda": (-1, 0), "derecha": (1, 0)}
+    obst = {tuple(o) for o in b["obstaculos"]}
+    x, y = b["inicio"]
+    malo = next(dd for dd, (dx, dy) in dirs.items()
+                if not (0 <= x + dx * 2 < b["n"] and 0 <= y + dy * 2 < b["n"]) or (x + dx * 2, y + dy * 2) in obst)
+    clic(d, f".bot-dirs button[data-d='{malo}']")
+    assert "saca del bosque" in feedback(d) or "Plaf" in feedback(d), feedback(d)
+    boton(d, "Volver al principio").click()
+    for dd in b["solucion"]:
+        clic(d, f".bot-dirs button[data-d='{dd}']")
+    time.sleep(0.2)
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+def s52(d):
+    """Habichuela: un número equivocado (falla) y luego las hojas de la luna pedida."""
+    abrir_carta(d, "52")
+    boton(d, "Regar").click()
+    assert "no son sus hojas" in feedback(d), feedback(d)
+    n = IC.HABICHUELA["solucion"]
+    for _ in range(n // 10):
+        clic(d, ".hab-cont button[data-d='10']")
+    for _ in range(n % 10):
+        clic(d, ".hab-cont button[data-d='1']")
+    boton(d, "Regar").click()
+    m = feedback(d)
+    cerrar(d)
+    return m
+
+
+SOLVERS = {"14": s14, "20": s20, "40": s40, "48": s48, "52": s52, "46": s46, "51": s51, "64": s64, "69": s69, "72": s72, "85": s85}
+REQUIERE = {"14": ["16"], "20": ["18", "19", "21"], "40": ["41", "43", "45"], "48": ["42", "49", "53"], "52": ["54", "55", "59"],
+            "46": ["37", "39", "33"], "51": ["26", "61", "63"], "64": ["66", "67"], "69": ["70", "71"], "72": ["75", "79"], "85": ["86", "87"]}

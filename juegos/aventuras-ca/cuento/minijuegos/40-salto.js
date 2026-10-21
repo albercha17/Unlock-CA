@@ -1,11 +1,11 @@
 // Carta 40 — Había una vez... y ahora: el camino de la aldea al castillo en dos épocas. Con exactamente tres saltos al pasado
 // (plantar la habichuela, cavar o encender fuego, una acción por casilla) hay que dejar libre el camino en el presente.
-// Las reglas de cada acción están en el cuento del Búho (carta 42). Solución única (comprobada en herramientas/instancias_cuento.py):
-// fuego en la casilla 3 (zarzas), plantar en la 5 (río) y cavar en la 6 (roca). Letra del libro: L.
+// Lo que hace cada acción está dibujado, con ejemplos, en las cartas 41, 43 y 45. Solución única (comprobada en herramientas/instancias_cuento.py):
+// fuego en la casilla 3 (zarzas), plantar en la 5 (río) y cavar en la 6 (roca). Letra del libro: S.
 import { openGame } from './ui.js';
 import { guardarLetra, estilo } from './libro.js';
 
-const LETRA = 'L';
+const LETRA = 'S';
 const PRESENTE = ['aldea', 'libre', 'zarza', 'libre', 'rio', 'roca', 'castillo'];
 const PASADO = ['aldea', 'pradera', 'bosquecillo', 'pradera', 'charca', 'colina', 'castillo'];
 const ACCIONES = [
@@ -32,7 +32,7 @@ function efecto(accion, t) {
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 40 — Había una vez... y ahora',
-    instr: 'Elige una acción y toca una casilla de «Había una vez»: cambiará «Y ahora». Tenéis exactamente tres saltos y una acción por casilla. Las reglas están en el cuento del Búho (carta 42).',
+    instr: 'Elige una acción y toca una casilla de «Había una vez»: cambiará «Y ahora». Tenéis exactamente tres saltos y una acción por casilla. Lo que hace cada salto lo enseñan las cartas 41, 43 y 45.',
     ...opts
   });
   estilo('cu-salto-estilo', `
@@ -157,7 +157,7 @@ export function startMinigame(opts = {}) {
     if (bloqueo === -1) {
       resuelto = true;
       guardarLetra('40', LETRA);
-      ui.say('¡El camino queda libre de la aldea al castillo! La habichuela, el fuego y la pala del pasado lo han cambiado todo. Coged la carta 44. Letra del libro: ' + LETRA + '.', 'ok');
+      ui.say('¡El camino queda libre de la aldea al castillo! La habichuela, el fuego y la pala del pasado lo han cambiado todo. Coged la carta 30. Letra del libro: ' + LETRA + '.', 'ok');
     } else {
       ui.say('En el presente sigue bloqueando el camino: ' + TERRENO[presente[bloqueo]][0].toLowerCase() + ' (casilla ' + (bloqueo + 1) + '). Cambiad los saltos y volved a probar.', 'bad');
     }

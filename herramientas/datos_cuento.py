@@ -1,15 +1,25 @@
-"""Datos del juego «Érase una vez: El Libro de los Finales Felices» (5.º salto del Cronoportal, mundo de cuento animado).
+"""Érase una vez: El Libro de los Finales Felices — versión de 60 cartas (21 oct 2026), mucho más difícil y variada que la primera.
 
-Mismo esqueleto de cartas que Dinosaurios (verificado con 3000 simulaciones), con otra historia, otros puzles y otras cartas.
-Los personajes y lugares son originales (búho narrador, panadera, duendes, hadas...), inspirados en cuentos populares de dominio público.
-"""
-from datos_dinosaurios import PASOS as _PASOS_BASE, SPEC as _SPEC_BASE
+Diez puzles de tipos distintos, con las pistas como acertijos o dibujadas (ninguna carta explica cómo se resuelve su puzle): el cartel de
+palitos de canela, el puente de los duendes contra la vela del troll, los saltos al pasado, las botas de siete leguas en un bosque a oscuras,
+la habichuela que crece día a día, la vidriera de la torre, las hadas que mienten, los rayos de luna, los tarros de colores, la caja de
+música y la última página (metapuzle con las letras que deja cada puzle: PERDICES). Solo 15 cartas tienen a Cristina y Alberto (escenas); el
+resto son objetos y pistas sin personas. Las cartas-pista las dibuja herramientas/cuento.py (instancias_cuento.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_cuento as I  # noqa: E402
+
+_S_BOTAS = ", ".join(I.BOTAS["solucion"])
 
 ESTILO = ("Ilustración de dibujos animados 2D clásicos de cuento: trazo de tinta limpio, colores vivos y suaves como de acuarela, "
           "personajes con ojos grandes y muy expresivos, fondos pintados con detalle y luz mágica con destellos dorados, "
           "paleta de morados, azules profundos, rosas y oro, formato vertical 2:3. "
           "Sin texto, letras ni números en la imagen; los libros, carteles y pergaminos son solo dibujos decorativos sin escritura legible. "
-          "Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.")
+          "Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. "
+          "Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).")
 
 PERSONAJES = {
     "Cristina": "Cristina, versión de dibujos animados 2D clásicos: mujer joven de pelo rubio y rizado recogido en una coleta, ojos azules grandes y expresivos. "
@@ -34,342 +44,278 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con animación 2D clásic
          "Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, mirándose las manos de dibujo; los colores de la aldea se desvanecen un poco más; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido de páginas que pasan, caída suave sobre la hierba, música de caja de música y arpa, sin voz de narrador.")
 
+SIN_GENTE = "Sin ninguna persona en la imagen. "
+
+MOSAICOS = {
+    "vela": dict(filas=2, cols=1, cartas=["19", "21"], titulo="La vela del troll"),
+    "botas": dict(filas=1, cols=2, cartas=["42", "49"], titulo="El bosque de las siete leguas"),
+    "espejos": dict(filas=1, cols=2, cartas=["66", "67"], titulo="La sala de los espejos"),
+}
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+
+
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/cuento.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=arte)
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
+
+
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada al libro", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Quinta parada del Cronoportal. Esta vez no caéis en una época, sino dentro de un libro: «El Libro de los Finales Felices». Os miráis las manos: sois dibujos animados, con trazo de tinta y todo.",
-            "Un búho con una pluma en el pico os da la bienvenida: «Soy el Búho Narrador. El libro se está quedando sin color y sin tinta: el último cuento se ha quedado sin final. Cuando la tinta se seque, el libro se cerrará con vosotros dentro. Tenéis setenta y cinco minutos». El Cronoportal, dibujado a lápiz, ha perdido su tintero.",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="Una aldea de cuento pintada a mano casi sin color, de tonos grises, con tejados torcidos y un puente de piedra al fondo; en una rama, un búho con una pluma en el pico. En primer plano, un aparato de latón y cristal dibujado a lápiz (el Cronoportal) humea sobre la hierba. Cristina y Alberto, dibujados en 2D clásico, se miran las manos con la boca abierta de puro asombro: ella con los ojos como platos y las cejas muy altas, él con la mandíbula caída y un dedo señalando su propia mano dibujada."),
-    "10": dict(
-        titulo="Carta 10 — Aldea sin color", tipo="gris", coge=[14, 16, 18, 20, 22], descarta=["P"],
-        descripcion=[
-            "La aldea es gris como un dibujo a medio pintar. En la panadería hay un cartel torcido con una cuenta rara hecha con palitos de canela (carta 14) y, en el escaparate, la lista de precios de Doña Hogaza (carta 16). Junto al río, cuatro duendes esperan en un puente (carta 20) con una notita sobre sus pasos (carta 18). Y en el suelo, una varita rota, sin estrella (carta 22).",
-            "Coged las cartas 14, 16, 18, 20 y 22. Descartad la carta P."],
-        pistas=["Hay dos puzles: el cartel de la panadería y el puente de los duendes.", "Coged las cartas 14, 16, 18, 20 y 22. Descartad la carta P."],
-        arte="Una plaza de aldea de cuento en tonos grises: una panadería con un cartel torcido hecho de palitos de canela, un escaparate con una lista, un puente de piedra sobre un río con cuatro duendecillos esperando con un farolillo, y una varita mágica rota sobre los adoquines. Cristina examina el cartel con una ceja levantada y una sonrisa pícara mientras Alberto se rasca la cabeza con gesto de duda y los labios apretados."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin tintero", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal, dibujado solo a lápiz: una consola de latón con un anillo central y un hueco vacío donde iba su tintero de energía. Alberto, con el ceño muy fruncido: «Sin el tintero dorado no hay portal. Y el único sitio donde puede haber tinta dorada es el final del cuento».",
-            "Cuando recuperéis el Tintero Dorado (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el tintero de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal dibujado a lápiz sobre un libro enorme abierto: una consola de latón con dos antenas, un anillo central apagado y un hueco circular vacío en el pecho del aparato. Alberto lo examina muy de cerca con el ceño fruncido y la lengua entre los dientes, concentradísimo; Cristina, detrás, junta las manos con una sonrisa esperanzada."),
-    "14": dict(
-        titulo="Carta 14 — Cartel de la panadería", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el cartel de la panadería escribe su cuenta con palitos de canela, pero está mal. Hay que mover UN solo palito de canela, sacándolo de un número y poniéndolo en otro hueco, para que la cuenta sea cierta. La lista de precios de Doña Hogaza (carta 16) dice cuál debe ser la cuenta.",
-            "Al acertar, Doña Hogaza os cuenta lo que sabe. Coged la carta 26."],
-        pistas=["La lista de precios (carta 16) dice cuál debería ser la cuenta del cartel.", "Comparad los números del cartel con los de la lista: hay que mover un solo palito de un número a otro.", "Quitad el palito de arriba a la derecha del 9 de la izquierda (queda un 5) y ponedlo arriba a la derecha del 5 de la derecha (queda un 9): 5 + 4 = 9."],
-        arte="Un cartel de madera torcido en la puerta de una panadería de cuento, con números hechos con palitos de canela y un signo de suma. Doña Hogaza, una panadera redonda y rosada con delantal, lo señala con los brazos en jarras y el gesto indignado; Cristina contiene la risa tapándose la boca y Alberto observa con los ojos entrecerrados, calculando."),
-    "16": dict(
-        titulo="Carta 16 — Lista de precios", tipo="gris",
-        descripcion=["La lista de precios que Doña Hogaza pega en su escaparate. Sirve para el cartel de la panadería (carta 14)."],
-        pistas=["Es una lista de precios.", "Sirve para el cartel de la panadería (carta 14)."],
-        textoCarta=["Hogaza: 5 monedas.", "Bollo de nata: 4 monedas.", "Una hogaza y un bollo: 9 monedas."],
-        arte="Un escaparate de panadería de cuento con una pizarra pequeña colgada, decorada con dibujos de una hogaza, un bollo de nata y monedas, sin texto legible, y unas migas de pan sobre un mantel a cuadros."),
-    "18": dict(
-        titulo="Carta 18 — Los cuatro duendes", tipo="gris",
-        descripcion=["Una nota de los cuatro duendes del puente. Dicen cuánto tarda cada uno en cruzar y cuánto falta para el amanecer. Sirve para el puente del troll (carta 20)."],
-        pistas=["Es lo que tarda cada duende en cruzar.", "Sirve para el puente del troll (carta 20)."],
-        textoCarta=["Bigotes cruza en 1 minuto.", "Pétalo, en 2 minutos.", "Gruñón, en 5 minutos.", "Abuela Musgo, en 8 minutos.", "El sol sale dentro de 15 minutos."],
-        arte="Cuatro duendecillos de cuento en fila junto a un puente de piedra: uno ágil con bigotes, una duendecilla con pétalos en el pelo, uno gruñón de brazos cruzados y una abuelita cubierta de musgo con bastón; cada uno con una expresión muy distinta, de prisa, de alegría, de enfado y de calma."),
-    "20": dict(
-        titulo="Carta 20 — El puente del troll", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: los cuatro duendes quieren cruzar el puente del troll antes de que amanezca, con un único farolillo-luciérnaga. Cruzan de uno en uno o de dos en dos, y el farolillo hay que devolverlo cada vez. Los tiempos de cada duende están en la carta 18.",
-            "Al acertar, el troll se aparta y os deja pasar. Coged la carta 28."],
-        pistas=["La carta 18 dice cuánto tarda cada duende y cuánto falta para el amanecer.", "Cruzan como mucho dos a la vez, al paso del más lento, y alguien debe devolver el farolillo: mejor que no sea el más lento.", "Pasan Bigotes y Pétalo; vuelve Bigotes; pasan Gruñón y Abuela Musgo; vuelve Pétalo; pasan Bigotes y Pétalo. En total, 15 minutos."],
-        arte="Un puente de piedra sobre un río en la penumbra con un troll enorme y adormilado sentado debajo, y cuatro duendecillos en una orilla con un farolillo hecho con una luciérnaga. Alberto señala el farolillo con el dedo y la frente arrugada mientras piensa, y Cristina se muerde el labio con gesto nervioso mirando al cielo."),
-    "22": dict(
-        titulo="Carta 22 — Varita sin estrella", tipo="roja", combina=[35, 57],
-        descripcion=["Una varita mágica rota, con la punta vacía donde iba una estrella. Combinadla con la estrella caída que aparezca en el puente (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Le falta la estrella de la punta.", "Cuando tengáis la estrella caída, combinadla con la varita.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="Una varita mágica de madera blanca con la punta rota y vacía, apoyada sobre unos adoquines grises de una aldea de cuento, con unos pocos destellos dorados apagados a su alrededor."),
-    "26": dict(
-        titulo="Carta 26 — Los chismes de Doña Hogaza", tipo="gris", descarta=[14, 16],
-        descripcion=[
-            "Con el cartel arreglado, Doña Hogaza os regala un bollo y cuchichea sin parar sobre las cuatro hadas de la torre. Parece que unas dicen siempre la verdad y otras no. Servirá para las hadas (carta 51).",
-            "Descartad las cartas 14 y 16."],
-        pistas=["Son dos cosas que dijeron las hadas.", "Sirve para las hadas de la torre (carta 51)."],
-        textoCarta=["Las hadas de ala azul siempre dicen la verdad.", "Las de ala roja siempre mienten.", "Brisa dijo: «Nube es de ala roja.»", "Lila dijo: «Dalia es de ala roja.»"],
-        arte="Doña Hogaza, la panadera, inclinada hacia delante con una mano junto a la boca cuchicheando y una sonrisa maliciosa, ofreciendo un bollo; Cristina escucha con los ojos muy abiertos y una sonrisa de curiosidad y Alberto, detrás, alza las cejas con asombro divertido."),
-    "28": dict(
-        titulo="Carta 28 — El troll se aparta", tipo="gris", coge=[35, 37], descarta=[20, 18],
-        descripcion=[
-            "El troll, agradecido, se hace a un lado con un bostezo enorme. Bajo el puente guardaba dos tesoros: una estrella caída del cielo (carta 35) y un dibujo de la vidriera de la torre de las hadas (carta 37).",
-            "Coged las cartas 35 y 37. Descartad las cartas 20 y 18."],
-        pistas=["Mirad lo que guardaba el troll.", "Coged las cartas 35 y 37. Descartad las cartas 20 y 18."],
-        arte="Un troll enorme y de aspecto bonachón levantándose con un bostezo bajo un puente de piedra y apartando una roca; detrás, una pequeña estrella dorada caída y un pergamino enrollado. Alberto saluda al troll con una sonrisa de alivio y Cristina aplaude con los ojos brillantes de alegría."),
-    "35": dict(
-        titulo="Carta 35 — Estrella caída", tipo="azul", combina=[22, 57],
-        descripcion=["Una estrellita dorada caída del cielo del cuento, todavía tibia. Combinadla con la varita rota (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Es una estrella: necesita una varita.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="Una estrellita dorada con cinco puntas, del tamaño de una manzana, que brilla suavemente sobre un paño morado, con unas motas de polvo de estrellas flotando a su alrededor."),
-    "37": dict(
-        titulo="Carta 37 — Ventana de la torre", tipo="gris",
-        descripcion=["Un dibujo de la gran vidriera de la torre de las hadas: lo iluminado (●) es lo que debe quedar cubierto. Sirve para la vidriera (carta 46)."],
-        pistas=["Es el dibujo de lo que debe quedar iluminado.", "Sirve para la vidriera de la torre (carta 46)."],
-        textoCarta=["La luz debe llenar esta ventana:", "○ ○ ○ ○ ○", "○ ○ ○ ○ ○", "● ● ● ● ●", "○ ● ● ● ○", "○ ● ● ● ●"],
-        arte="El boceto a tinta de una gran vidriera en forma de copa sobre un pergamino enrollado, con líneas de colores y flechas decorativas, sin texto legible, sujeto por una cinta morada."),
-    "57": dict(
-        titulo="Carta 57 — El bosque despierta", tipo="gris", coge=[40, 42], descarta=[22, 35, 28, 10],
-        descripcion=[
-            "Con la estrella en su punta, la varita brilla y el bosque encantado despierta: aparece un camino entre árboles que hablan bajito. En un claro hay un montoncito de tierra removida (carta 40) y, sobre un tocón, el Búho Narrador os guarda un libro con sus cuentos (carta 42).",
-            "Coged las cartas 40 y 42. Descartad las cartas 22, 35, 28 y 10."],
-        pistas=["Hay un claro en el bosque y un libro del Búho.", "Coged las cartas 40 y 42. Descartad las cartas 22, 35, 28 y 10."],
-        arte="Un bosque encantado que despierta con luz dorada y árboles con caras sonrientes; en un claro hay tierra removida y, sobre un tocón, un búho con un libro abierto. Cristina agita la varita con una sonrisa radiante y los ojos cerrados de felicidad y Alberto da un paso atrás con los brazos levantados, sobresaltado y riéndose."),
-    "40": dict(
-        titulo="Carta 40 — Había una vez... y ahora", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el camino de la aldea al castillo, visto en dos épocas. Arriba, «Había una vez»: cómo era antes. Abajo, «Y ahora»: cómo es hoy y qué lo bloquea. Con exactamente tres saltos al pasado, que cambian el presente, hay que dejar libre el camino. El Búho explica en su cuento qué hace cada salto (carta 42).",
-            "Al acertar, el camino queda libre hasta la torre. Coged la carta 44."],
-        pistas=["El cuento del Búho (carta 42) explica qué hace cada salto en el pasado. Mirad qué obstáculos hay en el presente.", "Hay tres obstáculos en el camino: unas zarzas, un río y una roca. Cada uno se arregla con una acción distinta, en la misma casilla.", "Fuego en la casilla de las zarzas (la 3), plantar la habichuela en la del río (la 5) y cavar en la de la roca (la 6)."],
-        arte="Un claro del bosque encantado con un libro mágico enorme abierto en el suelo: en la página de la izquierda un dibujo de un campo de pradera con una charca, y en la derecha el mismo lugar hoy, con un río, zarzas y una roca. Cristina señala la página con una sonrisa de descubrimiento y Alberto sostiene una habichuela mágica entre dos dedos con cara de duda."),
-    "42": dict(
-        titulo="Carta 42 — El cuento del Búho", tipo="verde",
-        descripcion=["Es un juego de la app (solo lectura): el cuento del Búho Narrador. Explica qué hace cada salto al pasado, para el claro (carta 40)."],
-        pistas=["Pasad las páginas con calma.", "Las reglas de los saltos están en el cuento: sirven para el claro (carta 40).", "Hay una página para cada acción (plantar, cavar y fuego) que dice qué cambia en el presente según lo que haya en esa casilla."],
-        arte="Un libro de cuentos de tapas moradas con una pluma de oro como marcapáginas, sobre un tocón de árbol, con dibujos decorativos de una habichuela, una pala y una llama, sin texto legible; el Búho Narrador lo señala con una sonrisa orgullosa y las plumas de las cejas levantadas."),
-    "44": dict(
-        titulo="Carta 44 — La torre de las hadas", tipo="gris", coge=[46, 48, 51, 52], descarta=[40, 42, 57],
-        descripcion=[
-            "El camino os lleva al pie de una torre altísima. Una habichuela gigante crece a su lado y os sube hasta la sala de lo alto, donde hay una gran vidriera sin luz (carta 46) con las instrucciones del vidriero (carta 48) y, en un rincón, cuatro hadas que no paran de hablar (carta 51) rodeadas de papelitos con lo que han dicho (carta 52).",
-            "Coged las cartas 46, 48, 51 y 52. Descartad las cartas 40, 42 y 57."],
-        pistas=["Hay dos puzles: la vidriera y las hadas.", "Coged las cartas 46, 48, 51 y 52. Descartad las cartas 40, 42 y 57."],
-        arte="La sala de lo alto de una torre de hadas con una gran vidriera apagada y cuatro hadas de alas azules y rojas revoloteando alrededor de una mesa llena de papelitos. Cristina sube por la habichuela gigante con la cara radiante de emoción y Alberto, aferrado a una hoja, mira hacia abajo con el miedo de las alturas en los ojos."),
-    "46": dict(
-        titulo="Carta 46 — Vidriera de la torre", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: tres cristales de colores que se mueven por la ventana. Deben cubrir exactamente el dibujo del vidriero (carta 37), cada uno una sola vez, sin girarlos y sin solaparse. Las reglas del vidriero están en la carta 48.",
-            "Al acertar, la vidriera se enciende. Coged la carta 54."],
-        pistas=["El dibujo de la carta 37 es lo que debe quedar iluminado; las reglas están en la carta 48.", "Cada cristal tiene cuatro cuadrados y no se puede girar. Empezad por la fila de abajo, que es la más larga.", "El cristal recto cubre B5, C5, D5 y E5. El de la te cubre A3, B3, C3 y B4. El de la ese cubre D3, E3, C4 y D4."],
-        arte="Una gran vidriera con forma de copa en una torre, con tres cristales de colores (dorado, rosa y azul) que encajan como un rompecabezas y proyectan luz sobre el suelo de piedra. Alberto empuja un cristal con la lengua fuera por el esfuerzo y el sudor en la frente; Cristina, a su lado, lo guía con el dedo y la boca en forma de 'o' de concentración."),
-    "48": dict(
-        titulo="Carta 48 — Reglas del vidriero", tipo="gris",
-        descripcion=["Las reglas del vidriero de la torre. Sirven para la vidriera (carta 46)."],
-        pistas=["Son las reglas de los cristales.", "Sirven para la vidriera de la torre (carta 46)."],
-        textoCarta=["Hay tres cristales de cuatro cuadrados:", "uno recto, uno en forma de te y uno en forma de ese.", "No se giran. Donde se solapan, brillan doble", "y la vidriera se apaga. Cubrid el dibujo entero."],
-        arte="Un pergamino del vidriero sujeto con una pinza sobre una mesa con tres cristales de colores de formas distintas (recto, en te y en ese) y unas tenazas, con dibujos decorativos de cuadrículas, sin texto legible."),
-    "51": dict(
-        titulo="Carta 51 — Las cuatro hadas", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cuatro hadas, Brisa, Lila, Nube y Dalia. Las de ala azul siempre dicen la verdad y las de ala roja siempre mienten. Hay que descubrir cuáles son de ala roja usando lo que dijo cada una: las frases están repartidas entre la carta 26, la carta 52 y la app (la de Dalia aparece en la propia app).",
-            "Al acertar, las hadas os dan lo que guardan. Coged la carta 58."],
-        pistas=["Las frases están repartidas: dos en la carta 26, una en la 52 y una en la app (la de Dalia).", "Probad qué pasa si un hada es de ala azul y mirad si su frase se cumple; si no, es de ala roja.", "Son de ala roja Lila y Nube. Brisa y Dalia son de ala azul."],
-        arte="Cuatro hadas pequeñas y muy distintas en el aire, dos con alas azules y dos con alas rojas, hablando a la vez con gestos exagerados; una con gesto muy serio, otra con una sonrisa traviesa, otra fingiendo inocencia y otra con los brazos cruzados. Cristina las mira desconcertada con la cabeza ladeada y Alberto se tapa los oídos con una mueca de agobio."),
-    "52": dict(
-        titulo="Carta 52 — Papelitos de las hadas", tipo="gris",
-        descripcion=["Papelitos con lo que dijeron las hadas. Sirven, junto con los chismes de Doña Hogaza (carta 26), para las hadas (carta 51)."],
-        pistas=["Son frases de las hadas.", "Sirven para las hadas de la torre (carta 51)."],
-        textoCarta=["Nube dijo: «Brisa y Lila son de ala azul.»", "Dalia también habló: la oiréis en la app.", "Recordad: las de ala azul dicen siempre la verdad."],
-        arte="Una mesa de madera de la torre cubierta de papelitos de colores con dibujos decorativos de alas azules y rojas y de bocas hablando, sin texto legible, y una pluma de oro tumbada entre ellos."),
-    "54": dict(
-        titulo="Carta 54 — La vidriera se enciende", tipo="gris", coge=[56], descarta=[46, 48, 37],
-        descripcion=[
-            "La luz atraviesa la vidriera con todos sus colores y la pared se abre un poco: del hueco cae al suelo un cristal de luna, frío y brillante.",
-            "Coged la carta 56. Descartad las cartas 46, 48 y 37."],
-        pistas=["Mirad lo que ha caído del hueco.", "Coged la carta 56. Descartad las cartas 46, 48 y 37."],
-        arte="Una vidriera en forma de copa encendida con todos sus colores que proyecta un arcoíris sobre el suelo; de un hueco en la pared cae un cristal de luna azulado y brillante. Cristina y Alberto alzan la cara hacia la luz con los ojos muy abiertos y una sonrisa de maravilla."),
-    "56": dict(
-        titulo="Carta 56 — Cristal de luna", tipo="roja", combina=[38, 94],
-        descripcion=["Un cristal de luna, frío y brillante como un trocito de noche. Alberto: «Esto alumbraría muy bien dentro de un farolillo». Combinadlo con el farolillo (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Es un cristal que brilla como la luna.", "Cuando tengáis el farolillo, combinadlo con el cristal.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Un cristal azulado del tamaño de un puño con forma de media luna que brilla con luz plateada, sobre un cojín de terciopelo morado con unas motas de polvo de estrellas."),
-    "58": dict(
-        titulo="Carta 58 — El secreto de las hadas", tipo="gris", coge=[38], descarta=[51, 52, 26],
-        descripcion=[
-            "Las hadas de ala azul os cuentan su secreto: bajo una baldosa, escondido desde hace siglos, hay un farolillo de hierro, apagado y sin luz.",
-            "Coged la carta 38. Descartad las cartas 51, 52 y 26."],
-        pistas=["Mirad bajo la baldosa.", "Coged la carta 38. Descartad las cartas 51, 52 y 26."],
-        arte="Dos hadas de ala azul, Brisa y Dalia, levantando una baldosa de la torre con gesto solemne y orgulloso para mostrar un farolillo de hierro apagado; Alberto, de rodillas, lo saca con una sonrisa de triunfo mientras Cristina, junto a él, abre la boca con sorpresa."),
-    "38": dict(
-        titulo="Carta 38 — Farolillo apagado", tipo="azul", combina=[56, 94],
-        descripcion=["Un farolillo de hierro con un cristal vacío en lugar de llama. Combinadlo con el cristal de luna (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Es un farolillo sin luz.", "Combinad la carta 38 con la carta 56.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Un farolillo de hierro forjado con una cúpula vacía y sin luz, colgado de un gancho sobre una baldosa gris de una torre, con unas telarañas apenas visibles."),
-    "94": dict(
-        titulo="Carta 94 — La sala de los espejos", tipo="gris", coge=[64, 66], descarta=[56, 38, 44, 54, 58],
-        descripcion=[
-            "El farolillo de luna se enciende y su luz plateada revela una puerta escondida: la sala de los espejos de la torre. Sobre un pedestal hay una flor de luna sin florecer, a oscuras, y los espejos están sueltos por la sala (carta 64). Un plano en la pared cuenta dónde está la flor (carta 66).",
-            "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
-        pistas=["Hay un puzle: los espejos de la sala.", "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
-        arte="Una sala circular de espejos de plata con un pedestal en el centro donde hay una flor de luna cerrada, y un farolillo encendido que lo baña todo de luz plateada. Cristina avanza de puntillas con una sonrisa de pura fascinación y Alberto, a su lado, se ve reflejado en cien espejos y hace una mueca de espanto cómico."),
-    "64": dict(
-        titulo="Carta 64 — Rayos de luna", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el plano de la sala de los espejos, con sus muros de piedra. Un rayo de luna sale por la flecha de la izquierda y avanza en línea recta. Hay que colocar exactamente tres espejos, que el rayo toque los tres, para que llegue a la flor de luna. El plano de la pared (carta 66) dice dónde está la flor.",
-            "Al acertar, la flor de luna se abre. Coged la carta 78."],
-        pistas=["La carta 66 dice dónde está la flor de luna; en la app no está marcada.", "El rayo sale por la flecha y va recto; un espejo inclinado lo desvía. Hay que usar exactamente tres, y que el rayo toque los tres.", "Espejo en A2 inclinado hacia la derecha (/), en E2 hacia la izquierda (\\) y en A4 hacia la derecha (/)."],
-        arte="La sala de los espejos con un rayo de luna que rebota en tres espejos de plata y llega hasta una flor de luna que empieza a abrirse sobre un pedestal; muros de piedra a los lados. Alberto sostiene un espejo con los brazos temblorosos y el gesto de esfuerzo y Cristina, a su lado, guía el rayo con el dedo con la mirada fija y la lengua entre los dientes."),
-    "66": dict(
-        titulo="Carta 66 — Plano de la sala", tipo="gris",
-        descripcion=["Un plano de la sala de los espejos con la posición de la flor de luna. Sirve para los rayos de luna (carta 64)."],
-        pistas=["Dice dónde está la flor.", "Sirve para los rayos de luna (carta 64)."],
-        textoCarta=["La flor de luna está en la casilla E5.", "Hay que usar exactamente tres espejos,", "y el rayo debe tocar los tres."],
-        arte="Un plano dibujado a tinta sobre pergamino y clavado en una pared de piedra, con una cuadrícula decorativa, una flecha, una flor y pequeños espejos dibujados, sin texto legible, iluminado por un farolillo."),
-    "78": dict(
-        titulo="Carta 78 — La sala de los tarros", tipo="gris", coge=[69, 70], descarta=[64, 66, 94],
-        descripcion=[
-            "La flor de luna se abre y de ella cae una lluvia de polvo plateado que vuelve a poner en marcha el color del cuento. La pared se abre y entráis en la despensa del castillo: tres tarros de cristal con los colores del cuento, todos revueltos (carta 69). Una nota de la Cocinera Real os dice cómo ordenarlos (carta 70).",
-            "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
-        pistas=["Hay un puzle: los tarros de colores.", "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
-        arte="Una despensa de castillo con cinco tarros de cristal sobre una mesa larga, tres de ellos llenos de capas revueltas de pintura rosa, dorada y turquesa y dos vacíos, bajo una lluvia de polvo plateado. Cristina sonríe con una chispa traviesa y se arremanga y Alberto se frota las manos con gesto resuelto."),
-    "69": dict(
-        titulo="Carta 69 — Tarros de colores", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cinco tarros con capas de pintura mezcladas de tres colores, rosa, dorado y turquesa. Se puede verter la capa de arriba de un tarro sobre otro si es del mismo color o si el otro está vacío. Hay que dejar cada color en un tarro, en el orden que dice la nota de la Cocinera (carta 70).",
-            "Al acertar, los colores vuelven al cuento. Coged la carta 80."],
-        pistas=["La nota de la Cocinera (carta 70) dice en qué orden deben quedar los tarros, de izquierda a derecha.", "Solo se vierte sobre un tarro vacío o sobre uno cuya capa de arriba sea del mismo color. Los dos últimos tarros quedan vacíos.", "Once movimientos: tarro 1 al 4, 1 al 5, 2 al 1, 2 al 5, 1 al 2, 1 al 4, 2 al 1, 3 al 4, 3 al 2, 4 al 3 y 5 al 2."],
-        arte="Una mesa de cocina de castillo con cinco tarros de cristal altos: tres con capas de pintura revueltas en rosa, dorado y turquesa y dos vacíos; una espátula de madera al lado. Alberto vierte un tarro con la mano temblorosa y la lengua en la comisura, y Cristina sostiene otro tarro con las cejas hundidas por la concentración."),
-    "70": dict(
-        titulo="Carta 70 — Nota de la Cocinera Real", tipo="gris",
-        descripcion=["Una nota de la Cocinera Real sobre el orden de los colores. Sirve para los tarros (carta 69)."],
-        pistas=["Dice cómo deben quedar los tarros.", "Sirve para los tarros de colores (carta 69)."],
-        textoCarta=["Los colores vuelven a su sitio,", "de izquierda a derecha: dorado, turquesa y rosa.", "Los dos últimos tarros quedan vacíos."],
-        arte="Una nota de papel clavada con un cucharón en la puerta de una despensa, con dibujos decorativos de tarros de colores en fila y una cuchara, sin texto legible, y harina esparcida alrededor."),
-    "80": dict(
-        titulo="Carta 80 — La sala de la caja de música", tipo="gris", coge=[72, 76], descarta=[69, 70, 78],
-        descripcion=[
-            "Los colores vuelven al castillo y se abre el salón de baile. En el centro, la gran caja de música del reino (carta 72), muda desde hace años, con una partitura de animales sobre la tapa. A su lado, una tabla de notas olvidada (carta 76).",
-            "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
-        pistas=["Hay que hacer sonar la caja de música.", "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
-        arte="Un salón de baile de castillo recién coloreado con una gran caja de música dorada en el centro, con una partitura de animales sobre la tapa y un teclado de cristal. Cristina gira de alegría con los brazos abiertos y la boca abierta riendo, y Alberto se asoma a la caja con la cabeza inclinada y una sonrisa de curiosidad."),
-    "72": dict(
-        titulo="Carta 72 — La caja de música", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: tocar la melodía de la caja de música. Los siete animales de la melodía están dibujados en la ilustración de esta carta, de izquierda a derecha, y cada animal toca una nota distinta, según la tabla de la carta 76. Las notas suenan con sonido y también se iluminan, para quien no pueda oírlas.",
-            "Al acertar, la caja se abre. Coged la carta 82."],
-        pistas=["La carta 76 dice qué nota toca cada animal.", "Mirad el orden de los siete animales en la ilustración de esta carta y tocad la nota de cada uno, de izquierda a derecha.", "Las notas son: Fa, Do, Sol, Mi, Re, La y Fa."],
-        arte="Una gran caja de música dorada abierta con un peine de notas y siete animales del bosque tallados en fila (rana, conejo, ardilla, búho, ciervo, zorro y otra rana) sobre una partitura. Cristina pulsa una tecla de cristal con el dedo levantado y la boca en un suspiro de emoción, y Alberto escucha con los ojos cerrados y una sonrisa de paz."),
-    "76": dict(
-        titulo="Carta 76 — Tabla de notas", tipo="gris",
-        descripcion=["Una tabla de notas olvidada: dice qué nota toca cada animal. Sirve para la caja de música (carta 72)."],
-        pistas=["Dice qué nota toca cada animal.", "Sirve para la caja de música (carta 72)."],
-        textoCarta=["Cada animal toca una nota:", "Conejo: Do. Ciervo: Re. Búho: Mi.", "Rana: Fa. Ardilla: Sol. Zorro: La."],
-        arte="Una tabla de madera con seis animales del bosque tallados en fila (conejo, ciervo, búho, rana, ardilla y zorro) y, debajo de cada uno, una pequeña nota musical dibujada, sin texto legible, sobre un atril de salón de baile."),
-    "82": dict(
-        titulo="Carta 82 — El Tintero Dorado", tipo="gris", coge=[62], descarta=[72, 76, 80],
-        descripcion=[
-            "La caja de música suena una melodía y su tapa se abre como una flor. Dentro, sobre un cojín, brilla el Tintero Dorado: la tinta con que se escriben los finales felices.",
-            "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
-        pistas=["Mirad dentro de la caja.", "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
-        arte="La tapa de una caja de música abierta como una flor con un tintero dorado brillante sobre un cojín de terciopelo y notas de luz que flotan en el aire. Cristina lo toma con ambas manos con los ojos llenos de lágrimas de emoción y Alberto la mira con una sonrisa enorme y orgullosa."),
-    "62": dict(
-        titulo="Carta 62 — Tintero Dorado", tipo="roja", combina=[12, 74],
-        descripcion=["El Tintero Dorado, lleno de tinta que brilla como el sol. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Un tintero de cristal y oro lleno de tinta dorada que brilla como el sol, con una pluma de oro apoyada en el borde, sobre una palma abierta con un guante blanco y un fondo de cortinas moradas."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal con tinta", tipo="gris", coge=[84, 86], descarta=[62, 12, 82],
-        descripcion=[
-            "El Tintero Dorado encaja en el Cronoportal y la consola se llena de color, pero la energía no sube del todo: falta lo que el Búho prometió, el final del cuento. Tenéis que escribir en la última página del libro la palabra que lo cierra (carta 84). El Búho os deja una nota (carta 86).",
-            "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
-        pistas=["Falta el final del cuento.", "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal, ya pintado con todos sus colores, con el tintero dorado encajado en el pecho, sobre un libro enorme abierto en la última página en blanco. Alberto sonríe aliviado con las manos en las caderas y Cristina, a su lado, mira la página en blanco con la cabeza ladeada y una duda en los ojos."),
-    "84": dict(
-        titulo="Carta 84 — La última página", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la última página del libro. Cada puzle que habéis resuelto dejó una letra del libro, y el libro las ha guardado. Hay que ordenarlas para escribir la palabra que cierra el cuento, la que da la nota del Búho (carta 86).",
-            "Al acertar, el cuento termina y el portal se abre. Coged la carta 99."],
-        pistas=["La nota del Búho (carta 86) describe la palabra. Las letras las guarda el libro.", "Son siete letras y una se repite. Es lo que todo cuento desea al final.", "La palabra es FELICES."],
-        arte="La última página de un libro enorme con siete letras doradas que flotan sobre el papel y buscan su sitio, bajo una pluma de oro suspendida. Cristina sostiene la pluma con la lengua entre los dientes y el ceño concentrado y Alberto, detrás, susurra algo con una sonrisa de complicidad."),
-    "86": dict(
-        titulo="Carta 86 — Nota del Búho", tipo="gris",
-        descripcion=["Una nota del Búho Narrador sobre cómo termina el cuento. Sirve para la última página (carta 84)."],
-        pistas=["Es una adivinanza sobre la palabra del final.", "Sirve para la última página (carta 84)."],
-        textoCarta=["La palabra del final es lo que todo cuento", "desea para los suyos al terminar.", "Tiene siete letras y una de ellas se repite.", "El libro guarda las letras que ya habéis ganado."],
-        arte="Una nota escrita con pluma sobre un pergamino que el Búho Narrador sostiene en el pico, con dibujos decorativos de una corona de estrellas y un lazo, sin texto legible; el búho guiña un ojo con aire travieso."),
-    "99": dict(
-        titulo="Carta 99 — Colorín colorado (FIN)", tipo="gris", descarta=[74, 84, 86],
-        descripcion=[
-            "La palabra aparece en la última página con letras de oro, y el cuento por fin tiene final: el libro se llena de color, la aldea recobra sus tejados rojos y los duendes, las hadas y el troll cantan a coro. El Cronoportal se enciende.",
-            "El Búho os despide con una reverencia: «Gracias por escribir el final. Colorín colorado...». Aterrizáis en vuestro salón y, sobre la mesa, el libro de cuentos se cierra solo con un suspiro. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 74, 84 y 86.",
-            "FIN."],
-        pistas=[],
-        arte="Dibujo en 2D clásico. La escena final ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto, ya a todo color, acaban de salir de un portal circular de luz azul y dorada que surge de un gran libro de cuentos abierto sobre la mesa del salón; a través del portal todavía se ven la aldea, la torre y el castillo del cuento y al Búho Narrador diciendo adiós con el ala. Ella ríe a carcajadas con los ojos entornados y él lanza un beso hacia el libro, radiante. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ La aldea: el cartel y el puente
+    "P": escena("P", "Llegada al libro", [10, 12], [],
+                "Quinta parada del Cronoportal. Esta vez no caéis en una época, sino dentro de un libro: «El Libro de los Finales Felices». Os miráis las manos: sois dibujos animados, con trazo de tinta y todo. Un búho con una pluma en el pico os da la bienvenida: «Soy el Búho Narrador. El libro se queda sin color y el último cuento no tiene final. Cuando la tinta se seque, el libro se cerrará con vosotros dentro». El Cronoportal, dibujado a lápiz, ha perdido su tintero.",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "Una aldea de cuento pintada a mano casi sin color, de tonos grises, con tejados torcidos y un puente de piedra al fondo; en una rama, un búho con una pluma en el pico. En primer plano, un aparato de latón y cristal dibujado a lápiz (el Cronoportal) humea sobre la hierba. Cristina y Alberto, dibujados en 2D clásico, se miran las manos con la boca abierta de puro asombro: ella con los ojos como platos y las cejas muy altas, él con la mandíbula caída y un dedo señalando su propia mano dibujada."),
+    "10": escena("10", "La aldea sin color", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "La aldea es gris como un dibujo a medio pintar. La panadería de Doña Hogaza tiene un cartel de palitos de canela que no cuadra con su escaparate. Junto al río, cuatro duendes tiritan ante un puente: el troll solo les deja cruzar de noche, con un farolillo, y su vela ya está encendida. En el suelo, una varita rota, sin estrella.",
+                 ["Hay dos puzles: el cartel de la panadería y el puente de los duendes.", "La vela del troll son dos cartas: juntadlas."],
+                 "Una plaza de aldea de cuento en tonos grises, al anochecer: una panadería con un cartel torcido hecho de palitos de canela, un puente de piedra sobre un río con cuatro duendecillos esperando con un farolillo, una vela enorme encendida en la ventana de una cueva al otro lado del río y una varita mágica rota sobre los adoquines. Cristina examina el cartel con una ceja levantada y una sonrisa pícara mientras Alberto se rasca la cabeza con gesto de duda y los labios apretados."),
+    "12": combinable("12", "Cronoportal sin tintero", "azul", 62, 74,
+                     "El Cronoportal, dibujado solo a lápiz: una consola de latón con un anillo central y un hueco vacío donde iba su tintero de energía.",
+                     SIN_GENTE + "Primer plano del Cronoportal dibujado a lápiz sobre un libro enorme abierto: una consola de latón con dos antenas, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre una mesa de madera de cuento."),
+    "14": app("14", "El cartel de la panadería", "Es un juego de la app: un cartel con una cuenta hecha con palitos de canela que no es verdad. Doña Hogaza no os hablará hasta que su cartel diga la verdad.", 24,
+              ["El escaparate (carta 16) dice lo que debería contar el cartel.", "Cada pan vale tantas monedas como tiene al lado; el cartel debería sumar los dos. Moved un solo palito.", "Quitad el palito de arriba a la derecha del 9 y ponedlo arriba a la derecha del 5: 5 + 4 = 9."],
+              SIN_GENTE + "Un cartel de madera torcido colgado en la fachada de una panadería de cuento, con una cuenta formada por palitos de canela (sin números legibles), rodeado de hogazas y bollos dibujados."),
+    "16": gris("16", "El escaparate", "Los panes del escaparate de Doña Hogaza, cada uno con sus monedas.",
+               ["Sirve para el cartel (carta 14).", "Contad las monedas de cada pan: el cartel debería sumarlos.", "Hogaza 5 y bollo 4: la cuenta buena es 5 + 4 = 9."], codigo("el escaparate de Doña Hogaza")),
+    "18": gris("18", "Los cuatro duendes", "Cuánta arena cae mientras cruza el puente cada duende.",
+               ["Sirve para el puente (carta 20).", "Contad los granos de cada reloj: dos granos, un minuto.", "Bigotes 1, Pétalo 2, Gruñón 5 y Abuela Musgo 8 minutos."], codigo("los cuatro duendes y sus relojes de arena")),
+    "19": pieza("19", "vela", "Media vela del troll.", ["Es la mitad de una vela: juntadla con la carta 21.", "Contad las rayas de cera.", "La vela dura 15 minutos: ese es el tiempo para cruzar el puente."]),
+    "21": pieza("21", "vela", "Media vela del troll.", ["Es la mitad de una vela: juntadla con la carta 19.", "Contad las rayas de cera.", "La vela dura 15 minutos: ese es el tiempo para cruzar el puente."]),
+    "20": app("20", "El puente del troll", "Es un juego de la app: los cuatro duendes tienen que cruzar el puente con un solo farolillo antes de que se apague la vela del troll.", 28,
+              ["Lo que tarda cada duende está en la carta 18; lo que dura la vela, en las cartas 19 y 21.", "Que los dos más lentos crucen juntos, y que vuelvan con el farolillo los rápidos.", "Bigotes y Pétalo van; vuelve Bigotes; Gruñón y Abuela Musgo van; vuelve Pétalo; Bigotes y Pétalo van (15 minutos)."],
+              SIN_GENTE + "Un puente de piedra de cuento sobre un río oscuro, de noche, con un farolillo con una luciérnaga dentro apoyado en el pretil y, al otro lado, la entrada de la cueva de un troll con una vela encendida."),
+    "22": combinable("22", "Varita rota", "azul", 35, 57, "Una varita mágica partida, sin su estrella en la punta.",
+                     SIN_GENTE + "Una varita mágica de madera blanca con la punta rota y vacía, apoyada sobre unos adoquines grises de una aldea de cuento, con unos pocos destellos dorados apagados a su alrededor."),
+    "24": escena("24", "Doña Hogaza", [26], [14, 16],
+                 "El cartel por fin dice la verdad y Doña Hogaza sale a la puerta, harina hasta las cejas: «¡Gracias, forasteros! El color se fue cuando se rompió la varita del hada mayor. Desde entonces todo son chismes... y yo me los sé todos». Os da una servilleta llena de garabatos.",
+                 ["Los chismes de Doña Hogaza servirán más adelante, con las hadas."],
+                 "La puerta de una panadería de cuento en tonos grises, con una panadera regordeta llena de harina que gesticula con un rodillo mientras cuenta un chisme. Alberto escucha mordiendo un bollo con los ojos muy abiertos y Cristina se tapa la boca para no reírse."),
+    "26": gris("26", "Los chismes de Doña Hogaza", "Lo que Doña Hogaza sabe de las hadas de la torre.",
+               ["Sirve para las hadas (carta 51).", "Las de ala azul dicen siempre la verdad y las de ala roja mienten siempre. Esta frase es de Brisa.", "Brisa y Dalia son de ala azul; Lila y Nube, de ala roja."], codigo("la servilleta de los chismes")),
+    "28": escena("28", "El troll se aparta", [35], [18, 19, 20, 21],
+                 "Los cuatro duendes llegan al otro lado justo cuando la vela chisporrotea. El troll, de mal humor, se aparta con un bostezo. En el barro del puente brilla algo: una estrella de cinco puntas que se cayó de la varita del hada mayor.",
+                 ["Lo que habéis encontrado se puede juntar con algo que ya tenéis."],
+                 "Un troll enorme y peludo bostezando junto a un puente de piedra al amanecer, con cuatro duendecillos que celebran al otro lado. Cristina recoge del barro una estrella brillante con cara de triunfo y Alberto hace una reverencia exagerada al troll, con una sonrisa burlona."),
+    "35": combinable("35", "Estrella caída", "roja", 22, 57, "Una estrella de cinco puntas que todavía brilla un poco, caída de una varita.",
+                     SIN_GENTE + "Una estrellita dorada con cinco puntas, del tamaño de una manzana, que brilla suavemente sobre un paño morado, con unas motas de polvo de estrellas flotando a su alrededor."),
+    "57": escena("57", "El bosque despierta", [31, 32], [22, 35, 10, 28],
+                 "La estrella encaja en la varita, que suelta una lluvia de chispas: el bosque recupera el verde. El Búho baja a vuestro hombro: «El castillo del gigante guarda el tintero, y la torre de las hadas, la luz. Hay dos caminos: el viejo camino al castillo, que está cortado, y el atajo del bosque, para el que haría falta calzado... de gigante»",
+                 ["Hay dos caminos: el del castillo y el del bosque. Podéis seguir los dos."],
+                 "Un claro de bosque de cuento que recupera el color en una ola verde y dorada a partir de una varita con una estrella en la punta. Cristina sostiene la varita en alto con una carcajada de alegría y Alberto se protege la cara de las chispas con los ojos entornados, sorprendido; un búho los mira desde una rama."),
+    # ------------------------------------------------------------------ Rama 1: el camino del castillo
+    "31": escena("31", "El camino cortado", [40, 41, 43, 45], [],
+                 "El viejo camino de la aldea al castillo está cortado: zarzas, un río y una roca. Al lado, una fuente de cuento cuyas aguas enseñan el mismo camino «había una vez», hace cien años. Quien toca el agua puede cambiar el pasado... pero solo tres veces.",
+                 ["Lo que hagáis en el pasado cambia lo que hay hoy."],
+                 SIN_GENTE + "Un camino de cuento que sube hacia un castillo lejano, cortado por un zarzal, un río y una roca enorme; junto al camino, una fuente de piedra cuyas aguas reflejan el mismo paisaje cien años antes, con prados y arbolitos."),
+    "40": app("40", "Había una vez... y ahora", "Es un juego de la app: el camino al castillo en el pasado y en el presente. Tres saltos al pasado, una acción en cada casilla.", 30,
+              ["Las cartas 41, 43 y 45 enseñan, con ejemplos, lo que hace cada acción.", "Lo que se hace en el pasado se ve en el presente: buscad para cada obstáculo de hoy la acción que lo quite.", "Fuego en la casilla 3, plantar en la 5 y cavar en la 6."],
+              SIN_GENTE + "Una fuente mágica de cuento con dos reflejos en el agua: arriba un paisaje del pasado con prados, y abajo el mismo paisaje hoy, con zarzas, río y roca."),
+    "41": gris("41", "Plantar una semilla", "Había una vez... y ahora: lo que pasa si se planta una semilla.",
+               ["Sirve para los saltos al pasado (carta 40).", "Comparad lo que había con lo que hay hoy.", "Plantar sobre el río da un tronco caído."], codigo("plantar una semilla, antes y ahora")),
+    "43": gris("43", "Cavar", "Había una vez... y ahora: lo que pasa si se cava.",
+               ["Sirve para los saltos al pasado (carta 40).", "Comparad lo que había con lo que hay hoy.", "Cavar bajo la roca da un túnel."], codigo("cavar, antes y ahora")),
+    "45": gris("45", "Encender fuego", "Había una vez... y ahora: lo que pasa si se enciende fuego.",
+               ["Sirve para los saltos al pasado (carta 40).", "Comparad lo que había con lo que hay hoy.", "Fuego sobre las zarzas deja ceniza."], codigo("encender fuego, antes y ahora")),
+    "30": escena("30", "El castillo dormido", [38], [31, 40, 41, 43, 45],
+                 "El camino queda libre y llegáis al castillo del gigante. Todo duerme: el gigante ronca en el patio y las salas están a oscuras. Junto a la puerta del sótano cuelga un farolillo de cristal vacío, sin nada que dé luz.",
+                 ["Algo de la torre de las hadas podría encender el farolillo."],
+                 "El patio de un castillo de cuento en penumbra, con un gigante que ronca tumbado contra una muralla y una puerta de sótano con un farolillo apagado colgado. Alberto camina de puntillas exageradas con un dedo en los labios y Cristina descuelga el farolillo con cara de susto, mirando de reojo al gigante."),
+    "38": combinable("38", "Farolillo vacío", "roja", 56, 94, "Un farolillo de cristal y hierro, sin vela ni luz dentro.",
+                     SIN_GENTE + "Un farolillo de hierro forjado con una cúpula vacía y sin luz, colgado de un gancho sobre una baldosa gris de una torre, con unas telarañas apenas visibles."),
+    # ------------------------------------------------------------------ Rama 2: el atajo del bosque
+    "32": escena("32", "Las botas del gigante", [42, 48, 49, 53], [],
+                 "En la linde del bosque hay un par de botas tan grandes que se podría vivir dentro. Alberto mete un pie y sale disparado varias casillas por el aire. El bosque está tan oscuro que no se ve un árbol a dos pasos... pero en la caseta del guarda hay un mapa colgado.",
+                 ["Las botas saltan de una forma muy concreta: leed lo bordado en la lengüeta."],
+                 "La linde de un bosque oscuro de cuento con un par de botas gigantes de cuero junto a la caseta de un guardabosques con un mapa colgado en la pared. Alberto, con un pie dentro de una bota, sale volando por los aires con cara de pánico y los brazos abiertos, y Cristina lo mira desde abajo partiéndose de risa."),
+    "48": app("48", "Las botas de siete leguas", "Es un juego de la app: cruzar el bosque a oscuras con las botas del gigante, de la linde hasta la casa del leñador.", 36,
+              ["El mapa del bosque son dos cartas (42 y 49) y el modo de saltar está en la lengüeta (carta 53).", "Las botas saltan por turnos dos y tres casillas en línea recta, por encima de todo, pero no se puede caer en un árbol ni en el agua. Marcad la ruta en el mapa antes de saltar.", f"Los saltos, en orden: {_S_BOTAS}."],
+              SIN_GENTE + "Un bosque de cuento completamente a oscuras, visto desde arriba, con solo dos puntos de luz: unas botas gigantes en una esquina y una casita con la ventana encendida en la esquina opuesta."),
+    "42": pieza("42", "botas", "Media hoja del mapa del bosque.", ["Es la mitad de un mapa: juntadla con la carta 49.", "Árboles y agua son casillas prohibidas para caer.", f"Los saltos, en orden: {_S_BOTAS}."]),
+    "49": pieza("49", "botas", "Media hoja del mapa del bosque.", ["Es la mitad de un mapa: juntadla con la carta 42.", "Árboles y agua son casillas prohibidas para caer.", f"Los saltos, en orden: {_S_BOTAS}."]),
+    "53": gris("53", "La lengüeta de las botas", "Un verso bordado en la lengüeta de las botas del gigante.",
+               ["Sirve para cruzar el bosque (carta 48).", "Un pie salta dos casillas y el otro tres, siempre por turnos, empezando por el de dos.", "Por encima de todo, sí; caer en un árbol o en el agua, no."], codigo("la lengüeta bordada")),
+    "36": escena("36", "La casa del leñador", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "Aterrizáis delante de la casita del leñador. Os invita a sopa y señala por la ventana la torre de las hadas, sin puertas: «La única forma de subir es la habichuela mágica que planté. Crece de una manera muy suya; lo apunto todo en mi diario. Si la regáis diciéndole sus hojas, crecerá de golpe hasta la noche que digáis»",
+                 ["El diario del leñador son tres cartas: van en orden de lunas."],
+                 "El interior de la cabaña de un leñador de cuento, con una chimenea, una sopa humeante y, por la ventana, una torre altísima sin puertas junto a una mata de habichuela. Cristina sopla la cuchara con cara de concentración y Alberto, despeinado del viaje, se señala las botas gigantes con orgullo."),
+    "52": app("52", "La habichuela mágica", "Es un juego de la app: regar la habichuela diciéndole cuántas hojas tendrá la noche en que llegue a la ventana de la torre.", 44,
+              ["El diario del leñador (cartas 54, 55 y 59) dibuja la mata noche a noche.", "Contad las hojas de cada noche: cada noche salen tantas hojas como tenía la mata la noche de antes de ayer. Seguid la serie hasta la luna 9.", "1, 1, 2, 3, 5, 8, 13, 21, 34: la noche de la luna 9 tiene 34 hojas."],
+              SIN_GENTE + "Una pequeña mata de habichuela mágica en un huerto de cuento, de noche, bajo la luna, junto al pie de una torre altísima sin puertas, con una regadera de cobre al lado."),
+    "54": gris("54", "Diario del leñador (lunas 1 y 2)", "Dos noches del diario: la mata de habichuela, dibujada.",
+               ["Sirve para la habichuela (carta 52).", "Contad hojas y lunas.", "Las tres páginas van seguidas: 1, 1, 2, 3, 5, 8..."], codigo("el diario, lunas 1 y 2")),
+    "55": gris("55", "Diario del leñador (lunas 3 y 4)", "Dos noches más del diario: la mata de habichuela, dibujada.",
+               ["Sirve para la habichuela (carta 52).", "Comparad cada noche con las dos de antes.", "Cada noche suma las dos anteriores."], codigo("el diario, lunas 3 y 4")),
+    "59": gris("59", "Diario del leñador (lunas 5 y 6)", "Las últimas noches del diario: la mata de habichuela, dibujada.",
+               ["Sirve para la habichuela (carta 52).", "Seguid la serie hasta la luna 9.", "La luna 9 tiene 34 hojas."], codigo("el diario, lunas 5 y 6")),
+    # ------------------------------------------------------------------ La torre de las hadas
+    "44": escena("44", "La torre de las hadas", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "Trepáis por la habichuela hasta la ventana de la torre. Dentro, cuatro hadas discuten a gritos y el marco de la gran vidriera está vacío, con tres cristales de colores tirados en el suelo. El hada mayor solo os dará su secreto si sabéis quién de ellas dice la verdad.",
+                 ["Hay dos puzles: la vidriera y las cuatro hadas. Los chismes de la panadería sirven aquí."],
+                 "La sala circular de una torre de hadas de cuento, con un marco de vidriera vacío y tres cristales de colores en el suelo, y cuatro hadas pequeñas con alas de colores discutiendo en el aire. Cristina entra por la ventana agarrada a una hoja gigante, sin aliento y con los ojos brillantes, y Alberto asoma detrás con cara de vértigo, abrazado al tallo."),
+    "46": app("46", "La vidriera de la torre", "Es un juego de la app: colocar los tres cristales en el marco de la vidriera para que la torre despierte.", 56,
+              ["El dibujo está en la carta 37, los cristales en la 39 y las normas del vidriero en la 33.", "No se pueden girar ni solapar, y no puede quedar ningún hueco del dibujo sin luz.", "El recto abajo, de B5 a E5; la te en A3, B3, C3 y B4; la ese en D3, E3, C4 y D4."],
+              SIN_GENTE + "El marco vacío de una gran vidriera de cuento en lo alto de una torre, con tres cristales de colores (uno alargado, uno en forma de te y uno en forma de ese) apoyados en el alféizar."),
+    "37": gris("37", "La ventana de la torre", "El dibujo del vidriero: los huecos de la ventana que deben brillar.",
+               ["Sirve para la vidriera (carta 46).", "Los cuadros claros son los que deben llevar cristal.", "Doce cuadros: justo tres cristales de cuatro."], codigo("el dibujo de la ventana")),
+    "39": gris("39", "Los tres cristales", "Los tres cristales, tal como salieron del horno.",
+               ["Sirve para la vidriera (carta 46).", "Fijaos en la forma: no se pueden girar.", "La ese y la te van arriba; el recto, en la fila de abajo."], codigo("los tres cristales")),
+    "33": gris("33", "Nota del vidriero", "Una nota del vidriero sobre sus cristales.",
+               ["Sirve para la vidriera (carta 46).", "Sin girar, sin solapar y sin dejar huecos.", "El recto abajo, de B5 a E5."], codigo("la nota del vidriero")),
+    "51": app("51", "Las cuatro hadas", "Es un juego de la app: marcar el ala de cada hada. Las de un color dicen siempre la verdad y las del otro mienten siempre.", 58,
+              ["Lo que dijeron Brisa, Lila y Nube está en las cartas 26, 61 y 63; lo de Dalia, en la app.", "Suponed que Brisa dice la verdad y mirad si todo encaja; si no, probad al revés.", "Brisa y Dalia son de ala azul; Lila y Nube, de ala roja."],
+              SIN_GENTE + "Cuatro hadas diminutas de cuento, vistas de espaldas a contraluz para que no se vea el color de sus alas, flotando en una sala circular iluminada por velas."),
+    "61": gris("61", "Un papelito de Lila", "Un papelito con la letra de Lila.",
+               ["Sirve para las hadas (carta 51).", "Si Lila fuera de ala azul, su frase sería verdad.", "Lila miente: Dalia es de ala azul."], codigo("el papelito de Lila")),
+    "63": gris("63", "Un papelito de Nube", "Un papelito con la letra de Nube.",
+               ["Sirve para las hadas (carta 51).", "Comparad la frase de Nube con lo que dijo Brisa (carta 26).", "Nube miente: Lila no es de ala azul."], codigo("el papelito de Nube")),
+    "56": combinable("56", "Cristal de luna", "roja", 38, 94, "Un cristalito que guarda dentro la luz de la luna, caído de la vidriera al encenderse.",
+                     SIN_GENTE + "Un cristal azulado del tamaño de un puño con forma de media luna que brilla con luz plateada, sobre un cojín de terciopelo morado con unas motas de polvo de estrellas."),
+    "58": escena("58", "El secreto de las hadas", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "Brisa y Dalia, las de ala azul, os cuentan el secreto en voz baja: «Los colores del reino no se perdieron: los guardó la cocinera real en tarros, en la despensa del castillo, para que no se los llevara la tinta seca. Pero los mezcló de cualquier manera»",
+                 ["En la despensa hay que devolver cada color a su sitio."],
+                 "Dos hadas de ala azul susurrando al oído de Cristina y Alberto en lo alto de una torre de cuento, con la vidriera iluminada detrás. Cristina escucha con la boca abierta en una O de sorpresa y Alberto se inclina con la mano en la oreja y una sonrisa cómplice."),
+    "69": app("69", "Tarros de colores", "Es un juego de la app: los tarros de la despensa del castillo, con los colores del reino mezclados en capas.", 80,
+              ["El orden de los colores lo dicen el tapiz del salón (carta 70) y la nota de la cocinera (carta 71).", "Solo se vierte sobre un tarro vacío o sobre el mismo color. Cada color, en el tarro del lugar de su estandarte, y los huecos vacíos.", "De izquierda a derecha: dorado, turquesa y rosa; los dos últimos, vacíos."],
+              SIN_GENTE + "La despensa de un castillo de cuento con cinco tarros de cristal en una repisa, llenos de capas de pintura brillante rosa, dorada y turquesa mezcladas, junto a cucharones y trapos."),
+    "70": gris("70", "El tapiz del salón", "Los estandartes del rey, colgados en la pared del salón.",
+               ["Sirve para los tarros (carta 69).", "El orden de los estandartes es el de los tarros.", "Dorado, turquesa y rosa, y dos huecos vacíos."], codigo("el tapiz de los estandartes")),
+    "71": gris("71", "Nota de la cocinera real", "Una nota de la cocinera real, pegada a la repisa.",
+               ["Sirve para los tarros (carta 69).", "Los tarros van como los estandartes del tapiz (carta 70).", "Dorado, turquesa, rosa, vacío y vacío."], codigo("la nota de la cocinera")),
+    "80": escena("80", "El castillo recobra el color", [72, 75, 79], [58, 69, 70, 71],
+                 "Al destapar los tarros, los colores salen volando por los pasillos y el castillo se pinta entero. En el salón del trono, sobre un cojín, hay una caja de música de nácar cerrada: el músico del rey dejó su melodía pintada en un papel, y en el jardín hay un xilófono hecho de troncos.",
+                 ["La caja se abre con una melodía."],
+                 "El salón de un castillo de cuento llenándose de color en remolinos rosas, dorados y turquesa, con una caja de música de nácar sobre un cojín. Alberto da vueltas sobre sí mismo con los brazos abiertos y una risa de niño, y Cristina se queda quieta con las manos en el pecho, emocionada."),
+    "72": app("72", "La caja de música", "Es un juego de la app: la caja de música del rey solo se abre con su melodía.", 82,
+              ["La melodía, en animales, está en la partitura (carta 75); el xilófono del bosque (carta 79) dice qué nota toca cada animal.", "Leed los animales de la partitura de izquierda a derecha y buscad su tecla en el xilófono.", "Fa, Do, Sol, Mi, Re, La y Fa."],
+              SIN_GENTE + "Una caja de música de nácar y oro, cerrada, sobre un cojín de terciopelo morado, con un teclado de siete teclas de colores en la tapa."),
+    "75": gris("75", "La partitura de la caja", "La melodía de la caja de música, pintada con animales.",
+               ["Sirve para la caja de música (carta 72).", "Cada animal es una nota: buscadlo en el xilófono (carta 79).", "Rana, conejo, ardilla, búho, ciervo, zorro y rana."], codigo("la partitura de animales")),
+    "79": gris("79", "El xilófono del bosque", "Un xilófono de troncos con un animal sentado en cada tecla.",
+               ["Sirve para la caja de música (carta 72).", "El animal de cada tecla es su nota.", "Conejo Do, ciervo Re, búho Mi, rana Fa, ardilla Sol y zorro La."], codigo("el xilófono del bosque")),
+    "82": escena("82", "La caja abierta", [85, 86, 87], [80, 72, 75, 79],
+                 "La caja de música se abre como una flor. Dentro hay una página arrancada del libro, en blanco, con ocho huecos para letras, una nota doblada del Búho y una lámina del gran banquete que el rey prepara para el final del cuento.",
+                 ["La última página es el último puzle: guarda las letras de todos los demás."],
+                 "Una caja de música de nácar abierta como una flor, de la que salen una página en blanco con huecos para letras y una lámina pintada. Cristina saca la página con cuidado y una sonrisa nerviosa, y Alberto se asoma por encima de su hombro con cara de curiosidad."),
+    "85": app("85", "La última página", "Es un juego de la app: la última página del libro. Cada puzle que habéis resuelto dejó una letra y el libro las ha guardado. Hay que ordenarlas para escribir la palabra que cierra el cuento.", 99,
+              ["La nota del Búho (carta 86) y la lámina del banquete (carta 87) dicen qué palabra es.", "«Y fueron felices y comieron...»: mirad qué hay en las bandejas del banquete.", "La palabra es PERDICES."],
+              SIN_GENTE + "La última página de un libro de cuentos enorme, en blanco y brillante, con ocho huecos dorados para letras y una pluma de oro apoyada al lado."),
+    "86": gris("86", "Nota del Búho Narrador", "Una nota del Búho sobre el final del cuento.",
+               ["Sirve para la última página (carta 85).", "Es el final de todos los cuentos: «y fueron felices y comieron...».", "La palabra es PERDICES."], codigo("la nota del Búho")),
+    "87": gris("87", "El banquete del rey", "La lámina del banquete que el rey prepara para el final del cuento.",
+               ["Sirve para la última página (carta 85).", "Mirad bien el plato principal de la mesa.", "Son perdices asadas: PERDICES."],
+               SIN_GENTE + "Una mesa de banquete real de cuento, larguísima, con manteles bordados, candelabros y, en el centro de cada bandeja dorada, perdices asadas doradas y humeantes con ramitas de romero (el plato principal, muy reconocible); alrededor, frutas, panes y copas, en un gran salón de castillo a todo color."),
+    # ------------------------------------------------------------------ La sala de los espejos y el final
+    "94": escena("94", "La sala de los espejos", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "El cristal de luna enciende el farolillo y bajáis al sótano del castillo: una sala de espejos rotos, a oscuras, con una flor de luna dormida en algún rincón. Si la luz de la luna la toca, se abrirá. Por un ventanuco entra un rayo de luna y, en la pared, cuelga el plano de la sala.",
+                 ["El plano son dos cartas: juntadlas. La flor no se ve en la app."],
+                 "El sótano de un castillo de cuento con espejos colgados torcidos y rotos, iluminado por un farolillo con luz plateada, y un rayo de luna que entra por un ventanuco. Cristina levanta el farolillo con el ceño fruncido de concentración y Alberto da un respingo al ver su reflejo deformado en un espejo."),
+    "64": app("64", "Rayos de luna", "Es un juego de la app: colocar tres espejos para que el rayo de luna llegue a la flor de luna.", 62,
+              ["El plano de la sala (cartas 66 y 67) dice dónde están los muros y la flor.", "El rayo tiene que tocar los tres espejos y acabar en la flor, sin chocar con muros.", "Espejo / en A2, \\ en E2 y / en A4."],
+              SIN_GENTE + "Una cuadrícula de losas en el suelo de un sótano de cuento, con unos espejos de mano apoyados y un rayo de luz de luna que entra por un ventanuco."),
+    "66": pieza("66", "espejos", "Media hoja del plano de la sala de los espejos.", ["Es la mitad de un plano: juntadla con la carta 67.", "La flecha es por donde entra el rayo; los bloques, muros.", "La flor está en E5."]),
+    "67": pieza("67", "espejos", "Media hoja del plano de la sala de los espejos.", ["Es la mitad de un plano: juntadla con la carta 66.", "La flecha es por donde entra el rayo; los bloques, muros.", "La flor está en E5."]),
+    "62": combinable("62", "Tintero Dorado", "roja", 12, 74, "El Tintero Dorado, que estaba escondido dentro de la flor de luna, lleno de tinta que brilla como el sol.",
+                     SIN_GENTE + "Un tintero de cristal y oro lleno de tinta dorada que brilla como el sol, con una pluma de oro apoyada en el borde, sobre una palma abierta con un guante blanco y un fondo de cortinas moradas."),
+    "74": escena("74", "Cronoportal con tinta", [], [62, 12, 64, 66, 67, 94, 57],
+                 "El Tintero Dorado encaja en el Cronoportal y la consola se llena de color, pero la energía no sube del todo: el Búho tenía razón, falta el final del cuento. Hasta que la última página no tenga su palabra, el portal no se abrirá.",
+                 ["Falta escribir el final del cuento en la última página."],
+                 "El Cronoportal, ya pintado con todos sus colores, con el tintero dorado encajado en el pecho, sobre un libro enorme abierto. Alberto sonríe aliviado con las manos en las caderas y Cristina, a su lado, mira el libro con la cabeza ladeada y una duda en los ojos."),
+    "99": escena("99", "Colorín colorado (FIN)", [], [74, 82, 85, 86, 87],
+                 "La palabra aparece en la última página con letras de oro: «...y fueron felices y comieron perdices». El libro se llena de color, la aldea, la torre y el castillo celebran el banquete y el Cronoportal se enciende. El Búho os despide con una reverencia: «Colorín colorado...». Aterrizáis en vuestro salón y el libro se cierra solo con un suspiro. FIN.",
+                 [],
+                 "Dibujo en 2D clásico. La escena final ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto, ya a todo color, acaban de salir de un portal circular de luz azul y dorada que surge de un gran libro de cuentos abierto sobre la mesa del salón; a través del portal todavía se ven la aldea, la torre y el castillo del cuento y al Búho Narrador diciendo adiós con el ala. Ella ríe a carcajadas con los ojos entornados y él lanza un beso hacia el libro, radiante. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="Érase una vez — El Libro de los Finales Felices",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-)
+META = dict(juego="Érase una vez — El Libro de los Finales Felices", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = _SPEC_BASE
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada al libro. Te manda coger la 10 y la 12.",
-    "10": "La aldea sin color: reparte el cartel, los precios, el puente, la nota de los duendes y la varita.",
-    "12": "El Cronoportal sin tintero: se combina con el Tintero Dorado (62).",
-    "14": "Cartel de la panadería (app): mover un palito de canela para arreglar una cuenta. Es el tutorial.",
-    "16": "Lista de precios: la cuenta verdadera del cartel.",
-    "18": "Los cuatro duendes: lo que tarda cada uno en cruzar y el límite de tiempo.",
-    "20": "Puente del troll (app): cruzar con un único farolillo en el menor tiempo.",
-    "22": "Varita sin estrella: se combina con la estrella caída (35).",
-    "26": "Chismes de Doña Hogaza: dos frases de las hadas; te manda descartar el cartel y los precios.",
-    "28": "El troll se aparta: reparte la estrella y el dibujo de la vidriera.",
-    "35": "Estrella caída: se combina con la varita (22).",
-    "37": "Ventana de la torre: el dibujo que debe quedar iluminado.",
-    "57": "El bosque despierta: resultado de 22 + 35; reparte el claro y el cuento del Búho.",
-    "40": "Había una vez... y ahora (app): tres saltos al pasado para abrir el camino en el presente.",
-    "42": "El cuento del Búho (app de lectura): las reglas de los saltos.",
-    "44": "La torre de las hadas: reparte la vidriera, las reglas y las hadas.",
-    "46": "Vidriera de la torre (app): encajar tres cristales sin solaparlos.",
-    "48": "Reglas del vidriero: cómo se colocan los cristales.",
-    "51": "Las cuatro hadas (app): deducir quién dice la verdad y quién miente.",
-    "52": "Papelitos de las hadas: una frase de Nube y la presentación de Dalia.",
-    "54": "La vidriera se enciende: reparte el cristal de luna.",
-    "56": "Cristal de luna: se combina con el farolillo (38).",
-    "58": "El secreto de las hadas: reparte el farolillo.",
-    "38": "Farolillo apagado: se combina con el cristal de luna (56).",
-    "94": "La sala de los espejos: resultado de 56 + 38; reparte los espejos y el plano.",
-    "64": "Rayos de luna (app): colocar tres espejos para llevar el rayo a la flor.",
-    "66": "Plano de la sala: dónde está la flor de luna.",
-    "78": "La sala de los tarros: reparte los tarros y la nota.",
-    "69": "Tarros de colores (app): ordenar capas de pintura (como destilar).",
-    "70": "Nota de la Cocinera: orden final de los tarros.",
-    "80": "La sala de la caja de música: reparte la caja y la tabla.",
-    "72": "La caja de música (app): tocar la melodía que muestran los animales de la ilustración, traduciéndolos a notas con la carta 76.",
-    "76": "Tabla de notas: qué nota toca cada animal.",
-    "82": "El Tintero Dorado: reparte el tintero.",
-    "62": "Tintero Dorado: se combina con el Cronoportal (12).",
-    "74": "Cronoportal con tinta: resultado de 62 + 12; reparte la última página y la nota.",
-    "84": "La última página (app): ordenar las siete letras guardadas para formar la palabra final (metapuzle).",
-    "86": "Nota del Búho: la pista de la palabra final.",
-    "99": "Final de la aventura.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-# Pasos del manual: mismas acciones y estado de la mesa que Dinosaurios (mismo esqueleto), con texto propio.
-_TEXTOS = [
-    ("Llegada al libro", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
-    ("La aldea sin color", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 20 y 22. Hay dos puzles: el cartel de la panadería (14, con los precios 16) y el puente del troll (20, con la nota 18)."),
-    ("Arregla el cartel", "En el móvil: Acción, 14. Los precios (16) dicen que 5 + 4 = 9: quita el palito de arriba a la derecha del 9 y ponlo arriba a la derecha del 5. El mensaje te dice que cojas la 26. Anota la letra del libro (C)."),
-    ("Los chismes", "Lee la carta 26. Te manda descartar la 14 y la 16. Guárdala: dos frases de las hadas servirán más adelante."),
-    ("El puente del troll", "En el móvil: Acción, 20. Con los tiempos de la carta 18: pasan Bigotes y Pétalo, vuelve Bigotes, pasan Gruñón y Abuela Musgo, vuelve Pétalo y pasan Bigotes y Pétalo (15 minutos). El mensaje te dice que cojas la 28. Letra del libro: E."),
-    ("El troll se aparta", "Lee la carta 28. Descarta 20 y 18 y coge 35 y 37. La estrella caída (35) es combinable; el dibujo de la vidriera (37) servirá más adelante."),
-    ("Varita con estrella", "La varita (22) y la estrella caída (35) son combinables: 22 + 35 = 57. Coge la 57."),
-    ("El bosque despierta", "Lee la carta 57. Descarta 22, 35, 28 y 10 y coge 40 y 42."),
-    ("El cuento del Búho", "En el móvil: Acción, 42. Pasa las páginas: explican qué hace cada salto al pasado."),
-    ("Había una vez... y ahora", "En el móvil: Acción, 40. Con las reglas del cuento: fuego en la casilla 3 (zarzas), plantar en la 5 (río) y cavar en la 6 (roca). El mensaje te dice que cojas la 44. Letra del libro: L."),
-    ("La torre de las hadas", "Lee la carta 44. Descarta 40, 42 y 57 y coge 46, 48, 51 y 52. Hay dos puzles: la vidriera (46, con el dibujo 37 y las reglas 48) y las hadas (51, con las frases de 26 y 52)."),
-    ("Enciende la vidriera", "En el móvil: Acción, 46. El cristal recto cubre B5 a E5, la te cubre A3, B3, C3 y B4, y la ese cubre D3, E3, C4 y D4. El mensaje te dice que cojas la 54. Letra del libro: F."),
-    ("El cristal de luna", "Lee la carta 54. Descarta 46, 48 y 37 y coge la 56, un cristal de luna."),
-    ("Las cuatro hadas", "En el móvil: Acción, 51. Con las frases de las cartas 26 y 52 y la de Dalia (en la app): son de ala roja Lila y Nube. El mensaje te dice que cojas la 58. Letra del libro: S."),
-    ("El secreto de las hadas", "Lee la carta 58. Descarta 51, 52 y 26 y coge la 38, un farolillo apagado."),
-    ("Farolillo con cristal", "El cristal de luna (56) y el farolillo (38) son combinables: 56 + 38 = 94. Coge la 94."),
-    ("La sala de los espejos", "Lee la carta 94. Descarta 56, 38, 44, 54 y 58 y coge 64 y 66. El plano (66) dice dónde está la flor de luna."),
-    ("Rayos de luna", "En el móvil: Acción, 64. La flor está en E5: espejo / en A2, espejo \\ en E2 y espejo / en A4. El mensaje te dice que cojas la 78. Letra del libro: I."),
-    ("La sala de los tarros", "Lee la carta 78. Descarta 64, 66 y 94 y coge 69 y 70. La nota (70) dice el orden final: dorado, turquesa y rosa."),
-    ("Tarros de colores", "En el móvil: Acción, 69. Once movimientos hasta dejar dorado, turquesa y rosa en los tres primeros tarros. El mensaje te dice que cojas la 80. Letra del libro: E."),
-    ("La caja de música", "Lee la carta 80. Descarta 69, 70 y 78 y coge 72 y 76. La tabla (76) dice qué nota toca cada animal."),
-    ("Toca la melodía", "En el móvil: Acción, 72. Las notas, en orden: Fa, Do, Sol, Mi, Re, La y Fa. El mensaje te dice que cojas la 82."),
-    ("El Tintero Dorado", "Lee la carta 82. Descarta 72, 76 y 80 y coge la 62, el Tintero Dorado."),
-    ("Tintero en el Cronoportal", "El Cronoportal (12) y el Tintero Dorado (62) son combinables: 12 + 62 = 74. Coge la 74."),
-    ("Cronoportal con tinta", "Lee la carta 74. Descarta 62, 12 y 82 y coge 84 y 86. La nota del Búho (86) describe la palabra final."),
-    ("La última página", "En el móvil: Acción, 84. El libro guarda las siete letras: ordénalas para escribir FELICES. El mensaje te dice que cojas la 99."),
-    ("Final", "Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Colorín colorado, fin!"),
+_T = [
+    ("leer", "P", "Llegada al libro", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "La aldea sin color", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la vela: 19 arriba y 21 abajo."),
+    ("app", "14", "El cartel", "En el móvil: Acción, 14. Los panes del escaparate (16) valen 5 y 4: mueve el palito de arriba a la derecha del 9 al 5 para que diga 5 + 4 = 9. El mensaje te dice que cojas la 24. Letra: C.", "carta 24"),
+    ("leer", "24", "Doña Hogaza", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para las hadas)."),
+    ("app", "20", "El puente del troll", "En el móvil: Acción, 20. La vela (19 y 21) dura 15 minutos y los duendes (18) tardan 1, 2, 5 y 8: pasan Bigotes y Pétalo, vuelve Bigotes, pasan Gruñón y Abuela Musgo, vuelve Pétalo y pasan Bigotes y Pétalo. El mensaje te dice que cojas la 28. Letra: E.", "carta 28"),
+    ("leer", "28", "El troll se aparta", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
+    ("combinar", "22", "35", "La varita", "La varita (22) y la estrella (35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "El bosque despierta", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "El camino cortado", "Lee la carta 31. Coge 40, 41, 43 y 45."),
+    ("app", "40", "Había una vez", "En el móvil: Acción, 40. Con los ejemplos de 41, 43 y 45: fuego en la casilla 3, plantar en la 5 y cavar en la 6. El mensaje te dice que cojas la 30. Letra: S.", "carta 30"),
+    ("leer", "30", "El castillo dormido", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "Las botas del gigante", "Lee la carta 32. Coge 42, 48, 49 y 53. Junta el mapa: 42 a la izquierda y 49 a la derecha."),
+    ("app", "48", "Las botas", f"En el móvil: Acción, 48. Saltos de 2 y 3 por turnos, sin caer en árboles ni agua: {_S_BOTAS}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "La casa del leñador", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59."),
+    ("app", "52", "La habichuela", "En el móvil: Acción, 52. Las hojas del diario (54, 55 y 59) son 1, 1, 2, 3, 5, 8...: la luna 9 tiene 34. El mensaje te dice que cojas la 44.", "carta 44"),
+    ("leer", "44", "La torre de las hadas", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63."),
+    ("app", "46", "La vidriera", "En el móvil: Acción, 46. Sin girar ni solapar (33), cubre el dibujo (37) con los cristales (39): recto de B5 a E5, te en A3, B3, C3 y B4, ese en D3, E3, C4 y D4. El mensaje te dice que cojas la 56. Letra: D.", "carta 56"),
+    ("app", "51", "Las cuatro hadas", "En el móvil: Acción, 51. Con las frases de 26, 61 y 63 y la de Dalia: Brisa y Dalia azules, Lila y Nube rojas. El mensaje te dice que cojas la 58. Letra: I.", "carta 58"),
+    ("leer", "58", "El secreto de las hadas", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "Tarros de colores", "En el móvil: Acción, 69. Como los estandartes del tapiz (70) y la nota (71): dorado, turquesa y rosa, y los dos últimos vacíos. El mensaje te dice que cojas la 80. Letra: E.", "carta 80"),
+    ("leer", "80", "El castillo recobra el color", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79."),
+    ("app", "72", "La caja de música", "En el móvil: Acción, 72. Los animales de la partitura (75) en el xilófono (79): Fa, Do, Sol, Mi, Re, La y Fa. El mensaje te dice que cojas la 82. Letra: R.", "carta 82"),
+    ("leer", "82", "La caja abierta", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "El farolillo", "El farolillo (38) y el cristal de luna (56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "La sala de los espejos", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el plano: 66 a la izquierda y 67 a la derecha."),
+    ("app", "64", "Rayos de luna", "En el móvil: Acción, 64. La flor está en E5 (plano 66 y 67): espejo / en A2, \\ en E2 y / en A4. El mensaje te dice que cojas la 62. Letra: P.", "carta 62"),
+    ("combinar", "12", "62", "El Tintero Dorado", "El Cronoportal (12) y el Tintero Dorado (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal con tinta", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "La última página", "En el móvil: Acción, 85. Con la nota (86) y el banquete (87): «felices y comieron... PERDICES». El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Colorín colorado, fin!"),
 ]
-assert len(_TEXTOS) == len(_PASOS_BASE), (len(_TEXTOS), len(_PASOS_BASE))
-PASOS = [dict(t=t, que=q, acciones=p["acciones"], mesa=p["mesa"]) for (t, q), p in zip(_TEXTOS, _PASOS_BASE)]
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.recalcular_mesas(PASOS, J)

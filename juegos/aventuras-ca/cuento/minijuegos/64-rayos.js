@@ -1,10 +1,10 @@
 // Carta 64 — Rayos de luna: colocar EXACTAMENTE tres espejos (/ o \) para que el rayo de luna que entra por la flecha llegue a la flor,
-// y que el rayo toque los tres. La flor NO está marcada: la carta 66 dice que está en E5. Muros: A1, E1, D3, B4 y C4.
-// Solución única (generadores_puzles.rayos(5, 3, 7)): / en A2, \ en E2 y / en A4. Letra del libro: I.
+// y que el rayo toque los tres. La flor NO está marcada: el plano de las cartas 66 y 67 la dibuja en E5. Muros: A1, E1, D3, B4 y C4.
+// Solución única (generadores_puzles.rayos(5, 3, 7)): / en A2, \ en E2 y / en A4. Letra del libro: P.
 import { openGame } from './ui.js';
 import { guardarLetra, estilo, conImagen, NOMBRES_COLUMNA } from './libro.js';
 
-const LETRA = 'I';
+const LETRA = 'P';
 const N = 5;
 const PAREDES = new Set([0, 4, 13, 16, 17]);
 const FILA = 3;
@@ -16,7 +16,7 @@ function nombre(i) { return NOMBRES_COLUMNA[i % N] + (Math.floor(i / N) + 1); }
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 64 — Rayos de luna',
-    instr: 'El rayo de luna entra por la flecha y avanza recto. Toca una casilla para poner un espejo /, otra vez para \\ y otra vez para quitarlo. Usad exactamente tres espejos, que el rayo toque los tres, y que llegue a la flor (carta 66).',
+    instr: 'El rayo de luna entra por la flecha y avanza recto. Toca una casilla para poner un espejo /, otra vez para \\ y otra vez para quitarlo. Usad exactamente tres espejos, que el rayo toque los tres, y que llegue a la flor (el plano está en las cartas 66 y 67).',
     ...opts
   });
   estilo('cu-rayos-estilo', `
@@ -138,11 +138,11 @@ export function startMinigame(opts = {}) {
     const r = pintar();
     const usados = Object.keys(esp).length;
     if (usados !== ESPEJOS) { ui.say('Hay que usar exactamente ' + ESPEJOS + ' espejos y habéis puesto ' + usados + '.', 'bad'); return; }
-    if (!r.llega) { ui.say('El rayo no llega a la flor de luna (casilla E5). Seguid su camino desde la flecha y mirad dónde se pierde.', 'bad'); return; }
+    if (!r.llega) { ui.say('El rayo no llega a la flor de luna. Seguid su camino desde la flecha y mirad dónde se pierde.', 'bad'); return; }
     if (r.tocados.size !== ESPEJOS) { ui.say('El rayo llega, pero hay espejos que no toca: los tres deben servir.', 'bad'); return; }
     resuelto = true;
     guardarLetra('64', LETRA);
-    ui.say('¡La flor de luna se abre bañada de luz! Coged la carta 78. Letra del libro: ' + LETRA + '.', 'ok');
+    ui.say('¡La flor de luna se abre bañada de luz! Coged la carta 62. Letra del libro: ' + LETRA + '.', 'ok');
   });
   ui.button('Quitar todos', 'ghost', () => { if (!resuelto) { esp = {}; ui.say(''); pintar(); } });
   pintar();

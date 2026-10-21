@@ -1,10 +1,10 @@
 // Carta 51 — Las cuatro hadas: las de ala azul siempre dicen la verdad y las de ala roja siempre mienten.
-// Frases: Brisa y Lila en la carta 26, Nube en la carta 52 y Dalia aquí (en la app). Solución única (comprobada con generadores_puzles.caballeros(4, 13)):
-// Brisa y Dalia de ala azul; Lila y Nube de ala roja. Letra del libro: S.
+// Frases: Brisa en la carta 26 (chismes de Doña Hogaza), Lila en la 61, Nube en la 63 y Dalia aquí (en la app). Solución única (comprobada con generadores_puzles.caballeros(4, 13)):
+// Brisa y Dalia de ala azul; Lila y Nube de ala roja. Letra del libro: I.
 import { openGame } from './ui.js';
 import { guardarLetra, estilo, conImagen } from './libro.js';
 
-const LETRA = 'S';
+const LETRA = 'I';
 const HADAS = [
   { n: 'Brisa', real: 'azul', frase: null },
   { n: 'Lila', real: 'roja', frase: null },
@@ -15,7 +15,7 @@ const HADAS = [
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 51 — Las cuatro hadas',
-    instr: 'Marca el ala de cada hada tocándola: sin marca, azul (dice siempre la verdad) o roja (miente siempre). Las frases de Brisa, Lila y Nube están en las cartas 26 y 52; la de Dalia, aquí.',
+    instr: 'Marca el ala de cada hada tocándola: sin marca, azul (dice siempre la verdad) o roja (miente siempre). Lo que dijeron Brisa, Lila y Nube está en las cartas 26, 61 y 63; lo de Dalia, aquí.',
     ...opts
   });
   estilo('cu-hadas-estilo', `

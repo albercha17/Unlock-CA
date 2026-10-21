@@ -1,6 +1,6 @@
 // Carta 69 — Tarros de colores: cinco tarros con capas de pintura mezcladas (rosa, dorado y turquesa). Se vierte la capa de arriba de un tarro
-// sobre otro si es del mismo color o si el otro está vacío. Hay que dejar cada color en un tarro, en el orden de la carta 70
-// (dorado, turquesa, rosa, de izquierda a derecha) y los dos últimos vacíos. 11 movimientos mínimos (BFS en herramientas/instancias_cuento.py).
+// sobre otro si es del mismo color o si el otro está vacío. Hay que dejar cada color en un tarro, en el orden del tapiz (carta 70) y la nota de la cocinera (71)
+// y los dos últimos vacíos. 11 movimientos mínimos (BFS en herramientas/instancias_cuento.py).
 // Cada color lleva además una forma (círculo, estrella, rombo) para no depender solo del color. Letra del libro: E.
 import { openGame } from './ui.js';
 import { guardarLetra, estilo, conImagen } from './libro.js';
@@ -18,7 +18,7 @@ const ORDEN = [1, 2, 0];
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 69 — Tarros de colores',
-    instr: 'Toca un tarro y luego otro para verter la capa de arriba. Solo se puede verter sobre un tarro vacío o sobre una capa del mismo color. Dejad los colores en el orden de la carta 70.',
+    instr: 'Toca un tarro y luego otro para verter la capa de arriba. Solo se puede verter sobre un tarro vacío o sobre una capa del mismo color. Dejad los colores como dicen las cartas 70 y 71.',
     ...opts
   });
   estilo('cu-tarros-estilo', `
@@ -108,7 +108,7 @@ export function startMinigame(opts = {}) {
     }
     // todos los tarros de un solo color pero en otro orden: aviso con razón
     const entero = tubos.every((t) => t.length === 0 || (t.length === CAP && new Set(t).size === 1));
-    if (entero) ui.say('Cada color está en su tarro, pero no en el orden de la carta 70 (dorado, turquesa, rosa) ni con los dos últimos tarros vacíos.', 'bad');
+    if (entero) ui.say('Cada color está en su tarro, pero no como quiere la Cocinera Real (cartas 70 y 71).', 'bad');
   }
 
   function inicio() { tubos = INICIAL.map((t) => t.slice()); sel = null; movs = 0; historial = []; resuelto = false; ui.say(''); pintar(); }
