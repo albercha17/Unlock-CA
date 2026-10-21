@@ -8,7 +8,8 @@
   const SUPABASE_KEY = 'sb_publishable_GcN8b2gK-85Fqpeomul48g_DhUAPTZY';
   const REFRESCO_MS = 30000;
 
-  const AVENTURAS = { egipto: 'Egipto', marte: 'Marte', florencia: 'Florencia', dinosaurios: 'Dinosaurios', cuento: 'Érase una vez', trono: 'Hielo y Fuego' };
+  const AVENTURAS = { egipto: 'Egipto', marte: 'Marte', florencia: 'Florencia', dinosaurios: 'Dinosaurios', cuento: 'Érase una vez', trono: 'Hielo y Fuego',
+    pompeya: 'Pompeya', arcade: 'Recreativa', oeste: 'Oeste', espia: 'Espías', futbol: 'Fútbol', piratas: 'Piratas', juguetes: 'Juguetes' };
   const ESTADOS = {
     nuevo: 'Nuevo', pagado: 'Pagado', desarrollar: 'En cola', en_produccion: 'En producción',
     listo: 'Listo', entregado: 'Entregado', cancelado: 'Cancelado',

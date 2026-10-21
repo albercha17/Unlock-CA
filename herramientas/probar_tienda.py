@@ -63,7 +63,33 @@ def flujo(d, url):
     d.get(url)
     time.sleep(1)
     js = d.execute_script
-    comprobar(len(d.find_elements(By.CSS_SELECTOR, ".aventura")) == 6, "se pintan las 6 aventuras")
+    import json as _json
+    n_cat = len([j for j in _json.load(open(os.path.join(RAIZ, "juegos", "catalogo.json"), encoding="utf-8")) if j["ruta"].startswith("juegos/aventuras-ca/")])
+    esperar_n = lambda: len(d.find_elements(By.CSS_SELECTOR, ".aventura")) == n_cat  # noqa: E731
+    for _ in range(30):
+        if esperar_n():
+            break
+        time.sleep(0.2)
+    comprobar(esperar_n(), f"se pintan todas las aventuras del catálogo ({len(d.find_elements(By.CSS_SELECTOR, '.aventura'))} de {n_cat})")
+    comprobar(len(d.find_elements(By.CSS_SELECTOR, "#selector-aventuras input")) == n_cat, "y todas se pueden elegir en el formulario")
+    # buscador y filtro de dificultad
+    vis = lambda sel: len([e for e in d.find_elements(By.CSS_SELECTOR, sel) if e.is_displayed()])  # noqa: E731
+    barra = d.find_elements(By.CSS_SELECTOR, ".fj")
+    comprobar(len(barra) == 2, "hay buscador en la lista de aventuras y en el formulario")
+    caja = barra[0].find_element(By.TAG_NAME, "input")
+    caja.send_keys("egipto")
+    comprobar(vis("#lista-aventuras .aventura") == 1, "buscar «egipto» deja una aventura")
+    caja.clear(); caja.send_keys("piratas"); time.sleep(0.2)
+    comprobar(vis("#lista-aventuras .aventura") == 1, "buscar «piratas» (sin tilde ni mayúsculas) la encuentra")
+    js("const i=document.querySelector('.fj input'); i.value=''; i.dispatchEvent(new Event('input'))")
+    barra[0].find_element(By.CSS_SELECTOR, "[data-nivel=dificil]").click()
+    difs = [int(e.get_attribute("data-dif")) for e in d.find_elements(By.CSS_SELECTOR, "#lista-aventuras .aventura") if e.is_displayed()]
+    comprobar(difs and all(x >= 4 for x in difs), f"«Difícil» deja solo las difíciles ({difs})")
+    caja.send_keys("zzzz")
+    comprobar(d.find_elements(By.CSS_SELECTOR, ".fj-vacio")[0].is_displayed(), "sin resultados sale un aviso")
+    js("const i=document.querySelector('.fj input'); i.value=''; i.dispatchEvent(new Event('input'))")
+    barra[0].find_element(By.CSS_SELECTOR, "[data-nivel=todas]").click()
+    comprobar(vis("#lista-aventuras .aventura") == n_cat, "«Todas» vuelve a enseñarlas todas")
     comprobar(d.find_element(By.ID, "resumen-precio").text == "49 €", "precio inicial 49 €")
     comprobar(not js("return [...document.images].filter(i => i.complete && i.naturalWidth === 0).map(i => i.src)"), "todas las imágenes cargan")
 

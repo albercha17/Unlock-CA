@@ -110,9 +110,9 @@ function pintarMis(caja, d, por) {
       const nombre = esc(j ? j.nombre : a.juego);
       const con = a.quienes ? '<p class="opt-desc">Con ' + esc(a.quienes) + ' de protagonistas</p>' : '';
       html += saltos
-        ? '<a class="salto ' + esc(a.juego) + '" data-juego="' + esc(a.juego) + '" href="' + esc(enlaceDe(a, j)) + '">' +
+        ? '<a class="salto ' + esc(a.juego) + '" data-juego="' + esc(a.juego) + '" data-dif="' + (j ? j.dificultad : 3) + '" data-buscar="' + esc(a.juego) + '" href="' + esc(enlaceDe(a, j)) + '">' +
           '<div class="cartel" aria-hidden="true"><img src="' + img + '" alt=""></div><div class="cuerpo"><h3>' + nombre + '</h3>' + con + '</div></a>'
-        : '<a class="option" data-juego="' + esc(a.juego) + '" href="' + esc(enlaceDe(a, j)) + '">' +
+        : '<a class="option" data-juego="' + esc(a.juego) + '" data-dif="' + (j ? j.dificultad : 3) + '" data-buscar="' + esc(a.juego) + '" href="' + esc(enlaceDe(a, j)) + '">' +
           '<div class="opt-thumb" style="background-image:url(&quot;' + img.replace(/'/g, '%27') + '&quot;);background-position:center 30%"></div>' +
           '<div class="opt-meta"><h3 class="opt-title">' + nombre + '</h3>' + con + '</div>' +
           '<div class="opt-num">' + String(i + 1).padStart(2, '0') + '</div></a>';
@@ -126,6 +126,9 @@ function pintarMis(caja, d, por) {
     const j = por[el.dataset.juego];
     if (j) ponerFila(el, fila(j));
   });
+  // con muchos juegos, buscador y filtro de dificultad (assets/js/filtro-juegos.js)
+  const lista = caja.querySelector('.cards, .saltos');
+  if (lista && d.lista.length > 4 && window.FiltroJuegos) window.FiltroJuegos.montar(lista, { items: '[data-juego]', nombre: 'aventura', antes: lista });
 }
 
 /** Enseña el catálogo completo (administrador) o solo los juegos de la cuenta. */
@@ -174,7 +177,14 @@ async function decorar(catalogo, por) {
   document.querySelectorAll('#todo [data-juego], .saltos [data-juego]').forEach((el) => {
     const j = por[el.dataset.juego];
     if (j && !el.querySelector('.dif-fila')) ponerFila(el, fila(j));
+    if (j) { el.dataset.dif = j.dificultad; el.dataset.buscar = j.id + ' ' + j.nombre; }
   });
+  // hub de aventuras completo (administrador): buscador y filtro de dificultad, una sola vez
+  const hub = document.querySelector('#todo .saltos');
+  if (hub && !hub.dataset.filtro && window.FiltroJuegos && hub.querySelectorAll('[data-juego]').length > 4) {
+    hub.dataset.filtro = '1';
+    window.FiltroJuegos.montar(hub, { items: '[data-juego]', nombre: 'aventura' });
+  }
   document.querySelectorAll('[data-hub]').forEach((el) => {
     if (!el.querySelector('.dif-fila')) ponerFila(el, filaHub(catalogo.filter((j) => j.ruta.startsWith('juegos/aventuras-ca/'))));
   });

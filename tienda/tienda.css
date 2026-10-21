@@ -292,3 +292,28 @@ input[type="date"] { color-scheme: dark; }
   html { scroll-behavior: auto; }
   .carta, .btn, .aventura { transition: none; }
 }
+
+/* ---------- aventuras compactas (cada vez hay más): rejilla densa, texto en 3 líneas, filtro encima ---------- */
+.aventuras { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
+.aventura-img { aspect-ratio: 16 / 9; }
+.aventura-cuerpo { padding: 12px 14px 14px; }
+.aventura-epoca { font-size: .66rem; }
+.aventura h3 { margin: 2px 0 6px; font-size: 1.05rem; line-height: 1.2; }
+.aventura p { font-size: .84rem; line-height: 1.45; margin: 0 0 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.aventura-meta { font-size: .76rem; margin-bottom: 10px; }
+.aventura .btn { padding: 7px 14px; font-size: .82rem; }
+.sello { top: 8px; right: 8px; font-size: .7rem; }
+.selector { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin-top: 4px; }
+.opcion span { padding: 18px 8px 6px; font-size: .76rem; line-height: 1.25; }
+@media (max-width: 1000px) { .aventuras { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); } }
+@media (max-width: 680px) {
+  .aventuras { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .aventura-cuerpo { padding: 10px 10px 12px; }
+  .aventura h3 { font-size: .92rem; }
+  .aventura p { -webkit-line-clamp: 2; font-size: .78rem; }
+  .aventura-meta { gap: 4px 8px; }
+  .aventura .btn { padding: 6px 10px; font-size: .76rem; }
+  .selector { grid-template-columns: repeat(3, 1fr); }
+  .opcion span { font-size: .68rem; padding: 14px 6px 5px; }
+}
+@media (max-width: 380px) { .aventuras { grid-template-columns: 1fr; } }
