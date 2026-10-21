@@ -86,6 +86,15 @@
   .mt-mando button[data-d="abajo"]{grid-column:2;grid-row:2}
   .mt-mando button[data-d="derecha"]{grid-column:3;grid-row:2}
   #zVoltear[hidden]{display:none}
+  /* ===== Tablero libre: las cartas se colocan arrastrándolas ===== */
+  #mesa.tablero{display:block;position:relative;min-height:340px;border:1px dashed var(--line);border-radius:12px;background:rgba(255,255,255,.015)}
+  #mesa.tablero .item{position:absolute;touch-action:none;user-select:none;-webkit-user-select:none}
+  #mesa.tablero .item .carta-btn{cursor:grab;touch-action:none}
+  #mesa.tablero .item.arrastrando{z-index:2000 !important}
+  #mesa.tablero .item.arrastrando .carta-btn{cursor:grabbing}
+  #mesa.tablero .item.arrastrando .carta{transform:scale(1.03);box-shadow:0 16px 34px rgba(0,0,0,.7)}
+  .item .auto{padding:5px 12px;font-size:.8rem;border-color:#7be495;color:#b9f5cb}
+  #zAuto[hidden]{display:none}
   /* ===== Folioscopio: páginas que se ordenan y se hojean ===== */
   #hojear{position:fixed;inset:0;z-index:60;background:rgba(2,6,12,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:auto}
   #hojear[hidden]{display:none}
@@ -126,11 +135,13 @@
       <label for="qn">Coger carta nº</label>
       <input type="text" id="qn" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="7">
       <button type="button" id="qb" class="primario">Coger</button>
+      <button type="button" id="ordenar" title="Recoloca las cartas de la mesa por número">Ordenar la mesa</button>
       <button type="button" id="reset">Reiniciar</button>
       <a class="btn" href="index.html">Volver al juego</a>
     </div>
   </header>
   <p class="aviso">Los minijuegos y las pistas se hacen en el móvil: abre <a href="index.html">el juego</a> en tu teléfono, pulsa <strong>Empezar</strong> y usa <strong>Acción</strong> / <strong>Pista</strong> con el número de la carta.</p>
+  <p class="aviso">Arrastra las cartas por la mesa para colocarlas como quieras. Las que mandan coger o descartar otras tienen un botón para hacerlo de una vez.</p>
   <div id="msg" role="status" aria-live="polite"></div>
 
   <div id="montajes" class="montajes"></div>
@@ -182,6 +193,7 @@
   <div class="fila">
     <button type="button" id="zVoltear" class="voltear" hidden>Dar la vuelta</button>
     <button type="button" id="zPlegar" class="plegar" hidden>Plegar</button>
+    <button type="button" id="zAuto" class="primario" hidden>Hacer lo que dice la carta</button>
     <button type="button" id="zDescartar" class="primario">Descartar</button>
     <button type="button" id="zCerrar">Cerrar</button>
   </div>
@@ -208,13 +220,15 @@
     return null;
   }
   function guardar(){ try { localStorage.setItem(KEY, JSON.stringify(estado)); } catch(e) {} }
-  function nuevoEstado(){ return {mesa:['P'], descartes:[]}; }
+  function nuevoEstado(){ return {mesa:['P'], descartes:[], pos:{}}; }
   function limpiar(s){
     var vistos = {};
     function ok(id){ if (!DATA[id] || vistos[id]) return false; vistos[id] = true; return true; }
     s.mesa = s.mesa.filter(ok);
     s.descartes = s.descartes.filter(ok);
     if (!vistos.P) s.mesa.unshift('P');
+    s.pos = s.pos || {};
+    Object.keys(s.pos).forEach(function(k){ if (s.mesa.indexOf(k) < 0) delete s.pos[k]; });
     return s;
   }
   function mazo(){
@@ -266,7 +280,7 @@
     $('nMazo').textContent = m.length + ' boca abajo';
     $('nDesc').textContent = estado.descartes.length + (estado.descartes.length === 1 ? ' carta' : ' cartas');
 
-    var mesa = $('mesa'); mesa.innerHTML = '';
+    var mesa = $('mesa'); mesa.innerHTML = ''; mesa.className = 'fila tablero';
     if (!estado.mesa.length) mesa.innerHTML = '<p class="vacio">No tienes ninguna carta en mesa. Coge una del mazo o recupera alguna de los descartes.</p>';
     estado.mesa.forEach(function(id){
       var it = document.createElement('div'); it.className = 'item';
@@ -279,8 +293,11 @@
       it.appendChild(b); it.appendChild(d);
       if (DATA[id].plegado) { var pg = document.createElement('button'); pg.type = 'button'; pg.className = 'voltear plegar'; pg.textContent = PLEG[id] ? 'Desplegar' : 'Plegar'; pg.addEventListener('click', function(){ PLEG[id] = !PLEG[id]; pintar(); }); it.appendChild(pg); }
       if (DATA[id].reverso) { var v = document.createElement('button'); v.type = 'button'; v.className = 'voltear'; v.textContent = 'Dar la vuelta'; v.addEventListener('click', function(){ VOLT[id] = !VOLT[id]; pintar(); }); it.appendChild(v); }
+      botonesAuto(id).forEach(function(x){ it.appendChild(x); });
+      it.dataset.id = id;
       mesa.appendChild(it);
     });
+    colocarTablero();
     recienTomada = null;
     pintarMontajes();
 
@@ -303,9 +320,138 @@
     });
   }
 
+  // ----- Tablero libre: arrastrar las cartas de la mesa y dejarlas donde se quiera (la posición se guarda con la partida) -----
+  var arrastre = null, huboArrastre = false;
+  function colocarTablero(){
+    var mesa = $('mesa'), items = [].slice.call(mesa.querySelectorAll('.item'));
+    if (!items.length) { mesa.style.height = ''; return; }
+    var W = mesa.clientWidth || 800, M = 12, pos = estado.pos || (estado.pos = {}), rects = [], fijos = [], nuevos = [];
+    items.forEach(function(it){ it.style.left = '0px'; it.style.top = '0px'; (pos[it.dataset.id] ? fijos : nuevos).push(it); });
+    fijos.forEach(function(it){
+      var p = pos[it.dataset.id], w = it.offsetWidth, h = it.offsetHeight;
+      p.x = Math.max(0, Math.min(p.x, Math.max(0, W - w))); p.y = Math.max(0, p.y);
+      it.style.left = p.x + 'px'; it.style.top = p.y + 'px';
+      rects.push({x: p.x, y: p.y, w: w, h: h});
+    });
+    nuevos.forEach(function(it){
+      var w = it.offsetWidth, h = it.offsetHeight, pp = null;
+      for (var y = M; !pp; y += 24) {
+        for (var x = M; (x === M || x + w <= W - M) && !pp; x += 24) {
+          if (!rects.some(function(r){ return x < r.x + r.w + 10 && r.x < x + w + 10 && y < r.y + r.h + 10 && r.y < y + h + 10; })) pp = {x: x, y: y};
+        }
+      }
+      pos[it.dataset.id] = pp; it.style.left = pp.x + 'px'; it.style.top = pp.y + 'px';
+      rects.push({x: pp.x, y: pp.y, w: w, h: h});
+    });
+    ajustarAlto();
+    if (nuevos.length) guardar();
+  }
+  function ajustarAlto(){
+    var mesa = $('mesa'), alto = 340;
+    [].slice.call(mesa.querySelectorAll('.item')).forEach(function(it){ alto = Math.max(alto, parseFloat(it.style.top || 0) + it.offsetHeight + 12); });
+    mesa.style.height = alto + 'px';
+    [].slice.call(mesa.querySelectorAll('.item')).forEach(function(it){ it.style.zIndex = String(estado.mesa.indexOf(it.dataset.id) + 1); });
+  }
+  function iniciarArrastre(e){
+    var it = e.target.closest ? e.target.closest('#mesa .item') : null;
+    if (!it || (e.button !== undefined && e.button > 0)) return;
+    if (e.target.closest('button') && !e.target.closest('.carta-btn')) return;
+    var p = estado.pos && estado.pos[it.dataset.id];
+    if (!p) return;
+    arrastre = {it: it, id: it.dataset.id, x0: e.clientX, y0: e.clientY, px: p.x, py: p.y, mov: false, pid: e.pointerId};
+  }
+  function moverArrastre(e){
+    if (!arrastre || e.pointerId !== arrastre.pid) return;
+    var dx = e.clientX - arrastre.x0, dy = e.clientY - arrastre.y0;
+    if (!arrastre.mov) {
+      if (Math.abs(dx) + Math.abs(dy) < 6) return;
+      arrastre.mov = true; arrastre.it.classList.add('arrastrando');
+      try { arrastre.it.setPointerCapture(e.pointerId); } catch (_) {}
+    }
+    var it = arrastre.it, W = $('mesa').clientWidth;
+    it.style.left = Math.max(0, Math.min(arrastre.px + dx, Math.max(0, W - it.offsetWidth))) + 'px';
+    it.style.top = Math.max(0, arrastre.py + dy) + 'px';
+    e.preventDefault();
+  }
+  function finArrastre(e){
+    if (!arrastre || e.pointerId !== arrastre.pid) return;
+    var a = arrastre; arrastre = null;
+    a.it.classList.remove('arrastrando');
+    if (!a.mov) return;
+    huboArrastre = true; setTimeout(function(){ huboArrastre = false; }, 60);
+    estado.pos[a.id] = {x: parseFloat(a.it.style.left) || 0, y: parseFloat(a.it.style.top) || 0};
+    quitar(estado.mesa, a.id); estado.mesa.push(a.id);        // la última carta tocada queda encima
+    ajustarAlto(); guardar();
+  }
+  $('mesa').addEventListener('pointerdown', iniciarArrastre);
+  document.addEventListener('pointermove', moverArrastre, {passive: false});
+  document.addEventListener('pointerup', finArrastre);
+  document.addEventListener('pointercancel', finArrastre);
+  $('mesa').addEventListener('click', function(e){ if (huboArrastre) { e.stopPropagation(); e.preventDefault(); } }, true);
+  var tRedim = null;
+  window.addEventListener('resize', function(){ clearTimeout(tRedim); tRedim = setTimeout(function(){ if (estado) colocarTablero(); }, 150); });
+  function ordenarMesa(){
+    estado.mesa.sort(orden); estado.pos = {};
+    mensaje('Cartas ordenadas por número.'); guardar(); pintar();
+  }
+
+  // ----- Automático: coger y descartar de una vez lo que manda la carta, y combinar con la pareja que ya está en mesa -----
+  function tieneAuto(id){ var c = DATA[id]; return !!(c && ((c.coge && c.coge.length) || (c.descarta && c.descarta.length))); }
+  function parejaCombinable(id){
+    var c = DATA[id];
+    if (!c || !c.combina || String(c.combina[0]).charAt(0) === '+') return null;
+    var con = String(c.combina[0]), da = String(c.combina[1]);
+    if (!DATA[da] || estado.mesa.indexOf(con) < 0 || estado.mesa.indexOf(da) >= 0 || estado.descartes.indexOf(da) >= 0) return null;
+    return {con: con, da: da};
+  }
+  function aplicarCarta(id){
+    var c = DATA[id], cogidas = [], descartadas = [];
+    (c.coge || []).forEach(function(x){
+      x = String(x);
+      if (!DATA[x] || estado.mesa.indexOf(x) >= 0) return;
+      quitar(estado.descartes, x); estado.mesa.push(x); cogidas.push(x);
+    });
+    (c.descarta || []).forEach(function(x){
+      x = String(x);
+      if (estado.mesa.indexOf(x) < 0) return;
+      quitar(estado.mesa, x); delete estado.pos[x];
+      if (estado.descartes.indexOf(x) < 0) estado.descartes.push(x);
+      descartadas.push(x);
+    });
+    var t = [];
+    if (cogidas.length) t.push((cogidas.length > 1 ? 'Has cogido las cartas ' : 'Has cogido la carta ') + cogidas.join(', '));
+    if (descartadas.length) t.push((descartadas.length > 1 ? 'has descartado las cartas ' : 'has descartado la carta ') + descartadas.join(', '));
+    mensaje(t.length ? t.join(' y ').replace(/^h/, 'H') + '.' : 'Ya está todo hecho: no hay nada más que coger ni descartar.');
+    recienTomada = cogidas[0] || null; cerrarZoom(); guardar(); pintar();
+  }
+  function combinarCarta(id){
+    var p = parejaCombinable(id);
+    if (!p) return;
+    estado.mesa.push(p.da); recienTomada = p.da;
+    mensaje('Has combinado la carta ' + id + ' con la ' + p.con + ': coges la carta ' + p.da + '.');
+    guardar(); pintar();
+  }
+  function botonesAuto(id){
+    var bs = [];
+    if (tieneAuto(id)) {
+      var a = document.createElement('button'); a.type = 'button'; a.className = 'mini auto'; a.textContent = 'Hacer lo que dice';
+      a.title = 'Coge y descarta de una vez las cartas que indica la carta ' + id;
+      a.addEventListener('click', function(){ aplicarCarta(id); });
+      bs.push(a);
+    }
+    var p = parejaCombinable(id);
+    if (p) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'mini auto'; b.textContent = 'Combinar con la ' + p.con;
+      b.title = 'Suma los números y coge la carta ' + p.da;
+      b.addEventListener('click', function(){ combinarCarta(id); });
+      bs.push(b);
+    }
+    return bs;
+  }
+
   function quitar(arr, id){ var i = arr.indexOf(id); if (i >= 0) arr.splice(i, 1); }
   function coger(id){ quitar(estado.descartes, id); if (estado.mesa.indexOf(id) < 0) estado.mesa.push(id); recienTomada = id; mensaje('Has cogido la carta ' + id + '.'); guardar(); pintar(); }
-  function descartar(id){ quitar(estado.mesa, id); if (estado.descartes.indexOf(id) < 0) estado.descartes.push(id); mensaje('Carta ' + id + ' descartada.'); cerrarZoom(); guardar(); pintar(); }
+  function descartar(id){ quitar(estado.mesa, id); delete estado.pos[id]; if (estado.descartes.indexOf(id) < 0) estado.descartes.push(id); mensaje('Carta ' + id + ' descartada.'); cerrarZoom(); guardar(); pintar(); }
   function recuperar(id){ quitar(estado.descartes, id); estado.mesa.push(id); recienTomada = id; mensaje('Has recuperado la carta ' + id + '.'); guardar(); pintar(); }
 
   function cogerPorNumero(){
@@ -320,7 +466,7 @@
   }
 
   function abrirZoom(id){
-    zoomId = id; $('zoomCarta').innerHTML = frente(id); $('zVoltear').hidden = !DATA[id].reverso; $('zPlegar').hidden = !DATA[id].plegado; $('zPlegar').textContent = PLEG[id] ? 'Desplegar' : 'Plegar'; $('zoom').hidden = false; $('zCerrar').focus();
+    zoomId = id; $('zoomCarta').innerHTML = frente(id); $('zAuto').hidden = !tieneAuto(id); $('zVoltear').hidden = !DATA[id].reverso; $('zPlegar').hidden = !DATA[id].plegado; $('zPlegar').textContent = PLEG[id] ? 'Desplegar' : 'Plegar'; $('zoom').hidden = false; $('zCerrar').focus();
   }
   function cerrarZoom(){ zoomId = null; $('zoom').hidden = true; }
 
@@ -332,6 +478,8 @@
   });
   $('zCerrar').addEventListener('click', cerrarZoom);
   $('zDescartar').addEventListener('click', function(){ if (zoomId) descartar(zoomId); });
+  $('zAuto').addEventListener('click', function(){ if (zoomId) aplicarCarta(zoomId); });
+  $('ordenar').addEventListener('click', ordenarMesa);
   $('zVoltear').addEventListener('click', function(){ if (zoomId) { VOLT[zoomId] = !VOLT[zoomId]; $('zoomCarta').innerHTML = frente(zoomId); pintar(); } });
   $('zPlegar').addEventListener('click', function(){ if (zoomId) { PLEG[zoomId] = !PLEG[zoomId]; $('zoomCarta').innerHTML = frente(zoomId); $('zPlegar').textContent = PLEG[zoomId] ? 'Desplegar' : 'Plegar'; pintar(); } });
   $('zoom').addEventListener('click', function(e){ if (e.target === $('zoom')) cerrarZoom(); });
