@@ -35,9 +35,9 @@
     "id": "dinosaurios",
     "nombre": "Cretácico, hace 66 millones de años: El Valle de los Gigantes",
     "ruta": "juegos/aventuras-ca/dinosaurios/",
-    "dificultad": 3,
+    "dificultad": 4,
     "minutos": 90,
-    "cartas": 39
+    "cartas": 61
   },
   {
     "id": "cuento",

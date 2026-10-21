@@ -59,11 +59,11 @@ JUEGOS = {
         minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js", "46": "46-baul.js"},
         pal=("#6a4a22", "#1a1008")),
     "Dinosaurios": dict(
-        datos=D, dificultad=3, tema="dinosaurios", titulo="Cretácico, hace 66 millones de años: El Valle de los Gigantes", emoji="🦖", minutos=90,
+        datos=D, dificultad=4, tema="dinosaurios", titulo="Cretácico, hace 66 millones de años: El Valle de los Gigantes", emoji="🦖", minutos=90,
         grad="#2f5a22,#07120a", acento="#b5e35b", acento2="#d9f59a", bg1="#07120a", bg2="#12281a",
-        sinopsis="Cuarto salto del Cronoportal: el Cretácico, hace sesenta y seis millones de años. Cristina y Alberto aterrizan en un valle de dinosaurios, pero el núcleo de energía del aparato sale rodando y en el cielo brilla un asteroide. Tienen hora y media para recuperarlo antes de que el cielo se incendie.",
-        minigames={"14": "14-huellas.js", "20": "20-excavacion.js", "42": "42-diario.js", "40": "40-balsa.js", "46": "46-adn.js",
-                   "51": "51-estratos.js", "64": "64-cristales.js", "69": "69-nidos.js", "72": "72-geiser.js", "84": "84-esqueleto.js"},
+        sinopsis="Cuarto salto del Cronoportal: el Cretácico, hace sesenta y seis millones de años. Cristina y Alberto aterrizan en un valle de dinosaurios, el núcleo de energía del aparato sale rodando hacia un vado de barro y en el cielo brilla un asteroide. Entre huellas, nidos, un cráter, la lava, una manada, un corral, un pterosaurio y una ciénaga, tienen hora y media para recuperarlo y para encontrar a la doctora Ibarra, que lleva diecisiete años atrapada aquí.",
+        minigames={"14": "14-huellas.js", "20": "20-manada.js", "40": "40-nidos.js", "48": "48-crater.js", "52": "52-lava.js", "46": "46-senderos.js",
+                   "51": "51-arbol.js", "69": "69-corral.js", "72": "72-planear.js", "64": "64-barro.js", "85": "85-anillos.js"},
         pal=("#2f5a22", "#0a160c")),
     "Cuento": dict(
         datos=C, dificultad=3, tema="cuento", titulo="Érase una vez: El Libro de los Finales Felices", emoji="📖", minutos=90,

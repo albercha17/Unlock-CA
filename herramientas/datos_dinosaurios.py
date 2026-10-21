@@ -1,3 +1,18 @@
+"""Cretácico, hace 66 millones de años: El Valle de los Gigantes — versión de 61 cartas (21 oct 2026), mucho más difícil y variada.
+
+Once puzles que no salen en ningún otro juego de la serie, con las pistas dibujadas o en acertijo (ninguna carta explica cómo se resuelve
+su puzle): huellas pisadas unas sobre otras, cabezas y patas tras los helechos, nidos y helechos (tipo «Tents»), triangulación del cráter,
+desvío de la lava, la ruta de la manada (camino de Euler), el árbol de rasgos, el corral de quién se come a quién, planear con un
+pterosaurio aprovechando las térmicas, la balsa que resbala por el barro y la datación por anillos de tres troncos fósiles.
+Solo 15 cartas tienen a Cristina y Alberto (escenas); el resto son objetos y pistas sin personas.
+Las cartas-pista las dibuja herramientas/dinosaurios.py (instancias_dinosaurios.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_dinosaurios as I  # noqa: E402
+
 ESTILO = ("Ilustración digital semirrealista con aire de película de aventuras, luz dorada de atardecer entre vegetación exuberante del Cretácico "
           "(helechos gigantes, cícadas, coníferas), paleta de verdes profundos, ocres y naranja volcánico, con destellos azules del Cronoportal, formato vertical 2:3. "
           "Sin texto, letras ni números en la imagen; los mapas, cuadernos y paneles son solo dibujos decorativos sin escritura legible. "
@@ -24,373 +39,294 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con animación semirreali
          "Escena 4 (12-15 s): primer plano de Cristina y Alberto, asombrados, mirando al cielo; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, rugidos lejanos, insectos y viento entre los helechos, música de aventura con percusión, sin voz de narrador.")
 
+ESTILO += " Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes)."
+SIN_GENTE = "Sin ninguna persona en la imagen. "
+DOCTORA = ("la doctora Ibarra, paleontóloga de unos sesenta años, piel curtida por el sol, pelo gris recogido en una trenza, gafas remendadas con cuerda, "
+           "chaqueta de expedición de hace diecisiete años llena de parches y un sombrero de ala ancha muy gastado")
+
+MOSAICOS = {
+    "manada": dict(filas=2, cols=1, cartas=["19", "21"], titulo="La manada del abrevadero"),
+    "valle": dict(filas=1, cols=2, cartas=["42", "49"], titulo="El valle, de ladera a ladera"),
+    "ladera": dict(filas=1, cols=2, cartas=["54", "55"], titulo="La ladera del volcán"),
+    "senderos": dict(filas=1, cols=2, cartas=["37", "39"], titulo="Los senderos del valle"),
+}
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+_S_BARRO = ", ".join(I.BARRO["solucion"])
+_S_PLANEAR = ", ".join(I.PLANEAR["solucion"])
+_S_SENDEROS = " → ".join(I.SENDEROS["claros"][k] for k in I.euler(I.SENDEROS, "R"))
+_NOM = {"triceratops": "tricerátops", "tiranosaurio": "tiranosaurio", "anquilosaurio": "anquilosaurio", "edmontosaurio": "edmontosaurio",
+        "velociraptor": "velocirraptor", "compsognato": "compsognato", "protoceratops": "protoceratops", "pez": "pez", "cocodrilo": "cocodrilo",
+        "ave primitiva": "ave primitiva"}
+_S_HUELLAS = ", ".join(_NOM[e] for e in I.HUELLAS["orden"])
+_S_NIDOS = ", ".join("ABCDEF"[x] + str(y + 1) for x, y in I.NIDOS["solucion"])
+_S_CRATER = "ABCDEFGH"[I.CRATER["solucion"][0]] + str(I.CRATER["solucion"][1] + 1)
+_S_LAVA = "ABCDEF"[I.LAVA["solucion"][0]] + str(I.LAVA["solucion"][1] + 1)
+_S_ARBOL = ", ".join(_NOM[a] for a in I.ARBOL["solucion"])
+_FILA = ["arriba", "abajo"]
+_S_CORRAL = "; ".join(f"{_NOM[a]} {_FILA[c[1]]} {['a la izquierda', 'en el centro', 'a la derecha'][c[0]]}" for a, c in I.CORRAL["solucion"].items())
+_M = I.MANADA
+
+
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/dinosaurios.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=arte)
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
+
+
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada al Cretácico", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Cuarta parada del Cronoportal: el Cretácico superior, hace sesenta y seis millones de años. Cristina lleva toda la vida soñando con ver dinosaurios de verdad.",
-            "El salto vuelve a salir mal: aterrizáis en un valle junto a un río, el aparato se golpea con una roca y su núcleo de energía sale rodando entre los helechos. Sin él, el Cronoportal está muerto. Y en el cielo, un punto de luz cada vez más brillante: un asteroide. Tenéis una hora y media antes de que el cielo se incendie.",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="Un valle del Cretácico superior al atardecer, con helechos gigantes, cícadas y un río; al fondo un enorme saurópodo cruza entre la bruma y en el cielo naranja brilla un punto de luz muy intenso, un asteroide. En primer plano, un aparato de latón y cristal retrofuturista (el Cronoportal) humea sobre la hierba con una luz azul que se apaga. Cristina y Alberto, con ropa de expedición, se levantan desconcertados mirando el cielo."),
-    "10": dict(
-        titulo="Carta 10 — Campamento del doctor Ibarra", tipo="gris", coge=[14, 16, 18, 20, 22], descarta=["P"],
-        descripcion=[
-            "Entre los helechos, un campamento de campaña abandonado: la tienda del doctor Ibarra, un paleontólogo viajero que estuvo aquí antes que vosotros. Junto al río, unas huellas frescas en el barro (carta 14) y una guía de huellas clavada en un poste (carta 16). Más allá, una cuadrícula de cuerdas sobre un terreno removido (carta 20) con las notas de excavación (carta 18), y un rollo de cuerda sobre un baúl (carta 22).",
-            "Coged las cartas 14, 16, 18, 20 y 22. Descartad la carta P."],
-        pistas=["Hay dos puzles: las huellas del río y la excavación.", "Coged las cartas 14, 16, 18, 20 y 22. Descartad la carta P."],
-        arte="Un campamento de campaña de un paleontólogo entre helechos gigantes: una tienda de lona, un baúl con una cuerda enrollada, una cuadrícula de cuerdas clavada sobre tierra removida y unas huellas grandes en el barro junto a un río. Cristina y Alberto lo examinan con curiosidad bajo la luz dorada del atardecer."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin núcleo", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el núcleo de energía. Alberto: «Sin el núcleo no hay portal. Tiene que haber rodado por aquí cerca».",
-            "Cuando recuperéis el núcleo (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el núcleo de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, sobre una roca cubierta de musgo, con helechos al fondo."),
-    "14": dict(
-        titulo="Carta 14 — Huellas en el barro", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cuatro huellas en el barro del río. Hay que decir qué dinosaurio dejó cada una, usando la guía de huellas (carta 16).",
-            "Al acertar, reconocéis quién ronda el vado y encontráis un croquis del valle. Coged la carta 26."],
-        pistas=["Comparad la forma de cada huella con la guía de huellas (carta 16).", "Fijaos en los dedos: cuántos son, si tienen garras o son romos, y si la huella es redonda o ancha.", "De izquierda a derecha: Triceratops, Tiranosaurio, Anquilosaurio y Edmontosaurio."],
-        arte="Primer plano de cuatro huellas distintas de dinosaurio marcadas en el barro húmedo de la orilla de un río: una casi redonda con cinco dedos cortos, otra de tres dedos largos con garras, otra muy ancha con cuatro dedos y otra de tres dedos gordos y romos. Luz dorada rasante."),
-    "16": dict(
-        titulo="Carta 16 — Guía de huellas", tipo="gris",
-        descripcion=["Una guía de campo de huellas, clavada en un poste. Sirve para las huellas del río (carta 14)."],
-        pistas=["Es una guía para reconocer huellas.", "Sirve para las huellas en el barro (carta 14)."],
-        textoCarta=["Tiranosaurio: tres dedos con garras.", "Edmontosaurio: tres dedos gordos, sin garras.", "Triceratops: huella casi redonda, cinco dedos cortos.", "Anquilosaurio: muy ancha, cuatro dedos."],
-        arte="Una guía de campo de papel desgastado clavada en un poste de madera junto a un río, con dibujos decorativos de huellas de dinosaurio y flechas, sin texto legible; helechos alrededor."),
-    "18": dict(
-        titulo="Carta 18 — Notas de excavación", tipo="gris",
-        descripcion=["Las notas del doctor Ibarra sobre la excavación. Sirven para la cuadrícula (carta 20)."],
-        pistas=["Es el método para leer la cuadrícula.", "Sirve para la excavación (carta 20)."],
-        textoCarta=["Bajo la cuadrícula hay siete huesos.", "Cada número dice cuántos huesos tocan esa casilla, también en diagonal.", "Una casilla con número no esconde ningún hueso."],
-        arte="Una libreta de campo con manchas de tierra abierta sobre un baúl, con dibujos decorativos de un hueso y una cuadrícula, junto a un pincel y una brocha; sin texto legible."),
-    "20": dict(
-        titulo="Carta 20 — Excavación", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una cuadrícula de casillas con algunos números. Hay que marcar dónde están enterrados los huesos, usando las notas del doctor (carta 18).",
-            "Al acertar, aparece un esqueleto parcial y el equipo enterrado de Ibarra. Coged la carta 28."],
-        pistas=["Las notas del doctor (carta 18) explican qué significan los números.", "Un 0 significa que ninguna de las casillas de alrededor tiene hueso. Empezad por ahí.", "Los huesos están en B2, C4, D1, D5, E2, E3 y F5."],
-        arte="Una cuadrícula de cuerdas sobre un terreno de excavación paleontológica, con una brocha y pequeños huesos fosilizados apenas asomando de la tierra, y una pala clavada a un lado, a la luz del atardecer."),
-    "22": dict(
-        titulo="Carta 22 — Cuerda", tipo="roja", combina=[35, 57],
-        descripcion=[
-            "Un rollo de cuerda trenzada, resistente. Con un garfio de escalada servirá para trepar. Combinadla con el garfio que aparezca en la excavación (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Necesita algo con lo que engancharse.", "Cuando tengáis el garfio de escalada, combinadlo con la cuerda.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="Un rollo grande de cuerda trenzada de cáñamo sobre un baúl de madera de campamento, con un mosquetón y un nudo marinero, luz cálida del atardecer."),
-    "26": dict(
-        titulo="Carta 26 — Croquis del barranco", tipo="gris", descarta=[14, 16],
-        descripcion=[
-            "Con las huellas identificadas, entendéis por dónde ronda cada animal y encontráis un croquis del corte del barranco, con la ordenación de las capas de roca. Sirve para los estratos (carta 51).",
-            "Descartad las cartas 14 y 16."],
-        pistas=["El croquis ordena algunas capas de roca.", "Sirve para los estratos (carta 51)."],
-        textoCarta=["La ceniza del volcán cubre todo: es la capa de arriba.", "La arena con conchas, de un mar antiguo, es la del fondo.", "La arcilla está justo encima de la caliza."],
-        arte="Un croquis dibujado a lápiz sobre papel de campo, clavado en una roca, con un corte de barranco en capas de colores distintos y flechas, sin texto legible, junto a unas huellas en el barro."),
-    "28": dict(
-        titulo="Carta 28 — El hallazgo", tipo="gris", coge=[35, 37], descarta=[20, 18],
-        descripcion=[
-            "Bajo la cuadrícula aparece el esqueleto parcial de un anquilosaurio y, enterrado a su lado, el equipo que Ibarra escondió: un garfio de escalada (carta 35) y una pieza de ámbar con un mosquito dentro (carta 37).",
-            "Coged las cartas 35 y 37. Descartad las cartas 20 y 18."],
-        pistas=["Mirad lo que había enterrado junto a los huesos.", "Coged las cartas 35 y 37. Descartad las cartas 20 y 18."],
-        arte="Una excavación paleontológica con el esqueleto parcial de un dinosaurio acorazado asomando de la tierra; a su lado, un garfio de escalada de hierro y una pieza de ámbar dorado con un mosquito dentro sobre un paño. Cristina y Alberto se asoman con asombro."),
-    "35": dict(
-        titulo="Carta 35 — Garfio de escalada", tipo="azul", combina=[22, 57],
-        descripcion=["Un garfio de hierro de tres uñas, con un anillo para atar una cuerda. Combinadlo con la cuerda (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Es un garfio: necesita una cuerda.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="Un garfio de escalada de hierro de tres uñas con un anillo, sobre un paño de lona, junto a un hueso fosilizado, con tierra aún pegada."),
-    "37": dict(
-        titulo="Carta 37 — Muestra de ámbar", tipo="gris",
-        descripcion=["Una pieza de ámbar con un mosquito fosilizado. El doctor Ibarra anotó su cadena de ADN. Sirve para el secuenciador (carta 46)."],
-        pistas=["Es una cadena de ADN anotada.", "Sirve para el secuenciador (carta 46)."],
-        textoCarta=["Mosquito fosilizado. Cadena de ADN:", "A  T  G  C  C  G  T  A"],
-        arte="Una pieza de ámbar dorado del tamaño de una mano, con un mosquito fosilizado dentro, sostenida sobre una tela con una lupa al lado, luz cálida de atardecer."),
-    "57": dict(
-        titulo="Carta 57 — El barranco", tipo="gris", coge=[40, 42], descarta=[22, 35, 28, 10],
-        descripcion=[
-            "Anudáis la cuerda al garfio y trepáis por el barranco hasta la orilla del río grande. Allí, una balsa de troncos atada a la orilla (carta 40) y el diario del doctor Ibarra, tirado sobre ella (carta 42).",
-            "Coged las cartas 40 y 42. Descartad las cartas 22, 35, 28 y 10."],
-        pistas=["Subís hasta la orilla del río.", "Coged las cartas 40 y 42. Descartad las cartas 22, 35, 28 y 10."],
-        arte="Cristina y Alberto trepan por un barranco de roca roja con una cuerda atada a un garfio, hasta una orilla de río ancho con una balsa de troncos atada a la ribera y un diario abandonado sobre ella, helechos gigantes alrededor."),
-    "40": dict(
-        titulo="Carta 40 — Balsa del vado", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: hay que cruzar el río en una balsa llevando a tres criaturas, de una en una: un pequeño compsognato, un bebé de driosaurio y un cesto de helechos. Las normas del doctor Ibarra (carta 42) dicen qué no puede quedarse sin vigilancia.",
-            "Al cruzar a todos, llegáis a la otra orilla. Coged la carta 44."],
-        pistas=["Leed el diario del doctor Ibarra (carta 42): dice qué criaturas no pueden quedarse juntas.", "En la balsa solo cabe una criatura con vosotros. A veces hay que volver sin nada, o traer a alguien de vuelta.", "Cruzad: el bebé, vacíos de vuelta, el compsognato, traed de vuelta al bebé, los helechos, vacíos de vuelta y por fin el bebé."],
-        arte="Una balsa de troncos atada en la orilla de un río ancho del Cretácico, con un pequeño dinosaurio carnívoro bípedo del tamaño de un pollo, un bebé de dinosaurio herbívoro y un cesto de helechos esperando en la ribera, al atardecer."),
-    "42": dict(
-        titulo="Carta 42 — Diario del doctor Ibarra", tipo="verde",
-        descripcion=["Es un juego de la app (solo lectura): el diario del doctor Ibarra. Explica las normas para cruzar el río con la balsa (carta 40)."],
-        pistas=["Pasad las páginas con calma.", "Las normas del cruce están en el diario: sirven para la balsa (carta 40)."],
-        arte="Un diario de campo de tapas de cuero abierto sobre los troncos de una balsa, con dibujos decorativos de dinosaurios pequeños y de un río, y una pluma estilográfica al lado; sin texto legible."),
-    "44": dict(
-        titulo="Carta 44 — La otra orilla", tipo="gris", coge=[46, 48, 51, 52], descarta=[40, 42, 57],
-        descripcion=[
-            "Al otro lado del río está el laboratorio de campaña del doctor Ibarra: una tienda con un secuenciador de ADN (carta 46) y un manual de laboratorio (carta 48). Un poco más allá, la pared de un barranco con capas de roca de colores, con el cuaderno de capas del doctor (carta 52) y un punto marcado donde escondió algo (carta 51).",
-            "Coged las cartas 46, 48, 51 y 52. Descartad las cartas 40, 42 y 57."],
-        pistas=["Hay dos puzles: el laboratorio y las capas de roca.", "Coged las cartas 46, 48, 51 y 52. Descartad las cartas 40, 42 y 57."],
-        arte="La otra orilla de un río del Cretácico: una tienda de laboratorio de campaña con un aparato científico a la entrada y, más allá, la pared de un barranco con capas de roca de distintos colores y un cuaderno clavado. Cristina y Alberto acaban de desembarcar de la balsa."),
-    "46": dict(
-        titulo="Carta 46 — Secuenciador de ADN", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el secuenciador del doctor Ibarra, con una caja fuerte biométrica que se abre con la cadena complementaria del ADN del mosquito. La cadena de la muestra está en la carta 37 y el manual de laboratorio (carta 48) explica cómo se empareja.",
-            "Al acertar, la caja se abre. Coged la carta 54."],
-        pistas=["La muestra de ámbar (carta 37) da la cadena; el manual (carta 48) dice con qué se empareja cada letra.", "Cada letra de la cadena nueva es la pareja de la letra que está en su mismo sitio en la cadena de la muestra.", "La cadena nueva es T A C G G C A T."],
-        arte="Primer plano de un secuenciador de ADN de laboratorio de campaña: una caja de metal con una pantalla, una rejilla de tubos de ensayo y una caja fuerte pequeña con cerradura biométrica, en una tienda de lona iluminada por una lámpara."),
-    "48": dict(
-        titulo="Carta 48 — Manual de laboratorio", tipo="gris",
-        descripcion=["Una hoja del manual del laboratorio con la regla de emparejamiento del ADN. Sirve para el secuenciador (carta 46)."],
-        pistas=["Es la regla del ADN.", "Sirve para el secuenciador (carta 46)."],
-        textoCarta=["Las bases del ADN se emparejan siempre:", "A con T, y C con G.", "La cadena nueva se copia frente a la vieja, letra a letra."],
-        arte="Una hoja de manual de laboratorio sujeta con una pinza sobre una mesa de campaña, con dibujos decorativos de la doble hélice del ADN y esquemas de moléculas, sin texto legible, junto a tubos de ensayo."),
-    "51": dict(
-        titulo="Carta 51 — Estratos", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: seis capas de roca del barranco, mezcladas. Hay que ordenarlas de abajo arriba usando el croquis (carta 26) y el cuaderno de capas (carta 52). El escondite del doctor Ibarra está marcado en el lugar correcto.",
-            "Al acertar, encontráis lo que escondió. Coged la carta 58."],
-        pistas=["Los dos documentos (cartas 26 y 52) ordenan las capas con frases.", "Empezad por las capas fijas: la de arriba del todo y la del fondo.", "De abajo arriba: conchas, caliza, arcilla, arenisca, carbón y ceniza."],
-        arte="La pared de un barranco con seis capas de roca claramente distintas: arena con conchas, caliza clara, arcilla verdosa, arenisca roja, una capa negra de carbón y ceniza volcánica gris arriba del todo, con una cruz pintada de rojo en un punto."),
-    "52": dict(
-        titulo="Carta 52 — Cuaderno de capas", tipo="gris",
-        descripcion=["Un cuaderno de capas del doctor Ibarra. Sirve, junto con el croquis (carta 26), para ordenar los estratos (carta 51)."],
-        pistas=["Son dos frases sobre capas de roca.", "Sirve para los estratos (carta 51)."],
-        textoCarta=["El carbón está justo debajo de la ceniza.", "La arenisca está entre la arcilla y el carbón."],
-        arte="Un cuaderno de dibujos geológicos abierto sobre una roca, con un corte de capas de colores dibujado a lápiz y un martillo de geólogo al lado; sin texto legible."),
-    "54": dict(
-        titulo="Carta 54 — La caja abierta", tipo="gris", coge=[56], descarta=[46, 48, 37],
-        descripcion=[
-            "La caja fuerte del secuenciador se abre con un chasquido. Dentro hay una batería de campaña, del tamaño de un puño, con un cable.",
-            "Coged la carta 56. Descartad las cartas 46, 48 y 37."],
-        pistas=["Mirad lo que había en la caja.", "Coged la carta 56. Descartad las cartas 46, 48 y 37."],
-        arte="Una pequeña caja fuerte de laboratorio abierta, con una batería de campaña de color verde y un cable enrollado dentro, sobre una mesa de la tienda del laboratorio, con luz de lámpara."),
-    "56": dict(
-        titulo="Carta 56 — Batería de campaña", tipo="roja", combina=[38, 94],
-        descripcion=["Una batería de campaña cargada. Alberto: «Le irá bien a una linterna». Combinadla con la linterna (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Es una batería: alimentará algo.", "Cuando tengáis la linterna, combinadla con la batería.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Una batería de campaña de color verde militar con dos bornes de latón y un asa, sobre una mesa de madera, con luz de lámpara."),
-    "58": dict(
-        titulo="Carta 58 — El escondite", tipo="gris", coge=[38], descarta=[51, 52, 26],
-        descripcion=[
-            "En la capa marcada, un hueco en la roca guarda el último escondite del doctor Ibarra: una linterna potente, sin pilas.",
-            "Coged la carta 38. Descartad las cartas 51, 52 y 26."],
-        pistas=["Mirad dentro del hueco.", "Coged la carta 38. Descartad las cartas 51, 52 y 26."],
-        arte="Un hueco abierto en una capa de roca de un barranco, con una linterna de campaña grande y robusta dentro, y una cruz roja pintada junto a la entrada; Cristina la saca con cuidado."),
-    "38": dict(
-        titulo="Carta 38 — Linterna sin pilas", tipo="azul", combina=[56, 94],
-        descripcion=["Una linterna de campaña muy potente, pero sin pilas. Combinadla con la batería (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Es una linterna sin pilas.", "Combinad la carta 38 con la carta 56.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Una linterna de campaña grande de metal oxidado con un foco ancho y un compartimento de pilas abierto y vacío, sobre una roca cubierta de musgo."),
-    "94": dict(
-        titulo="Carta 94 — La cueva", tipo="gris", coge=[64, 66], descarta=[56, 38, 44, 54, 58],
-        descripcion=[
-            "Con la linterna encendida, Alberto descubre la entrada de una cueva en la ladera, de donde sale un calor extraño: el núcleo debió de rodar hasta aquí. La entrada está cerrada por una pared de cristales apagados (carta 64) y, al lado, un dibujo rupestre muestra cómo deben brillar (carta 66).",
-            "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
-        pistas=["Hay un puzle: la pared de cristales.", "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
-        arte="La entrada de una cueva en una ladera rocosa del Cretácico, iluminada por un haz de linterna; una pared de cristales apagados tapa el paso y a un lado hay un dibujo rupestre de cristales brillantes. Cristina y Alberto avanzan con la linterna. Cristina con cara de curiosidad y sorpresa; Alberto con miedo contenido y los ojos muy abiertos."),
-    "64": dict(
-        titulo="Carta 64 — Cristales de la cueva", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una pared de cristales apagados en filas. Al tocar uno, él y sus vecinos de arriba, abajo, izquierda y derecha cambian de estado (se encienden o se apagan). Hay que dejar iluminada la pared como muestra el dibujo rupestre (carta 66).",
-            "Al acertar, la pared se abre. Coged la carta 78."],
-        pistas=["El dibujo rupestre (carta 66) muestra qué cristales deben quedar encendidos.", "Cada pulsación cambia un cristal y los cuatro que lo rodean en cruz. No importa el orden de las pulsaciones.", "Pulsad B1, A2, B2, A3 y D3."],
-        arte="Una pared de una cueva con una cuadrícula de cuatro por tres cristales de colores, algunos apagados y otros encendidos con luz azul, brillando débilmente en la oscuridad."),
-    "66": dict(
-        titulo="Carta 66 — Dibujo rupestre", tipo="gris",
-        descripcion=["Un dibujo rupestre de cristales: indica cuáles deben brillar (●) y cuáles quedar apagados (○). Sirve para la pared de cristales (carta 64)."],
-        pistas=["Es el dibujo de la pared terminada.", "Sirve para la pared de cristales (carta 64)."],
-        textoCarta=["Así brilla la pared abierta:", "○ ○ ● ○", "● ● ● ●", "○ ○ ● ●"],
-        arte="Un dibujo rupestre rojo y negro sobre la pared de una cueva, con formas de cristales y de manos abiertas, y figuras de animales, sin texto legible, iluminado por una linterna."),
-    "78": dict(
-        titulo="Carta 78 — La cámara del nido", tipo="gris", coge=[69, 70], descarta=[64, 66, 94],
-        descripcion=[
-            "La pared se abre y entráis en una cámara caliente, iluminada por la lava lejana. En el suelo hay tres nidos: uno de ramas, uno de piedras y uno de plumas, y en el primero, cuatro huevos enormes de distinto tamaño apilados (carta 69). Una nota de Ibarra (carta 70) cuelga de un palo.",
-            "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
-        pistas=["Hay un puzle: los huevos y los nidos.", "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
-        arte="Una cámara de cueva caliente con tres nidos en el suelo (uno de ramas, uno de piedras y uno de plumas) y cuatro huevos de dinosaurio enormes apilados de mayor a menor en el nido de ramas, con el resplandor naranja de lava al fondo. Cristina y Alberto entran con cautela. Cristina con los ojos muy abiertos de asombro y una sonrisa nerviosa; Alberto con expresión de cautela y desconfianza, una ceja levantada."),
-    "69": dict(
-        titulo="Carta 69 — Huevos y nidos", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cuatro huevos de distinto tamaño apilados en un nido, y otros dos nidos vacíos. Hay que mover los huevos de uno en uno, nunca poniendo uno grande sobre uno más pequeño, hasta dejarlos en el nido que indica la nota de Ibarra (carta 70).",
-            "Al acertar, queda libre el hueco donde está el núcleo. Coged la carta 80."],
-        pistas=["Leed la nota (carta 70): dice en qué nido hay que dejar los huevos.", "Solo se mueve un huevo cada vez, y nunca uno grande sobre uno más pequeño. Con cuatro huevos hacen falta quince movimientos.", "Con cuatro huevos, el primer movimiento es llevar el más pequeño al nido de piedras; luego, seguid el patrón: el pequeño se mueve cada dos movimientos, siempre en el mismo sentido (ramas, piedras, plumas, ramas…)."],
-        arte="Tres nidos de dinosaurio en el suelo de una cueva: uno de ramas con cuatro huevos enormes apilados de distinto tamaño, otro de piedras y otro de plumas vacíos, con luz naranja de lava."),
-    "70": dict(
-        titulo="Carta 70 — Nota de Ibarra", tipo="gris",
-        descripcion=["Una nota del doctor Ibarra sobre los huevos. Sirve para los huevos y nidos (carta 69)."],
-        pistas=["Dice dónde debéis dejar los huevos.", "Sirve para los huevos y nidos (carta 69)."],
-        textoCarta=["El núcleo está debajo de los huevos.", "Pasadlos con cuidado, de uno en uno,", "al nido de plumas."],
-        arte="Una nota de papel clavada con una espina de cactus en un palo clavado en el suelo de una cueva, con un dibujo decorativo de un huevo grande y flechas, sin texto legible."),
-    "80": dict(
-        titulo="Carta 80 — La boca del géiser", tipo="gris", coge=[72, 76], descarta=[69, 70, 78],
-        descripcion=[
-            "Con los huevos a salvo, queda a la vista un hueco de roca caliente: el núcleo del Cronoportal brilla dentro, sobre la boca de un géiser a punto de estallar. Hay tres válvulas de bronce con manómetros (carta 72) y unas marcas de Ibarra con la presión segura (carta 76).",
-            "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
-        pistas=["Hay que calmar el géiser antes de coger el núcleo.", "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
-        arte="El hueco de una cueva con un pequeño géiser humeante y, sobre su boca, un núcleo de energía brillante de color azul; al lado, tres válvulas de bronce con manómetros circulares conectadas por tubos. Cristina y Alberto se acercan protegiéndose del vapor. Cristina con gesto de esfuerzo, entrecerrando los ojos por el vapor; Alberto con expresión de preocupación y la mano alzada para protegerse."),
-    "72": dict(
-        titulo="Carta 72 — Válvulas del géiser", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: tres válvulas que se abren de 0 a 6 y tres manómetros. Cada manómetro mide la presión que resulta de combinar las válvulas, de forma distinta. Hay que lograr los valores de presión segura que dan las marcas de Ibarra (carta 76).",
-            "Al acertar, el géiser se calma y podéis coger el núcleo. Coged la carta 82."],
-        pistas=["Las marcas de Ibarra (carta 76) dicen qué lectura debe marcar cada manómetro.", "Probad cada válvula sola: veréis cómo afecta a cada manómetro.", "Válvulas: la primera en 3, la segunda en 1 y la tercera en 4."],
-        arte="Tres válvulas de bronce con volantes y tres manómetros circulares con agujas, conectados por tubos oxidados junto a la boca de un géiser, en una cueva con vapor y luz naranja."),
-    "76": dict(
-        titulo="Carta 76 — Marcas de presión", tipo="gris",
-        descripcion=["Marcas de Ibarra con la presión segura de cada manómetro. Sirven para las válvulas del géiser (carta 72)."],
-        pistas=["Es la presión que debe marcar cada manómetro.", "Sirve para las válvulas del géiser (carta 72)."],
-        textoCarta=["Presión segura del géiser:", "primer manómetro 7,", "segundo 5 y tercero 11."],
-        arte="Tres marcas de pintura roja sobre una roca de cueva, junto a un dibujo decorativo de un manómetro y una aguja, sin texto legible, iluminado por una linterna."),
-    "82": dict(
-        titulo="Carta 82 — El núcleo", tipo="gris", coge=[62], descarta=[72, 76, 80],
-        descripcion=[
-            "El géiser se apaga con un suspiro de vapor. Cristina recoge con unas pinzas el núcleo, caliente y brillante.",
-            "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
-        pistas=["Recoged el núcleo.", "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
-        arte="Cristina sostiene con unas pinzas largas un núcleo de energía esférico y brillante de color azul, junto a la boca de un géiser ya apagado; Alberto la ilumina con una linterna, en una cueva con vapor. Cristina muy concentrada, con la lengua entre los dientes; Alberto sonriendo aliviado."),
-    "62": dict(
-        titulo="Carta 62 — Núcleo de energía", tipo="roja", combina=[12, 74],
-        descripcion=["El núcleo del Cronoportal: una esfera de cristal azul con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Una esfera de cristal azul con un fulgor interior y finas líneas de energía, sostenida sobre la palma de una mano con un guante, sobre un fondo de cueva con luz naranja."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[84, 86], descarta=[62, 12, 82],
-        descripcion=[
-            "El núcleo encaja con un chasquido y el Cronoportal se enciende, pero su energía se escapa: el aparato necesita un conductor. Las notas de Ibarra (carta 86) hablan de un esqueleto fósil que se encuentra junto al claro, «el fósil de la tormenta», un tiranosaurio. Hay que reconstruirlo (carta 84) para que su estructura de huesos haga de antena.",
-            "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal necesita un conductor de energía.", "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con el núcleo azul encajado en su pecho, en un claro al atardecer; a pocos pasos, los huesos sueltos de un gran tiranosaurio fosilizado esparcidos sobre la tierra, y en el cielo el asteroide cada vez más grande. Cristina y Alberto miran los huesos con determinación. Cristina con ceño fruncido y gesto de determinación; Alberto con la boca abierta de asombro mirando el cielo."),
-    "84": dict(
-        titulo="Carta 84 — El esqueleto", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: los huesos de un tiranosaurio, sueltos. El cráneo ya está colocado y la punta de la cola también. Hay que ordenar las piezas intermedias de forma que las marcas de cada articulación coincidan, según las notas de Ibarra (carta 86). Dos de las piezas no son de este esqueleto.",
-            "Al acertar, el esqueleto se alza y el portal se abre. Coged la carta 99."],
-        pistas=["Las notas de Ibarra (carta 86) explican cómo encajan los huesos.", "Cada hueso lleva marcas en sus dos extremos: las que se tocan deben ser iguales. Dos piezas sobran.", "Del cráneo a la cola van cinco piezas: la primera empieza con dos marcas y cada una empieza con las marcas con las que acaba la anterior. Las otras dos sobran."],
-        arte="Los huesos sueltos de un gran tiranosaurio ordenados sobre la tierra de un claro, con el cráneo ya colocado en un extremo, bajo un cielo naranja con el asteroide brillante, y el Cronoportal azul detrás."),
-    "86": dict(
-        titulo="Carta 86 — Notas de montaje", tipo="gris",
-        descripcion=["Notas de Ibarra sobre cómo se monta el esqueleto. Sirven para el esqueleto (carta 84)."],
-        pistas=["Es la regla del montaje.", "Sirve para el esqueleto (carta 84)."],
-        textoCarta=["Los huesos solo encajan si las marcas", "de sus articulaciones son iguales.", "Dos piezas no son de este esqueleto."],
-        arte="Una hoja de notas de campo sujeta con una piedra, con dibujos decorativos de un esqueleto de dinosaurio y de huesos con puntos en sus extremos, sin texto legible, al atardecer."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74, 84, 86],
-        descripcion=[
-            "El esqueleto se alza como una antena gigantesca y el Cronoportal se llena de energía. Se abre el portal justo cuando el asteroide ya ilumina todo el valle. Cristina se despide con la mano de un saurópodo que contempla el cielo, ajeno a todo.",
-            "Aterrizan en su salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 74, 84 y 86.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven el cielo naranja del Cretácico, el asteroide y el esqueleto de un tiranosaurio. Llevan aún su ropa de expedición con barro. Cristina ríe a carcajadas, llena de alegría; Alberto, con una mezcla de euforia y alivio divertido. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ El vado
+    "P": escena("P", "Llegada al Cretácico", [10, 12], [],
+                "Cuarto salto del Cronoportal: el Cretácico, hace sesenta y seis millones de años. Aterrizáis en un valle de helechos gigantes y el aparato escupe su núcleo de energía, que sale rodando ladera abajo hacia un vado de barro. En el cielo brilla un punto de luz que no debería estar ahí: el asteroide. Y de vez en cuando cae alguna piedra de fuego.",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "Un valle del Cretácico superior al atardecer, con helechos gigantes, cícadas y un río; al fondo un enorme saurópodo cruza entre la bruma y en el cielo naranja brilla un punto de luz muy intenso, un asteroide. En primer plano, un aparato de latón y cristal retrofuturista (el Cronoportal) humea sobre la hierba con una luz azul que se apaga. Cristina y Alberto, con ropa de expedición, se levantan desconcertados mirando el cielo."),
+    "10": escena("10", "El vado del barro", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "El rastro del núcleo acaba en un vado de barro pisoteado: esta mañana han cruzado cinco dinosaurios y uno de ellos se lo ha llevado pegado a la pata. Junto al vado, en un tronco, alguien clavó una guía de huellas dibujada a mano. Al otro lado, en el abrevadero, se oyen bufidos detrás de un muro de helechos. Y en el suelo, un rollo de cuerda que no es vuestro.",
+                 ["Hay dos puzles: el orden de las huellas del barro y la manada del abrevadero.", "La manada son dos cartas: juntadlas, una encima de otra."],
+                 "Un vado de barro junto a un río del Cretácico, lleno de huellas de dinosaurio pisadas unas sobre otras; en un tronco, un papel clavado con dibujos de huellas; al fondo, un muro de helechos altísimos con cabezas de dinosaurio asomando. Cristina, agachada, mide una huella con la mano abierta y cara de asombro; Alberto levanta un rollo de cuerda del suelo con el ceño fruncido de sospecha."),
+    "12": combinable("12", "Cronoportal sin núcleo", "azul", 62, 74,
+                     "El Cronoportal, con el anillo apagado y el hueco del núcleo de energía vacío.",
+                     SIN_GENTE + "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, sobre una roca cubierta de musgo, con helechos al fondo."),
+    "14": app("14", "El barro del vado", "Es un juego de la app: decir en qué orden cruzaron el vado los cinco dinosaurios.", 24,
+              ["El barro está en la carta 16 y la guía de huellas, con su nota, en la 18.", "Una huella que pisa a otra es de quien pasó después. Empezad por la que no pisa a ninguna.", f"En orden: {_S_HUELLAS}."],
+              SIN_GENTE + "El barro de un vado del Cretácico visto desde arriba, con varias huellas grandes de dinosaurio de formas distintas pisadas unas encima de otras."),
+    "16": gris("16", "El barro del vado", "El barro del vado, tal como lo encontrasteis.",
+               ["Sirve para el orden de las huellas (carta 14).", "Fijaos en qué huella tapa a cuál.", f"En orden: {_S_HUELLAS}."], codigo("el barro con las huellas")),
+    "18": gris("18", "Guía de huellas", "Una guía de huellas dibujada a mano, con una nota al pie.",
+               ["Sirve para el orden de las huellas (carta 14).", "Cada forma de huella es de un dinosaurio distinto.", "Lo que pisa después queda encima."], codigo("la guía de huellas")),
+    "19": pieza("19", "manada", "Media lámina de la manada del abrevadero.", ["Es la mitad de una lámina: juntadla con la carta 21.", "Arriba se cuentan cabezas; abajo, patas.", f"{_M['cabezas']} cabezas y {_M['patas']} patas: {_M['solucion']['triceratops']} tricerátops y {_M['solucion']['velociraptor']} velocirraptores."]),
+    "21": pieza("21", "manada", "Media lámina de la manada del abrevadero.", ["Es la mitad de una lámina: juntadla con la carta 19.", "Arriba se cuentan cabezas; abajo, patas.", f"{_M['cabezas']} cabezas y {_M['patas']} patas: {_M['solucion']['triceratops']} tricerátops y {_M['solucion']['velociraptor']} velocirraptores."]),
+    "20": app("20", "La manada del abrevadero", "Es un juego de la app: saber cuántos animales de cada clase hay detrás de los helechos antes de cruzar.", 28,
+              ["Las cabezas y las patas están en las cartas 19 y 21.", "Los tricerátops andan a cuatro patas y los raptores a dos. Contad cabezas y patas y repartid.", f"{_M['solucion']['triceratops']} tricerátops y {_M['solucion']['velociraptor']} velocirraptores."],
+              SIN_GENTE + "Un abrevadero del Cretácico tapado por un muro de helechos gigantes, con cuellos y cabezas de dinosaurio asomando por encima y patas por debajo."),
+    "22": combinable("22", "Cuerda", "azul", 35, 57, "Un rollo grande de cuerda trenzada, abandonado en el vado.",
+                     SIN_GENTE + "Un rollo grande de cuerda trenzada de cáñamo sobre un baúl de madera de campamento, con un mosquetón y un nudo marinero, luz cálida del atardecer."),
+    "24": escena("24", "El campamento escondido", [26], [14, 16, 18],
+                 "El rastro del último en cruzar os lleva a un campamento escondido entre helechos: una lona remendada, cacharros de hojalata y un cuaderno con tapas de cuero. En la primera página, una firma: «Dra. Ibarra, expedición de 2009». Alguien vino del futuro antes que vosotros... y se quedó. El cuaderno guarda un árbol dibujado con mucho cariño.",
+                 ["El árbol del cuaderno servirá más adelante."],
+                 "Un campamento escondido entre helechos gigantes con una lona remendada, cacharros de hojalata y un cuaderno de tapas de cuero abierto sobre una caja. Cristina lee el cuaderno con la boca abierta de sorpresa y Alberto sostiene una taza de hojalata oxidada con cara de no entender nada."),
+    "26": gris("26", "El árbol de la doctora", "Un árbol de parentesco dibujado en el cuaderno, con cinco ramas vacías.",
+               ["Sirve para el árbol (carta 51).", "Cada marca roja del tronco es un rasgo que tienen todos los que quedan por encima de ella.", f"De la rama 1 a la 5: {_S_ARBOL}."], codigo("el árbol de la doctora")),
+    "28": escena("28", "Al otro lado del abrevadero", [35], [19, 20, 21],
+                 "Cruzáis el abrevadero entre tricerátops que ni os miran. En la otra orilla hay una pared de roca, y clavado en una grieta, un garfio de escalada de hierro con las iniciales M. I. grabadas.",
+                 ["Lo que habéis encontrado se puede juntar con algo que ya tenéis."],
+                 "La orilla de un abrevadero del Cretácico con tricerátops bebiendo al fondo y una pared de roca con un garfio de escalada clavado en una grieta. Alberto tira del garfio con todas sus fuerzas, los dientes apretados, y Cristina vigila a los tricerátops por encima del hombro, conteniendo la respiración."),
+    "35": combinable("35", "Garfio de escalada", "roja", 22, 57, "Un garfio de escalada de hierro de tres uñas, con unas iniciales grabadas.",
+                     SIN_GENTE + "Un garfio de escalada de hierro de tres uñas con un anillo, sobre un paño de lona, junto a un hueso fosilizado, con tierra aún pegada."),
+    "57": escena("57", "Lo alto del acantilado", [31, 32], [22, 35, 10, 28],
+                 "Con la cuerda y el garfio trepáis a lo alto del acantilado. Desde arriba se ve todo el valle: a un lado, una playa llena de nidos y, detrás, una tienda de lona; al otro, la ladera humeante del volcán y un claro donde acaba de caer una piedra de fuego.",
+                 ["Hay dos caminos: la playa de los nidos y el valle del volcán. Podéis seguir los dos."],
+                 "Lo alto de un acantilado del Cretácico al atardecer, con una cuerda y un garfio enganchados al borde; abajo, una playa con nidos y al fondo un volcán humeante y una columna de humo donde ha caído un meteorito. Cristina, agarrada a la cuerda, asoma la cabeza con una sonrisa de triunfo; Alberto, ya arriba, señala el humo con el brazo extendido y cara de alarma."),
+    # ------------------------------------------------------------------ Rama 1: la playa de los nidos
+    "31": escena("31", "La playa de los nidos", [40, 41, 43, 45], [],
+                 "Una playa de arena negra salpicada de helechos, donde las madres maiasaura entierran sus huevos. Para llegar a la tienda del fondo hay que pasar entre los nidos sin pisar ninguno, y están tan bien tapados que no se ven. La doctora los vigilaba desde dos sitios distintos.",
+                 ["Hay que saber dónde está cada nido sin verlos."],
+                 SIN_GENTE + "Una playa de arena negra con helechos dispersos y madres maiasaura vigilando montículos de arena; al fondo, una tienda de lona; a un lado un acantilado y al sur una duna."),
+    "40": app("40", "La playa de los nidos", "Es un juego de la app: marcar dónde están los nidos de la playa.", 30,
+              ["Cuántos huevos se ven por fila y por columna: cartas 41 y 43. La costumbre de las madres: carta 45.", "Cada nido, pegado de lado a su helecho, y ningún nido toca a otro ni en diagonal. Empezad por las columnas sin huevos.", f"Nidos en {_S_NIDOS}."],
+              SIN_GENTE + "Una playa de arena negra vista desde arriba como un tablero, con helechos dispersos y la arena lisa, sin que se vean los nidos."),
+    "41": gris("41", "Desde el acantilado oeste", "Los huevos que se veían en cada fila de la playa.",
+               ["Sirve para los nidos (carta 40).", "Cada fila, tantos nidos como huevos.", f"Nidos en {_S_NIDOS}."], codigo("la playa desde el oeste")),
+    "43": gris("43", "Desde la duna del sur", "Los huevos que se veían en cada columna de la playa.",
+               ["Sirve para los nidos (carta 40).", "Cada columna, tantos nidos como huevos.", f"Nidos en {_S_NIDOS}."], codigo("la playa desde el sur")),
+    "45": gris("45", "Las madres maiasaura", "Lo que anotó la doctora sobre las madres.",
+               ["Sirve para los nidos (carta 40).", "Un nido por helecho, de lado; los nidos no se tocan ni en diagonal.", f"Nidos en {_S_NIDOS}."], codigo("la costumbre de las madres")),
+    "30": escena("30", "La tienda de la playa", [38], [31, 40, 41, 43, 45],
+                 "Llegáis a la tienda sin despertar a ninguna madre. Dentro hay un catre, un mapa de una ciénaga clavado en un poste y una nota: «El raptor guarda lo brillante en su cueva de la ciénaga. De noche no se ve nada: linterna». La linterna está ahí, pero sin pilas.",
+                 ["La linterna necesita energía: buscad una batería."],
+                 "El interior de una tienda de lona remendada con un catre, un mapa clavado en un poste y una linterna de metal sobre una caja. Cristina enciende y apaga la linterna sin éxito, con un mohín de fastidio, y Alberto lee la nota del poste rascándose la barba, pensativo."),
+    "38": combinable("38", "Linterna sin pilas", "roja", 56, 94, "Una linterna de campaña grande, con el compartimento de las pilas vacío.",
+                     SIN_GENTE + "Una linterna de campaña grande de metal oxidado con un foco ancho y un compartimento de pilas abierto y vacío, sobre una roca cubierta de musgo."),
+    # ------------------------------------------------------------------ Rama 2: el valle del volcán
+    "32": escena("32", "La atalaya", [42, 48, 49, 53], [],
+                 "Bajáis hacia el humo y encontráis una atalaya de troncos con un mapa del valle cuadriculado y un cuaderno de vigías: tres puestos vieron caer la piedra de fuego anoche, cada uno desde su sitio. Quien la vio caer quizá siga allí.",
+                 ["El mapa son dos cartas: juntadlas. Los tres vigías os dicen hacia dónde miraron."],
+                 "Una atalaya de troncos atados con lianas en lo alto de una colina del Cretácico, con un mapa cuadriculado clavado en una tabla y una brújula colgando; al fondo, una columna de humo. Alberto sube por la escalerilla con el gesto tenso de vértigo y Cristina, abajo, sostiene la brújula muy concentrada, mordiéndose el labio."),
+    "48": app("48", "El cráter", "Es un juego de la app: marcar en el valle la casilla donde cayó la piedra de fuego.", 36,
+              ["El mapa del valle, con los tres puestos, está en las cartas 42 y 49; lo que vio cada vigía, en la carta 53.", "Trazad en el mapa una línea recta desde cada vigía hacia donde apunta su flecha: las tres se cruzan en un solo sitio.", f"El cráter está en {_S_CRATER}."],
+              SIN_GENTE + "Un valle del Cretácico visto desde lo alto de una colina, cuadriculado como un tablero, con una columna de humo lejana."),
+    "42": pieza("42", "valle", "Media hoja del mapa del valle.", ["Es la mitad de un mapa: juntadla con la carta 49.", "Las letras van de oeste a este y los números de norte a sur.", f"El cráter está en {_S_CRATER}."]),
+    "49": pieza("49", "valle", "Media hoja del mapa del valle.", ["Es la mitad de un mapa: juntadla con la carta 42.", "Las letras van de oeste a este y los números de norte a sur.", f"El cráter está en {_S_CRATER}."]),
+    "53": gris("53", "Los tres vigías", "Lo que vio cada vigía, cada uno desde su sitio.",
+               ["Sirve para el cráter (carta 48).", "Cada flecha marca una dirección desde su puesto, en línea recta, también en diagonal.", f"El cráter está en {_S_CRATER}."], codigo("las tres rosas de los vientos")),
+    "36": escena("36", "La doctora Ibarra", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "Al borde del cráter os espera una mujer de pelo gris, con gafas remendadas: «¡Gente del futuro! Soy la doctora Ibarra. Mi portal se rompió hace años y aquí sigo». No hay tiempo para abrazos: la piedra de fuego ha despertado al volcán y va a escupir lava por la ladera, justo hacia los nidos. Ella apuntó la altura de cada palmo de la ladera.",
+                 ["Las alturas de la ladera son dos cartas: juntadlas."],
+                 "El borde de un cráter humeante en un valle del Cretácico, con un volcán rugiendo al fondo. " + DOCTORA[0].upper() + DOCTORA[1:] + ", abraza a Cristina, que se ha quedado con los ojos como platos de la emoción, mientras Alberto, con la boca abierta, mira alternativamente a la doctora y al volcán."),
+    "52": app("52", "La lava", "Es un juego de la app: poner una roca para que la lava no llegue a los nidos.", 44,
+              ["Las alturas están en las cartas 54 y 55; cómo baja la lava, en la carta 59.", "Seguid la lava desde el volcán: de cada casilla va a la vecina más baja de las cuatro. La roca tiene que estar en su camino y obligarla a ir por otro.", f"La roca va en {_S_LAVA}."],
+              SIN_GENTE + "La ladera de un volcán del Cretácico vista desde arriba, cuadriculada, con un cráter humeante arriba y unos nidos de huevos abajo."),
+    "54": pieza("54", "ladera", "Media hoja de las alturas de la ladera.", ["Es la mitad de un mapa: juntadla con la carta 55.", "Los números son alturas: la lava va siempre a la vecina más baja.", f"La roca va en {_S_LAVA}."]),
+    "55": pieza("55", "ladera", "Media hoja de las alturas de la ladera.", ["Es la mitad de un mapa: juntadla con la carta 54.", "Los números son alturas: la lava va siempre a la vecina más baja.", f"La roca va en {_S_LAVA}."]),
+    "59": gris("59", "La canción de los volcanes", "Una canción de la doctora sobre la lava.",
+               ["Sirve para la lava (carta 52).", "De cada casilla, a la vecina más baja de las cuatro; si ninguna es más baja, se para.", f"La roca va en {_S_LAVA}."], codigo("la canción de los volcanes")),
+    "44": escena("44", "El refugio de la doctora", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "La lava se enfría lejos de los nidos y la doctora os lleva a su refugio, una cueva seca llena de dibujos. Os cuenta que guarda una batería de su viejo portal escondida donde duermen los edmontosaurios, y que su corral lo encontraréis en su cofre... cuyo cierre es el árbol de su cuaderno.",
+                 ["Hay dos puzles: la ruta de la manada y el árbol del cofre. El árbol del cuaderno sirve aquí."],
+                 "El interior de una cueva seca con las paredes llenas de dibujos de dinosaurios a carbón, un cofre de madera con cinco huecos en la tapa y una lámpara de aceite. " + DOCTORA[0].upper() + DOCTORA[1:] + ", dibuja un mapa con un palo; Alberto la escucha con una sonrisa admirada y Cristina examina el cofre con la nariz casi pegada, intrigada."),
+    "46": app("46", "La ruta de la manada", "Es un juego de la app: seguir a los edmontosaurios por todo el valle hasta donde duermen.", 56,
+              ["El mapa de los senderos está en las cartas 37 y 39; la costumbre de la manada, en la carta 33.", "Salen de la Roca Alta y pisan todos los senderos una sola vez. Un claro con un número impar de senderos solo puede ser el principio o el final.", f"Un recorrido que vale: {_S_SENDEROS}."],
+              SIN_GENTE + "Un valle del Cretácico al alba con una manada de edmontosaurios en fila por un sendero entre helechos y varios claros a lo lejos."),
+    "37": pieza("37", "senderos", "Media hoja del mapa de los senderos.", ["Es la mitad de un mapa: juntadla con la carta 39.", "Contad los senderos que salen de cada claro.", f"Un recorrido que vale: {_S_SENDEROS}."]),
+    "39": pieza("39", "senderos", "Media hoja del mapa de los senderos.", ["Es la mitad de un mapa: juntadla con la carta 37.", "Contad los senderos que salen de cada claro.", f"Un recorrido que vale: {_S_SENDEROS}."]),
+    "33": gris("33", "La ruta de los edmontosaurios", "Lo que anotó la doctora sobre la manada.",
+               ["Sirve para la ruta de la manada (carta 46).", "Todos los senderos, ninguno dos veces, empezando en la Roca Alta.", f"Un recorrido que vale: {_S_SENDEROS}."], codigo("la costumbre de la manada")),
+    "56": combinable("56", "Batería de campaña", "roja", 38, 94, "La batería del viejo portal de la doctora, todavía con algo de carga.",
+                     SIN_GENTE + "Una batería de campaña de color verde militar con dos bornes de latón y un asa, sobre una mesa de madera, con luz de lámpara."),
+    "51": app("51", "El cofre del árbol", "Es un juego de la app: el cierre del cofre de la doctora, con cinco ramas donde va un animal cada una.", 58,
+              ["El árbol está en la carta 26 y los animales, con sus rasgos dibujados, en las fichas 61 y 63.", "Cada marca roja del tronco es un rasgo que tienen todos los de las ramas que salen por encima de ella. La rama 1 no tiene ninguno.", f"De la rama 1 a la 5: {_S_ARBOL}."],
+              SIN_GENTE + "La tapa de un cofre de madera con un árbol tallado de cinco ramas vacías y cinco fichas de hueso con animales grabados al lado."),
+    "61": gris("61", "Fichas de la doctora (I)", "Tres animales dibujados por la doctora, con sus rasgos.",
+               ["Sirve para el árbol (carta 51).", "Contad los rasgos de cada animal.", f"De la rama 1 a la 5: {_S_ARBOL}."], codigo("fichas I")),
+    "63": gris("63", "Fichas de la doctora (II)", "Dos animales más dibujados por la doctora, con sus rasgos.",
+               ["Sirve para el árbol (carta 51).", "Contad los rasgos de cada animal.", f"De la rama 1 a la 5: {_S_ARBOL}."], codigo("fichas II")),
+    "58": escena("58", "El cofre abierto", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "El cofre se abre con un chasquido. Dentro, el plano del corral donde la doctora encierra de noche a los animales que ha criado, y su regla de oro dibujada en la tapa. Ya anochece y los animales andan sueltos: hay que encerrarlos antes de que alguno acabe en el estómago de otro.",
+                 ["Hay que encerrar a cada animal en su cercado."],
+                 "Un cofre de madera abierto en una cueva, con un plano dibujado y una tapa llena de flechas pintadas; por la entrada se ve el atardecer y siluetas de dinosaurios pequeños. Cristina despliega el plano con una sonrisa traviesa y Alberto mira hacia la entrada con cara de preocupación, sujetando una antorcha."),
+    "69": app("69", "El corral", "Es un juego de la app: meter a los seis animales en los seis cercados para pasar la noche.", 80,
+              ["Quién come a quién está en la carta 70; el plano, con quien ya estaba dentro, en la 71.", "El tiranosaurio y el velocirraptor son los más peligrosos: ponedlos lejos de sus presas.", f"{_S_CORRAL}."],
+              SIN_GENTE + "Un corral de troncos con seis cercados de noche, a la luz de la luna, con dinosaurios pequeños y grandes esperando fuera."),
+    "70": gris("70", "Quién se come a quién", "Las flechas que la doctora pintó en la tapa del cofre.",
+               ["Sirve para el corral (carta 69).", "La flecha va del que come al que se come: esos dos no pueden compartir pared.", f"{_S_CORRAL}."], codigo("la red de quién se come a quién")),
+    "71": gris("71", "El plano del corral", "El plano de los seis cercados, con un animal que ya estaba dentro.",
+               ["Sirve para el corral (carta 69).", "El compsognato ya está en su sitio: empezad por él.", f"{_S_CORRAL}."], codigo("el plano del corral")),
+    "80": escena("80", "El Quetzal", [72, 75, 79], [58, 69, 70, 71],
+                 "Noche tranquila. Al amanecer, un pterosaurio enorme se posa en la cerca: es el Quetzal, la montura de la doctora. «La cueva del raptor solo se ve bien desde su nido, en lo alto del acantilado. Él os llevará, pero no sabe aletear: solo planea». En la cueva hay un dibujo del cielo con los remolinos de aire caliente.",
+                 ["Para llegar al nido hay que aprovechar el aire caliente."],
+                 "Un enorme pterosaurio de cresta roja posado en la cerca de un corral de troncos al amanecer. Alberto le acaricia el pico con una mezcla de miedo y fascinación y Cristina, ya subida a su lomo, se agarra con fuerza y suelta una carcajada nerviosa; " + DOCTORA + ", les hace señas desde abajo."),
+    "72": app("72", "Planear con el Quetzal", "Es un juego de la app: llevar al Quetzal planeando del acantilado hasta su nido sin tocar el suelo.", 82,
+              ["El cielo, con montañas y remolinos, está en la carta 75; cómo planea, en la carta 79.", "Cada casilla cuesta un palmo y cada remolino da tantos palmos como vueltas tiene, solo la primera vez. Pasad por varios.", f"Un vuelo que vale: {_S_PLANEAR}."],
+              SIN_GENTE + "Un pterosaurio planeando sobre un valle del Cretácico al amanecer, entre montañas, con remolinos de aire caliente que suben del suelo."),
+    "75": gris("75", "El cielo del acantilado", "El cielo del valle dibujado desde lo alto: montañas, remolinos y el nido.",
+               ["Sirve para planear (carta 72).", "Contad las vueltas de cada remolino: son los palmos que sube.", f"Un vuelo que vale: {_S_PLANEAR}."], codigo("el cielo con las térmicas")),
+    "79": gris("79", "Cómo planea el Quetzal", "Lo que sabe la doctora del vuelo de su pterosaurio.",
+               ["Sirve para planear (carta 72).", "Cada casilla, un palmo menos; cada remolino, la primera vez, palmos de más.", "Las montañas no se cruzan."], codigo("cómo planea el Quetzal")),
+    "82": escena("82", "El nido en lo alto", [85, 86, 87, 76], [80, 72, 75, 79],
+                 "El Quetzal se posa en su nido, en lo alto del acantilado. Desde aquí se ve la boca de la cueva del raptor, en mitad de la ciénaga. Entre las ramas del nido, la doctora escondió lo que le queda de su portal: un calibrador de latón. «Para volver a casa, el portal tiene que saber cuántos años llevo aquí. Perdí la cuenta... pero los árboles no la pierden». Al lado, tres cortes de tronco.",
+                 ["El calibrador se resuelve con los tres troncos, pero necesitará el Cronoportal en marcha."],
+                 "Un gran nido de ramas en lo alto de un acantilado del Cretácico con un pterosaurio posado, un calibrador de latón entre las ramas y tres rodajas de tronco fósil. Cristina sostiene el calibrador contra el sol con cara de asombro y Alberto, despeinado por el vuelo, mira hacia abajo con vértigo, abrazado a una rama."),
+    "85": app("85", "El calibrador", "Es un juego de la app: decirle al calibrador cuántos años lleva la doctora en el Cretácico, para que el Cronoportal se la lleve con vosotros.", 99,
+              ["Los tres troncos están en las cartas 86, 87 y 76. Cada anillo es un año.", "El tronco del río tiene trozos con el mismo dibujo de anillos que los otros dos: alineadlos y contad los años desde el último anillo del tronco del volcán hasta el último del de la entrada.", f"Lleva {I.ANILLOS['solucion']} años."],
+              SIN_GENTE + "Un calibrador de latón con dos ruedas de números y una aguja, apoyado entre tres rodajas de tronco fósil con anillos marcados."),
+    "86": gris("86", "Tronco fósil del volcán", "El corte de un tronco quemado en la gran erupción.",
+               ["Sirve para el calibrador (carta 85).", "Su último anillo es el año en que llegó la doctora.", f"Lleva {I.ANILLOS['solucion']} años."], codigo("tronco del volcán")),
+    "87": gris("87", "Tronco fósil del río", "El corte de un tronco que arrastró el río.",
+               ["Sirve para el calibrador (carta 85).", "Buscad en él el final del tronco del volcán y el principio del de la entrada.", f"Lleva {I.ANILLOS['solucion']} años."], codigo("tronco del río")),
+    "76": gris("76", "Tronco de la entrada", "El corte del tronco que cayó esta mañana en la entrada de la cueva.",
+               ["Sirve para el calibrador (carta 85).", "Su último anillo es este mismo año.", f"Lleva {I.ANILLOS['solucion']} años."], codigo("tronco de la entrada")),
+    # ------------------------------------------------------------------ La ciénaga y el final
+    "94": escena("94", "La ciénaga de noche", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Con la batería, la linterna da una luz potente. Bajáis a la ciénaga al caer la noche: el barro es tan resbaladizo que solo se puede cruzar en una balsa de troncos, y la cueva del raptor no se ve desde la orilla. La doctora dibujó la ciénaga desde un árbol.",
+                 ["La cueva solo está dibujada en la carta 66."],
+                 "Una ciénaga del Cretácico de noche, con barro brillante, rocas y una balsa de troncos en la orilla, iluminada por el haz de una linterna. Cristina sostiene la linterna en alto con gesto decidido y Alberto empuja la balsa con un palo, resbalando, con cara de susto cómico."),
+    "64": app("64", "La balsa en el barro", "Es un juego de la app: llevar la balsa por el barro hasta la boca de la cueva.", 62,
+              ["La cueva está en la carta 66; cómo resbala la balsa, en la carta 67.", "La balsa solo se para al chocar: buscad qué roca la detiene justo en la cueva y llegad a ella hacia atrás.", f"Los empujones: {_S_BARRO}."],
+              SIN_GENTE + "Una ciénaga de barro brillante de noche vista desde arriba, con rocas dispersas y una balsa de troncos en una esquina."),
+    "66": gris("66", "La ciénaga desde el árbol", "El dibujo de la ciénaga que hizo la doctora, con la cueva.",
+               ["Sirve para la balsa (carta 64).", "La boca de la cueva es el círculo negro.", f"Los empujones: {_S_BARRO}."], codigo("la ciénaga desde el árbol")),
+    "67": gris("67", "Grabado en la balsa", "Una advertencia grabada en los troncos de la balsa.",
+               ["Sirve para la balsa (carta 64).", "Resbala hasta chocar; hay que pararse en la cueva, no pasar por encima.", f"Los empujones: {_S_BARRO}."], codigo("la advertencia de la balsa")),
+    "62": combinable("62", "Núcleo de energía", "roja", 12, 74, "El núcleo de energía del Cronoportal, rescatado de la cueva del raptor, todavía brillante.",
+                     SIN_GENTE + "Una esfera de cristal azul con un fulgor interior y finas líneas de energía, sostenida sobre la palma de una mano con un guante, sobre un fondo de cueva con luz de linterna."),
+    "74": escena("74", "Cronoportal reconectado", [], [62, 12, 64, 66, 67, 94, 57],
+                 "El núcleo encaja con un zumbido y el anillo del Cronoportal se enciende. En el cielo, el asteroide ya es una bola de fuego. La doctora os mira con los ojos húmedos: «¿Hay sitio para una más?». El portal la llevará... en cuanto el calibrador sepa cuántos años lleva aquí.",
+                 ["Falta el calibrador."],
+                 "El Cronoportal encendido con el núcleo azul encajado en su pecho, en lo alto de un acantilado del Cretácico de noche, con un asteroide enorme ardiendo en el cielo. Alberto ajusta las antenas con una sonrisa de alivio y Cristina toma de la mano a " + DOCTORA + ", que mira el aparato con lágrimas en los ojos."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87, 76],
+                 "El calibrador marca los años exactos y el portal se abre de golpe. Saltáis los tres justo cuando el cielo se vuelve blanco. Aterrizáis en vuestro salón, cubiertos de barro, con una paleontóloga que no ve su siglo desde hace diecisiete años. La doctora Ibarra mira el sofá, la lámpara, la nevera... y se echa a reír. FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos, junto a " + DOCTORA + "; a través del portal todavía se ven el cielo naranja del Cretácico, el asteroide y un pterosaurio. Llevan aún su ropa de expedición con barro. Cristina ríe a carcajadas, Alberto suelta un suspiro de alivio divertido y la doctora se ríe mirando la lámpara del techo. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="Cretácico, hace 66 millones de años — El Valle de los Gigantes",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-)
+META = dict(juego="Cretácico — El Valle de los Gigantes", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["14", "16"], "28": ["20", "18"], "57": ["22", "35"], "44": ["40", "42"], "54": ["46", "48", "37"],
-           "58": ["51", "52", "26"], "94": ["56", "38"], "78": ["64", "66"], "80": ["69", "70"], "82": ["72", "76"],
-           "74": ["62", "12"], "99": ["84", "86"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16", "18"], "28": ["20", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "76", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada al valle. Te manda coger la 10 y la 12.",
-    "10": "El campamento: reparte las huellas, la guía, la excavación, las notas y la cuerda.",
-    "12": "El Cronoportal sin núcleo: se combina con el núcleo de energía (62).",
-    "14": "Huellas en el barro (app): reconocer cuatro huellas de dinosaurio.",
-    "16": "Guía de huellas: cómo es la huella de cada dinosaurio.",
-    "18": "Notas de excavación: cómo leer los números de la cuadrícula.",
-    "20": "Excavación (app): deducir dónde están los huesos, como un buscaminas.",
-    "22": "Cuerda: se combina con el garfio (35).",
-    "26": "Croquis del barranco: frases para ordenar las capas de roca; te manda descartar las huellas.",
-    "28": "El hallazgo: reparte el garfio y el ámbar.",
-    "35": "Garfio de escalada: se combina con la cuerda (22).",
-    "37": "Muestra de ámbar: la cadena de ADN del mosquito.",
-    "57": "El barranco: resultado de 22 + 35; reparte la balsa y el diario.",
-    "40": "Balsa del vado (app): puzle clásico de cruzar el río con criaturas.",
-    "42": "Diario del doctor Ibarra (app de lectura): las normas del cruce.",
-    "44": "La otra orilla: reparte el laboratorio y las capas de roca.",
-    "46": "Secuenciador de ADN (app): completar la cadena complementaria.",
-    "48": "Manual de laboratorio: la regla de emparejamiento del ADN.",
-    "51": "Estratos (app): ordenar seis capas de roca de abajo arriba.",
-    "52": "Cuaderno de capas: dos frases sobre capas de roca.",
-    "54": "La caja abierta: reparte la batería.",
-    "56": "Batería de campaña: se combina con la linterna (38).",
-    "58": "El escondite: reparte la linterna.",
-    "38": "Linterna sin pilas: se combina con la batería (56).",
-    "94": "La cueva: resultado de 56 + 38; reparte los cristales y el dibujo.",
-    "64": "Cristales de la cueva (app): apagar y encender una pared (estilo «luces»).",
-    "66": "Dibujo rupestre: cómo debe quedar la pared de cristales.",
-    "78": "La cámara del nido: reparte los huevos y la nota.",
-    "69": "Huevos y nidos (app): mover huevos de uno en uno, sin poner uno grande sobre otro más pequeño.",
-    "70": "Nota de Ibarra: en qué nido hay que dejar los huevos.",
-    "80": "La boca del géiser: reparte las válvulas y las marcas.",
-    "72": "Válvulas del géiser (app): ajustar tres válvulas para que tres manómetros marquen lo pedido.",
-    "76": "Marcas de presión: la lectura que debe marcar cada manómetro.",
-    "82": "El núcleo: reparte el núcleo de energía.",
-    "62": "Núcleo de energía: se combina con el Cronoportal (12).",
-    "74": "Cronoportal reconectado: resultado de 62 + 12; reparte el esqueleto y las notas.",
-    "84": "El esqueleto (app): ordenar los huesos haciendo coincidir las marcas de sus articulaciones.",
-    "86": "Notas de montaje: la regla del esqueleto.",
-    "99": "Final de la aventura.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-PASOS = [
-    dict(t="Llegada al Cretácico", que="Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12.",
-         acciones=[("leer", "P")], mesa=["P", "10", "12"]),
-    dict(t="El campamento", que="Lee la carta 10. Descarta la P y coge 14, 16, 18, 20 y 22. Hay dos puzles: las huellas (14, con la guía 16) y la excavación (20, con las notas 18).",
-         acciones=[("leer", "10")], mesa=["10", "12", "14", "16", "18", "20", "22"]),
-    dict(t="Reconoce las huellas", que="En el móvil: Acción, 14. La guía (16) describe cada huella. De izquierda a derecha: Triceratops, Tiranosaurio, Anquilosaurio y Edmontosaurio. El mensaje te dice que cojas la 26.",
-         acciones=[("app", "14", "carta 26")], mesa=["10", "12", "14", "16", "18", "20", "22", "26"]),
-    dict(t="El croquis", que="Lee la carta 26. Te manda descartar la 14 y la 16. Guárdala: sus frases sirven para los estratos más adelante.",
-         acciones=[("leer", "26")], mesa=["10", "12", "18", "20", "22", "26"]),
-    dict(t="Excava", que="En el móvil: Acción, 20. Las notas (18) dicen que hay siete huesos. Marca B2, C4, D1, D5, E2, E3 y F5. El mensaje te dice que cojas la 28.",
-         acciones=[("app", "20", "carta 28")], mesa=["10", "12", "18", "20", "22", "26", "28"]),
-    dict(t="El hallazgo", que="Lee la carta 28. Descarta 20 y 18 y coge 35 y 37. El garfio (35) es combinable; la muestra de ámbar (37) tiene una cadena de ADN.",
-         acciones=[("leer", "28")], mesa=["10", "12", "22", "26", "28", "35", "37"]),
-    dict(t="Cuerda con garfio", que="La cuerda (22) y el garfio (35) son combinables: 22 + 35 = 57. Coge la 57.",
-         acciones=[("combinar", "22", "35")], mesa=["10", "12", "22", "26", "28", "35", "37", "57"]),
-    dict(t="El barranco", que="Lee la carta 57. Descarta 22, 35, 28 y 10 y coge 40 y 42.",
-         acciones=[("leer", "57")], mesa=["12", "26", "37", "57", "40", "42"]),
-    dict(t="El diario de Ibarra", que="En el móvil: Acción, 42. Pasa las páginas: explican qué criaturas no pueden quedarse solas en la orilla.",
-         acciones=[("app", "42", "")], mesa=["12", "26", "37", "57", "40", "42"]),
-    dict(t="Cruza el río", que="En el móvil: Acción, 40. Con la balsa cruza: el bebé, vuelta sin nada, el compsognato, vuelta con el bebé, los helechos, vuelta sin nada y el bebé. El mensaje te dice que cojas la 44.",
-         acciones=[("app", "40", "carta 44")], mesa=["12", "26", "37", "57", "40", "42", "44"]),
-    dict(t="La otra orilla", que="Lee la carta 44. Descarta 40, 42 y 57 y coge 46, 48, 51 y 52. Hay dos puzles: el secuenciador (46, con la muestra 37 y el manual 48) y los estratos (51, con el croquis 26 y el cuaderno 52).",
-         acciones=[("leer", "44")], mesa=["12", "26", "37", "44", "46", "48", "51", "52"]),
-    dict(t="Abre la caja con el ADN", que="En el móvil: Acción, 46. La muestra (37) es A T G C C G T A; el manual (48) dice que A va con T y C con G. Escribe la cadena nueva: T A C G G C A T. El mensaje te dice que cojas la 54.",
-         acciones=[("app", "46", "carta 54")], mesa=["12", "26", "37", "44", "46", "48", "51", "52", "54"]),
-    dict(t="La caja abierta", que="Lee la carta 54. Descarta 46, 48 y 37 y coge la 56, una batería.",
-         acciones=[("leer", "54")], mesa=["12", "26", "44", "51", "52", "54", "56"]),
-    dict(t="Ordena los estratos", que="En el móvil: Acción, 51. Con el croquis (26) y el cuaderno (52), de abajo arriba: conchas, caliza, arcilla, arenisca, carbón y ceniza. El mensaje te dice que cojas la 58.",
-         acciones=[("app", "51", "carta 58")], mesa=["12", "26", "44", "51", "52", "54", "56", "58"]),
-    dict(t="El escondite", que="Lee la carta 58. Descarta 51, 52 y 26 y coge la 38, una linterna sin pilas.",
-         acciones=[("leer", "58")], mesa=["12", "44", "54", "56", "58", "38"]),
-    dict(t="Linterna con batería", que="La batería (56) y la linterna (38) son combinables: 56 + 38 = 94. Coge la 94.",
-         acciones=[("combinar", "56", "38")], mesa=["12", "44", "54", "56", "58", "38", "94"]),
-    dict(t="La cueva", que="Lee la carta 94. Descarta 56, 38, 44, 54 y 58 y coge 64 y 66. El dibujo rupestre (66) muestra cómo debe quedar la pared de cristales (64).",
-         acciones=[("leer", "94")], mesa=["12", "94", "64", "66"]),
-    dict(t="La pared de cristales", que="En el móvil: Acción, 64. Pulsa B1, A2, B2, A3 y D3 para dejar la pared como el dibujo (66). El mensaje te dice que cojas la 78.",
-         acciones=[("app", "64", "carta 78")], mesa=["12", "94", "64", "66", "78"]),
-    dict(t="La cámara del nido", que="Lee la carta 78. Descarta 64, 66 y 94 y coge 69 y 70. La nota (70) dice que los huevos deben acabar en el nido de plumas.",
-         acciones=[("leer", "78")], mesa=["12", "78", "69", "70"]),
-    dict(t="Mueve los huevos", que="En el móvil: Acción, 69. Pasa los cuatro huevos de uno en uno, sin poner uno grande sobre uno más pequeño, hasta el nido de plumas (quince movimientos). El mensaje te dice que cojas la 80.",
-         acciones=[("app", "69", "carta 80")], mesa=["12", "78", "69", "70", "80"]),
-    dict(t="La boca del géiser", que="Lee la carta 80. Descarta 69, 70 y 78 y coge 72 y 76. Las marcas (76) dan la presión segura de los tres manómetros: 7, 5 y 11.",
-         acciones=[("leer", "80")], mesa=["12", "80", "72", "76"]),
-    dict(t="Calma el géiser", que="En el móvil: Acción, 72. Pon las válvulas en 3, 1 y 4 para que los manómetros marquen 7, 5 y 11. El mensaje te dice que cojas la 82.",
-         acciones=[("app", "72", "carta 82")], mesa=["12", "80", "72", "76", "82"]),
-    dict(t="El núcleo", que="Lee la carta 82. Descarta 72, 76 y 80 y coge la 62, el núcleo de energía.",
-         acciones=[("leer", "82")], mesa=["12", "82", "62"]),
-    dict(t="Núcleo en el Cronoportal", que="El Cronoportal (12) y el núcleo (62) son combinables: 12 + 62 = 74. Coge la 74.",
-         acciones=[("combinar", "12", "62")], mesa=["12", "82", "62", "74"]),
-    dict(t="Cronoportal reconectado", que="Lee la carta 74. Descarta 62, 12 y 82 y coge 84 y 86. Las notas (86) explican cómo montar el esqueleto.",
-         acciones=[("leer", "74")], mesa=["74", "84", "86"]),
-    dict(t="Monta el esqueleto", que="En el móvil: Acción, 84. Con las notas (86), coloca del cráneo a la cola las cinco piezas que encadenan sus marcas: 2-4, 4-1, 1-3, 3-2 y 2 (sobran las otras dos). El mensaje te dice que cojas la 99.",
-         acciones=[("app", "84", "carta 99")], mesa=["74", "84", "86", "99"]),
-    dict(t="Final", que="Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Fin!",
-         acciones=[("leer", "99")], mesa=["99"]),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "El vado del barro", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la manada: 19 arriba y 21 abajo."),
+    ("app", "14", "El barro del vado", f"En el móvil: Acción, 14. Por las huellas que pisan a otras (16 y 18): {_S_HUELLAS}. El mensaje te dice que cojas la 24.", "carta 24"),
+    ("leer", "24", "El campamento escondido", "Lee la carta 24. Descarta 14, 16 y 18 y coge la 26 (guárdala para el árbol)."),
+    ("app", "20", "La manada", f"En el móvil: Acción, 20. {_M['cabezas']} cabezas y {_M['patas']} patas (19 y 21): {_M['solucion']['triceratops']} tricerátops y {_M['solucion']['velociraptor']} velocirraptores. El mensaje te dice que cojas la 28.", "carta 28"),
+    ("leer", "28", "Al otro lado", "Lee la carta 28. Descarta 19, 20 y 21 y coge la 35."),
+    ("combinar", "22", "35", "Cuerda y garfio", "La cuerda (22) y el garfio (35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "Lo alto del acantilado", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "La playa de los nidos", "Lee la carta 31. Coge 40, 41, 43 y 45."),
+    ("app", "40", "Los nidos", f"En el móvil: Acción, 40. Con las vistas (41 y 43) y la costumbre (45): nidos en {_S_NIDOS}. El mensaje te dice que cojas la 30.", "carta 30"),
+    ("leer", "30", "La tienda de la playa", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "La atalaya", "Lee la carta 32. Coge 42, 48, 49 y 53. Junta el mapa: 42 a la izquierda y 49 a la derecha."),
+    ("app", "48", "El cráter", f"En el móvil: Acción, 48. Las tres flechas de los vigías (53) se cruzan en el mapa (42 y 49) en {_S_CRATER}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "La doctora Ibarra", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta la ladera: 54 a la izquierda y 55 a la derecha."),
+    ("app", "52", "La lava", f"En el móvil: Acción, 52. Siguiendo siempre la vecina más baja (54, 55 y 59), la roca va en {_S_LAVA}. El mensaje te dice que cojas la 44.", "carta 44"),
+    ("leer", "44", "El refugio", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta los senderos: 37 a la izquierda y 39 a la derecha."),
+    ("app", "46", "La ruta de la manada", f"En el móvil: Acción, 46. Todos los senderos una vez desde la Roca Alta (37, 39 y 33): {_S_SENDEROS}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "El cofre del árbol", f"En el móvil: Acción, 51. Con el árbol (26) y las fichas (61 y 63): {_S_ARBOL}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "El cofre abierto", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "El corral", f"En el móvil: Acción, 69. Sin depredador pared con pared con su presa (70) y con el compsognato en su sitio (71): {_S_CORRAL}. El mensaje te dice que cojas la 80.", "carta 80"),
+    ("leer", "80", "El Quetzal", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79."),
+    ("app", "72", "Planear", f"En el móvil: Acción, 72. Pasando por los remolinos (75 y 79): {_S_PLANEAR}. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "El nido en lo alto", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86, 87 y 76."),
+    ("combinar", "38", "56", "La linterna", "La linterna (38) y la batería (56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "La ciénaga de noche", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67."),
+    ("app", "64", "La balsa", f"En el móvil: Acción, 64. Hasta la cueva de la carta 66, resbalando hasta chocar (67): {_S_BARRO}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "El núcleo", "El Cronoportal (12) y el núcleo (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "El calibrador", f"En el móvil: Acción, 85. Alineando los anillos de los tres troncos (86, 87 y 76): {I.ANILLOS['solucion']} años. El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86, 87 y 76. En la mesa solo queda la 99. ¡Fin!"),
 ]
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.recalcular_mesas(PASOS, J)
