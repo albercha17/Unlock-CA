@@ -4,152 +4,232 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 59 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 19 pasos
+## Los 30 pasos
 
-### Paso 1 — Llegada al hangar
+### Paso 1 — Llegada
 
-Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 16.
+Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12.
 
-- **La mesa queda con:** `P` `10` `16`
+- **La mesa queda con:** `P` `10` `12`
 - [ ] Hecho
 
 ### Paso 2 — El hangar
 
-Lee la carta 10. Descarta la P y coge 21, 25, 17, 23, 35 y 36. La nota (25) dice que el código no lleva el 2 ni el 5 y la tomatera (36), «Cada rama: 5 hojas».
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el invernadero: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `16` `17` `21` `23` `25` `35` `36`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
 - [ ] Hecho
 
-### Paso 3 — Lee el diario en la app
+### Paso 3 — La ventana de comunicaciones
 
-En el móvil: Acción, 35. Pasa las 4 páginas: ahí está la amplitud de calibración. No hay nada que resolver y no pausa el tiempo.
+En el móvil: Acción, 14. Los pasos de los satélites (16): coinciden los tres dentro de 53 horas. El mensaje te dice que cojas la 24. Anota el dato de la misión: 3.
 
-- **En el móvil:** Acción → `35`
-- **La mesa queda con:** `10` `16` `17` `21` `23` `25` `35` `36`
+- **En el móvil:** Acción → `14`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
 - [ ] Hecho
 
-### Paso 4 — Hackea la terminal
+### Paso 4 — La voz de la doctora
 
-En el móvil: Acción, 21. Con la pista de la nota (el código no lleva 2 ni 5, así que solo usa 1, 3, 4 y 6, sin repetir) prueba códigos y fíjate en ● y ○. El código es 4 1 6 3. El mensaje te dice que cojas la 44.
+Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para el reactor).
 
-- **En el móvil:** Acción → `21`
-- **La mesa queda con:** `10` `16` `17` `21` `23` `25` `35` `36` `44`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
 
-### Paso 5 — El pasillo
+### Paso 5 — El invernadero
 
-Lee la carta 44. Descarta 10, 21 y 25 y coge 52 y 28. El plano (28) dice que el código de la esclusa es 173.
+En el móvil: Acción, 20. Con las reglas (18) y el invernadero de hoy (19 y 21): mañana estarán vivas B1, C1, D1, A2, E2, A3, F3, A4, F4, B6, C6. El mensaje te dice que cojas la 28. Anota el dato de la misión: 8.
 
-- **La mesa queda con:** `16` `17` `23` `28` `35` `36` `44` `52`
+- **En el móvil:** Acción → `20`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26` `28`
 - [ ] Hecho
 
-### Paso 6 — Restaura el oxígeno
+### Paso 6 — El módulo del invernadero
 
-En el móvil: Acción, 52. Gira las tuberías hasta que el oxígeno llegue de la entrada (izquierda) a la salida (derecha). El mensaje te dice que cojas la 66.
+Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
 
-- **En el móvil:** Acción → `52`
-- **La mesa queda con:** `16` `17` `23` `28` `35` `36` `44` `52` `66`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
 - [ ] Hecho
 
-### Paso 7 — Combina el traje
+### Paso 7 — El traje
 
-El traje sin casco (17) y el casco (23) son combinables: 17 + 23 = 40. Coge la 40 y léela: te manda descartar 17 y 23.
+El traje (22) y el casco (35) son combinables: 22 + 35 = 57. Coge la 57.
 
-- **Suma:** `17 + 23 = 40`
-- **La mesa queda con:** `16` `28` `35` `36` `40` `44` `52` `66`
+- **Suma:** `22 + 35 = 57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
 - [ ] Hecho
 
-### Paso 8 — Abre la esclusa
+### Paso 8 — El traje completo
 
-En el móvil: Acción, 66. El plano dice 173; en binario con 8 interruptores es 128 + 32 + 8 + 4 + 1 (10101101). Con el traje puesto, el mensaje te dice que cojas la 41.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **En el móvil:** Acción → `66`
-- **La mesa queda con:** `16` `28` `35` `36` `40` `41` `44` `52` `66`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
 - [ ] Hecho
 
-### Paso 9 — La superficie de Marte
+### Paso 9 — La sala de cableado
 
-Lee la carta 41. Descarta 44, 52, 66, 28 y 40 y coge 48 (rover) y 57 (baliza). La baliza dice: columna F, fila 2.
+Lee la carta 31. Coge 40, 41, 43 y 45. Junta la placa: 41 a la izquierda y 43 a la derecha.
 
-- **La mesa queda con:** `16` `35` `36` `41` `48` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 10 — Conduce el rover
+### Paso 10 — La placa de bornes
 
-En el móvil: Acción, 48. Programa la ruta de A5 a F2 esquivando las rocas (por ejemplo ↑ ↑ → → ↑ ↑ → → ↓ →) y pulsa Ejecutar. El mensaje te dice que cojas la 72.
+En el móvil: Acción, 40. Cables que unen sus bornes sin cruzarse (41, 43 y 45): fila 1: 3 3 3 1 1 1 / fila 2: 3 4 3 1 2 5 / fila 3: 4 4 3 3 2 5 / fila 4: 4 2 2 3 2 5 / fila 5: 5 2 2 2 2 5 / fila 6: 5 5 5 5 5 5. El mensaje te dice que cojas la 30. Anota el dato de la misión: 5.
+
+- **En el móvil:** Acción → `40`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
+- [ ] Hecho
+
+### Paso 11 — La energía vuelve
+
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- [ ] Hecho
+
+### Paso 12 — La esclusa exterior
+
+Lee la carta 32. Coge 42, 48, 49 y 53. Junta el radar: 42 a la izquierda y 49 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 13 — El campo de rocas
+
+En el móvil: Acción, 48. Con los números del radar (42, 49 y 53): rocas en D1, F1, G1, B2, D2, G2, F3, A4, B4, A7, B7. El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `72`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
 - [ ] Hecho
 
-### Paso 11 — La puerta del anexo
+### Paso 14 — El anexo
 
-Lee la carta 72. Coge 74, 75, 76, 78 y 81. Las cartas 75, 76 y 78 dibujan los circuitos y la 81 explica las puertas lógicas.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 
-- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `72` `74` `75` `76` `78` `81`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
 - [ ] Hecho
 
-### Paso 12 — La placa del anexo
+### Paso 15 — El brazo de la antena
 
-En el móvil: Acción, 74. Con los circuitos, enciende C, D, E y deja apagados A, B; pulsa Conectar. El mensaje te dice que cojas la 83.
+En el móvil: Acción, 52. Con el brazo (54), las piezas (55) y la norma (59): el círculo (pesa 9) en la marca izquierda 4; el cuadrado (pesa 8) en la marca izquierda 3; el triángulo (pesa 3) en la marca izquierda 1. El mensaje te dice que cojas la 44. Anota el dato de la misión: 2.
 
-- **En el móvil:** Acción → `74`
-- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `72` `74` `75` `76` `78` `81` `83`
+- **En el móvil:** Acción → `52`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
 - [ ] Hecho
 
-### Paso 13 — El laboratorio
+### Paso 16 — La sala de control
 
-Lee la carta 83. Descarta 72, 74, 75, 76, 78 y 81 y coge 86, 87, 89 y 90.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el esquema: 61 a la izquierda y 63 a la derecha.
 
-- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `83` `86` `87` `89` `90`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 14 — El analizador
+### Paso 17 — La cuenta de cifras
 
-En el móvil: Acción, 86. Según el cuaderno, las limpias tienen cristal azul y no son rojas: muestras 6, 8. Pulsa Analizar. El mensaje te dice que cojas la 79.
+En el móvil: Acción, 46. Con las piezas (37), el objetivo (39) y la norma (33): 1 + 2 = 3, 3 + 25 = 28, 9 × 30 = 270, 28 + 270 = 298, 3 × 298 = 894. El mensaje te dice que cojas la 56.
 
-- **En el móvil:** Acción → `86`
-- **La mesa queda con:** `16` `35` `36` `41` `48` `57` `79` `83` `86` `87` `89` `90`
+- **En el móvil:** Acción → `46`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 15 — La sala del reactor
+### Paso 18 — El circuito del reactor
 
-Lee la carta 79. Descarta 41, 48, 57, 83, 86, 87, 89 y 90 y coge 62 (panel), 59 (protocolo) y 51 (esquema). El protocolo dice: capacidad 15 MW y el escudo siempre activo; el esquema, fase 2.
+En el móvil: Acción, 51. Con el esquema (61 y 63) y la nota (26): el anillo pasa por A1 → B1 → B2 → C2 → C3 → D3 → E3 → E4 → E5 → E6 → F6 → F7 → E7 → D7 → C7 → B7 → A7 → A6 → A5 → A4 → A3 → A2. El mensaje te dice que cojas la 58.
 
-- **La mesa queda con:** `16` `35` `36` `51` `59` `62` `79`
+- **En el móvil:** Acción → `51`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
 - [ ] Hecho
 
-### Paso 16 — Arranca el reactor
+### Paso 19 — El acceso al reactor
 
-En el móvil: Acción, 62. Activa sistemas que sumen justo 15 MW con el escudo encendido: Escudo (8) + Radio (4) + Luz (3). El mensaje te dice que cojas la 54.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71.
 
-- **En el móvil:** Acción → `62`
-- **La mesa queda con:** `16` `35` `36` `51` `54` `59` `62` `79`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
 
-### Paso 17 — Carga el Cronoportal
+### Paso 20 — El programa del rover
 
-El Cronoportal (16) y el núcleo de fusión (54) son combinables: 16 + 54 = 70. Coge la 70 y léela: te manda descartar 16, 54, 79, 62 y 59 y coger la 88.
+En el móvil: Acción, 69. Con el terreno (70) y los comandos (71): repetir 3 veces: avanzar, girar a la izquierda, avanzar, girar a la derecha, avanzar. El mensaje te dice que cojas la 80.
 
-- **Suma:** `16 + 54 = 70`
-- **La mesa queda con:** `35` `36` `51` `70` `88`
+- **En el móvil:** Acción → `69`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71` `80`
 - [ ] Hecho
 
-### Paso 18 — Calibra el Cronoportal
+### Paso 21 — El archivo de la colonia
 
-En el móvil: Acción, 88. El diario dice amplitud 3, la tomatera (5 hojas por rama) frecuencia 5 y el esquema fase 2. Pulsa Calibrar. El mensaje te dice que cojas la 99.
+Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79. Junta la sopa: 75 a la izquierda y 79 a la derecha.
 
-- **En el móvil:** Acción → `88`
-- **La mesa queda con:** `35` `36` `51` `70` `88` `99`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80`
 - [ ] Hecho
 
-### Paso 19 — Final
+### Paso 22 — La base de datos
 
-Lee la carta 99. Descarta 70, 88, 35, 36 y 51. En la mesa solo queda la 99. ¡Fin!
+En el móvil: Acción, 72. Las letras que no pertenecen a ninguna palabra de la lista (75 y 79) forman LANZADOR. El mensaje te dice que cojas la 82.
+
+- **En el móvil:** Acción → `72`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80` `82`
+- [ ] Hecho
+
+### Paso 23 — El control de lanzamiento
+
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
+
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
+- [ ] Hecho
+
+### Paso 24 — El soldador
+
+El soldador (38) y la batería (56) son combinables: 38 + 56 = 94. Coge la 94.
+
+- **Suma:** `38 + 56 = 94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 25 — La sala del reactor
+
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el patrón: 66 arriba y 67 abajo.
+
+- **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 26 — Los paneles
+
+En el móvil: Acción, 64. Con el patrón (66 y 67), tocando C1, D1, C2, B3, D3, E4, A5, B5, D5, E5. El mensaje te dice que cojas la 62.
+
+- **En el móvil:** Acción → `64`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 27 — El núcleo
+
+El Cronoportal (12) y el núcleo de fusión (62) son combinables: 12 + 62 = 74. Coge la 74.
+
+- **Suma:** `12 + 62 = 74`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `74` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 28 — Cronoportal cargado
+
+Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57.
+
+- **La mesa queda con:** `74` `82` `85` `86` `87`
+- [ ] Hecho
+
+### Paso 29 — La consola
+
+En el móvil: Acción, 85. Con los acertijos (86 y 87) y los datos de la misión de los puzles: 5, 3, 2, 8. El mensaje te dice que cojas la 99.
+
+- **En el móvil:** Acción → `85`
+- **La mesa queda con:** `74` `82` `85` `86` `87` `99`
+- [ ] Hecho
+
+### Paso 30 — Final
+
+Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!
 
 - **La mesa queda con:** `99`
 - [ ] Hecho
@@ -158,42 +238,66 @@ Lee la carta 99. Descarta 70, 88, 35, 36 y 51. En la mesa solo queda la 99. ¡Fi
 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
-| P | Llegada a la cúpula | Normal | Coge 10, 16 | Inicio: llegada al hangar. Te manda coger la 10 y la 16. | 1 |
-| 10 | Hangar de la cúpula | Normal | Coge 21, 25, 17, 23, 35, 36; Descarta P | El hangar: reparte las cartas del hangar y te quita la P. | 1 |
-| 16 | Cronoportal sin energía | Combina | Combinable: suma los números | El Cronoportal sin energía: se combina con el núcleo de fusión (54). | 1 |
-| 17 | Traje sin casco | Combina | Combinable: suma los números | Traje sin casco: se combina con el casco (23). | 2 |
-| 21 | Terminal de seguridad | App | — | Terminal de seguridad (app): código de 4 cifras tipo Mastermind. | 2 |
-| 23 | Casco de astronauta | Combina | Combinable: suma los números | Casco: se combina con el traje (17). | 2 |
-| 25 | Nota adhesiva | Normal | Texto: «No lleva el 2 ni el 5» | Nota adhesiva: el código no lleva 2 ni 5. | 2 |
-| 28 | Plano de la cúpula | Normal | Texto: «Esclusa del reactor: código 173» | Plano: el código de la esclusa es 173. | 5 |
-| 35 | Diario de la doctora Reyes | App | — | Diario de la doctora Reyes (app, solo lectura): amplitud 3 del calibrador. | 2 |
-| 36 | Tomatera | Normal | Texto: «Cada rama: 5 hojas» | Tomatera: «Cada rama: 5 hojas» = frecuencia 5 del calibrador. | 2 |
-| 40 | Traje completo | Normal | Descarta 17, 23 | Traje completo: resultado de 17 + 23; hace falta para la esclusa. | 7 |
-| 41 | Superficie de Marte | Normal | Coge 48, 57; Descarta 44, 52, 66, 28, 40 | Superficie de Marte: aparece al abrir la esclusa. | 8 |
-| 44 | Pasillo de la cúpula | Normal | Coge 52, 28; Descarta 10, 21, 25 | Pasillo de la cúpula: aparece al abrir la terminal. | 4 |
-| 48 | Rover de superficie | App | — | Rover (app): programar una ruta de A5 hasta la baliza. | 9 |
-| 51 | Esquema del Cronoportal | Normal | Texto: «Esquema del Cronoportal Fase de calibración: 2» | Esquema del Cronoportal: fase de calibración 2. | 15 |
-| 52 | Panel de oxígeno | App | — | Panel de oxígeno (app): girar tuberías de la entrada a la salida. | 5 |
-| 54 | Núcleo de fusión | Combina | Combinable: suma los números | Núcleo de fusión: se combina con el Cronoportal (16). | 16 |
-| 57 | Baliza del anexo | Normal | Texto: «Baliza del anexo: columna F, fila 2» | Baliza: las coordenadas del anexo del reactor (columna F, fila 2). | 9 |
-| 59 | Protocolo del reactor | Normal | Texto: «Capacidad: 15 MW El escudo, siempre activo» | Protocolo del reactor: capacidad 15 MW y escudo siempre activo. | 15 |
-| 62 | Panel de energía | App | — | Panel de energía (app): sistemas que sumen 15 MW con el escudo activo. | 15 |
-| 66 | Esclusa del reactor | App | — | Esclusa del reactor (app): 173 en binario con 8 interruptores. | 6 |
-| 70 | Cronoportal cargado | Normal | Coge 88; Descarta 16, 54, 79, 62, 59 | Cronoportal cargado: resultado de 16 + 54. | 17 |
-| 72 | La puerta del anexo | Normal | Coge 74, 75, 76, 78, 81 | La puerta del anexo: reparte la placa y sus dibujos. | 10 |
-| 74 | La placa del anexo | App | — | La placa (app): el circuito lógico. | 11 |
-| 75 | Placa: el motor | Normal | — | Circuito del motor. | 11 |
-| 76 | Placa: la alarma | Normal | — | Circuito de la alarma. | 11 |
-| 78 | Placa: la ventilación | Normal | — | Circuito de la ventilación. | 11 |
-| 79 | Sala del reactor | Normal | Coge 62, 59, 51; Descarta 41, 48, 57, 83, 86, 87, 89, 90 | Sala del reactor: aparece al pasar la cámara de descontaminación. | 14 |
-| 81 | Parte de averías | Normal | — | Leyenda de las puertas y estado pedido. | 11 |
-| 83 | El laboratorio del anexo | Normal | Coge 86, 87, 89, 90; Descarta 72, 74, 75, 76, 78, 81 | El laboratorio: reparte el analizador y el cuaderno. | 12 |
-| 86 | El analizador de muestras | App | — | El analizador (app): las muestras limpias. | 13 |
-| 87 | Cuaderno de muestras (1 de 3) | Normal | — | Cuaderno de muestras (1 de 3). | 13 |
-| 88 | Calibrador del Cronoportal | App | — | Calibrador (app): amplitud 3, frecuencia 5 y fase 2. | 17 |
-| 89 | Cuaderno de muestras (2 de 3) | Normal | — | Cuaderno de muestras (2 de 3). | 13 |
-| 90 | Cuaderno de muestras (3 de 3) | Normal | — | Cuaderno de muestras (3 de 3). | 13 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 70, 88, 35, 36, 51 | Final de la aventura. | 18 |
+| P | Llegada a la cúpula | Normal | Coge 10, 12 | Llegada a la cúpula | 1 |
+| 10 | El hangar de la cúpula | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El hangar de la cúpula | 1 |
+| 12 | Cronoportal sin energía | Combina | Combinable: suma los números | Cronoportal sin energía | 1 |
+| 14 | La ventana de comunicaciones | App | — | La ventana de comunicaciones | 2 |
+| 16 | Pasos de los satélites | Normal | — | Pasos de los satélites | 2 |
+| 18 | Las reglas del invernadero | Normal | — | Las reglas del invernadero | 2 |
+| 19 | El invernadero (mitad de arriba) | Normal | — | El invernadero (mitad de arriba) | 2 |
+| 20 | El invernadero | App | — | El invernadero | 2 |
+| 21 | El invernadero (mitad de abajo) | Normal | — | El invernadero (mitad de abajo) | 2 |
+| 22 | Traje sin casco | Combina | Combinable: suma los números | Traje sin casco | 2 |
+| 24 | La voz de la doctora Reyes | Normal | Coge 26; Descarta 14, 16 | La voz de la doctora Reyes | 3 |
+| 26 | Nota de la doctora Reyes | Normal | — | Nota de la doctora Reyes | 4 |
+| 28 | El módulo del invernadero | Normal | Coge 35; Descarta 18, 19, 20, 21 | El módulo del invernadero | 5 |
+| 30 | La energía vuelve | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | La energía vuelve | 10 |
+| 31 | La sala de cableado | Normal | Coge 40, 41, 43, 45 | La sala de cableado | 8 |
+| 32 | La esclusa exterior | Normal | Coge 42, 48, 49, 53 | La esclusa exterior | 8 |
+| 33 | La norma de la cuenta | Normal | — | La norma de la cuenta | 16 |
+| 35 | Casco de astronauta | Combina | Combinable: suma los números | Casco de astronauta | 6 |
+| 36 | El anexo | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El anexo | 13 |
+| 37 | Las piezas de la cuenta | Normal | — | Las piezas de la cuenta | 16 |
+| 38 | Soldador sin batería | Combina | Combinable: suma los números | Soldador sin batería | 11 |
+| 39 | El objetivo | Normal | — | El objetivo | 16 |
+| 40 | La placa de bornes | App | — | La placa de bornes | 9 |
+| 41 | La placa de bornes (mitad izquierda) | Normal | — | La placa de bornes (mitad izquierda) | 9 |
+| 42 | El radar del campo de rocas (mitad izquierda) | Normal | — | El radar del campo de rocas (mitad izquierda) | 12 |
+| 43 | La placa de bornes (mitad derecha) | Normal | — | La placa de bornes (mitad derecha) | 9 |
+| 44 | La sala de control | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La sala de control | 15 |
+| 45 | La norma de los cables | Normal | — | La norma de los cables | 9 |
+| 46 | La cuenta de cifras | App | — | La cuenta de cifras | 16 |
+| 48 | El campo de rocas | App | — | El campo de rocas | 12 |
+| 49 | El radar del campo de rocas (mitad derecha) | Normal | — | El radar del campo de rocas (mitad derecha) | 12 |
+| 51 | El circuito del reactor | App | — | El circuito del reactor | 16 |
+| 52 | El brazo de la antena | App | — | El brazo de la antena | 14 |
+| 53 | El aviso del radar | Normal | — | El aviso del radar | 12 |
+| 54 | El brazo de la antena | Normal | — | El brazo de la antena | 14 |
+| 55 | Los pesos de repuesto | Normal | — | Los pesos de repuesto | 14 |
+| 56 | Batería de la cúpula | Combina | Combinable: suma los números | Batería de la cúpula | 17 |
+| 57 | El traje completo | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | El traje completo | 7 |
+| 58 | El acceso al reactor | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | El acceso al reactor | 18 |
+| 59 | La norma del brazo | Normal | — | La norma del brazo | 14 |
+| 61 | El esquema del reactor (mitad izquierda) | Normal | — | El esquema del reactor (mitad izquierda) | 16 |
+| 62 | Núcleo de fusión | Combina | Combinable: suma los números | Núcleo de fusión | 26 |
+| 63 | El esquema del reactor (mitad derecha) | Normal | — | El esquema del reactor (mitad derecha) | 16 |
+| 64 | Los paneles de refrigeración | App | — | Los paneles de refrigeración | 25 |
+| 66 | Los paneles de refrigeración (mitad de arriba) | Normal | — | Los paneles de refrigeración (mitad de arriba) | 25 |
+| 67 | Los paneles de refrigeración (mitad de abajo) | Normal | — | Los paneles de refrigeración (mitad de abajo) | 25 |
+| 69 | El programa del rover | App | — | El programa del rover | 19 |
+| 70 | El terreno del rover | Normal | — | El terreno del rover | 19 |
+| 71 | Los comandos del rover | Normal | — | Los comandos del rover | 19 |
+| 72 | La base de datos | App | — | La base de datos | 21 |
+| 74 | Cronoportal cargado | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | Cronoportal cargado | 27 |
+| 75 | La base de datos de la colonia (mitad izquierda) | Normal | — | La base de datos de la colonia (mitad izquierda) | 21 |
+| 79 | La base de datos de la colonia (mitad derecha) | Normal | — | La base de datos de la colonia (mitad derecha) | 21 |
+| 80 | El archivo de la colonia | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | El archivo de la colonia | 20 |
+| 82 | El control de lanzamiento | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | El control de lanzamiento | 22 |
+| 85 | La consola de lanzamiento | App | — | La consola de lanzamiento | 23 |
+| 86 | Primera parte de la clave | Normal | — | Primera parte de la clave | 23 |
+| 87 | Segunda parte de la clave | Normal | — | Segunda parte de la clave | 23 |
+| 94 | La sala del reactor | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La sala del reactor | 24 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | De vuelta a casa (FIN) | 29 |
 
 ## Si algo no cuadra
 

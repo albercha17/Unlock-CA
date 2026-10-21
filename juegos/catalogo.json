@@ -19,9 +19,9 @@
     "id": "marte",
     "nombre": "Marte, 2157: Cúpula Aurora",
     "ruta": "juegos/aventuras-ca/marte/",
-    "dificultad": 3,
-    "minutos": 60,
-    "cartas": 36
+    "dificultad": 4,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "florencia",

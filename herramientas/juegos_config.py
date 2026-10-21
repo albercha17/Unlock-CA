@@ -48,10 +48,11 @@ JUEGOS = {
                    "51": "51-camaras.js", "69": "69-canales.js", "64": "64-azulejos.js", "72": "72-tierras.js", "85": "85-sellos.js"},
         pal=("#7a5a1e", "#2a1d0a")),
     "Marte": dict(
-        datos=M, dificultad=3, tema="marte", titulo="Marte, 2157: Cúpula Aurora", emoji="🚀",
+        datos=M, dificultad=4, tema="marte", titulo="Marte, 2157: Cúpula Aurora", emoji="🚀", minutos=90,
         grad="#5a2a14,#12060a", acento="#ff8a50", acento2="#ffb085", bg1="#12070a", bg2="#2a120c",
-        sinopsis="Segundo salto del Cronoportal: Marte, año 2157. La cúpula Aurora está a oscuras por una tormenta de polvo y el soporte vital se apaga. Cristina y Alberto tienen una hora para encontrar el núcleo de fusión y volver a casa.",
-        minigames={"21": "21-terminal.js", "52": "52-tuberias.js", "66": "66-esclusa.js", "88": "88-calibrador.js", "35": "35-diario.js", "48": "48-rover.js", "62": "62-energia.js", "74": "74-circuito.js", "86": "86-analizador.js"},
+        sinopsis="Segundo salto del Cronoportal: Marte, año 2157. La cúpula Aurora está a oscuras por una tormenta de polvo y el soporte vital se apaga. Cristina y Alberto tienen hora y media para encontrar el núcleo de fusión: una ventana de comunicaciones con tres satélites, un invernadero que sigue las reglas de la vida, una placa de cables, un campo de rocas, el brazo de una antena, una cuenta de cifras, el circuito del reactor, un rover con bucles, paneles de refrigeración, una sopa de letras y una consola final.",
+        minigames={"14": "14-satelites.js", "20": "20-invernadero.js", "40": "40-cableado.js", "48": "48-rocas.js", "52": "52-brazo.js", "46": "46-cuenta.js",
+                   "51": "51-anillo.js", "69": "69-programa.js", "64": "64-paneles.js", "72": "72-sopa.js", "85": "85-consola.js"},
         pal=("#8a3a1a", "#1c0c10")),
     "Florencia": dict(
         datos=F, dificultad=4, tema="florencia", titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞",
