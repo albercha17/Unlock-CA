@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <p class="sinopsis">Octavo salto del Cronoportal: un salón recreativo de 1985, a medianoche. El aparato golpea la máquina COSMIC QUEST y su cristal de energía cae por la ranura de las fichas: Cristina y Alberto quedan atrapados dentro, convertidos en píxeles. Para salir tienen que superar seis niveles (circuitos, radar, mandos, autopista y un jefe de bloques) antes de que el contador llegue a GAME OVER, en setenta y cinco minutos.</p>
+      <p class="sinopsis">Octavo salto del Cronoportal: un salón recreativo de 1985, a medianoche. El aparato golpea una máquina y su cristal de energía cae por la ranura de las fichas: Cristina y Alberto quedan atrapados dentro, convertidos en píxeles, con una cuenta atrás de hora y media hasta GAME OVER. Para salir tendrán que resolver un circuito de puertas lógicas, desatascar un aparcamiento de naves, dibujar un sprite comprimido, leer un mensaje en hexadecimal, colocar a cuatro fantasmas, completar un marcador mágico, ordenar una tabla de récords, resolver un puzle deslizante, cruzar una autopista con una rana, pagar con las menos monedas y arrancar la máquina con la clave de cuatro bytes.</p>
 
       <ol class="pasos">
         <li>Pulsa <b>Empezar</b>: el reloj corre <span id="introMin">1 hora</span>. Podéis pausarlo cuando haga falta.</li>
@@ -234,16 +234,22 @@
     window.APP_CONFIG = {
       juego: 'arcade',
       assets: '../../../assets/',
-      segundos: 4500,
-      dificultad: 3,
+      segundos: 5400,
+      dificultad: 4,
       final: '99',
       volver: '../index.html',
       minijuegos: {
-      '20': './minijuegos/20-terminal.js',
-      '24': './minijuegos/24-radar.js',
-      '46': './minijuegos/46-mando.js',
-      '48': './minijuegos/48-autopista.js',
-      '69': './minijuegos/69-pozo.js'
+      '14': './minijuegos/14-circuito.js',
+      '20': './minijuegos/20-atasco.js',
+      '40': './minijuegos/40-sprite.js',
+      '48': './minijuegos/48-ascii.js',
+      '52': './minijuegos/52-fantasmas.js',
+      '46': './minijuegos/46-cuadrado.js',
+      '51': './minijuegos/51-ranking.js',
+      '64': './minijuegos/64-deslizante.js',
+      '69': './minijuegos/69-rana.js',
+      '72': './minijuegos/72-monedas.js',
+      '85': './minijuegos/85-xor.js'
       }
     };
   </script>
