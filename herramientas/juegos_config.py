@@ -55,10 +55,11 @@ JUEGOS = {
                    "51": "51-anillo.js", "69": "69-programa.js", "64": "64-paneles.js", "72": "72-sopa.js", "85": "85-consola.js"},
         pal=("#8a3a1a", "#1c0c10")),
     "Florencia": dict(
-        datos=F, dificultad=4, tema="florencia", titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞",
+        datos=F, dificultad=4, tema="florencia", titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞", minutos=90,
         grad="#5a3a1a,#140c06", acento="#d9a441", acento2="#f0c773", bg1="#120c07", bg2="#2a1c0e",
-        sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con una hora hasta el amanecer. Solo la luz del alba, concentrada por la lente del maestro, puede recargar el aparato.",
-        minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js", "46": "46-baul.js"},
+        sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con hora y media hasta el amanecer: solo la luz del alba, concentrada por la lente maestra, puede recargar el aparato. Para llegar a ella tendrán que leer una escítala, hallar un punto de fuga, resolver un tablero de desigualdades, recorrer un patio con saltos de caballo, mezclar pigmentos, calcular un reloj de engranajes, colocar torres de vigía, abrir una caja de colores, bajar una escalera numerada, elegir un aparejo de poleas y descifrar el mensaje del lucernario.",
+        minigames={"14": "14-escitala.js", "20": "20-perspectiva.js", "40": "40-futoshiki.js", "48": "48-caballo.js", "52": "52-pigmentos.js", "46": "46-engranajes.js",
+                   "51": "51-vigilantes.js", "69": "69-mastermind.js", "64": "64-hidato.js", "72": "72-poleas.js", "85": "85-cifrado.js"},
         pal=("#6a4a22", "#1a1008")),
     "Dinosaurios": dict(
         datos=D, dificultad=4, tema="dinosaurios", titulo="Cretácico, hace 66 millones de años: El Valle de los Gigantes", emoji="🦖", minutos=90,
