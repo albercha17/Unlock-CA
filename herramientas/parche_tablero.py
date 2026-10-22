@@ -25,26 +25,33 @@ JS = """  // ----- Tablero libre: arrastrar las cartas de la mesa y dejarlas don
   function colocarTablero(){
     var mesa = $('mesa'), items = [].slice.call(mesa.querySelectorAll('.item'));
     if (!items.length) { mesa.style.height = ''; return; }
-    var W = mesa.clientWidth || 800, M = 12, pos = estado.pos || (estado.pos = {}), rects = [], fijos = [], nuevos = [];
+    var W = mesa.clientWidth || 800, M = 12, pos = estado.pos || (estado.pos = {}), fijos = [], nuevos = [];
     items.forEach(function(it){ it.style.left = '0px'; it.style.top = '0px'; (pos[it.dataset.id] ? fijos : nuevos).push(it); });
     fijos.forEach(function(it){
-      var p = pos[it.dataset.id], w = it.offsetWidth, h = it.offsetHeight;
+      var p = pos[it.dataset.id], w = it.offsetWidth;
       p.x = Math.max(0, Math.min(p.x, Math.max(0, W - w))); p.y = Math.max(0, p.y);
       it.style.left = p.x + 'px'; it.style.top = p.y + 'px';
-      rects.push({x: p.x, y: p.y, w: w, h: h});
     });
-    nuevos.forEach(function(it){
-      var w = it.offsetWidth, h = it.offsetHeight, pp = null;
-      for (var y = M; !pp; y += 24) {
-        for (var x = M; (x === M || x + w <= W - M) && !pp; x += 24) {
-          if (!rects.some(function(r){ return x < r.x + r.w + 10 && r.x < x + w + 10 && y < r.y + r.h + 10 && r.y < y + h + 10; })) pp = {x: x, y: y};
-        }
-      }
-      pos[it.dataset.id] = pp; it.style.left = pp.x + 'px'; it.style.top = pp.y + 'px';
-      rects.push({x: pp.x, y: pp.y, w: w, h: h});
-    });
+    if (nuevos.length) {
+      // las cartas nuevas entran siempre por arriba del todo, en fila de izquierda a derecha; lo que ya había en la mesa baja para hacerles sitio
+      var G = 14, x = M, y = M, altoFila = 0, colocadas = [];
+      nuevos.forEach(function(it){
+        var w = it.offsetWidth, h = it.offsetHeight;
+        if (x > M && x + w > W - M) { x = M; y += altoFila + G; altoFila = 0; }
+        colocadas.push({it: it, x: x, y: y});
+        x += w + G; altoFila = Math.max(altoFila, h);
+      });
+      var bajar = y + altoFila + G * 2;
+      fijos.forEach(function(it){ var p = pos[it.dataset.id]; p.y += bajar; it.style.top = p.y + 'px'; });
+      colocadas.forEach(function(c){ pos[c.it.dataset.id] = {x: c.x, y: c.y}; c.it.style.left = c.x + 'px'; c.it.style.top = c.y + 'px'; });
+    }
     ajustarAlto();
-    if (nuevos.length) guardar();
+    if (nuevos.length) { guardar(); verArriba(); }
+  }
+  function verArriba(){
+    // si la mesa se ha quedado fuera de la pantalla, se sube hasta que se vean las cartas nuevas
+    var r = $('mesa').getBoundingClientRect();
+    if (r.top < 0 || r.top > window.innerHeight * 0.5) window.scrollBy({top: r.top - 110, behavior: 'smooth'});
   }
   function ajustarAlto(){
     var mesa = $('mesa'), alto = 340;
@@ -173,12 +180,65 @@ CAMBIOS = [
 ]
 
 
+ANTIGUO = """    nuevos.forEach(function(it){
+      var w = it.offsetWidth, h = it.offsetHeight, pp = null;
+      for (var y = M; !pp; y += 24) {
+        for (var x = M; (x === M || x + w <= W - M) && !pp; x += 24) {
+          if (!rects.some(function(r){ return x < r.x + r.w + 10 && r.x < x + w + 10 && y < r.y + r.h + 10 && r.y < y + h + 10; })) pp = {x: x, y: y};
+        }
+      }
+      pos[it.dataset.id] = pp; it.style.left = pp.x + 'px'; it.style.top = pp.y + 'px';
+      rects.push({x: pp.x, y: pp.y, w: w, h: h});
+    });
+    ajustarAlto();
+    if (nuevos.length) guardar();
+  }
+"""
+ANTIGUO_CABECERA = "var W = mesa.clientWidth || 800, M = 12, pos = estado.pos || (estado.pos = {}), rects = [], fijos = [], nuevos = [];"
+NUEVA_CABECERA = "var W = mesa.clientWidth || 800, M = 12, pos = estado.pos || (estado.pos = {}), fijos = [], nuevos = [];"
+ANTIGUO_FIJOS = """      var p = pos[it.dataset.id], w = it.offsetWidth, h = it.offsetHeight;
+      p.x = Math.max(0, Math.min(p.x, Math.max(0, W - w))); p.y = Math.max(0, p.y);
+      it.style.left = p.x + 'px'; it.style.top = p.y + 'px';
+      rects.push({x: p.x, y: p.y, w: w, h: h});
+    });"""
+NUEVOS_FIJOS = """      var p = pos[it.dataset.id], w = it.offsetWidth;
+      p.x = Math.max(0, Math.min(p.x, Math.max(0, W - w))); p.y = Math.max(0, p.y);
+      it.style.left = p.x + 'px'; it.style.top = p.y + 'px';
+    });"""
+
+
+def actualizar(txt):
+    """Pasa un pc.html de la primera versión (las cartas nuevas caen en el primer hueco libre) a la actual (entran por arriba del todo)."""
+    i = JS.index("    if (nuevos.length) {\n      // las cartas nuevas")
+    j = JS.index("  function ordenarMesa")
+    bloque = JS[i:j]
+    k = bloque.index("  function ajustarAlto")
+    nuevo = bloque[:k]                                     # el bloque nuevo y verArriba, hasta ajustarAlto
+    assert ANTIGUO in txt and ANTIGUO_CABECERA in txt and ANTIGUO_FIJOS in txt
+    txt = txt.replace(ANTIGUO, nuevo)
+    return txt.replace(ANTIGUO_CABECERA, NUEVA_CABECERA).replace(ANTIGUO_FIJOS, NUEVOS_FIJOS)
+
+
+# tamaño de las cartas de la mesa: se adapta al ancho de la ventana (en una ventana estrecha caben más por fila)
+TAMANO_VIEJO = ".mesa .carta{--cw:250px}"
+TAMANO_NUEVO = ".mesa .carta{--cw:clamp(170px,20vw,250px)}"
+
+
 def main():
     for ruta in sorted(glob.glob("juegos/el-faro/pc.html") + glob.glob("juegos/aventuras-ca/*/pc.html")):
         txt = open(ruta, encoding="utf-8").read()
+        if TAMANO_VIEJO in txt:
+            txt = txt.replace(TAMANO_VIEJO, TAMANO_NUEVO)
+            open(ruta, "w", encoding="utf-8", newline="\n").write(txt)
+            print("tamaño de cartas adaptado:", ruta)
         if "colocarTablero" in txt:
-            print("ya estaba:", ruta)
+            if ANTIGUO in txt:
+                open(ruta, "w", encoding="utf-8", newline="\n").write(actualizar(txt))
+                print("actualizado:", ruta)
+            else:
+                print("ya estaba:", ruta)
             continue
+        txt = txt.replace(TAMANO_VIEJO, TAMANO_NUEVO)
         for viejo, nuevo in CAMBIOS:
             assert txt.count(viejo) == 1, f"{ruta}: no encuentro {viejo[:70]!r} ({txt.count(viejo)})"
             txt = txt.replace(viejo, nuevo)

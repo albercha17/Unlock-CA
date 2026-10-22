@@ -49,6 +49,8 @@ def probar(base, carpeta):
         mesa = ids(d)
         assert "P" not in mesa and "14" in mesa, mesa
         assert sin_solapes(d), "hay cartas encima de otras al colocarse solas"
+        tops = {i: rect(d, i)[1] for i in ids(d)}
+        assert tops["14"] <= min(tops.values()) + 1 and tops["12"] > tops["14"], tops        # las nuevas, arriba; lo que ya había, debajo
         # 2) arrastre
         a0 = rect(d, "14")
         carta = d.find_element(By.CSS_SELECTOR, "#mesa .item[data-id='14'] .carta-btn")
@@ -71,6 +73,10 @@ def probar(base, carpeta):
         d.find_element(By.ID, "qn").send_keys("62")
         d.find_element(By.ID, "qb").click()
         time.sleep(0.3)
+        top62 = rect(d, "62")[1]
+        r62 = rect(d, "62")
+        assert not any(i != "62" and r62[0] < rect(d, i)[2] and rect(d, i)[0] < r62[2] and r62[1] < rect(d, i)[3] and rect(d, i)[1] < r62[3] for i in ids(d)), "la carta nueva se solapa con otra"
+        assert all(top62 <= rect(d, i)[1] + 1 for i in ids(d)), "la carta nueva no ha entrado por arriba del todo"
         aut = d.find_elements(By.CSS_SELECTOR, "#mesa .item[data-id='12'] .auto")
         assert aut and "Combinar" in aut[0].text, "no sale «Combinar con la N» en la carta 12"
         d.execute_script("arguments[0].click()", aut[0])

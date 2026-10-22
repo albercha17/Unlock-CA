@@ -1,7 +1,16 @@
-"""Game Over, 1985: La Última Moneda. Octava parada del Cronoportal: DENTRO de una máquina recreativa. Los puzles se reparten en cartas que se
-juntan (placa base de 3x2 con placas boca abajo, radar con coordenadas repartidas, marquesina en fila) y en dos minijuegos por turnos
-(autopista tipo Frogger y encaje de piezas tipo Tetris) cuyas reglas están en cartas sueltas. Los dibujos de las placas y de las cartas
-52 y 70 los hace herramientas/pixeles.py (códigos exactos en codigos_arcade.json e instancias_arcade.json)."""
+"""Game Over, 1985: La Última Moneda — versión de 60 cartas (22 oct 2026), mucho más difícil y variada.
+
+Once puzles de tipos que no salen en ningún otro juego de la serie, con las pistas dibujadas o en acertijo (ninguna carta explica cómo se
+resuelve su puzle): un circuito de puertas lógicas, un aparcamiento de naves (Rush Hour), un sprite comprimido por tandas, bytes en hexadecimal,
+cuatro fantasmas (lógica), un cuadrado mágico 4 x 4, una tabla de récords por intercambios de vecinas, un puzle deslizante, una rana que cruza el
+tráfico programando los pasos, monedas con cambio mínimo y el arranque final con la «o exclusiva» de cuatro bytes. Solo 16 cartas tienen a Cristina y
+Alberto (escenas); el resto son objetos y pistas sin personas. Las cartas-pista las dibuja herramientas/arcade.py (instancias_arcade.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_arcade as I  # noqa: E402
 
 ESTILO = ("Ilustración semirrealista con aire de película de ciencia ficción de los años 80 (como Tron y Stranger Things), luz de neón cian, magenta y amarilla "
           "sobre fondos oscuros, interior de una gigantesca máquina recreativa: circuitos, pantallas CRT con rayas de barrido, píxeles de colores flotando en el aire, "
@@ -31,316 +40,295 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfi
          "Sonido: zumbido eléctrico creciente, silbido del portal, sonidos de máquina recreativa (moneda, láser, 'ping') y música sintetizada de ocho bits, sin voz de narrador.")
 
 
-def pieza(titulo, donde):
-    return f"Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): {donde} de «{titulo}»."
+ESTILO += " Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes)."
+SIN_GENTE = "Sin ninguna persona en la imagen. "
 
-
-# id del mosaico -> filas, columnas, cartas en orden de lectura (izquierda→derecha, arriba→abajo), título y giros (placas entregadas boca abajo)
 MOSAICOS = {
-    "placa": dict(filas=2, cols=3, cartas=["17", "14", "19", "16", "15", "18"], titulo="La placa base", giros={"14": 180, "16": 180, "18": 180}),
-    "radar": dict(filas=2, cols=2, cartas=["32", "30", "33", "31"], titulo="El radar del pasillo", giros={}),
-    "marquesina": dict(filas=1, cols=3, cartas=["41", "42", "40"], titulo="La marquesina", giros={}),
+    "aparcamiento": dict(filas=2, cols=1, cartas=["19", "21"], titulo="El aparcamiento de naves"),
+    "record": dict(filas=2, cols=1, cartas=["61", "63"], titulo="La tabla de récords"),
+    "deslizante": dict(filas=2, cols=1, cartas=["66", "67"], titulo="El dibujo final"),
 }
-POS4 = ["arriba a la izquierda", "arriba a la derecha", "abajo a la izquierda", "abajo a la derecha"]
-POS6 = ["arriba a la izquierda", "arriba en el centro", "arriba a la derecha", "abajo a la izquierda", "abajo en el centro", "abajo a la derecha"]
-POS3 = ["a la izquierda", "en el centro", "a la derecha"]
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+_NOM = ["rojo", "cian", "verde", "amarillo", "rosa", "naranja", "violeta", "blanco"]
 
 
-def _ficha_pieza(carta):
-    for k, m in MOSAICOS.items():
-        if carta in m["cartas"]:
-            i = m["cartas"].index(carta)
-            f = dict(id=k, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"])
-            if carta in m["giros"]:
-                f["giro"] = m["giros"][carta]
-            return f
-    raise KeyError(carta)
+def _ruta_atasco():
+    partes, ult, n = [], None, 0
+    for i, d in I.ATASCO["ruta"]:
+        hor = I.ATASCO["naves"][i][3]
+        mov = (f"nave {i + 1} " + (("a la derecha" if d > 0 else "a la izquierda") if hor else ("hacia abajo" if d > 0 else "hacia arriba")))
+        if mov == ult:
+            n += 1
+        else:
+            if ult:
+                partes.append(ult + (f" ({n} casillas)" if n > 1 else ""))
+            ult, n = mov, 1
+    partes.append(ult + (f" ({n} casillas)" if n > 1 else ""))
+    return "; ".join(partes)
 
 
-def _mapa(m):
-    c = m["cartas"]
-    if m["filas"] == 2 and m["cols"] == 3:
-        return f"Arriba, de izquierda a derecha: {c[0]}, {c[1]} y {c[2]}. Abajo: {c[3]}, {c[4]} y {c[5]}."
-    if m["filas"] == 2:
-        return f"Arriba, de izquierda a derecha: {c[0]} y {c[1]}. Abajo: {c[2]} y {c[3]}."
-    return f"Tres cartas en fila, de izquierda a derecha: {c[0]}, {c[1]} y {c[2]}."
+_S_CIR = "interruptores arriba (1): " + ", ".join("ABCDEF"[i] for i, v in enumerate(I.CIRCUITO["solucion"]) if v) + "; abajo (0): " + ", ".join("ABCDEF"[i] for i, v in enumerate(I.CIRCUITO["solucion"]) if not v)
+_S_ATA = _ruta_atasco()
+_S_SPR = " / ".join("".join("#" if v else "." for v in f) for f in I.SPRITE_D["pixeles"])
+_S_ASC = I.ASCII["claro"]
+_S_FAN = "; ".join(f"pasillo {s['pasillo']}: fantasma {s['fantasma']}, {s['velocidad']}, fruta {s['fruta']}" for s in sorted(I.FANTASMAS["solucion"], key=lambda s: s["pasillo"]))
+_S_MAG = " / ".join(" ".join(str(v) for v in f) for f in I.MAGICO["solucion"])
+_S_RAN = ", ".join(_NOM[i] for i in sorted(range(8), key=lambda i: I.RANKING["puntos"][i]))
+_S_DES = " / ".join(" ".join(str(v) if v else "_" for v in f) for f in I.DESLIZANTE["objetivo"])
+_S_RANA = I.RANA["solucion"]
+_S_MON = " y ".join(f"{n} de {v}" for n, v in zip(I.MONEDAS["solucion"], I.MONEDAS["monedas"]) if n)
+_S_XOR = f"{I.BYTES['14']} ^ {I.BYTES['52']} ^ {I.BYTES['40']} ^ {I.BYTES['69']} = {I.RESULTADO}"
 
 
-def _pieza_carta(carta, mosaico, que_es, extra):
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
     m = MOSAICOS[mosaico]
     i = m["cartas"].index(carta)
-    pos = (POS6 if len(m["cartas"]) == 6 else POS4 if len(m["cartas"]) == 4 else POS3)[i]
-    lista = ", ".join(m["cartas"][:-1]) + " y " + m["cartas"][-1]
-    return dict(
-        titulo=f"Carta {carta} — Pieza de «{m['titulo']}» ({pos})", tipo="gris", mosaico=_ficha_pieza(carta),
-        descripcion=[f"{que_es} Es una pieza suelta: juntad las cartas {lista} para ver la pantalla entera."],
-        pistas=["Las piezas encajan formando una sola pantalla.", extra, _mapa(m)],
-        arte=pieza(m["titulo"], pos))
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
 
 
-_ENC = "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio."
-_GIRO = "Si el dibujo no continúa, cambiad las piezas de sitio; y si alguna tiene las letras al revés, está boca abajo: dadle la vuelta."
+def gris(carta, titulo, que, pistas):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=codigo(titulo))
 
 
-def _tiles(ids, mosaico, que, extra):
-    return {i: _pieza_carta(i, mosaico, que, extra) for i in ids}
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
 
 
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada al Salón Estrella", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Octava parada del Cronoportal: el Salón Estrella, un salón recreativo de 1985, a medianoche. Aterrizáis entre filas de máquinas encendidas y el aparato golpea la más grande de todas, COSMIC QUEST. De la sacudida, su cristal de energía sale volando y cae justo por la ranura de las fichas.",
-            "La pantalla se enciende, una luz de neón os envuelve y notáis cómo os convertís en píxeles: estáis dentro de la máquina. Sin el cristal el Cronoportal está muerto y en lo alto de la pantalla parpadea un contador: GAME OVER dentro de setenta y cinco minutos.",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="El interior de un salón recreativo de 1985 a medianoche: filas de máquinas encendidas con pantallas de colores y una máquina gigante en primer plano, con una ranura de fichas que brilla. El Cronoportal, un aparato de latón y cristal, humea en el suelo con su luz azul apagándose. Cristina, con la boca abierta y los ojos muy abiertos de asombro, y Alberto, con las gafas de sol cayéndole de la frente y gesto de incredulidad, se levantan aturdidos con ropa de los años 80."),
-    "10": dict(
-        titulo="Carta 10 — Nivel 1: la placa base", tipo="gris", coge=[14, 15, 16, 17, 18, 19, 20, 22], descarta=["P"],
-        descripcion=[
-            "Dentro de la máquina todo es un mundo de circuitos. Ante vosotros hay una enorme placa base en la que un cable de cobre une una pila con un chip, pero la placa se ha partido en seis piezas sueltas (cartas 14, 15, 16, 17, 18 y 19). Una terminal (carta 20) espera una palabra y, entre las piezas, brilla la mitad de una ficha dorada (carta 22).",
-            "Coged las cartas 14, 15, 16, 17, 18, 19, 20 y 22. Descartad la carta P."],
-        pistas=["Hay un puzle: la placa partida y la terminal.", "Las seis piezas (14 a 19) se juntan formando una sola placa.", "Coged las cartas 14, 15, 16, 17, 18, 19, 20 y 22. Descartad la carta P."],
-        arte="Dentro de una máquina recreativa gigante: una enorme placa de circuitos verde con pistas de cobre luminosas, partida en seis piezas sueltas que flotan, y una pantalla de terminal con un cursor parpadeando. Cristina se agacha con el ceño fruncido de concentración sobre una de las piezas y Alberto levanta otra con gesto de esfuerzo, ambos con ropa de los años 80 y un leve brillo de píxeles en la piel."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin cristal", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía. Alberto: «Sin el cristal no hay portal. Se coló por la ranura... tiene que estar en el corazón de la máquina».",
-            "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el cristal de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, apoyado en el suelo de una máquina recreativa por dentro, con circuitos de neón al fondo."),
-    **_tiles(["14", "15", "16", "17", "18", "19"], "placa", "Una pieza de la placa base de la máquina.", _GIRO),
-    "20": dict(
-        titulo="Carta 20 — La terminal de la placa", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una terminal con un teclado de letras que pide una palabra. La palabra la forman las letras de los componentes por los que pasa el cable de cobre desde la pila hasta el chip, en ese orden (juntad las piezas 14 a 19).",
-            "Al acertar, el circuito se enciende. Coged la carta 26."],
-        pistas=["Juntad las seis piezas de la placa; algunas pueden estar boca abajo.", "Seguid el cable desde la pila (+) hasta el chip y apuntad la letra de cada componente por el que pasa. Los ramales que acaban en un punto apagado no cuentan.", "La palabra es PIXEL."],
-        arte="Una pantalla de terminal verde fosforito con un cursor parpadeando y un teclado de letras de teclas grandes, dentro de una máquina recreativa, con cables de neón al fondo. Alberto teclea concentrado, con la lengua entre los dientes, y Cristina mira la pantalla con los brazos cruzados y una ceja arqueada de duda."),
-    "22": dict(
-        titulo="Carta 22 — Media ficha", tipo="azul", combina=[35, 57],
-        descripcion=["La mitad de una ficha dorada de recreativa, partida limpiamente por el medio. Combinadla con la otra mitad (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Es solo la mitad de una ficha.", "Cuando encontréis la otra mitad, combinadlas.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="Una mitad de ficha dorada de recreativa, partida por el medio, con un relieve de estrella, sobre una placa de circuitos verde luminosa, vista de cerca con luz de neón cian."),
-    "26": dict(
-        titulo="Carta 26 — Nivel 2: el pasillo del radar", tipo="gris", coge=[24, 30, 31, 32, 33], descarta=[14, 15, 16, 17, 18, 19, 20],
-        descripcion=[
-            "El cable se ilumina de la pila al chip y la máquina os deja pasar al segundo nivel: un pasillo de neón con un gran radar en la pared. El radar está partido en cuatro piezas (cartas 30, 31, 32 y 33) y un panel (carta 24) espera que señaléis una casilla.",
-            "Coged las cartas 24, 30, 31, 32 y 33. Descartad las cartas 14, 15, 16, 17, 18, 19 y 20."],
-        pistas=["Hay un puzle: el radar partido y su panel.", "Coged las cartas 24, 30, 31, 32 y 33. Descartad las cartas 14, 15, 16, 17, 18, 19 y 20."],
-        arte="Un pasillo largo de neón dentro de una máquina recreativa, con una pared de pantallas y un gran radar redondo partido en cuatro piezas que flotan; cables luminosos en el suelo. Cristina corre por el pasillo con una sonrisa de emoción y Alberto la sigue, sin aliento y con las manos en las rodillas."),
-    "24": dict(
-        titulo="Carta 24 — El panel del radar", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una rejilla de casillas con las letras de las columnas y los números de las filas. Hay que pulsar la casilla en la que está el cofre dorado del radar (juntad las piezas 30, 31, 32 y 33): la letra de la columna está arriba y el número de la fila, a la izquierda.",
-            "Al acertar, el radar abre una puerta. Coged la carta 28."],
-        pistas=["Juntad las cuatro piezas del radar: es una rejilla con letras y números en el borde.", "El cofre dorado está en una casilla; las señales rojas son falsas. Mirad la letra de su columna y el número de su fila.", "El cofre está en la casilla F4."],
-        arte="Una gran pantalla táctil con una rejilla de casillas iluminada de cian y un panel de botones, en un pasillo de neón dentro de una máquina recreativa. Alberto señala la pantalla con el dedo y una sonrisa de triunfo, y Cristina comprueba la rejilla con los ojos muy abiertos de expectación."),
-    **_tiles(["30", "31", "32", "33"], "radar", "Una pieza del radar del pasillo.", _ENC),
-    "28": dict(
-        titulo="Carta 28 — Nivel 3: la marquesina", tipo="gris", coge=[35, 40, 41, 42, 46], descarta=[26, 30, 31, 32, 33, 24],
-        descripcion=[
-            "La puerta del radar se abre y entráis en la sala de la marquesina, el cartel luminoso de la máquina. Allí, entre las bombillas, brilla la otra mitad de la ficha dorada (carta 35). El cartel está partido en tres piezas (cartas 40, 41 y 42) y el mando de la sala (carta 46) espera una combinación de botones.",
-            "Coged las cartas 35, 40, 41, 42 y 46. Descartad las cartas 26, 30, 31, 32, 33 y 24."],
-        pistas=["Hay dos cosas: la otra mitad de la ficha y el cartel con el mando.", "Las cartas 22 y 35 son combinables. Las piezas 40, 41 y 42 forman el cartel.", "Coged las cartas 35, 40, 41, 42 y 46. Descartad las cartas 26, 30, 31, 32, 33 y 24."],
-        arte="Una sala enorme dentro de una máquina recreativa, con un cartel luminoso de bombillas amarillas y rojas partido en tres piezas que flotan, y en el suelo una consola con un joystick gigante. Cristina salta de alegría al ver una media ficha dorada entre las bombillas y Alberto la mira con gesto de alivio, secándose la frente."),
-    "35": dict(
-        titulo="Carta 35 — Otra media ficha", tipo="roja", combina=[22, 57],
-        descripcion=["La otra mitad de la ficha dorada. Combinadla con la primera mitad (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Es la otra mitad de la ficha.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="La otra mitad de una ficha dorada de recreativa, con el relieve de estrella partido, sobre un fondo de bombillas desenfocadas amarillas y rojas, con destellos de neón."),
-    **_tiles(["40", "41", "42"], "marquesina", "Una pieza del cartel luminoso de la marquesina.", _ENC),
-    "46": dict(
-        titulo="Carta 46 — El mando de la marquesina", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un mando con una cruceta (arriba, abajo, izquierda y derecha) y dos botones, A y B. Hay que pulsar, en orden, los botones del cartel que tienen la luz amarilla encendida (juntad las piezas 40, 41 y 42); los apagados no cuentan.",
-            "Al acertar, el cartel se enciende del todo. Coged la carta 44."],
-        pistas=["Juntad las tres piezas del cartel: hay nueve botones en una fila.", "Solo cuentan los botones con la lucecita amarilla encendida encima. Pulsadlos de izquierda a derecha.", "Arriba, arriba, abajo, izquierda, A y B."],
-        arte="Un mando de recreativa gigante con una cruceta y dos botones grandes, sobre una consola luminosa dentro de una máquina, con un cartel de bombillas de fondo. Cristina pulsa los botones con los dedos crispados de concentración y Alberto cuenta con los dedos con cara de ilusión."),
-    "44": dict(
-        titulo="Carta 44 — Nivel 4: la sala de máquinas", tipo="gris", coge=[38], descarta=[28, 40, 41, 42, 46],
-        descripcion=[
-            "El cartel se enciende y se abre un panel: la sala de máquinas, llena de motores y cables. Entre las herramientas, Alberto encuentra un fusible de repuesto (carta 38).",
-            "Coged la carta 38. Descartad las cartas 28, 40, 41, 42 y 46."],
-        pistas=["Mirad lo que hay entre las herramientas.", "La carta 38 es combinable.", "Coged la carta 38. Descartad las cartas 28, 40, 41, 42 y 46."],
-        arte="Una sala de máquinas dentro de una recreativa: motores, engranajes, cables gordos y tubos con luces de neón magenta y cian. Alberto levanta un fusible de cristal entre las herramientas con una sonrisa de triunfo y Cristina lo mira con los ojos brillantes de entusiasmo."),
-    "38": dict(
-        titulo="Carta 38 — Fusible", tipo="azul", combina=[56, 94],
-        descripcion=["Un fusible de cristal, de los que protegen los circuitos de la máquina. Combinadlo con el cartucho (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Protege un circuito.", "Cuando tengáis el cartucho, combinadlo con el fusible.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Un fusible de cristal con un filamento brillante sobre una toalla de taller manchada de aceite, junto a una llave inglesa, en una sala de máquinas con luz de neón."),
-    "57": dict(
-        titulo="Carta 57 — La ficha de oro", tipo="gris", coge=[48, 52], descarta=[22, 35, 10],
-        descripcion=[
-            "Las dos mitades encajan y forman una ficha de oro entera. Alberto la echa en la ranura de la sala y se abre la autopista del juego: el quinto nivel, una carretera de cuatro carriles llena de coches. En la entrada hay un panel de control (carta 48) y un tablero con el sentido y la velocidad de cada carril (carta 52).",
-            "Coged las cartas 48 y 52. Descartad las cartas 22, 35 y 10."],
-        pistas=["Hay un puzle: la autopista y su tablero de tráfico.", "El tablero (carta 52) dice hacia dónde va cada carril y a qué velocidad.", "Coged las cartas 48 y 52. Descartad las cartas 22, 35 y 10."],
-        arte="Una carretera de píxeles de cuatro carriles con coches de neón de colores que cruzan la pantalla, vista desde la acera de salida, dentro de una máquina recreativa. Cristina sostiene una ficha de oro brillante con una sonrisa de orgullo y Alberto mira la autopista con cara de impaciencia."),
-    "52": dict(
-        titulo="Carta 52 — El tablero de tráfico", tipo="gris",
-        descripcion=["Un tablero con los cuatro carriles de la autopista, de arriba (meta) a abajo (salida). Cada carril lleva una o dos flechas: apuntan hacia donde van los coches y su número dice cuántas casillas avanzan por turno."],
-        pistas=["Es el tablero de la autopista (carta 48).", "Los carriles se leen de arriba abajo, igual que en la autopista. Una flecha: una casilla por turno; dos flechas: dos casillas.", "Los coches se mueven después de que os mováis vosotros."],
-        arte="Carta dibujada por código (herramientas/pixeles.py): el tablero de tráfico con las flechas de cada carril."),
-    "48": dict(
-        titulo="Carta 48 — El panel de la autopista", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una autopista de cuatro carriles. Os movéis un paso por turno (arriba, a un lado o esperar) y después se mueven los coches según el tablero de tráfico (carta 52). Hay que llegar a la meta sin chocar.",
-            "Al llegar a la meta, se abre el camino. Coged la carta 58."],
-        pistas=["Fijaos en el tablero de tráfico: dice hacia dónde va cada carril y a qué velocidad.", "A veces conviene esperar un turno o moverse de lado para que pase un coche. Los coches se mueven después de que os mováis.", "Izquierda, derecha, arriba, arriba, derecha, esperar, arriba, arriba y arriba."],
-        arte="Un panel de control con una cruceta y una pantalla que muestra una autopista de píxeles con coches de colores, en el borde de una carretera de neón. Alberto pulsa un botón con el dedo en el aire y los ojos muy abiertos, y Cristina da saltitos de impaciencia a su lado."),
-    "58": dict(
-        titulo="Carta 58 — El otro lado", tipo="gris", coge=[56], descarta=[48, 52, 57],
-        descripcion=[
-            "Cruzáis la autopista sin un rasguño y llegáis a una cabina de cartuchos. Dentro, sobre un cojín rojo, hay un cartucho brillante con una etiqueta de estrella: el jefe final está cerca.",
-            "Coged la carta 56. Descartad las cartas 48, 52 y 57."],
-        pistas=["Mirad lo que había en la cabina.", "La carta 56 es combinable.", "Coged la carta 56. Descartad las cartas 48, 52 y 57."],
-        arte="Una cabina de cartuchos de videojuego en el otro lado de una autopista de neón, con un cartucho brillante sobre un cojín rojo; Cristina lo toma con una sonrisa radiante de alegría y Alberto se asoma con cara de alivio, resoplando."),
-    "56": dict(
-        titulo="Carta 56 — Cartucho", tipo="roja", combina=[38, 94],
-        descripcion=["Un cartucho de videojuego con una etiqueta de estrella, con la ranura de un fusible vacía. Combinadlo con el fusible (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Es un cartucho al que le falta algo.", "Cuando tengáis el fusible, combinadlo con el cartucho.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Un cartucho de videojuego de los años 80, con una etiqueta de estrella y una ranura vacía en un lateral, sobre un cojín rojo, visto de cerca con luz de neón lateral."),
-    "94": dict(
-        titulo="Carta 94 — Nivel 6: el jefe final", tipo="gris", coge=[69, 70], descarta=[56, 38, 44, 58],
-        descripcion=[
-            "El cartucho, con su fusible puesto, se enciende y os lleva a la sala del jefe final: un gigantesco monstruo de bloques que guarda el corazón de la máquina. Para derrotarlo hay que llenar su pozo de bloques con las piezas exactas: un panel (carta 69) y una hoja con las piezas disponibles (carta 70).",
-            "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        pistas=["Hay un puzle: el pozo del jefe y su hoja de piezas.", "La carta 70 dice qué piezas hay que usar.", "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        arte="Una sala enorme dentro de una máquina recreativa, con un monstruo gigante hecho de bloques de colores que guarda un pozo de cristal; el suelo brilla de neón magenta. Cristina avanza con los puños apretados y cara de miedo contenido, y Alberto la sigue con los ojos muy abiertos y la boca entreabierta de asombro."),
-    "70": dict(
-        titulo="Carta 70 — La hoja de piezas", tipo="gris",
-        descripcion=["Una hoja con las piezas que hay que usar para llenar el pozo del jefe final y cuántas de cada una. Se puede girar cada pieza, pero no darle la vuelta."],
-        pistas=["Es la lista de piezas del pozo (carta 69).", "Hay que usar exactamente esas piezas, ni una más ni una menos, y no debe quedar ningún hueco.", "El pozo se llena con una I, una J, dos O y una T."],
-        arte="Carta dibujada por código (herramientas/pixeles.py): las piezas del pozo y cuántas hay de cada una."),
-    "69": dict(
-        titulo="Carta 69 — El pozo del jefe", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un pozo de bloques con algunas casillas ya ocupadas. Hay que llenarlo del todo, sin dejar huecos, con las piezas que dice la hoja de piezas (carta 70): se elige una pieza, se gira y se toca la casilla donde va.",
-            "Al llenar el pozo, el jefe se desmorona. Coged la carta 82."],
-        pistas=["Mirad la hoja de piezas: dice cuáles hay que usar y cuántas.", "Empezad por las esquinas y los huecos más difíciles. Las piezas se pueden girar.", "La I tumbada ocupa las cuatro casillas de arriba a la izquierda y una O llena la esquina de arriba a la derecha. La T va tumbada en la segunda fila con el pie hacia abajo, la otra O abajo a la izquierda y la J abajo a la derecha."],
-        arte="Un pozo de cristal con bloques de colores encajados, con huecos oscuros, frente a un monstruo gigante hecho de bloques; paneles de neón al fondo. Alberto sostiene una pieza en alto con el ceño fruncido de concentración y Cristina señala un hueco del pozo con la cara iluminada por una idea."),
-    "82": dict(
-        titulo="Carta 82 — El corazón de la máquina", tipo="gris", coge=[62], descarta=[69, 70, 94],
-        descripcion=[
-            "El jefe se deshace en una lluvia de píxeles y deja al descubierto el corazón de la máquina: un núcleo de luz roja en el que flota el cristal de energía, tal y como cayó por la ranura.",
-            "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        pistas=["Mirad dentro del núcleo de luz.", "La carta 62 es combinable con el Cronoportal.", "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        arte="El corazón de una máquina recreativa: un núcleo esférico de luz roja con circuitos de neón a su alrededor y, flotando en el centro, un cristal de energía rojo; una lluvia de píxeles cae alrededor. Cristina lo toma con ambas manos con los ojos llenos de lágrimas de emoción y Alberto la mira con una sonrisa enorme."),
-    "62": dict(
-        titulo="Carta 62 — Cristal de energía", tipo="roja", combina=[12, 74],
-        descripcion=["El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Un cristal rojo facetado con un fulgor interior de brasa y finas líneas de energía, sostenido sobre la palma de una mano, con píxeles de neón flotando alrededor."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[99], descarta=[62, 12, 82],
-        descripcion=[
-            "El cristal encaja con un chasquido y el Cronoportal se enciende. Pero sobre vosotros el contador marca los últimos segundos y los píxeles empiezan a apagarse uno a uno. No hay tiempo que perder: activad el aparato antes del GAME OVER.",
-            "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal ya funciona. Solo queda activarlo.", "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con un cristal rojo encajado en su pecho, en un mundo de píxeles que se apaga poco a poco, con un contador de neón rojo en el cielo. Cristina, con la cara desencajada de urgencia, tira de Alberto, que carga el aparato con gesto de esfuerzo."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
-        descripcion=[
-            "El anillo se abre en un arco de luz justo cuando el contador llega a cero. Cristina y Alberto salen disparados de la máquina y aterrizan en su salón, con el corazón a mil.",
-            "Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo una pequeña ficha dorada. Descartad la carta 74.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven una máquina recreativa gigante y píxeles de neón que se apagan. Llevan aún su ropa de los años 80. Cristina ríe a carcajadas con una ficha dorada en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ La placa base
+    "P": escena("P", "Llegada a la recreativa", [10, 12], [],
+                "Octava parada del Cronoportal: un salón recreativo de 1985. Cristina lleva años con ganas de jugar a los clásicos en sus máquinas originales. El salto vuelve a salir mal: el aparato choca contra una máquina, su cristal sale rodando hasta la ranura de las fichas y desaparece dentro. La pantalla se enciende con un parpadeo y os absorbe: estáis DENTRO de la máquina, entre circuitos gigantes, y en el cielo de píxeles se enciende una cuenta atrás de cien minutos. Alberto lo tiene claro: si la máquina se apaga, os apagáis con ella.",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "El interior de una gigantesca máquina recreativa de 1985, con circuitos enormes, cables luminosos y pantallas CRT con rayas de barrido, bajo un cielo de píxeles de colores. En primer plano, un aparato de latón y cristal (el Cronoportal) humea sin su cristal central. Cristina, con chaqueta vaquera con hombreras y camiseta rosa neón, mira alrededor con la boca abierta de asombro; Alberto, con chaleco acolchado y gafas de aviador en la frente, frunce el ceño con preocupación."),
+    "10": escena("10", "La placa base", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "Estáis sobre una placa base gigante. A un lado, un panel con seis interruptores unidos por puertas lógicas a dos lámparas (carta 14) y su esquema grabado en el cobre (carta 16). Al otro, un aparcamiento de naves de píxeles atascado: lo que pintó el programador en el suelo (carta 18) y el plano del tablero, que ocupa dos láminas, así que juntad la 19 arriba y la 21 abajo (carta 20). En un rincón, el mango de un joystick de tamaño humano (carta 22).",
+                 ["Hay dos puzles: el panel de interruptores y el aparcamiento de naves.", "El aparcamiento son dos cartas: juntadlas, una encima de otra."],
+                 "Una placa base enorme vista desde arriba, con pistas de cobre luminosas, un panel con seis interruptores grandes unidos por cables a dos lámparas, y más allá un aparcamiento de pequeñas naves de píxeles de colores todas atascadas; en un rincón, el mango de un joystick gigante. Cristina toca los interruptores con una ceja arqueada de curiosidad; Alberto señala el aparcamiento, boquiabierto de sorpresa."),
+    "12": combinable("12", "Cronoportal sin cristal", "azul", 62, 74,
+                     "El Cronoportal con el anillo central apagado: le falta el cristal que se tragó la ranura de las fichas.",
+                     SIN_GENTE + "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre una placa de circuitos con luces de neón."),
+    "14": app("14", "El panel de interruptores", "Es un juego de la app: seis interruptores unidos por puertas lógicas a dos lámparas; hay que dejarlas como pide el esquema de la carta 16.", 24,
+              ["El esquema de la carta 16 dice cómo están unidas las puertas. Hay que dejar la lámpara X encendida y la Y apagada.", "Empezad por las puertas del final (la 6 y la 7) y retroceded: ¿qué tienen que valer sus entradas?", f"Solución: {_S_CIR}. Byte de la máquina: {I.BYTES['14']}."],
+              SIN_GENTE + "Un panel de control de neón con seis grandes interruptores de palanca, cables de colores que se juntan en cajas con símbolos de puertas lógicas y dos lámparas redondas al final, sobre una placa base luminosa."),
+    "16": gris("16", "El circuito de la placa", "El esquema grabado en el cobre de la placa: cómo se unen los seis interruptores, las siete puertas y las dos lámparas.",
+               ["Es el esquema del panel de interruptores (carta 14).", "Cada puerta mira sus dos entradas y decide su salida. Los cables llevan un color por origen.", "Lámpara X encendida y lámpara Y apagada."]),
+    "18": gris("18", "El acertijo del aparcamiento", "Un acertijo pintado en el suelo por el programador.",
+               ["Es la regla del aparcamiento de naves (carta 20).", "Las naves solo avanzan y retroceden por donde apuntan.", "La nave 1, la roja, es la que tiene que salir por la derecha."]),
+    "19": pieza("19", "aparcamiento", "Media lámina del aparcamiento de naves.", ["Es la mitad de una lámina: juntadla con la carta 21.", "Cada nave lleva su número.", "La puerta de salida está a la derecha."]),
+    "21": pieza("21", "aparcamiento", "Media lámina del aparcamiento de naves.", ["Es la mitad de una lámina: juntadla con la carta 19.", "Cada nave lleva su número.", "La puerta de salida está a la derecha."]),
+    "20": app("20", "El aparcamiento de naves", "Es un juego de la app: un aparcamiento de naves de píxeles; hay que sacar la nave 1 por la puerta de la derecha moviendo las demás.", 28,
+              ["El plano está en las cartas 19 y 21, y la regla en la 18.", "Hay que ir moviendo las naves que bloquean el camino de la nave 1; algunas hay que apartarlas dos veces.", f"Una solución en {I.ATASCO['minimo']} movimientos: {_S_ATA}."],
+              SIN_GENTE + "Un aparcamiento de naves espaciales de píxeles de colores, aparcadas muy juntas en una cuadrícula de neón, con una salida iluminada en un lado, sobre una placa base."),
+    "22": combinable("22", "Mango de joystick", "azul", 35, 57, "Un mango de joystick de tamaño humano, de plástico negro, sin bola en la punta.",
+                     SIN_GENTE + "Un joystick gigante de recreativa de los 80, con la base y el mango negros, sin la bola roja de la punta, sobre una placa de circuitos con luces de neón."),
+    "24": escena("24", "La placa se enciende", [26], [14, 16],
+                 "Las dos lámparas se encienden como dictaba el esquema y la placa empieza a zumbar: un panel se abre y deja ver una nota de papel, pegada con cinta por el programador (carta 26), que habla de cómo ordena la máquina sus récords. Un número parpadea en la pantalla del panel: guardadlo, lo pedirá el arranque.",
+                 ["Mirad el panel que se ha abierto."],
+                 "Un panel de una placa base que se abre hacia fuera con un destello, dejando ver una nota de papel pegada con cinta adhesiva, bajo dos lámparas redondas encendidas. Cristina, con una sonrisa de triunfo, levanta el puño; Alberto, con las gafas de aviador en la frente, mira la nota con curiosidad."),
+    "26": gris("26", "La nota del programador", "Una nota de papel pegada por el programador: cómo ordena la máquina su tabla de récords.",
+               ["Habla de cómo se puede reordenar la tabla (carta 51).", "Solo se pueden cambiar dos entradas vecinas, y hay un máximo de cambios.", "Los puntos de cada entrada están en la tabla de las cartas 61 y 63."]),
+    "28": escena("28", "El aparcamiento despejado", [35], [18, 19, 20, 21],
+                 "La nave roja sale disparada por la puerta y el aparcamiento se despeja. Entre dos plazas, un reflejo rojo: la bola del joystick (carta 35), que se había caído de la nave.",
+                 ["Mirad entre las plazas del aparcamiento."],
+                 "Un aparcamiento de naves de píxeles ya casi vacío, con una nave roja desapareciendo por una puerta iluminada al fondo y, entre dos plazas, una gran bola roja de joystick brillando. Cristina la recoge con cara de asombro y los ojos muy abiertos; Alberto sonríe aliviado con los pulgares arriba."),
+    "35": combinable("35", "Bola del joystick", "roja", 22, 57, "Una bola roja de joystick, brillante, con la rosca de la base al aire.",
+                     SIN_GENTE + "Una bola roja brillante de joystick de recreativa con una rosca metálica en la base, sobre una placa de circuitos con luces de neón."),
+    "57": escena("57", "El joystick gigante", [31, 32], [22, 35, 10, 28],
+                 "Enroscáis la bola en el mango y el joystick gigante cobra vida: al empujarlo, la placa se divide en dos pasillos. A la izquierda, el taller de sprites, donde se dibujan los personajes del juego (carta 31). A la derecha, la consola de mensajes de la máquina (carta 32).",
+                 ["Dos pasillos: el taller de sprites y la consola de mensajes."],
+                 "Un joystick gigante de recreativa con una bola roja, inclinado hacia delante, y delante de él una placa base que se abre en dos pasillos de neón: a la izquierda uno con pantallas de píxeles y a la derecha otro con una consola con una pantalla negra. Cristina tira del joystick con los dientes apretados por el esfuerzo; Alberto, detrás, la sujeta riendo."),
+    # ------------------------------------------------------------------ Rama 1: el taller de sprites
+    "31": escena("31", "El taller de sprites", [40, 41, 43, 45], [],
+                 "Una pantalla enorme, apagada, con una rejilla de doce por doce casillas (carta 40). En el suelo, dos tiras de papel con las tandas de casillas del dibujo, fila por fila (cartas 41 y 43), y una nota con la regla de la compresión (carta 45).",
+                 ["Un único puzle: dibujar un sprite que está comprimido."],
+                 "Un taller de dibujo de píxeles dentro de una máquina recreativa: una pantalla enorme con una rejilla de casillas apagadas, tiras de papel con hileras de cifras en el suelo y pinceles de luz. Cristina examina una tira con la cabeza ladeada; Alberto se rasca la barbilla pensando."),
+    "40": app("40", "La pantalla de sprites", "Es un juego de la app: dibujar en una rejilla de doce por doce casillas el sprite que describen las tandas de las cartas 41 y 43.", 30,
+              ["Las tandas están en las cartas 41 y 43 y la regla de la compresión, en la 45.", "Cada fila se cuenta de izquierda a derecha, alternando casillas apagadas y encendidas, empezando por las apagadas.", f"El dibujo es un fantasmita, fila por fila ('#' encendida): {_S_SPR}. Byte de la máquina: {I.BYTES['40']}."],
+              SIN_GENTE + "Una pantalla enorme de recreativa con una rejilla de casillas de píxeles en la que se dibuja un sprite de colores, con cables luminosos y reflejos de neón."),
+    "41": gris("41", "Las tandas del sprite (I)", "Las tandas de casillas de las filas 1 a 6 del sprite.",
+               ["Cada fila del dibujo mide doce casillas.", "Las tandas se cuentan de izquierda a derecha: primero apagadas, luego encendidas, y así.", "Si una fila empieza por casillas encendidas, el primer número es un cero."]),
+    "43": gris("43", "Las tandas del sprite (II)", "Las tandas de casillas de las filas 7 a 12 del sprite.",
+               ["Cada fila del dibujo mide doce casillas.", "Las tandas se cuentan de izquierda a derecha: primero apagadas, luego encendidas, y así.", "La última fila no tiene ceros al principio: empieza por una tanda de apagadas o de encendidas."]),
+    "45": gris("45", "La regla de la compresión", "Una nota con la regla de la compresión de los sprites.",
+               ["Explica cómo leer las tandas de las cartas 41 y 43.", "Las tandas alternan apagadas y encendidas.", "Empiezan siempre por las apagadas."]),
+    "30": escena("30", "El sprite aprobado", [38], [31, 40, 41, 43, 45],
+                 "El fantasmita cobra vida, hace una reverencia y se desvanece; la pantalla del taller escupe una pieza de metal: la mitad de una llave en forma de moneda (carta 38). Otro número parpadea en la pantalla del taller: guardadlo también.",
+                 ["Mirad lo que ha escupido la pantalla."],
+                 "Una pantalla gigante en la que un fantasmita de píxeles amarillos se despide con una reverencia y, en una bandeja de metal debajo, una mitad de llave con forma de moneda dorada. Cristina aplaude con los ojos brillantes; Alberto se ríe a carcajadas."),
+    "38": combinable("38", "Mitad de la llave del jefe", "roja", 56, 94, "Una mitad de una llave dorada con forma de ficha de recreativa.",
+                     SIN_GENTE + "La mitad izquierda de una llave dorada con forma de ficha de recreativa con ranuras, sobre una bandeja de metal con luces de neón."),
+    # ------------------------------------------------------------------ Rama 2: la consola de mensajes
+    "32": escena("32", "La consola de mensajes", [42, 48, 49, 53], [],
+                 "Una consola con una pantalla negra y un cursor parpadeante: espera un mensaje (carta 48). Junto a ella, una pantalla pequeña con ocho bytes en hexadecimal (carta 42), la tabla de caracteres de la máquina (carta 49) y una nota con la regla de los bytes (carta 53).",
+                 ["Un único puzle: leer un mensaje escrito en bytes."],
+                 "Una consola antigua de ordenador con una gran pantalla negra y un cursor verde parpadeante, junto a una tira de papel de impresora con hileras de pares de símbolos. Cristina tamborilea con los dedos en la consola mirando la pantalla; Alberto, con el ceño fruncido, sigue la tira con el dedo."),
+    "48": app("48", "La consola de mensajes", "Es un juego de la app: escribir el mensaje de la pantalla, que está en ocho bytes (carta 42) y se lee con la tabla de la carta 49.", 36,
+              ["Los bytes están en la carta 42, la tabla en la 49 y la regla en la 53.", "Cada byte son dos cifras en base dieciséis; la tabla dice qué letra es cada uno.", f"El mensaje es {_S_ASC}."],
+              SIN_GENTE + "Una consola de ordenador antigua con una pantalla negra de letras verdes, un teclado grande y una tira de papel de impresora, dentro de una placa base de neón."),
+    "42": gris("42", "Los bytes del mensaje", "La pantalla pequeña de la consola, con los ocho bytes del mensaje en hexadecimal.",
+               ["Son ocho bytes: ocho letras.", "Se leen de izquierda a derecha y de arriba abajo.", "Cada byte son dos cifras en base dieciséis."]),
+    "49": gris("49", "La tabla de caracteres", "La tabla de caracteres de la máquina: cada letra con su byte.",
+               ["Sirve para traducir los bytes de la carta 42 a letras.", "Es una tabla de A a Z.", "Cada letra tiene un byte de dos cifras."]),
+    "53": gris("53", "La regla de los bytes", "Una nota con la regla de los bytes en hexadecimal.",
+               ["Explica cómo se escribe un byte.", "Cada byte son dos cifras en base dieciséis: del 0 al 9 y de la A a la F.", "La tabla de la carta 49 hace el resto."]),
+    "36": escena("36", "El menú de los fantasmas", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "El mensaje desbloquea el menú de la máquina: cuatro fantasmas, uno por pasillo, patrullan una sala de neón, cada uno a su velocidad y persiguiendo su fruta. Alberto comprueba el panel (carta 52). En un cartel están las pistas del guardián, en dos tiras (cartas 54 y 55), y el plano de los cuatro pasillos (carta 59).",
+                 ["Un único puzle: averiguar qué fantasma patrulla cada pasillo."],
+                 "Una sala de neón con cuatro pasillos paralelos y un fantasma de píxeles distinto en cada uno (rojo, rosa, cian y naranja), con frutas flotando sobre ellos, y un cartel con tiras de papel con pistas. Cristina señala a los fantasmas con los ojos muy abiertos y una gran sonrisa; Alberto se tapa la boca para disimular la risa."),
+    "52": app("52", "Los cuatro fantasmas", "Es un juego de la app: averiguar qué fantasma patrulla cada pasillo, a qué velocidad y qué fruta persigue.", 44,
+              ["Las pistas están en las cartas 54 y 55 y el plano de los pasillos en la 59.", "Empezad por las pistas que sitúan a un fantasma en un extremo o junto a otro; vais llenando el plano.", f"Solución: {_S_FAN}. Byte de la máquina: {I.BYTES['52']}."],
+              SIN_GENTE + "Una sala de neón con cuatro pasillos y un fantasma de píxeles distinto en cada uno, rojo, rosa, cian y naranja, con frutas flotando sobre ellos y un panel de control con cuatro columnas."),
+    "54": gris("54", "Las pistas de los fantasmas (I)", "La primera tira de pistas del guardián de la sala.", ["Son las primeras pistas sobre los fantasmas.", "Cada frase compara a dos fantasmas.", "Las frases con «izquierda» se leen de izquierda a derecha del plano."]),
+    "55": gris("55", "Las pistas de los fantasmas (II)", "La segunda tira de pistas del guardián de la sala.", ["Son las últimas pistas sobre los fantasmas.", "Hacen falta todas las frases juntas.", "Las frases con «izquierda» se leen de izquierda a derecha del plano."]),
+    "59": gris("59", "El plano de los pasillos", "El plano de la sala: cuatro pasillos, de izquierda a derecha, y cuatro fantasmas, cuatro velocidades y cuatro frutas.", ["Son cuatro pasillos numerados de izquierda a derecha.", "Cada pasillo tiene un fantasma, una velocidad y una fruta, todos distintos.", "Los extremos son el pasillo 1 y el pasillo 4."]),
+    # ------------------------------------------------------------------ El marcador y las salas del jefe
+    "44": escena("44", "La sala de puntuaciones", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "Los fantasmas se retiran y se abre la sala de puntuaciones del jefe. Un marcador gigante con dieciséis casillas, la mayoría vacías (carta 46), con seis números ya puestos (carta 37), una nota con la regla de la suma (carta 39) y una bolsa de fichas (carta 33). Al fondo, una tabla de récords desordenada (carta 51) que ocupa dos láminas: juntad la 61 arriba y la 63 abajo.",
+                 ["Hay dos puzles: el marcador y la tabla de récords."],
+                 "Una sala enorme de neón con un marcador gigante de dieciséis casillas en la pared, una bolsa de fichas numeradas en el suelo y, al fondo, una tabla de récords con barras de colores desordenadas. Cristina cuenta con los dedos mirando el marcador; Alberto, boquiabierto, señala la tabla de récords."),
+    "46": app("46", "El marcador del jefe", "Es un juego de la app: rellenar con los números del 1 al 16 un marcador de cuatro por cuatro para que todas las filas, columnas y diagonales sumen lo mismo.", 56,
+              ["Los seis números puestos, en la carta 37; la regla de la suma, en la 39; las fichas que faltan, en la 33.", "Cada fila, cada columna y las dos diagonales suman 34. Empezad por una línea con tres números ya puestos.", f"Solución, fila por fila: {_S_MAG}."],
+              SIN_GENTE + "Un marcador gigante de recreativa con una cuadrícula de cuatro por cuatro casillas numeradas con luces de neón, en una sala oscura con cables luminosos."),
+    "37": gris("37", "El marcador del jefe", "El marcador con seis de sus dieciséis casillas ya rellenas.", ["Son seis números ya puestos del marcador (carta 46).", "Ni una casilla de las vacías tiene nada puesto.", "La regla de la suma, en la carta 39."]),
+    "39": gris("39", "La regla del marcador", "La regla grabada en la carcasa del marcador.", ["Dice cuánto suma cada fila, columna y diagonal.", "Los números van del 1 al 16, una vez cada uno.", "Todas las líneas suman treinta y cuatro."]),
+    "33": gris("33", "Las fichas de la bolsa", "Las fichas que aún no están en el marcador.", ["Son las fichas que faltan en el marcador (carta 46).", "Coinciden con los números que no están puestos en la carta 37.", "Cada ficha se usa una sola vez."]),
+    "56": combinable("56", "Otra mitad de la llave", "roja", 38, 94, "La otra mitad de la llave del jefe, con forma de ficha de recreativa, que escupe el marcador al encenderse.",
+                     SIN_GENTE + "La mitad derecha de una llave dorada con forma de ficha de recreativa con ranuras, que sale de la boca de un marcador gigante, con luces de neón."),
+    "51": app("51", "La tabla de récords", "Es un juego de la app: ordenar la tabla de récords de menos a más puntos cambiando solo entradas vecinas, con un máximo de cambios.", 58,
+              ["La regla está en la carta 26 y los puntos de cada entrada, en las cartas 61 y 63.", "Cada cambio solo mueve una entrada un puesto. Pensad en cuántos cambios hacen falta para colocar cada una.", f"De arriba abajo, los colores en este orden: {_S_RAN}."],
+              SIN_GENTE + "Una tabla de récords de recreativa con ocho barras de colores de distinto largo apiladas, en desorden, con una pantalla negra detrás y luces de neón."),
+    "61": pieza("61", "record", "Media lámina de la tabla de récords.", ["Es la mitad de una lámina: juntadla con la carta 63.", "Cada color tiene su puntuación.", "Los puntos de la tabla se usan para ordenar los bloques de la carta 51."]),
+    "63": pieza("63", "record", "Media lámina de la tabla de récords.", ["Es la mitad de una lámina: juntadla con la carta 61.", "Cada color tiene su puntuación.", "Los puntos de la tabla se usan para ordenar los bloques de la carta 51."]),
+    "58": escena("58", "La ranura de los récords", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "La tabla de récords se ordena y de su hueco sale un pasillo con una autopista de ocho carriles: el nivel de la rana. Cruzarla requiere programar los pasos de antemano (carta 69). En el arcén, la foto de la autopista tal y como está al empezar (carta 70) y las velocidades de cada carril (carta 71).",
+                 ["Un único puzle: programar el cruce de la rana."],
+                 "Una autopista de neón de cinco carriles con coches de colores de píxeles que pasan a distinta velocidad, con una rana verde de píxeles esperando en el arcén. Cristina, de rodillas, mira los coches con las manos en la cabeza; Alberto, con los brazos cruzados, calcula con los ojos entrecerrados."),
+    "69": app("69", "La rana de la autopista", "Es un juego de la app: programar los pasos de una rana (arriba, izquierda, derecha o esperar) para cruzar cinco carriles de tráfico sin que la atropellen.", 80,
+              ["La autopista al empezar está en la carta 70 y las velocidades de los carriles, en la 71.", "En cada turno la rana se mueve primero y luego los coches. Solo cuenta dónde están los coches al final del turno. Los coches que se salen por un lado entran por el otro.", f"Una solución en {I.RANA['minimo']} turnos: {_S_RANA}. Byte de la máquina: {I.BYTES['69']}."],
+              SIN_GENTE + "Una autopista de neón de cinco carriles con coches de píxeles de colores y una rana verde de píxeles al borde, sobre una placa base luminosa."),
+    "70": gris("70", "La autopista al empezar", "Una foto de la autopista al empezar el nivel.", ["Muestra la posición de los coches y de la rana en el turno cero.", "Los números de la izquierda son los carriles.", "La rana empieza en la fila de abajo."]),
+    "71": gris("71", "Las velocidades del tráfico", "Cuántas casillas avanza cada carril por turno, y hacia dónde.", ["Cada flecha es una casilla por turno.", "Los coches que se salen por un lado entran por el otro.", "En cada turno la rana se mueve primero y luego se mueven los coches."]),
+    "80": escena("80", "El almacén de monedas", [72, 75, 79], [58, 69, 70, 71],
+                 "La rana cruza y se queda esperando al otro lado, dando saltitos. Detrás de ella, el almacén de monedas de la máquina: una máquina de cambio con cuatro ranuras, cada una con su moneda (carta 72). Los valores de las monedas, en un cartel (carta 75), y el precio de la partida y la regla de la máquina, en la pantalla de continuar (carta 79).",
+                 ["Un único puzle: pagar justo con las menos monedas."],
+                 "Un almacén de neón con una máquina de cambio con cuatro ranuras de monedas de distinto tamaño y colores, una pantalla con un precio y montones de monedas doradas en el suelo. Cristina sostiene una moneda a la luz con los ojos entrecerrados, calculando; Alberto se pone las manos en la cintura con cara de satisfacción."),
+    "72": app("72", "La máquina de cambio", "Es un juego de la app: pagar el precio exacto de la partida con la máquina de cambio, usando las menos monedas posibles, con cuatro clases de moneda.", 82,
+              ["Los valores de las monedas están en la carta 75 y el precio, en la 79.", "La máquina no da cambio. No sirve echar siempre la moneda mayor que quepa: hay un pago con menos monedas.", f"Solución: {_S_MON} (cuatro monedas en total)."],
+              SIN_GENTE + "Una máquina de cambio de recreativa con cuatro ranuras de monedas de distinto tamaño y colores y una pantalla con luces de neón, con monedas doradas apiladas en el suelo."),
+    "75": gris("75", "Las monedas de la máquina", "Las cuatro clases de moneda de la máquina de cambio, con su valor.", ["Son cuatro monedas distintas, de la menor a la mayor.", "De cada clase hay cuantas se quiera.", "El precio de la partida está en la carta 79."]),
+    "79": gris("79", "El precio de la partida", "La pantalla de continuar: el precio de la partida y la regla de la máquina.", ["Dice cuánto hay que pagar.", "La máquina no da cambio: se paga justo.", "Hay que pagarlo con el menor número posible de monedas."]),
+    "82": escena("82", "La ranura de continuar", [85, 86, 87], [80, 72, 75, 79],
+                 "La máquina de cambio escupe una ficha de continuar y, con ella, se abre la puerta del núcleo de la máquina: el arranque. Cristina lee en una pantalla: «Introduce la clave». La clave es la combinación de cuatro números que os dejaron los puzles del panel, los fantasmas, el taller de sprites y la rana (carta 85). Dos láminas explican cómo se combinan (cartas 86 y 87).",
+                 ["Un único puzle: arrancar la máquina con la clave."],
+                 "La sala del núcleo de una máquina recreativa, con un panel con cuatro ranuras, una pantalla negra con un cursor parpadeante y una gran palanca de arranque, con cables luminosos de neón por todas partes. Cristina, con una ficha en la mano, mira la pantalla con los labios apretados; Alberto, a su lado, se muerde el labio pensativo."),
+    "85": app("85", "El arranque de la máquina", "Es un juego de la app: la clave de arranque sale de combinar con la «o exclusiva» los cuatro números que os dejaron los puzles del panel, los fantasmas, el taller de sprites y la rana.", 99,
+              ["Los números que anotasteis: el del panel de interruptores, el de los fantasmas, el del taller de sprites y el de la rana. Las reglas, en las cartas 86 y 87.", "La «o exclusiva» se aplica cifra a cifra, con los números en binario: 0 y 0 da 0, 1 y 1 da 0, y 0 y 1 (o 1 y 0) da 1.", f"Los bytes son {I.BYTES['14']}, {I.BYTES['52']}, {I.BYTES['40']} y {I.BYTES['69']}: {_S_XOR}."],
+              SIN_GENTE + "Un panel de arranque de una máquina recreativa con cuatro ranuras para números, una gran palanca de arranque y una pantalla con un cursor parpadeante, con cables luminosos de neón."),
+    "86": gris("86", "La clave del arranque (I)", "Una nota del programador: de dónde sale cada número de la clave (primera parte).", ["Explica los dos primeros números de la clave.", "Hay que combinar los cuatro números con la «o exclusiva».", "El orden en que se combinan no importa."]),
+    "87": gris("87", "La clave del arranque (II)", "Una nota del programador: los otros dos números, y la tabla de la «o exclusiva».", ["Explica los otros dos números de la clave.", "La tabla de la «o exclusiva» dice qué da cada pareja de cifras.", "Se aplica cifra a cifra, con los números en binario."]),
+    # ------------------------------------------------------------------ La sala del jefe y el final
+    "94": escena("94", "La sala del jefe final", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Las dos mitades encajan: la llave del jefe, una ficha dorada completa, abre la sala del jefe final. En el centro, un tablero deslizante de nueve casillas con una ficha menos (carta 64) cierra el cerrojo. El dibujo final que tiene que formar ocupa dos láminas: juntad la 66 arriba y la 67 abajo.",
+                 ["Un único puzle: el puzle deslizante."],
+                 "Una sala enorme con un tablero deslizante gigante de nueve casillas, con ocho fichas de colores numeradas y un hueco, que sirve de cerrojo de una puerta dorada, bajo luces de neón. Cristina, de puntillas, estudia el tablero con la lengua entre los dientes; Alberto, a su lado, levanta las cejas sorprendido."),
+    "64": app("64", "El cerrojo deslizante", "Es un juego de la app: un tablero de tres por tres casillas con un hueco; hay que deslizar las fichas hasta formar el dibujo final.", 62,
+              ["El dibujo final, en las cartas 66 y 67 (dos mitades).", "Colocad primero la fila de arriba y luego bajad a las otras dos; las últimas fichas son las más difíciles.", f"El dibujo final, fila por fila: {_S_DES}."],
+              SIN_GENTE + "Un tablero deslizante gigante de nueve casillas con ocho fichas de colores numeradas y un hueco, sobre un cerrojo dorado, con luces de neón."),
+    "66": pieza("66", "deslizante", "Media lámina del dibujo final del cerrojo.", ["Es la mitad de una lámina: juntadla con la carta 67.", "Muestra cómo tienen que quedar las ocho fichas.", "El hueco va en el centro."]),
+    "67": pieza("67", "deslizante", "Media lámina del dibujo final del cerrojo.", ["Es la mitad de una lámina: juntadla con la carta 66.", "Muestra cómo tienen que quedar las ocho fichas.", "El hueco va en el centro."]),
+    "62": combinable("62", "El cristal del Cronoportal", "roja", 12, 74, "El cristal del Cronoportal, que el cerrojo escupe al abrirse: se tragó la ranura de las fichas y acabó escondido en la sala del jefe.",
+                     SIN_GENTE + "Un cristal redondo de color azul brillante, del tamaño de una ficha de recreativa, con destellos de luz, sobre una bandeja metálica con luces de neón."),
+    "74": escena("74", "Cronoportal con el cristal", [], [62, 12, 64, 66, 67, 94, 57],
+                 "Encajáis el cristal en el pecho del Cronoportal y el anillo se enciende con un arco de luz azul: la cuenta atrás se detiene en seguida. Solo falta la clave para arrancar la máquina y abrir la salida: cuatro números combinados con la «o exclusiva» (carta 85).",
+                 ["Ya solo queda arrancar la máquina."],
+                 "Cristina y Alberto encajan un cristal azul brillante en el hueco del Cronoportal, un aparato de latón y cristal con un anillo central que se enciende con un arco de luz azul, entre circuitos gigantes de neón. Cristina lo sostiene con las dos manos con una enorme sonrisa; Alberto contiene el aliento, mirando el anillo con la boca abierta."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87],
+                 "La clave activa el arranque: la máquina arranca con un chasquido, la pantalla enseña «GAME OVER» y, al instante, una moneda enorme cae por la ranura y abre el portal. Cristina se despide del fantasmita con la mano. Aterrizáis en vuestro salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y magenta que se abre detrás de ellos; a través del portal todavía se ven el interior de una máquina recreativa y una gran moneda dorada cayendo. Llevan aún la ropa de los años 80. Cristina sonríe, Alberto dice «Mañana, otro destino»; el Cronoportal humea sobre la mesa."),
 }
 
-META = dict(
-    juego="Game Over, 1985 — La Última Moneda",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-    mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"], **({"giros": m["giros"]} if m["giros"] else {})) for k, m in MOSAICOS.items()},
-)
+META = dict(juego="Game Over, 1985 — La Última Moneda", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["14", "15", "16", "17", "18", "19", "20"], "28": ["30", "31", "32", "33", "24"], "44": ["40", "41", "42", "46"],
-           "57": ["22", "35"], "58": ["48", "52"], "94": ["56", "38"], "82": ["69", "70"], "74": ["62", "12"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada al Salón Estrella. Te manda coger la 10 y la 12.",
-    "10": "Nivel 1: reparte las seis piezas de la placa base, la terminal y la mitad de la ficha.",
-    "12": "El Cronoportal sin cristal: se combina con el cristal de energía (62).",
-    "14": "Pieza de la placa base.", "15": "Pieza de la placa base.", "16": "Pieza de la placa base.", "17": "Pieza de la placa base.",
-    "18": "Pieza de la placa base.", "19": "Pieza de la placa base.",
-    "20": "La terminal (app): escribir la palabra que forman los componentes del cable.",
-    "22": "Media ficha: se combina con la otra mitad (35).",
-    "24": "El panel del radar (app): pulsar la casilla del cofre.",
-    "26": "Nivel 2: reparte las piezas del radar y su panel; te manda descartar la placa base.",
-    "28": "Nivel 3: reparte la otra media ficha, las piezas de la marquesina y el mando.",
-    "30": "Pieza del radar.", "31": "Pieza del radar.", "32": "Pieza del radar.", "33": "Pieza del radar.",
-    "35": "Otra media ficha: se combina con la 22.",
-    "40": "Pieza de la marquesina.", "41": "Pieza de la marquesina.", "42": "Pieza de la marquesina.",
-    "46": "El mando (app): pulsar los botones encendidos de la marquesina, en orden.",
-    "44": "Nivel 4: reparte el fusible.",
-    "38": "Fusible: se combina con el cartucho (56).",
-    "57": "La ficha de oro (22 + 35): reparte la autopista y su tablero de tráfico.",
-    "52": "Tablero de tráfico: dirección y velocidad de cada carril de la autopista.",
-    "48": "La autopista (app): cruzar los cuatro carriles sin chocar.",
-    "58": "El otro lado: reparte el cartucho.",
-    "56": "Cartucho: se combina con el fusible (38).",
-    "94": "Nivel 6 (56 + 38): reparte el pozo del jefe y su hoja de piezas.",
-    "70": "Hoja de piezas: qué piezas llenan el pozo.",
-    "69": "El pozo del jefe (app): llenarlo con las piezas de la hoja.",
-    "82": "El corazón de la máquina: reparte el cristal de energía.",
-    "62": "Cristal de energía: se combina con el Cronoportal (12).",
-    "74": "Cronoportal reconectado (62 + 12): reparte la 99.",
-    "99": "Final de la aventura, ya en casa.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-# ---------------------------------------------------------------- manual (los estados de la mesa se calculan simulando las cartas)
-_TEXTOS = [
-    ("leer", "P", "Llegada al Salón Estrella", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
-    ("leer", "10", "Nivel 1: la placa base", "Lee la carta 10. Descarta la P y coge 14, 15, 16, 17, 18, 19, 20 y 22. Junta las seis piezas (14 a 19) para ver la placa entera (en el Modo PC, botón «Mesa de montaje»: toca dos piezas para cambiarlas de sitio y usa «Dar la vuelta» con las que tengan las letras al revés). Sigue el cable de la pila al chip."),
-    ("app", "20", "La terminal", "En el móvil: Acción, 20. Escribe la palabra de los componentes del cable, de la pila al chip: PIXEL. El mensaje te dice que cojas la 26.", "carta 26"),
-    ("leer", "26", "Nivel 2: el pasillo del radar", "Lee la carta 26. Descarta 14, 15, 16, 17, 18, 19 y 20 y coge 24, 30, 31, 32 y 33. Junta las cuatro piezas del radar (30 a 33)."),
-    ("app", "24", "El panel del radar", "En el móvil: Acción, 24. Pulsa la casilla del cofre dorado: columna F, fila 4. El mensaje te dice que cojas la 28.", "carta 28"),
-    ("leer", "28", "Nivel 3: la marquesina", "Lee la carta 28. Descarta 26, 30, 31, 32, 33 y 24 y coge 35, 40, 41, 42 y 46. Junta las tres piezas del cartel (40, 41 y 42) en fila. Las cartas 22 y 35 son combinables."),
-    ("app", "46", "El mando", "En el móvil: Acción, 46. Pulsa los botones con luz amarilla, de izquierda a derecha: arriba, arriba, abajo, izquierda, A y B. El mensaje te dice que cojas la 44.", "carta 44"),
-    ("leer", "44", "Nivel 4: la sala de máquinas", "Lee la carta 44. Descarta 28, 40, 41, 42 y 46 y coge la 38, un fusible."),
-    ("combinar", "22", "35", "La ficha de oro", "Las dos mitades de la ficha (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
-    ("leer", "57", "Nivel 5: la autopista", "Lee la carta 57. Descarta 22, 35 y 10 y coge 48 y 52. La carta 52 es el tablero de tráfico: dirección y velocidad de cada carril."),
-    ("app", "48", "La autopista", "En el móvil: Acción, 48. Con el tablero de tráfico: izquierda, derecha, arriba, arriba, derecha, esperar y arriba tres veces. El mensaje te dice que cojas la 58.", "carta 58"),
-    ("leer", "58", "El otro lado", "Lee la carta 58. Descarta 48, 52 y 57 y coge la 56, un cartucho."),
-    ("combinar", "56", "38", "Cartucho con fusible", "El cartucho (56) y el fusible (38) son combinables: 56 + 38 = 94. Coge la 94."),
-    ("leer", "94", "Nivel 6: el jefe final", "Lee la carta 94. Descarta 56, 38, 44 y 58 y coge 69 y 70. La carta 70 dice las piezas que hay que usar."),
-    ("app", "69", "El pozo del jefe", "En el móvil: Acción, 69. Llena el pozo con una I, una J, dos O y una T. El mensaje te dice que cojas la 82.", "carta 82"),
-    ("leer", "82", "El corazón de la máquina", "Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía."),
-    ("combinar", "12", "62", "Cristal en el Cronoportal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
-    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12 y 82 y coge la 99."),
-    ("leer", "99", "Final", "Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!"),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "La placa base", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el aparcamiento: 19 arriba y 21 abajo."),
+    ("app", "14", "El panel de interruptores", f"En el móvil: Acción, 14. Con el esquema (16): {_S_CIR}. El mensaje te dice que cojas la 24. Anota el byte de la máquina: {I.BYTES['14']}.", "carta 24"),
+    ("leer", "24", "La placa se enciende", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para la tabla de récords)."),
+    ("app", "20", "El aparcamiento de naves", f"En el móvil: Acción, 20. Con el plano (19 y 21) y el acertijo (18), saca la nave 1 en {I.ATASCO['minimo']} movimientos: {_S_ATA}. El mensaje te dice que cojas la 28.", "carta 28"),
+    ("leer", "28", "El aparcamiento despejado", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
+    ("combinar", "22", "35", "El joystick", "El mango (22) y la bola (35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "El joystick gigante", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "El taller de sprites", "Lee la carta 31. Coge 40, 41, 43 y 45."),
+    ("app", "40", "La pantalla de sprites", f"En el móvil: Acción, 40. Con las tandas (41 y 43) y la regla (45), el fantasmita fila por fila ('#' encendida): {_S_SPR}. El mensaje te dice que cojas la 30. Anota el byte de la máquina: {I.BYTES['40']}.", "carta 30"),
+    ("leer", "30", "El sprite aprobado", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "La consola de mensajes", "Lee la carta 32. Coge 42, 48, 49 y 53."),
+    ("app", "48", "La consola de mensajes", f"En el móvil: Acción, 48. Con los bytes (42), la tabla (49) y la regla (53), el mensaje es {_S_ASC}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "El menú de los fantasmas", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59."),
+    ("app", "52", "Los cuatro fantasmas", f"En el móvil: Acción, 52. Con las pistas (54 y 55) y el plano (59): {_S_FAN}. El mensaje te dice que cojas la 44. Anota el byte de la máquina: {I.BYTES['52']}.", "carta 44"),
+    ("leer", "44", "La sala de puntuaciones", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta la tabla de récords: 61 arriba y 63 abajo."),
+    ("app", "46", "El marcador del jefe", f"En el móvil: Acción, 46. Con los números puestos (37), la regla (39) y las fichas (33), el cuadrado fila por fila: {_S_MAG}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "La tabla de récords", f"En el móvil: Acción, 51. Con la nota (26) y la tabla (61 y 63), de arriba abajo: {_S_RAN}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "La ranura de los récords", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "La rana de la autopista", f"En el móvil: Acción, 69. Con la autopista (70) y las velocidades (71), programa: {_S_RANA}. El mensaje te dice que cojas la 80. Anota el byte de la máquina: {I.BYTES['69']}.", "carta 80"),
+    ("leer", "80", "El almacén de monedas", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79."),
+    ("app", "72", "La máquina de cambio", f"En el móvil: Acción, 72. Con las monedas (75) y el precio (79): {_S_MON}. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "La ranura de continuar", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "La llave del jefe", "Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "La sala del jefe final", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el dibujo final: 66 arriba y 67 abajo."),
+    ("app", "64", "El cerrojo deslizante", f"En el móvil: Acción, 64. Con el dibujo final (66 y 67), las fichas quedan así: {_S_DES}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "El cristal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal con el cristal", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "El arranque de la máquina", f"En el móvil: Acción, 85. Con las notas (86 y 87): {_S_XOR}. Apunta los cuatro bytes y la clave. El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!"),
 ]
-
-
-def _pasos():
-    mesa = set()
-    pasos = []
-    for p in _TEXTOS:
-        if p[0] == "leer":
-            c = J[p[1]]
-            for d in c.get("descarta", []):
-                mesa.discard(str(d))
-            for h in c.get("coge", []):
-                mesa.add(str(h))
-            if p[1] == "P":
-                mesa = {"P", "10", "12"}
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("leer", p[1])], mesa=_orden(mesa)))
-        elif p[0] == "app":
-            res = p[4].split()[-1]
-            mesa.add(res)
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("app", p[1], p[4])], mesa=_orden(mesa)))
-        else:
-            mesa.add(str(int(p[1]) + int(p[2])))
-            pasos.append(dict(t=p[3], que=p[4], acciones=[("combinar", p[1], p[2])], mesa=_orden(mesa)))
-    return pasos
-
-
-def _orden(m):
-    return sorted(m, key=lambda x: (x != "P", int(x) if x != "P" else 0))
-
-
-PASOS = _pasos()
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.recalcular_mesas(PASOS, J)
