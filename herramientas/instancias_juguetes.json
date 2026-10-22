@@ -1,4 +1,61 @@
 {
+ "cubos": {
+  "dibujos": [
+   "perro",
+   "barco",
+   "casa",
+   "sol",
+   "cohete",
+   "arbol"
+  ],
+  "caras": [
+   [
+    "cohete",
+    "perro",
+    "casa",
+    "barco",
+    "sol",
+    "arbol"
+   ],
+   [
+    "perro",
+    "barco",
+    "casa",
+    "arbol",
+    "sol",
+    "cohete"
+   ],
+   [
+    "cohete",
+    "sol",
+    "perro",
+    "barco",
+    "arbol",
+    "casa"
+   ],
+   [
+    "casa",
+    "perro",
+    "sol",
+    "barco",
+    "arbol",
+    "cohete"
+   ]
+  ],
+  "objetivo": "perro",
+  "inicial": [
+   4,
+   2,
+   3,
+   3
+  ],
+  "solucion": [
+   1,
+   0,
+   2,
+   1
+  ]
+ },
  "estanteria": {
   "antes": {
    "0": [
@@ -60,12 +117,24 @@
    {
     "tipo": "color",
     "juguete": "pelota",
+    "hasta": "azul",
     "texto": "la pelota era roja y ahora es azul"
+   },
+   {
+    "tipo": "color",
+    "juguete": "coche",
+    "hasta": "rojo",
+    "texto": "el coche era azul y ahora es rojo"
    },
    {
     "tipo": "falta",
     "juguete": "libro",
     "texto": "falta el libro morado"
+   },
+   {
+    "tipo": "falta",
+    "juguete": "barco",
+    "texto": "falta el barco rojo"
    },
    {
     "tipo": "girado",
@@ -191,17 +260,17 @@
     "juguete": "cometa"
    },
    {
-    "carta": "51",
+    "carta": "45",
     "paso": 2,
     "juguete": "patito"
    },
    {
-    "carta": "45",
+    "carta": "27",
     "paso": 3,
     "juguete": "tambor"
    },
    {
-    "carta": "49",
+    "carta": "23",
     "paso": 4,
     "juguete": "cohete"
    }
@@ -209,9 +278,9 @@
   "cartas_en_orden": [
    "41",
    "43",
-   "51",
    "45",
-   "49"
+   "27",
+   "23"
   ]
  },
  "pista": {
@@ -228,5 +297,468 @@
    "C"
   ],
   "canicas": 3
+ },
+ "clavijas": {
+  "agujeros": [
+   [
+    0,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    0,
+    4
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    0
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "clavijas": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ]
+  ],
+  "centro": [
+   3,
+   3
+  ],
+  "solucion": [
+   [
+    [
+     3,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   [
+    [
+     2,
+     4
+    ],
+    [
+     0,
+     4
+    ]
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     4
+    ]
+   ],
+   [
+    [
+     0,
+     4
+    ],
+    [
+     2,
+     4
+    ]
+   ],
+   [
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   [
+    [
+     3,
+     3
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   [
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   [
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  ]
+ },
+ "oca": {
+  "casillas": 60,
+  "escaleras": {
+   "32": 49,
+   "26": 38,
+   "11": 21,
+   "3": 16
+  },
+  "toboganes": {
+   "51": 36,
+   "22": 9,
+   "56": 39,
+   "20": 6
+  },
+  "dados": [
+   2,
+   6,
+   4,
+   6,
+   4,
+   2,
+   2,
+   2,
+   1,
+   1
+  ],
+  "ruta": [
+   2,
+   8,
+   12,
+   18,
+   9,
+   21,
+   23,
+   25,
+   38,
+   39
+  ],
+  "final": 39
+ },
+ "collar": {
+  "periodo": 7,
+  "patron": [
+   "azul",
+   "morado",
+   "morado",
+   "azul",
+   "verde",
+   "morado",
+   "amarillo"
+  ],
+  "total": 100,
+  "ultimo": "morado",
+  "azules": 29,
+  "mostradas": 40
+ },
+ "memoria": {
+  "imagenes": [
+   "patito",
+   "pelota",
+   "tambor",
+   "cohete",
+   "coche",
+   "osito",
+   "barco",
+   "cometa"
+  ],
+  "cartas": [
+   "tambor",
+   "cohete",
+   "coche",
+   "osito",
+   "pelota",
+   "pelota",
+   "barco",
+   "cometa",
+   "patito",
+   "cometa",
+   "tambor",
+   "barco",
+   "coche",
+   "osito",
+   "cohete",
+   "patito"
+  ],
+  "oculta": 15,
+  "intentos": [
+   [
+    7,
+    13
+   ],
+   [
+    10,
+    6
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    9,
+    13
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    11,
+    5
+   ],
+   [
+    6,
+    12
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    13,
+    14
+   ],
+   [
+    2,
+    10
+   ],
+   [
+    4,
+    2
+   ]
+  ],
+  "solucion": [
+   [
+    0,
+    10
+   ],
+   [
+    1,
+    14
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    3,
+    13
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    6,
+    11
+   ],
+   [
+    7,
+    9
+   ],
+   [
+    8,
+    15
+   ]
+  ]
+ },
+ "nana": {
+  "orden": [
+   "14",
+   "20",
+   "40",
+   "48",
+   "52"
+  ],
+  "notas": {
+   "14": "MI",
+   "20": "SOL",
+   "40": "DO",
+   "48": "RE",
+   "52": "LA"
+  },
+  "melodia": [
+   "MI",
+   "SOL",
+   "DO",
+   "RE",
+   "LA"
+  ],
+  "colores": {
+   "DO": "rojo",
+   "RE": "naranja",
+   "MI": "amarillo",
+   "FA": "verde",
+   "SOL": "azul",
+   "LA": "añil",
+   "SI": "violeta"
+  }
  }
 }

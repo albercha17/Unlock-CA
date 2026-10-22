@@ -107,8 +107,8 @@
     "id": "juguetes",
     "nombre": "El Cuarto de Leo, 1995: La Noche de los Juguetes",
     "ruta": "juegos/aventuras-ca/juguetes/",
-    "dificultad": 1,
-    "minutos": 60,
-    "cartas": 36
+    "dificultad": 2,
+    "minutos": 75,
+    "cartas": 62
   }
 ]

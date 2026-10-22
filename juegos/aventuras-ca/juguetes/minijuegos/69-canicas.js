@@ -1,5 +1,5 @@
-// Carta 69 — La pista de canicas: colocar los tres balancines para que la tercera canica (el cristal) caiga en el tarro. Cada balancín
-// manda la canica al lado al que apunta y cambia de lado cuando ella pasa (instrucciones, carta 70). Una sola posición válida (instancias_juguetes.py).
+// Carta 69 — La pista de canicas: colocar los tres balancines para que la tercera canica caiga en el tarro. Cada balancín
+// manda la canica al lado al que apunta y cambia de lado cuando ella pasa (la pista, en la carta 70; la regla, en la 71). Una sola posición válida (instancias_juguetes.py).
 import { openGame } from './ui.js';
 
 const P = /*DATOS*/{"tarro": "C", "solucion": {"b1": "der", "b2": "der", "b3": "der"}, "canicas": 3}/*FIN*/;
@@ -9,7 +9,7 @@ const XY = { entrada: [150, 14], b1: [150, 70], b2: [90, 140], b3: [210, 140], A
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 69 — La pista de canicas',
-    instr: 'Toca los balancines para colocarlos y suelta las canicas. Caen de una en una y cada balancín cambia de lado al pasar una. El cristal es la tercera: tiene que caer en el tarro.',
+    instr: 'Toca los balancines para colocarlos y suelta las canicas. Caen de una en una y cada balancín cambia de lado al pasar una. La tercera tiene que caer en el tarro. La pista está en la carta 70 y la regla, en la 71.',
     ...opts
   });
 
@@ -100,9 +100,9 @@ export function startMinigame(opts = {}) {
     ocupado = false;
     if (ultima === P.tarro) {
       resuelto = true;
-      ui.say('¡Clinc! El cristal cae justo en el tarro de canicas, sano y salvo. Los juguetes lo celebran en voz bajita para no despertar a Leo. Coged la carta 82.', 'ok');
+      ui.say('¡Clinc! La tercera canica cae justo en el tarro y un resorte abre un cajoncito del escritorio. Los juguetes lo celebran en voz bajita para no despertar a Leo. Coged la carta 80.', 'ok');
     } else {
-      ui.say('El cristal ha caído por la salida ' + ultima + ' y no en el tarro. Los juguetes lo devuelven a la rampa: seguid las tres canicas con las instrucciones (carta 70).', 'bad');
+      ui.say('La tercera canica ha caído por la salida ' + ultima + ' y no en el tarro. Los juguetes lo devuelven a la rampa: seguid las tres canicas con la regla (carta 71).', 'bad');
     }
   }
 

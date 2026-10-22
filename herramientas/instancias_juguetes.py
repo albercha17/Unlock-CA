@@ -1,15 +1,19 @@
-"""Instancias de «El Cuarto de Leo, 1995» (juguetes, dificultad fácil), con semilla fija y comprobadas por fuerza bruta. Escribe
-instancias_juguetes.json, que leen juguetes.py (láminas), datos_juguetes.py (pistas y manual), los minijuegos (juguetes.py les copia sus datos)
-y solvers_juguetes.py.
+"""Instancias de «El Cuarto de Leo, 1995» (juguetes, dificultad fácil-media), versión de 62 cartas (22 oct 2026), con semilla fija y comprobadas por fuerza bruta.
+Escribe instancias_juguetes.json, que leen juguetes.py (láminas), datos_juguetes.py (pistas y manual), los minijuegos (juguetes.py les copia sus datos) y
+solvers_juguetes.py.
 
-  - estanteria: la foto Polaroid (carta 20) y la estantería de ahora (app, carta 24): cinco diferencias.
-  - torre:      torre de bloques en una base de 3 x 3 con alturas de 0 a 3; vistas de frente y de lado (carta 30) y desde arriba (carta 31);
-                solución única comprobada entre las 4^9 torres posibles.
-  - marioneta:  cuatro mandos de colores con hilos enredados (carta 52) hasta cuatro miembros; el cartel (carta 53) pide una postura.
-  - folioscopio: cinco páginas del cuaderno de Leo (cartas 41, 43, 45, 49 y 51); se ordenan por el sol que se pone en la ventana y en cada
-                página Leo rodea un juguete: ese orden carga el tren (carta 66).
-  - pista:      pista de canicas con tres balancines que cambian de lado cada vez que pasa una canica (carta 70); el cristal es la tercera
-                canica y tiene que caer en el tarro; solo una de las 8 posiciones iniciales lo consigue.
+Once puzles; la mecánica de cartas propia sigue siendo el FOLIOSCOPIO (cinco páginas del cuaderno de Leo que se ordenan por el sol de la ventana):
+  cubos        cuatro cubos de seis dibujos partidos en cuartos: formar el dibujo de la tapa de la caja
+  diferencias  la foto Polaroid de la estantería (dos láminas) y la estantería de ahora (app): siete diferencias
+  folioscopio  las cinco páginas del cuaderno de Leo ordenadas por el sol; en cada una Leo rodea un juguete: ese orden carga el tren
+  marioneta    cuatro mandos con hilos enredados en dos láminas hasta cuatro miembros; el cartel pide una postura
+  oca          el juego de la oca de Leo (60 casillas, escaleras y toboganes) y las diez tiradas de su hermana: casilla final
+  clavijas     un solitario de clavijas en cruz de 33 agujeros con 9 clavijas; dejar una sola en el centro (solución construida al revés)
+  collar       un collar de cuentas con un patrón que se repite: color de la cuenta 100 y cuántas azules hay en las 100 primeras
+  torre        torre de bloques en una base de 3 x 3 con alturas de 0 a 3; vistas de frente y de lado y desde arriba; solución única
+  canicas      pista de canicas con tres balancines que cambian de lado cada vez que pasa una canica; el cristal es la tercera
+  memoria      un juego de memoria de 16 cartas: doce intentos de Leo enseñan 15 posiciones; hay que formar las 8 parejas
+  xilofono     la nana final: cinco notas que dejan otros puzles, en el orden de los dibujos de una carta
 Uso (desde la raíz del repo):  python herramientas/instancias_juguetes.py
 """
 import itertools
@@ -18,6 +22,22 @@ import os
 import random
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
+
+
+# ------------------------------------------------------------------ cubos de imágenes
+def cubos():
+    dibujos = ["perro", "barco", "casa", "sol", "cohete", "arbol"]
+    rng = random.Random(1995)
+    caras = []
+    for _ in range(4):
+        d = dibujos[:]
+        rng.shuffle(d)
+        caras.append(d)
+    objetivo = "perro"
+    inicial = [0, 0, 0, 0]
+    while any(caras[i][inicial[i]] == objetivo for i in range(4)):
+        inicial = [rng.randrange(6) for _ in range(4)]
+    return {"dibujos": dibujos, "caras": caras, "objetivo": objetivo, "inicial": inicial, "solucion": [caras[i].index(objetivo) for i in range(4)]}
 
 
 # ------------------------------------------------------------------ estantería (diferencias)
@@ -29,8 +49,10 @@ def estanteria():
         "2": [["cubos", 100], ["cometa", 250], ["trompo", 390], ["xilofono", 520]],
     }
     cambios = [
-        {"tipo": "color", "juguete": "pelota", "texto": "la pelota era roja y ahora es azul"},
+        {"tipo": "color", "juguete": "pelota", "hasta": "azul", "texto": "la pelota era roja y ahora es azul"},
+        {"tipo": "color", "juguete": "coche", "hasta": "rojo", "texto": "el coche era azul y ahora es rojo"},
         {"tipo": "falta", "juguete": "libro", "texto": "falta el libro morado"},
+        {"tipo": "falta", "juguete": "barco", "texto": "falta el barco rojo"},
         {"tipo": "girado", "juguete": "cohete", "texto": "el cohete está boca abajo"},
         {"tipo": "sobra", "juguete": "dado", "balda": "1", "x": 455, "texto": "hay un dado que no estaba"},
         {"tipo": "movido", "juguete": "patito", "a_balda": "2", "x": 175, "texto": "el patito ha bajado a la balda de abajo"},
@@ -84,7 +106,7 @@ def folioscopio():
     juguetes = ["patito", "pelota", "tambor", "cohete", "cometa"]
     orden = juguetes[:]
     rng.shuffle(orden)
-    cartas = ["41", "43", "45", "49", "51"]
+    cartas = ["41", "43", "45", "27", "23"]
     asignadas = cartas[:]
     while asignadas == sorted(asignadas) or asignadas == sorted(asignadas, reverse=True):
         rng.shuffle(asignadas)
@@ -115,7 +137,6 @@ def pista():
         if len(buenas) == 1:
             sol = buenas[0]
             return {"tarro": tarro, "solucion": sol, "recorrido": soltar(sol, 3), "canicas": 3}
-    # con tres canicas cada salida admite dos configuraciones: se añade la condición de la carta (la primera canica no puede caer al suelo, salida A)
     for tarro in ("B", "C", "D"):
         buenas = [c for c in configs if soltar(c, 3)[2] == tarro and "A" not in soltar(c, 3)[:2]]
         if len(buenas) == 1:
@@ -124,17 +145,156 @@ def pista():
     raise SystemExit("no hay pista con solución única")
 
 
-def main():
-    inst = {"estanteria": estanteria(), "torre": torre(), "marioneta": marioneta(), "folioscopio": folioscopio(), "pista": pista()}
-    with open(os.path.join(AQUI, "instancias_juguetes.json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump(inst, f, ensure_ascii=False, indent=1)
-        f.write("\n")
-    t, m, fo, p = inst["torre"], inst["marioneta"], inst["folioscopio"], inst["pista"]
-    print(f"torre: {t['alturas']} ({t['bloques']} bloques; {t['candidatas']} torres con vistas únicas)")
-    print(f"marioneta: {m['hilos']} -> tirar de {m['solucion']}")
-    print(f"folioscopio: cartas en orden {fo['cartas_en_orden']} -> {fo['orden']}")
-    print(f"pista: tarro en {p['tarro']}, balancines {p['solucion']}, recorrido {p['recorrido']}")
+# ------------------------------------------------------------------ solitario de clavijas (cruz de 33 agujeros)
+CRUZ = [(r, c) for r in range(7) for c in range(7) if 2 <= r <= 4 or 2 <= c <= 4]
+DIRS4 = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
+
+def clavijas(semilla=1, saltos=8):
+    """Se parte de una sola clavija en el centro y se deshacen `saltos` saltos: así hay seguro una solución (los saltos al derecho, en orden inverso)."""
+    agujeros = set(CRUZ)
+    for sem in range(semilla, semilla + 10000):
+        rng = random.Random(sem)
+        pegs = {(3, 3)}
+        inversos = []
+        for _ in range(saltos):
+            opc = []
+            for c in sorted(pegs):
+                for dr, dc in DIRS4:
+                    b = (c[0] - dr, c[1] - dc)
+                    a = (c[0] - 2 * dr, c[1] - 2 * dc)
+                    if a in agujeros and b in agujeros and a not in pegs and b not in pegs:
+                        opc.append((a, b, c))
+            if not opc:
+                break
+            a, b, c = rng.choice(opc)
+            pegs.discard(c)
+            pegs.add(a)
+            pegs.add(b)
+            inversos.append((a, b, c))              # al derecho: la clavija en a salta sobre b y cae en c
+        if len(inversos) == saltos and len(pegs) == saltos + 1 and (3, 3) not in pegs:
+            # que no sea demasiado fácil: ninguna clavija está pegada a otras tres
+            return {"agujeros": [list(a) for a in sorted(agujeros)], "clavijas": [list(p) for p in sorted(pegs)], "centro": [3, 3],
+                    "solucion": [[list(a), list(c)] for a, b, c in reversed(inversos)]}
+    raise SystemExit("sin clavijas")
+
+
+# ------------------------------------------------------------------ el juego de la oca de Leo
+def oca(semilla=3, casillas=60, tiradas=10):
+    for sem in range(semilla, semilla + 20000):
+        rng = random.Random(sem)
+        usadas = set()
+        escaleras, toboganes = {}, {}
+        for _ in range(4):
+            while True:
+                a = rng.randint(3, 40)
+                b = a + rng.randint(8, 18)
+                if a not in usadas and b not in usadas and b < casillas:
+                    usadas |= {a, b}
+                    escaleras[a] = b
+                    break
+        for _ in range(4):
+            while True:
+                b = rng.randint(4, 40)
+                a = b + rng.randint(8, 18)
+                if a not in usadas and b not in usadas and a < casillas:
+                    usadas |= {a, b}
+                    toboganes[a] = b
+                    break
+        saltos = {**escaleras, **toboganes}
+        dados = [rng.randint(1, 6) for _ in range(tiradas)]
+        pos = 0
+        ruta = []
+        usos = {"escalera": 0, "tobogan": 0}
+        for d in dados:
+            pos += d
+            if pos in escaleras:
+                pos = escaleras[pos]
+                usos["escalera"] += 1
+            elif pos in toboganes:
+                pos = toboganes[pos]
+                usos["tobogan"] += 1
+            ruta.append(pos)
+        if usos["escalera"] >= 2 and usos["tobogan"] >= 1 and pos < casillas and 25 <= pos <= 55:
+            return {"casillas": casillas, "escaleras": {str(k): v for k, v in escaleras.items()}, "toboganes": {str(k): v for k, v in toboganes.items()},
+                    "dados": dados, "ruta": ruta, "final": pos}
+    raise SystemExit("sin oca")
+
+
+# ------------------------------------------------------------------ el collar de cuentas
+COLORES_CUENTA = ["rojo", "azul", "verde", "amarillo", "morado"]
+
+
+def collar(semilla=2, total=100, periodo=7):
+    for sem in range(semilla, semilla + 20000):
+        rng = random.Random(sem)
+        patron = [rng.choice(COLORES_CUENTA) for _ in range(periodo)]
+        if len(set(patron)) < 4:
+            continue
+        ultimo = patron[(total - 1) % periodo]
+        azules = sum(1 for i in range(total) if patron[i % periodo] == "azul")
+        # que haya que contar bien: la cuenta 100 no es igual a la 99 ni a la 98, y hay entre 2 y 3 azules por vuelta
+        if patron[(total - 1) % periodo] == patron[(total - 2) % periodo] or not 2 <= patron.count("azul") <= 3:
+            continue
+        if periodo != 7 or len({patron[i] for i in range(periodo)}) < 4:
+            continue
+        return {"periodo": periodo, "patron": patron, "total": total, "ultimo": ultimo, "azules": azules, "mostradas": 40}
+    raise SystemExit("sin collar")
+
+
+# ------------------------------------------------------------------ memoria (16 cartas, 8 parejas)
+IMAGENES = ["patito", "pelota", "tambor", "cohete", "coche", "osito", "barco", "cometa"]
+
+
+def memoria(semilla=5):
+    for sem in range(semilla, semilla + 20000):
+        rng = random.Random(sem)
+        cartas = IMAGENES * 2
+        rng.shuffle(cartas)                       # cartas[i] es la imagen de la posición i (0 a 15; A1, B1, C1, D1, A2...)
+        oculta = rng.randrange(16)
+        vistas = [i for i in range(16) if i != oculta]
+        apar = vistas[:] + rng.choices(vistas, k=24 - len(vistas))          # doce intentos de dos cartas: 24 apariciones sobre las 15 vistas
+        rng.shuffle(apar)
+        intentos = [[apar[2 * k], apar[2 * k + 1]] for k in range(12)]
+        if any(a == b for a, b in intentos) or len({tuple(sorted(i)) for i in intentos}) < 12:
+            continue
+        parejas = {}
+        for i, im in enumerate(cartas):
+            parejas.setdefault(im, []).append(i)
+        solucion = sorted(sorted(p) for p in parejas.values())
+        return {"imagenes": IMAGENES, "cartas": cartas, "oculta": oculta, "intentos": intentos, "solucion": solucion}
+    raise SystemExit("sin memoria")
+
+
+# ------------------------------------------------------------------ el xilófono (la nana)
+NOTAS = ["DO", "RE", "MI", "FA", "SOL", "LA", "SI"]
+COLORES_NOTA = ["rojo", "naranja", "amarillo", "verde", "azul", "añil", "violeta"]
+ORDEN_NANA = ["14", "20", "40", "48", "52"]               # cubos, diferencias, tren, marioneta y oca
+NOTA = {"14": "MI", "20": "SOL", "40": "DO", "48": "RE", "52": "LA"}
+NANA = [NOTA[k] for k in ORDEN_NANA]
+
+_CACHE = os.path.join(AQUI, "instancias_juguetes.json")
+_CLAVES = ("cubos", "estanteria", "torre", "marioneta", "folioscopio", "pista", "clavijas", "oca", "collar", "memoria")
+
+
+def _funcs():
+    return {"cubos": cubos, "estanteria": estanteria, "torre": torre, "marioneta": marioneta, "folioscopio": folioscopio, "pista": pista, "clavijas": clavijas,
+            "oca": oca, "collar": collar, "memoria": memoria}
+
+
+if __name__ != "__main__" and os.path.exists(_CACHE):
+    INST = json.load(open(_CACHE, encoding="utf-8"))
 
 if __name__ == "__main__":
-    main()
+    import time
+    t0 = time.time()
+    res = {}
+    for k, f in _funcs().items():
+        t = time.time()
+        res[k] = f()
+        print(f"{k:12s} OK ({time.time() - t:.1f} s)")
+    res["nana"] = {"orden": ORDEN_NANA, "notas": NOTA, "melodia": NANA, "colores": dict(zip(NOTAS, COLORES_NOTA))}
+    with open(_CACHE, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(res, fh, ensure_ascii=False, indent=1)
+        fh.write("\n")
+    print("OK", f"{time.time() - t0:.0f} s")
