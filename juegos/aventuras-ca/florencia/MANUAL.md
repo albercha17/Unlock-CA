@@ -4,157 +4,232 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 59 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 20 pasos
+## Los 30 pasos
 
-### Paso 1 — Llegada al taller
+### Paso 1 — Llegada
 
-Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 20 y la 22.
+Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12.
 
-- **La mesa queda con:** `P` `20` `22`
+- **La mesa queda con:** `P` `10` `12`
 - [ ] Hecho
 
 ### Paso 2 — El taller
 
-Lee la carta 20. Descarta la P y coge 24, 26 y 28. El cuaderno de Leonardo (26) está escrito en espejo: ponlo frente a un espejo (o usa la cámara frontal del móvil) y dice: «dos, siete, cinco, nueve».
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el suelo: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `20` `22` `24` `26` `28`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
 - [ ] Hecho
 
-### Paso 3 — Abre el cofre
+### Paso 3 — El cofre del maestro
 
-En el móvil: Acción, 24. Teclea 2 7 5 9. El mensaje te dice que cojas la 30.
+En el móvil: Acción, 14. La tira (16) enrollada en una vara de cuatro caras: El mensaje dice «LA CLAVE ES ALAS»: la palabra es ALAS. El mensaje te dice que cojas la 24.
 
-- **En el móvil:** Acción → `24`
-- **La mesa queda con:** `20` `22` `24` `26` `28` `30`
+- **En el móvil:** Acción → `14`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
 - [ ] Hecho
 
-### Paso 4 — Dentro del cofre
+### Paso 4 — El cofre abierto
 
-Lee la carta 30. Descarta 24, 26 y 20 y coge 32 y 35. El pergamino (35) tiene letras sin sentido.
+Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para las plazas).
 
-- **La mesa queda con:** `22` `28` `30` `32` `35`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
 
-### Paso 5 — Descifra el pergamino
+### Paso 5 — El punto de fuga
 
-La nota de Salaì (28) dice que la A de fuera va sobre la F de dentro. En el móvil: Acción, 32. Pon el disco así y descifra el pergamino (35): «EL LEON GUARDA SU CORAZON». Escribe LEON. El mensaje te dice que cojas la 36.
+En el móvil: Acción, 20. Alargando las rectas del suelo (18, 19 y 21): El punto de fuga está en la casilla D5. El mensaje te dice que cojas la 28.
 
-- **En el móvil:** Acción → `32`
-- **La mesa queda con:** `22` `28` `30` `32` `35` `36`
+- **En el móvil:** Acción → `20`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26` `28`
 - [ ] Hecho
 
-### Paso 6 — El león mecánico
+### Paso 6 — El suelo hundido
 
-Lee la carta 36. Descarta 30, 32, 35 y 28 y coge 38, 40 y 42. El plano (40) dice que la cuerda debe girar igual de rápido que la manivela pero al revés.
+Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
 
-- **La mesa queda con:** `22` `36` `38` `40` `42`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
 - [ ] Hecho
 
-### Paso 7 — Monta los engranajes
+### Paso 7 — El compás
 
-En el móvil: Acción, 38. Pon una rueda pequeña en D, una mediana en B y una mediana en Z. Pulsa Girar. El mecanismo marca el modificador +9: suma 42 + 9 = 51 y coge la 51.
+Las dos mitades del compás (22 y 35) son combinables: 22 + 35 = 57. Coge la 57.
 
-- **En el móvil:** Acción → `38`
-- **La mesa queda con:** `22` `36` `38` `40` `42` `51`
+- **Suma:** `22 + 35 = 57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
 - [ ] Hecho
 
-### Paso 8 — El altillo
+### Paso 8 — El compás de Leonardo
 
-Lee la carta 51. Descarta 36, 38, 40 y 42 y coge 54, 56, 58 y 60. Hay dos puzles: la caja (54, con el boceto 56) y la cisterna (58, con la nota 60).
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **La mesa queda con:** `22` `51` `54` `56` `58` `60`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
 - [ ] Hecho
 
-### Paso 9 — Completa el cuadrado mágico
+### Paso 9 — El león mecánico
 
-En el móvil: Acción, 54. Las casillas bloqueadas son 16, 2 y 4; el boceto (56) añade 3, 10 y 7. Completa el cuadrado: todas las líneas suman 34. El mensaje te dice que cojas la 62.
+Lee la carta 31. Coge 40, 41, 43 y 45. Junta el tablero: 41 a la izquierda y 43 a la derecha.
 
-- **En el móvil:** Acción → `54`
-- **La mesa queda con:** `22` `51` `54` `56` `58` `60` `62`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 10 — La lente maestra
+### Paso 10 — El tablero del león
 
-Lee la carta 62. Te manda descartar 54 y 56. Es combinable.
+En el móvil: Acción, 40. Con los signos (41, 43 y 45): fila 1: 3 5 4 1 2 / fila 2: 4 2 1 5 3 / fila 3: 1 3 5 2 4 / fila 4: 2 1 3 4 5 / fila 5: 5 4 2 3 1. El mensaje te dice que cojas la 30.
 
-- **La mesa queda con:** `22` `51` `58` `60` `62`
+- **En el móvil:** Acción → `40`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 11 — Combina la lente con el Cronoportal
+### Paso 11 — Las fauces del león
 
-El Cronoportal (22) y la lente maestra (62) son combinables: 22 + 62 = 84. Coge la 84.
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
 
-- **Suma:** `22 + 62 = 84`
-- **La mesa queda con:** `22` `51` `58` `60` `62` `84`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
 - [ ] Hecho
 
-### Paso 12 — El Cronoportal con lente
+### Paso 12 — El patio de ajedrez
 
-Lee la carta 84. Te manda descartar 22 y 62.
+Lee la carta 32. Coge 42, 48, 49 y 53. Junta el patio: 42 a la izquierda y 49 a la derecha.
 
-- **La mesa queda con:** `51` `58` `60` `84`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
 - [ ] Hecho
 
-### Paso 13 — Vacía la cisterna
+### Paso 13 — El patio
 
-La nota (60) pide cuatro medidas en la jarra grande. En el móvil: Acción, 58. Llena la grande, vierte en la pequeña, vacía la pequeña, vierte los 2 que quedan, llena la grande y vierte en la pequeña hasta llenarla. El mensaje te dice que cojas la 44.
+En el móvil: Acción, 48. Con el patio (42 y 49) y el acertijo (53): A1 → B3 → A5 → C6 → E5 → F3 → E1 → C2 → A3 → B1 → D2 → F1 → E3 → F5 → D4 → E2 → F4 → D3 → F2 → D1 → B2 → A4 → C5 → A6 → B4 → A2 → C3 → B5 → D6 → E4 → F6. El mensaje te dice que cojas la 36. Anota la letra de la clave: E.
 
-- **En el móvil:** Acción → `58`
-- **La mesa queda con:** `44` `51` `58` `60` `84`
+- **En el móvil:** Acción → `48`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
 - [ ] Hecho
 
-### Paso 14 — La escalera atascada
+### Paso 14 — El altillo
 
-Lee la carta 44. Coge 46, 47, 48, 49 y 50. Cada carta del 47 al 50 dibuja una caja desde arriba.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 
-- **La mesa queda con:** `44` `46` `47` `48` `49` `50` `51` `58` `60` `84`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
 - [ ] Hecho
 
-### Paso 15 — Llena el baúl
+### Paso 15 — La paleta
 
-En el móvil: Acción, 46. Encaja las cuatro cajas en el baúl de 5 × 4 sin huecos; por ejemplo: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1) (columna, fila). El mensaje te dice que cojas la 74.
+En el móvil: Acción, 52. Con los pigmentos (54), el color (55) y el acertijo (59): 3 cucharadas del pigmento I, 2 del II y 4 del III. El mensaje te dice que cojas la 44. Anota la letra de la clave: S.
+
+- **En el móvil:** Acción → `52`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- [ ] Hecho
+
+### Paso 16 — El estudio de Leonardo
+
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el plano: 61 a la izquierda y 63 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
+- [ ] Hecho
+
+### Paso 17 — El reloj
+
+En el móvil: Acción, 46. Con el tren (37), la manivela (39) y el acertijo (33): 2 vueltas hacia la derecha. El mensaje te dice que cojas la 56.
 
 - **En el móvil:** Acción → `46`
-- **La mesa queda con:** `44` `46` `47` `48` `49` `50` `51` `58` `60` `74` `84`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 16 — La azotea
+### Paso 18 — Las torres de vigía
 
-Lee la carta 74. Descarta 51, 58, 60, 44, 46, 47, 48, 49 y 50 y coge 66, 68, 70, 71 y 72. Las tres notas (68, 70 y 71) son para el ornitóptero (66).
+En el móvil: Acción, 51. Con el plano (61 y 63) y el cuaderno (26): torres en las plazas 1, 2, 5. El mensaje te dice que cojas la 58.
 
-- **La mesa queda con:** `66` `68` `70` `71` `72` `74` `84`
+- **En el móvil:** Acción → `51`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
 - [ ] Hecho
 
-### Paso 17 — Prepara el ornitóptero
+### Paso 19 — El permiso del Gonfaloniere
 
-En el móvil: Acción, 66. Con las tres notas: el lastre solo puede ser de dos sacos, la tela de seda y el ala larga. Pulsa Probar vuelo. El mensaje te dice que cojas la 90.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71.
 
-- **En el móvil:** Acción → `66`
-- **La mesa queda con:** `66` `68` `70` `71` `72` `74` `84` `90`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
 
-### Paso 18 — El lucernario
+### Paso 20 — La caja de pigmentos
 
-Lee la carta 90. Descarta 74, 66, 68, 70 y 71 y coge 92 y 94. El plano (94) dice que la lente va en el atril de la columna B, fila 3.
+En el móvil: Acción, 69. Con los intentos (70) y la norma (71): verde, rojo, azul, violeta. El mensaje te dice que cojas la 80. Anota la letra de la clave: L.
 
-- **La mesa queda con:** `72` `84` `90` `92` `94`
+- **En el móvil:** Acción → `69`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71` `80`
 - [ ] Hecho
 
-### Paso 19 — Dirige el rayo del amanecer
+### Paso 21 — El almacén de Leonardo
 
-En el móvil: Acción, 92. Pon la lente en B3 y tres espejos: \ en A2, \ en C2 y / en C3. Pulsa Probar. El mensaje te dice que cojas la 99.
+Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79.
 
-- **En el móvil:** Acción → `92`
-- **La mesa queda con:** `72` `84` `90` `92` `94` `99`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80`
 - [ ] Hecho
 
-### Paso 20 — Final
+### Paso 22 — El montacargas
 
-Lee la carta 99. Descarta 84, 72, 90, 92 y 94. En la mesa solo queda la 99. ¡Fin!
+En el móvil: Acción, 72. Con los aparejos (75) y la carga (79): El aparejo n.º 1 (el de 4 cuerdas). El mensaje te dice que cojas la 82. Anota la letra de la clave: O.
+
+- **En el móvil:** Acción → `72`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80` `82`
+- [ ] Hecho
+
+### Paso 23 — El lucernario
+
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
+
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
+- [ ] Hecho
+
+### Paso 24 — La lámpara
+
+La lámpara (38) y la mecha (56) son combinables: 38 + 56 = 94. Coge la 94.
+
+- **Suma:** `38 + 56 = 94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 25 — El sótano de las lentes
+
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta la escalera: 66 arriba y 67 abajo.
+
+- **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 26 — La escalera de caracol
+
+En el móvil: Acción, 64. Con los números puestos (66 y 67): fila 1: 1 18 17 14 13 / fila 2: 2 19 16 15 12 / fila 3: 3 20 21 22 11 / fila 4: 4 25 24 23 10 / fila 5: 5 6 7 8 9. El mensaje te dice que cojas la 62.
+
+- **En el móvil:** Acción → `64`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 27 — La lente
+
+El Cronoportal (12) y la lente maestra (62) son combinables: 12 + 62 = 74. Coge la 74.
+
+- **Suma:** `12 + 62 = 74`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `74` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 28 — Cronoportal con la lente
+
+Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57.
+
+- **La mesa queda con:** `74` `82` `85` `86` `87`
+- [ ] Hecho
+
+### Paso 29 — El lucernario
+
+En el móvil: Acción, 85. Con el mensaje (86) y la tabla (87): La clave SOLE (S de los pigmentos, O de las poleas, L de la caja de colores y E del caballo) da la palabra AMANECER. El mensaje te dice que cojas la 99.
+
+- **En el móvil:** Acción → `85`
+- **La mesa queda con:** `74` `82` `85` `86` `87` `99`
+- [ ] Hecho
+
+### Paso 30 — Final
+
+Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!
 
 - **La mesa queda con:** `99`
 - [ ] Hecho
@@ -163,42 +238,66 @@ Lee la carta 99. Descarta 84, 72, 90, 92 y 94. En la mesa solo queda la 99. ¡Fi
 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
-| P | Llegada al taller | Normal | Coge 20, 22 | Inicio: llegada al taller. Te manda coger la 20 y la 22. | 1 |
-| 20 | Taller de Leonardo | Normal | Coge 24, 26, 28; Descarta P | El taller: reparte las cartas del taller y te quita la P. | 1 |
-| 22 | Cronoportal sin energía | Combina | Combinable: suma los números | El Cronoportal sin energía: se combina con la lente maestra (62). | 1 |
-| 24 | Cofre del maestro | App | — | Cofre del maestro (app): teclado de 4 cifras. | 2 |
-| 26 | Cuaderno de Leonardo | Normal | Texto: «Salaì, no mires: el cofre se abre con cuatro ruedas: DOS, SIETE, CINCO, NUEVE.» | Cuaderno de Leonardo: texto escrito en espejo con la combinación del cofre. | 2 |
-| 28 | Nota de Salaì | Normal | Texto: «Disco de Alberti: el maestro lo pone siempre con la A de fuera sobre la F de dentro.» | Nota de Salaì: cómo se coloca el disco de cifrado. | 2 |
-| 30 | Interior del cofre | Normal | Coge 32, 35; Descarta 24, 26, 20 | Interior del cofre: aparece al abrirlo; reparte el disco y el pergamino. | 3 |
-| 32 | Disco de Alberti | App | — | Disco de Alberti (app): descifrar el pergamino con un disco de letras. | 4 |
-| 35 | Pergamino cifrado | Normal | Texto: «JQ QJTS LZFWIF XZ HTWFETS» | Pergamino cifrado: el mensaje que se descifra con el disco. | 4 |
-| 36 | El león mecánico | Normal | Coge 38, 40, 42; Descarta 30, 32, 35, 28 | El león mecánico: aparece al descifrar; reparte el mecanismo, el plano y la llave. | 5 |
-| 38 | Mecanismo del león | App | — | Mecanismo del león (app): montar una cadena de engranajes; da un modificador. | 6 |
-| 40 | Plano del mecanismo | Normal | Texto: «La cuerda del reloj debe girar igual de rápido que la manivela pero en sentido contrario.» | Plano del mecanismo: cómo debe girar la cuerda. | 6 |
-| 42 | Llave de cuerda | Combina | Combinable: suma los números | Llave de cuerda: se suma al modificador del mecanismo (42 + 9 = 51). | 6 |
-| 44 | La escalera atascada | Normal | Coge 46, 47, 48, 49, 50 | La escalera atascada: reparte el baúl y las cuatro cajas. | 13 |
-| 46 | El baúl de viaje | App | — | El baúl de viaje (app): encajar las cuatro cajas. | 14 |
-| 47 | Caja de viaje: el ornitóptero | Normal | — | Caja del ornitóptero. | 14 |
-| 48 | Caja de viaje: el león mecánico | Normal | — | Caja del león. | 14 |
-| 49 | Caja de viaje: el laúd de plata | Normal | — | Caja del laúd. | 14 |
-| 50 | Caja de viaje: el carro blindado | Normal | — | Caja del carro. | 14 |
-| 51 | El altillo | Normal | Coge 54, 56, 58, 60; Descarta 36, 38, 40, 42 | El altillo: resultado de 42 + 9; reparte la caja, el boceto y la cisterna. | 7 |
-| 54 | Caja de Pacioli | App | — | Caja de Pacioli (app): cuadrado mágico 4×4. | 8 |
-| 56 | Boceto de Pacioli | Normal | Texto: «Fila 1:  · 3 · · Fila 2:  · 10 · · Fila 3:  · · 7 ·» | Boceto de Pacioli: números del cuadrado mágico. | 8 |
-| 58 | Cisterna | App | — | Cisterna (app): puzle de las dos jarras. | 8 |
-| 60 | Nota de la cisterna | Normal | Texto: «La compuerta cede cuando la jarra grande guarda justo cuatro medidas.» | Nota de la cisterna: cuánta agua debe quedar en la jarra grande. | 8 |
-| 62 | Lente maestra | Combina | Descarta 54, 56; Combinable: suma los números | Lente maestra: sale de la caja; se combina con el Cronoportal (22). | 9 |
-| 66 | Ornitóptero | App | — | Ornitóptero (app): puzle de lógica (ala, tela y lastre). | 16 |
-| 68 | Cuaderno de vuelo | Normal | Texto: «Ala corta: no levanta ni una pluma. Con ala media, siempre dos sacos. Ala larga: tres sacos son demasiados.» | Cuaderno de vuelo: frases sobre las alas. | 16 |
-| 70 | Nota del viento | Normal | Texto: «El viento del alba empuja fuerte. Con un solo saco, el aparato cae de lado.» | Nota del viento: frase sobre el lastre. | 16 |
-| 71 | Apuntes de Salaì | Normal | Texto: «Dos sacos y tela de cuero: vuelca. Lino y dos sacos: se arruga. Ala media con seda: sin fuerza.» | Apuntes de Salaì: frases sobre las telas. | 16 |
-| 72 | Espejos ustorios | Normal | — | Espejos ustorios: sirven para la última prueba (92). | 16 |
-| 74 | La azotea | Normal | Coge 66, 68, 70, 71, 72; Descarta 51, 58, 60, 44, 46, 47, 48, 49, 50 | La azotea: aparece al cerrar el baúl. | 15 |
-| 84 | Cronoportal con lente | Normal | Descarta 22, 62 | Cronoportal con lente: resultado de 22 + 62. | 11 |
-| 90 | El lucernario | Normal | Coge 92, 94; Descarta 74, 66, 68, 70, 71 | El lucernario: aparece al volar el ornitóptero; reparte el rayo y el plano. | 17 |
-| 92 | Rayo del amanecer | App | — | Rayo del amanecer (app): colocar lente y espejos para llevar la luz al Cronoportal. | 18 |
-| 94 | Plano solar | Normal | Texto: «La lente de cristal de roca se apoya en el atril de la columna B, fila 3.» | Plano solar: en qué atril va la lente. | 18 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 84, 72, 90, 92, 94 | Final de la aventura. | 19 |
+| P | Llegada al taller | Normal | Coge 10, 12 | Llegada al taller | 1 |
+| 10 | El taller de Leonardo | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El taller de Leonardo | 1 |
+| 12 | Cronoportal sin energía | Combina | Combinable: suma los números | Cronoportal sin energía | 1 |
+| 14 | El cofre del maestro | App | — | El cofre del maestro | 2 |
+| 16 | La tira del cofre | Normal | — | La tira del cofre | 2 |
+| 18 | El acertijo del perspectivo | Normal | — | El acertijo del perspectivo | 2 |
+| 19 | El suelo del taller (mitad de arriba) | Normal | — | El suelo del taller (mitad de arriba) | 2 |
+| 20 | El punto de fuga | App | — | El punto de fuga | 2 |
+| 21 | El suelo del taller (mitad de abajo) | Normal | — | El suelo del taller (mitad de abajo) | 2 |
+| 22 | Mitad de compás | Combina | Combinable: suma los números | Mitad de compás | 2 |
+| 24 | El cofre abierto | Normal | Coge 26; Descarta 14, 16 | El cofre abierto | 3 |
+| 26 | El cuaderno de Leonardo | Normal | — | El cuaderno de Leonardo | 4 |
+| 28 | El suelo hundido | Normal | Coge 35; Descarta 18, 19, 20, 21 | El suelo hundido | 5 |
+| 30 | Las fauces del león | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | Las fauces del león | 10 |
+| 31 | El león mecánico | Normal | Coge 40, 41, 43, 45 | El león mecánico | 8 |
+| 32 | El patio de ajedrez | Normal | Coge 42, 48, 49, 53 | El patio de ajedrez | 8 |
+| 33 | El acertijo del reloj | Normal | — | El acertijo del reloj | 16 |
+| 35 | Otra mitad de compás | Combina | Combinable: suma los números | Otra mitad de compás | 6 |
+| 36 | El altillo de los pintores | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El altillo de los pintores | 13 |
+| 37 | El tren de ruedas | Normal | — | El tren de ruedas | 16 |
+| 38 | Lámpara sin mecha | Combina | Combinable: suma los números | Lámpara sin mecha | 11 |
+| 39 | La manivela | Normal | — | La manivela | 16 |
+| 40 | El tablero del león | App | — | El tablero del león | 9 |
+| 41 | El tablero del león (mitad izquierda) | Normal | — | El tablero del león (mitad izquierda) | 9 |
+| 42 | El patio del taller (mitad izquierda) | Normal | — | El patio del taller (mitad izquierda) | 12 |
+| 43 | El tablero del león (mitad derecha) | Normal | — | El tablero del león (mitad derecha) | 9 |
+| 44 | El estudio de Leonardo | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | El estudio de Leonardo | 15 |
+| 45 | El acertijo del león | Normal | — | El acertijo del león | 9 |
+| 46 | El reloj del taller | App | — | El reloj del taller | 16 |
+| 48 | El patio de ajedrez | App | — | El patio de ajedrez | 12 |
+| 49 | El patio del taller (mitad derecha) | Normal | — | El patio del taller (mitad derecha) | 12 |
+| 51 | Las torres de vigía | App | — | Las torres de vigía | 16 |
+| 52 | La paleta de Leonardo | App | — | La paleta de Leonardo | 14 |
+| 53 | El acertijo del caballo | Normal | — | El acertijo del caballo | 12 |
+| 54 | Los tres pigmentos | Normal | — | Los tres pigmentos | 14 |
+| 55 | El color del maestro | Normal | — | El color del maestro | 14 |
+| 56 | Mecha de lino | Combina | Combinable: suma los números | Mecha de lino | 17 |
+| 57 | El compás de Leonardo | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | El compás de Leonardo | 7 |
+| 58 | El permiso del Gonfaloniere | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | El permiso del Gonfaloniere | 18 |
+| 59 | El acertijo de la paleta | Normal | — | El acertijo de la paleta | 14 |
+| 61 | Las plazas de la ciudad (mitad izquierda) | Normal | — | Las plazas de la ciudad (mitad izquierda) | 16 |
+| 62 | Lente maestra | Combina | Combinable: suma los números | Lente maestra | 26 |
+| 63 | Las plazas de la ciudad (mitad derecha) | Normal | — | Las plazas de la ciudad (mitad derecha) | 16 |
+| 64 | La escalera de caracol | App | — | La escalera de caracol | 25 |
+| 66 | La escalera de caracol (mitad de arriba) | Normal | — | La escalera de caracol (mitad de arriba) | 25 |
+| 67 | La escalera de caracol (mitad de abajo) | Normal | — | La escalera de caracol (mitad de abajo) | 25 |
+| 69 | La caja de pigmentos | App | — | La caja de pigmentos | 19 |
+| 70 | Los intentos del aprendiz | Normal | — | Los intentos del aprendiz | 19 |
+| 71 | Los seis pigmentos | Normal | — | Los seis pigmentos | 19 |
+| 72 | El montacargas | App | — | El montacargas | 21 |
+| 74 | Cronoportal con la lente | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | Cronoportal con la lente | 27 |
+| 75 | Los cuatro aparejos | Normal | — | Los cuatro aparejos | 21 |
+| 79 | La carga y la mano | Normal | — | La carga y la mano | 21 |
+| 80 | El almacén de Leonardo | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | El almacén de Leonardo | 20 |
+| 82 | El lucernario | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | El lucernario | 22 |
+| 85 | El lucernario | App | — | El lucernario | 23 |
+| 86 | El mensaje del lucernario | Normal | — | El mensaje del lucernario | 23 |
+| 87 | La tabla del cifrador | Normal | — | La tabla del cifrador | 23 |
+| 94 | El sótano de las lentes | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | El sótano de las lentes | 24 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | De vuelta a casa (FIN) | 29 |
 
 ## Si algo no cuadra
 
