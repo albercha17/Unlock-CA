@@ -103,10 +103,11 @@ JUEGOS = {
                    "51": "51-bodega.js", "64": "64-bomba.js", "69": "69-maniobra.js", "72": "72-hierros.js", "85": "85-polibio.js"},
         pal=("#8a5a2a", "#1c1008")),
     "Espia": dict(
-        datos=S, dificultad=3, tema="espia", titulo="Montecarlo, 1965: Operación Cristal", emoji="🕵️", minutos=75,
+        datos=S, dificultad=4, tema="espia", titulo="Montecarlo, 1965: Operación Cristal", emoji="🕵️", minutos=90,
         grad="#0e5a6a,#07121a", acento="#ff6fa8", acento2="#7fe8f0", bg1="#06131a", bg2="#0e2a36",
-        sinopsis="Décima parada del Cronoportal: Montecarlo, 1965, noche de gala. El aparato golpea una mesa del casino y el Dr. Noche, un villano con capa que colecciona gemas, se lleva el cristal de energía a su yate. Con la Agente Zorro, Cristina y Alberto tienen setenta y cinco minutos, hasta que el yate zarpe a medianoche, para superponer hojas transparentes, usar una rejilla de cifrado, cruzar un yate a ciegas, descifrar un skyline y desactivar cuatro cargas con un manual.",
-        minigames={"20": "20-caja.js", "24": "24-teletipo.js", "46": "46-pasillos.js", "48": "48-skyline.js", "69": "69-desactivador.js", "36": "36-poker.js"},
+        sinopsis="Décima parada del Cronoportal: Montecarlo, 1965, noche de gala. El aparato golpea una mesa del casino y el Dr. Noche, un villano con capa que colecciona gemas, se lleva el cristal de energía a su yate. Con la Agente Zorro, Cristina y Alberto tienen noventa minutos, hasta que el yate zarpe a medianoche, para descifrar una nota secreta, encontrar la ruta más rápida por unas calles cortadas, cuadrar un skyline de rascacielos, leer un mensaje escondido en un libro, abrir una caja fuerte con jaulas, contar cartas con el crupier, calcular los dígitos de control de unos pasaportes, desactivar cuatro cargas con un manual, sumar horas de un vuelo con escalas, seguir una martingala y marcar la clave del teléfono rojo.",
+        minigames={"14": "14-criptograma.js", "20": "20-ruta.js", "40": "40-rascacielos.js", "48": "48-libro.js", "52": "52-kenken.js", "46": "46-conteo.js",
+                   "51": "51-pasaporte.js", "64": "64-husos.js", "69": "69-cables.js", "72": "72-ruleta.js", "85": "85-teclado.js"},
         pal=("#1c7a8a", "#07202a")),
     "Futbol": dict(
         datos=Fu, dificultad=2, tema="futbol", titulo="La Final del Siglo, 1970: La Copa de Cristal", emoji="⚽", minutos=90,
