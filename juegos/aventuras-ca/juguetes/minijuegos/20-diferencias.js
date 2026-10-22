@@ -1,13 +1,13 @@
-// Carta 24 — La estantería: tocar las cinco cosas que han cambiado desde la foto Polaroid (carta 20).
-// Imagen y zonas de herramientas/juguetes.py (instancias_juguetes.json).
+// Carta 20 — Las diferencias: tocar las siete cosas que han cambiado desde la foto Polaroid (cartas 19 y 21, dos mitades; la nota de Leo, en la 18).
+// Imagen y zonas de herramientas/juguetes.py (instancias_juguetes.json). Nota de la nana: E.nota.
 import { openGame } from './ui.js';
 
-const E = /*DATOS*/{"zonas": [[[8.71, 43.0, 14.84, 20.0]], [[76.45, 13.0, 14.84, 20.0]], [[53.87, 13.0, 14.84, 20.0]], [[67.58, 43.0, 14.84, 20.0]], [[22.42, 73.0, 14.84, 20.0], [8.71, 13.0, 14.84, 20.0]]], "textos": ["la pelota era roja y ahora es azul", "falta el libro morado", "el cohete está boca abajo", "hay un dado que no estaba", "el patito ha bajado a la balda de abajo"]}/*FIN*/;
+const E = /*DATOS*/{"zonas": [[[8.71, 43.0, 14.84, 20.0]], [[32.9, 43.0, 14.84, 20.0]], [[76.45, 13.0, 14.84, 20.0]], [[78.06, 43.0, 14.84, 20.0]], [[53.87, 13.0, 14.84, 20.0]], [[67.58, 43.0, 14.84, 20.0]], [[22.42, 73.0, 14.84, 20.0], [8.71, 13.0, 14.84, 20.0]]], "textos": ["la pelota era roja y ahora es azul", "el coche era azul y ahora es rojo", "falta el libro morado", "falta el barco rojo", "el cohete está boca abajo", "hay un dado que no estaba", "el patito ha bajado a la balda de abajo"], "nota": "SOL"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
-    title: 'Carta 24 — La estantería',
-    instr: 'Así está ahora la estantería de Leo. Comparadla con la foto Polaroid y tocad las cinco cosas que han cambiado.',
+    title: 'Carta 20 — Las diferencias',
+    instr: 'Así está ahora la estantería de Leo. Comparadla con la foto Polaroid (cartas 19 y 21) y tocad las siete cosas que han cambiado. La nota de Leo está en la carta 18.',
     ...opts
   });
 
@@ -37,7 +37,7 @@ export function startMinigame(opts = {}) {
 
   estante.addEventListener('click', e => {
     if (resuelto || e.target !== estante) return;
-    ui.say('Ahí todo está igual que en la foto. Mirad bien la Polaroid (carta 20).', 'bad');
+    ui.say('Ahí todo está igual que en la foto. Mirad bien la Polaroid (cartas 19 y 21).', 'bad');
   });
 
   E.zonas.forEach((rects, i) => rects.forEach(([x, y, w, h]) => {
@@ -58,7 +58,7 @@ export function startMinigame(opts = {}) {
       pintar();
       if (halladas.size === E.zonas.length) {
         resuelto = true;
-        ui.say('¡Las cinco! El Capitán Pelusa aplaude con sus patas de peluche: detrás de los juguetes revueltos asoma un baúl cerrado. Coged la carta 59.', 'ok');
+        ui.say('¡Las siete! El Capitán Pelusa aplaude con sus patas de peluche: detrás de los juguetes revueltos asoma un hueco con un paquetito. Nota de las diferencias: ' + E.nota + '. Coged la carta 28.', 'ok');
       } else {
         ui.say('¡Bien visto! ' + E.textos[i].charAt(0).toUpperCase() + E.textos[i].slice(1) + '.', '');
       }

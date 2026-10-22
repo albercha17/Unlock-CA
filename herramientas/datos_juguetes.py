@@ -1,35 +1,23 @@
-"""El Cuarto de Leo, 1995: La Noche de los Juguetes. Decimotercera parada del Cronoportal, de dificultad FÁCIL: el aparato falla y Cristina y
-Alberto se despiertan convertidos en juguetes (una muñeca de trapo y un robot de hojalata de cuerda) en el cuarto de un niño, la noche antes
-de la mudanza. La mecánica de cartas nueva es el FOLIOSCOPIO: cinco cartas son páginas del cuaderno de Leo que se ordenan y se hojean como una
-animación (botón «Hojear» del Modo PC). Puzles nuevos: buscar las diferencias con una foto Polaroid, construir una torre a partir de sus
-vistas, seguir los hilos enredados de una marioneta, cargar un tren con el orden del folioscopio y una pista de canicas con balancines.
-Las cartas dibujadas por código (20, 30, 31, 41, 43, 45, 49, 51, 52, 53 y 70) las hace herramientas/juguetes.py (instancias_juguetes.json)."""
-import json
+"""El Cuarto de Leo, 1995: La Noche de los Juguetes — versión de 62 cartas (22 oct 2026), de dificultad fácil-media (sigue siendo el juego más amable).
+
+La mecánica de cartas propia sigue siendo el FOLIOSCOPIO: cinco páginas del cuaderno de Leo que se ordenan por el sol que se pone en la ventana y se
+hojean como una animación (en el Modo PC, botón «Hojear»). Once puzles que no se parecen a los de ningún otro juego de la serie: un baúl con cuatro
+cubos de dibujos, las siete diferencias entre una foto Polaroid y una estantería, un tren que se carga en el orden del folioscopio, una marioneta con los
+hilos enredados, el juego de la oca de Leo, un solitario de clavijas, el collar de cuentas de mamá, una torre de bloques por sus vistas, una pista de
+canicas con balancines, un juego de memoria y una nana de xilófono. Solo 16 cartas tienen a Cristina (muñeca de trapo) y Alberto (robot de hojalata);
+el resto son objetos y pistas sin personas. Las cartas-pista las dibuja herramientas/juguetes.py (instancias_juguetes.py)."""
 import os
+import sys
 
-_AQUI = os.path.dirname(os.path.abspath(__file__))
-INST = json.load(open(os.path.join(_AQUI, "instancias_juguetes.json"), encoding="utf-8"))
-TORRE = INST["torre"]
-MARIO = INST["marioneta"]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_juguetes as I  # noqa: E402
+
+INST = I.INST
 FOLIO = INST["folioscopio"]
-PISTA = INST["pista"]
-EST = INST["estanteria"]
 
-_NOMBRE_MANDO = {"rojo": "rojo (círculo)", "azul": "azul (cuadrado)", "amarillo": "amarillo (triángulo)", "verde": "verde (estrella)"}
-_MANDOS = " y ".join(_NOMBRE_MANDO[m] for m in MARIO["solucion"])
-_DIFS = "; ".join(c["texto"] for c in EST["cambios"])
-_TREN = ", ".join(FOLIO["orden"])
-_PAGINAS = ", ".join(FOLIO["cartas_en_orden"])
-_FILAS = ["delante", "en medio", "detrás"]
-_TORRE = "; ".join(f"fila de {_FILAS[f]}: {', '.join(str(x) for x in TORRE['alturas'][f])}" for f in range(3))
-_LADO = {"izq": "izquierda", "der": "derecha"}
-_BAL = ", ".join(f"balancín {k[1]} a la {_LADO[v]}" for k, v in PISTA["solucion"].items())
-_PAGS = [int(c) for c in FOLIO["cartas_en_orden"]]
-
-ESTILO = ("Ilustración de animación 3D de estilo familiar y amable, como una película de juguetes que cobran vida: colores vivos y saturados, "
-          "plástico brillante, tela con costuras, madera pintada, luz cálida de lamparita de noche y rayos de luna azulados entrando por la ventana; "
-          "el cuarto de un niño de los años 90 visto a la altura de los juguetes, con los muebles enormes. Formato vertical 2:3. "
-          "Sin texto, letras ni números legibles en la imagen; los libros, cajas y carteles solo muestran rayas o manchas de color. "
+ESTILO = ("Ilustración de animación 3D de estilo familiar y amable, como una película de juguetes que cobran vida: colores vivos y saturados, plástico brillante, tela con costuras, madera pintada, luz cálida de lamparita de noche y rayos de luna azulados entrando por la ventana; "
+          "el cuarto de un niño de los años 90 visto a la altura de los juguetes, con los muebles enormes. Formato vertical 2:3. Sin texto, letras ni números legibles en la imagen; los libros, cajas y carteles solo muestran rayas o manchas de color. "
           "Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. "
           "Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).")
 
@@ -38,14 +26,14 @@ PERSONAJES = {
     "Alberto": "Alberto convertido en juguete: un robot de hojalata de cuerda con su misma cara reconocible (hombre de 27 años, ojos marrones pintados, pelo moreno corto y barba pintados en la cabeza de lata), cuerpo de lata azul con remaches dorados, antenita con una bolita roja, pinzas por manos y una gran llave de cuerda en la espalda.",
 }
 
-HOJA = ("Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta convertidas en JUGUETES, de cuerpo entero y de frente, sobre fondo claro y neutro. "
-        "Mantén su parecido real con la foto (cara, pelo, barba, ojos), como si un juguetero los hubiera hecho a su imagen. "
-        "Cristina: muñeca de trapo con su cara, ojos azules de botón, pecas pintadas, pelo de lana amarilla muy rizado, vestido de cuadros rojos y blancos, delantal azul, costuras visibles y zapatitos de fieltro. "
-        "Alberto: robot de hojalata de cuerda con su cara pintada en la cabeza de lata, ojos marrones, pelo moreno corto y barba pintados, cuerpo de lata azul con remaches dorados, antenita con bolita roja, pinzas por manos y una llave de cuerda en la espalda. "
+HOJA = ("Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta convertidas en juguetes, de cuerpo entero y de frente, sobre fondo claro y neutro. "
+        "Mantén su parecido real con la foto en la cara. "
+        "Cristina: muñeca de trapo con su misma cara reconocible (mujer de 26 años, ojos azules de botón brillante, pecas pintadas), pelo de lana amarilla muy rizado, vestido de tela de cuadros rojos y blancos, delantal azul, costuras visibles en brazos y piernas y zapatitos de fieltro. "
+        "Alberto: robot de hojalata de cuerda con su misma cara reconocible (hombre de 27 años, ojos marrones pintados, pelo moreno corto y barba pintados en la cabeza de lata), cuerpo de lata azul con remaches dorados, antenita con una bolita roja, pinzas por manos y una gran llave de cuerda en la espalda. "
         "Estilo: " + ESTILO)
 
 FOTO = ("Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). "
-        "Pídele que mantenga el parecido real, pero convertidos en juguetes con el estilo de ilustración de este juego.")
+        "Pídele que mantenga el parecido real en la cara, pero con el aspecto de juguete (muñeca de trapo y robot de hojalata) de este juego.")
 
 VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo de película de animación 3D familiar, luz cálida de lamparita y luna azul. Sin ningún texto, letra ni subtítulo en pantalla. "
          "Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal, que chisporrotea. "
@@ -54,343 +42,285 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo de película d
          "Escena 4 (12-15 s): primer plano de los dos juguetes mirándose las manos de trapo y de lata, boquiabiertos, mientras un oso de peluche con un parche se acerca a saludarles; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido del portal, un 'boing' al aterrizar, cuerda de juguete, una cajita de música y un perro que ronca, sin voz de narrador.")
 
+SIN_GENTE = "Sin ninguna persona en la imagen. "
 
-def pieza(titulo, que):
-    return f"Carta dibujada por código (herramientas/juguetes.py; no se pide a ChatGPT): {que} de «{titulo}»."
+MOSAICOS = {
+    "polaroid": dict(filas=2, cols=1, cartas=["19", "21"], titulo="La foto Polaroid de la estantería"),
+    "hilos": dict(filas=2, cols=1, cartas=["42", "49"], titulo="Los hilos de Pipo"),
+    "oca": dict(filas=2, cols=1, cartas=["54", "55"], titulo="El tablero de la oca de Leo"),
+    "collar": dict(filas=2, cols=1, cartas=["61", "63"], titulo="Las primeras cuentas del collar"),
+}
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+
+_CU = INST["cubos"]
+_S_CUB = "; ".join(f"cubo {i + 1}: {(_CU['solucion'][i] - _CU['inicial'][i]) % 6} toques" for i in range(4))
+_S_DIF = "; ".join(c["texto"] for c in INST["estanteria"]["cambios"])
+_S_TRE = ", ".join(f"{i + 1}.º {j}" for i, j in enumerate(FOLIO["orden"]))
+_MA = INST["marioneta"]
+_S_MAR = " y ".join(_MA["solucion"])
+_OC = INST["oca"]
+_S_OCA = ", ".join(str(x) for x in _OC["ruta"])
+_CL = INST["clavijas"]
+_S_CLA = "; ".join(f"{i + 1}.º de la fila {a[0] + 1}, columna {a[1] + 1} a la fila {c[0] + 1}, columna {c[1] + 1}" for i, (a, c) in enumerate(_CL["solucion"]))
+_CO = INST["collar"]
+_S_COL = f"el patrón (de siete cuentas) es {', '.join(_CO['patron'])}; la cuenta 100 es {_CO['ultimo']} y hay {_CO['azules']} azules"
+_TO = INST["torre"]
+_S_TOR = "; ".join(f"fila {n}: {' '.join(str(x) for x in f)}" for n, f in zip(("de delante", "de en medio", "de detrás"), _TO["alturas"]))
+_PI = INST["pista"]
+_S_CAN = ", ".join(f"balancín {b[1:]} a la {'izquierda' if v == 'izq' else 'derecha'}" for b, v in _PI["solucion"].items())
+_ME = INST["memoria"]
+_ET = lambda i: "ABCD"[i % 4] + str(i // 4 + 1)
+_S_MEM = ", ".join(f"{_ET(a)}-{_ET(b)}" for a, b in _ME["solucion"])
+_NA = INST["nana"]
+_S_NANA = ", ".join(_NA["melodia"])
+_N = _NA["notas"]
 
 
-def _pagina(carta):
-    return dict(
-        titulo=f"Carta {carta} — Página del cuaderno de Leo", tipo="gris",
-        descripcion=["Una página del cuaderno de Leo, con la ventana de su cuarto y cinco juguetes en el suelo; en cada página Leo ha rodeado uno con su cera roja. Es una página de un FOLIOSCOPIO: las cinco páginas (41, 43, 45, 49 y 51) se ordenan y se hojean como una animación. En el Modo PC, botón «Hojear»."],
-        pistas=["Es una de las cinco páginas del cuaderno de Leo (el folioscopio).", "Ordenad las cinco páginas mirando el sol de la ventana: se va poniendo de una página a la siguiente.", f"El orden de las páginas es {_PAGINAS}."],
-        arte=pieza("Página del cuaderno de Leo", "una página del folioscopio"))
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/juguetes.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=codigo(titulo))
+
+
+def pagina(carta):
+    return gris(carta, "Página del cuaderno de Leo", "Una página del cuaderno de dibujos de Leo, parte de un folioscopio: una ventana con el sol, el suelo con cinco juguetes en fila y uno rodeado con cera roja. Se ordena con las otras cuatro páginas; en el Modo PC, botón «Hojear».",
+                ["Es una de las cinco páginas del cuaderno de Leo (el folioscopio).", "Ordenad las cinco páginas mirando el sol de la ventana: se va poniendo de una página a la siguiente.", f"El orden de los juguetes rodeados es: {', '.join(FOLIO['orden'])}."])
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
 
 
 J = {
-    "P": dict(
-        titulo="Carta P — Del tamaño de un juguete", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Decimotercera parada del Cronoportal... o eso pretendíais. El aparato chisporrotea, os encoge y os escupe sobre la alfombra del cuarto de Leo, un niño de 1995, rodeados de cajas de mudanza. Cristina es una muñeca de trapo y Alberto, un robot de hojalata con una llave de cuerda en la espalda.",
-            "El cristal de energía ha rodado por el suelo y Leo, antes de dormirse, lo ha guardado creyendo que era una canica. Al amanecer llega el camión de la mudanza y todo acabará en una caja. Un oso de peluche con un parche os saluda: «Soy el Capitán Pelusa. Os ayudaremos».",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="El cuarto de un niño de los años 90 por la noche, visto a ras de suelo: cajas de mudanza enormes, una alfombra con carreteras dibujadas y la luz de la luna por la ventana. En primer plano, el Cronoportal, un aparato de latón diminuto, echa chispas. Cristina, convertida en muñeca de trapo, se mira las manos de tela con los ojos de botón muy abiertos de asombro, y Alberto, convertido en robot de hojalata, se toca la cabeza de lata con cara de pánico. Un oso de peluche con un parche se acerca sonriendo."),
-    "10": dict(
-        titulo="Carta 10 — La estantería de Leo", tipo="gris", coge=[20, 22, 24], descarta=["P"],
-        descripcion=[
-            "El Capitán Pelusa os lleva a la estantería: «Trufo, el perro, ha estado olisqueando aquí y lo ha revuelto todo. Leo hizo una foto de la estantería cuando la ordenó (carta 20). Lo que el perro ha cambiado esconde algo». La estantería de ahora es la carta 24. En el suelo, Cristina encuentra el mando de un coche teledirigido, sin pilas (carta 22).",
-            "Coged las cartas 20, 22 y 24. Descartad la carta P."],
-        pistas=["Hay un puzle: la estantería de ahora y la foto de antes.", "Comparad la foto Polaroid (carta 20) con la estantería de la app (carta 24).", "Coged las cartas 20, 22 y 24. Descartad la carta P."],
-        arte="Una estantería de madera enorme vista desde el suelo, llena de juguetes de los años 90 (un tambor, un cohete, un osito, un barco), con una foto Polaroid pegada con celo en el lateral. Cristina, la muñeca de trapo, señala la foto con la boca abierta de sorpresa y Alberto, el robot de hojalata, recoge del suelo un mando a distancia de juguete con gesto de curiosidad."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin cristal", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal, ahora del tamaño de una caja de cerillas: una consola de latón con un anillo central apagado y un hueco vacío donde iba el cristal. Alberto, con voz de lata: «Sin el cristal no volvemos... ni recuperamos nuestro tamaño».",
-            "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el cristal de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal en miniatura: una consola de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío, apoyado sobre una alfombra infantil junto a una pieza de construcción gigante, con luz de lamparita."),
-    "20": dict(
-        titulo="Carta 20 — Foto Polaroid", tipo="gris",
-        descripcion=["Una foto Polaroid de la estantería de Leo el día que la ordenó: tres baldas con doce juguetes."],
-        pistas=["Es la estantería como estaba antes (carta 24).", "Comparad juguete por juguete, balda por balda: hay cinco cosas distintas.", f"Las diferencias: {_DIFS}."],
-        arte=pieza("Foto Polaroid", "la foto de la estantería")),
-    "22": dict(
-        titulo="Carta 22 — Mando sin pilas", tipo="azul", combina=[35, 57],
-        descripcion=["El mando de un coche teledirigido, con la tapa de las pilas abierta y vacía. Combinadlo con las pilas (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Es un mando de coche teledirigido, pero no tiene pilas.", "Cuando encontréis las pilas, combinadlas con el mando.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="El mando de un coche teledirigido de juguete de los años 90, con dos palancas y la tapa de las pilas abierta y vacía, sobre una alfombra infantil, visto de cerca con luz de lamparita."),
-    "24": dict(
-        titulo="Carta 24 — La estantería", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la estantería de Leo tal como está ahora. Hay que tocar las cinco cosas que han cambiado desde la foto Polaroid (carta 20).",
-            "Al encontrar las cinco, aparece lo que escondía el perro. Coged la carta 26."],
-        pistas=["Hace falta la foto Polaroid (carta 20): así estaba la estantería antes.", "Mirad colores, juguetes que faltan o que sobran, juguetes del revés y juguetes que han cambiado de balda.", f"Las cinco diferencias: {_DIFS}."],
-        arte="Una estantería de juguetes revuelta, vista desde abajo, con algún juguete caído y la marca de un hocico de perro en la madera. Alberto, el robot de hojalata, compara la estantería con una foto con los ojos entrecerrados de concentración y Cristina, la muñeca de trapo, cuenta con los dedos de tela sacando la lengua."),
-    "26": dict(
-        titulo="Carta 26 — La caja de bloques", tipo="gris", coge=[30, 31, 35, 46], descarta=[10, 20, 24],
-        descripcion=[
-            "Detrás de los juguetes cambiados, el Capitán Pelusa encuentra la caja de bloques de Leo con sus instrucciones (cartas 30 y 31): «Si construimos la torre de Leo junto a la cama, podremos subir». La base de la torre es la carta 46. Dentro de la caja, Alberto encuentra dos pilas (carta 35).",
-            "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20 y 24."],
-        pistas=["Hay un puzle: la torre de bloques y sus instrucciones.", "Las instrucciones están en dos cartas: vistas de frente y de lado (30) y desde arriba (31). Las pilas (35) son combinables.", "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20 y 24."],
-        arte="Una caja de bloques de construcción de colores volcada sobre la alfombra, junto a la pata de una cama enorme, con una hoja de instrucciones dibujadas. Cristina, la muñeca de trapo, levanta un bloque más grande que ella con cara de esfuerzo y Alberto, el robot de hojalata, sostiene dos pilas gigantes con una sonrisa de triunfo."),
-    "30": dict(
-        titulo="Carta 30 — Instrucciones (1 de 2)", tipo="gris",
-        descripcion=["Las instrucciones de la torre de Leo: cómo se ve la torre de frente y desde la derecha. La base es de 3 × 3 casillas y nada puede flotar."],
-        pistas=["Son las instrucciones de la torre (carta 46), junto con la carta 31.", "De frente se ve la columna más alta de cada fila de izquierda a derecha; desde la derecha, la más alta de delante a detrás.", f"Alturas: {_TORRE}."],
-        arte=pieza("Instrucciones (1 de 2)", "las vistas de frente y de lado")),
-    "31": dict(
-        titulo="Carta 31 — Instrucciones (2 de 2)", tipo="gris",
-        descripcion=["Las instrucciones de la torre de Leo: la torre vista desde arriba (qué casillas tienen algún bloque) y cuántos bloques lleva en total."],
-        pistas=["Son las instrucciones de la torre (carta 46), junto con la carta 30.", "Desde arriba se ve qué casilla queda vacía. Después, ajustad las alturas con las vistas de la carta 30 y contad los bloques.", f"Alturas: {_TORRE}."],
-        arte=pieza("Instrucciones (2 de 2)", "la vista desde arriba")),
-    "35": dict(
-        titulo="Carta 35 — Dos pilas", tipo="roja", combina=[22, 57],
-        descripcion=["Dos pilas de las grandes, casi tan altas como Cristina. Combinadlas con el mando sin pilas (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Son pilas para algo que no funciona.", "Combinad la carta 35 con el mando (carta 22).", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="Dos pilas grandes de juguete, una roja y otra negra, apoyadas en un bloque de construcción sobre una alfombra infantil, vistas de cerca y enormes, con luz de lamparita."),
-    "46": dict(
-        titulo="Carta 46 — La torre de bloques", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una base de 3 × 3 casillas junto a la cama. Tocando una casilla se le añade un bloque (hasta 3; uno más y vuelve a 0). Hay que construir la torre de las instrucciones (cartas 30 y 31).",
-            "Al acertar, la torre llega al borde de la cama. Coged la carta 44."],
-        pistas=["Hacen falta las dos cartas de instrucciones (30 y 31).", "Empezad por la vista desde arriba (qué casilla va vacía) y usad las vistas de frente y de lado para las alturas. El total de bloques ayuda a comprobar.", f"Alturas: {_TORRE}."],
-        arte="Una torre de bloques de construcción de colores a medio montar junto a la pata de una cama, con una base de nueve casillas. Alberto, el robot de hojalata, coloca un bloque con las pinzas y cara de concentración y Cristina, la muñeca de trapo, le enseña la hoja de instrucciones con la lengua entre los dientes."),
-    "44": dict(
-        titulo="Carta 44 — Encima de la cama", tipo="gris", coge=[38], descarta=[26, 30, 31, 46],
-        descripcion=[
-            "Trepáis por la torre hasta la cama de Leo, que duerme abrazado a su almohada. Junto a él, entre las sábanas, hay una llave de cuerda dorada (carta 38) que no es la de Alberto: es de algún otro juguete.",
-            "Coged la carta 38. Descartad las cartas 26, 30, 31 y 46."],
-        pistas=["Mirad lo que hay entre las sábanas.", "La carta 38 es combinable.", "Coged la carta 38. Descartad las cartas 26, 30, 31 y 46."],
-        arte="Una cama infantil enorme vista desde el colchón, con un niño dormido abrazado a la almohada, un edredón de cohetes y la luz de la luna. Cristina, la muñeca de trapo, se tapa la boca con la mano para no reír y Alberto, el robot de hojalata, levanta de puntillas una llave de cuerda dorada con cara de sigilo."),
-    "38": dict(
-        titulo="Carta 38 — Llave de cuerda", tipo="azul", combina=[56, 94],
-        descripcion=["Una llave de cuerda dorada, pequeña, de un juguete que no es Alberto. Combinadla con el ratón de cuerda (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Es la llave de cuerda de algún juguete.", "Cuando encontréis el juguete al que le falta la llave, combinadlos.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Una llave de cuerda dorada de juguete, con forma de mariposa, sobre una sábana con dibujos de cohetes, vista de cerca con luz de luna."),
-    "57": dict(
-        titulo="Carta 57 — El coche teledirigido", tipo="gris", coge=[48, 52, 53], descarta=[22, 35],
-        descripcion=[
-            "Con las pilas puestas, el coche teledirigido arranca con un zumbido y os lleva por la alfombra hasta el teatrillo de marionetas de Leo. Pipo, la marioneta, está colgada de su cruceta, con los hilos enredados (carta 52). El cartel de la función (carta 53) enseña cómo saluda Pipo; el teatrillo es la carta 48.",
-            "Coged las cartas 48, 52 y 53. Descartad las cartas 22 y 35."],
-        pistas=["Hay un puzle: la marioneta, sus hilos y el cartel.", "Los hilos (carta 52) dicen qué mando mueve cada brazo y cada pierna; el cartel (53), la postura.", "Coged las cartas 48, 52 y 53. Descartad las cartas 22 y 35."],
-        arte="Un coche teledirigido de juguete corriendo por una alfombra con carreteras dibujadas, con Cristina, la muñeca de trapo, al volante riendo a carcajadas y Alberto, el robot de hojalata, agarrado al alerón con los ojos como platos; al fondo, un teatrillo de marionetas de madera con cortinas rojas."),
-    "52": dict(
-        titulo="Carta 52 — Los hilos de Pipo", tipo="gris",
-        descripcion=["La cruceta de Pipo con cuatro mandos (rojo con círculo, azul con cuadrado, amarillo con triángulo y verde con estrella) y sus hilos enredados hasta las manos y los pies de la marioneta."],
-        pistas=["Son los hilos de la marioneta (carta 48).", "Seguid cada hilo con el dedo desde su mando hasta la mano o el pie donde acaba.", f"Para el saludo del cartel hay que tirar de los mandos {_MANDOS}."],
-        arte=pieza("Los hilos de Pipo", "la cruceta y los hilos")),
-    "53": dict(
-        titulo="Carta 53 — Cartel de la función", tipo="gris",
-        descripcion=["El cartel de la función del teatrillo de Leo: Pipo saluda al público con una mano y un pie levantados."],
-        pistas=["Es la postura que tiene que hacer la marioneta (carta 48).", "Fijaos en qué mano y qué pie levanta Pipo en el dibujo, tal como lo veis vosotros.", f"Hay que tirar de los mandos {_MANDOS}."],
-        arte=pieza("Cartel de la función", "el cartel con la postura")),
-    "48": dict(
-        titulo="Carta 48 — La marioneta", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: Pipo, la marioneta, y los cuatro mandos de su cruceta. Tocando un mando se tira de su hilo (y tocándolo otra vez se suelta). Hay que dejar a Pipo en la postura del cartel (carta 53); qué mando mueve cada mano y cada pie está en los hilos enredados (carta 52).",
-            "Al saludar, se abre el cajón del teatrillo. Coged la carta 58."],
-        pistas=["Hacen falta las dos cartas: los hilos (52) y el cartel (53).", "Primero mirad qué mano y qué pie levanta Pipo en el cartel; después seguid los hilos para saber de qué mandos tirar.", f"Tirad de los mandos {_MANDOS} y saludad."],
-        arte="Un teatrillo de marionetas de madera con cortinas rojas y una marioneta de madera con gorro verde colgando de una cruceta. Alberto, el robot de hojalata, tira de un hilo con todas sus fuerzas y la lengua fuera y Cristina, la muñeca de trapo, aplaude con los ojos brillantes de ilusión."),
-    "58": dict(
-        titulo="Carta 58 — El cajón del teatrillo", tipo="gris", coge=[41, 43, 45, 49, 51, 66], descarta=[48, 52, 53, 57],
-        descripcion=[
-            "Pipo saluda y el cajón del teatrillo se abre. Dentro está el cuaderno de dibujos de Leo, con las hojas sueltas: cinco páginas de un folioscopio (cartas 41, 43, 45, 49 y 51) que se ordenan y se hojean como una animación. Junto al cajón, el tren de juguete de Leo (carta 66) espera su carga.",
-            "Coged las cartas 41, 43, 45, 49, 51 y 66. Descartad las cartas 48, 52, 53 y 57."],
-        pistas=["Hay un puzle: el tren y las cinco páginas del cuaderno.", "Las páginas se ordenan por el sol de la ventana (en el Modo PC, botón «Hojear»).", "Coged las cartas 41, 43, 45, 49, 51 y 66. Descartad las cartas 48, 52, 53 y 57."],
-        arte="El cajón de un teatrillo de marionetas abierto, con un cuaderno de dibujos infantil de espiral y hojas sueltas, y al lado las vías y un tren de juguete de madera con cinco vagones vacíos. Cristina, la muñeca de trapo, hojea las páginas con cara de curiosidad y Alberto, el robot de hojalata, se asoma al tren con una ceja de lata levantada."),
-    "41": _pagina("41"), "43": _pagina("43"), "45": _pagina("45"), "49": _pagina("49"), "51": _pagina("51"),
-    "66": dict(
-        titulo="Carta 66 — El tren de Leo", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el tren de juguete de Leo con cinco vagones y cinco juguetes en el andén. Hay que cargar un juguete en cada vagón, del primero al último, en el orden en que Leo los rodeó en su cuaderno: las cinco páginas del folioscopio ordenadas (cartas 41, 43, 45, 49 y 51).",
-            "Al cargarlo bien, el tren arranca. Coged la carta 72."],
-        pistas=["El orden está en el folioscopio: las cinco páginas del cuaderno de Leo.", "Ordenad las páginas por el sol de la ventana, del más alto al que ya se ha puesto, y apuntad qué juguete rodea Leo en cada una.", f"Vagones, del primero al último: {_TREN}."],
-        arte="Un tren de juguete de madera con locomotora roja y cinco vagones de colores sobre unas vías que recorren la alfombra, con juguetes pequeños esperando en un andén de cartón. Cristina, la muñeca de trapo, sube un juguete a un vagón con cara de esfuerzo y Alberto, el robot de hojalata, consulta unas hojas de cuaderno con gesto pensativo."),
-    "72": dict(
-        titulo="Carta 72 — La estación", tipo="gris", coge=[56], descarta=[58, 41, 43, 45, 49, 51, 66],
-        descripcion=[
-            "El tren silba y da la vuelta al cuarto hasta la estación de cartón, junto al escritorio. Allí os espera Tic, un ratón de cuerda que ha perdido su llave (carta 56): «Yo sé trepar por el cable de la lámpara hasta el escritorio, pero sin cuerda no me muevo».",
-            "Coged la carta 56. Descartad las cartas 58, 41, 43, 45, 49, 51 y 66."],
-        pistas=["Mirad quién os espera en la estación.", "La carta 56 es combinable.", "Coged la carta 56. Descartad las cartas 58, 41, 43, 45, 49, 51 y 66."],
-        arte="Una estación de tren de cartón pintado junto a la pata de un escritorio enorme, con un tren de juguete parado y un ratón de cuerda gris sin llave sentado en el andén con cara triste. Cristina, la muñeca de trapo, le acaricia la cabeza con ternura y Alberto, el robot de hojalata, mira hacia lo alto del escritorio con la boca abierta."),
-    "56": dict(
-        titulo="Carta 56 — Tic, el ratón de cuerda", tipo="roja", combina=[38, 94],
-        descripcion=["Tic, un ratón de cuerda gris con orejas rosas, con un agujero en el lomo donde iba su llave. Combinadlo con la llave de cuerda (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Es un ratón de cuerda sin llave.", "Combinad la carta 56 con la llave de cuerda (carta 38).", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Un ratón de cuerda de hojalata gris con orejas rosas y un agujero vacío en el lomo, sentado sobre un andén de cartón, visto de cerca con luz de lamparita."),
-    "94": dict(
-        titulo="Carta 94 — Arriba, al escritorio", tipo="gris", coge=[69, 70], descarta=[38, 56, 44, 72],
-        descripcion=[
-            "Con la llave puesta, Tic trepa por el cable de la lámpara con vosotros en el lomo. En el escritorio está la pista de canicas de Leo (carta 69): arriba, en la rampa de salida, esperan tres canicas, y la tercera es vuestro cristal. Las instrucciones de la caja (carta 70) explican los balancines. Si el cristal no cae en el tarro, rodará hasta una caja de la mudanza.",
-            "Coged las cartas 69 y 70. Descartad las cartas 38, 56, 44 y 72."],
-        pistas=["Hay un puzle: la pista de canicas y sus instrucciones.", "Las instrucciones (carta 70) dicen cómo se mueven los balancines y dónde está el tarro.", "Coged las cartas 69 y 70. Descartad las cartas 38, 56, 44 y 72."],
-        arte="Un ratón de cuerda trepando por el cable de una lámpara hasta un escritorio infantil, con Cristina, la muñeca de trapo, y Alberto, el robot de hojalata, montados en su lomo: ella grita de emoción con el pelo de lana al viento y él se agarra con las pinzas con cara de vértigo. En el escritorio se ve una pista de canicas de madera con un cristal rojo brillando arriba."),
-    "70": dict(
-        titulo="Carta 70 — Instrucciones de la pista", tipo="gris",
-        descripcion=["Las instrucciones de la pista de canicas: tres balancines que mandan la canica al lado al que apuntan y que, al pasar ella, cambian de lado; cuatro salidas (A, B, C y D) y el tarro en una de ellas. El cristal es la tercera canica."],
-        pistas=["Son las instrucciones de la pista (carta 69).", "Seguid las tres canicas una a una, cambiando cada balancín por el que pasa. Lo que importa es dónde cae la tercera.", f"Colocad: {_BAL}."],
-        arte=pieza("Instrucciones de la pista", "el tablero y la regla de los balancines")),
-    "69": dict(
-        titulo="Carta 69 — La pista de canicas", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la pista de canicas de Leo con tres balancines. Tocando un balancín se cambia de lado; con «Soltar las canicas» caen las tres, una tras otra, y cada balancín cambia de lado cuando pasa una. El cristal es la tercera y tiene que caer en el tarro (instrucciones, carta 70).",
-            "Al caer el cristal en el tarro, lo recuperáis. Coged la carta 82."],
-        pistas=["Hacen falta las instrucciones (carta 70): la regla de los balancines y dónde está el tarro.", "Probad con la cabeza: seguid las tres canicas y cambiad cada balancín por el que pasan. Podéis soltar las canicas todas las veces que queráis.", f"Colocad: {_BAL}."],
-        arte="Una pista de canicas de madera sobre un escritorio, con tres balancines de colores, cuatro salidas y un tarro de cristal, y canicas brillantes rodando; arriba, un cristal rojo. Alberto, el robot de hojalata, gira un balancín con las pinzas y cara de concentración y Cristina, la muñeca de trapo, sigue una canica con la mirada y la boca abierta de emoción."),
-    "82": dict(
-        titulo="Carta 82 — El cristal en el tarro", tipo="gris", coge=[62], descarta=[69, 70, 94],
-        descripcion=[
-            "El cristal cae en el tarro con un tintineo y los juguetes estallan en vítores en voz baja, para no despertar a Leo. El Capitán Pelusa os lo saca con su pata de peluche: «Buen viaje, amigos. Y cuidad de que no os confundan con una canica».",
-            "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        pistas=["El cristal está a salvo.", "La carta 62 es combinable con el Cronoportal.", "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        arte="Un tarro de canicas de cristal sobre un escritorio infantil con un cristal rojo brillante dentro, rodeado de juguetes que celebran: un oso de peluche con un parche, una marioneta y un ratón de cuerda. Cristina, la muñeca de trapo, abraza el tarro con los ojos llenos de lágrimas de alegría y Alberto, el robot de hojalata, salta de alegría con la antenita temblando."),
-    "62": dict(
-        titulo="Carta 62 — Cristal de energía", tipo="roja", combina=[12, 74],
-        descripcion=["El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Un cristal rojo facetado con un fulgor interior de brasa, sostenido por una pata de oso de peluche, entre canicas de colores, con luz de lamparita."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[99], descarta=[62, 12, 82],
-        descripcion=[
-            "El cristal encaja y el Cronoportal se enciende. Por la ventana empieza a clarear y se oye el motor del camión de la mudanza en la calle. Los juguetes os dicen adiós desde la estantería. Activad el aparato antes de que Leo abra los ojos.",
-            "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal ya funciona. Solo queda activarlo.", "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal diminuto encendido, con un cristal rojo encajado y un arco de luz azul y dorada, sobre un escritorio infantil al amanecer; por la ventana se ve un camión de mudanzas. Cristina, la muñeca de trapo, dice adiós con la mano de tela a un oso de peluche con cara de pena y alegría a la vez, y Alberto, el robot de hojalata, pulsa el botón del aparato con decisión."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
-        descripcion=[
-            "El anillo se abre en un arco de luz justo cuando Leo se despereza. Cristina y Alberto salen disparados del cuarto de 1995 y aterrizan en su salón... otra vez de su tamaño y de carne y hueso.",
-            "Alberto se toca la cara: ya no es de lata. Cristina se ríe: en el bolsillo lleva una canica de colores de Leo. Descartad la carta 74.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto, otra vez personas de su tamaño normal, acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ve el cuarto de un niño de los años 90 con juguetes que dicen adiós. Cristina ríe a carcajadas con una canica de colores en la mano y Alberto se palpa la cara y la barba con alivio y una sonrisa enorme. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ La estantería
+    "P": escena("P", "Del tamaño de un juguete", [10, 12], [],
+                "Decimotercera parada del Cronoportal... o eso pretendíais. El aparato chisporrotea, os encoge y os escupe sobre la alfombra del cuarto de Leo, un niño de 1995, rodeados de cajas de mudanza. Cristina es una muñeca de trapo y Alberto, un robot de hojalata con una llave de cuerda en la espalda. El cristal de energía rueda hasta caer en un tarro de canicas, muy arriba. Un oso de peluche con un parche en el ojo se acerca saludando: es el Capitán Pelusa. «Leo se muda mañana y esta noche los juguetes vamos a despedirnos del cuarto. Os ayudaremos a recuperar el cristal antes de que amanezca, pero hay que hacer silencio».",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "El cuarto de un niño de los años 90 por la noche, visto a ras de suelo: cajas de mudanza enormes, una alfombra con carreteras dibujadas y la luz de la luna por la ventana. En primer plano, el Cronoportal, un aparato de latón diminuto, echa chispas. Cristina, convertida en muñeca de trapo, se levanta con la boca abierta y los ojos de botón muy abiertos de asombro, y Alberto, un robot de hojalata con una llave de cuerda, se mira las pinzas con una ceja arqueada de incredulidad."),
+    "10": escena("10", "La estantería de Leo", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "El Capitán Pelusa os lleva a la estantería: «Trufo, el perro, ha estado olisqueando aquí y lo ha revuelto todo. Leo dejó una nota (carta 18) y una foto Polaroid de la estantería ordenada, que ocupa dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Y detrás hay un baúl que Leo cierra con cuatro cubos de dibujos: la tapa de su caja de cubos enseña el dibujo (carta 16) que hay que formar (carta 14)». En el suelo, Cristina encuentra el mando de un coche teledirigido, sin pilas (carta 22).",
+                 ["Hay dos puzles: el baúl de los cubos y las diferencias de la estantería.", "La foto son dos cartas: juntadlas, una encima de otra."],
+                 "Una estantería de madera enorme vista desde el suelo, llena de juguetes de los años 90 (un tambor, un cohete, un osito, un barco), con una foto Polaroid pegada con celo en el lateral y un baúl cerrado detrás. Cristina, la muñeca de trapo, señala la foto con la boca abierta de sorpresa y Alberto, el robot de hojalata, sujeta una nota con los ojos entrecerrados de concentración."),
+    "12": combinable("12", "Cronoportal sin cristal", "azul", 62, 74,
+                     "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía.",
+                     SIN_GENTE + "Primer plano del Cronoportal diminuto: una consola de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre la alfombra del cuarto de un niño, con una caja de mudanza gigante al fondo."),
+    "14": app("14", "El baúl de los cubos", "Es un juego de la app: el baúl de Leo se cierra con cuatro cubos de madera; cada cara lleva un cuarto de un dibujo. Hay que girar los cubos hasta formar el dibujo de la tapa de su caja.", 24,
+              ["El dibujo está en la carta 16.", "Cada cubo tiene seis caras con trozos de dibujos distintos. Buscad en cada cubo el cuarto que corresponde a su sitio (arriba a la izquierda, arriba a la derecha...).", f"Tocques por cubo: {_S_CUB}. Nota de los cubos: {_N['14']}."],
+              SIN_GENTE + "Un baúl de juguetes de madera pintado con estrellas, cerrado, con cuatro cubos de madera con dibujos encajados en la tapa, sobre la alfombra del cuarto de un niño por la noche."),
+    "16": gris("16", "La tapa de la caja de cubos", "El dibujo de la tapa de la caja de cubos de Leo, hecho con ceras: un perro marrón sobre la hierba con el sol.", ["Es el dibujo que forman los cubos (carta 14).", "Es un dibujo de Leo.", "Cada cubo lleva un cuarto de este dibujo en alguna de sus caras."]),
+    "18": gris("18", "La nota de Leo", "Una nota de Leo pegada en la estantería, que habla de lo que ha revuelto Trufo.", ["Es la nota de las diferencias (carta 20).", "Dice cuántas cosas han cambiado.", "La foto de la estantería ordenada está en las cartas 19 y 21."]),
+    "19": pieza("19", "polaroid", "Media lámina de la foto Polaroid de la estantería.", ["Es la mitad de una lámina: juntadla con la carta 21.", "Es la estantería ordenada, como estaba antes.", "La nota de Leo está en la carta 18."]),
+    "21": pieza("21", "polaroid", "Media lámina de la foto Polaroid de la estantería.", ["Es la mitad de una lámina: juntadla con la carta 19.", "Es la estantería ordenada, como estaba antes.", "La nota de Leo está en la carta 18."]),
+    "20": app("20", "Las diferencias", "Es un juego de la app: así está ahora la estantería de Leo. Hay que compararla con la foto Polaroid y tocar las siete cosas que han cambiado.", 28,
+              ["La foto está en las cartas 19 y 21 y la nota de Leo, en la 18.", "Hay cambios de color, cosas que faltan o sobran, una que está del revés y otra que ha cambiado de balda. Mirad balda por balda.", f"Los cambios: {_S_DIF}. Nota de las diferencias: {_N['20']}."],
+              SIN_GENTE + "Una estantería de madera enorme vista desde el suelo, llena de juguetes de los años 90 (un tambor, un cohete, un osito, una pelota, un coche), con los juguetes revueltos por un perro."),
+    "22": combinable("22", "Mando sin pilas", "azul", 35, 57, "El mando de un coche teledirigido de juguete, con la antena doblada y el hueco de las pilas vacío.",
+                     SIN_GENTE + "El mando de un coche teledirigido de juguete con una antena y dos palancas, con el compartimento de las pilas abierto y vacío, sobre la alfombra de un cuarto de niño."),
+    "24": escena("24", "El baúl abierto", [26], [14, 16],
+                 "El baúl se abre con un clic y dentro hay un collar de cuentas roto, de un color distinto cada una, y una nota de la mamá de Leo (carta 26). El Capitán Pelusa os lo explica: «Leo se la guardó antes de la mudanza. Lo enhebraremos cuando haga falta».",
+                 ["Mirad lo que hay dentro del baúl."],
+                 "Un baúl de juguetes de madera abierto, con un collar de cuentas de colores roto y un papel doblado dentro, sobre la alfombra del cuarto de un niño. Cristina, la muñeca de trapo, saca el collar con cuidado y los ojos muy abiertos; Alberto, el robot de hojalata, lee la nota con las pinzas sujetando el papel y una ceja arqueada."),
+    "26": gris("26", "La nota del collar", "Una nota de la mamá de Leo sobre su collar de cien cuentas, con dos preguntas.", ["Son las preguntas del collar (carta 51).", "Habla de la última cuenta y de las cuentas azules.", "Las primeras cuentas están dibujadas en las cartas 61 y 63."]),
+    "28": escena("28", "Detrás de la estantería", [35], [18, 19, 20, 21],
+                 "Con las siete diferencias encontradas, los juguetes se apartan y detrás de la estantería hay un hueco con un paquetito: dos pilas de botón y un papel (carta 35). «¡Las pilas del coche!», grita el Capitán Pelusa.",
+                 ["Mirad en el hueco de detrás de la estantería."],
+                 "El hueco oscuro detrás de una estantería de madera enorme, con un paquetito de papel con dos pilas de botón brillantes dentro, visto a ras de suelo. Cristina, la muñeca de trapo, saca el paquetito con las dos manos de tela y una gran sonrisa; Alberto, el robot de hojalata, da un salto de alegría con las pinzas en el aire."),
+    "35": combinable("35", "Pilas de botón", "roja", 22, 57, "Dos pilas de botón de las que usa un mando de coche teledirigido, con un trozo de papel pegado.",
+                     SIN_GENTE + "Dos pilas de botón plateadas con un trozo de papel pegado, sobre la palma de una mano de trapo, con una caja de mudanza gigante al fondo."),
+    "57": escena("57", "El coche teledirigido", [31, 32], [22, 35, 10, 28],
+                 "Con las pilas puestas, el coche teledirigido arranca con un zumbido y os lleva por la alfombra hasta el teatrillo de marionetas de Leo. A un lado, el cajón del teatrillo, con un cuaderno de dibujos de Leo y su tren de juguete (carta 31); al otro, Pipo, la marioneta, colgada de su cruceta con los hilos enredados (carta 32).",
+                 ["Dos sitios: el cajón del teatrillo y Pipo."],
+                 "Un coche teledirigido de juguete corriendo por una alfombra con carreteras dibujadas, con Cristina, la muñeca de trapo, al volante riendo a carcajadas y Alberto, el robot de hojalata, agarrado al alerón con los ojos como platos; al fondo, un teatrillo de marionetas con una marioneta colgada."),
+    # ------------------------------------------------------------------ Rama 1: el cajón y el folioscopio
+    "31": escena("31", "El cajón del teatrillo", [40, 41, 43, 45, 27, 23], [],
+                 "Dentro del cajón está el cuaderno de dibujos de Leo, con las hojas sueltas: cinco páginas de un folioscopio (cartas 41, 43, 45, 27 y 23) que se ordenan y se hojean como una animación. Junto al cajón, el tren de juguete de Leo (carta 40) espera su carga.",
+                 ["Un único puzle: el tren de Leo.", "Las cinco páginas se ordenan y se hojean: en el Modo PC, botón «Hojear»."],
+                 "El cajón de un teatrillo de marionetas abierto, con un cuaderno de dibujos infantil de espiral y hojas sueltas, y al lado las vías y un tren de juguete de madera con cinco vagones vacíos. Cristina, la muñeca de trapo, hojea las páginas con cara de curiosidad y Alberto, el robot de hojalata, mira el tren con las pinzas en la cintura y una sonrisa de aprobación."),
+    "40": app("40", "El tren de Leo", "Es un juego de la app: el tren de juguete de Leo con cinco vagones y cinco juguetes en el andén. Hay que cargar un juguete en cada vagón, del primero al último, en el orden en que Leo los rodeó en su cuaderno.", 30,
+              ["El orden está en el folioscopio: las cinco páginas del cuaderno de Leo (cartas 41, 43, 45, 27 y 23).", "Ordenad las páginas por el sol de la ventana, del más alto al que ya se ha puesto, y apuntad qué juguete rodea Leo en cada una.", f"Vagones, del primero al último: {_S_TRE}. Nota del tren: {_N['40']}."],
+              SIN_GENTE + "Un tren de juguete de madera con cinco vagones de colores sobre unas vías en una alfombra, con juguetes (un patito, una pelota, un tambor, un cohete, una cometa) en un andén de cartón."),
+    "41": pagina("41"), "43": pagina("43"), "45": pagina("45"), "27": pagina("27"), "23": pagina("23"),
+    "30": escena("30", "La estación", [38], [31, 40, 41, 43, 45, 27, 23],
+                 "El tren silba y da la vuelta al cuarto hasta la estación de cartón, junto al escritorio. Allí os espera Tic, un ratón de cuerda que ha perdido su llave: «Yo sé trepar por el cable de la lámpara hasta el escritorio, pero sin cuerda no me muevo». En el andén, media llave de cuerda dorada (carta 38).",
+                 ["Mirad en el andén."],
+                 "Una estación de tren de cartón pintado junto a la pata de un escritorio enorme, con un tren de juguete parado y un ratón de cuerda gris sin llave sentado en el andén con cara triste. Cristina, la muñeca de trapo, le acaricia la cabeza con ternura y Alberto, el robot de hojalata, recoge del suelo media llave dorada con una gran sonrisa."),
+    "38": combinable("38", "Mitad de la llave de cuerda", "roja", 56, 94, "Una mitad de una llave de cuerda dorada de las de un ratón de juguete.",
+                     SIN_GENTE + "La mitad izquierda de una llave de cuerda dorada de las de un ratón de juguete, sobre el andén de cartón de una estación."),
+    # ------------------------------------------------------------------ Rama 2: Pipo
+    "32": escena("32", "El teatrillo de Pipo", [42, 48, 49, 53], [],
+                 "Pipo, la marioneta, está colgada de su cruceta con cuatro mandos de colores; los hilos están tan enredados que ocupan dos láminas: juntad la 42 arriba y la 49 abajo. El cartel de la función (carta 53) enseña cómo saluda Pipo y el teatrillo es la carta 48.",
+                 ["Un único puzle: los hilos de Pipo.", "Los hilos son dos cartas: juntadlas, una encima de otra."],
+                 "Un teatrillo de marionetas de juguete con una cortina roja y una marioneta de madera colgada de una cruceta con cuatro mandos de colores y los hilos enredados. Cristina, la muñeca de trapo, sigue un hilo con el dedo y la lengua entre los dientes; Alberto, el robot de hojalata, mira los mandos con la cabeza ladeada y una antena torcida."),
+    "48": app("48", "La marioneta", "Es un juego de la app: tirar de los mandos de la cruceta para que Pipo haga la postura del cartel. Qué mando mueve cada mano y cada pie se ve siguiendo los hilos enredados.", 36,
+              ["Los hilos están en las cartas 42 y 49 y el cartel de la función, en la 53.", "Seguid cada hilo con el dedo desde su mando hasta el miembro de Pipo. Luego, tirad solo de los mandos de los miembros que el cartel tiene levantados.", f"Hay que tirar de los mandos {_S_MAR}. Nota de la marioneta: {_N['48']}."],
+              SIN_GENTE + "Un teatrillo de marionetas de juguete con una cortina roja y una marioneta de madera haciendo una pose con un brazo y una pierna levantados, colgada de una cruceta con hilos."),
+    "42": pieza("42", "hilos", "Media lámina de los hilos enredados de Pipo.", ["Es la mitad de una lámina: juntadla con la carta 49.", "Los hilos salen de los cuatro mandos de colores.", "El cartel de la función está en la carta 53."]),
+    "49": pieza("49", "hilos", "Media lámina de los hilos enredados de Pipo.", ["Es la mitad de una lámina: juntadla con la carta 42.", "Los hilos llegan a las manos y los pies de Pipo.", "El cartel de la función está en la carta 53."]),
+    "53": gris("53", "El cartel de la función", "El cartel de la función de Pipo, con la pose con que saluda al público.", ["Es la postura que hay que conseguir (carta 48).", "Fijaos en qué manos y qué pies tiene levantados.", "Los hilos están en las cartas 42 y 49."]),
+    "36": escena("36", "Bajo la cama", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "Una trampilla del teatrillo da a un pasadizo que sale bajo la cama de Leo, donde guarda su juego de la oca. El tablero, de sesenta casillas con escaleras y toboganes, ocupa dos láminas: juntad la 54 arriba y la 55 abajo. Su hermana Marta jugó con él y dejó sus diez tiradas de dado apuntadas (carta 59): hay que saber dónde quedó la ficha (carta 52).",
+                 ["Un único puzle: la oca de Leo.", "El tablero son dos cartas: juntadlas, una encima de otra."],
+                 "El espacio bajo una cama infantil enorme, con un tablero de la oca desplegado en el suelo, una ficha roja y un dado gigante, y una caja de zapatos al lado. Cristina, la muñeca de trapo, cuenta casillas con los dedos y los ojos muy abiertos; Alberto, el robot de hojalata, empuja el dado con las pinzas con cara de concentración."),
+    "52": app("52", "La oca de Leo", "Es un juego de la app: el tablero de la oca de Leo tiene sesenta casillas con escaleras que suben y toboganes que bajan. Hay que decir en qué casilla acaba la ficha tras las diez tiradas de su hermana, empezando fuera del tablero.", 44,
+              ["El tablero está en las cartas 54 y 55 y las tiradas, en la 59.", "Id tirada a tirada: sumad el dado a la casilla donde estáis. Si caéis en el pie de una escalera, subís a su cima; si caéis en la cabeza de un tobogán, bajáis a su cola.", f"Pasa por las casillas {_S_OCA}. Nota de la oca: {_N['52']}."],
+              SIN_GENTE + "Un tablero del juego de la oca de colores desplegado sobre el suelo, con una ficha roja y un dado grande, con escaleras de madera y toboganes verdes pintados, bajo una cama."),
+    "54": pieza("54", "oca", "Media lámina del tablero de la oca de Leo.", ["Es la mitad de una lámina: juntadla con la carta 55.", "Son las casillas de la 31 a la 60.", "Las tiradas de Marta están en la carta 59."]),
+    "55": pieza("55", "oca", "Media lámina del tablero de la oca de Leo.", ["Es la mitad de una lámina: juntadla con la carta 54.", "Son las casillas de la 1 a la 30.", "Las tiradas de Marta están en la carta 59."]),
+    "59": gris("59", "Las tiradas de Marta", "Las diez tiradas de dado de la hermana de Leo, en orden, con una leyenda de la escalera y el tobogán.", ["Son las tiradas de la oca (carta 52).", "Se tiran en orden: la 1, la 2...", "El tablero está en las cartas 54 y 55."]),
+    # ------------------------------------------------------------------ Encima de la cama
+    "44": escena("44", "Encima de la cama", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "Trepáis por una escalera de la oca hasta la cama de Leo, que duerme abrazado a su almohada. A un lado, su solitario de clavijas, con las clavijas desordenadas (carta 37), la regla de la caja (carta 39) y la meta (carta 33): hay que ganarlo (carta 46). Al otro, colgado del cabecero, el collar de mamá, que ya sabéis enhebrar: las primeras cuentas, en dos láminas (juntad la 61 arriba y la 63 abajo) y las preguntas de su nota (carta 26), para el collar (carta 51).",
+                 ["Hay dos puzles: el solitario de clavijas y el collar."],
+                 "Una cama infantil enorme vista desde el colchón, con un niño dormido abrazado a su almohada, un edredón de cohetes, un tablero de solitario de clavijas junto a su mano y un collar de cuentas colgado del cabecero. Cristina, la muñeca de trapo, se tapa la boca con la mano para no reír y Alberto, el robot de hojalata, levanta una clavija de puntillas con cara de mucha atención."),
+    "46": app("46", "El solitario de clavijas", "Es un juego de la app: un tablero en cruz de 33 agujeros con nueve clavijas. Una clavija salta sobre otra, en línea recta, a un agujero vacío y se come a la saltada. Hay que dejar una sola clavija, en el agujero del medio.", 56,
+              ["El tablero está en la carta 37, la regla en la 39 y la meta, en la 33.", "Empezad por los saltos que dejan clavijas en el centro del tablero y evitad dejar clavijas aisladas, lejos de las demás: ya no podrán saltar ni ser saltadas.", f"Una solución: {_S_CLA}."],
+              SIN_GENTE + "Un tablero de solitario de clavijas de madera, en forma de cruz, con clavijas rojas colocadas en algunos agujeros, sobre una cama infantil con un edredón de cohetes."),
+    "37": gris("37", "El solitario de Leo", "El tablero en cruz del solitario de clavijas con las nueve clavijas en su sitio de partida.", ["Es el solitario de la carta 46.", "Hay nueve clavijas rojas.", "La regla está en la carta 39 y la meta, en la 33."]),
+    "39": gris("39", "La regla del solitario", "La regla del solitario de clavijas, de la caja del juego, en versos.", ["Explica cómo salta una clavija (carta 46).", "Siempre en línea recta, nunca en diagonal.", "A la clavija saltada se la come."]),
+    "33": gris("33", "La meta", "El tablero del solitario con una sola clavija amarilla, en el agujero del medio.", ["Es el final del solitario (carta 46).", "Tiene que quedar una sola clavija.", "Y justo en el agujero del medio."]),
+    "56": combinable("56", "Otra mitad de la llave de cuerda", "roja", 38, 94, "La otra mitad de la llave de cuerda dorada, que estaba escondida bajo la tapa del solitario.",
+                     SIN_GENTE + "La mitad derecha de una llave de cuerda dorada de las de un ratón de juguete, sobre el tablero de madera de un solitario de clavijas."),
+    "51": app("51", "El collar de mamá", "Es un juego de la app: un collar de cien cuentas cuyos colores se repiten siempre igual. Hay que decir de qué color es la última cuenta y cuántas son azules.", 58,
+              ["La nota de mamá está en la carta 26 y las primeras cuentas, en las cartas 61 y 63.", "Buscad cuántas cuentas tiene el patrón antes de repetirse y contad cuántas vueltas completas caben en cien; las cuentas que sobran se leen en el principio del patrón.", f"{_S_COL}."],
+              SIN_GENTE + "Un collar de cuentas de colores (rojas, azules, verdes, amarillas y moradas) colgado del cabecero de una cama infantil, con las cuentas bien enhebradas, a la luz de una lamparita."),
+    "61": pieza("61", "collar", "Media lámina de las primeras cuentas del collar.", ["Es la mitad de una lámina: juntadla con la carta 63.", "Son las cuentas de la 1 a la 20.", "Las preguntas de mamá están en la carta 26."]),
+    "63": pieza("63", "collar", "Media lámina de las primeras cuentas del collar.", ["Es la mitad de una lámina: juntadla con la carta 61.", "Son las cuentas de la 21 a la 40.", "Las preguntas de mamá están en la carta 26."]),
+    # ------------------------------------------------------------------ El escritorio
+    "58": escena("58", "El escritorio", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "Tic, con media llave puesta, no puede trepar todavía, pero el collar colgado del cabecero os sirve de cuerda y subís al escritorio de Leo. Allí está su pista de canicas (carta 70): el tarro de las canicas está al final y la regla (carta 71) dice cómo funcionan los balancines. Si la tercera canica cae en el tarro, un resorte abrirá un cajoncito (carta 69).",
+                 ["Un único puzle: la pista de canicas."],
+                 "Un escritorio infantil enorme con una pista de canicas de plástico con tres balancines naranjas y un tarro de cristal al final, y una lámpara con el cable colgando. Cristina, la muñeca de trapo, coloca un balancín con los ojos entrecerrados de concentración; Alberto, el robot de hojalata, sujeta una canica con sus pinzas con cara de duda."),
+    "69": app("69", "La pista de canicas", "Es un juego de la app: colocar los tres balancines para que la tercera canica caiga en el tarro. Cada balancín manda la canica al lado al que apunta y cambia de lado cuando ella pasa.", 80,
+              ["La pista está en la carta 70 y la regla, en la 71.", "Seguid una canica entera: cada vez que pasa por un balancín, este se gira. La segunda canica encuentra los balancines cambiados por la primera.", f"Una posición buena: {_S_CAN}."],
+              SIN_GENTE + "Una pista de canicas de plástico con tres balancines naranjas y un tarro de cristal al final, con tres canicas listas arriba, sobre un escritorio infantil."),
+    "70": gris("70", "La pista de canicas", "El tablero de la pista de canicas con tres balancines numerados, cuatro salidas (A, B, C y D) y un tarro.", ["Es la pista de la carta 69.", "El tarro está bajo una de las salidas.", "La regla de los balancines está en la carta 71."]),
+    "71": gris("71", "La regla de la pista", "Una nota pegada en la tapa de la caja de la pista de canicas, con la regla de los balancines.", ["Es la regla de la carta 69.", "Cada balancín cambia de lado al pasar una canica.", "La tercera canica es la que tiene que caer en el tarro."]),
+    "80": escena("80", "El cajoncito", [72, 75, 79], [58, 69, 70, 71],
+                 "La tercera canica cae en el tarro y un resorte abre un cajoncito del escritorio. Dentro, un juego de memoria de dieciséis cartas (de la A1 a la D4) y dos hojas con los doce intentos de Leo para encontrar las parejas (cartas 75 y 79). Hay que formar las ocho parejas (carta 72).",
+                 ["Un único puzle: el juego de memoria."],
+                 "Un cajoncito de escritorio abierto con dieciséis cartas de memoria boca abajo en cuatro filas y dos hojas de papel con dibujos de intentos, y una lámpara encendida. Cristina, la muñeca de trapo, da la vuelta a una carta con los ojos muy abiertos y una sonrisa de sorpresa; Alberto, el robot de hojalata, anota con una pinza en una hoja con la lengua entre los dientes."),
+    "72": app("72", "La memoria de Leo", "Es un juego de la app: dieciséis cartas boca abajo con ocho dibujos, cada uno dos veces. Los doce intentos de Leo enseñan quince posiciones. Hay que formar las ocho parejas.", 82,
+              ["Los intentos están en las cartas 75 y 79.", "Apuntad qué dibujo sale en cada posición, intento a intento. Las parejas son las dos posiciones con el mismo dibujo; una posición no se ve nunca, pero su dibujo solo sale una vez.", f"Las parejas: {_S_MEM}."],
+              SIN_GENTE + "Dieciséis cartas de memoria boca abajo en cuatro filas sobre un escritorio, con una de ellas levantada enseñando el dibujo de un cohete."),
+    "75": gris("75", "Los intentos de Leo (I)", "Los seis primeros intentos de Leo, con las dos cartas que dio la vuelta y su posición (de la A1 a la D4).", ["Son los primeros seis intentos del juego de memoria (carta 72).", "Cada intento enseña dos cartas y sus posiciones.", "Los otros seis intentos están en la carta 79."]),
+    "79": gris("79", "Los intentos de Leo (II)", "Los seis últimos intentos de Leo, con las dos cartas que dio la vuelta y su posición (de la A1 a la D4).", ["Son los últimos seis intentos del juego de memoria (carta 72).", "Cada intento enseña dos cartas y sus posiciones.", "Los otros seis intentos están en la carta 75."]),
+    "82": escena("82", "La cajita de música", [85, 86, 87], [80, 72, 75, 79],
+                 "Las cartas dejan ver el fondo del cajoncito: la cajita de música de Leo, con un xilófono de siete barras. Leo se mueve en la cama: para que no se despierte, hay que tocarle su nana (carta 85). Las cinco notas las dejaron cinco puzles; el orden está en una hoja con dibujos (carta 86) y los colores de las notas, en otra (carta 87).",
+                 ["Un único puzle: la nana del xilófono."],
+                 "El interior de una cajita de música abierta con un xilófono de siete barras de colores y un mecanismo de cilindro con púas, sobre un escritorio infantil, mientras al fondo un niño se mueve en su cama. Cristina, la muñeca de trapo, se lleva un dedo a los labios pidiendo silencio con los ojos muy abiertos; Alberto, el robot de hojalata, golpea una barra con una pinza con mucho cuidado y cara de susto."),
+    "85": app("85", "La nana", "Es un juego de la app: el xilófono de la cajita de música tiene siete barras de colores. Hay que tocar las cinco notas de la nana, en orden, las que dejaron cinco puzles.", 99,
+              ["El orden de las cinco notas está en la carta 86 y los colores de las notas, en la 87.", "Cada dibujo de la carta 86 es un puzle: los cubos, las diferencias, el tren, la marioneta y la oca. Cada uno os dejó una nota; pasad cada nota a su color con la carta 87.", f"La nana: {_S_NANA}."],
+              SIN_GENTE + "Un xilófono de siete barras de colores (rojo, naranja, amarillo, verde, azul, añil y violeta) con dos macillos de madera, sobre un escritorio infantil, con la luz de la luna."),
+    "86": gris("86", "La nana de Leo", "Una hoja con cinco dibujos, de arriba abajo: unos cubos, una lupa, un tren, una marioneta y unos dados, cada uno con una raya al lado para escribir una nota.", ["Es el orden de las notas de la nana (carta 85).", "Cada dibujo es un puzle que dejó una nota.", "Las notas se pasan a colores con la carta 87."]),
+    "87": gris("87", "El xilófono", "El xilófono de la cajita de música, con sus siete barras de colores y el nombre de cada nota debajo.", ["Sirve para pasar las notas a colores (carta 85).", "Hay siete notas y siete colores.", "Las notas van de la más grave a la más aguda."]),
+    # ------------------------------------------------------------------ La torre y el final
+    "94": escena("94", "La llave de Tic", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Las dos mitades de la llave de cuerda encajan en la espalda de Tic y el ratón sale disparado hasta lo alto de la estantería: allí está el tarro de canicas con vuestro cristal. Pero la estantería es demasiado alta para vosotros: hay que construir con los bloques de Leo una torre que llegue hasta el tarro (carta 64). Las instrucciones de la caja de bloques, con las vistas de la torre, están en dos hojas (cartas 66 y 67).",
+                 ["Un único puzle: la torre de bloques."],
+                 "Un ratón de cuerda gris con una llave dorada en la espalda corriendo por una alfombra hacia una caja de bloques de construcción de colores, con una estantería altísima al fondo con un tarro de canicas. Cristina, la muñeca de trapo, levanta un bloque más grande que ella con cara de esfuerzo y Alberto, el robot de hojalata, mira la estantería hacia arriba con la cabeza echada hacia atrás y la boca abierta."),
+    "64": app("64", "La torre de bloques", "Es un juego de la app: construir en una base de 3 × 3 la torre de las instrucciones. Cada casilla puede llevar de 0 a 3 bloques y hay vistas de frente, de lado y desde arriba.", 62,
+              ["Las vistas de frente y de lado están en la carta 66; la vista desde arriba y el total de bloques, en la 67.", "La vista de frente dice la altura máxima de cada columna y la de lado, la de cada fila. La vista desde arriba dice qué casillas llevan algún bloque.", f"Alturas por filas: {_S_TOR}."],
+              SIN_GENTE + "Una torre de bloques de construcción de colores (amarillos, naranjas y rojos) construida junto a una estantería alta de un cuarto de niño, vista desde abajo."),
+    "66": gris("66", "Las instrucciones de la torre (I)", "La hoja de instrucciones de la torre de bloques, con la vista de frente y la vista desde la derecha.", ["Es la primera hoja de instrucciones (carta 64).", "Los números de bloques de cada columna y cada fila se ven en el dibujo.", "La vista desde arriba está en la carta 67."]),
+    "67": gris("67", "Las instrucciones de la torre (II)", "La hoja de instrucciones de la torre de bloques, con la vista desde arriba y el total de bloques.", ["Es la segunda hoja de instrucciones (carta 64).", "Las casillas amarillas llevan algún bloque.", "El total de bloques tiene que salir justo."]),
+    "62": combinable("62", "El cristal del Cronoportal", "roja", 12, 74, "El cristal del Cronoportal, que estaba entre las canicas del tarro y brilla como un caramelo rojo.",
+                     SIN_GENTE + "Un cristal redondo de color rojo brillante, del tamaño de una canica grande, con destellos de luz, entre canicas de cristal de colores dentro de un tarro de vidrio, sobre una estantería, con la luz de la luna."),
+    "74": escena("74", "Cronoportal con el cristal", [], [62, 12, 64, 66, 67, 94, 57],
+                 "El cristal encaja y el Cronoportal se enciende. Por la ventana empieza a clarear y se oye el motor del camión de la mudanza en la calle. Los juguetes os dicen adiós desde la estantería. Activad el aparato antes de que Leo abra los ojos: solo falta tocar su nana en el xilófono para que siga durmiendo (carta 85).",
+                 ["Ya solo queda tocar la nana."],
+                 "El Cronoportal diminuto encendido, con un cristal rojo encajado y un arco de luz azul y dorada, sobre un escritorio infantil al amanecer; por la ventana se ve un camión de mudanzas. Cristina, la muñeca de trapo, dice adiós con la mano de tela a un oso de peluche con un parche, con una sonrisa triste y los ojos brillantes, y Alberto, el robot de hojalata, se agarra a la antena del aparato con cara de prisa."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87],
+                 "La nana suena entera, Leo se da la vuelta y sigue durmiendo, y el anillo se abre en un arco de luz justo cuando el sol asoma. Cristina y Alberto salen disparados del cuarto de 1995 y aterrizan en su salón... otra vez de su tamaño y de carne y hueso. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo una canica roja. FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto, otra vez personas de su tamaño normal, acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven un cuarto de niño con juguetes, un oso de peluche con un parche saludando y la luz del amanecer. Cristina lleva puesto su vestido de cuadros y su delantal azul de muñeca de trapo y Alberto, su casaca azul con remaches dorados de robot. Cristina ríe a carcajadas con una canica roja en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="El Cuarto de Leo, 1995 — La Noche de los Juguetes",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-    folioscopios={"cuaderno": {"titulo": "El cuaderno de Leo", "cartas": FOLIO["cartas_en_orden"]}},
-)
+META = dict(juego="El Cuarto de Leo, 1995 — La Noche de los Juguetes", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()},
+            folioscopios={"cuaderno": {"titulo": "El cuaderno de Leo", "cartas": FOLIO["cartas_en_orden"]}})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["24", "20"], "44": ["46", "30", "31"], "57": ["22", "35"], "58": ["48", "52", "53"],
-           "72": ["66", "41", "43", "45", "49", "51"], "94": ["38", "56"], "82": ["69", "70"], "74": ["62", "12"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45", "27", "23"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: os convertís en juguetes. Te manda coger la 10 y la 12.",
-    "10": "La estantería: reparte la foto Polaroid, la estantería de ahora y el mando.",
-    "12": "El Cronoportal sin cristal: se combina con el cristal de energía (62).",
-    "20": "Foto Polaroid: la estantería de antes.",
-    "22": "Mando sin pilas: se combina con las pilas (35).",
-    "24": "La estantería (app): las cinco diferencias.",
-    "26": "La caja de bloques: reparte las instrucciones, la torre y las pilas.",
-    "30": "Instrucciones: vistas de frente y de lado.",
-    "31": "Instrucciones: vista desde arriba y total de bloques.",
-    "35": "Dos pilas: se combinan con el mando (22).",
-    "38": "Llave de cuerda: se combina con el ratón (56).",
-    "41": "Página del folioscopio.", "43": "Página del folioscopio.", "45": "Página del folioscopio.",
-    "49": "Página del folioscopio.", "51": "Página del folioscopio.",
-    "44": "Encima de la cama: reparte la llave de cuerda.",
-    "46": "La torre de bloques (app): construirla con sus vistas.",
-    "48": "La marioneta (app): tirar de los mandos de la postura del cartel.",
-    "52": "Los hilos de Pipo: qué mando mueve cada mano y cada pie.",
-    "53": "Cartel de la función: la postura.",
-    "56": "Tic, el ratón de cuerda: se combina con la llave (38).",
-    "57": "El coche teledirigido (22 + 35): reparte la marioneta, los hilos y el cartel.",
-    "58": "El cajón del teatrillo: reparte el folioscopio y el tren.",
-    "62": "Cristal de energía: se combina con el Cronoportal (12).",
-    "66": "El tren de Leo (app): cargar los juguetes en el orden del folioscopio.",
-    "69": "La pista de canicas (app): colocar los balancines para que el cristal caiga en el tarro.",
-    "70": "Instrucciones de la pista: los balancines y el tarro.",
-    "72": "La estación: reparte el ratón de cuerda.",
-    "74": "Cronoportal reconectado (62 + 12): reparte la 99.",
-    "82": "El cristal en el tarro: reparte el cristal.",
-    "94": "Arriba, al escritorio (38 + 56): reparte la pista de canicas y sus instrucciones.",
-    "99": "Final de la aventura, ya en casa.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-_TEXTOS = [
-    ("leer", "P", "Del tamaño de un juguete", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
-    ("leer", "10", "La estantería de Leo", "Lee la carta 10. Descarta la P y coge 20, 22 y 24."),
-    ("app", "24", "La estantería", f"En el móvil: Acción, 24. Toca las cinco diferencias con la foto (carta 20): {_DIFS}. El mensaje te dice que cojas la 26.", "carta 26"),
-    ("leer", "26", "La caja de bloques", "Lee la carta 26. Descarta 10, 20 y 24 y coge 30, 31, 35 y 46. Las cartas 22 y 35 son combinables."),
-    ("app", "46", "La torre de bloques", f"En el móvil: Acción, 46. Con las instrucciones (cartas 30 y 31), las alturas son: {_TORRE}. El mensaje te dice que cojas la 44.", "carta 44"),
-    ("leer", "44", "Encima de la cama", "Lee la carta 44. Descarta 26, 30, 31 y 46 y coge la 38, una llave de cuerda."),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "La estantería de Leo", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la foto: 19 arriba y 21 abajo."),
+    ("app", "14", "El baúl de los cubos", f"En el móvil: Acción, 14. Con el dibujo de la tapa (16), hay que girar los cubos así: {_S_CUB}. El mensaje te dice que cojas la 24. Anota la nota de los cubos: {_N['14']}.", "carta 24"),
+    ("leer", "24", "El baúl abierto", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para el collar)."),
+    ("app", "20", "Las diferencias", f"En el móvil: Acción, 20. Con la foto (19 y 21) y la nota (18): {_S_DIF}. El mensaje te dice que cojas la 28. Anota la nota de las diferencias: {_N['20']}.", "carta 28"),
+    ("leer", "28", "Detrás de la estantería", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
     ("combinar", "22", "35", "El coche teledirigido", "El mando (22) y las pilas (35) son combinables: 22 + 35 = 57. Coge la 57."),
-    ("leer", "57", "El coche teledirigido", "Lee la carta 57. Descarta 22 y 35 y coge 48, 52 y 53."),
-    ("app", "48", "La marioneta", f"En el móvil: Acción, 48. Siguiendo los hilos (carta 52) para la postura del cartel (carta 53), tira de los mandos {_MANDOS} y saluda. El mensaje te dice que cojas la 58.", "carta 58"),
-    ("leer", "58", "El cajón del teatrillo", "Lee la carta 58. Descarta 48, 52, 53 y 57 y coge 41, 43, 45, 49, 51 y 66. Las cinco páginas son un folioscopio: en el Modo PC, botón «Hojear»."),
-    ("app", "66", "El tren de Leo", f"En el móvil: Acción, 66. Ordenadas por el sol, las páginas son {_PAGINAS}; los juguetes rodeados, en ese orden: {_TREN}. Cárgalos así. El mensaje te dice que cojas la 72.", "carta 72"),
-    ("leer", "72", "La estación", "Lee la carta 72. Descarta 58, 41, 43, 45, 49, 51 y 66 y coge la 56, el ratón de cuerda."),
-    ("combinar", "38", "56", "Arriba, al escritorio", "La llave (38) y el ratón (56) son combinables: 38 + 56 = 94. Coge la 94."),
-    ("leer", "94", "Arriba, al escritorio", "Lee la carta 94. Descarta 38, 56, 44 y 72 y coge 69 y 70."),
-    ("app", "69", "La pista de canicas", f"En el móvil: Acción, 69. Con las instrucciones (carta 70): {_BAL}. Suelta las canicas. El mensaje te dice que cojas la 82.", "carta 82"),
-    ("leer", "82", "El cristal en el tarro", "Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía."),
-    ("combinar", "12", "62", "Cristal en el Cronoportal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
-    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12 y 82 y coge la 99."),
-    ("leer", "99", "Final", "Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!"),
+    ("leer", "57", "El coche teledirigido", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "El cajón del teatrillo", "Lee la carta 31. Coge 40, 41, 43, 45, 27 y 23. Las cinco páginas (41, 43, 45, 27 y 23) son un folioscopio: en el Modo PC, botón «Hojear»."),
+    ("app", "40", "El tren de Leo", f"En el móvil: Acción, 40. Ordena las páginas por el sol de la ventana (41, 43, 45, 27 y 23) y carga los juguetes en los vagones: {_S_TRE}. El mensaje te dice que cojas la 30. Anota la nota del tren: {_N['40']}.", "carta 30"),
+    ("leer", "30", "La estación", "Lee la carta 30. Descarta 31, 40, 41, 43, 45, 27 y 23 y coge la 38."),
+    ("leer", "32", "El teatrillo de Pipo", "Lee la carta 32. Coge 42, 48, 49 y 53. Junta los hilos: 42 arriba y 49 abajo."),
+    ("app", "48", "La marioneta", f"En el móvil: Acción, 48. Con los hilos (42 y 49) y el cartel (53), hay que tirar de los mandos {_S_MAR}. El mensaje te dice que cojas la 36. Anota la nota de la marioneta: {_N['48']}.", "carta 36"),
+    ("leer", "36", "Bajo la cama", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el tablero: 54 arriba y 55 abajo."),
+    ("app", "52", "La oca de Leo", f"En el móvil: Acción, 52. Con el tablero (54 y 55) y las tiradas (59), la ficha pasa por las casillas {_S_OCA} y acaba en la {_OC['final']}. El mensaje te dice que cojas la 44. Anota la nota de la oca: {_N['52']}.", "carta 44"),
+    ("leer", "44", "Encima de la cama", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el collar: 61 arriba y 63 abajo."),
+    ("app", "46", "El solitario de clavijas", f"En el móvil: Acción, 46. Con el tablero (37), la regla (39) y la meta (33): {_S_CLA}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "El collar de mamá", f"En el móvil: Acción, 51. Con la nota (26) y las cuentas (61 y 63): {_S_COL}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "El escritorio", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "La pista de canicas", f"En el móvil: Acción, 69. Con la pista (70) y la regla (71): {_S_CAN}. El mensaje te dice que cojas la 80.", "carta 80"),
+    ("leer", "80", "El cajoncito", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79."),
+    ("app", "72", "La memoria de Leo", f"En el móvil: Acción, 72. Con los intentos de Leo (75 y 79), las parejas son {_S_MEM}. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "La cajita de música", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "La llave de cuerda", "Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "La llave de Tic", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67."),
+    ("app", "64", "La torre de bloques", f"En el móvil: Acción, 64. Con las instrucciones (66 y 67): {_S_TOR}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "El cristal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal con el cristal", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "La nana", f"En el móvil: Acción, 85. Con el orden (86) y los colores de las notas (87), la nana es {_S_NANA}. El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!"),
 ]
-
-
-def _orden(m):
-    return sorted(m, key=lambda x: (x != "P", int(x) if x != "P" else 0))
-
-
-def _pasos():
-    mesa = set()
-    pasos = []
-    for p in _TEXTOS:
-        if p[0] == "leer":
-            c = J[p[1]]
-            for d in c.get("descarta", []):
-                mesa.discard(str(d))
-            for h in c.get("coge", []):
-                mesa.add(str(h))
-            if p[1] == "P":
-                mesa = {"P", "10", "12"}
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("leer", p[1])], mesa=_orden(mesa)))
-        elif p[0] == "app":
-            mesa.add(p[4].split()[-1])
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("app", p[1], p[4])], mesa=_orden(mesa)))
-        else:
-            mesa.add(str(int(p[1]) + int(p[2])))
-            pasos.append(dict(t=p[3], que=p[4], acciones=[("combinar", p[1], p[2])], mesa=_orden(mesa)))
-    return pasos
-
-
-PASOS = _pasos()
-
-
-# ================================================================== ampliación a 36 cartas (20 oct 2026)
-# Entre la estantería y la caja de bloques: los cubos de imágenes de Leo (cuatro cubos con seis dibujos partidos en cuartos; el dibujo
-# que hay que formar está en la tapa de la caja). Lámina: herramientas/dibujos_ampliacion.py.
-import ampliacion as _amp  # noqa: E402
-
-
-J["24"]["descripcion"][1] = J["24"]["descripcion"][1].replace("Coged la carta 26", "Coged la carta 59")
-J.update({
-    "59": dict(
-        titulo="Carta 59 — El baúl de los cubos", tipo="gris", coge=[64, 67],
-        descripcion=[
-            "Detrás de los juguetes cambiados hay un baúl cerrado. El Capitán Pelusa sabe abrirlo: «Leo lo cierra con sus cubos de dibujos (carta 64). Hay que girarlos hasta formar el dibujo de la tapa de la caja (carta 67)».",
-            "Coged las cartas 64 y 67."],
-        pistas=["Hay un puzle: los cubos y el dibujo de la tapa.", "El dibujo que hay que formar está en la carta 67.", "Coged las cartas 64 y 67."],
-        arte="Un baúl de juguetes de madera pintado con estrellas, cerrado, con cuatro cubos de madera con dibujos encajados en la tapa, sobre la alfombra del cuarto de un niño por la noche. Cristina, la muñeca de trapo, gira un cubo más grande que su cabeza con cara de esfuerzo y Alberto, el robot de hojalata, se rasca la cabeza de lata, desconcertado."),
-    "64": dict(
-        titulo="Carta 64 — Los cubos de Leo", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cuatro cubos de madera en un cuadrado de 2 × 2. Cada cara de cada cubo tiene un cuarto de un dibujo distinto; tocando un cubo se gira y enseña otra cara. Hay que formar el dibujo de la tapa de la caja (carta 67).",
-            "Al formarlo, el baúl se abre. Coged la carta 26."],
-        pistas=["El dibujo que hay que formar está en la carta 67.", "Cada cubo enseña un cuarto: el de arriba a la izquierda, el de arriba a la derecha, el de abajo a la izquierda y el de abajo a la derecha. Girad cada uno hasta ver su trozo del perro.", "Girad los cuatro cubos hasta que salga el perro Trufo entero."],
-        arte="Cuatro cubos de madera con dibujos de colores en sus caras (un perro, un barco, una casa, un sol, un cohete y un árbol), encajados en un cuadrado sobre la tapa de un baúl. Alberto gira un cubo con sus pinzas y la lengua fuera y Cristina aplaude al ver aparecer media cara de perro."),
-    "67": dict(
-        titulo="Carta 67 — El dibujo de Leo", tipo="gris",
-        descripcion=["El dibujo pegado en la tapa de la caja de cubos: Trufo, el perro de Leo, dibujado por él a los cinco años. Es el dibujo que hay que formar con los cubos (carta 64)."],
-        pistas=["Es el dibujo que hay que formar con los cubos (carta 64).", "Fijaos en qué parte del perro va en cada esquina.", "Girad los cuatro cubos hasta que salga el perro Trufo entero."],
-        arte="Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): el dibujo del perro."),
-})
-J["26"]["descarta"] = [10, 20, 24, 59, 64, 67]
-J["26"]["descripcion"][0] = J["26"]["descripcion"][0].replace("Detrás de los juguetes cambiados, el Capitán Pelusa encuentra", "Dentro del baúl, el Capitán Pelusa encuentra")
-J["26"]["descripcion"][1] = "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20, 24, 59, 64 y 67."
-J["26"]["pistas"][2] = "Coged las cartas 30, 31, 35 y 46. Descartad las cartas 10, 20, 24, 59, 64 y 67."
-
-SPEC["needs"]["59"] = SPEC["needs"].pop("26")
-SPEC["needs"]["26"] = ["64", "67"]
-PARA_QUE.update({"59": "El baúl de los cubos: reparte los cubos y el dibujo.", "64": "Los cubos de Leo (app): formar el dibujo.",
-                 "67": "El dibujo de Leo: lo que hay que formar con los cubos.", "26": "La caja de bloques: aparece al abrir el baúl."})
-
-_i = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("app", "24"))
-PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 26", "cojas la 59")
-PASOS[_i]["acciones"] = [("app", "24", "carta 59")]
-PASOS[_i + 1:_i + 1] = [
-    dict(t="El baúl de los cubos", que="Lee la carta 59. Coge 64 y 67. El dibujo de la tapa (67) es Trufo, el perro.", acciones=[("leer", "59")]),
-    dict(t="Los cubos de Leo", que="En el móvil: Acción, 64. Gira cada cubo hasta que los cuatro formen el perro de la carta 67. El mensaje te dice que cojas la 26.",
-         acciones=[("app", "64", "carta 26")]),
-]
-_j = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("leer", "26"))
-PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 10, 20 y 24", "Descarta 10, 20, 24, 59, 64 y 67")
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
 _amp.recalcular_mesas(PASOS, J)

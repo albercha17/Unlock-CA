@@ -1,5 +1,5 @@
-// Carta 46 — La torre de bloques: construir en una base de 3 x 3 la torre de las instrucciones (vistas de frente y de lado en la carta 30;
-// desde arriba y total de bloques en la carta 31). Solución única comprobada en herramientas/instancias_juguetes.py.
+// Carta 64 — La torre de bloques: construir en una base de 3 x 3 la torre de las instrucciones (vistas de frente y de lado en la carta 66;
+// desde arriba y total de bloques en la carta 67). Solución única comprobada en herramientas/instancias_juguetes.py.
 import { openGame } from './ui.js';
 
 const T = /*DATOS*/{"alturas": [[3, 0, 1], [2, 1, 1], [2, 1, 1]], "bloques": 12}/*FIN*/;
@@ -8,7 +8,7 @@ const COLOR = ['#f6c42a', '#ee8028', '#d63430'];
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
-    title: 'Carta 46 — La torre de bloques',
+    title: 'Carta 64 — La torre de bloques',
     instr: 'Toca una casilla para ponerle un bloque más (hasta 3; uno más y se queda vacía). La fila de abajo es la de delante. Construid la torre de las instrucciones.',
     ...opts
   });
@@ -79,11 +79,11 @@ export function startMinigame(opts = {}) {
   ui.button('Comprobar', 'primary', () => {
     if (resuelto) return;
     const n = h.flat().reduce((a, b) => a + b, 0);
-    if (n !== T.bloques) { ui.say('La torre lleva ' + T.bloques + ' bloques y habéis puesto ' + n + '. Mirad la carta 31.', 'bad'); return; }
+    if (n !== T.bloques) { ui.say('La torre lleva ' + T.bloques + ' bloques y habéis puesto ' + n + '. Mirad la carta 67.', 'bad'); return; }
     if (h.every((fila, f) => fila.every((x, c) => x === T.alturas[f][c]))) {
       resuelto = true;
       pintar();
-      ui.say('¡La torre de Leo, idéntica a las instrucciones! Llega justo al borde de la cama y trepáis por ella. Coged la carta 44.', 'ok');
+      ui.say('¡La torre de Leo, idéntica a las instrucciones! Llega justo al borde de la estantería alta, donde el tarro de canicas guarda vuestro cristal. Coged la carta 62.', 'ok');
       return;
     }
     const a = vistas(h), b = vistas(T.alturas);
@@ -91,7 +91,7 @@ export function startMinigame(opts = {}) {
     if (a.frente.join() !== b.frente.join()) mal.push('de frente');
     if (a.lado.join() !== b.lado.join()) mal.push('desde la derecha');
     if (a.arriba !== b.arriba) mal.push('desde arriba');
-    ui.say('Así no se ve como en las instrucciones' + (mal.length ? ' (falla la vista ' + mal.join(' y la vista ') + ')' : '') + '. Repasad las cartas 30 y 31.', 'bad');
+    ui.say('Así no se ve como en las instrucciones' + (mal.length ? ' (falla la vista ' + mal.join(' y la vista ') + ')' : '') + '. Repasad las cartas 66 y 67.', 'bad');
   });
   ui.button('Vaciar', '', () => { if (!resuelto) { h.forEach(f => f.fill(0)); ui.say(''); pintar(); } });
 

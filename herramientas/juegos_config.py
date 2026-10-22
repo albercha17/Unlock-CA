@@ -124,10 +124,11 @@ JUEGOS = {
                    "51": "51-mareas.js", "64": "64-rumbo.js", "69": "69-pesas.js", "72": "72-gruta.js", "85": "85-isla.js"},
         pal=("#1f6a7a", "#08202a")),
     "Juguetes": dict(
-        datos=Ju, dificultad=1, tema="juguetes", titulo="El Cuarto de Leo, 1995: La Noche de los Juguetes", emoji="🧸", minutos=60,
+        datos=Ju, dificultad=2, tema="juguetes", titulo="El Cuarto de Leo, 1995: La Noche de los Juguetes", emoji="🧸", minutos=75,
         grad="#3a6ad0,#121e48", acento="#ffcc33", acento2="#ff9ec0", bg1="#0e1838", bg2="#233f7a",
-        sinopsis="Decimotercera parada del Cronoportal, y la más fácil: el aparato falla y os convierte en juguetes, una muñeca de trapo y un robot de hojalata, en el cuarto de Leo, un niño de 1995, la noche antes de la mudanza. Leo ha guardado el cristal creyendo que era una canica. Con el Capitán Pelusa y los demás juguetes, buscad las diferencias de una foto, construid una torre, desenredad una marioneta, hojead un cuaderno, cargad un tren y lanzad las canicas antes de que llegue el camión.",
-        minigames={"24": "24-estanteria.js", "46": "46-torre.js", "48": "48-marioneta.js", "66": "66-tren.js", "69": "69-canicas.js", "64": "64-cubos.js"},
+        sinopsis="Decimotercera parada del Cronoportal, y la más amable: el aparato falla y os convierte en juguetes, una muñeca de trapo y un robot de hojalata, en el cuarto de Leo, un niño de 1995, la noche antes de la mudanza. Leo ha guardado el cristal creyendo que era una canica. Con el Capitán Pelusa y los demás juguetes, girad cuatro cubos de dibujos, buscad las siete diferencias de una foto, hojead un cuaderno para cargar un tren, desenredad una marioneta, jugad a la oca de Leo, ganad un solitario de clavijas, enhebrad el collar de mamá, construid una torre, lanzad las canicas, emparejad cartas de memoria y tocad una nana en un xilófono antes de que llegue el camión.",
+        minigames={"14": "14-cubos.js", "20": "20-diferencias.js", "40": "40-tren.js", "48": "48-marioneta.js", "52": "52-oca.js", "46": "46-clavijas.js",
+                   "51": "51-collar.js", "64": "64-torre.js", "69": "69-canicas.js", "72": "72-memoria.js", "85": "85-xilofono.js"},
         pal=("#3a6ad0", "#121e48")),
 }
 

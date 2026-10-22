@@ -1,14 +1,14 @@
-// Carta 66 — El tren de Leo: cargar un juguete en cada vagón, del primero al último, en el orden en que Leo los rodeó en su cuaderno:
-// las cinco páginas del folioscopio (cartas 41, 43, 45, 49 y 51) ordenadas por el sol de la ventana. Datos de instancias_juguetes.py.
+// Carta 40 — El tren de Leo: cargar un juguete en cada vagón, del primero al último, en el orden en que Leo los rodeó en su cuaderno:
+// las cinco páginas del folioscopio (cartas 41, 43, 45, 27 y 23) ordenadas por el sol de la ventana. Datos de instancias_juguetes.py. Nota de la nana: F.nota.
 import { openGame } from './ui.js';
 
-const F = /*DATOS*/{"juguetes": ["patito", "pelota", "tambor", "cohete", "cometa"], "orden": ["pelota", "cometa", "patito", "tambor", "cohete"]}/*FIN*/;
+const F = /*DATOS*/{"juguetes": ["patito", "pelota", "tambor", "cohete", "cometa"], "orden": ["pelota", "cometa", "patito", "tambor", "cohete"], "nota": "DO"}/*FIN*/;
 const NOMBRE = { patito: 'patito', pelota: 'pelota', tambor: 'tambor', cohete: 'cohete', cometa: 'cometa' };
 const COLOR_VAGON = ['#d63430', '#f6c42a', '#3aa054', '#2c68c4', '#8a4cc4'];
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
-    title: 'Carta 66 — El tren de Leo',
+    title: 'Carta 40 — El tren de Leo',
     instr: 'Toca un juguete del andén y luego un vagón para subirlo (toca un vagón cargado para bajarlo). Cargad los cinco en el orden del cuaderno de Leo, del primer vagón al último.',
     ...opts
   });
@@ -87,9 +87,9 @@ export function startMinigame(opts = {}) {
       resuelto = true;
       pintar();
       tren.classList.add('arranca');
-      ui.say('¡Chu-chu! El tren de Leo arranca con su carga en el orden del cuaderno y da la vuelta al cuarto hasta la estación del escritorio. Coged la carta 72.', 'ok');
+      ui.say('¡Chu-chu! El tren de Leo arranca con su carga en el orden del cuaderno y da la vuelta al cuarto hasta la estación de cartón. Nota del tren: ' + F.nota + '. Coged la carta 30.', 'ok');
     } else {
-      ui.say('El tren no arranca: no es el orden del cuaderno de Leo. Ordenad las páginas por el sol de la ventana (cartas 41, 43, 45, 49 y 51).', 'bad');
+      ui.say('El tren no arranca: no es el orden del cuaderno de Leo. Ordenad las páginas por el sol de la ventana (cartas 41, 43, 45, 27 y 23).', 'bad');
     }
   });
   ui.button('Vaciar', '', () => { if (!resuelto) { carga.fill(null); elegido = null; ui.say(''); pintar(); } });

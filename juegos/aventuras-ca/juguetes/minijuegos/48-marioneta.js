@@ -1,8 +1,8 @@
 // Carta 48 — La marioneta: tirar de los mandos de la cruceta para que Pipo haga la postura del cartel (carta 53); qué mando mueve cada
-// mano y cada pie se ve siguiendo los hilos enredados (carta 52). Datos de herramientas/instancias_juguetes.py.
+// mano y cada pie se ve siguiendo los hilos enredados (cartas 42 y 49, dos mitades). Datos de herramientas/instancias_juguetes.py. Nota de la nana: M.nota.
 import { openGame } from './ui.js';
 
-const M = /*DATOS*/{"mandos": ["rojo", "azul", "amarillo", "verde"], "miembros": ["brazo_izq", "brazo_der", "pierna_izq", "pierna_der"], "hilos": {"rojo": "pierna_der", "azul": "brazo_izq", "amarillo": "brazo_der", "verde": "pierna_izq"}, "postura": ["brazo_der", "pierna_izq"]}/*FIN*/;
+const M = /*DATOS*/{"mandos": ["rojo", "azul", "amarillo", "verde"], "miembros": ["brazo_izq", "brazo_der", "pierna_izq", "pierna_der"], "hilos": {"rojo": "pierna_der", "azul": "brazo_izq", "amarillo": "brazo_der", "verde": "pierna_izq"}, "postura": ["brazo_der", "pierna_izq"], "nota": "RE"}/*FIN*/;
 const FORMA = { rojo: 'circle(50%)', azul: 'inset(6% round 4px)', amarillo: 'polygon(50% 4%,96% 92%,4% 92%)',
   verde: 'polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)' };
 const COLOR = { rojo: '#d63430', azul: '#2c68c4', amarillo: '#f6c42a', verde: '#3aa054' };
@@ -68,9 +68,9 @@ export function startMinigame(opts = {}) {
     if (ar === pide) {
       resuelto = true;
       teatro.classList.add('ok');
-      ui.say('¡Pipo saluda igual que en el cartel! Los juguetes aplauden y, con un clic, se abre el cajón del teatrillo. Coged la carta 58.', 'ok');
+      ui.say('¡Pipo saluda igual que en el cartel! Los juguetes aplauden y, con un clic, se abre una trampilla del teatrillo. Nota de la marioneta: ' + M.nota + '. Coged la carta 36.', 'ok');
     } else {
-      ui.say('Pipo no está como en el cartel (carta 53). Seguid los hilos (carta 52) para ver qué mando mueve cada mano y cada pie.', 'bad');
+      ui.say('Pipo no está como en el cartel (carta 53). Seguid los hilos (cartas 42 y 49) para ver qué mando mueve cada mano y cada pie.', 'bad');
     }
   });
   ui.button('Soltar todo', '', () => { if (!resuelto) { tirando.clear(); ui.say(''); pintar(); } });

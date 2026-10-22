@@ -1,13 +1,13 @@
-// Carta 64 — Los cubos de Leo: cuatro cubos en 2 x 2; cada cara lleva un cuarto de un dibujo. Tocando un cubo se gira a la cara
-// siguiente. Hay que formar el dibujo de la tapa (carta 67). Caras de herramientas/instancias_ampliacion.py.
+// Carta 14 — Los cubos de Leo: cuatro cubos en 2 x 2; cada cara lleva un cuarto de un dibujo. Tocando un cubo se gira a la cara
+// siguiente. Hay que formar el dibujo de la tapa de la caja (carta 16). Caras de herramientas/instancias_juguetes.py (CUBOS). Nota de la nana: C.nota.
 import { openGame } from './ui.js';
 
-const C = /*DATOS*/{"dibujos": ["perro", "barco", "casa", "sol", "cohete", "arbol"], "caras": [["cohete", "perro", "casa", "barco", "sol", "arbol"], ["perro", "barco", "casa", "arbol", "sol", "cohete"], ["cohete", "sol", "perro", "barco", "arbol", "casa"], ["casa", "perro", "sol", "barco", "arbol", "cohete"]], "objetivo": "perro", "inicial": [4, 2, 3, 3]}/*FIN*/;
+const C = /*DATOS*/{"dibujos": ["perro", "barco", "casa", "sol", "cohete", "arbol"], "caras": [["cohete", "perro", "casa", "barco", "sol", "arbol"], ["perro", "barco", "casa", "arbol", "sol", "cohete"], ["cohete", "sol", "perro", "barco", "arbol", "casa"], ["casa", "perro", "sol", "barco", "arbol", "cohete"]], "objetivo": "perro", "inicial": [4, 2, 3, 3], "nota": "MI"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
-    title: 'Carta 64 — Los cubos de Leo',
-    instr: 'Tocad un cubo para girarlo y ver otra cara. Formad entre los cuatro el dibujo de la tapa de la caja.',
+    title: 'Carta 14 — Los cubos de Leo',
+    instr: 'Tocad un cubo para girarlo y ver otra cara. Formad entre los cuatro el dibujo de la tapa de la caja (carta 16).',
     ...opts
   });
 
@@ -57,7 +57,7 @@ export function startMinigame(opts = {}) {
       setTimeout(() => {
         pintar();
         caja.classList.add('ok');
-        ui.say('¡Guau! Aparece Trufo entero y el baúl se abre con un clic. Dentro está la caja de bloques de Leo. Coged la carta 26.', 'ok');
+        ui.say('¡Guau! Aparece Trufo entero y el baúl se abre con un clic. Dentro hay un collar de cuentas roto y una nota de la mamá de Leo. Nota de los cubos: ' + C.nota + '. Coged la carta 24.', 'ok');
       }, 200);
     }
   }
