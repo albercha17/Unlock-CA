@@ -1,16 +1,16 @@
-"""Cartas de «Montecarlo, 1965: Operación Cristal»: espionaje con cartas que se SUPERPONEN (a contraluz en papel, con «Superponer» en el Modo PC).
+"""Láminas de «Montecarlo, 1965: Operación Cristal» (versión de 60 cartas, 22 oct 2026). Todas las pistas son dibujos o acertijos: ninguna carta
+escribe la respuesta ni explica cómo se resuelve su puzle. Datos de herramientas/instancias_espia.py.
 
-Todo se dibuja por código, así que los códigos son exactos (herramientas/codigos_espia.json lo leen los solucionadores):
-  - criptografía visual (cartas 14 y 15): dos hojas de ruido que, una encima de otra, dejan ver un número de tres cifras (esquema 2 de 2 de Naor y Shamir:
-    cada punto del dibujo secreto son 2x2 subpuntos; si el punto es blanco las dos hojas llevan el mismo patrón y si es negro llevan patrones complementarios);
-  - rejilla de Cardano (cartas 30 y 31): una carta negra con ventanas sobre una carta de letras; por las ventanas se lee una palabra;
-  - plano del yate (carta 40): el laberinto del minijuego 46; rascacielos (cartas 52 y 53): las pistas del borde repartidas en dos cartas;
-  - manual del desactivador (carta 70): las reglas de los cables.
+  16 la nota de Zorro · 18 el desfile · 19 y 21 el plano de Montecarlo (dos mitades) · 41 y 43 las pistas del skyline (arriba e izquierda; abajo y derecha)
+  45 la regla del skyline · 42 y 49 las páginas del libro · 53 los renglones del mensaje · 54 y 55 la caja fuerte (dos mitades) · 59 la regla de la caja
+  37 y 39 las cartas del crupier (primera y segunda parte) · 33 la regla de la cuenta · 61 y 63 los pasaportes (dos mitades) · 26 la regla del pasaporte
+  66 el itinerario · 67 los husos horarios · 70 y 71 el manual del desactivador · 75 los giros de la ruleta · 79 la regla de la martingala
+  86 el orden de las pulsaciones · 87 el teclado del teléfono rojo
 Uso (desde la raíz del repo):  python herramientas/espia.py [carpeta_juego]
 """
 import json
+import math
 import os
-import random
 import sys
 
 import numpy as np
@@ -18,220 +18,455 @@ from PIL import Image
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import oeste  # noqa: E402
-from oeste import Hoja, TINTA, ROJO  # noqa: E402
+from oeste import Hoja  # noqa: E402
+from mosaicos import cortar  # noqa: E402
+import instancias_espia as I  # noqa: E402
 
 oeste.FUENTES["cour"] = "C:/Windows/Fonts/cour.ttf"
 oeste.FUENTES["courb"] = "C:/Windows/Fonts/courbd.ttf"
 
-MANILA = (236, 220, 178)
-NEGRO = (22, 22, 22)
-AZUL = (36, 84, 170)
-
-CODIGOS = {
-    "cripto": {"digitos": [7, 2, 9], "desfase": [5, -4]},
-    "rejilla": {"palabra": "NEPTUNO", "desfase": [-4, 6]},
-}
-VENTANAS = [(1, 2), (2, 7), (4, 4), (5, 8), (8, 1), (10, 6), (12, 3)]     # (fila, columna) en el orden en que se lee la palabra
-
-
-def _instancias():
-    return json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "instancias_espia.json"), encoding="utf-8"))
+W, H = 630, 882
+CREMA = (246, 238, 220)
+TINTA = (28, 36, 48)
+TURQ = (0, 150, 160)
+ROSA = (226, 70, 130)
+ORO = (200, 160, 50)
+GRIS = (120, 128, 138)
+BLANCO = (252, 252, 252)
+NEGRO = (30, 30, 34)
+ROJO = (200, 40, 50)
+VERDE = (30, 130, 80)
 
 
-# ------------------------------------------------------------------ criptografía visual
-SEGMENTOS = {0: "abcdef", 1: "bc", 2: "abdeg", 3: "abcdg", 4: "bcfg", 5: "acdfg", 6: "acdefg", 7: "abc", 8: "abcdefg", 9: "abcdfg"}
-FILAS_S, COLS_S = 34, 25            # puntos del dibujo secreto (cada uno es un bloque de 2x2 subpuntos de 10 px = 20 px)
-X0, Y0 = 60, 120                    # esquina de la zona de dibujo en la carta (520 x 728: el ancho al que se convierte para publicar, así el ruido de 8 px llega intacto)
-SUB = 8                             # lado de un subpunto en píxeles (≈ 1 mm en la carta impresa)
+def ruido(im, s, f=2.5):
+    a = np.asarray(im).astype(np.int16)
+    a = a + np.random.default_rng(s).normal(0, f, a.shape[:2])[:, :, None]
+    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
 
 
-def secreto_digitos(digitos):
-    s = np.zeros((FILAS_S, COLS_S), bool)
-    s[0, :] = s[-1, :] = True
-    s[:, 0] = s[:, -1] = True                     # marco: se ve entero cuando las hojas están bien alineadas
-    ancho, alto, g = 6, 15, 2
-    top = (FILAS_S - alto) // 2
-    for i, d in enumerate(digitos):
-        x = 2 + i * 7
-        mid = top + alto // 2 - g // 2
-        seg = {"a": (x, top, x + ancho - 1, top + g - 1), "d": (x, top + alto - g, x + ancho - 1, top + alto - 1), "g": (x, mid, x + ancho - 1, mid + g - 1),
-               "f": (x, top, x + g - 1, top + alto // 2 + g // 2 - 1), "b": (x + ancho - g, top, x + ancho - 1, top + alto // 2 + g // 2 - 1),
-               "e": (x, mid, x + g - 1, top + alto - 1), "c": (x + ancho - g, mid, x + ancho - 1, top + alto - 1)}
-        for k in SEGMENTOS[d]:
-            x0, y0, x1, y1 = seg[k]
-            s[y0:y1 + 1, x0:x1 + 1] = True
-    return s
+def pagina(titulo, sub=None, w=W, h=H):
+    p = Hoja(w, h, CREMA)
+    p.rect(16, 16, w - 16, h - 16, None, TURQ, 6)
+    p.rect(28, 28, w - 28, h - 28, None, ROSA, 2)
+    p.texto((w / 2, 72), titulo, "cartel", 30, TURQ)
+    if sub:
+        p.texto((w / 2, 108), sub, "texto2", 19, TINTA)
+    return p
 
 
-PATRONES = [(0, 1), (2, 3), (0, 2), (1, 3), (0, 3), (1, 2)]      # 2 de los 4 subpuntos de un bloque 2x2 (0 = arriba izq., 1 = arriba dcha., 2 = abajo izq., 3 = abajo dcha.)
+def versos(p, lineas, y0=220, paso=50, tam=23, x=W / 2, color=TINTA, tipo="texto2"):
+    for k, v in enumerate(lineas):
+        p.texto((x, y0 + k * paso), v, tipo, tam, color)
 
 
-def compartir(secreto, semilla=1965):
-    rng = np.random.default_rng(semilla)
-    h, w = secreto.shape
-    a = np.zeros((h * 2, w * 2), bool)
-    b = np.zeros((h * 2, w * 2), bool)
-    for y in range(h):
-        for x in range(w):
-            p = set(PATRONES[rng.integers(6)])
-            pb = p if not secreto[y, x] else {0, 1, 2, 3} - p
-            for i in p:
-                a[2 * y + i // 2, 2 * x + i % 2] = True
-            for i in pb:
-                b[2 * y + i // 2, 2 * x + i % 2] = True
-    return a, b
-
-
-def _carta_hoja(mascara):
-    """Hoja de 520 x 728 con el marco de registro y la máscara de subpuntos (8 px cada uno) en la zona de dibujo."""
-    im = np.full((728, 520), 255, np.uint8)
-    px = np.kron(mascara, np.ones((SUB, SUB), bool))
-    im[Y0:Y0 + px.shape[0], X0:X0 + px.shape[1]][px] = 22
-    for g in range(8):                                         # marco
-        im[100 + g, 40:480] = 22
-        im[676 + g, 40:480] = 22
-        im[100:684, 40 + g] = 22
-        im[100:684, 472 + g] = 22
-    return Image.fromarray(im).convert("RGB")
-
-
-def cartas_cripto():
-    a, b = compartir(secreto_digitos(CODIGOS["cripto"]["digitos"]))
-    return _carta_hoja(a), _carta_hoja(b)
-
-
-# ------------------------------------------------------------------ rejilla de Cardano
-def cartas_rejilla():
-    rng = random.Random(77)
-    palabra = CODIGOS["rejilla"]["palabra"]
-    filas, cols, cw, ch = 13, 10, 40, 41
-    letras = [[rng.choice("ABCDEFGHIJLMOPQRSTUVXYZ") for _ in range(cols)] for _ in range(filas)]
-    for (r, c), l in zip(VENTANAS, palabra):
-        letras[r][c] = l
-    # la palabra no debe aparecer otra vez por casualidad: las letras sueltas se eligen sin repetir ninguna de la palabra en la misma fila
-    h = Hoja(520, 728, (252, 250, 244))
-    h.rect(44, 104, 476, 680, (252, 250, 244), NEGRO, 8)
-    for r in range(filas):
-        for c in range(cols):
-            h.texto((X0 + c * cw + cw / 2, Y0 + r * ch + ch / 2 + 2), letras[r][c], "courb", 33, NEGRO)
-    letras_img = h.final()
-    g = Hoja(520, 728, (252, 250, 244))
-    g.rect(40, 100, 480, 684, (0, 0, 0))
-    for (r, c) in VENTANAS:
-        g.rect(X0 + c * cw + 3, Y0 + r * ch + 3, X0 + (c + 1) * cw - 3, Y0 + (r + 1) * ch - 3, (252, 250, 244))
-    return g.final(), letras_img
-
-
-# ------------------------------------------------------------------ cartas «dossier»
-def _fondo(titulo, sello=True):
-    h = Hoja(630, 882, MANILA)
-    h.rect(22, 22, 608, 860, MANILA, TINTA, 4)
-    h.texto((315, 78), titulo, "courb", 38 if len(titulo) <= 22 else 29, TINTA)
-    h.linea([(60, 112), (570, 112)], TINTA, 3)
-    if sello:
-        h.texto((470, 830), "ALTO SECRETO", "courb", 26, ROJO)
-        h.rect(322, 806, 618, 852, None or MANILA, ROJO, 3) if False else None
-    return h
-
-
-def carta_plano():
-    """Carta 40: el plano del yate (laberinto 7x7 con un solo camino); las paredes son invisibles en el minijuego."""
-    L = _instancias()["laberinto"]
-    n, cel = L["n"], 66
-    x0, y0 = 84, 200
-    h = _fondo("PLANO DEL YATE «NEPTUNO»")
-    h.rect(x0 - 6, y0 - 6, x0 + n * cel + 6, y0 + n * cel + 6, (250, 244, 226), TINTA, 3)
-    abiertos = {tuple(map(tuple, p)) for p in L["abiertos"]}
-    for f in range(n):
-        for c in range(n):
-            # pared a la derecha y abajo si no hay pasillo
-            if c < n - 1 and ((f, c), (f, c + 1)) not in abiertos:
-                h.linea([(x0 + (c + 1) * cel, y0 + f * cel), (x0 + (c + 1) * cel, y0 + (f + 1) * cel)], TINTA, 8)
-            if f < n - 1 and ((f, c), (f + 1, c)) not in abiertos:
-                h.linea([(x0 + c * cel, y0 + (f + 1) * cel), (x0 + (c + 1) * cel, y0 + (f + 1) * cel)], TINTA, 8)
-    h.linea([(x0, y0), (x0 + n * cel, y0), (x0 + n * cel, y0 + n * cel), (x0, y0 + n * cel), (x0, y0)], TINTA, 10)
-    h.rect(x0 - 8, y0 + 4, x0 + 4, y0 + cel - 4, (250, 244, 226))                       # entrada
-    h.rect(x0 + n * cel - 4, y0 + (n - 1) * cel + 4, x0 + n * cel + 8, y0 + n * cel - 4, (250, 244, 226))   # salida
-    h.poli([(x0 - 50, y0 + cel / 2 - 16), (x0 - 18, y0 + cel / 2), (x0 - 50, y0 + cel / 2 + 16)], (40, 140, 70), TINTA, 3)
-    h.poli([(x0 + n * cel + 18, y0 + (n - 0.5) * cel - 16), (x0 + n * cel + 50, y0 + (n - 0.5) * cel), (x0 + n * cel + 18, y0 + (n - 0.5) * cel + 16)], ROJO, TINTA, 3)
-    h.texto((x0 - 70, y0 + cel / 2 + 38), "ENTRADA", "courb", 20, (40, 140, 70), "lm")
-    h.texto((x0 + n * cel + 62, y0 + (n - 0.5) * cel + 34), "SALIDA", "courb", 20, ROJO, "rm")
-    h.texto((315, 700), "Los guardias no ven los muros:", "cour", 26, TINTA)
-    h.texto((315, 736), "solo el que lleva el plano.", "cour", 26, TINTA)
-    return h.final(ruido=3, semilla=40)
-
-
-def cartas_rascacielos():
-    """Cartas 52 y 53: la misma cuadrícula 4x4 con las pistas de dos lados cada una (52: arriba e izquierda; 53: abajo y derecha)."""
-    R = _instancias()["rascacielos"]["pistas"]
-    out = []
-    for lados, titulo in ((("arriba", "izquierda"), "SKYLINE: ARRIBA E IZQUIERDA"), (("abajo", "derecha"), "SKYLINE: ABAJO Y DERECHA")):
-        h = _fondo(titulo)
-        cell, gx, gy = 84, 147, 228
-        for f in range(4):
-            for c in range(4):
-                h.rect(gx + c * cell, gy + f * cell, gx + (c + 1) * cell, gy + (f + 1) * cell, (250, 244, 226), TINTA, 3)
-        for i in range(4):
-            if "arriba" in lados and R["arriba"][i] is not None:
-                h.texto((gx + i * cell + cell / 2, gy - 36), str(R["arriba"][i]), "courb", 46, AZUL)
-            if "abajo" in lados and R["abajo"][i] is not None:
-                h.texto((gx + i * cell + cell / 2, gy + 4 * cell + 38), str(R["abajo"][i]), "courb", 46, AZUL)
-            if "izquierda" in lados and R["izquierda"][i] is not None:
-                h.texto((gx - 38, gy + i * cell + cell / 2), str(R["izquierda"][i]), "courb", 46, AZUL)
-            if "derecha" in lados and R["derecha"][i] is not None:
-                h.texto((gx + 4 * cell + 38, gy + i * cell + cell / 2), str(R["derecha"][i]), "courb", 46, AZUL)
-        if lados[0] == "arriba":
-            for k, t in enumerate(("Alturas 1, 2, 3 y 4 en cada fila", "y en cada columna, sin repetir.", "El número del borde dice cuántos", "edificios se ven desde ahí:", "los altos tapan a los bajos.")):
-                h.texto((315, 668 + k * 32), t, "cour", 25, TINTA)
+# ------------------------------------------------------------------ 16: la nota de Zorro
+def nota_zorro():
+    d = I.CRIPTOGRAMA
+    p = pagina("NOTA DE LA AGENTE ZORRO", "interceptada en el casino")
+    palabras = d["cifrado"].split()
+    lineas, cur = [], ""
+    for w in palabras:
+        if len(cur) + len(w) + 1 > 15:
+            lineas.append(cur)
+            cur = w
         else:
-            for k, t in enumerate(("Ejemplo: en una fila con alturas", "2, 1, 4 y 3, desde la izquierda", "se ven DOS edificios: el 2 y el 4", "(el 1 queda tapado por el 2 y", "el 3 por el 4).")):
-                h.texto((315, 668 + k * 32), t, "cour", 25, TINTA)
-        out.append(h.final(ruido=3, semilla=52))
-    return out
+            cur = (cur + " " + w).strip()
+    lineas.append(cur)
+    for k, l in enumerate(lineas):
+        p.texto((W / 2, 220 + k * 70), l, "courb", 40, TINTA)
+    p.rect(110, 650, W - 110, 760, BLANCO, ROSA, 3)
+    p.texto((W / 2, 690), "Mi firma es mi cargo:", "texto2", 21, TINTA)
+    p.texto((W / 2, 730), "la primera palabra es " + d["pista"], "texto", 24, ROSA)
+    return p.final()
 
 
-def carta_manual():
-    """Carta 70: el manual del desactivador con las cuatro reglas de los cables."""
-    h = _fondo("MANUAL DEL DESACTIVADOR")
-    h.texto((315, 150), "Cables contados de ARRIBA a ABAJO.", "cour", 25, TINTA)
-    h.texto((315, 184), "Vale la PRIMERA regla que se cumpla.", "cour", 25, TINTA)
-    reglas = [("1", "Si hay MÁS cables azules", "que rojos: corta el ÚLTIMO", "cable azul."),
-              ("2", "Si no, y no hay ningún cable", "rojo y el último es amarillo:", "corta el PRIMER cable."),
-              ("3", "Si no, y hay EXACTAMENTE UN", "cable blanco: corta el", "CUARTO cable."),
-              ("4", "Si no: corta el ÚLTIMO cable", "negro (si no hay ninguno,", "el SEGUNDO cable).")]
-    for i, (n, a, b, c) in enumerate(reglas):
-        y = 250 + i * 138
-        h.disco(84, y + 36, 30, ROJO, TINTA, 3)
-        h.texto((84, y + 37), n, "courb", 40, (250, 244, 226))
-        for k, t in enumerate((a, b, c)):
-            h.texto((136, y + 8 + k * 32), t, "cour", 26, TINTA, "lm")
-    return h.final(ruido=3, semilla=70)
+# ------------------------------------------------------------------ 18 y 19/21: la persecución
+def acertijo_desfile():
+    r = I.RUTA
+    cerr = " y ".join(r["nodos"][k] for k in r["cerrados"])
+    p = pagina("EL ACERTIJO DEL DESFILE", "del cartel de la policía")
+    versos(p, ["«El Gran Premio pasa hoy por la ciudad:", f"las glorietas {cerr} están cortadas", "y nadie puede cruzarlas.", "",
+               "Salid del Casino, la A,", "y llegad al Puerto, la I,", "en el menor tiempo posible,", "contando minutos por calle.»"], 200, 54, 23)
+    return p.final()
 
 
-MOSAICOS = {"cripto": ["15", "14"], "rejilla": ["31", "30"]}      # (la carta de abajo y la de encima; el orden no importa)
-SUELTAS = {"40": carta_plano, "70": carta_manual}
+def plano_montecarlo():
+    r = I.RUTA
+    p = Hoja(W, H * 2, CREMA)
+    p.rect(16, 16, W - 16, H * 2 - 16, None, TURQ, 6)
+    p.rect(28, 28, W - 28, H * 2 - 28, None, ROSA, 2)
+    p.texto((W / 2, 72), "EL PLANO DE MONTECARLO", "cartel", 30, TURQ)
+    xs = [130, 315, 500]
+    ys = [420, 740, 1280]
+    pos = {k: (xs[k % 3], ys[k // 3]) for k in range(9)}
+    for a, b, w in r["aristas"]:
+        (xa, ya), (xb, yb) = pos[a], pos[b]
+        p.linea([(xa, ya), (xb, yb)], TINTA, 6)
+    for a, b, w in r["aristas"]:
+        (xa, ya), (xb, yb) = pos[a], pos[b]
+        mx, my = (xa + xb) / 2, (ya + yb) / 2
+        p.rect(mx - 22, my - 17, mx + 22, my + 17, BLANCO, ROSA, 3)
+        p.texto((mx, my), str(w), "cartel", 24, TINTA)
+    for k, (x, y) in pos.items():
+        p.disco(x, y, 38, TURQ if k not in (0, 8) else ROSA, TINTA, 4)
+        p.texto((x, y), r["nodos"][k], "cartel", 36, BLANCO)
+    p.texto((pos[0][0], pos[0][1] - 62), "CASINO", "texto", 18, TINTA)
+    p.texto((pos[8][0], pos[8][1] + 62), "PUERTO", "texto", 18, TINTA)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 41/43 y 45: el skyline
+def marco_skyline(titulo, lados):
+    d = I.RASCACIELOS
+    n = d["n"]
+    p = pagina(titulo)
+    lado = 90
+    x0, y0 = (W - n * lado) / 2, 250
+    for r in range(n):
+        for c in range(n):
+            p.rect(x0 + c * lado, y0 + r * lado, x0 + (c + 1) * lado, y0 + (r + 1) * lado, BLANCO, TINTA, 2)
+    for l in lados:
+        for i, v in enumerate(d["pistas"][l]):
+            if not v:
+                continue
+            if l == "N":
+                xy = (x0 + i * lado + lado / 2, y0 - 30)
+            elif l == "S":
+                xy = (x0 + i * lado + lado / 2, y0 + n * lado + 30)
+            elif l == "O":
+                xy = (x0 - 30, y0 + i * lado + lado / 2)
+            else:
+                xy = (x0 + n * lado + 30, y0 + i * lado + lado / 2)
+            p.texto(xy, str(v), "cartel", 38, ROSA)
+    return p.final()
+
+
+def skyline_a():
+    return marco_skyline("EL SKYLINE: ARRIBA E IZQUIERDA", ["N", "O"])
+
+
+def skyline_b():
+    return marco_skyline("EL SKYLINE: ABAJO Y DERECHA", ["S", "E"])
+
+
+def regla_skyline():
+    p = pagina("LA REGLA DEL ARQUITECTO", "del plano del casino")
+    versos(p, ["«Cinco torres, de una a cinco plantas,", "en cada fila y en cada columna,", "ni una repetida.", "",
+               "Cada número del borde cuenta cuántas", "torres se ven desde allí:", "las bajas se esconden", "detrás de las altas.»"], 200, 54, 23)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 42 y 49: las páginas del libro; 53: los renglones
+def pagina_libro(num):
+    p = pagina(f"PÁGINA {num}", "de «La última carta», novela de bolsillo")
+    for k, l in enumerate(I.PAGINAS[num]):
+        p.texto((60, 200 + k * 62), l, "texto2", 23, TINTA, "lm")
+    p.texto((W / 2, 800), str(num), "texto2", 22, GRIS)
+    return p.final()
+
+
+def renglones():
+    d = I.LIBRO
+    p = pagina("LOS RENGLONES DEL MENSAJE", "tres números por palabra")
+    for k, (pg, ln, w) in enumerate(d["mensaje"]):
+        p.rect(80, 190 + k * 100, W - 80, 260 + k * 100, BLANCO, ROSA, 3)
+        p.texto((W / 2, 225 + k * 100), f"{pg} · {ln} · {w}", "cartel", 40, TINTA)
+    versos(p, ["«Primero la página, luego el renglón,", "y al final, la palabra.»"], 650, 44, 21)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 54/55 y 59: la caja fuerte (kenken)
+def caja_fuerte():
+    d = I.KENKEN
+    n = d["n"]
+    p = Hoja(W * 2, H, CREMA)
+    p.rect(16, 16, W * 2 - 16, H - 16, None, TURQ, 6)
+    p.rect(28, 28, W * 2 - 28, H - 28, None, ROSA, 2)
+    p.texto((W, 72), "LA CAJA FUERTE", "cartel", 32, TURQ)
+    lado = 110
+    x0, y0 = W - 3 * lado, (H - n * lado) / 2 + 30
+    jaula_de = {}
+    for k, j in enumerate(d["jaulas"]):
+        for r, c in j["celdas"]:
+            jaula_de[(r, c)] = k
+    for r in range(n):
+        for c in range(n):
+            p.rect(x0 + c * lado, y0 + r * lado, x0 + (c + 1) * lado, y0 + (r + 1) * lado, BLANCO, GRIS, 1)
+    for r in range(n):
+        for c in range(n):
+            xa, ya = x0 + c * lado, y0 + r * lado
+            if r == 0 or jaula_de[(r - 1, c)] != jaula_de[(r, c)]:
+                p.linea([(xa, ya), (xa + lado, ya)], TINTA, 6)
+            if r == n - 1 or jaula_de[(r + 1, c)] != jaula_de[(r, c)]:
+                p.linea([(xa, ya + lado), (xa + lado, ya + lado)], TINTA, 6)
+            if c == 0 or jaula_de[(r, c - 1)] != jaula_de[(r, c)]:
+                p.linea([(xa, ya), (xa, ya + lado)], TINTA, 6)
+            if c == n - 1 or jaula_de[(r, c + 1)] != jaula_de[(r, c)]:
+                p.linea([(xa + lado, ya), (xa + lado, ya + lado)], TINTA, 6)
+    simb = {"=": "", "+": "+", "x": "x", "-": "-", "/": "÷"}
+    for j in d["jaulas"]:
+        r, c = min(map(tuple, j["celdas"]))
+        p.texto((x0 + c * lado + 8, y0 + r * lado + 8), f"{j['objetivo']}{simb[j['op']]}", "cartel", 24, ROSA, "lt")
+    return p.final()
+
+
+def regla_caja():
+    p = pagina("LA REGLA DEL JOYERO", "grabada en la cerradura")
+    versos(p, ["«Cinco cifras, del uno al cinco,", "sin repetir en filas ni columnas.", "",
+               "Cada jaula de trazo grueso lleva un número", "y una operación: la cuenta que", "han de hacer sus cifras.", "",
+               "En la resta y la división manda", "la mayor sobre la menor.»"], 190, 50, 22)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 37/39 y 33: las cartas del crupier
+def palo(p, x, y, r, tipo, col):
+    if tipo == "diamantes":
+        p.poli([(x, y - r), (x + r * 0.75, y), (x, y + r), (x - r * 0.75, y)], col)
+    elif tipo == "corazones":
+        p.disco(x - r * 0.4, y - r * 0.25, r * 0.5, col)
+        p.disco(x + r * 0.4, y - r * 0.25, r * 0.5, col)
+        p.poli([(x - r * 0.88, y - r * 0.05), (x + r * 0.88, y - r * 0.05), (x, y + r)], col)
+    elif tipo == "picas":
+        p.disco(x - r * 0.4, y + r * 0.05, r * 0.5, col)
+        p.disco(x + r * 0.4, y + r * 0.05, r * 0.5, col)
+        p.poli([(x - r * 0.88, y - r * 0.05), (x + r * 0.88, y - r * 0.05), (x, y - r)], col)
+        p.poli([(x - r * 0.18, y), (x + r * 0.18, y), (x + r * 0.35, y + r), (x - r * 0.35, y + r)], col)
+    else:
+        p.disco(x, y - r * 0.45, r * 0.42, col)
+        p.disco(x - r * 0.45, y + r * 0.15, r * 0.42, col)
+        p.disco(x + r * 0.45, y + r * 0.15, r * 0.42, col)
+        p.poli([(x - r * 0.18, y), (x + r * 0.18, y), (x + r * 0.35, y + r), (x - r * 0.35, y + r)], col)
+
+
+def cartas_crupier(inicio, fin, titulo):
+    d = I.CONTEO
+    p = pagina(titulo, "en el orden en que salen")
+    for k in range(inicio, fin):
+        rango, pl = d["cartas"][k]
+        i = k - inicio
+        x = 80 + (i % 4) * 125
+        y = 225 + (i // 4) * 160
+        p.rect(x - 45, y - 62, x + 45, y + 62, BLANCO, TINTA, 3)
+        col = ROJO if pl in ("corazones", "diamantes") else NEGRO
+        p.texto((x - 28, y - 40), rango, "cartel", 28, col)
+        palo(p, x, y + 12, 24, pl, col)
+        p.texto((x + 34, y + 54), str(k + 1), "texto2", 13, GRIS, "rm")
+    return p.final()
+
+
+def regla_cuenta():
+    p = pagina("LA CUENTA DEL CRUPIER", "susurrada en el casino")
+    versos(p, ["«Las bajas, del dos al seis,", "suman uno cada vez que salen.", "", "Las medias, siete, ocho y nueve,", "ni suman ni restan.", "",
+               "Las altas, diez, figuras y as,", "restan uno.», dice el crupier,", "«y se cuenta carta a carta,", "desde la primera.»"], 190, 50, 22)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 61/63 y 26: los pasaportes
+def pasaporte(p, y0, d):
+    p.rect(50, y0, W - 50, y0 + 360, (236, 226, 196), TINTA, 4)
+    p.rect(60, y0 + 10, W - 60, y0 + 50, TURQ)
+    p.texto((W / 2, y0 + 30), "PASAPORTE", "cartel", 24, BLANCO)
+    p.texto((70, y0 + 80), "Apellido: " + d["apellido"], "texto", 21, TINTA, "lm")
+    p.texto((70, y0 + 112), "Nombre: " + d["nombre"], "texto", 21, TINTA, "lm")
+    p.texto((70, y0 + 144), "Núm.: " + d["doc"], "texto", 21, TINTA, "lm")
+    p.rect(450, y0 + 66, W - 70, y0 + 170, GRIS, TINTA, 3)
+    p.disco(520, y0 + 106, 20, (200, 200, 210))
+    mrz1 = ("P<ESP" + d["apellido"] + "<<" + d["nombre"]).ljust(30, "<")[:30]
+    mrz2 = d["doc"] + "?" + "ESP" + d["nac"] + str(d["control_nac"]) + "<" + d["ven"] + str(d["control_ven"])
+    p.rect(55, y0 + 210, W - 55, y0 + 350, (250, 248, 238), TINTA, 2)
+    p.texto((70, y0 + 250), mrz1, "courb", 24, TINTA, "lm")
+    p.texto((70, y0 + 310), mrz2, "courb", 24, TINTA, "lm")
+
+
+def pasaportes():
+    d = I.PASAPORTES
+    p = Hoja(W, H * 2, CREMA)
+    p.rect(16, 16, W - 16, H * 2 - 16, None, TURQ, 6)
+    p.rect(28, 28, W - 28, H * 2 - 28, None, ROSA, 2)
+    p.texto((W / 2, 72), "LOS PASAPORTES FALSOS", "cartel", 30, TURQ)
+    for y0, doc in zip((120, 500, 940), d["pasaportes"]):
+        pasaporte(p, y0, doc)
+    return p.final()
+
+
+def regla_pasaporte():
+    d = I.PASAPORTES
+    p = pagina("LA REGLA DEL ADUANERO", "sellada en la frontera")
+    versos(p, ["«Cada letra vale lo que su puesto", "más nueve: la A, diez; la B, once...", "La flecha ‹ vale cero.", "",
+               "Cada símbolo se multiplica por 7, 3 y 1,", "y vuelta a empezar.", "Se suma todo y de la suma", "solo vale la cifra de las unidades.", "",
+               f"Ejemplo: {d['ejemplo']['doc']} da {d['ejemplo']['control']}.»"], 175, 48, 20)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 66 y 67: el vuelo con escalas
+def itinerario():
+    d = I.HUSOS
+    p = pagina("EL ITINERARIO DE ZORRO", "billete con tres vuelos")
+    s = d["salida"]
+    p.rect(60, 150, W - 60, 250, BLANCO, ROSA, 3)
+    p.texto((W / 2, 185), f"Sale de {s['ciudad']}", "texto", 24, TINTA)
+    p.texto((W / 2, 222), f"a las {s['hora']}:{s['min']:02d}, hora local", "texto2", 22, ROSA)
+    y = 270
+    for t in d["tramos"]:
+        p.rect(60, y, W - 60, y + 130, BLANCO, TURQ, 3)
+        p.texto((W / 2, y + 30), f"{t['de']} a {t['a']}", "texto", 22, TINTA)
+        p.texto((W / 2, y + 66), f"Vuelo de {t['dur'][0]} h {t['dur'][1]} min", "texto2", 21, TINTA)
+        if t["escala"] != [0, 0]:
+            p.texto((W / 2, y + 100), f"Escala de {t['escala'][0]} h {t['escala'][1]} min", "texto2", 21, ROSA)
+        else:
+            p.texto((W / 2, y + 100), "Llegada final", "texto2", 21, ROSA)
+        y += 150
+    return p.final()
+
+
+def husos():
+    d = I.HUSOS
+    p = pagina("LOS HUSOS HORARIOS", "respecto al meridiano de Greenwich")
+    k = 0
+    for ciudad, off in d["ciudades"].items():
+        if ciudad not in ("Tokio", "Bombay", "El Cairo", "Montecarlo", "Londres"):
+            continue
+        y = 190 + k * 100
+        p.rect(60, y - 36, W - 60, y + 36, BLANCO, TURQ, 3)
+        p.texto((90, y), ciudad, "texto", 24, TINTA, "lm")
+        txt = ("+" if off >= 0 else "") + (str(int(off)) if off == int(off) else f"{int(off)} y media")
+        p.texto((W - 90, y), "UTC " + txt, "cartel", 26, ROSA, "rm")
+        k += 1
+    versos(p, ["Al este del meridiano, el sol sale antes", "y la hora local va por delante."], 740, 38, 19)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 70 y 71: el manual del desactivador
+def manual(parte):
+    d = I.CABLES
+    p = pagina("EL MANUAL DEL DESACTIVADOR", f"parte {parte} de 2")
+    if parte == 1:
+        p.texto((W / 2, 150), "Se aplica la primera regla que se cumpla.", "texto2", 19, ROSA)
+    rs = d["reglas"][:3] if parte == 1 else d["reglas"][3:]
+    base = 0 if parte == 1 else 3
+    for k, r in enumerate(rs):
+        y = 220 + k * 190
+        p.disco(80, y + 14, 24, ROSA)
+        p.texto((80, y + 14), str(base + k + 1), "cartel", 26, BLANCO)
+        palabras, lin, lineas = r.split(), "", []
+        for w in palabras:
+            if len(lin) + len(w) + 1 > 30:
+                lineas.append(lin)
+                lin = w
+            else:
+                lin = (lin + " " + w).strip()
+        lineas.append(lin)
+        for j, l in enumerate(lineas):
+            p.texto((130, y + j * 34), l, "texto2", 21, TINTA, "lm")
+    return p.final()
+
+
+# ------------------------------------------------------------------ 75 y 79: la ruleta
+def giros():
+    d = I.RULETA
+    p = pagina("LOS GIROS DE LA RULETA", "anotados por el crupier")
+    for k, x in enumerate(d["resultados"]):
+        cx = 110 + (k % 4) * 140
+        cy = 220 + (k // 4) * 150
+        col = {"R": ROJO, "N": NEGRO, "V": VERDE}[x]
+        p.disco(cx, cy, 48, col, TINTA, 3)
+        p.texto((cx, cy), str(k + 1), "cartel", 34, BLANCO)
+    return p.final()
+
+
+def regla_ruleta():
+    d = I.RULETA
+    p = pagina("LA MARTINGALA", "el sistema del jugador")
+    versos(p, [f"«Empiezo con {d['banco']} fichas y apuesto", f"{d['base']} al rojo.", "", "Si gano, cobro lo apostado", f"y vuelvo a apostar {d['base']}.", "",
+               "Si pierdo, la próxima apuesta", "es el doble de la anterior.", "", "El verde, el cero, siempre pierde.»"], 185, 48, 22)
+    return p.final()
+
+
+# ------------------------------------------------------------------ 86 y 87: el teléfono rojo
+def orden_pulsaciones():
+    p = pagina("LAS CINCO PULSACIONES", "del cuaderno de la Agente Zorro")
+    versos(p, ["«Cinco veces dio el teléfono su tono,", "y cada una dejó sus teclas:", "",
+               "primera, la de la nota secreta;", "segunda, la del skyline;", "tercera, la de la caja fuerte;", "cuarta, la del desactivador;",
+               "y quinta, la de los pasaportes.", "", "Se pulsa varias veces la misma tecla", "para llegar a la letra que toca.»"], 175, 46, 21)
+    return p.final()
+
+
+def teclado_telefono():
+    p = pagina("EL TELÉFONO ROJO", "teclado de disco con letras")
+    teclas = [("1", ""), ("2", "ABC"), ("3", "DEF"), ("4", "GHI"), ("5", "JKL"), ("6", "MNO"), ("7", "PQRS"), ("8", "TUV"), ("9", "WXYZ"), ("*", ""), ("0", ""), ("#", "")]
+    for k, (t, ls) in enumerate(teclas):
+        x = 150 + (k % 3) * 165
+        y = 230 + (k // 3) * 140
+        p.disco(x, y, 52, ROSA if k != 0 else GRIS, TINTA, 4)
+        p.texto((x, y - 8), t, "cartel", 40, BLANCO)
+        if ls:
+            p.texto((x, y + 28), ls, "texto", 16, BLANCO)
+    return p.final()
+
+
+# ------------------------------------------------------------------ datos de las apps
+def inyectar(carpeta):
+    datos = {
+        "14-criptograma.js": {"claro": I.CRIPTOGRAMA["claro"], "pulsa": I.PULSA["14"]},
+        "20-ruta.js": {"nodos": I.RUTA["nodos"], "aristas": I.RUTA["aristas"], "cerrados": I.RUTA["cerrados"], "mejor": I.RUTA["mejor"]},
+        "40-rascacielos.js": {"n": I.RASCACIELOS["n"], "pistas": I.RASCACIELOS["pistas"], "solucion": I.RASCACIELOS["solucion"], "pulsa": I.PULSA["40"]},
+        "48-libro.js": {"claro": I.LIBRO["claro"]},
+        "52-kenken.js": {"n": I.KENKEN["n"], "jaulas": I.KENKEN["jaulas"], "pulsa": I.PULSA["52"]},
+        "46-conteo.js": {"corte": I.CONTEO["corte"], "cuenta_corte": I.CONTEO["cuenta_corte"], "cuenta_final": I.CONTEO["cuenta_final"]},
+        "51-pasaporte.js": {"digitos": I.PASAPORTES["digitos"], "pulsa": I.PULSA["51"]},
+        "64-husos.js": {"llegada": I.HUSOS["llegada"]},
+        "69-cables.js": {"cargas": I.CABLES["cargas"], "pulsa": I.PULSA["69"]},
+        "72-ruleta.js": {"final": I.RULETA["final"]},
+        "85-teclado.js": {"palabra": I.PALABRA},
+    }
+    for app, d in datos.items():
+        ruta = os.path.join(carpeta, "minijuegos", app)
+        txt = open(ruta, encoding="utf-8").read() if os.path.exists(ruta) else ""
+        if "/*DATOS*/" not in txt:
+            continue
+        a, b = txt.index("/*DATOS*/") + len("/*DATOS*/"), txt.index("/*FIN*/")
+        open(ruta, "w", encoding="utf-8", newline="\n").write(txt[:a] + json.dumps(d, ensure_ascii=False) + txt[b:])
 
 
 def main(carpeta="juegos/aventuras-ca/espia"):
     arte = os.path.join(carpeta, "arte")
     os.makedirs(arte, exist_ok=True)
-    a, b = cartas_cripto()
-    a.save(os.path.join(arte, "15.png"))
-    b.save(os.path.join(arte, "14.png"))
-    # imagen de comprobación: las dos hojas superpuestas (solo local)
-    Image.fromarray(np.minimum(np.asarray(a), np.asarray(b))).save(os.path.join(arte, "superpuestas-cripto.png"))
-    g, letras = cartas_rejilla()
-    g.save(os.path.join(arte, "30.png"))
-    letras.save(os.path.join(arte, "31.png"))
-    Image.fromarray(np.minimum(np.asarray(g), np.asarray(letras))).save(os.path.join(arte, "superpuestas-rejilla.png"))
-    for i, fn in SUELTAS.items():
-        fn().save(os.path.join(arte, f"{i}.png"))
-    c52, c53 = cartas_rascacielos()
-    c52.save(os.path.join(arte, "52.png"))
-    c53.save(os.path.join(arte, "53.png"))
-    ruta = os.path.join(os.path.dirname(os.path.abspath(__file__)), "codigos_espia.json")
-    json.dump(CODIGOS, open(ruta, "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
-    print("láminas escritas en", arte, "y códigos en", ruta)
+
+    def g(k, im):
+        ruido(im, int(k)).save(os.path.join(arte, f"{k}.png"))
+
+    def mosaico(nombre, im, filas, cols, cartas):
+        im = ruido(im, sum(map(ord, nombre)))
+        im.save(os.path.join(arte, f"mosaico-{nombre}.png"))
+        for pieza, k in zip(cortar(im, filas, cols), cartas):
+            pieza.save(os.path.join(arte, f"{k}.png"))
+    g("16", nota_zorro())
+    g("18", acertijo_desfile())
+    mosaico("plano", plano_montecarlo(), 2, 1, ("19", "21"))
+    g("41", skyline_a())
+    g("43", skyline_b())
+    g("45", regla_skyline())
+    g("42", pagina_libro(17))
+    g("49", pagina_libro(18))
+    g("53", renglones())
+    mosaico("caja", caja_fuerte(), 1, 2, ("54", "55"))
+    g("59", regla_caja())
+    n = len(I.CONTEO["cartas"])
+    g("37", cartas_crupier(0, n // 2, "LAS CARTAS DEL CRUPIER (I)"))
+    g("39", cartas_crupier(n // 2, n, "LAS CARTAS DEL CRUPIER (II)"))
+    g("33", regla_cuenta())
+    mosaico("pasaportes", pasaportes(), 2, 1, ("61", "63"))
+    g("26", regla_pasaporte())
+    g("66", itinerario())
+    g("67", husos())
+    g("70", manual(1))
+    g("71", manual(2))
+    g("75", giros())
+    g("79", regla_ruleta())
+    g("86", orden_pulsaciones())
+    g("87", teclado_telefono())
+    inyectar(carpeta)
+    print("láminas de Espía escritas en", arte)
 
 
 if __name__ == "__main__":

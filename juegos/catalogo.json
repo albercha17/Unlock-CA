@@ -83,9 +83,9 @@
     "id": "espia",
     "nombre": "Montecarlo, 1965: Operación Cristal",
     "ruta": "juegos/aventuras-ca/espia/",
-    "dificultad": 3,
-    "minutos": 75,
-    "cartas": 36
+    "dificultad": 4,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "futbol",

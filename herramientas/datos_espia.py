@@ -1,13 +1,17 @@
-"""Montecarlo, 1965: Operación Cristal. Décima parada del Cronoportal: una película de espías. Los puzles reparten la información entre cartas de formas nuevas:
-dos cartas que se SUPERPONEN a contraluz (dos hojas de ruido que revelan un número; una carta negra con ventanas, la rejilla de Cardano, sobre una carta de letras),
-un plano con el laberinto cuyas paredes son invisibles en la app, las pistas de un rascacielos 4x4 repartidas en dos cartas y un manual de cables con reglas.
-Las cartas que se dibujan por código (14, 15, 30, 31, 40, 52, 53 y 70) las hace herramientas/espia.py (códigos exactos en codigos_espia.json e instancias_espia.json)."""
-import json
-import os
+"""Montecarlo, 1965: Operación Cristal — versión de 60 cartas (22 oct 2026), mucho más difícil y variada.
 
-_AQUI = os.path.dirname(os.path.abspath(__file__))
-INST = json.load(open(os.path.join(_AQUI, "instancias_espia.json"), encoding="utf-8"))
-COD = json.load(open(os.path.join(_AQUI, "codigos_espia.json"), encoding="utf-8"))
+Once puzles de tipos que no salen en ningún otro juego de la serie, con las pistas dibujadas o en acertijo (ninguna carta explica cómo se resuelve su puzle):
+una nota cifrada por sustitución, la ruta más rápida por unas calles cortadas, un skyline de rascacielos con las pistas del borde en dos cartas, la cifra de
+un libro, una caja fuerte con jaulas (KenKen), la cuenta de cartas del crupier, los dígitos de control de unos pasaportes, un vuelo con escalas y husos
+horarios, el manual de un desactivador de cables, la martingala de una ruleta y un teléfono rojo cuya clave se marca con las pulsaciones que dejaron otros
+cinco puzles. Solo 16 cartas tienen a Cristina y Alberto (escenas); el resto son objetos y pistas sin personas. Las cartas-pista las dibuja
+herramientas/espia.py (instancias_espia.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_espia as I  # noqa: E402
 
 ESTILO = ("Ilustración pictórica semirrealista con aire de película de espías de los años 60 (como James Bond y La Pantera Rosa), paleta pop mediterránea de turquesa, rosa, dorado y blanco, "
           "luz de noche de gala con las luces del puerto de Montecarlo, casino, yates, hotel y terrazas con farolillos, formato vertical 2:3. Sin texto, letras ni números legibles en la imagen; "
@@ -35,401 +39,276 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfi
          "Escena 4 (12-15 s): primer plano de Cristina y Alberto, con ropa de espías elegantes, asombrados, mirando cómo un yate negro se aleja del puerto; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, música de big band con vibráfono y bajo de espías, sin voz de narrador.")
 
+SIN_GENTE = "Sin ninguna persona en la imagen. "
 
-def pieza(titulo, donde):
-    return f"Carta dibujada por código (herramientas/espia.py; no se pide a ChatGPT): {donde} de «{titulo}»."
-
-
-def _camino_texto():
-    """El camino del laberinto como «derecha 2, abajo 3, ...» (tramos seguidos en la misma dirección)."""
-    ruta = INST["laberinto"]["ruta"]
-    pasos = []
-    for (f0, c0), (f1, c1) in zip(ruta, ruta[1:]):
-        pasos.append("abajo" if f1 > f0 else "arriba" if f1 < f0 else "derecha" if c1 > c0 else "izquierda")
-    tramos = []
-    for p in pasos:
-        if tramos and tramos[-1][0] == p:
-            tramos[-1][1] += 1
-        else:
-            tramos.append([p, 1])
-    return ", ".join(f"{p} {n}" for p, n in tramos)
-
-
-def _skyline_texto():
-    return " / ".join(" ".join(str(x) for x in fila) for fila in INST["rascacielos"]["solucion"])
-
-
-def _cortes_texto():
-    return ", ".join(f"carga {i + 1}: el cable {c + 1}" for i, c in enumerate(INST["cables"]["cortes"]))
-
-
-DIG = "".join(str(d) for d in COD["cripto"]["digitos"])
-PAL = COD["rejilla"]["palabra"]
-
-# id del mosaico -> cartas (la de abajo y la de encima), título y cuánto está desplazada al empezar la carta de encima (en mm: derecha y abajo son positivos)
 MOSAICOS = {
-    "cripto": dict(cartas=["15", "14"], titulo="Las dos hojas transparentes", desfase=[5, -4]),
-    "rejilla": dict(cartas=["31", "30"], titulo="La rejilla de cifrado", desfase=[-4, 6]),
+    "plano": dict(filas=2, cols=1, cartas=["19", "21"], titulo="El plano de Montecarlo"),
+    "caja": dict(filas=1, cols=2, cartas=["54", "55"], titulo="La caja fuerte del joyero"),
+    "pasaportes": dict(filas=2, cols=1, cartas=["61", "63"], titulo="Los pasaportes falsos"),
 }
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+
+_S_CRI = I.CRIPTOGRAMA["claro"]
+_S_RUT = " → ".join(I.RUTA["nodos"][k] for k in I.RUTA["camino"]) + f" ({I.RUTA['mejor']} minutos)"
+_S_RAS = " / ".join("".join(str(v) for v in f) for f in I.RASCACIELOS["solucion"])
+_S_LIB = I.LIBRO["claro"]
+_S_KEN = " / ".join("".join(str(v) for v in f) for f in I.KENKEN["solucion"])
+_S_CON = f"{I.CONTEO['cuenta_corte']} en el corte y {I.CONTEO['cuenta_final']} al final"
+_S_PAS = ", ".join(str(x) for x in I.PASAPORTES["digitos"])
+_L = I.HUSOS["llegada"]
+_S_HUS = f"{_L['dia']} día(s) después de la salida, a las {_L['hora']}:{_L['min']:02d}"
+_S_CAB = ", ".join(f"carga {i + 1}: el cable {c['corta'] + 1}" for i, c in enumerate(I.CABLES["cargas"]))
+_S_RUL = str(I.RULETA["final"])
+_S_TEC = " + ".join(f"{I.PULSA[k]} ({l})" for k, l in zip(I.ORDEN, I.PALABRA))
 
 
-def _ficha(k):
-    return dict(id=k, filas=1, cols=1, fila=0, col=0, capas=True)
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/espia.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=codigo(titulo))
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
 
 
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada a Montecarlo", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Décima parada del Cronoportal: Montecarlo, 1965, noche de gala. Aterrizáis en la terraza del casino, entre farolillos y copas de champán, y el aparato golpea una mesa. Su cristal de energía sale rodando y una mano con guante negro lo recoge al vuelo: es el Dr. Noche, un villano con capa que colecciona gemas, que susurra «perfecta para mi colección» y desaparece hacia su yate, el Neptuno.",
-            "Una mujer con gafas de sol se os acerca: es la Agente Zorro, de una agencia secreta. «Llevamos meses detrás de él. Ayudadnos y recuperaréis vuestra gema, pero el yate zarpa a medianoche: tenéis setenta y cinco minutos». Os da un sobre.",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="La terraza de un casino de Montecarlo en 1965 de noche, con farolillos, copas de champán y yates en el puerto al fondo; un yate negro se aleja. En primer plano, el Cronoportal, un aparato de latón y cristal, humea contra una mesa con la luz azul apagándose. Cristina, con la boca abierta y los ojos muy abiertos de asombro, y Alberto, con una ceja arqueada y la pajarita torcida de incredulidad, se levantan aturdidos con ropa de espías elegantes."),
-    "10": dict(
-        titulo="Carta 10 — El sobre de la Agente Zorro", tipo="gris", coge=[14, 15, 20, 22], descarta=["P"],
-        descripcion=[
-            "En el sobre hay dos hojas transparentes llenas de puntitos (cartas 14 y 15), una nota que dice «sola, cada una es solo ruido» y la llave de una caja de seguridad de la suite del hotel (carta 20), que guarda los papeles de la agencia. Entre los papeles, Alberto encuentra además la mitad de un microfilm (carta 22).",
-            "Coged las cartas 14, 15, 20 y 22. Descartad la carta P."],
-        pistas=["Hay un puzle: las dos hojas y la caja de seguridad.", "Las dos hojas (14 y 15) se ponen una encima de la otra.", "Coged las cartas 14, 15, 20 y 22. Descartad la carta P."],
-        arte="Una suite de hotel de lujo de los años 60 con un sobre abierto sobre una mesa de cristal: dos hojas transparentes con puntitos y una caja de seguridad empotrada en la pared detrás de un cuadro. Cristina sostiene una de las hojas a contraluz de una lámpara con los ojos entrecerrados de concentración y Alberto examina la caja de seguridad con el ceño fruncido."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin cristal", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía. Alberto: «Sin el cristal no hay portal. Se lo ha llevado el Dr. Noche... y no sabe lo que tiene en las manos».",
-            "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el cristal de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, sobre un mantel blanco de una mesa de terraza, con farolillos desenfocados al fondo."),
-    "14": dict(
-        titulo="Carta 14 — Hoja transparente A", tipo="gris", mosaico=_ficha("cripto"),
-        descripcion=["Una hoja llena de puntitos negros: sola parece solo ruido. Es una pieza suelta: poned la hoja 14 y la hoja 15 una encima de la otra, con los marcos bien alineados (a contraluz en papel o con «Superponer» en el Modo PC) para ver el dibujo."],
-        pistas=["Las dos hojas parecen ruido por separado.", "Ponedlas una encima de la otra, con los marcos bien alineados, y miradlas a contraluz o con el Modo PC («Superponer»).", "Se ve un número de tres cifras, en negro sobre el ruido."],
-        arte=pieza("Las dos hojas transparentes", "una de las dos hojas")),
-    "15": dict(
-        titulo="Carta 15 — Hoja transparente B", tipo="gris", mosaico=_ficha("cripto"),
-        descripcion=["Una hoja llena de puntitos negros: sola parece solo ruido. Es una pieza suelta: poned la hoja 15 y la hoja 14 una encima de la otra, con los marcos bien alineados (a contraluz en papel o con «Superponer» en el Modo PC) para ver el dibujo."],
-        pistas=["Las dos hojas parecen ruido por separado.", "Ponedlas una encima de la otra, con los marcos bien alineados, y miradlas a contraluz o con el Modo PC («Superponer»).", "Se ve un número de tres cifras, en negro sobre el ruido."],
-        arte=pieza("Las dos hojas transparentes", "la otra hoja")),
-    "20": dict(
-        titulo="Carta 20 — La caja de seguridad", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una caja de seguridad con un teclado de tres cifras. El número es el que aparece al superponer las dos hojas transparentes (cartas 14 y 15).",
-            "Al acertar, la caja se abre. Coged la carta 26."],
-        pistas=["Superponed las dos hojas transparentes con los marcos bien alineados.", "Dentro del marco se lee un número de tres cifras, en negro sobre el ruido.", f"El número es {DIG}."],
-        arte="Una caja de seguridad de acero empotrada en la pared de una suite de hotel de lujo, con un teclado numérico de teclas grandes y una luz roja, bajo un cuadro apartado. Alberto teclea con el dedo en el aire y los ojos entrecerrados, concentrado, y Cristina vigila la puerta con los brazos cruzados y una ceja arqueada de duda."),
-    "22": dict(
-        titulo="Carta 22 — Mitad de microfilm", tipo="azul", combina=[35, 57],
-        descripcion=["La mitad de un microfilm: una tira de película diminuta cortada por la mitad. Combinadla con la otra mitad (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Es solo la mitad de un microfilm.", "Cuando encontréis la otra mitad, combinadlas.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="Una tira de microfilm diminuta cortada por la mitad, con fotogramas minúsculos, sobre un papel secante verde, vista de cerca con la luz cálida de una lámpara de escritorio."),
-    "26": dict(
-        titulo="Carta 26 — El despacho de cifrado", tipo="gris", coge=[24, 30, 31], descarta=[14, 15, 20],
-        descripcion=[
-            "La caja se abre y dentro hay una carta negra con unas ventanas recortadas (carta 30) y una carta llena de letras (carta 31): una rejilla de cifrado, como las que usaban los espías hace siglos. Una nota de la Agente Zorro dice que el Dr. Noche cifra sus mensajes con ella. A su lado, un teletipo (carta 24) espera la palabra.",
-            "Coged las cartas 24, 30 y 31. Descartad las cartas 14, 15 y 20."],
-        pistas=["Hay un puzle: la rejilla y el teletipo.", "La carta negra (30) se pone encima de la de letras (31).", "Coged las cartas 24, 30 y 31. Descartad las cartas 14, 15 y 20."],
-        arte="Un despacho de cifrado de los años 60 con un teletipo de latón, mapas en la pared y una mesa con dos tarjetas grandes sobre un tablero: una negra con ventanas y otra con una cuadrícula de letras. Cristina coloca una tarjeta encima de la otra con cuidado y gesto de concentración, y Alberto mira por encima de su hombro con la boca entreabierta de asombro."),
-    "24": dict(
-        titulo="Carta 24 — El teletipo", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un teletipo con teclado de máquina de escribir. Hay que escribir la palabra que se lee por las ventanas de la carta negra (30) puesta sobre la carta de letras (31), de arriba abajo.",
-            "Al acertar, el mensaje sale impreso. Coged la carta 28."],
-        pistas=["Poned la carta negra con ventanas (30) encima de la de letras (31), con los marcos alineados.", "Leed las letras que se ven por las ventanas, de arriba abajo.", f"La palabra es {PAL}."],
-        arte="Un teletipo de los años 60 con una cinta de papel que sale despacio y un teclado de máquina de escribir, sobre una mesa de despacho de espías. Alberto escribe con dos dedos y la lengua entre los dientes, y Cristina lee la cinta de papel con los ojos muy abiertos de expectación."),
-    "30": dict(
-        titulo="Carta 30 — La rejilla (carta negra con ventanas)", tipo="gris", mosaico=_ficha("rejilla"),
-        descripcion=["Una carta negra con siete ventanas recortadas. Es una pieza suelta: ponedla encima de la carta de letras (31), con los marcos bien alineados (a contraluz en papel o con «Superponer» en el Modo PC)."],
-        pistas=["Es una rejilla: solo deja ver lo que hay debajo de sus ventanas.", "Ponedla encima de la carta de letras (31), con los marcos bien alineados, y miradla a contraluz o con el Modo PC («Superponer»).", "Las letras que se ven por las ventanas, leídas de arriba abajo, forman una palabra."],
-        arte=pieza("La rejilla de cifrado", "la carta negra con ventanas")),
-    "31": dict(
-        titulo="Carta 31 — Letras", tipo="gris", mosaico=_ficha("rejilla"),
-        descripcion=["Una cuadrícula de letras sin sentido. Es una pieza suelta: poned encima la carta negra con ventanas (30), con los marcos bien alineados (a contraluz en papel o con «Superponer» en el Modo PC)."],
-        pistas=["Por sí sola es solo una sopa de letras sin sentido.", "Poned encima la carta negra con ventanas (30), con los marcos bien alineados, y miradlas a contraluz o con el Modo PC («Superponer»).", "Las letras que se ven por las ventanas, leídas de arriba abajo, forman una palabra."],
-        arte=pieza("La rejilla de cifrado", "la carta de letras")),
-    "28": dict(
-        titulo="Carta 28 — El yate Neptuno", tipo="gris", coge=[35, 40, 46], descarta=[26, 30, 31, 24],
-        descripcion=[
-            "El teletipo imprime: «NEPTUNO», el nombre del yate del Dr. Noche, y la contraseña de su pasarela. Subís al yate a escondidas. En un camarote encontráis la otra mitad del microfilm (carta 35) y el plano del barco (carta 40), pero los pasillos están oscuros y vigilados: solo se puede avanzar a ciegas con el mando de la linterna (carta 46).",
-            "Coged las cartas 35, 40 y 46. Descartad las cartas 26, 30, 31 y 24."],
-        pistas=["Hay dos cosas: la otra mitad del microfilm y el plano con el mando.", "Las cartas 22 y 35 son combinables. El plano (40) sirve para el mando (46).", "Coged las cartas 35, 40 y 46. Descartad las cartas 26, 30, 31 y 24."],
-        arte="La cubierta de un yate de lujo negro de noche, con una pasarela, faroles dorados y el puerto de Montecarlo iluminado al fondo; entre las sombras, un pasillo oscuro con una puerta entreabierta. Cristina avanza de puntillas con el dedo sobre los labios y los ojos muy abiertos de cautela, y Alberto la sigue con una linterna pequeña y gesto tenso."),
-    "35": dict(
-        titulo="Carta 35 — Otra mitad de microfilm", tipo="roja", combina=[22, 57],
-        descripcion=["La otra mitad del microfilm. Combinadla con la primera mitad (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Es la otra mitad del microfilm.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="La otra mitad de una tira de microfilm, con fotogramas minúsculos, dentro de una cajita de plata sobre una cómoda de un camarote de yate, con un reflejo dorado."),
-    "40": dict(
-        titulo="Carta 40 — El plano del yate", tipo="gris",
-        descripcion=["El plano de los pasillos del yate Neptuno, con la entrada y la salida marcadas. Solo hay un camino de la una a la otra."],
-        pistas=["Es el plano del yate: sirve para el mando de la linterna (carta 46).", "En el mando los muros no se ven: seguid el plano desde la entrada, tramo a tramo.", f"Camino completo: {_camino_texto()}."],
-        arte=pieza("El plano del yate", "el plano con el laberinto")),
-    "46": dict(
-        titulo="Carta 46 — El mando de la linterna", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: os movéis por los pasillos del yate con las flechas, a oscuras: los muros no se ven, solo se nota cuando se choca con uno. El plano del yate (carta 40) muestra el camino desde la entrada, arriba a la izquierda, hasta la salida, abajo a la derecha.",
-            "Al llegar a la salida, la puerta de la sala de máquinas se abre. Coged la carta 44."],
-        pistas=["Mirad el plano del yate: solo hay un camino de la entrada a la salida.", "Seguid el plano desde la entrada, anotando cada tramo (por ejemplo, «derecha 2, abajo 1...») y repitiéndolo en el mando. Si chocáis con un muro, es que os habéis equivocado de tramo.", f"Camino completo: {_camino_texto()}."],
-        arte="Un pasillo estrecho y oscuro de un yate de lujo, con paredes de madera barnizada y una puerta al fondo con una rendija de luz, iluminado solo por una pequeña linterna. Alberto avanza con la mano en la pared y el gesto tenso, y Cristina lo sigue en puntillas, mordiéndose el labio con cara de miedo contenido."),
-    "44": dict(
-        titulo="Carta 44 — La sala de máquinas", tipo="gris", coge=[38], descarta=[28, 40, 46],
-        descripcion=[
-            "La puerta se abre y entráis en la sala de máquinas del yate, llena de tuberías y manómetros. En un armario de herramientas, Alberto encuentra unos alicates con mangos aislantes (carta 38).",
-            "Coged la carta 38. Descartad las cartas 28, 40 y 46."],
-        pistas=["Mirad lo que hay en el armario de herramientas.", "La carta 38 es combinable.", "Coged la carta 38. Descartad las cartas 28, 40 y 46."],
-        arte="La sala de máquinas de un yate de lujo: motores brillantes, tuberías de cobre, manómetros y un armario de herramientas abierto. Alberto levanta unos alicates con mangos rojos aislantes con una sonrisa de triunfo y Cristina lo mira con los ojos brillantes de entusiasmo."),
-    "38": dict(
-        titulo="Carta 38 — Alicates aislantes", tipo="azul", combina=[56, 94],
-        descripcion=["Unos alicates cortacables con los mangos aislados, como los que usan los artificieros. Combinadlos con el maletín (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Sirven para cortar cables.", "Cuando tengáis el maletín, combinadlo con los alicates.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Unos alicates cortacables de acero con mangos rojos aislantes sobre una toalla de taller, junto a un manómetro, en la sala de máquinas de un yate, con luz cálida lateral."),
-    "57": dict(
-        titulo="Carta 57 — El microfilm completo", tipo="gris", coge=[48, 52, 53], descarta=[22, 35, 10],
-        descripcion=[
-            "Las dos mitades del microfilm encajan. Alberto lo mete en el proyector del camarote y en la pared aparece una foto aérea de Montecarlo: una torre, la más alta de la ciudad, marcada con un círculo rojo. Pero hay muchas torres y desde la calle se confunden. Un panel (carta 48) pide el perfil de la ciudad y la Agente Zorro ha dejado dos cartas con lo que se ve desde cada lado (cartas 52 y 53).",
-            "Coged las cartas 48, 52 y 53. Descartad las cartas 22, 35 y 10."],
-        pistas=["Hay un puzle: el panel del skyline y las dos cartas de vistas.", "Las cartas 52 y 53 dan los números del borde de la cuadrícula, repartidos entre las dos.", "Coged las cartas 48, 52 y 53. Descartad las cartas 22, 35 y 10."],
-        arte="Un camarote de yate con un proyector de diapositivas antiguo que proyecta en la pared una foto aérea en blanco y negro de una ciudad de rascacielos con una torre marcada con un círculo rojo. Cristina señala la torre con una sonrisa de orgullo y Alberto mira la pared con la boca abierta de sorpresa."),
-    "52": dict(
-        titulo="Carta 52 — Skyline: arriba e izquierda", tipo="gris",
-        descripcion=["Una cuadrícula de 4 × 4 casillas con los números del borde de arriba y de la izquierda: cuántos edificios se ven desde cada lado."],
-        pistas=["Es la mitad de las pistas del skyline (carta 48); la otra mitad está en la carta 53.", "En cada fila y en cada columna van las alturas 1, 2, 3 y 4 sin repetir; el número del borde dice cuántos edificios se ven desde ahí.", f"El perfil, de arriba abajo, es: {_skyline_texto()}."],
-        arte=pieza("Skyline: arriba e izquierda", "la mitad de las pistas")),
-    "53": dict(
-        titulo="Carta 53 — Skyline: abajo y derecha", tipo="gris",
-        descripcion=["Una cuadrícula de 4 × 4 casillas con los números del borde de abajo y de la derecha, y un ejemplo de cómo se cuentan los edificios."],
-        pistas=["Es la otra mitad de las pistas del skyline (carta 48); la primera mitad está en la carta 52.", "Cada número del borde dice cuántos edificios se ven desde ese lado: los altos tapan a los bajos.", f"El perfil, de arriba abajo, es: {_skyline_texto()}."],
-        arte=pieza("Skyline: abajo y derecha", "la otra mitad de las pistas")),
-    "48": dict(
-        titulo="Carta 48 — El panel del skyline", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una cuadrícula de 4 × 4 en la que hay que poner la altura (1, 2, 3 o 4) de cada edificio. Los números del borde (cuántos edificios se ven desde cada lado) están repartidos en las cartas 52 y 53.",
-            "Al completar el perfil, el panel marca la torre del Dr. Noche. Coged la carta 58."],
-        pistas=["Juntad las pistas de las cartas 52 y 53: algunas están arriba, otras abajo, a la izquierda y a la derecha.", "Un 4 en el borde obliga a las cuatro alturas en orden; un 1 pide el edificio más alto pegado a ese borde. Empezad por ahí.", f"El perfil, de arriba abajo, es: {_skyline_texto()}."],
-        arte="Un panel de control con una cuadrícula de cuatro por cuatro casillas luminosas que muestra siluetas de edificios de distinta altura, en un camarote de yate con una ventana al puerto. Alberto toca el panel con el dedo y los ojos entrecerrados, y Cristina cuenta con los dedos con cara de ilusión."),
-    "58": dict(
-        titulo="Carta 58 — La torre del Dr. Noche", tipo="gris", coge=[56], descarta=[48, 52, 53, 57],
-        descripcion=[
-            "El skyline marca la torre del Dr. Noche, a dos calles del puerto. Subís en un ascensor privado hasta una sala llena de gemas en vitrinas, pero el villano ha huido y ha dejado un maletín plateado sobre una mesa, con una nota que dice: «Si me seguís, lo lamentaréis».",
-            "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."],
-        pistas=["Mirad lo que hay sobre la mesa.", "La carta 56 es combinable.", "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."],
-        arte="La sala de una torre de lujo llena de vitrinas con gemas de colores y, en el centro, una mesa con un maletín plateado cerrado con una nota; Cristina lo señala con una ceja arqueada de sospecha y Alberto se asoma con cara de alivio mezclado con inquietud."),
-    "56": dict(
-        titulo="Carta 56 — Maletín con cuatro cargas", tipo="roja", combina=[38, 94],
-        descripcion=["Un maletín plateado que hace tictac. Dentro hay cuatro cargas explosivas con sus cables de colores. Combinadlo con los alicates (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Hace tictac: dentro hay cuatro cargas.", "Cuando tengáis los alicates, combinadlos con el maletín.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Un maletín plateado entreabierto sobre una mesa con cuatro paquetes con cables de colores y un pequeño reloj con luz roja, visto de cerca con luz dramática lateral."),
-    "94": dict(
-        titulo="Carta 94 — Las cuatro cargas", tipo="gris", coge=[69, 70], descarta=[56, 38, 44, 58],
-        descripcion=[
-            "Alberto agarra los alicates y Cristina abre el maletín: cuatro cargas, cada una con cinco cables, y un reloj que corre. En el forro encuentra el manual del desactivador (carta 70) y, sobre la tapa, un panel con las cuatro cargas (carta 69). Solo hay que cortar un cable de cada carga, y el correcto depende de las reglas del manual.",
-            "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        pistas=["Hay un puzle: el panel de las cuatro cargas y el manual del desactivador.", "El manual (carta 70) dice qué cable cortar según los colores.", "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        arte="Un maletín plateado abierto sobre una mesa con cuatro cargas con cables de colores y un reloj digital con luz roja, en la sala de una torre. Alberto sostiene unos alicates con el sudor en la frente y gesto de concentración, y Cristina sujeta un librito con las reglas y lee con los ojos muy abiertos de tensión."),
-    "70": dict(
-        titulo="Carta 70 — El manual del desactivador", tipo="gris",
-        descripcion=["El manual del desactivador: cuatro reglas para decidir qué cable cortar en cada carga. Vale la primera que se cumpla."],
-        pistas=["Es el manual de las cuatro cargas (carta 69).", "Contad los cables de arriba abajo y comprobad las reglas en orden: vale la primera que se cumple.", f"Los cortes son: {_cortes_texto()}."],
-        arte=pieza("El manual del desactivador", "las cuatro reglas de los cables")),
-    "69": dict(
-        titulo="Carta 69 — El desactivador", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: las cuatro cargas del maletín, cada una con cinco cables de colores. Hay que cortar un cable de cada carga, el que diga el manual del desactivador (carta 70). Si cortáis el equivocado, la carga se reinicia.",
-            "Al desactivar las cuatro cargas, el reloj se detiene. Coged la carta 82."],
-        pistas=["Leed el manual del desactivador (carta 70): las reglas se comprueban en orden.", "En cada carga contad los cables de arriba abajo, comprobad las reglas por orden y cortad el cable que dice la primera que se cumpla.", f"Los cortes son: {_cortes_texto()}."],
-        arte="Un maletín abierto con cuatro cargas con cables de colores y un reloj con luz roja a punto de llegar a cero. Alberto acerca los alicates a un cable con el pulso temblando y los dientes apretados, y Cristina contiene el aliento con las manos sobre la boca."),
-    "82": dict(
-        titulo="Carta 82 — La colección del Dr. Noche", tipo="gris", coge=[62], descarta=[69, 70, 94],
-        descripcion=[
-            "El reloj del maletín se detiene en el último segundo. Al fondo de la sala se abre un panel secreto: la colección privada del Dr. Noche, con gemas del mundo entero, y en el centro, sobre un cojín de terciopelo, el cristal de energía rojo, tal y como cayó.",
-            "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        pistas=["Mirad el cojín de terciopelo del centro.", "La carta 62 es combinable con el Cronoportal.", "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        arte="Una sala secreta con vitrinas de gemas de colores y, en el centro, un cristal rojo brillante sobre un cojín de terciopelo bajo un foco, con reflejos dorados por todas partes. Cristina lo toma con ambas manos con los ojos llenos de lágrimas de emoción y Alberto la mira con una sonrisa enorme."),
-    "62": dict(
-        titulo="Carta 62 — Cristal de energía", tipo="roja", combina=[12, 74],
-        descripcion=["El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Un cristal rojo facetado con un fulgor interior de brasa y finas líneas de energía, sostenido sobre la palma de una mano enguantada de blanco, con destellos dorados de fondo."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[99], descarta=[62, 12, 82],
-        descripcion=[
-            "El cristal encaja con un chasquido y el Cronoportal se enciende. Fuera suenan sirenas y la Agente Zorro grita desde la puerta que la policía llega para detener al Dr. Noche, y que vosotros no podéis estar aquí cuando lleguen. No hay tiempo que perder: activad el aparato.",
-            "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal ya funciona. Solo queda activarlo.", "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con un cristal rojo encajado en su pecho, en la sala secreta de una torre, con un arco de luz azul y dorada en el anillo; al fondo, las luces azules de unos coches de policía por una ventana. Cristina, con la cara desencajada de urgencia, tira de Alberto, que carga el aparato con gesto de esfuerzo."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
-        descripcion=[
-            "El anillo se abre en un arco de luz justo cuando la policía irrumpe en la sala. Cristina y Alberto salen disparados de Montecarlo y aterrizan en su salón, con el corazón a mil.",
-            "Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo unas gafas de sol de la Agente Zorro. Descartad la carta 74.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven una sala de lujo con vitrinas de gemas y luces azules de policía. Llevan aún su ropa de espías elegantes de los años 60. Cristina ríe a carcajadas con unas gafas de sol en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ El casino
+    "P": escena("P", "Llegada a Montecarlo", [10, 12], [],
+                "Décima parada del Cronoportal: Montecarlo, 1965, noche de gala. Aterrizáis en la terraza del casino, entre farolillos y copas de champán, y el aparato golpea una mesa. Su cristal de energía sale rodando y una mano con guante negro lo recoge al vuelo: es el Dr. Noche, un villano con capa que colecciona gemas, que susurra «perfecta para mi colección» y desaparece hacia su yate, el Neptuno. Una mujer con gafas de sol se os acerca: es la Agente Zorro, de una agencia secreta. «Llevamos meses detrás de él. Ayudadnos y recuperaréis vuestra gema, pero el yate zarpa a medianoche: tenéis noventa minutos». Os da un sobre.",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "La terraza de un casino de Montecarlo en 1965 de noche, con farolillos, copas de champán y yates en el puerto al fondo; un yate negro se aleja. En primer plano, el Cronoportal, un aparato de latón y cristal, humea contra una mesa con la luz azul apagándose. Cristina, con la boca abierta y los ojos muy abiertos de asombro, y Alberto, con una ceja arqueada y la pajarita torcida de incredulidad, se levantan aturdidos con ropa de espías elegantes."),
+    "10": escena("10", "El sobre de la Agente Zorro", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "En el sobre hay una nota con letras sin sentido, firmada por Zorro (carta 16), y un acertijo de la policía sobre el desfile del Gran Premio (carta 18). Sobre el mantel, un plano de Montecarlo en dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Entre los papeles, Alberto encuentra además la mitad de un microfilm (carta 22).",
+                 ["Hay dos puzles: la nota secreta y la persecución.", "El plano son dos cartas: juntadlas, una encima de otra."],
+                 "Una mesa de terraza de un casino de Montecarlo en 1965 con un sobre abierto, una nota con letras raras, un plano de calles y la mitad de una tira de microfilm. Cristina lee la nota con los ojos entrecerrados y la nariz arrugada; Alberto, con una copa de champán en la mano, repasa el plano con la boca abierta."),
+    "12": combinable("12", "Cronoportal sin cristal", "azul", 62, 74,
+                     "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía.",
+                     SIN_GENTE + "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, sobre un mantel blanco de una mesa de terraza, con farolillos desenfocados al fondo."),
+    "14": app("14", "La nota de la Agente Zorro", "Es un juego de la app: una nota escrita con un alfabeto cambiado, en el que cada letra es siempre otra. Hay que escribir el mensaje original.", 24,
+              ["La nota está en la carta 16 y, en ella, Zorro da una pista: su firma.", "La primera palabra ya os da cinco letras del alfabeto cambiado. Buscad esas letras en el resto de la nota: las palabras cortas (EN, EL, DE, LA) caen enseguida.", f"El mensaje dice: {_S_CRI}. Teléfono rojo: pulsaciones {I.PULSA['14']}."],
+              SIN_GENTE + "Una nota doblada con letras sin sentido sobre un mantel de casino, junto a una pluma estilográfica y un sello de lacre rosa, con luz de farolillo."),
+    "16": gris("16", "La nota de Zorro", "Una nota interceptada en el casino, escrita con letras sin sentido, con una firma de Zorro debajo.",
+               ["Es el mensaje de la nota secreta (carta 14).", "Cada letra del mensaje cambia siempre por la misma otra.", "Zorro firma con su cargo: la primera palabra es una pista."]),
+    "18": gris("18", "El acertijo del desfile", "Un acertijo del cartel de la policía sobre las calles cortadas por el Gran Premio.",
+               ["Dice qué glorietas están cortadas (carta 20).", "Hay que salir del Casino (A) y llegar al Puerto (I).", "Cada calle del plano lleva el tiempo que se tarda en recorrerla."]),
+    "19": pieza("19", "plano", "Media lámina del plano de Montecarlo.", ["Es la mitad de una lámina: juntadla con la carta 21.", "Es un plano con nueve glorietas y las calles que las unen.", "El acertijo del desfile está en la carta 18."]),
+    "21": pieza("21", "plano", "Media lámina del plano de Montecarlo.", ["Es la mitad de una lámina: juntadla con la carta 19.", "Es un plano con nueve glorietas y las calles que las unen.", "El acertijo del desfile está en la carta 18."]),
+    "20": app("20", "La persecución por Montecarlo", "Es un juego de la app: llegar con el coche del Casino al Puerto por el camino más rápido, sin cruzar las glorietas que corta el desfile.", 28,
+              ["El plano está en las cartas 19 y 21 y el acertijo del desfile, en la 18.", "Tachad primero las glorietas cortadas. Luego sumad los minutos de cada camino que llegue al Puerto y quedaos con el más corto.", f"El camino más rápido: {_S_RUT}."],
+              SIN_GENTE + "Un coche deportivo descapotable de los años 60 en una curva del circuito urbano de Montecarlo, con el puerto y los yates al fondo, de noche, entre farolillos."),
+    "22": combinable("22", "Media tira de microfilm", "azul", 35, 57, "Una mitad de una tira de microfilm, con una hilera de fotogramas diminutos.",
+                     SIN_GENTE + "La mitad izquierda de una tira de microfilm con una hilera de fotogramas diminutos, sobre un mantel blanco de casino, con luz de farolillo."),
+    "24": escena("24", "Zorro en el muelle", [26], [14, 16],
+                 "Descifráis la nota: Zorro os espera en el muelle de la ruleta azul, junto al puerto. Allí os da la mano y os pasa discretamente una hoja con las normas de la aduana, por si acaso tenéis que revisar pasaportes más adelante (carta 26). «Guardadla —susurra—, el Dr. Noche tiene a medio puerto con documentos falsos».",
+                 ["Mirad lo que os da Zorro."],
+                 "Un muelle de Montecarlo de noche con un cartel luminoso en forma de ruleta azul y yates amarrados. La Agente Zorro, con gabardina y gafas de sol, entrega una hoja doblada a Cristina y Alberto. Cristina la coge con una sonrisa cómplice y el dedo en los labios; Alberto mira de reojo a ambos lados con cara de sospecha."),
+    "26": gris("26", "La regla del aduanero", "Una hoja sellada de la aduana con la regla del dígito de control de los pasaportes.",
+               ["Habla de los pasaportes (carta 51).", "Cada letra vale lo que su puesto en el abecedario más nueve.", "Los pesos son 7, 3 y 1, y se repiten."]),
+    "28": escena("28", "El Puerto", [35], [18, 19, 20, 21],
+                 "Llegáis al Puerto por el camino más corto y el coche patina frente a un almacén. Dentro, entre cajas de champán, un sobre rosa con la otra mitad del microfilm (carta 35).",
+                 ["Mirad en el almacén."],
+                 "El almacén de un puerto de Montecarlo, de noche, lleno de cajas de champán y cuerdas, con una lámpara colgada. Cristina saca un sobre rosa de una caja con los ojos como platos; Alberto, apoyado en la puerta, jadea con la lengua fuera."),
+    "35": combinable("35", "Otra media tira de microfilm", "roja", 22, 57, "La otra mitad de la tira de microfilm, con la otra hilera de fotogramas.",
+                     SIN_GENTE + "La mitad derecha de una tira de microfilm con una hilera de fotogramas diminutos, sobre un sobre rosa, con luz de farolillo."),
+    "57": escena("57", "El microfilm completo", [31, 32], [22, 35, 10, 28],
+                 "Juntáis las dos mitades y a la luz del proyector aparecen los planos secretos del Dr. Noche: una azotea de un hotel con torres de oficinas (carta 31) y la biblioteca del casino, donde se esconde su libro de cuentas (carta 32). Hay que visitar los dos.",
+                 ["Dos sitios: la azotea del hotel y la biblioteca del casino."],
+                 "Cristina y Alberto con un proyector de diapositivas antiguo sobre una mesa, que proyecta en la pared unos planos de un hotel y de una biblioteca, en la penumbra de una suite de los años 60. Cristina señala la pared con la boca entreabierta de emoción; Alberto levanta las cejas y se frota las manos."),
+    # ------------------------------------------------------------------ Rama 1: la azotea del hotel
+    "31": escena("31", "La azotea del hotel", [40, 41, 43, 45], [],
+                 "En la azotea del hotel hay una maqueta de cinco torres que parece un panel de control con la rejilla vacía (carta 40). Los números del borde, que dicen cuántas torres se ven desde cada lado, están en dos láminas: arriba e izquierda en la 41; abajo y derecha en la 43. El arquitecto dejó escrita la regla en la carta 45.",
+                 ["Un único puzle: el skyline de las torres."],
+                 "La azotea de un hotel de lujo de Montecarlo de noche con una maqueta de torres de distintas alturas sobre una mesa y una rejilla de casillas vacía al lado, con las luces de la ciudad al fondo. Cristina compara la maqueta con la rejilla con el ceño fruncido; Alberto se agacha para mirar las torres a ras de mesa con un ojo cerrado."),
+    "40": app("40", "El skyline del casino", "Es un juego de la app: colocar torres de una a cinco plantas, una por casilla, sin repetir alturas en ninguna fila ni columna, de modo que cada número del borde diga cuántas torres se ven desde allí.", 30,
+              ["Los números del borde están en las cartas 41 y 43 y la regla, en la 45.", "Un 5 en el borde significa que se ven todas: están ordenadas de la más baja a la más alta. Un 1 significa que la más alta está justo en el borde.", f"El skyline, por filas: {_S_RAS}. Teléfono rojo: pulsaciones {I.PULSA['40']}."],
+              SIN_GENTE + "Una maqueta de cinco torres de oficinas de distintas alturas sobre una mesa de una azotea, con una rejilla de cinco por cinco al lado, de noche, con las luces de Montecarlo al fondo."),
+    "41": gris("41", "Los números del borde (arriba e izquierda)", "Una lámina con la rejilla del skyline y los números de su borde de arriba y de la izquierda.",
+               ["Son las pistas del borde del skyline (carta 40).", "Esta lámina da solo dos lados: arriba e izquierda.", "Los otros dos lados están en la carta 43."]),
+    "43": gris("43", "Los números del borde (abajo y derecha)", "Una lámina con la rejilla del skyline y los números de su borde de abajo y de la derecha.",
+               ["Son las pistas del borde del skyline (carta 40).", "Esta lámina da solo dos lados: abajo y derecha.", "Los otros dos lados están en la carta 41."]),
+    "45": gris("45", "La regla del arquitecto", "Una nota del arquitecto con la regla del skyline, escrita en versos.",
+               ["Explica cómo se leen los números del borde (carta 40).", "Las torres altas esconden a las bajas que tienen detrás.", "Cada fila y cada columna tienen torres de todas las alturas."]),
+    "30": escena("30", "La trampilla de la azotea", [38], [31, 40, 41, 43, 45],
+                 "Las torres encajan y la maqueta se hunde en la mesa: debajo, una trampilla esconde media llave dorada con un llavero de ancla (carta 38).",
+                 ["Mirad debajo de la maqueta."],
+                 "Una mesa de azotea con una maqueta de torres que se ha hundido y deja ver una trampilla abierta con media llave dorada de ancla dentro, de noche. Cristina la saca con dos dedos y una sonrisa traviesa; Alberto la mira con la boca abierta y los ojos brillantes."),
+    "38": combinable("38", "Mitad de la llave del camarote", "roja", 56, 94, "Una mitad de una llave dorada con un llavero de ancla, de las del camarote de un yate.",
+                     SIN_GENTE + "La mitad izquierda de una llave dorada con un llavero en forma de ancla, de las de un camarote de yate, sobre un cojín de terciopelo rojo."),
+    # ------------------------------------------------------------------ Rama 2: la biblioteca del casino
+    "32": escena("32", "La biblioteca del casino", [42, 48, 49, 53], [],
+                 "En la biblioteca hay una novela de bolsillo, «La última carta», con dos páginas marcadas con una cinta rosa (cartas 42 y 49). En el borde de un marcapáginas, el Dr. Noche anotó su mensaje con tres números por palabra (carta 53).",
+                 ["Un único puzle: el mensaje escondido en el libro."],
+                 "Una biblioteca elegante de un casino de los años 60 con estanterías hasta el techo, un sillón de cuero y una novela de bolsillo abierta sobre una mesa con una cinta rosa de marcapáginas. Cristina pasa un dedo por las páginas con la cabeza ladeada; Alberto cuenta con los dedos mirando el techo."),
+    "48": app("48", "La cifra del libro", "Es un juego de la app: un mensaje escondido en una novela de bolsillo. Cada palabra del mensaje está dada por tres números (página, renglón y palabra). Hay que escribir el mensaje que sale.", 36,
+              ["Las dos páginas del libro están en las cartas 42 y 49 y los números del mensaje, en la 53.", "Primero el número de página; luego, el renglón, contando desde arriba; y al final, la palabra de ese renglón, de izquierda a derecha.", f"El mensaje dice: {_S_LIB}."],
+              SIN_GENTE + "Una novela de bolsillo abierta por la mitad sobre una mesa, con una cinta rosa de marcapáginas y un lápiz, con luz de lámpara de casino."),
+    "42": gris("42", "La página 17 de «La última carta»", "Una página de la novela de bolsillo, con nueve renglones.", ["Es una de las dos páginas del libro (carta 48).", "Tiene nueve renglones.", "La otra página está en la carta 49."]),
+    "49": gris("49", "La página 18 de «La última carta»", "Una página de la novela de bolsillo, con nueve renglones.", ["Es una de las dos páginas del libro (carta 48).", "Tiene nueve renglones.", "La otra página está en la carta 42."]),
+    "53": gris("53", "Los renglones del mensaje", "Un marcapáginas con los números del mensaje, de tres en tres.", ["Cada grupo de tres números es una palabra del mensaje (carta 48).", "Siempre en el mismo orden: página, renglón, palabra.", "Las páginas del libro están en las cartas 42 y 49."]),
+    "36": escena("36", "La caja fuerte del joyero", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "El mensaje apunta a la joyería del casino, donde hay una caja fuerte a la vista de todos. Su cerradura tiene la forma de una rejilla de cinco por cinco (carta 52): el tablero con las jaulas ocupa dos láminas, que juntáis a izquierda y derecha (cartas 54 y 55), y la regla del joyero está grabada en la propia cerradura (carta 59).",
+                 ["Un único puzle: abrir la caja fuerte."],
+                 "La trastienda de una joyería de lujo de los años 60, con vitrinas de cristal y una caja fuerte redonda de acero en la pared, con una cerradura en forma de rejilla. Cristina examina la cerradura con una lupa de joyero y los ojos desorbitados; Alberto se limpia el sudor de la frente con un pañuelo y cara de agobio."),
+    "52": app("52", "La caja fuerte del joyero", "Es un juego de la app: rellenar con cifras del 1 al 5 una rejilla de cinco por cinco, sin repetir en filas ni columnas, de modo que cada jaula de trazo grueso cumpla la operación que lleva escrita.", 44,
+              ["El tablero con las jaulas está en las cartas 54 y 55 y la regla, en la 59.", "Empezad por las jaulas de una casilla (llevan el número solo) y por las que suman o multiplican pocas cifras: solo caben unas parejas.", f"La caja, por filas: {_S_KEN}. Teléfono rojo: pulsaciones {I.PULSA['52']}."],
+              SIN_GENTE + "Una caja fuerte redonda de acero en una pared, con una cerradura en forma de rejilla de casillas y un resplandor dorado en una rendija, en la trastienda de una joyería de lujo."),
+    "54": pieza("54", "caja", "Media lámina del tablero de la caja fuerte.", ["Es la mitad de una lámina: juntadla con la carta 55.", "Las jaulas llevan un número y una operación.", "La regla del joyero está en la carta 59."]),
+    "55": pieza("55", "caja", "Media lámina del tablero de la caja fuerte.", ["Es la mitad de una lámina: juntadla con la carta 54.", "Las jaulas llevan un número y una operación.", "La regla del joyero está en la carta 59."]),
+    "59": gris("59", "La regla del joyero", "Una nota grabada en la cerradura de la caja fuerte, en versos.", ["Explica cómo se rellena la caja (carta 52).", "Son cifras del uno al cinco.", "En la resta y la división manda la mayor sobre la menor."]),
+    # ------------------------------------------------------------------ La sala de juego
+    "44": escena("44", "La sala de juego", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "El joyero os abre la puerta de la sala de juego. En la mesa de blackjack, un crupier reparte veintiocho cartas seguidas (cartas 37 y 39) y susurra que el que lleve bien la cuenta se llevará una sorpresa (carta 46); la regla de la cuenta la cuelga en un cartel (carta 33). Al fondo, en la mesa de documentos, tres pasaportes sin acabar de sellar, en dos láminas: juntad la 61 arriba y la 63 abajo (carta 51).",
+                 ["Hay dos puzles: la cuenta del crupier y los pasaportes."],
+                 "Una sala de juego de un casino de Montecarlo en 1965, con una mesa de blackjack con fieltro verde y un crupier repartiendo cartas, y al fondo una mesa de documentos con pasaportes abiertos. Cristina, con una mano en la cadera, vigila al crupier con una ceja levantada de sospecha; Alberto mira los pasaportes con la boca torcida de duda."),
+    "46": app("46", "La cuenta del crupier", "Es un juego de la app: el crupier reparte veintiocho cartas y cada una suma, resta o no cuenta según su valor. Hay que decir cuánto vale la cuenta al llegar al corte y cuánto al final.", 56,
+              ["Las cartas están en las cartas 37 y 39 y la regla de la cuenta, en la 33.", "Contad carta a carta, en el orden en que salen, empezando de cero. En el corte hay que parar y anotar; luego se sigue desde ahí hasta la última.", f"La cuenta: {_S_CON}."],
+              SIN_GENTE + "Una mesa de blackjack con fieltro verde y varias cartas boca arriba en fila, y un montoncito de fichas, bajo una lámpara de casino de los años 60."),
+    "37": gris("37", "Las cartas del crupier (I)", "Las primeras catorce cartas que reparte el crupier, en el orden en que salen.", ["Son las primeras cartas de la cuenta (carta 46).", "Se leen en orden: de izquierda a derecha y de arriba abajo.", "Las otras catorce están en la carta 39."]),
+    "39": gris("39", "Las cartas del crupier (II)", "Las últimas catorce cartas que reparte el crupier, en el orden en que salen.", ["Son las últimas cartas de la cuenta (carta 46).", "Se leen en orden: de izquierda a derecha y de arriba abajo.", "Las primeras catorce están en la carta 37."]),
+    "33": gris("33", "La cuenta del crupier", "Un cartel de la mesa de blackjack con la regla de la cuenta, en versos.", ["Explica cómo se cuenta cada carta (carta 46).", "Hay tres clases de cartas: las que suman, las que restan y las que no cuentan.", "Se empieza de cero con la primera carta."]),
+    "56": combinable("56", "Otra mitad de la llave", "roja", 38, 94, "La otra mitad de la llave dorada del camarote, que el crupier os desliza al terminar la cuenta.",
+                     SIN_GENTE + "La mitad derecha de una llave dorada con un llavero en forma de ancla, de las de un camarote de yate, que una mano con guante blanco desliza sobre un tapete verde."),
+    "51": app("51", "Los pasaportes falsos", "Es un juego de la app: en la zona de lectura de cada pasaporte falta el dígito de control del número del documento. Hay que calcular los tres.", 58,
+              ["Los pasaportes están en las cartas 61 y 63 y la regla del aduanero, en la 26.", "Cada símbolo del número se multiplica por 7, por 3 o por 1, y vuelta a empezar. Se suma todo y de la suma solo vale la cifra de las unidades.", f"Los dígitos son {_S_PAS}. Teléfono rojo: pulsaciones {I.PULSA['51']}."],
+              SIN_GENTE + "Tres pasaportes abiertos sobre una mesa de documentos, con un sello de caucho, una lupa y un tampón de tinta rosa, bajo una lámpara de despacho."),
+    "61": pieza("61", "pasaportes", "Media lámina de los tres pasaportes falsos.", ["Es la mitad de una lámina: juntadla con la carta 63.", "Cada pasaporte lleva dos líneas de letras y números en el pie.", "La regla del aduanero está en la carta 26."]),
+    "63": pieza("63", "pasaportes", "Media lámina de los tres pasaportes falsos.", ["Es la mitad de una lámina: juntadla con la carta 61.", "Cada pasaporte lleva dos líneas de letras y números en el pie.", "La regla del aduanero está en la carta 26."]),
+    # ------------------------------------------------------------------ La aduana, el despacho y el yate
+    "58": escena("58", "La aduana del puerto", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "Los pasaportes pasan el control y un aduanero os abre una puerta lateral, que da a un almacén aduanero. Allí hay cuatro cargas de explosivos con cables de colores (carta 69): el Dr. Noche las ha puesto para volar el muelle. El manual del desactivador, en dos hojas pegadas a la caja (cartas 70 y 71), dice qué cable cortar.",
+                 ["Un único puzle: desactivar las cargas."],
+                 "Un almacén aduanero de un puerto con cuatro cajas de madera con cables de colores asomando y un reloj de cuenta atrás en cada una, bajo una bombilla. Cristina, con un destornillador en la mano y la cara pálida, observa los cables conteniendo la respiración; Alberto lee un manual con un dedo en cada línea y la frente arrugada."),
+    "69": app("69", "El desactivador", "Es un juego de la app: cuatro cargas con seis cables de colores cada una. Hay que cortar un cable en cada carga, el que diga el manual según los colores.", 80,
+              ["El manual está en las cartas 70 y 71.", "Se aplica la primera regla del manual que se cumpla, de arriba abajo. Contad con cuidado los colores de cada carga antes de decidir.", f"Los cortes: {_S_CAB}. Teléfono rojo: pulsaciones {I.PULSA['69']}."],
+              SIN_GENTE + "Una caja de madera con seis cables de colores distintos asomando de un compartimento, con un reloj digital de cuenta atrás en la tapa, en un almacén con poca luz."),
+    "70": gris("70", "El manual del desactivador (I)", "La primera hoja del manual del desactivador, con tres reglas numeradas.", ["Son las primeras reglas del manual (carta 69).", "Se mira de arriba abajo y se aplica la primera que se cumpla.", "Las otras reglas están en la carta 71."]),
+    "71": gris("71", "El manual del desactivador (II)", "La segunda hoja del manual del desactivador, con las otras reglas numeradas.", ["Son las últimas reglas del manual (carta 69).", "La última sirve para cualquier otro caso.", "Las primeras reglas están en la carta 70."]),
+    "80": escena("80", "El salón privado del Dr. Noche", [72, 75, 79], [58, 69, 70, 71],
+                 "Las cargas quedan mudas y Zorro os lleva a un salón privado del casino donde el Dr. Noche tiene su ruleta particular. Un camarero chiva que el villano guarda la llave de su caja de caudales bajo la mesa de la ruleta, pero que solo cede a quien sepa cuánto queda en el banco tras sus últimos giros (carta 72). Los doce giros están anotados en una libreta (carta 75) y el sistema de apuestas, escrito en la pared (carta 79).",
+                 ["Un único puzle: contar lo que queda en el banco."],
+                 "Un salón privado de un casino de Montecarlo con una ruleta de lujo en el centro, una pared con letras doradas y una libreta de piel sobre el tapete. Cristina estudia la libreta con una sonrisa maliciosa; Alberto, con el sombrero hacia atrás, se rasca la cabeza mirando la ruleta."),
+    "72": app("72", "La martingala", "Es un juego de la app: el Dr. Noche apuesta siempre al rojo con un sistema fijo. Hay que decir cuántas fichas le quedan en el banco tras los doce giros.", 82,
+              ["Los giros están en la carta 75 y el sistema, en la 79.", "Seguid los giros uno a uno, desde el primero, anotando cuánto se apuesta y cuánto queda. El verde siempre pierde.", f"El banco queda en {_S_RUL} fichas."],
+              SIN_GENTE + "Una ruleta de casino de lujo vista desde arriba con su bola blanca y varias torres de fichas sobre el tapete verde, bajo una lámpara de cristal, de noche."),
+    "75": gris("75", "Los giros de la ruleta", "La libreta del crupier con el color de los doce giros, en el orden en que salieron.", ["Son los resultados de los giros (carta 72).", "Rojo, negro o verde.", "El sistema de apuestas está en la carta 79."]),
+    "79": gris("79", "La martingala", "El sistema de apuestas del Dr. Noche, escrito con letras doradas en la pared.", ["Explica cuánto se apuesta en cada giro (carta 72).", "Se apuesta siempre al rojo.", "Depende de si se ha ganado o perdido en el giro anterior."]),
+    "82": escena("82", "El yate Neptuno", [85, 86, 87], [80, 72, 75, 79],
+                 "La llave os abre la pasarela del Neptuno, el yate negro del Dr. Noche, que arranca los motores. En cubierta hay un teléfono rojo directo con la agencia: la clave para frenar el yate son cinco pulsaciones, las que os dejaron cinco de vuestros puzles (carta 85). Dos hojas dicen en qué orden se marcan (carta 86) y cómo es el teclado (carta 87).",
+                 ["Un único puzle: marcar la clave del teléfono rojo."],
+                 "La cubierta de un yate negro de lujo de noche, con un teléfono rojo sobre un pedestal de caoba, las luces del puerto de Montecarlo al fondo y los motores echando humo. Cristina descuelga el teléfono con los ojos como platos; Alberto mira por encima del hombro con una mueca de tensión."),
+    "85": app("85", "El teléfono rojo", "Es un juego de la app: un teclado de teléfono con letras. La clave se marca con cinco grupos de pulsaciones, los que dejaron otros cinco puzles, y forma una palabra.", 99,
+              ["El orden de los cinco grupos está en la carta 86 y el teclado con las letras, en la 87.", "Cada grupo es una tecla pulsada varias veces: una pulsación es la primera letra de la tecla, dos pulsaciones la segunda, y así. Entre una letra y la siguiente hay que tocar «Pausa».", f"Las pulsaciones son {_S_TEC}: la palabra es {I.PALABRA}."],
+              SIN_GENTE + "Un teléfono rojo de baquelita con teclado y una antena corta, sobre un pedestal de caoba en la cubierta de un yate, con las luces del puerto desenfocadas al fondo."),
+    "86": gris("86", "Las cinco pulsaciones", "Una hoja del cuaderno de la Agente Zorro que dice en qué orden se marcan las cinco pulsaciones.", ["Explica el orden de las cinco pulsaciones.", "Cada una la dejó un puzle distinto.", "Se marca una letra por cada pulsación."]),
+    "87": gris("87", "El teclado del teléfono", "El teclado del teléfono rojo, con las letras de cada tecla.", ["Sirve para leer las pulsaciones (carta 85).", "Cada tecla lleva varias letras.", "La pulsación número uno es la primera letra de la tecla."]),
+    # ------------------------------------------------------------------ El camarote y el final
+    "94": escena("94", "El camarote del Dr. Noche", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Las dos mitades de la llave encajan y abren el camarote del Dr. Noche. Dentro, ni rastro del villano: solo su caja de seguridad empotrada, con un teclado de hora y minuto (carta 64), y en el escritorio, su diario de viaje con el billete de un vuelo con escalas y una tabla de husos horarios (cartas 66 y 67). Dicen que el cristal está dentro.",
+                 ["Un único puzle: la hora de llegada del vuelo."],
+                 "El camarote de lujo de un yate negro, con una cama con colcha de seda, un escritorio con papeles y un billete de avión, y una caja de seguridad empotrada en la pared con un teclado. Cristina mira el billete con un dedo en la barbilla; Alberto se arremanga y ensaya cuentas en el aire con cara de concentración."),
+    "64": app("64", "El vuelo con escalas", "Es un juego de la app: el Dr. Noche voló de Tokio a Montecarlo con dos escalas. Hay que decir a qué hora local de Montecarlo aterrizó y cuántos días después de la salida.", 62,
+              ["El itinerario está en la carta 66 y los husos horarios, en la 67.", "Pasad todo a una misma hora (la de Greenwich) para sumar sin líos: horas de vuelo y de escala. Luego, volved a la hora de Montecarlo.", f"Aterrizó {_S_HUS}."],
+              SIN_GENTE + "Una caja de seguridad empotrada en la pared de un camarote de yate, con un teclado numérico con luz verde, junto a un reloj de pared y un billete de avión sobre un escritorio."),
+    "66": gris("66", "El itinerario de Zorro", "El billete del Dr. Noche, con tres vuelos y sus escalas.", ["Es el itinerario del viaje (carta 64).", "Dice cuánto dura cada vuelo y cada escala.", "Los husos horarios están en la carta 67."]),
+    "67": gris("67", "Los husos horarios", "Una tabla de husos horarios de cinco ciudades, respecto al meridiano de Greenwich.", ["Sirve para pasar la hora de una ciudad a otra (carta 64).", "Al este del meridiano, el sol sale antes.", "Montecarlo está en el mismo huso que Roma."]),
+    "62": combinable("62", "El cristal del Cronoportal", "roja", 12, 74, "El cristal del Cronoportal, que el Dr. Noche guardaba en su caja de seguridad, rodeado de joyas.",
+                     SIN_GENTE + "Un cristal redondo de color azul brillante, del tamaño de una moneda grande, con destellos de luz, sobre un cojín de terciopelo negro rodeado de collares de perlas, en una caja de seguridad abierta."),
+    "74": escena("74", "Cronoportal con el cristal", [], [62, 12, 64, 66, 67, 94, 57],
+                 "Encajáis el cristal en el pecho del Cronoportal y el anillo se enciende con un arco de luz azul. Fuera suenan las sirenas: el Neptuno está a punto de zarpar y solo falta la clave del teléfono rojo (carta 85).",
+                 ["Ya solo queda marcar la clave del teléfono rojo."],
+                 "Cristina y Alberto encajan un cristal azul brillante en el hueco del Cronoportal, un aparato de latón y cristal con un anillo que se enciende con un arco de luz azul, sobre la cama de un camarote de yate de lujo. Cristina lo sostiene con las dos manos con una enorme sonrisa; Alberto contiene el aliento mirando el anillo con la boca abierta."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87],
+                 "La clave se marca y el teléfono rojo se queda en silencio: en el puerto, la policía rodea el Neptuno justo cuando el anillo del Cronoportal se abre en un arco de luz. Aterrizáis en vuestro salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo un pequeño sello rosa del casino. FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven un yate negro, las luces del puerto de Montecarlo y una sirena de policía a lo lejos. Llevan aún su ropa de espías elegantes de los años 60. Cristina ríe a carcajadas con un sello rosa en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="Montecarlo, 1965 — Operación Cristal",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-    mosaicos={k: dict(filas=1, cols=1, cartas=m["cartas"], titulo=m["titulo"], capas=True, desfase=m["desfase"]) for k, m in MOSAICOS.items()},
-)
+META = dict(juego="Montecarlo, 1965 — Operación Cristal", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["14", "15", "20"], "28": ["30", "31", "24"], "44": ["40", "46"], "57": ["22", "35"],
-           "58": ["48", "52", "53"], "94": ["56", "38"], "82": ["69", "70"], "74": ["62", "12"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada a Montecarlo. Te manda coger la 10 y la 12.",
-    "10": "El sobre de la Agente Zorro: reparte las dos hojas transparentes, la caja de seguridad y la mitad del microfilm.",
-    "12": "El Cronoportal sin cristal: se combina con el cristal de energía (62).",
-    "14": "Hoja transparente: se superpone a la 15.", "15": "Hoja transparente: se superpone a la 14.",
-    "20": "La caja de seguridad (app): el número que se ve al superponer las hojas.",
-    "22": "Mitad de microfilm: se combina con la otra mitad (35).",
-    "24": "El teletipo (app): la palabra que se lee por las ventanas de la rejilla.",
-    "26": "El despacho de cifrado: reparte la rejilla (30), las letras (31) y el teletipo.",
-    "28": "El yate Neptuno: reparte la otra mitad del microfilm, el plano y el mando.",
-    "30": "Rejilla de cifrado (carta negra con ventanas): se pone sobre la 31.", "31": "Carta de letras: se pone debajo de la 30.",
-    "35": "Otra mitad de microfilm: se combina con la 22.",
-    "40": "Plano del yate: el laberinto del mando (46).",
-    "46": "El mando de la linterna (app): recorrer el laberinto a ciegas con el plano.",
-    "44": "La sala de máquinas: reparte los alicates.",
-    "38": "Alicates aislantes: se combinan con el maletín (56).",
-    "57": "El microfilm completo (22 + 35): reparte el panel del skyline y sus dos cartas de pistas.",
-    "52": "Skyline: pistas de arriba e izquierda.", "53": "Skyline: pistas de abajo y derecha.",
-    "48": "El panel del skyline (app): completar el perfil de 4 × 4.",
-    "58": "La torre del Dr. Noche: reparte el maletín.",
-    "56": "Maletín con cuatro cargas: se combina con los alicates (38).",
-    "94": "Las cuatro cargas (56 + 38): reparte el desactivador y su manual.",
-    "70": "Manual del desactivador: las reglas de los cables.",
-    "69": "El desactivador (app): cortar el cable correcto de cada carga.",
-    "82": "La colección del Dr. Noche: reparte el cristal de energía.",
-    "62": "Cristal de energía: se combina con el Cronoportal (12).",
-    "74": "Cronoportal reconectado (62 + 12): reparte la 99.",
-    "99": "Final de la aventura, ya en casa.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-# ---------------------------------------------------------------- manual (los estados de la mesa se calculan simulando las cartas)
-_TEXTOS = [
-    ("leer", "P", "Llegada a Montecarlo", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
-    ("leer", "10", "El sobre de la Agente Zorro", "Lee la carta 10. Descarta la P y coge 14, 15, 20 y 22. Superpón las dos hojas transparentes (14 y 15) con los marcos alineados (en el Modo PC, botón «Superponer las cartas»; en papel, a contraluz): aparece un número de tres cifras."),
-    ("app", "20", "La caja de seguridad", f"En el móvil: Acción, 20. Escribe el número que se ve al superponer las hojas: {DIG}. El mensaje te dice que cojas la 26.", "carta 26"),
-    ("leer", "26", "El despacho de cifrado", "Lee la carta 26. Descarta 14, 15 y 20 y coge 24, 30 y 31. Pon la carta negra con ventanas (30) encima de la de letras (31) con los marcos alineados y lee las letras por las ventanas."),
-    ("app", "24", "El teletipo", f"En el móvil: Acción, 24. Escribe la palabra que se lee por las ventanas, de arriba abajo: {PAL}. El mensaje te dice que cojas la 28.", "carta 28"),
-    ("leer", "28", "El yate Neptuno", "Lee la carta 28. Descarta 26, 30, 31 y 24 y coge 35, 40 y 46. El plano (40) muestra el camino de la entrada a la salida. Las cartas 22 y 35 son combinables."),
-    ("app", "46", "El mando de la linterna", f"En el móvil: Acción, 46. Recorre el laberinto a ciegas siguiendo el plano: {_camino_texto()}. El mensaje te dice que cojas la 44.", "carta 44"),
-    ("leer", "44", "La sala de máquinas", "Lee la carta 44. Descarta 28, 40 y 46 y coge la 38, unos alicates."),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "El sobre de la Agente Zorro", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el plano: 19 arriba y 21 abajo."),
+    ("app", "14", "La nota de la Agente Zorro", f"En el móvil: Acción, 14. Con la nota (16), el mensaje es {_S_CRI}. El mensaje te dice que cojas la 24. Anota las pulsaciones del teléfono rojo: {I.PULSA['14']}.", "carta 24"),
+    ("leer", "24", "Zorro en el muelle", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para los pasaportes)."),
+    ("app", "20", "La persecución por Montecarlo", f"En el móvil: Acción, 20. Con el plano (19 y 21) y el acertijo (18), el camino más rápido es {_S_RUT}. El mensaje te dice que cojas la 28.", "carta 28"),
+    ("leer", "28", "El Puerto", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
     ("combinar", "22", "35", "El microfilm completo", "Las dos mitades del microfilm (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
-    ("leer", "57", "El microfilm completo", "Lee la carta 57. Descarta 22, 35 y 10 y coge 48, 52 y 53. Las cartas 52 y 53 reparten las pistas del borde de un skyline de 4 × 4."),
-    ("app", "48", "El panel del skyline", f"En el móvil: Acción, 48. Completa el perfil con las pistas de las dos cartas (de arriba abajo: {_skyline_texto()}). El mensaje te dice que cojas la 58.", "carta 58"),
-    ("leer", "58", "La torre del Dr. Noche", "Lee la carta 58. Descarta 48, 52, 53 y 57 y coge la 56, un maletín con cuatro cargas."),
-    ("combinar", "56", "38", "Maletín y alicates", "El maletín (56) y los alicates (38) son combinables: 56 + 38 = 94. Coge la 94."),
-    ("leer", "94", "Las cuatro cargas", "Lee la carta 94. Descarta 56, 38, 44 y 58 y coge 69 y 70. La carta 70 es el manual del desactivador."),
-    ("app", "69", "El desactivador", f"En el móvil: Acción, 69. Con el manual, corta un cable de cada carga ({_cortes_texto()}). El mensaje te dice que cojas la 82.", "carta 82"),
-    ("leer", "82", "La colección del Dr. Noche", "Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía."),
-    ("combinar", "12", "62", "Cristal en el Cronoportal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
-    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12 y 82 y coge la 99."),
-    ("leer", "99", "Final", "Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!"),
+    ("leer", "57", "El microfilm completo", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "La azotea del hotel", "Lee la carta 31. Coge 40, 41, 43 y 45."),
+    ("app", "40", "El skyline del casino", f"En el móvil: Acción, 40. Con los números del borde (41 y 43) y la regla (45), el skyline por filas es {_S_RAS}. El mensaje te dice que cojas la 30. Anota las pulsaciones: {I.PULSA['40']}.", "carta 30"),
+    ("leer", "30", "La trampilla de la azotea", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "La biblioteca del casino", "Lee la carta 32. Coge 42, 48, 49 y 53."),
+    ("app", "48", "La cifra del libro", f"En el móvil: Acción, 48. Con las páginas (42 y 49) y los números (53), el mensaje es {_S_LIB}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "La caja fuerte del joyero", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el tablero: 54 a la izquierda y 55 a la derecha."),
+    ("app", "52", "La caja fuerte del joyero", f"En el móvil: Acción, 52. Con las jaulas (54 y 55) y la regla (59), la caja por filas es {_S_KEN}. El mensaje te dice que cojas la 44. Anota las pulsaciones: {I.PULSA['52']}.", "carta 44"),
+    ("leer", "44", "La sala de juego", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta los pasaportes: 61 arriba y 63 abajo."),
+    ("app", "46", "La cuenta del crupier", f"En el móvil: Acción, 46. Con las cartas (37 y 39) y la regla (33), la cuenta es {_S_CON}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "Los pasaportes falsos", f"En el móvil: Acción, 51. Con los pasaportes (61 y 63) y la regla (26), los dígitos de control son {_S_PAS}. El mensaje te dice que cojas la 58. Anota las pulsaciones: {I.PULSA['51']}.", "carta 58"),
+    ("leer", "58", "La aduana del puerto", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "El desactivador", f"En el móvil: Acción, 69. Con el manual (70 y 71), los cortes son {_S_CAB}. El mensaje te dice que cojas la 80. Anota las pulsaciones: {I.PULSA['69']}.", "carta 80"),
+    ("leer", "80", "El salón privado del Dr. Noche", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79."),
+    ("app", "72", "La martingala", f"En el móvil: Acción, 72. Con los giros (75) y el sistema (79), el banco queda en {_S_RUL} fichas. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "El yate Neptuno", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "La llave del camarote", "Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "El camarote del Dr. Noche", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67."),
+    ("app", "64", "El vuelo con escalas", f"En el móvil: Acción, 64. Con el itinerario (66) y los husos (67), el Dr. Noche aterrizó {_S_HUS}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "El cristal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal con el cristal", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "El teléfono rojo", f"En el móvil: Acción, 85. Con el orden (86) y el teclado (87), las pulsaciones {_S_TEC} dan la palabra {I.PALABRA}. El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!"),
 ]
-
-
-def _pasos():
-    mesa = set()
-    pasos = []
-    for p in _TEXTOS:
-        if p[0] == "leer":
-            c = J[p[1]]
-            for d in c.get("descarta", []):
-                mesa.discard(str(d))
-            for h in c.get("coge", []):
-                mesa.add(str(h))
-            if p[1] == "P":
-                mesa = {"P", "10", "12"}
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("leer", p[1])], mesa=_orden(mesa)))
-        elif p[0] == "app":
-            res = p[4].split()[-1]
-            mesa.add(res)
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("app", p[1], p[4])], mesa=_orden(mesa)))
-        else:
-            mesa.add(str(int(p[1]) + int(p[2])))
-            pasos.append(dict(t=p[3], que=p[4], acciones=[("combinar", p[1], p[2])], mesa=_orden(mesa)))
-    return pasos
-
-
-def _orden(m):
-    return sorted(m, key=lambda x: (x != "P", int(x) if x != "P" else 0))
-
-
-PASOS = _pasos()
-
-
-# ================================================================== ampliación a 36 cartas (20 oct 2026)
-# Entre el skyline y la torre: la mesa de póker del casino (cuatro manos en cuatro cartas; ordenarlas de mejor a peor).
-# Láminas: herramientas/dibujos_ampliacion.py; instancia: instancias_ampliacion.json.
-import json as _json  # noqa: E402
-import os as _os  # noqa: E402
-import ampliacion as _amp  # noqa: E402
-
-_AMP = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
-_PO = _AMP["espia_poker"]
-_ORD = ", ".join(f"{j} ({_PO['categorias'][j]})" for j in _PO["orden"])
-
-
-def _pieza(que):
-    return f"Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): {que}."
-
-
-def _mano(carta, jugador):
-    return dict(
-        titulo=f"Carta {carta} — La mano de {jugador}", tipo="gris",
-        descripcion=[f"Las cinco cartas de {jugador} en la mesa de póker del casino. Es una de las cuatro manos que hay que ordenar (carta 36)."],
-        pistas=["Es una de las cuatro manos de la mesa (carta 36).", "Mirad bien los palos y los números: una mano puede parecer lo que no es.", f"De mejor a peor: {_ORD}."],
-        arte=_pieza(f"la mano de {jugador}"))
-
-
-J["48"]["descripcion"][1] = J["48"]["descripcion"][1].replace("Coged la carta 58", "Coged la carta 33")
-J.update({
-    "33": dict(
-        titulo="Carta 33 — El salón de póker", tipo="gris", coge=[36, 37, 39, 41, 42],
-        descripcion=[
-            "Antes de ir a la torre, la Agente Zorro os para en el salón privado del casino: el Dr. Noche acaba de jugar allí su última mano y el crupier, que trabaja para ella, solo os dará la llave del ascensor si le decís cómo quedó la partida. Las cuatro manos siguen boca arriba en el tapete (cartas 37, 39, 41 y 42) y el marcador del crupier es la carta 36.",
-            "Coged las cartas 36, 37, 39, 41 y 42."],
-        pistas=["Hay un puzle: el marcador del crupier y las cuatro manos.", "Cada carta (37, 39, 41 y 42) es la mano de un jugador; el marcador trae el orden de las jugadas.", "Coged las cartas 36, 37, 39, 41 y 42."],
-        arte="El salón privado de un casino de Montecarlo de 1965, con una mesa de póker de tapete verde, cuatro manos de cartas boca arriba, fichas de colores y un crupier con pajarita; lámparas doradas y humo de puro. Cristina, con vestido de gala, mira las cartas con una ceja arqueada de sospecha y Alberto, con esmoquin, se ajusta la pajarita nervioso."),
-    "36": dict(
-        titulo="Carta 36 — El marcador del crupier", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el marcador del crupier con los cuatro jugadores y la lista de jugadas del póker, de la mejor a la peor. Hay que tocarlos en orden, del que ganó al que quedó último, mirando sus manos (cartas 37, 39, 41 y 42).",
-            "Al acertar, el crupier os da la llave del ascensor de la torre. Coged la carta 58."],
-        pistas=["Hacen falta las cuatro manos (cartas 37, 39, 41 y 42) y la lista de jugadas del marcador.", "Decid qué jugada tiene cada mano. Ojo: una que parece color tiene una carta de otro palo, y la que parece escalera hay que comprobarla bien.", f"De mejor a peor: {_ORD}."],
-        arte="Un marcador de casino de latón y madera lacada con los nombres de cuatro jugadores en placas y una lista de jugadas grabada, junto a un montón de fichas. Alberto señala una placa con el dedo y gesto de seguridad y Cristina cuenta con los dedos, concentrada."),
-    "37": _mano("37", _PO["jugadores"][0]),
-    "39": _mano("39", _PO["jugadores"][1]),
-    "41": _mano("41", _PO["jugadores"][2]),
-    "42": _mano("42", _PO["jugadores"][3]),
-})
-J["58"]["descarta"] = [48, 52, 53, 57, 33, 36, 37, 39, 41, 42]
-J["58"]["descripcion"][0] = J["58"]["descripcion"][0].replace("Subís en un ascensor privado", "Con la llave del crupier subís en un ascensor privado")
-J["58"]["descripcion"][1] = "Coged la carta 56. Descartad las cartas 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42."
-J["58"]["pistas"][2] = "Coged la carta 56. Descartad las cartas 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42."
-
-SPEC["needs"]["33"] = SPEC["needs"].pop("58")
-SPEC["needs"]["58"] = ["36", "37", "39", "41", "42"]
-PARA_QUE.update({
-    "33": "El salón de póker: reparte el marcador y las cuatro manos.", "36": "El marcador del crupier (app): ordenar las manos.",
-    "37": "Mano de póker.", "39": "Mano de póker.", "41": "Mano de póker.", "42": "Mano de póker.",
-    "58": "La torre del Dr. Noche: aparece al ordenar las manos.",
-})
-
-_i = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("app", "48"))
-PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 58", "cojas la 33")
-PASOS[_i]["acciones"] = [("app", "48", "carta 33")]
-PASOS[_i + 1:_i + 1] = [
-    dict(t="El salón de póker", que="Lee la carta 33. Coge 36, 37, 39, 41 y 42. Cada carta del 37 al 42 es la mano de un jugador.",
-         acciones=[("leer", "33")]),
-    dict(t="El marcador del crupier", que=f"En el móvil: Acción, 36. Toca a los jugadores de mejor a peor mano: {_ORD}. El mensaje te dice que cojas la 58.",
-         acciones=[("app", "36", "carta 58")]),
-]
-_j = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("leer", "58"))
-PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 48, 52, 53 y 57", "Descarta 48, 52, 53, 57, 33, 36, 37, 39, 41 y 42")
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
 _amp.recalcular_mesas(PASOS, J)
