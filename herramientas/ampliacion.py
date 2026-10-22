@@ -49,11 +49,16 @@ def recalcular_mesas(pasos, J, comprobar=False):
 
 
 def escribir_cartas(nombre):
-    from juegos_config import JUEGOS
     from construir_aventuras_util import placeholder
-    cfg = JUEGOS[nombre]
+    if nombre == "Faro":                      # El Faro no es una aventura del Cronoportal: vive en juegos/el-faro
+        import datos_faro
+        cfg = dict(datos=datos_faro, pal=("#1c4a68", "#08141e"))
+        base = os.path.join(RAIZ, "juegos", "el-faro")
+    else:
+        from juegos_config import JUEGOS
+        cfg = JUEGOS[nombre]
+        base = os.path.join(RAIZ, "juegos", "aventuras-ca", nombre.lower())
     datos = cfg["datos"]
-    base = os.path.join(RAIZ, "juegos", "aventuras-ca", nombre.lower())
     ruta = os.path.join(base, "cartas.json")
     viejo = json.load(open(ruta, encoding="utf-8"))
     out = {"_meta": getattr(datos, "META", None) or viejo.get("_meta")}
