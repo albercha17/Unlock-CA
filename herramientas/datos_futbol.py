@@ -1,16 +1,17 @@
-"""La Final del Siglo, 1970: La Copa de Cristal. Undécima parada del Cronoportal: un estadio de fútbol. Los puzles usan formas nuevas de repartir la información:
-cartas con DOS CARAS (los seis cromos del Club Estrella: por delante el dorsal, por detrás la ficha técnica), una alineación que se deduce de pistas repartidas en dos cartas,
-cuatro jugadas del VAR con su reglamento, una liguilla cuyos marcadores se reconstruyen con una clasificación y unos resultados, y una tanda de penaltis contra un portero con manías.
-Las cartas que se dibujan por código (14 a 19 con sus reversos, 30, 31, 40, 41, 42, 52, 53 y 70) las hace herramientas/futbol.py (a partir de instancias_futbol.json)."""
-import json
-import os
+"""La Final del Siglo, 1970: La Copa de Cristal — versión de 60 cartas (22 oct 2026), mucho más difícil y variada.
 
-_AQUI = os.path.dirname(os.path.abspath(__file__))
-INST = json.load(open(os.path.join(_AQUI, "instancias_futbol.json"), encoding="utf-8"))
-LIG = INST["liguilla"]
-CROMOS = INST["cromos"]
-RES = LIG["resultados"]
-EQ = LIG["equipos"]
+Once puzles de tipos que no salen en ningún otro juego de la serie, con las pistas dibujadas o en acertijo (ninguna carta explica cómo se resuelve su puzle):
+una liguilla que se reconstruye con su clasificación, seis cromos con dos caras y un acertijo del míster, seis jugadas del VAR con un reglamento de casos raros,
+un pase en cadena que cortan los rivales, una alineación de suma máxima, una tanda de penaltis contra un portero que mira los dos últimos tiros, el mosaico de
+una grada que se pinta con una regla de vecinas, el calendario de una liga por el método del círculo, un cuadro de eliminatorias reconstruido con titulares,
+unos cambios del míster que se repiten tres veces y la cerradura de la Copa con cinco aros. Solo 16 cartas tienen a Cristina y Alberto (escenas); el resto
+son objetos y pistas sin personas; los cromos son las únicas cartas de dos caras. Las cartas-pista las dibuja herramientas/futbol.py (instancias_futbol.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_futbol as I  # noqa: E402
 
 ESTILO = ("Ilustración pictórica semirrealista con aire de póster de fútbol de los años 70, colores saturados de césped verde, rojo, azul y amarillo, estadio con la grada llena de bufandas y banderines, "
           "luz dorada de tarde, balones de cuero con paneles blancos y negros, redes y porterías de madera, formato vertical 2:3. Sin texto, letras ni números legibles en la imagen; los carteles, "
@@ -38,303 +39,302 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfi
          "Escena 4 (12-15 s): primer plano de Cristina y Alberto, con chándales retro, asombrados, mientras un entrenador con gabardina les da una pizarra táctica; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, rugido de una grada, silbato de árbitro y organillo, sin voz de narrador.")
 
+SIN_GENTE = "Sin ninguna persona en la imagen. "
 
-def pieza(titulo, donde):
-    return f"Carta dibujada por código (herramientas/futbol.py; no se pide a ChatGPT): {donde} de «{titulo}»."
+MOSAICOS = {
+    "campo": dict(filas=1, cols=2, cartas=["42", "49"], titulo="El campo de entrenamiento"),
+    "cuadro": dict(filas=2, cols=1, cartas=["61", "63"], titulo="El cuadro de la Copa"),
+}
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+
+LADOS = ["izquierda", "centro", "derecha"]
+_LIG = I.LIGUILLA
+_S_LIG = ", ".join(f"{_LIG['equipos'][_LIG['partidos'][i][0]]} {_LIG['resultados'][i][0]}-{_LIG['resultados'][i][1]} {_LIG['equipos'][_LIG['partidos'][i][1]]}" for i in _LIG["desconocidos"])
+_S_CRO = " y ".join(str(d) for d in I.CROMOS["solucion"])
+_S_VAR = ", ".join(f"{'ABCDEF'[i]} {'fuera de juego' if f else 'válida'}" for i, f in enumerate(I.VAR["fuera"]))
+_S_PAS = " → ".join(I.PASE["camino"] and [["P", "A", "B", "C", "D", "E", "Z"][k] for k in I.PASE["camino"]])
+_S_ALI = ", ".join(f"{I.ALINEACION['jugadores'][i]} de {I.ALINEACION['puestos'][p].lower()}" for i, p in enumerate(I.ALINEACION["solucion"]))
 
 
-def _cromo(carta):
-    c = CROMOS[carta]
-    return dict(
-        titulo=f"Carta {carta} — Cromo de {c['nombre']}", tipo="gris", reverso=True,
-        descripcion=[f"Un cromo del Club Estrella: la camiseta con el dorsal {c['dorsal']} y el nombre del jugador. Es una carta de dos caras: por delante solo se ve la camiseta y, dándole la vuelta (en papel, con la hoja de reversos impresa a doble cara), se ve la ficha técnica del jugador."],
-        pistas=["Es un cromo de dos caras.", "Dadle la vuelta para ver la ficha técnica: posición, pie, altura y edad.", "Comparad las fichas de los seis cromos con lo que busca el míster (carta 20)."],
-        arte=pieza(f"Cromo de {c['nombre']}", "el anverso y el reverso"))
+def _tanda():
+    ult = list(I.PENALTIS["ultimos"])
+    res = []
+    for _ in range(I.PENALTIS["tanda"]):
+        salto = I.PENALTIS["regla"][f"{ult[-2]}{ult[-1]}"]
+        k = next(x for x in (0, 1, 2) if x != salto)
+        res.append(k)
+        ult.append(k)
+    return res
+
+
+_S_PEN = ", ".join(LADOS[k] for k in _tanda())
+
+
+def _cuadro():
+    bits = I.ELIMINATORIAS["bits"]
+    eq = I.ELIMINATORIAS["equipos"]
+    r = I.jugar_cuadro(bits)
+    cuartos = [eq[r["cuartos"][i][bits[i]]] for i in range(4)]
+    semis = [eq[r["semis"][i][bits[4 + i]]] for i in range(2)]
+    return f"pasan a semifinales {', '.join(cuartos)}; a la final, {' y '.join(semis)}; campeón, {eq[r['campeon']]}"
+
+
+_S_ELI = _cuadro()
+_S_CAL = ", ".join(f"{I.CALENDARIO['clubes'][a]}-{I.CALENDARIO['clubes'][b]}" for a, b in I.CALENDARIO["solucion"])
+_S_SUS = ", ".join(f"puesto {k + 1}: {d}" for k, d in enumerate(I.SUSTITUCIONES["final"]))
+_S_GRA = "".join("#" if v else "·" for v in I.GRADA["final"])
+_S_ARO = ", ".join(str(p) for p in I.FINAL_ARO)
+
+
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/futbol.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=codigo(titulo))
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
+
+
+def cromo(carta, que, pistas, otra):
+    return dict(titulo=f"Carta {carta} — Cromos del Club Estrella", tipo="gris", reverso=True,
+                descripcion=[que + " Es una carta de dos caras: por delante solo se ve la camiseta con su dorsal y el nombre; dándole la vuelta (en el Modo PC, botón «Dar la vuelta»; en papel, hoja de reversos a doble cara), se ve la ficha técnica de cada jugador."],
+                pistas=pistas, arte=codigo("el anverso (camisetas) y el reverso (fichas) de los cromos"))
 
 
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada al estadio", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. Aterrizáis en el túnel de vestuarios con el rugido de la grada al fondo, y el aparato golpea un carro de balones. Su cristal de energía sale rodando por el túnel hasta caer, de rebote, dentro de la Copa de cristal que un mozo lleva en ese momento al palco. No se podrá recuperar hasta que acabe la final.",
-            "Don Remigio, el entrenador del Estrella, ve vuestros chándales y os confunde con su cuerpo técnico: «¡Por fin, los ayudantes que me mandó la federación! Faltan noventa minutos para el pitido inicial». Ayudadle a ganar la final y la Copa será suya... y vuestro cristal también.",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="El túnel de vestuarios de un estadio de fútbol de 1970, con la luz del campo y el rugido de la grada al fondo; un carro de balones de cuero volcado y balones por el suelo. En primer plano, el Cronoportal, un aparato de latón y cristal, humea con la luz azul apagándose. Cristina, con la boca abierta y los ojos muy abiertos de asombro, y Alberto, con la gorra torcida y gesto de incredulidad, se levantan aturdidos con chándales retro, mientras un entrenador con gabardina y bigote les hace señas desde un lado."),
-    "10": dict(
-        titulo="Carta 10 — El vestuario del Estrella", tipo="gris", coge=[14, 15, 16, 17, 18, 19, 20, 22], descarta=["P"],
-        descripcion=[
-            "El vestuario del Estrella, con las camisetas rojas y blancas colgadas en sus perchas. Don Remigio ha perdido la hoja de convocatoria y solo recuerda cómo es el jugador que necesita: lo cuenta en el tablón (carta 20). Sobre el banco están los seis cromos de la plantilla (cartas 14 a 19) y, entre las botas, Cristina encuentra la mitad de un pase de prensa (carta 22).",
-            "Coged las cartas 14, 15, 16, 17, 18, 19, 20 y 22. Descartad la carta P."],
-        pistas=["Hay un puzle: los seis cromos y la convocatoria.", "Los cromos tienen dos caras: dadles la vuelta.", "Coged las cartas 14, 15, 16, 17, 18, 19, 20 y 22. Descartad la carta P."],
-        arte="Un vestuario de fútbol de 1970: bancos de madera, camisetas rojas y blancas colgadas en perchas, botas de cuero y un tablón de corcho. Sobre el banco, seis cromos de jugadores boca arriba y boca abajo. Cristina da la vuelta a un cromo con curiosidad y los ojos entrecerrados y Alberto examina otro con la gorra echada hacia atrás y gesto de duda."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin cristal", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía. Alberto: «Sin el cristal no hay portal. Se ha ido dentro de la Copa... y la Copa solo sale del palco para el campeón».",
-            "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el cristal de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, apoyado sobre un banco de madera de un vestuario de fútbol, con camisetas rojas y blancas desenfocadas al fondo."),
-    "14": _cromo("14"), "15": _cromo("15"), "16": _cromo("16"), "17": _cromo("17"), "18": _cromo("18"), "19": _cromo("19"),
-    "20": dict(
-        titulo="Carta 20 — La convocatoria", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: seis botones con los dorsales de la plantilla. Don Remigio busca a un jugador y solo recuerda esto: es ZURDO, mide MÁS de 1,75 m y MENOS de 1,80 m, y NO juega de defensa. Las fichas técnicas están por detrás de los cromos (cartas 14 a 19).",
-            "Al acertar, el míster lo anota en la hoja. Coged la carta 26."],
-        pistas=["Dad la vuelta a los cromos: la ficha técnica está por detrás de cada uno.", "Buscad al jugador que cumple las tres condiciones a la vez: pie zurdo, altura entre 1,75 m y 1,80 m, y posición que no sea defensa.", "Es Beto Pase, el del dorsal 10."],
-        arte="Un tablón de corcho en un vestuario de fútbol con una hoja de convocatoria casi en blanco y seis chinchetas de colores, bajo la luz de un fluorescente. Alberto señala el tablón con el dedo y los ojos muy abiertos de expectación, y Cristina cuenta con los dedos con la lengua entre los dientes, concentrada."),
-    "22": dict(
-        titulo="Carta 22 — Mitad de pase de prensa", tipo="azul", combina=[35, 57],
-        descripcion=["La mitad de un pase de prensa plastificado, con una foto en blanco y negro y un cordón. Combinadla con la otra mitad (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Es solo la mitad de un pase de prensa.", "Cuando encontréis la otra mitad, combinadlas.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="La mitad de un pase de prensa plastificado de un estadio, con un cordón rojo, una foto en blanco y negro y una raya de rotura limpia, sobre un banco de madera con unas botas de fútbol de cuero, vista de cerca con luz dorada."),
-    "26": dict(
-        titulo="Carta 26 — La pizarra del míster", tipo="gris", coge=[24, 30, 31], descarta=[14, 15, 16, 17, 18, 19, 20],
-        descripcion=[
-            "Don Remigio apunta el dorsal 10 en su hoja, satisfecho, y os lleva a su pizarra táctica: hay que adivinar la alineación de Los Rayos, el rival, con las pistas que ha apuntado un espía (cartas 30 y 31) sobre el campo dibujado. Una pizarra interactiva (carta 24) espera la alineación.",
-            "Coged las cartas 24, 30 y 31. Descartad las cartas 14, 15, 16, 17, 18, 19 y 20."],
-        pistas=["Hay un puzle: las pistas del espía y la pizarra.", "Las pistas están repartidas en dos cartas.", "Coged las cartas 24, 30 y 31. Descartad las cartas 14, 15, 16, 17, 18, 19 y 20."],
-        arte="La pizarra táctica de un entrenador de fútbol en un despacho de estadio de 1970, con un campo dibujado con tiza verde, fichas redondas de colores y un trofeo de cartón en una estantería. Cristina compara dos hojas con anotaciones con el ceño fruncido de concentración y Alberto mueve una ficha en la pizarra con la lengua entre los dientes."),
-    "24": dict(
-        titulo="Carta 24 — La pizarra", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un campo en formación 1-2-2-1 con seis puestos y seis dorsales (1, 2, 5, 6, 8 y 11). Hay que colocar a cada jugador en su sitio con las pistas del espía (cartas 30 y 31). Izquierda y derecha se miran desde la portería propia hacia el ataque.",
-            "Al acertar, el míster tiene la alineación del rival. Coged la carta 28."],
-        pistas=["Mirad el campo de la pizarra: tiene seis puestos y las pistas están repartidas en dos cartas.", "Empezad por las pistas que dan un puesto exacto (el portero) y seguid con las de la izquierda y la derecha.", "Portero: el 1. Defensas: el 6 (izquierda) y el 2 (derecha). Medios: el 11 (izquierda) y el 5 (derecha). Delantero: el 8."],
-        arte="Una pizarra táctica magnética con un campo de fútbol dibujado y seis fichas redondas numeradas colocadas en formación, con tiza y un borrador. Alberto coloca una ficha con cuidado y gesto de concentración y Cristina señala otra con la cara iluminada por una idea."),
-    "30": dict(
-        titulo="Carta 30 — Pizarra del rival (pistas 1 de 2)", tipo="gris",
-        descripcion=["La pizarra del rival con el campo de Los Rayos en formación 1-2-2-1 y las primeras pistas de nuestro espía sobre los dorsales."],
-        pistas=["Es la primera mitad de las pistas de la pizarra (carta 24).", "La otra mitad de las pistas está en la carta 31.", "Cada pista habla de uno o dos dorsales: su puesto, su lado o su línea."],
-        arte=pieza("Pizarra del rival (pistas 1 de 2)", "la primera mitad de las pistas")),
-    "31": dict(
-        titulo="Carta 31 — Pizarra del rival (pistas 2 de 2)", tipo="gris",
-        descripcion=["La pizarra del rival con el campo de Los Rayos en formación 1-2-2-1 y las demás pistas de nuestro espía sobre los dorsales."],
-        pistas=["Es la segunda mitad de las pistas de la pizarra (carta 24).", "La otra mitad de las pistas está en la carta 30.", "Cada pista habla de uno o dos dorsales: su puesto, su lado o su línea."],
-        arte=pieza("Pizarra del rival (pistas 2 de 2)", "la segunda mitad de las pistas")),
-    "28": dict(
-        titulo="Carta 28 — La sala del VAR", tipo="gris", coge=[35, 40, 41, 42, 46], descarta=[26, 30, 31, 24],
-        descripcion=[
-            "Con la alineación del rival en la mano, Don Remigio os manda a la sala del VAR, donde los árbitros revisan cuatro jugadas polémicas de los entrenamientos (cartas 40 y 41) y necesitan a alguien que conozca el reglamento del fuera de juego (carta 42). En una mesa, Alberto encuentra la otra mitad del pase de prensa (carta 35). Una pantalla (carta 46) espera vuestro veredicto.",
-            "Coged las cartas 35, 40, 41, 42 y 46. Descartad las cartas 26, 30, 31 y 24."],
-        pistas=["Hay dos cosas: la otra mitad del pase y las jugadas del VAR.", "Las cartas 22 y 35 son combinables. El reglamento (42) sirve para decidir las jugadas (40 y 41).", "Coged las cartas 35, 40, 41, 42 y 46. Descartad las cartas 26, 30, 31 y 24."],
-        arte="Una sala de vídeo-arbitraje de los años 70 con un gran televisor de tubo, una consola con botones y cintas de vídeo, y dos árbitros con camiseta negra de espaldas, mirando un campo dibujado en la pantalla. Cristina, con las manos en la cabeza y los ojos muy abiertos de emoción, y Alberto, con el mando en la mano y una sonrisa de alivio, encuentran un pase de prensa a medias sobre la mesa."),
-    "35": dict(
-        titulo="Carta 35 — Otra mitad de pase de prensa", tipo="roja", combina=[22, 57],
-        descripcion=["La otra mitad del pase de prensa, con el resto de la foto y el sello del club. Combinadla con la primera mitad (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Es la otra mitad del pase de prensa.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="La otra mitad de un pase de prensa plastificado de un estadio, con el sello del club y el resto de una foto en blanco y negro, sobre una mesa de la sala de vídeo-arbitraje junto a una cinta de vídeo, con un reflejo azulado del televisor."),
-    "40": dict(
-        titulo="Carta 40 — VAR: jugadas A y B", tipo="gris",
-        descripcion=["Dos jugadas del entrenamiento dibujadas sobre un campo, vistas desde arriba: los atacantes (azul) atacan hacia la derecha y los defensores (rojo) y el portero (amarillo) defienden. Una flecha discontinua marca el pase y un puntito blanco, el balón."],
-        pistas=["Son las jugadas A y B del VAR (carta 46).", "Leed el reglamento (carta 42): fijaos en el penúltimo defensor, en quien recibe y en el balón.", "La jugada A es fuera de juego y la B es válida."],
-        arte=pieza("VAR: jugadas A y B", "las dos primeras jugadas")),
-    "41": dict(
-        titulo="Carta 41 — VAR: jugadas C y D", tipo="gris",
-        descripcion=["Otras dos jugadas del entrenamiento dibujadas sobre un campo, vistas desde arriba: los atacantes (azul) atacan hacia la derecha y los defensores (rojo) y el portero (amarillo) defienden. Una flecha discontinua marca el pase y un puntito blanco, el balón."],
-        pistas=["Son las jugadas C y D del VAR (carta 46).", "Leed el reglamento (carta 42): fijaos en el penúltimo defensor, en quien recibe y en el balón.", "La jugada C es válida y la D es fuera de juego."],
-        arte=pieza("VAR: jugadas C y D", "las dos últimas jugadas")),
-    "42": dict(
-        titulo="Carta 42 — Reglamento: el fuera de juego", tipo="gris",
-        descripcion=["El reglamento del fuera de juego, con un ejemplo dibujado: para que sea fuera de juego, quien recibe tiene que estar más cerca de la portería rival que el penúltimo defensor y que el balón, en el momento del pase."],
-        pistas=["Es el reglamento de las jugadas del VAR (cartas 40 y 41).", "El portero cuenta como defensor: el penúltimo es el segundo defensor más cercano a su portería. Si quien recibe está detrás del balón, no hay fuera de juego.", "Jugadas: A fuera de juego, B válida, C válida y D fuera de juego."],
-        arte=pieza("Reglamento: el fuera de juego", "las reglas y el ejemplo")),
-    "46": dict(
-        titulo="Carta 46 — El veredicto del VAR", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cuatro jugadas (A, B, C y D) con un botón cada una para marcarla como gol válido o como fuera de juego. Las jugadas están dibujadas en las cartas 40 y 41 y el reglamento, en la 42.",
-            "Al dar el veredicto correcto, el árbitro os da las gracias. Coged la carta 44."],
-        pistas=["Leed el reglamento (carta 42): hay dos condiciones a la vez.", "En cada jugada mirad al penúltimo defensor (el portero cuenta) y comparad su posición con la de quien recibe y con la del balón.", "Jugada A: fuera de juego. B: gol válido. C: gol válido. D: fuera de juego."],
-        arte="Una pantalla de vídeo-arbitraje de los años 70 con cuatro recuadros que muestran jugadas de fútbol, con una luz verde y otra roja encima de cada uno. Alberto señala un recuadro con el dedo y una ceja arqueada de seguridad y Cristina mira otro con el ceño fruncido de duda."),
-    "44": dict(
-        titulo="Carta 44 — El banquillo", tipo="gris", coge=[38], descarta=[28, 40, 41, 42, 46],
-        descripcion=[
-            "El árbitro da por buenos vuestros veredictos y os lleva al banquillo, donde descansan los suplentes. Entre las toallas y los botiquines, Alberto encuentra un silbato de árbitro de metal (carta 38) olvidado por un linier.",
-            "Coged la carta 38. Descartad las cartas 28, 40, 41, 42 y 46."],
-        pistas=["Mirad lo que han olvidado entre las toallas.", "La carta 38 es combinable.", "Coged la carta 38. Descartad las cartas 28, 40, 41, 42 y 46."],
-        arte="El banquillo de un estadio de fútbol de 1970: un banco largo de madera con toallas, botiquines y botellas de cristal, con el campo de césped al fondo. Alberto levanta un silbato de metal entre las toallas con una sonrisa de triunfo y Cristina lo mira con los ojos brillantes de entusiasmo."),
-    "38": dict(
-        titulo="Carta 38 — Silbato de árbitro", tipo="azul", combina=[56, 94],
-        descripcion=["Un silbato de árbitro de metal con una cadenita. Combinadlo con el balón de la final (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Es el silbato de un árbitro.", "Cuando tengáis el balón de la final, combinadlo con el silbato.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Un silbato de árbitro de metal plateado con una cadenita sobre una toalla blanca, con el borde de un campo de césped desenfocado al fondo y luz dorada de tarde, visto de cerca."),
-    "57": dict(
-        titulo="Carta 57 — El pase de prensa", tipo="gris", coge=[48, 52, 53], descarta=[22, 35, 10],
-        descripcion=[
-            "Las dos mitades del pase de prensa encajan y abren la puerta del palco de autoridades, en lo alto del estadio. Desde allí se ve todo el campo y, sobre una mesa, la Copa de cristal. Hay un tablero de clasificación de la liguilla clasificatoria (carta 52), una hoja con los resultados conocidos (carta 53) y un panel donde reconstruir los marcadores que faltan (carta 48).",
-            "Coged las cartas 48, 52 y 53. Descartad las cartas 22, 35 y 10."],
-        pistas=["Hay un puzle: el panel de la liguilla con la clasificación y los resultados.", "La clasificación (52) y los resultados conocidos (53) se necesitan los dos.", "Coged las cartas 48, 52 y 53. Descartad las cartas 22, 35 y 10."],
-        arte="El palco de autoridades de un estadio de 1970, con butacas de madera, banderines y una gran copa de cristal sobre una mesa con un mantel rojo; por la ventana, el campo de césped lleno de gente. Cristina muestra el pase de prensa a un portero uniformado con una sonrisa de orgullo y Alberto mira la copa con los ojos muy abiertos."),
-    "52": dict(
-        titulo="Carta 52 — La clasificación", tipo="gris",
-        descripcion=["La clasificación de una liguilla de cuatro equipos que se enfrentan todos contra todos: partidos jugados, puntos, goles a favor y goles en contra de cada uno. Victoria: 3 puntos; empate: 1."],
-        pistas=["Es la clasificación de la liguilla (carta 48).", "Los resultados conocidos están en la carta 53. Con los puntos y los goles de cada equipo se calculan los marcadores que faltan.", f"Faltan estos marcadores: {EQ[0]}–{EQ[1]} {RES[0][0]}-{RES[0][1]}, {EQ[0]}–{EQ[3]} {RES[2][0]}-{RES[2][1]} y {EQ[1]}–{EQ[2]} {RES[3][0]}-{RES[3][1]}."],
-        arte=pieza("La clasificación", "la tabla de la liguilla")),
-    "53": dict(
-        titulo="Carta 53 — Resultados conocidos", tipo="gris",
-        descripcion=["Tres resultados ya conocidos de la liguilla y los tres partidos de los que faltan los marcadores, con el equipo local a la izquierda."],
-        pistas=["Son los resultados que ya se conocen (carta 48); la clasificación está en la carta 52.", "Cada equipo ha jugado tres partidos: restad a sus goles y puntos lo que ya sabéis y lo que queda es de los partidos por jugar.", f"Faltan estos marcadores: {EQ[0]}–{EQ[1]} {RES[0][0]}-{RES[0][1]}, {EQ[0]}–{EQ[3]} {RES[2][0]}-{RES[2][1]} y {EQ[1]}–{EQ[2]} {RES[3][0]}-{RES[3][1]}."],
-        arte=pieza("Resultados conocidos", "la hoja de resultados")),
-    "48": dict(
-        titulo="Carta 48 — El panel de la liguilla", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: los tres partidos de la liguilla de los que faltan los marcadores, con un contador de goles para cada equipo. Hay que poner los marcadores de forma que, junto con los resultados conocidos (carta 53), salga exactamente la clasificación de la carta 52.",
-            "Al acertar, el locutor anuncia la clasificación. Coged la carta 58."],
-        pistas=["Juntad la clasificación (carta 52) y los resultados conocidos (carta 53).", "Cada equipo ha jugado tres partidos y conocéis dos o tres de ellos: restad a sus goles y puntos lo que ya sabéis y lo que queda es de los partidos por jugar.", f"{EQ[0]}–{EQ[1]} {RES[0][0]}-{RES[0][1]}, {EQ[0]}–{EQ[3]} {RES[2][0]}-{RES[2][1]} y {EQ[1]}–{EQ[2]} {RES[3][0]}-{RES[3][1]}."],
-        arte="Un panel de marcadores de estadio de los años 70, con contadores mecánicos de números blancos sobre fondo negro y una tabla de equipos pintada, visto desde el palco con el campo al fondo. Alberto gira un contador con el dedo y los ojos entrecerrados de concentración y Cristina cuenta goles con los dedos con cara de ilusión."),
-    "58": dict(
-        titulo="Carta 58 — El palco", tipo="gris", coge=[56], descarta=[48, 52, 53, 57],
-        descripcion=[
-            "La clasificación queda clara y el locutor os da paso al túnel de salida del campo, donde un mozo reparte los balones oficiales de la final. Uno, con las costuras de cuero y el escudo del Estrella, es el balón de la final.",
-            "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."],
-        pistas=["Mirad lo que reparte el mozo.", "La carta 56 es combinable.", "Coged la carta 56. Descartad las cartas 48, 52, 53 y 57."],
-        arte="El túnel de salida al campo de un estadio de fútbol de 1970, con un carro de balones de cuero y un mozo uniformado; el campo de césped lleno de gente brilla al fondo. Cristina toma un balón con una sonrisa radiante de alegría y Alberto lo mira con cara de alivio."),
-    "56": dict(
-        titulo="Carta 56 — Balón de la final", tipo="roja", combina=[38, 94],
-        descripcion=["El balón de la final: de cuero, con los paneles blancos y negros y el escudo del Estrella. Combinadlo con el silbato (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Es el balón oficial de la final.", "Cuando tengáis el silbato, combinadlo con el balón.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Un balón de fútbol de cuero de los años 70, con paneles blancos y negros y un escudo rojo, sobre el césped con la línea de cal blanca, visto de cerca con luz dorada de tarde."),
-    "94": dict(
-        titulo="Carta 94 — La tanda de penaltis", tipo="gris", coge=[69, 70], descarta=[56, 38, 44, 58],
-        descripcion=[
-            "Con el balón y el silbato, el árbitro os deja pitar en el entrenamiento previo: el Estrella y Los Rayos están empatados y se van a decidir por penaltis, y Don Remigio quiere que ensayéis con vosotros el lanzamiento. El informe del entrenador (carta 70) cuenta las manías del portero rival y un panel (carta 69) simula la tanda.",
-            "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        pistas=["Hay un puzle: la tanda de penaltis y el informe del entrenador.", "El informe (carta 70) cuenta cómo se lanza el portero.", "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."],
-        arte="El punto de penalti de un estadio de fútbol de 1970 con un balón de cuero sobre la cal blanca y una portería con red de cuerda; una grada llena y borrosa al fondo. Cristina sujeta un silbato con gesto de concentración y Alberto coloca el balón con cuidado, sacando la lengua."),
-    "70": dict(
-        titulo="Carta 70 — El informe del entrenador", tipo="gris",
-        descripcion=["El informe del entrenador sobre el portero rival y sus manías, con las tres zonas de la portería: izquierda, centro y derecha."],
-        pistas=["Es el informe sobre el portero (carta 69).", "El portero se lanza según el penalti anterior: planificad cada tiro para chutar a un lado distinto del suyo.", "Un ejemplo válido es: derecha, izquierda, centro, derecha, izquierda."],
-        arte=pieza("El informe del entrenador", "el informe sobre el portero")),
-    "69": dict(
-        titulo="Carta 69 — La tanda de penaltis", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: una tanda de cinco penaltis contra un portero con manías. Para cada penalti hay que elegir hacia dónde chutar (izquierda, centro o derecha). El informe del entrenador (carta 70) explica cómo decide el portero hacia dónde se lanza. Hay que marcar los cinco y chutar al menos una vez al centro.",
-            "Al marcar la tanda, el estadio estalla. Coged la carta 82."],
-        pistas=["Leed el informe del entrenador (carta 70): el portero se lanza según el penalti anterior.", "Antes de cada tiro, calculad a dónde se va a lanzar el portero y chutad a otro lado. Recordad que hay que chutar una vez al centro.", "Un ejemplo válido es: derecha, izquierda, centro, derecha, izquierda."],
-        arte="Una portería de fútbol de 1970 con red de cuerda y un portero con jersey gris y guantes de lana lanzándose hacia un lado, con un balón de cuero entrando por el otro lado. Alberto levanta los brazos en el área con una sonrisa enorme y Cristina grita de alegría con los puños apretados."),
-    "82": dict(
-        titulo="Carta 82 — La Copa de cristal", tipo="gris", coge=[62], descarta=[69, 70, 94],
-        descripcion=[
-            "El Estrella gana la final por penaltis y la grada se vuelve loca. En la ceremonia, Don Remigio levanta la Copa de cristal y, en su interior, entre destellos, brilla el cristal de energía rojo, tal y como cayó.",
-            "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        pistas=["Mirad dentro de la Copa.", "La carta 62 es combinable con el Cronoportal.", "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        arte="Un entrenador con gabardina levantando una copa de cristal sobre el campo de un estadio lleno, con un cristal rojo brillando dentro de la copa, entre confeti y bufandas. Cristina lo mira con los ojos llenos de lágrimas de emoción y Alberto aplaude con una sonrisa enorme."),
-    "62": dict(
-        titulo="Carta 62 — Cristal de energía", tipo="roja", combina=[12, 74],
-        descripcion=["El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Un cristal rojo facetado con un fulgor interior de brasa y finas líneas de energía, sostenido sobre la palma de una mano, con confeti rojo y blanco flotando alrededor."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[99], descarta=[62, 12, 82],
-        descripcion=[
-            "El cristal encaja con un chasquido y el Cronoportal se enciende. Don Remigio, abrazado a la Copa, os busca para daros las gracias, pero ya no hay tiempo: la grada invade el campo y cuando os alcance os habrá visto desaparecer. Activad el aparato.",
-            "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal ya funciona. Solo queda activarlo.", "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con un cristal rojo encajado en su pecho, en el túnel de vestuarios de un estadio, con un arco de luz azul y dorada en el anillo; al fondo, una multitud con bufandas corre hacia ellos. Cristina, con la cara desencajada de urgencia, tira de Alberto, que carga el aparato con gesto de esfuerzo."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
-        descripcion=[
-            "El anillo se abre en un arco de luz justo cuando la multitud llega al túnel. Cristina y Alberto salen disparados del estadio y aterrizan en su salón, con el corazón a mil.",
-            "Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo el cromo del dorsal 10. Descartad la carta 74.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven un túnel de estadio y una multitud con bufandas. Llevan aún sus chándales retro de los años 70. Cristina ríe a carcajadas con un cromo de fútbol en la mano y Alberto grita de euforia con los brazos en alto y la bufanda ondeando. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ El vestuario
+    "P": escena("P", "Llegada al estadio", [10, 12], [],
+                "Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. Aterrizáis en el túnel de vestuarios con el rugido de la grada al fondo, y el aparato golpea un carro de balones. Su cristal de energía sale rodando por el túnel hasta caer, de rebote, dentro de la Copa de cristal que un mozo lleva en ese momento al palco, donde quedará guardada bajo llave hasta que acabe la final. Un entrenador con gabardina os toma por su cuerpo técnico: «¡Por fin! Nos falta gente, venid al vestuario».",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "El túnel de vestuarios de un estadio de fútbol de 1970, con la luz del campo y el rugido de la grada al fondo; un carro de balones de cuero volcado y balones por el suelo. En primer plano, el Cronoportal, un aparato de latón y cristal, humea con la luz azul apagándose. Cristina, con la boca abierta y los ojos muy abiertos de asombro, y Alberto, con una ceja arqueada y la bufanda torcida de incredulidad, se levantan aturdidos con chándales retro."),
+    "10": escena("10", "El vestuario del Estrella", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "En el vestuario del Estrella, Don Remigio, el míster, anda de cabeza: ha perdido la hoja de la liguilla clasificatoria y la lista de convocados. Sobre el banco, la clasificación de la liguilla con los resultados que recuerda (carta 16), un acertijo del míster clavado en el tablón (carta 18) y dos hojas de cromos de dos caras (cartas 19 y 21: por delante, el dorsal y el nombre; por detrás, la ficha). Entre las botas, Cristina encuentra la mitad de un pase de prensa (carta 22).",
+                 ["Hay dos puzles: la liguilla y la convocatoria.", "Los cromos tienen dos caras: en el Modo PC, botón «Dar la vuelta»."],
+                 "Un vestuario de fútbol de 1970: bancos de madera, camisetas rojas y blancas colgadas en perchas, botas de cuero y un tablón de corcho. Sobre el banco, seis cromos de jugadores boca arriba y boca abajo. Cristina da la vuelta a un cromo con curiosidad y los ojos entrecerrados y Alberto examina otro con la boca torcida de duda."),
+    "12": combinable("12", "Cronoportal sin cristal", "azul", 62, 74,
+                     "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía.",
+                     SIN_GENTE + "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, sobre un banco de madera de un vestuario, con una camiseta roja colgada al fondo."),
+    "14": app("14", "La liguilla del club", "Es un juego de la app: cuatro equipos jugaron todos contra todos y falta la mitad de los marcadores. Hay que escribir los cuatro que faltan para que cuadre la clasificación.", 24,
+              ["La clasificación y los resultados conocidos están en la carta 16.", "Cada victoria vale 2 puntos y cada empate, 1. Empezad por el equipo que no ha ganado ni empatado: todos sus partidos los perdió, y sus goles son los que ya conocéis.", f"Faltan: {_S_LIG}. Aro de la tabla: {I.ARO['14']}."],
+              SIN_GENTE + "Un tablón de corcho de un vestuario con una hoja de papel cuadriculado clavada, un lápiz y una goma, bajo la luz de un fluorescente, en un estadio de 1970."),
+    "16": gris("16", "La clasificación de la liguilla", "La clasificación de la liguilla clasificatoria, con los partidos jugados, ganados, empatados, perdidos, goles a favor y en contra y puntos de cada equipo, y dos resultados conocidos.",
+               ["Es la clasificación de la liguilla (carta 14).", "Dos partidos de los seis se conocen.", "En 1970, una victoria valía 2 puntos."]),
+    "18": gris("18", "El acertijo del míster", "Un acertijo del míster clavado en el tablón del vestuario, que describe a dos jugadores.",
+               ["Dice a qué dos jugadores hay que elegir (carta 20).", "Cada jugador se describe comparando su altura o su edad con las de otros de un grupo.", "Los datos de cada jugador están por detrás de los cromos (cartas 19 y 21)."]),
+    "19": cromo("19", "Tres cromos de la plantilla del Club Estrella.", ["Son tres jugadores de la plantilla (carta 20).", "Dad la vuelta a la carta para leer sus fichas técnicas.", "Los otros tres jugadores están en la carta 21."], "21"),
+    "21": cromo("21", "Otros tres cromos de la plantilla del Club Estrella.", ["Son tres jugadores de la plantilla (carta 20).", "Dad la vuelta a la carta para leer sus fichas técnicas.", "Los otros tres jugadores están en la carta 19."], "19"),
+    "20": app("20", "La convocatoria", "Es un juego de la app: el míster necesita a dos jugadores de la plantilla y los describe en un acertijo. Hay que elegir sus dos camisetas.", 28,
+              ["El acertijo está en la carta 18 y las fichas, por detrás de los cromos de las cartas 19 y 21.", "Cada descripción tiene dos partes: primero, un grupo (por ejemplo, los zurdos que no son defensas); luego, el más alto, el más bajo, el más joven o el más veterano de ese grupo.", f"Son los dorsales {_S_CRO}."],
+              SIN_GENTE + "Un tablón de corcho de un vestuario de fútbol con una hoja con una lista de nombres, chinchetas y una camiseta roja con un número en la espalda colgada de una percha."),
+    "22": combinable("22", "Media pase de prensa", "azul", 35, 57, "Una mitad de un pase de prensa plastificado de un estadio, con la mitad de una foto en blanco y negro y el sello del club.",
+                     SIN_GENTE + "La mitad izquierda de un pase de prensa plastificado de un estadio, con la mitad de una foto en blanco y negro y el sello rojo de un club, sobre unas botas de fútbol de cuero."),
+    "24": escena("24", "El despacho del míster", [26], [14, 16],
+                 "La tabla cuadra y Don Remigio respira: ya sabe quién ha ganado qué en la liguilla. En su despacho, un cuartito con una mesa llena de papeles y una taza de café frío, os enseña un recorte de periódico con los titulares de la última Copa y lo guarda en un sobre para después (carta 26).",
+                 ["Mirad lo que os enseña Don Remigio."],
+                 "El despacho de un entrenador de fútbol de 1970: una mesa llena de papeles, un cenicero, una taza de café y una pizarra táctica pegada a la pared; Don Remigio, con gabardina y sombrero, entrega un sobre con un recorte de periódico a Cristina y Alberto. Cristina lo coge con una sonrisa agradecida y el pulgar en alto; Alberto repasa el recorte con las cejas levantadas de sorpresa."),
+    "26": gris("26", "Los titulares de la prensa", "Un recorte de periódico con cinco titulares sobre la última Copa, numerados.",
+               ["Son los titulares del cuadro de la Copa (carta 51).", "Cada titular dice algo verdadero de un partido o de un equipo.", "El cuadro vacío está en las cartas 61 y 63."]),
+    "28": escena("28", "La lista entregada", [35], [18, 19, 20, 21],
+                 "Don Remigio entrega la lista al árbitro y, agradecido, os deja pasar a la zona de prensa, donde hay un sobre con la otra mitad del pase de prensa (carta 35).",
+                 ["Mirad en la zona de prensa."],
+                 "La zona de prensa de un estadio de 1970, con mesas de periodistas, máquinas de escribir y cámaras de fotos, y un sobre marrón sobre una mesa. Cristina abre el sobre con los ojos muy abiertos de emoción; Alberto, al lado, mira por encima de su hombro con una gran sonrisa."),
+    "35": combinable("35", "Otra media pase de prensa", "roja", 22, 57, "La otra mitad del pase de prensa, con el resto de la foto y la firma del presidente del club.",
+                     SIN_GENTE + "La mitad derecha de un pase de prensa plastificado de un estadio, con el resto de una foto en blanco y negro y una firma, sobre un sobre marrón en una mesa de periodistas."),
+    "57": escena("57", "El palco de autoridades", [31, 32], [22, 35, 10, 28],
+                 "Las dos mitades del pase de prensa encajan y abren la puerta del palco de autoridades, en lo alto del estadio. Desde allí se ve todo el campo y, sobre una mesa, la vitrina cerrada con la Copa de cristal, que alguien ha dejado allí. A la izquierda, la sala del VAR, donde los árbitros revisan jugadas (carta 31); a la derecha, la pizarra del entrenador (carta 32).",
+                 ["Dos sitios: la sala del VAR y la pizarra del entrenador."],
+                 "El palco de autoridades de un estadio de 1970, con butacas de madera, banderines y una gran vitrina de cristal con una copa dentro sobre una mesa con mantel rojo; por la ventana, el campo de césped lleno de gente. Cristina muestra el pase de prensa a un portero uniformado con una sonrisa de orgullo; Alberto mira la copa con las manos pegadas al cristal."),
+    # ------------------------------------------------------------------ Rama 1: la sala del VAR
+    "31": escena("31", "La sala del VAR", [40, 41, 43, 45], [],
+                 "Una sala de vídeo-arbitraje con un gran televisor de tubo y una mesa con papeles. Los árbitros necesitan a alguien que decida seis jugadas de entrenamiento, dibujadas desde arriba en dos láminas (cartas 41 y 43) con el reglamento del fuera de juego (carta 45) y una pantalla (carta 40) donde dar el veredicto.",
+                 ["Un único puzle: las seis jugadas del VAR."],
+                 "Una sala de vídeo-arbitraje de los años 70 con un gran televisor de tubo, una consola con botones y cintas de vídeo, y dos árbitros con camiseta negra de espaldas, mirando un campo dibujado en la pantalla. Cristina, con las manos en la cabeza y los ojos muy abiertos de emoción, y Alberto, con el mando en la mano y una sonrisa de alivio, miran las jugadas."),
+    "40": app("40", "La sala del VAR", "Es un juego de la app: seis jugadas dibujadas desde arriba. Hay que decidir si cada una es válida o fuera de juego, según el reglamento.", 30,
+              ["Las jugadas están en las cartas 41 y 43 y el reglamento, en la 45.", "En cada jugada, mirad el momento del pase: dónde está quien recibe, dónde está el balón y cuáles son los dos contrarios más cercanos a su línea de gol (el portero cuenta). Después, repasad las excepciones del reglamento.", f"Son: {_S_VAR}. Aro de la bandera: {I.ARO['40']}."],
+              SIN_GENTE + "Una pantalla de un televisor de tubo de los años 70 con un campo de fútbol dibujado visto desde arriba, con puntos azules y rojos, junto a una consola con botones y un cronómetro."),
+    "41": gris("41", "Las jugadas del VAR (I)", "Tres jugadas de entrenamiento, A, B y C, dibujadas desde arriba: los azules atacan hacia la derecha.", ["Son las jugadas A, B y C del VAR (carta 40).", "Una flecha blanca marca el pase.", "Las jugadas D, E y F están en la carta 43."]),
+    "43": gris("43", "Las jugadas del VAR (II)", "Tres jugadas de entrenamiento, D, E y F, dibujadas desde arriba: los azules atacan hacia la derecha.", ["Son las jugadas D, E y F del VAR (carta 40).", "Una flecha blanca marca el pase.", "Las jugadas A, B y C están en la carta 41."]),
+    "45": gris("45", "El reglamento del fuera de juego", "El reglamento del fuera de juego, en el libro del árbitro, en versos.", ["Explica cuándo hay fuera de juego (carta 40).", "Hay que mirar el momento del pase, no el del gol.", "Tiene tres excepciones."]),
+    "30": escena("30", "La tarjeta del árbitro", [38], [31, 40, 41, 43, 45],
+                 "Las seis decisiones coinciden con el libro y el árbitro de campo, al verlo, os agradece la ayuda y os da, de su cartera, media llave pequeña con un llavero en forma de balón: es de la vitrina de la Copa de cristal (carta 38). Una pareja de cifras queda escrita en el cartel de la sala: ya la veréis más adelante.",
+                 ["Mirad lo que os da el árbitro."],
+                 "Un árbitro con camiseta negra entrega media llave pequeña con un llavero en forma de balón a Cristina y Alberto en la sala del VAR. Cristina la coge con una sonrisa triunfante y la ceja levantada; Alberto aplaude con los pulgares hacia arriba y los ojos brillantes."),
+    "38": combinable("38", "Mitad de la llave de la vitrina", "roja", 56, 94, "Una mitad de una llave pequeña con un llavero en forma de balón, de las que abren la vitrina de la Copa.",
+                     SIN_GENTE + "La mitad izquierda de una llave pequeña de latón con un llavero de cuero en forma de balón, de las de una vitrina de un museo, sobre una mesa de madera."),
+    # ------------------------------------------------------------------ Rama 2: la pizarra del entrenador
+    "32": escena("32", "La pizarra del entrenador", [42, 48, 49, 53],  [],
+                 "En una sala del palco, la pizarra del entrenador con un campo de entrenamiento dibujado, en dos mitades: juntad la 42 a la izquierda y la 49 a la derecha. Sobre la mesa, la regla del entrenador (carta 53) y una pantalla (carta 48) para ensayar el pase en cadena.",
+                 ["Un único puzle: el pase en cadena."],
+                 "Una sala de entrenadores con una gran pizarra con un campo de fútbol dibujado con chinchetas de colores, una mesa con papeles y tazas de café. Cristina estudia la pizarra con el ceño fruncido y el dedo en la barbilla; Alberto da golpecitos a una chincheta azul con la mirada fija."),
+    "48": app("48", "El pase en cadena", "Es un juego de la app: siete jugadores de un campo de entrenamiento y varios rivales. Hay que encadenar los pases desde el portero hasta el delantero, tocando a todos una vez, sin que nadie corte el balón.", 36,
+              ["El campo está en las cartas 42 y 49 y la regla, en la 53.", "Un rival corta un pase solo si está en un punto de la rejilla justo en su camino. Buscad los pases que sí pueden hacerse, empezando por los del portero.", f"Un camino: {_S_PAS}."],
+              SIN_GENTE + "Una pizarra con un campo de fútbol y chinchetas azules y rojas conectadas por hilos de lana, sobre una mesa con una taza de café, en una sala de entrenadores."),
+    "42": pieza("42", "campo", "Media lámina del campo de entrenamiento.", ["Es la mitad de una lámina: juntadla con la carta 49.", "Es un campo con una rejilla de puntos.", "La regla del entrenador está en la carta 53."]),
+    "49": pieza("49", "campo", "Media lámina del campo de entrenamiento.", ["Es la mitad de una lámina: juntadla con la carta 42.", "Es un campo con una rejilla de puntos.", "La regla del entrenador está en la carta 53."]),
+    "53": gris("53", "La regla del entrenador", "Una nota del entrenador con la regla del pase en cadena, en versos.", ["Explica cómo viaja el balón (carta 48).", "Un jugador, o un rival, en el camino del pase lo corta.", "Se sale del portero y se acaba en el delantero."]),
+    "36": escena("36", "El banquillo", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "El pase sale redondo y el entrenador, contento, os lleva al banquillo, donde le queda una decisión: el once del partido. Cinco jugadores, cinco puestos (carta 52). Las notas de cada jugador en cada puesto están en dos hojas (cartas 54 y 55) y la sentencia del míster, en la carta 59.",
+                 ["Un único puzle: el once ideal."],
+                 "Un banquillo de fútbol de 1970 con un banco de madera, botellas de cristal, mantas y una pizarra táctica, y cinco jugadores con chándal sentados en fila. Cristina cuenta con los dedos las notas de cada uno con los labios apretados; Alberto sostiene una libreta con cara de tener una duda."),
+    "52": app("52", "El once del míster", "Es un juego de la app: cinco jugadores y cinco puestos. Hay que poner a cada jugador en un puesto distinto para que la suma de sus notas sea la más alta posible.", 44,
+              ["Las notas están en las cartas 54 y 55 y la sentencia del míster, en la 59.", "No sirve poner a cada jugador en su mejor puesto ni elegir el mejor de cada puesto: se estorban. Probad cambios de dos en dos y mirad cuánto sube o baja la suma.", f"El once: {_S_ALI}. Aro de la camiseta: {I.ARO['52']}."],
+              SIN_GENTE + "Una pizarra táctica con cinco camisetas de colores colgadas en fila junto a cinco etiquetas de puestos, con una tiza y un borrador sobre un banco de madera."),
+    "54": gris("54", "Las notas del entrenador (I)", "La hoja del entrenador con las notas de tres jugadores en los cinco puestos.", ["Son las notas de los tres primeros jugadores (carta 52).", "Cada nota va de 1 a 9.", "Los otros dos jugadores están en la carta 55."]),
+    "55": gris("55", "Las notas del entrenador (II)", "La hoja del entrenador con las notas de los otros dos jugadores en los cinco puestos.", ["Son las notas de los dos últimos jugadores (carta 52).", "Cada nota va de 1 a 9.", "Los otros tres jugadores están en la carta 54."]),
+    "59": gris("59", "La sentencia del míster", "Una nota del míster con lo que exige del once.", ["Explica cómo debe ser el once (carta 52).", "Cada jugador, un puesto distinto.", "La suma de las cinco notas ha de ser la mayor posible."]),
+    # ------------------------------------------------------------------ El túnel y el vestuario visitante
+    "44": escena("44", "El túnel de vestuarios", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "El míster anuncia su once y salís al túnel de vestuarios, donde dos cosas esperan. Un cartel avisa de que hay que ensayar la tanda de penaltis (carta 46): el informe del entrenador sobre el portero rival, de once penaltis, está en dos hojas (cartas 37 y 39) y la explicación de cómo se lee, en la 33. Y en el tablón de la sala de prensa, el cuadro de la Copa, en dos mitades: juntad la 61 arriba y la 63 abajo (carta 51).",
+                 ["Hay dos puzles: la tanda de penaltis y el cuadro de la Copa."],
+                 "El túnel de vestuarios de un estadio de 1970, con la luz del campo al fondo, un cartel de entrenamientos y un tablón de corcho con un cuadro de eliminatorias a lo lejos. Cristina mira el cartel con las manos en la cintura y los labios apretados; Alberto cuenta penaltis con los dedos con cara de agobio."),
+    "46": app("46", "La tanda de penaltis", "Es un juego de la app: hay que marcar cinco penaltis seguidos. El portero rival decide su salto con una regla fija; si para uno, la tanda empieza de nuevo.", 56,
+              ["El informe está en las cartas 37 y 39 y su explicación, en la 33.", "El portero decide su salto mirando solo los dos últimos tiros. Buscad en el informe cuándo hizo lo mismo que hará ahora.", f"Tirad: {_S_PEN}."],
+              SIN_GENTE + "El punto de penalti de un estadio de fútbol de 1970 con un balón de cuero sobre la cal blanca y una portería con red de cuerda; una grada llena y borrosa al fondo."),
+    "37": gris("37", "El informe de penaltis (I)", "Los seis primeros penaltis del informe del entrenador, con el tiro y el salto del portero.", ["Son los seis primeros penaltis (carta 46).", "El balón es el tiro y el guante naranja, el salto.", "Los demás penaltis están en la carta 39."]),
+    "39": gris("39", "El informe de penaltis (II)", "Los cinco últimos penaltis del informe del entrenador, con el tiro y el salto del portero.", ["Son los cinco últimos penaltis (carta 46).", "El balón es el tiro y el guante naranja, el salto.", "Los demás penaltis están en la carta 37."]),
+    "33": gris("33", "Cómo se lee el informe", "Una nota del entrenador que explica cómo se lee el informe de penaltis.", ["Explica el informe de los penaltis (carta 46).", "El portero decide antes del tiro.", "Mira solo los dos últimos tiros."]),
+    "56": combinable("56", "Otra mitad de la llave", "roja", 38, 94, "La otra mitad de la llave de la vitrina, que el presidente del club os da al ver el ensayo.",
+                     SIN_GENTE + "La mitad derecha de una llave pequeña de latón con un llavero de cuero en forma de balón, de las de una vitrina de un museo, entregada por una mano con un guante blanco."),
+    "51": app("51", "El cuadro de la Copa", "Es un juego de la app: un cuadro de eliminatorias de ocho equipos, con cuartos, semifinales y final. Con los titulares de la prensa hay que reconstruir quién ganó cada partido.", 58,
+              ["Los titulares están en la carta 26 y el cuadro vacío, en las cartas 61 y 63.", "Cada titular dice algo verdadero. Empezad por los que dicen una ronda exacta (en cuartos, en semifinales) y por los que dicen quién ganó a quién.", f"El cuadro: {_S_ELI}."],
+              SIN_GENTE + "Un tablón de corcho de una sala de prensa con un cuadro de eliminatorias dibujado con rotulador, con nombres de equipos en tiras de papel y chinchetas, con luz de fluorescente."),
+    "61": pieza("61", "cuadro", "Media lámina del cuadro de la Copa.", ["Es la mitad de una lámina: juntadla con la carta 63.", "Son los equipos de arriba, hasta las semifinales.", "Los titulares están en la carta 26."]),
+    "63": pieza("63", "cuadro", "Media lámina del cuadro de la Copa.", ["Es la mitad de una lámina: juntadla con la carta 61.", "Son los equipos de abajo, hasta las semifinales.", "Los titulares están en la carta 26."]),
+    "58": escena("58", "El vestuario visitante", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "El cuadro encaja y un empleado os abre el vestuario visitante, vacío porque el equipo ya está en el campo. Sobre la pizarra, la alineación inicial de Los Rayos con ocho puestos y ocho dorsales (carta 70) y las órdenes de cambios que su míster dará en el segundo tiempo (carta 71). Hay que saber cómo quedará el equipo cuando termine de cambiar (carta 69).",
+                 ["Un único puzle: los cambios del míster."],
+                 "Un vestuario visitante de un estadio de 1970, con perchas y camisetas azules colgadas, bancos de madera y una pizarra con unas formaciones dibujadas con tiza. Cristina señala la pizarra con un dedo y los ojos entrecerrados de concentración; Alberto, apoyado en un banco, copia las órdenes en una libreta con un bostezo."),
+    "69": app("69", "Los cambios del míster", "Es un juego de la app: ocho jugadores en ocho puestos y tres órdenes de cambios que se repiten tres veces. Hay que decir qué dorsal acaba en cada puesto.", 80,
+              ["La alineación inicial está en la carta 70 y las órdenes, en la 71.", "Aplicad las tres órdenes, una tras otra, y anotad cómo queda el equipo: es una ronda. Repetid la ronda tres veces, empezando cada vez desde donde acabó la anterior.", f"Queda así: {_S_SUS}. Aro de las flechas: {I.ARO['69']}."],
+              SIN_GENTE + "Una pizarra de vestuario con un campo de fútbol dibujado con tiza y ocho fichas redondas con números colocadas en él, con flechas de tiza entre ellas, y un borrador."),
+    "70": gris("70", "La alineación inicial", "La alineación inicial de Los Rayos, con ocho puestos numerados y el dorsal de cada jugador.", ["Es la alineación antes de los cambios (carta 69).", "El número en el círculo amarillo es el puesto y el de la camiseta, el dorsal.", "Las órdenes están en la carta 71."]),
+    "71": gris("71", "Las órdenes del míster", "Las tres órdenes de cambios del míster, dibujadas con flechas entre puestos.", ["Son los cambios del segundo tiempo (carta 69).", "Se aplican en orden y se repiten.", "Cada flecha lleva al jugador de un puesto al siguiente."]),
+    "80": escena("80", "La grada", [72, 75, 79], [58, 69, 70, 71],
+                 "Cuando acaba el calentamiento, el equipo de animación de la grada os pide ayuda con el mosaico que los hinchas pintan cada partido, butaca a butaca, en una gran fila circular de la tribuna. Las primeras butacas de la fila 1 están pintadas (carta 75). El encargado de la grada anotó cómo se pinta cada butaca de las filas siguientes (carta 79). Hay que pintar la fila 7 (carta 72).",
+                 ["Un único puzle: pintar la fila 7 de la grada."],
+                 "La tribuna de un estadio de 1970 llena de aficionados con bufandas y banderines, con una gran fila circular de asientos de madera y un hincha con un megáfono. Cristina pinta un asiento de rojo con un pincel grande y una sonrisa traviesa; Alberto mira las filas desde arriba con una mano en la frente y cara de duda."),
+    "72": app("72", "El mosaico de la grada", "Es un juego de la app: la primera fila de una grada circular está pintada. Cada butaca de las filas siguientes se pinta según las dos vecinas de la fila de arriba. Hay que pintar la fila 7.", 82,
+              ["La primera fila está en la carta 75 y la regla, en la 79.", "Pintad fila a fila, de la 2 a la 7: cada butaca solo depende de dos vecinas de la fila anterior. No olvidéis que la grada es un anillo.", f"La fila 7 (# pintada, · blanca): {_S_GRA}. Aro de la grada: {I.ARO['72']}."],
+              SIN_GENTE + "Una grada circular de un estadio de fútbol vista desde arriba con filas de asientos de madera pintados de rojo y de blanco formando un dibujo, con banderines al fondo y luz de tarde."),
+    "75": gris("75", "Las filas de la grada", "Una vuelta entera de la grada, con la primera fila pintada y las demás por pintar.", ["Es la fila 1 de la grada (carta 72).", "Las butacas rojas están pintadas.", "La regla de las butacas está en la carta 79."]),
+    "79": gris("79", "La regla de las butacas", "Una nota del encargado de la grada con la regla para pintar cada butaca, en versos.", ["Explica cómo se pinta cada butaca (carta 72).", "Cada butaca mira a dos vecinas de la fila de arriba.", "La grada es un anillo."]),
+    "82": escena("82", "El estuche del silbato", [85, 86, 87], [80, 72, 75, 79],
+                 "El mosaico queda perfecto y el delegado de la grada os lleva al palco, donde un estuche de madera guarda el silbato del árbitro para el pitido final. Se abre con una cerradura de cinco aros de doce posiciones (carta 85): cada aro parte de un número que os dejó un puzle y gira tantos puestos como flechas hay dibujadas, hacia la derecha las verdes y hacia la izquierda las rojas (cartas 86 y 87).",
+                 ["Un único puzle: la cerradura de los cinco aros."],
+                 "Un estuche de madera con una cerradura de cinco aros de latón sobre la mesa de un palco de un estadio de 1970, con el campo al fondo por una ventana. Cristina gira un aro con la lengua entre los dientes y los ojos muy abiertos; Alberto lleva la cuenta con los dedos y una mueca de esfuerzo."),
+    "85": app("85", "La cerradura de la Copa", "Es un juego de la app: cinco aros de doce posiciones. Cada uno parte de un número que os dejó un puzle y gira tantos puestos como flechas hay dibujadas.", 99,
+              ["Los aros y sus giros están en la carta 86 y el dial, en la 87.", "Los cinco números de partida los dejaron la tabla, la bandera, la camiseta, las flechas y la grada. Las flechas verdes avanzan a la derecha y las rojas, a la izquierda; las posiciones van de 1 a 12 y vuelven a empezar.", f"Las posiciones son: {_S_ARO}."],
+              SIN_GENTE + "Una cerradura de cinco aros de latón con números, sobre un estuche de madera, con luz de tarde por una ventana."),
+    "86": gris("86", "Los cinco aros", "Cinco aros con su dibujo y sus flechas de giro, verdes a la derecha y rojas a la izquierda.", ["Explica cuánto gira cada aro (carta 85).", "Cada aro lleva un dibujo.", "Las flechas verdes giran a la derecha y las rojas, a la izquierda."]),
+    "87": gris("87", "El dial", "El dial de doce posiciones de un aro, con el uno arriba.", ["Sirve para colocar los aros (carta 85).", "Se cuenta hacia la derecha.", "Después del 12 viene el 1."]),
+    # ------------------------------------------------------------------ La vitrina y el final
+    "94": escena("94", "La vitrina de la Copa", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Las dos mitades de la llave encajan y abren la vitrina de la Copa de cristal. Dentro, la Copa y, en su base hueca, el brillo azul de vuestro cristal. Pero la base se cierra con un calendario: el secretario de la liga grabó los cruces de una jornada de la liga de ocho equipos (carta 64). Los cruces de la jornada 1 están en la carta 66 y el método, en la 67.",
+                 ["Un único puzle: el calendario de la liga."],
+                 "El interior de una vitrina de cristal con una gran copa de cristal sobre un cojín rojo, con una luz azul brillando en la base hueca, en un palco de un estadio de 1970. Cristina apoya las manos en el cristal con los ojos brillantes de emoción; Alberto sostiene una llave con una media sonrisa y la ceja levantada."),
+    "64": app("64", "El calendario de la liga", "Es un juego de la app: una liga de ocho equipos que se cruzan con el método del círculo. Hay que formar los cuatro cruces de la jornada 5.", 62,
+              ["Los cruces de la jornada 1 están en la carta 66 y el método, en la 67.", "Para pasar de una jornada a la siguiente, el primero se queda quieto y los demás avanzan un puesto en el sentido de las agujas del reloj. Hacedlo cuatro veces, anotando los cruces cada vez.", f"Los cruces: {_S_CAL}."],
+              SIN_GENTE + "La base hueca de una copa de cristal con un calendario de ocho nombres grabado alrededor y una luz azul dentro, sobre un cojín rojo, en una vitrina."),
+    "66": gris("66", "Los cruces de la jornada 1", "Los cruces de la primera jornada de una liga de ocho equipos, dibujados en dos filas de cuatro, cara a cara.", ["Son los cruces de la jornada 1 (carta 64).", "Cada equipo juega con el que tiene delante.", "El método está en la carta 67."]),
+    "67": gris("67", "El método del calendario", "Una nota del secretario de la liga con el método para pasar de una jornada a la siguiente, en versos.", ["Explica cómo se pasa de una jornada a otra (carta 64).", "El primer equipo se queda quieto.", "Los demás avanzan un puesto en el sentido de las agujas del reloj."]),
+    "62": combinable("62", "El cristal del Cronoportal", "roja", 12, 74, "El cristal del Cronoportal, que estaba escondido en la base de la Copa de cristal.",
+                     SIN_GENTE + "Un cristal redondo de color azul brillante, del tamaño de una moneda grande, con destellos de luz, en la base hueca de una gran copa de cristal sobre un cojín rojo, en una vitrina abierta."),
+    "74": escena("74", "Cronoportal con el cristal", [], [62, 12, 64, 66, 67, 94, 57],
+                 "Encajáis el cristal en el pecho del Cronoportal y el anillo se enciende con un arco de luz azul. Fuera, la grada ruge: el partido está a punto de acabar y solo falta el pitido final, que el árbitro dará con el silbato del estuche (carta 85).",
+                 ["Ya solo queda abrir el estuche del silbato."],
+                 "Cristina y Alberto encajan un cristal azul brillante en el hueco del Cronoportal, un aparato de latón y cristal con un anillo que se enciende con un arco de luz azul, sobre una mesa de un palco de un estadio de 1970, con la grada al fondo. Cristina lo sostiene con las dos manos con una enorme sonrisa; Alberto contiene el aliento mirando el anillo con la boca abierta."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87],
+                 "El silbato suena, el árbitro pita el final y la grada estalla en un rugido: el Estrella levanta la Copa. El anillo del Cronoportal se abre en un arco de luz justo cuando la multitud llega al túnel. Aterrizáis en vuestro salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo un cromo del Club Estrella. FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven un estadio de fútbol lleno, una grada que ruge y un balón en el aire. Llevan aún sus chándales retro de los años 70. Cristina ríe a carcajadas con un cromo en la mano y Alberto grita de euforia con los brazos en alto y la bufanda al viento. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="La Final del Siglo, 1970 — La Copa de Cristal",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-)
+META = dict(juego="La Final del Siglo, 1970 — La Copa de Cristal", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["14", "15", "16", "17", "18", "19", "20"], "28": ["30", "31", "24"], "44": ["40", "41", "42", "46"], "57": ["22", "35"],
-           "58": ["48", "52", "53"], "94": ["56", "38"], "82": ["69", "70"], "74": ["62", "12"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada al estadio. Te manda coger la 10 y la 12.",
-    "10": "El vestuario: reparte los seis cromos, la convocatoria y la mitad del pase.",
-    "12": "El Cronoportal sin cristal: se combina con el cristal de energía (62).",
-    "14": "Cromo con dos caras.", "15": "Cromo con dos caras.", "16": "Cromo con dos caras.", "17": "Cromo con dos caras.", "18": "Cromo con dos caras.", "19": "Cromo con dos caras.",
-    "20": "La convocatoria (app): el jugador que describe el míster, con las fichas de los reversos.",
-    "22": "Mitad de pase de prensa: se combina con la otra mitad (35).",
-    "24": "La pizarra (app): la alineación del rival con las pistas.",
-    "26": "La pizarra del míster: reparte las pistas del espía y la pizarra.",
-    "28": "La sala del VAR: reparte las jugadas, el reglamento y el veredicto.",
-    "30": "Pistas del espía (1 de 2).", "31": "Pistas del espía (2 de 2).",
-    "35": "Otra mitad de pase de prensa: se combina con la 22.",
-    "40": "Jugadas A y B del VAR.", "41": "Jugadas C y D del VAR.", "42": "Reglamento del fuera de juego.",
-    "46": "El veredicto del VAR (app): gol válido o fuera de juego en cada jugada.",
-    "44": "El banquillo: reparte el silbato.",
-    "38": "Silbato: se combina con el balón de la final (56).",
-    "57": "El pase de prensa (22 + 35): reparte el panel de la liguilla y sus dos cartas.",
-    "52": "Clasificación de la liguilla.", "53": "Resultados conocidos de la liguilla.",
-    "48": "El panel de la liguilla (app): reconstruir tres marcadores.",
-    "58": "El palco: reparte el balón de la final.",
-    "56": "Balón de la final: se combina con el silbato (38).",
-    "94": "La tanda de penaltis (56 + 38): reparte el panel y el informe.",
-    "70": "Informe del entrenador sobre el portero.",
-    "69": "La tanda de penaltis (app): marcar los cinco chutando según el informe.",
-    "82": "La Copa de cristal: reparte el cristal de energía.",
-    "62": "Cristal de energía: se combina con el Cronoportal (12).",
-    "74": "Cronoportal reconectado (62 + 12): reparte la 99.",
-    "99": "Final de la aventura, ya en casa.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-_RES = f"{EQ[0]}–{EQ[1]} {RES[0][0]}-{RES[0][1]}, {EQ[0]}–{EQ[3]} {RES[2][0]}-{RES[2][1]} y {EQ[1]}–{EQ[2]} {RES[3][0]}-{RES[3][1]}"
-
-# ---------------------------------------------------------------- manual (los estados de la mesa se calculan simulando las cartas)
-_TEXTOS = [
-    ("leer", "P", "Llegada al estadio", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
-    ("leer", "10", "El vestuario del Estrella", "Lee la carta 10. Descarta la P y coge 14, 15, 16, 17, 18, 19, 20 y 22. Los seis cromos tienen dos caras: en el Modo PC, botón «Dar la vuelta»; en papel, hoja de reversos a doble cara."),
-    ("app", "20", "La convocatoria", "En el móvil: Acción, 20. Con las fichas de los reversos, el jugador zurdo, de entre 1,75 m y 1,80 m y que no es defensa es el dorsal 10. El mensaje te dice que cojas la 26.", "carta 26"),
-    ("leer", "26", "La pizarra del míster", "Lee la carta 26. Descarta 14, 15, 16, 17, 18, 19 y 20 y coge 24, 30 y 31. Las pistas del espía están repartidas entre las cartas 30 y 31."),
-    ("app", "24", "La pizarra", "En el móvil: Acción, 24. Coloca a Los Rayos: portero 1, defensas 6 (izquierda) y 2 (derecha), medios 11 (izquierda) y 5 (derecha) y delantero 8. El mensaje te dice que cojas la 28.", "carta 28"),
-    ("leer", "28", "La sala del VAR", "Lee la carta 28. Descarta 26, 30, 31 y 24 y coge 35, 40, 41, 42 y 46. Las cartas 22 y 35 son combinables. El reglamento está en la 42."),
-    ("app", "46", "El veredicto del VAR", "En el móvil: Acción, 46. Jugada A: fuera de juego; B: gol válido; C: gol válido; D: fuera de juego. El mensaje te dice que cojas la 44.", "carta 44"),
-    ("leer", "44", "El banquillo", "Lee la carta 44. Descarta 28, 40, 41, 42 y 46 y coge la 38, un silbato."),
-    ("combinar", "22", "35", "El pase de prensa", "Las dos mitades del pase (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
-    ("leer", "57", "El pase de prensa", "Lee la carta 57. Descarta 22, 35 y 10 y coge 48, 52 y 53. La clasificación está en la 52 y los resultados conocidos en la 53."),
-    ("app", "48", "El panel de la liguilla", f"En el móvil: Acción, 48. Marcadores que faltan: {_RES}. El mensaje te dice que cojas la 58.", "carta 58"),
-    ("leer", "58", "El palco", "Lee la carta 58. Descarta 48, 52, 53 y 57 y coge la 56, el balón de la final."),
-    ("combinar", "56", "38", "Balón y silbato", "El balón (56) y el silbato (38) son combinables: 56 + 38 = 94. Coge la 94."),
-    ("leer", "94", "La tanda de penaltis", "Lee la carta 94. Descarta 56, 38, 44 y 58 y coge 69 y 70. La carta 70 es el informe del entrenador sobre el portero."),
-    ("app", "69", "La tanda de penaltis", "En el móvil: Acción, 69. Chuta, por ejemplo, a derecha, izquierda, centro, derecha e izquierda (el portero se lanza según el penalti anterior). El mensaje te dice que cojas la 82.", "carta 82"),
-    ("leer", "82", "La Copa de cristal", "Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía."),
-    ("combinar", "12", "62", "Cristal en el Cronoportal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
-    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12 y 82 y coge la 99."),
-    ("leer", "99", "Final", "Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!"),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "El vestuario del Estrella", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Los cromos (19 y 21) tienen dos caras: en el Modo PC, botón «Dar la vuelta»."),
+    ("app", "14", "La liguilla del club", f"En el móvil: Acción, 14. Con la clasificación (16), los marcadores que faltan son: {_S_LIG}. El mensaje te dice que cojas la 24. Anota el aro de la tabla: {I.ARO['14']}.", "carta 24"),
+    ("leer", "24", "El despacho del míster", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para el cuadro de la Copa)."),
+    ("app", "20", "La convocatoria", f"En el móvil: Acción, 20. Con el acertijo (18) y las fichas de los cromos (19 y 21, dándoles la vuelta), los dorsales son {_S_CRO}. El mensaje te dice que cojas la 28.", "carta 28"),
+    ("leer", "28", "La lista entregada", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
+    ("combinar", "22", "35", "El pase de prensa", "Las dos mitades del pase de prensa (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "El palco de autoridades", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "La sala del VAR", "Lee la carta 31. Coge 40, 41, 43 y 45."),
+    ("app", "40", "La sala del VAR", f"En el móvil: Acción, 40. Con las jugadas (41 y 43) y el reglamento (45): {_S_VAR}. El mensaje te dice que cojas la 30. Anota el aro de la bandera: {I.ARO['40']}.", "carta 30"),
+    ("leer", "30", "La tarjeta del árbitro", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "La pizarra del entrenador", "Lee la carta 32. Coge 42, 48, 49 y 53. Junta el campo: 42 a la izquierda y 49 a la derecha."),
+    ("app", "48", "El pase en cadena", f"En el móvil: Acción, 48. Con el campo (42 y 49) y la regla (53), una cadena de pases es {_S_PAS}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "El banquillo", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59."),
+    ("app", "52", "El once del míster", f"En el móvil: Acción, 52. Con las notas (54 y 55) y la sentencia (59), el once es: {_S_ALI}. El mensaje te dice que cojas la 44. Anota el aro de la camiseta: {I.ARO['52']}.", "carta 44"),
+    ("leer", "44", "El túnel de vestuarios", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el cuadro: 61 arriba y 63 abajo."),
+    ("app", "46", "La tanda de penaltis", f"En el móvil: Acción, 46. Con el informe (37 y 39) y su explicación (33), una tanda que marca los cinco es: {_S_PEN}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "El cuadro de la Copa", f"En el móvil: Acción, 51. Con los titulares (26) y el cuadro (61 y 63): {_S_ELI}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "El vestuario visitante", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "Los cambios del míster", f"En el móvil: Acción, 69. Con la alineación (70) y las órdenes (71), tras los cambios queda: {_S_SUS}. El mensaje te dice que cojas la 80. Anota el aro de las flechas: {I.ARO['69']}.", "carta 80"),
+    ("leer", "80", "La grada", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79."),
+    ("app", "72", "El mosaico de la grada", f"En el móvil: Acción, 72. Con la fila 1 (75) y la regla (79), la fila 7 es (# roja, · blanca): {_S_GRA}. El mensaje te dice que cojas la 82. Anota el aro de la grada: {I.ARO['72']}.", "carta 82"),
+    ("leer", "82", "El estuche del silbato", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "La llave de la vitrina", "Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "La vitrina de la Copa", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67."),
+    ("app", "64", "El calendario de la liga", f"En el móvil: Acción, 64. Con la jornada 1 (66) y el método (67), los cruces de la jornada 5 son: {_S_CAL}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "El cristal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal con el cristal", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "La cerradura de la Copa", f"En el móvil: Acción, 85. Con los aros (86) y el dial (87), las posiciones son {_S_ARO} (los cinco números de partida, uno por aro, los dejaron la tabla, la bandera, la camiseta, las flechas y la grada). El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!"),
 ]
-
-
-def _pasos():
-    mesa = set()
-    pasos = []
-    for p in _TEXTOS:
-        if p[0] == "leer":
-            c = J[p[1]]
-            for d in c.get("descarta", []):
-                mesa.discard(str(d))
-            for h in c.get("coge", []):
-                mesa.add(str(h))
-            if p[1] == "P":
-                mesa = {"P", "10", "12"}
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("leer", p[1])], mesa=_orden(mesa)))
-        elif p[0] == "app":
-            res = p[4].split()[-1]
-            mesa.add(res)
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("app", p[1], p[4])], mesa=_orden(mesa)))
-        else:
-            mesa.add(str(int(p[1]) + int(p[2])))
-            pasos.append(dict(t=p[3], que=p[4], acciones=[("combinar", p[1], p[2])], mesa=_orden(mesa)))
-    return pasos
-
-
-def _orden(m):
-    return sorted(m, key=lambda x: (x != "P", int(x) if x != "P" else 0))
-
-
-PASOS = _pasos()
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.recalcular_mesas(PASOS, J)
