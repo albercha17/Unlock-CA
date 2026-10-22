@@ -1,490 +1,548 @@
 {
- "14": {
-  "desplazamiento": 3,
-  "claro": "BAJAD AL ARCHIVO",
-  "cifrado": "EDMDG DO DUFKLYR"
- },
- "20": {
-  "casas": [
-   "Lobo Gris",
-   "León Dorado",
-   "Halcón Plateado",
-   "Oso Pardo"
-  ],
-  "regalos": [
-   "espada",
-   "copa",
-   "pieles",
-   "cuerno"
-  ],
-  "solucion": [
-   [
-    "León Dorado",
-    "copa"
-   ],
-   [
-    "Lobo Gris",
-    "pieles"
-   ],
-   [
-    "Oso Pardo",
-    "espada"
-   ],
-   [
-    "Halcón Plateado",
-    "cuerno"
-   ]
-  ],
-  "carta": [
-   "El Halcón Plateado ocupa el último asiento.",
-   "Quien trae la espada no se sienta en ninguna de las dos puntas de la mesa."
-  ],
-  "app": [
-   "El cuerno lo trae la casa sentada justo a la derecha del Oso Pardo.",
-   "El Oso Pardo no trae las pieles.",
-   "El Lobo Gris se sienta más a la derecha que el León Dorado.",
-   "Las pieles no las trae ni el Halcón Plateado ni el León Dorado."
+ "jarras": {
+  "A": 3,
+  "B": 10,
+  "objetivo": 5,
+  "minimo": 12,
+  "ruta": [
+   "llenar A",
+   "A a B",
+   "llenar A",
+   "A a B",
+   "llenar A",
+   "A a B",
+   "llenar A",
+   "A a B",
+   "vaciar B",
+   "A a B",
+   "llenar A",
+   "A a B"
   ]
  },
- "40": {
-  "n": 7,
-  "castillos": [
-   {
-    "letra": "A",
-    "r": 1,
-    "c": 1,
-    "grado": 2,
-    "oculto": false
-   },
-   {
-    "letra": "B",
-    "r": 1,
-    "c": 3,
-    "grado": 2,
-    "oculto": false
-   },
-   {
-    "letra": "C",
-    "r": 1,
-    "c": 4,
-    "grado": 2,
-    "oculto": false
-   },
-   {
-    "letra": "D",
-    "r": 1,
-    "c": 6,
-    "grado": 1,
-    "oculto": false
-   },
-   {
-    "letra": "E",
-    "r": 2,
-    "c": 1,
-    "grado": 3,
-    "oculto": true
-   },
-   {
-    "letra": "F",
-    "r": 6,
-    "c": 0,
-    "grado": 1,
-    "oculto": false
-   },
-   {
-    "letra": "G",
-    "r": 6,
-    "c": 1,
-    "grado": 4,
-    "oculto": true
-   },
-   {
-    "letra": "H",
-    "r": 6,
-    "c": 2,
-    "grado": 1,
-    "oculto": false
-   }
+ "centinelas": {
+  "n": 8,
+  "fijas": [
+   [
+    4,
+    0
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    0,
+    7
+   ]
   ],
   "solucion": [
    [
-    [
-     1,
-     1
-    ],
-    [
-     1,
-     3
-    ],
+    4,
+    0
+   ],
+   [
+    1,
     1
    ],
    [
-    [
-     1,
-     1
-    ],
-    [
-     2,
-     1
-    ],
-    1
+    3,
+    2
    ],
    [
+    6,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    7,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    0,
+    7
+   ]
+  ]
+ },
+ "cuervos": {
+  "fortalezas": [
+   "Piedra Negra",
+   "Invernalia",
+   "Altojardín",
+   "Roca Casterly",
+   "Dorne",
+   "Aguasdulces"
+  ],
+  "pos": [
+   [
+    523,
+    130
+   ],
+   [
+    239,
+    491
+   ],
+   [
+    252,
+    251
+   ],
+   [
+    543,
+    331
+   ],
+   [
+    78,
+    286
+   ],
+   [
+    519,
+    489
+   ]
+  ],
+  "distancias": {
+   "0,1": 46,
+   "0,2": 30,
+   "0,3": 20,
+   "0,4": 47,
+   "0,5": 36,
+   "1,2": 24,
+   "1,3": 34,
+   "1,4": 26,
+   "1,5": 28,
+   "2,3": 30,
+   "2,4": 18,
+   "2,5": 36,
+   "3,4": 47,
+   "3,5": 16,
+   "4,5": 49
+  },
+  "minimo": 138,
+  "solucion": [
+   0,
+   2,
+   4,
+   1,
+   5,
+   3
+  ],
+  "segundo": 153
+ },
+ "playfair": {
+  "clave": "ESCARCHA",
+  "cuadrado": [
+   [
+    "E",
+    "S",
+    "C",
+    "A",
+    "R"
+   ],
+   [
+    "H",
+    "B",
+    "D",
+    "F",
+    "G"
+   ],
+   [
+    "I",
+    "K",
+    "L",
+    "M",
+    "N"
+   ],
+   [
+    "O",
+    "P",
+    "Q",
+    "T",
+    "U"
+   ],
+   [
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z"
+   ]
+  ],
+  "cifrado": "GCRFUISC",
+  "claro": "DRAGONES"
+ },
+ "piedras": {
+  "piedras": 21,
+  "toma_max": 3,
+  "partidas": [
+   [
+    21,
+    19,
+    16,
+    15,
+    12,
+    11,
+    8,
+    6,
+    4,
+    3,
+    0
+   ],
+   [
+    21,
+    18,
+    16,
+    14,
+    12,
+    9,
+    8,
+    7,
+    4,
+    1,
+    0
+   ],
+   [
+    21,
+    19,
+    16,
+    13,
+    12,
+    9,
+    8,
+    7,
+    4,
+    2,
+    0
+   ]
+  ],
+  "solucion_primera_toma": 1
+ },
+ "caminos": {
+  "n": 9,
+  "islas": {
+   "2,4": 3,
+   "2,8": 3,
+   "3,6": 2,
+   "4,4": 4,
+   "4,6": 7,
+   "4,8": 3,
+   "5,3": 3,
+   "5,6": 5,
+   "8,1": 2,
+   "8,3": 3,
+   "8,6": 1
+  },
+  "puentes": [
+   [
     [
-     1,
+     4,
      4
     ],
     [
-     1,
+     4,
+     6
+    ],
+    2
+   ],
+   [
+    [
+     4,
+     6
+    ],
+    [
+     4,
+     8
+    ],
+    1
+   ],
+   [
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     8
+    ],
+    1
+   ],
+   [
+    [
+     8,
+     1
+    ],
+    [
+     8,
+     3
+    ],
+    2
+   ],
+   [
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     6
+    ],
+    2
+   ],
+   [
+    [
+     2,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    2
+   ],
+   [
+    [
+     5,
+     6
+    ],
+    [
+     8,
      6
     ],
     1
    ],
    [
     [
-     1,
+     2,
+     8
+    ],
+    [
+     4,
+     8
+    ],
+    2
+   ],
+   [
+    [
+     5,
      3
     ],
     [
-     1,
-     4
-    ],
-    1
-   ],
-   [
-    [
-     6,
-     1
-    ],
-    [
-     6,
-     2
-    ],
-    1
-   ],
-   [
-    [
-     2,
-     1
-    ],
-    [
-     6,
-     1
+     5,
+     6
     ],
     2
    ],
    [
     [
-     6,
-     0
+     3,
+     6
     ],
     [
-     6,
-     1
+     4,
+     6
+    ],
+    2
+   ],
+   [
+    [
+     5,
+     3
+    ],
+    [
+     8,
+     3
     ],
     1
    ]
-  ],
-  "semilla": 1
- },
- "46": {
-  "frases": [
-   [
-    "El lobo ve al cuervo",
-    "ur kra sil"
-   ],
-   [
-    "El dragón negro ve al lobo",
-    "zeh ska ur sil"
-   ],
-   [
-    "Los lobos grandes ven al cuervo",
-    "uri mori kra sil"
-   ],
-   [
-    "El cuervo teme al dragón",
-    "kra zeh ven"
-   ],
-   [
-    "El guerrero grande ve al lobo",
-    "hod mor ur sil"
-   ],
-   [
-    "Los dragones temen al cuervo",
-    "zehi kra ven"
-   ]
-  ],
-  "pregunta": [
-   "Los cuervos negros temen al guerrero",
-   "krai skai hod ven"
-  ],
-  "carta48": [
-   [
-    "El lobo ve al cuervo",
-    "ur kra sil"
-   ],
-   [
-    "El dragón negro ve al lobo",
-    "zeh ska ur sil"
-   ],
-   [
-    "Los lobos grandes ven al cuervo",
-    "uri mori kra sil"
-   ]
-  ],
-  "carta37": [
-   [
-    "El cuervo teme al dragón",
-    "kra zeh ven"
-   ],
-   [
-    "El guerrero grande ve al lobo",
-    "hod mor ur sil"
-   ],
-   [
-    "Los dragones temen al cuervo",
-    "zehi kra ven"
-   ]
-  ],
-  "hipotesis": 1
- },
- "51": {
-  "nombres": [
-   "Aldric",
-   "Brenna",
-   "Corvin",
-   "Dalia"
-  ],
-  "leales": [
-   false,
-   false,
-   true,
-   true
-  ],
-  "frases": [
-   "Aldric: «Brenna y Corvin son leales.»",
-   "Brenna: «Aldric es leal.»",
-   "Corvin: «Brenna es un traidor.»",
-   "Dalia: «Corvin es leal.»"
-  ],
-  "semilla": 1,
-  "carta26": [
-   "Aldric: «Brenna y Corvin son leales.»",
-   "Brenna: «Aldric es leal.»"
-  ],
-  "carta52": [
-   "Corvin: «Brenna es un traidor.»",
-   "Dalia: «Corvin es leal.»"
   ]
  },
- "64": {
-  "n": 6,
-  "muros": [
-   [
-    0,
-    2
-   ],
-   [
-    1,
-    5
-   ],
-   [
-    2,
-    1
-   ],
-   [
-    2,
-    2
-   ],
-   [
-    2,
-    4
-   ],
-   [
-    3,
-    2
-   ],
-   [
-    4,
-    0
-   ],
-   [
-    5,
-    2
-   ],
-   [
-    5,
-    4
-   ],
-   [
-    5,
-    5
-   ]
-  ],
-  "numeros": {
-   "0,2": 2,
-   "1,5": 2,
-   "2,2": 0,
-   "3,2": 2
+ "sucesion": {
+  "personas": {
+   "Aerion": {
+    "nombre": "el rey Aerion",
+    "edad": 70,
+    "sexo": "m",
+    "estado": "muerto",
+    "padre": null
+   },
+   "Baelor": {
+    "nombre": "Baelor",
+    "edad": 44,
+    "sexo": "m",
+    "estado": "muerto",
+    "padre": "Aerion"
+   },
+   "Maegor": {
+    "nombre": "Maegor",
+    "edad": 40,
+    "sexo": "m",
+    "estado": "septon",
+    "padre": "Aerion"
+   },
+   "Aemon": {
+    "nombre": "Aemon",
+    "edad": 35,
+    "sexo": "m",
+    "estado": "vivo",
+    "padre": "Aerion"
+   },
+   "Daenys": {
+    "nombre": "Daenys",
+    "edad": 42,
+    "sexo": "f",
+    "estado": "vivo",
+    "padre": "Aerion"
+   },
+   "Rhaena": {
+    "nombre": "Rhaena",
+    "edad": 17,
+    "sexo": "f",
+    "estado": "vivo",
+    "padre": "Baelor"
+   },
+   "Daemon": {
+    "nombre": "Daemon",
+    "edad": 9,
+    "sexo": "m",
+    "estado": "vivo",
+    "padre": "Baelor"
+   },
+   "Jaena": {
+    "nombre": "Jaena",
+    "edad": 14,
+    "sexo": "f",
+    "estado": "vivo",
+    "padre": "Daenys"
+   }
   },
-  "en_carta": [
-   "0,2",
-   "2,2"
-  ],
-  "bombillas": [
+  "solucion": "Daemon",
+  "rey": "Aerion"
+ },
+ "sudoku": {
+  "dados": [
    [
     0,
-    1
-   ],
-   [
     0,
-    3
-   ],
-   [
+    2,
     1,
+    0,
     4
    ],
    [
-    2,
+    3,
+    0,
+    4,
+    0,
+    0,
     0
    ],
    [
-    2,
-    5
-   ],
-   [
-    3,
+    0,
+    0,
+    0,
+    0,
+    0,
     1
    ],
    [
+    0,
+    0,
+    6,
+    0,
+    4,
+    5
+   ],
+   [
+    2,
+    3,
+    5,
+    0,
+    0,
+    0
+   ],
+   [
+    4,
+    0,
+    0,
+    0,
+    2,
+    0
+   ]
+  ],
+  "solucion": [
+   [
+    6,
+    5,
+    2,
+    1,
     3,
     4
    ],
    [
+    3,
+    1,
     4,
+    6,
+    5,
     2
    ],
    [
     5,
-    0
-   ]
-  ],
-  "semilla": 1
- },
- "69": {
-  "n": 6,
-  "coches": [
-   [
-    2,
-    0,
-    2,
-    true
-   ],
-   [
-    0,
     4,
     3,
-    false
+    2,
+    6,
+    1
+   ],
+   [
+    1,
+    2,
+    6,
+    3,
+    4,
+    5
+   ],
+   [
+    2,
+    3,
+    5,
+    4,
+    1,
+    6
    ],
    [
     4,
+    6,
+    1,
     5,
     2,
-    false
-   ],
-   [
-    4,
-    3,
-    2,
-    false
-   ],
-   [
-    3,
-    4,
-    2,
-    true
-   ],
-   [
-    1,
-    2,
-    2,
-    false
+    3
    ]
   ],
-  "movimientos_minimos": 10,
-  "ruta": [
-   [
-    4,
-    -1
-   ],
-   [
-    4,
-    -1
-   ],
-   [
-    1,
-    1
-   ],
-   [
-    1,
-    1
-   ],
-   [
-    1,
-    1
-   ],
-   [
-    5,
-    -1
-   ],
-   [
-    0,
-    1
-   ],
-   [
-    0,
-    1
-   ],
-   [
-    0,
-    1
-   ],
-   [
-    0,
-    1
-   ]
-  ],
-  "semilla": 1
+  "casas": [
+   "lobo",
+   "leon",
+   "kraken",
+   "rosa",
+   "sol",
+   "trucha"
+  ]
  },
- "72": {
+ "torres": {
+  "discos": 4,
+  "limite": 15
+ },
+ "tapiz": {
   "solucion": [
    [
     0,
     0,
-    1,
-    1,
     0,
-    0
-   ],
-   [
     0,
-    1,
-    1,
-    1,
-    1,
-    0
-   ],
-   [
-    1,
-    1,
-    1,
-    1,
-    1,
-    1
-   ],
-   [
-    1,
-    1,
     0,
     0,
     1,
@@ -492,6 +550,8 @@
    ],
    [
     0,
+    0,
+    0,
     1,
     1,
     1,
@@ -499,11 +559,63 @@
     0
    ],
    [
+    1,
+    1,
+    1,
     0,
+    0,
+    1,
+    0,
+    1
+   ],
+   [
     0,
     1,
     1,
     0,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1
+   ],
+   [
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
     0
    ]
   ],
@@ -515,71 +627,84 @@
     4
    ],
    [
-    6
+    3,
+    1,
+    1
    ],
    [
     2,
     2
    ],
    [
-    4
+    1,
+    1,
+    1
    ],
    [
-    2
+    6
+   ],
+   [
+    1,
+    2,
+    3
+   ],
+   [
+    1,
+    1,
+    1
    ]
   ],
   "columnas": [
    [
-    2
+    1,
+    1,
+    1
    ],
    [
-    4
+    2,
+    1,
+    1
+   ],
+   [
+    5
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    3
    ],
    [
     3,
     2
    ],
    [
-    3,
-    2
+    2,
+    3
    ],
    [
-    4
-   ],
-   [
-    2
+    1,
+    1,
+    1
    ]
   ]
  },
- "84": {
-  "frase": [
-   "SOLO",
-   "EL",
-   "FUEGO",
-   "VENCERÁ",
-   "AL",
-   "HIELO",
-   "DEL",
-   "NORTE"
-  ],
-  "palabra_de": {
-   "14": "HIELO",
-   "20": "SOLO",
-   "40": "VENCERÁ",
-   "46": "DEL",
-   "51": "FUEGO",
-   "64": "NORTE",
-   "69": "AL",
-   "72": "EL"
+ "profecia": {
+  "datos": {
+   "40": 7,
+   "14": 6,
+   "52": 3,
+   "20": 4
   },
-  "reglas": [
-   "La profecía empieza con SOLO.",
-   "FUEGO va justo después de EL.",
-   "VENCERÁ va justo después de FUEGO.",
-   "AL va justo antes de HIELO.",
-   "VENCERÁ va antes que HIELO.",
-   "DEL va justo antes de NORTE.",
-   "NORTE es la última palabra."
-  ]
+  "orden": [
+   "40",
+   "14",
+   "52",
+   "20"
+  ],
+  "formula": "a × b − c + d",
+  "resultado": 43
  }
 }

@@ -2,639 +2,1110 @@
 window.JUEGO_LOCAL = {
  "_meta": {
   "juego": "Florencia, 1503 — El Taller de Leonardo",
-  "estilo": "Pintura digital con aire de óleo renacentista y estética de película de aventuras, luz cálida de velas y lámparas de aceite, paleta de ocres, sepia, rojo bermellón y verde oliva, con destellos azules del Cronoportal, formato vertical 2:3. Sin texto, letras ni números en la imagen; los bocetos y planos son solo dibujos decorativos sin escritura legible. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
+  "estilo": "Pintura digital con aire de óleo renacentista y estética de película de aventuras, luz cálida de velas y lámparas de aceite, paleta de ocres, sepia, rojo bermellón y verde oliva, con destellos azules del Cronoportal, formato vertical 2:3. Sin texto, letras ni números en la imagen; los bocetos y planos son solo dibujos decorativos sin escritura legible. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).",
   "personajes": {
    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Lleva ropa florentina de 1503: vestido azul oscuro con corpiño ajustado y mangas de lino blanco, el pelo suelto con una cinta.",
    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Lleva ropa florentina de 1503: camisa blanca, jubón marrón, calzas oscuras, capa corta y botas de cuero, con una bolsa de cuero cruzada."
   },
   "hoja": "Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. Mantén su parecido real con la foto (cara, pelo, barba, ojos). Cristina: mujer de 26 años, profesora, pelo rubio y rizado, ojos azules, vestido florentino azul oscuro de 1503 con corpiño y mangas de lino blanco. Alberto: hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones, camisa blanca, jubón marrón, calzas oscuras, capa corta y botas de cuero. Estilo: Pintura digital con aire de óleo renacentista y estética de película de aventuras, luz cálida de velas y lámparas de aceite, paleta de ocres, sepia, rojo bermellón y verde oliva, con destellos azules del Cronoportal, formato vertical 2:3. Sin texto, letras ni números en la imagen; los bocetos y planos son solo dibujos decorativos sin escritura legible. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen.",
   "foto": "Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). Pídele que mantenga el parecido real, pero con el estilo de ilustración de este juego.",
-  "video": "Crea un vídeo vertical 9:16 de 15 segundos, con animación de estilo pintura renacentista de película de aventuras, luz cálida de velas y colores ocres y azul turquesa. Sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Cristina señala un cuadro de Florencia en su libro con una sonrisa emocionada. Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul, el salón se deforma y los dos son absorbidos por un túnel de luz con destellos dorados. Escena 3 (8-12 s): caen sobre el suelo de madera de un taller renacentista de noche, lleno de maquetas, engranajes, espejos y un ornitóptero de madera colgado del techo; el aparato humea y se apaga. Escena 4 (12-15 s): primer plano de Cristina y Alberto, vestidos con ropa de la época, asombrados, mirando alrededor; fundido a negro. Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, crujidos de madera, tictac de relojes y música renacentista de laúd, sin voz de narrador."
+  "video": "Crea un vídeo vertical 9:16 de 15 segundos, con animación de estilo pintura renacentista de película de aventuras, luz cálida de velas y colores ocres y azul turquesa. Sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Cristina señala un cuadro de Florencia en su libro con una sonrisa emocionada. Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul, el salón se deforma y los dos son absorbidos por un túnel de luz con destellos dorados. Escena 3 (8-12 s): caen sobre el suelo de madera de un taller renacentista de noche, lleno de maquetas, engranajes, espejos y un ornitóptero de madera colgado del techo; el aparato humea y se apaga. Escena 4 (12-15 s): primer plano de Cristina y Alberto, vestidos con ropa de la época, asombrados, mirando alrededor; fundido a negro. Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, crujidos de madera, tictac de relojes y música renacentista de laúd, sin voz de narrador.",
+  "mosaicos": {
+   "suelo": {
+    "filas": 2,
+    "cols": 1,
+    "cartas": [
+     "19",
+     "21"
+    ],
+    "titulo": "El suelo del taller"
+   },
+   "leon": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "41",
+     "43"
+    ],
+    "titulo": "El tablero del león"
+   },
+   "patio": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "42",
+     "49"
+    ],
+    "titulo": "El patio del taller"
+   },
+   "plazas": {
+    "filas": 1,
+    "cols": 2,
+    "cartas": [
+     "61",
+     "63"
+    ],
+    "titulo": "Las plazas de la ciudad"
+   },
+   "escalera": {
+    "filas": 2,
+    "cols": 1,
+    "cartas": [
+     "66",
+     "67"
+    ],
+    "titulo": "La escalera de caracol"
+   }
+  }
  },
  "P": {
   "titulo": "Carta P — Llegada al taller",
   "tipo": "gris",
   "coge": [
-   20,
-   22
+   10,
+   12
   ],
   "descripcion": [
-   "Cristina y Alberto estrenan una nueva parada del Cronoportal: Florencia, año 1503. Cristina siempre ha soñado con ver el taller de Leonardo da Vinci.",
-   "El salto vuelve a salir mal: aterrizáis de noche en el taller del maestro, que está fuera, y el Cronoportal se queda sin energía. Alberto calcula que solo hay una forma de recargarlo: concentrar con una lente perfecta la primera luz del amanecer, que llegará dentro de una hora.",
-   "Coged las cartas 20 y 22."
+   "Tercer salto del Cronoportal: Florencia, año 1503. Cristina siempre ha soñado con ver el taller de Leonardo da Vinci. El salto vuelve a salir mal: aterrizáis de noche en el taller del maestro, que está fuera, y el aparato se queda sin energía. Alberto calcula que solo hay una forma de recargarlo: concentrar con una lente perfecta la primera luz del amanecer, que llegará dentro de hora y media.",
+   "Coged las cartas 10 y 12."
   ],
   "pistas": [
    "Mirad a vuestro alrededor y revisad el aparato.",
-   "Coged las cartas 20 y 22."
+   "Coged las cartas 10 y 12."
   ],
-  "arte": "Taller de un genio renacentista en Florencia, de noche, con mesas llenas de maquetas de madera, bocetos clavados en las paredes y un ornitóptero de madera colgado del techo. En el suelo, una consola de latón y cristal de aspecto retrofuturista (el Cronoportal) humea con una luz azul que se apaga. Cristina y Alberto, con ropa florentina, se levantan desconcertados a la luz de las velas."
+  "arte": "El taller de Leonardo da Vinci de noche, a la luz de unas pocas velas, con maquetas, engranajes, espejos y un ornitóptero de madera colgado del techo. En el suelo, un aparato de latón y cristal (el Cronoportal) humea y se apaga. Cristina, con vestido florentino azul oscuro, mira alrededor con los ojos brillantes de emoción y las manos en el pecho; Alberto, con jubón marrón y capa corta, se sujeta la cabeza con una mueca de mareo."
  },
- "20": {
-  "titulo": "Carta 20 — Taller de Leonardo",
+ "10": {
+  "titulo": "Carta 10 — El taller de Leonardo",
   "tipo": "gris",
   "coge": [
-   24,
-   26,
-   28
+   14,
+   16,
+   18,
+   19,
+   20,
+   21,
+   22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "El taller: caballetes, maquetas, dibujos de anatomía y de máquinas. Sobre una mesa hay un cuaderno escrito al revés (carta 26); junto a la chimenea, un cofre de roble con cuatro ruedas numeradas (carta 24); y clavada en la pared, una nota con la letra apresurada de Salaì, el aprendiz de Leonardo (carta 28).",
-   "Coged las cartas 24, 26 y 28. Descartad la carta P."
+   "El taller está lleno de inventos a medio hacer. Sobre una mesa hay un cofre del maestro con una tira de cuero cosida a la tapa, llena de letras. En el suelo, el maestro dejó pintada una cuadrícula de perspectiva con unas rectas que se pierden hacia el fondo, y junto a ella, partido en dos, un compás de bronce.",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
   "pistas": [
-   "Fijaos en la mesa, en la chimenea y en la pared.",
-   "Coged las cartas 24, 26 y 28. Descartad la carta P."
+   "Hay dos puzles: el cofre y el suelo de la perspectiva.",
+   "El suelo son dos cartas: juntadlas, una encima de otra.",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
-  "arte": "Gran taller renacentista iluminado por velas y un fuego bajo en la chimenea: una mesa con un cuaderno abierto, un cofre de roble con cuatro ruedas de latón junto a la chimenea y una nota clavada en la pared. Cristina examina el cofre y Alberto revisa el cuaderno con curiosidad."
+  "arte": "El taller de Leonardo da Vinci con un cofre de madera sobre una mesa con una tira de cuero cosida a la tapa, y en el suelo una cuadrícula pintada con rectas que se juntan a lo lejos. Cristina toca la tira de cuero con una ceja arqueada de curiosidad y Alberto se agacha sobre las rectas del suelo con un dedo apoyado en los labios, pensativo."
  },
- "22": {
-  "titulo": "Carta 22 — Cronoportal sin energía",
+ "12": {
+  "titulo": "Carta 12 — Cronoportal sin energía",
   "tipo": "azul",
   "combina": [
    62,
-   84
+   74
   ],
   "descripcion": [
-   "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un indicador de batería casi vacío (un 2 %). Alberto lo tiene claro: «Necesito luz del amanecer concentrada por una lente de cristal perfecta».",
-   "Cuando tengáis la lente maestra (carta 62), combinadla con el Cronoportal: sumad sus números (22 + 62 = 84) y coged la carta 84."
+   "El Cronoportal con el anillo central apagado y sin su fuente de energía.",
+   "Combinadla con la carta 62: sumad sus números (12 + 62 = 74) y coged la carta 74."
   ],
   "pistas": [
-   "Necesita una lente muy especial y la luz del amanecer.",
-   "Combinad la carta 22 con la carta 62.",
-   "Sumad los números de las dos cartas: 22 + 62 = 84."
+   "El Cronoportal con el anillo central apagado y sin su fuente de energía.",
+   "Se combina con la carta 62.",
+   "12 + 62 = 74."
   ],
-  "arte": "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un indicador de batería casi vacío con una luz roja tenue, sobre una mesa de madera de taller."
+  "arte": "Sin ninguna persona en la imagen. Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre una mesa de taller renacentista con virutas de madera."
  },
- "24": {
-  "titulo": "Carta 24 — Cofre del maestro",
+ "14": {
+  "titulo": "Carta 14 — El cofre del maestro",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: un cofre de roble con cuatro ruedas numeradas, que se abre con una combinación de cuatro cifras. El cuaderno de Leonardo (carta 26) la da, pero escrita como escribía él: al revés, en espejo.",
-   "Al abrirlo, aparece lo que guardaba. Coged la carta 30."
+   "Es un juego de la app: el cofre se abre con la palabra que esconde la tira de cuero de la tapa.",
+   "Al resolverlo, coged la carta 24."
   ],
   "pistas": [
-   "Leonardo escribía al revés para que nadie lo leyera.",
-   "Leed el cuaderno (carta 26) ante un espejo, o con la cámara frontal del móvil apuntando a la pantalla o a la carta.",
-   "La combinación es 2759."
+   "La tira, y la vara de cuatro caras, en la carta 16.",
+   "Leonardo escribió el mensaje enrollando la tira en una vara de cuatro caras y poniendo las letras a lo largo de la vara. Probad a volver a enrollarla: colocad las letras en cuatro columnas.",
+   "El mensaje dice «LA CLAVE ES ALAS»: la palabra es ALAS."
   ],
-  "arte": "Primer plano de un cofre de roble con herrajes de hierro y cuatro ruedas numeradas de latón en la cerradura, sobre una mesa de taller, con luz de vela."
+  "arte": "Sin ninguna persona en la imagen. Un cofre de madera con herrajes de bronce sobre una mesa de taller, con una tira de cuero cosida a la tapa y una cerradura con letras."
  },
- "26": {
-  "titulo": "Carta 26 — Cuaderno de Leonardo",
+ "16": {
+  "titulo": "Carta 16 — La tira del cofre",
   "tipo": "gris",
   "descripcion": [
-   "Un cuaderno abierto con la escritura en espejo de Leonardo, de derecha a izquierda: para leerlo hay que ponerlo frente a un espejo. Da la combinación del cofre (carta 24)."
+   "La tira de cuero cosida a la tapa del cofre, y la vara del maestro vista de punta."
   ],
   "pistas": [
-   "Leonardo escribía al revés. Usad un espejo o la cámara frontal del móvil.",
-   "Es la combinación del cofre (carta 24)."
+   "Sirve para el cofre (carta 14).",
+   "La vara tiene cuatro caras: la tira se escribió enrollada en ella.",
+   "El mensaje dice «LA CLAVE ES ALAS»: la palabra es ALAS."
   ],
-  "textoCarta": [
-   "Salaì, no mires: el cofre",
-   "se abre con cuatro ruedas:",
-   "DOS, SIETE, CINCO, NUEVE."
-  ],
-  "textoEspejo": true,
-  "arte": "Un cuaderno de papel viejo abierto sobre una mesa de madera, con bocetos de máquinas voladoras y columnas de escritura en espejo decorativa sin significado legible, junto a un tintero y una pluma."
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): la tira de cuero y la vara."
  },
- "28": {
-  "titulo": "Carta 28 — Nota de Salaì",
+ "18": {
+  "titulo": "Carta 18 — El acertijo del perspectivo",
   "tipo": "gris",
   "descripcion": [
-   "Una nota apresurada de Salaì, el aprendiz: explica cómo coloca siempre Leonardo el disco de cifrado. Sirve para el disco de Alberti (carta 32)."
+   "Un acertijo del maestro pegado en el bastidor."
   ],
   "pistas": [
-   "Fijaos en cómo se coloca el disco.",
-   "Sirve para el disco de Alberti (carta 32)."
+   "Sirve para el punto de fuga (carta 20).",
+   "Alargad las rectas hasta que se encuentren.",
+   "El punto de fuga está en la casilla D5."
   ],
-  "textoCarta": [
-   "Disco de Alberti: el maestro",
-   "lo pone siempre con la A de fuera",
-   "sobre la F de dentro."
-  ],
-  "arte": "Una nota de papel clavada en una viga de madera con garabatos y manchas de tinta, junto a un disco de cobre con dos anillos de letras apoyado en la mesa; sin texto legible."
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el acertijo del perspectivo."
  },
- "30": {
-  "titulo": "Carta 30 — Interior del cofre",
+ "19": {
+  "titulo": "Carta 19 — El suelo del taller (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del suelo del taller."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 21.",
+   "Las rectas empiezan en la lámina de abajo y suben hacia la de arriba.",
+   "El punto de fuga está en la casilla D5."
+  ],
+  "mosaico": {
+   "id": "suelo",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad de arriba de «El suelo del taller»."
+ },
+ "21": {
+  "titulo": "Carta 21 — El suelo del taller (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del suelo del taller."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 19.",
+   "Las rectas empiezan en la lámina de abajo y suben hacia la de arriba.",
+   "El punto de fuga está en la casilla D5."
+  ],
+  "mosaico": {
+   "id": "suelo",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad de abajo de «El suelo del taller»."
+ },
+ "20": {
+  "titulo": "Carta 20 — El punto de fuga",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: marcar la casilla de la cuadrícula del suelo donde se juntan todas las rectas.",
+   "Al resolverlo, coged la carta 28."
+  ],
+  "pistas": [
+   "El suelo, con la cuadrícula, son las cartas 19 y 21; el acertijo, la 18.",
+   "Con una regla, alargad cada recta hacia arriba por encima del corte entre las dos láminas. Todas pasan por el mismo punto.",
+   "El punto de fuga está en la casilla D5."
+  ],
+  "arte": "Sin ninguna persona en la imagen. El suelo de madera de un taller renacentista con una cuadrícula pintada y varias rectas que se pierden hacia el fondo."
+ },
+ "22": {
+  "titulo": "Carta 22 — Mitad de compás",
+  "tipo": "azul",
+  "combina": [
+   35,
+   57
+  ],
+  "descripcion": [
+   "Una mitad de un compás de bronce con la punta de plata.",
+   "Combinadla con la carta 35: sumad sus números (22 + 35 = 57) y coged la carta 57."
+  ],
+  "pistas": [
+   "Una mitad de un compás de bronce con la punta de plata.",
+   "Se combina con la carta 35.",
+   "22 + 35 = 57."
+  ],
+  "arte": "Sin ninguna persona en la imagen. La mitad de un compás de bronce de dibujo, con la punta de plata, sobre una mesa de taller renacentista."
+ },
+ "24": {
+  "titulo": "Carta 24 — El cofre abierto",
   "tipo": "gris",
   "coge": [
-   32,
+   26
+  ],
+  "descarta": [
+   14,
+   16
+  ],
+  "descripcion": [
+   "La tapa se levanta con un chasquido y dentro hay pergaminos, plumas y un cuaderno de tapas de cuero con la letra de Leonardo, escrita al revés, de derecha a izquierda. Alberto lo acerca a una vela: es el plano de las plazas de Florencia, con un acertijo sobre torres de vigía.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
+  ],
+  "pistas": [
+   "El cuaderno del maestro servirá más adelante.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
+  ],
+  "arte": "Un cofre de madera abierto con pergaminos, plumas y un cuaderno de tapas de cuero con una escritura al revés. Alberto sostiene el cuaderno frente a un espejo de mano con los ojos muy abiertos de asombro y Cristina se asoma por encima de su hombro con la boca entreabierta."
+ },
+ "26": {
+  "titulo": "Carta 26 — El cuaderno de Leonardo",
+  "tipo": "gris",
+  "descripcion": [
+   "Una página del cuaderno de Leonardo, escrita al revés."
+  ],
+  "pistas": [
+   "Sirve para las torres de vigía (carta 51).",
+   "Una torre vigila su plaza y las plazas con calle directa. Buscad el menor número de torres.",
+   "torres en las plazas 1, 2, 5."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el cuaderno de Leonardo."
+ },
+ "28": {
+  "titulo": "Carta 28 — El suelo hundido",
+  "tipo": "gris",
+  "coge": [
    35
   ],
   "descarta": [
-   24,
-   26,
-   20
+   18,
+   19,
+   20,
+   21
   ],
   "descripcion": [
-   "Las cuatro ruedas encajan y el cofre se abre. Dentro hay un disco de cobre con dos anillos de letras (carta 32) y un pergamino con un mensaje de letras sin sentido (carta 35).",
-   "Coged las cartas 32 y 35. Descartad las cartas 24, 26 y 20."
+   "Las rectas del suelo se encuentran y una losa se hunde con un crujido, dejando ver una cavidad con un nicho. Dentro, sobre un cojín de terciopelo, la otra mitad del compás de bronce.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
   ],
   "pistas": [
-   "Mirad lo que había dentro.",
-   "Coged las cartas 32 y 35. Descartad las cartas 24, 26 y 20."
+   "Lo que habéis encontrado se puede juntar con algo que ya tenéis.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
   ],
-  "arte": "El cofre de roble abierto: dentro, un disco de cobre con dos anillos concéntricos de letras decorativas sobre terciopelo rojo y un pergamino enrollado con un lacre. Cristina y Alberto se asoman con asombro."
- },
- "32": {
-  "titulo": "Carta 32 — Disco de Alberti",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: un disco de cobre con dos anillos de letras, el invento de cifrado de Leon Battista Alberti. Hay que colocarlo como indica la nota de Salaì (carta 28), descifrar el pergamino (carta 35) y escribir el nombre del guardián del taller.",
-   "Al acertar, se abre un escondite. Coged la carta 36."
-  ],
-  "pistas": [
-   "Colocad el disco como dice la nota de Salaì.",
-   "Por cada letra del pergamino, mirad cuál queda justo enfrente en el otro anillo.",
-   "El mensaje dice: EL LEON GUARDA SU CORAZON. El guardián es el LEON."
-  ],
-  "arte": "Primer plano de un disco de cifrado renacentista de cobre con dos anillos concéntricos de letras grabadas decorativas, uno de ellos girado, sobre un pergamino enrollado, con luz de vela."
+  "arte": "El suelo de madera de un taller renacentista con una losa hundida que deja ver una cavidad con un nicho. Alberto saca la otra mitad de un compás de bronce con mucho cuidado, la lengua entre los dientes, y Cristina sujeta una vela con gesto maravillado."
  },
  "35": {
-  "titulo": "Carta 35 — Pergamino cifrado",
-  "tipo": "gris",
+  "titulo": "Carta 35 — Otra mitad de compás",
+  "tipo": "roja",
+  "combina": [
+   22,
+   57
+  ],
   "descripcion": [
-   "Un pergamino con un mensaje en letras sin sentido: está cifrado con el disco de Alberti. Sirve para el disco (carta 32)."
+   "La otra mitad del compás de bronce, con un eje de plata.",
+   "Combinadla con la carta 22: sumad sus números (35 + 22 = 57) y coged la carta 57."
   ],
   "pistas": [
-   "Es un mensaje cifrado.",
-   "Sirve para el disco de Alberti (carta 32)."
+   "La otra mitad del compás de bronce, con un eje de plata.",
+   "Se combina con la carta 22.",
+   "35 + 22 = 57."
   ],
-  "textoCarta": [
-   "JQ QJTS",
-   "LZFWIF XZ",
-   "HTWFETS"
-  ],
-  "arte": "Un pergamino desenrollado con un lacre rojo roto y filas de letras de aspecto antiguo (decorativas, sin significado legible), sobre una mesa de madera junto a una pluma."
+  "arte": "Sin ninguna persona en la imagen. La otra mitad de un compás de bronce de dibujo, con un eje de plata, sobre un cojín de terciopelo rojo en un nicho."
  },
- "36": {
-  "titulo": "Carta 36 — El león mecánico",
+ "57": {
+  "titulo": "Carta 57 — El compás de Leonardo",
   "tipo": "gris",
   "coge": [
-   38,
-   40,
-   42
+   31,
+   32
   ],
   "descarta": [
-   30,
-   32,
+   22,
    35,
+   10,
    28
   ],
   "descripcion": [
-   "Al decir el nombre del guardián se abre una trampilla bajo la ventana y aparece un león mecánico de madera y bronce con la panza abierta: dentro hay un mecanismo de engranajes (carta 38), un plano pegado a la tapa (carta 40) y una llave de cuerda (carta 42).",
-   "Coged las cartas 38, 40 y 42. Descartad las cartas 30, 32, 35 y 28."
+   "Las dos mitades se unen y el compás se abre solo, dibujando en el aire un arco de luz. En la pared del taller aparecen dos puertas: una lleva al león mecánico, el autómata del maestro; la otra, al patio, donde hay un tablero de ajedrez tallado en las losas. Hay que cruzar las dos.",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
   ],
   "pistas": [
-   "Mirad dentro del león.",
-   "Coged las cartas 38, 40 y 42. Descartad las cartas 30, 32, 35 y 28."
+   "Hay dos caminos: el león mecánico y el patio de ajedrez. Podéis seguir los dos.",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
   ],
-  "arte": "Un león mecánico de tamaño natural, de madera y bronce, junto a una ventana del taller, con la panza abierta que deja ver un mecanismo de engranajes, un plano pegado a la tapa y una gran llave de bronce. Cristina y Alberto lo observan maravillados."
+  "arte": "Un taller renacentista con un compás de bronce completo apoyado en una mesa, del que sale un arco de luz dorada, y dos puertas recién abiertas en la pared. Cristina sostiene el compás en alto con una sonrisa de triunfo; Alberto mira las dos puertas alternativamente con las cejas muy altas."
  },
- "38": {
-  "titulo": "Carta 38 — Mecanismo del león",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: un panel con clavijas y una bandeja de ruedas dentadas. Hay que montar una cadena de engranajes entre la manivela y la cuerda del reloj interno. El plano (carta 40) dice cómo debe girar la cuerda.",
-   "Al acertar, el mecanismo arranca y una esfera marca un número: un modificador. Sumadlo a la llave de cuerda (carta 42) y coged la carta con esa suma."
-  ],
-  "pistas": [
-   "Dos ruedas solo engranan si se tocan justo por los bordes: la distancia entre sus clavijas es la suma de sus radios.",
-   "Mirad el plano (carta 40): ¿cómo debe girar la cuerda respecto a la manivela?",
-   "Hay dos cadenas posibles. La que hace girar la cuerda igual de rápido y al revés es: rueda pequeña en D, mediana en B y mediana en Z."
-  ],
-  "arte": "Primer plano del mecanismo interior de un león mecánico: un panel de madera con clavijas de latón, varias ruedas dentadas de bronce de distintos tamaños engranadas entre sí y una manivela, con luz cálida de vela."
- },
- "40": {
-  "titulo": "Carta 40 — Plano del mecanismo",
-  "tipo": "gris",
-  "descripcion": [
-   "Un plano pegado a la tapa del león mecánico: indica cómo debe girar la cuerda del reloj interno. Sirve para el mecanismo (carta 38)."
-  ],
-  "pistas": [
-   "Es el objetivo del mecanismo.",
-   "Sirve para el mecanismo del león (carta 38)."
-  ],
-  "textoCarta": [
-   "La cuerda del reloj debe girar",
-   "igual de rápido que la manivela",
-   "pero en sentido contrario."
-  ],
-  "arte": "Un plano dibujado a tinta sobre papel, con círculos de distintos tamaños unidos por flechas curvas que indican giros, pegado en la tapa de madera de un autómata; sin texto legible."
- },
- "42": {
-  "titulo": "Carta 42 — Llave de cuerda",
-  "tipo": "roja",
-  "combina": [
-   "+9",
-   51
-  ],
-  "descripcion": [
-   "Una gran llave de bronce para dar cuerda al león. Se combina con el modificador que dé el mecanismo (carta 38): sumad la llave y el modificador y coged la carta con esa suma.",
-   "El mecanismo os dirá qué número sumar."
-  ],
-  "pistas": [
-   "Es una llave: necesita un número que sale del mecanismo del león.",
-   "Resolved el mecanismo (carta 38): os dirá qué número sumar.",
-   "El modificador es +9: 42 + 9 = 51."
-  ],
-  "arte": "Una gran llave de bronce con un anillo ornamental y un paletón en forma de estrella, sobre un cojín de terciopelo rojo, con luz de vela."
- },
- "51": {
-  "titulo": "Carta 51 — El altillo",
+ "31": {
+  "titulo": "Carta 31 — El león mecánico",
   "tipo": "gris",
   "coge": [
-   54,
+   40,
+   41,
+   43,
+   45
+  ],
+  "descripcion": [
+   "Un león de madera y bronce del tamaño de un caballo vigila una sala. Su pecho es un tablero de cinco por cinco con signos de desigualdad grabados: la boca del león solo se abre si se rellena. El tablero son dos láminas.",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "pistas": [
+   "El tablero son dos cartas: juntadlas.",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un gran león mecánico de madera y bronce en una sala de taller renacentista, con un tablero cuadrado de casillas con signos grabado en el pecho."
+ },
+ "40": {
+  "titulo": "Carta 40 — El tablero del león",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: rellenar el tablero del pecho del león con los números del 1 al 5, respetando los signos.",
+   "Al resolverlo, coged la carta 30."
+  ],
+  "pistas": [
+   "El tablero, con los signos, está en las cartas 41 y 43; el acertijo, en la 45.",
+   "Cada signo señala hacia la casilla menor. Empezad por una casilla con muchos signos a su alrededor.",
+   "El tablero: fila 1: 3 5 4 1 2 / fila 2: 4 2 1 5 3 / fila 3: 1 3 5 2 4 / fila 4: 2 1 3 4 5 / fila 5: 5 4 2 3 1."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un tablero cuadrado de casillas vacías en el pecho de un león mecánico de bronce."
+ },
+ "41": {
+  "titulo": "Carta 41 — El tablero del león (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del tablero del león."
+  ],
+  "pistas": [
+   "Es la mitad de un tablero: juntadla con la carta 43.",
+   "Hay signos de desigualdad entre casillas vecinas.",
+   "El tablero: fila 1: 3 5 4 1 2 / fila 2: 4 2 1 5 3 / fila 3: 1 3 5 2 4 / fila 4: 2 1 3 4 5 / fila 5: 5 4 2 3 1."
+  ],
+  "mosaico": {
+   "id": "leon",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad izquierda de «El tablero del león»."
+ },
+ "43": {
+  "titulo": "Carta 43 — El tablero del león (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del tablero del león."
+  ],
+  "pistas": [
+   "Es la mitad de un tablero: juntadla con la carta 41.",
+   "Hay signos de desigualdad entre casillas vecinas.",
+   "El tablero: fila 1: 3 5 4 1 2 / fila 2: 4 2 1 5 3 / fila 3: 1 3 5 2 4 / fila 4: 2 1 3 4 5 / fila 5: 5 4 2 3 1."
+  ],
+  "mosaico": {
+   "id": "leon",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad derecha de «El tablero del león»."
+ },
+ "45": {
+  "titulo": "Carta 45 — El acertijo del león",
+  "tipo": "gris",
+  "descripcion": [
+   "Un acertijo grabado en la base del león."
+  ],
+  "pistas": [
+   "Sirve para el tablero (carta 40).",
+   "El pico de cada signo señala la casilla de menor número.",
+   "El tablero: fila 1: 3 5 4 1 2 / fila 2: 4 2 1 5 3 / fila 3: 1 3 5 2 4 / fila 4: 2 1 3 4 5 / fila 5: 5 4 2 3 1."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el acertijo del león."
+ },
+ "30": {
+  "titulo": "Carta 30 — Las fauces del león",
+  "tipo": "gris",
+  "coge": [
+   38
+  ],
+  "descarta": [
+   31,
+   40,
+   41,
+   43,
+   45
+  ],
+  "descripcion": [
+   "El león abre las fauces con un rugido de engranajes. En su interior, entre dientes de bronce, hay una lámpara de aceite de plata sin mecha: la lámpara con la que Leonardo ilumina las lentes del sótano.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+  ],
+  "pistas": [
+   "A la lámpara le falta una mecha.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+  ],
+  "arte": "Un león mecánico de madera y bronce con las fauces abiertas, y en su interior una lámpara de aceite de plata entre los dientes. Alberto mete el brazo con cara de pánico fingido y Cristina se tapa la boca para no reírse."
+ },
+ "38": {
+  "titulo": "Carta 38 — Lámpara sin mecha",
+  "tipo": "roja",
+  "combina": [
    56,
-   58,
-   60
+   94
+  ],
+  "descripcion": [
+   "Una lámpara de aceite de plata, llena de aceite pero sin mecha.",
+   "Combinadla con la carta 56: sumad sus números (38 + 56 = 94) y coged la carta 94."
+  ],
+  "pistas": [
+   "Una lámpara de aceite de plata, llena de aceite pero sin mecha.",
+   "Se combina con la carta 56.",
+   "38 + 56 = 94."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una lámpara de aceite de plata con el depósito lleno y sin mecha, sobre un banco de taller renacentista."
+ },
+ "32": {
+  "titulo": "Carta 32 — El patio de ajedrez",
+  "tipo": "gris",
+  "coge": [
+   42,
+   48,
+   49,
+   53
+  ],
+  "descripcion": [
+   "El patio tiene las losas pintadas como un tablero de ajedrez, con algunas casillas tachadas con carbón. En una esquina, la estatua de un caballo de bronce. Leonardo dejó escrito en el muro que quien recorra el patio con los saltos del caballo, pisando todas las casillas libres, abrirá la puerta del fondo. El patio son dos láminas.",
+   "Coged las cartas 42, 48, 49 y 53."
+  ],
+  "pistas": [
+   "El patio son dos cartas: juntadlas.",
+   "Coged las cartas 42, 48, 49 y 53."
+  ],
+  "arte": "Un patio de un taller renacentista con las losas pintadas como un tablero de ajedrez, algunas casillas tachadas con carbón, y una estatua de un caballo de bronce en una esquina. Cristina salta de una casilla a otra con los brazos extendidos para no perder el equilibrio y Alberto la observa con los brazos cruzados y una sonrisa divertida."
+ },
+ "48": {
+  "titulo": "Carta 48 — El patio de ajedrez",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: recorrer el patio con saltos de caballo, pisando una vez cada casilla libre.",
+   "Al resolverlo, coged la carta 36."
+  ],
+  "pistas": [
+   "El patio, con las casillas tachadas y la casilla de salida, son las cartas 42 y 49; el acertijo, la 53.",
+   "Empezad por las casillas con pocas salidas posibles: las de las esquinas y las pegadas a una tachada. Después seguid el hilo.",
+   "Un recorrido que vale: A1 → B3 → A5 → C6 → E5 → F3 → E1 → C2 → A3 → B1 → D2 → F1 → E3 → F5 → D4 → E2 → F4 → D3 → F2 → D1 → B2 → A4 → C5 → A6 → B4 → A2 → C3 → B5 → D6 → E4 → F6."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un patio de un taller renacentista con las losas pintadas como un tablero de ajedrez y la estatua de un caballo de bronce."
+ },
+ "42": {
+  "titulo": "Carta 42 — El patio del taller (mitad izquierda)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del patio del taller."
+  ],
+  "pistas": [
+   "Es la mitad de un plano: juntadla con la carta 49.",
+   "Las casillas tachadas no se pisan; el caballo marca la salida.",
+   "Un recorrido que vale: A1 → B3 → A5 → C6 → E5 → F3 → E1 → C2 → A3 → B1 → D2 → F1 → E3 → F5 → D4 → E2 → F4 → D3 → F2 → D1 → B2 → A4 → C5 → A6 → B4 → A2 → C3 → B5 → D6 → E4 → F6."
+  ],
+  "mosaico": {
+   "id": "patio",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad izquierda de «El patio del taller»."
+ },
+ "49": {
+  "titulo": "Carta 49 — El patio del taller (mitad derecha)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del patio del taller."
+  ],
+  "pistas": [
+   "Es la mitad de un plano: juntadla con la carta 42.",
+   "Las casillas tachadas no se pisan; el caballo marca la salida.",
+   "Un recorrido que vale: A1 → B3 → A5 → C6 → E5 → F3 → E1 → C2 → A3 → B1 → D2 → F1 → E3 → F5 → D4 → E2 → F4 → D3 → F2 → D1 → B2 → A4 → C5 → A6 → B4 → A2 → C3 → B5 → D6 → E4 → F6."
+  ],
+  "mosaico": {
+   "id": "patio",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad derecha de «El patio del taller»."
+ },
+ "53": {
+  "titulo": "Carta 53 — El acertijo del caballo",
+  "tipo": "gris",
+  "descripcion": [
+   "Un acertijo pintado en el muro del patio."
+  ],
+  "pistas": [
+   "Sirve para el patio (carta 48).",
+   "El caballo salta dos casillas en recto y una de lado.",
+   "Un recorrido que vale: A1 → B3 → A5 → C6 → E5 → F3 → E1 → C2 → A3 → B1 → D2 → F1 → E3 → F5 → D4 → E2 → F4 → D3 → F2 → D1 → B2 → A4 → C5 → A6 → B4 → A2 → C3 → B5 → D6 → E4 → F6."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el acertijo del caballo."
+ },
+ "36": {
+  "titulo": "Carta 36 — El altillo de los pintores",
+  "tipo": "gris",
+  "coge": [
+   52,
+   54,
+   55,
+   59
+  ],
+  "descarta": [
+   32,
+   42,
+   48,
+   49,
+   53
+  ],
+  "descripcion": [
+   "La puerta del fondo del patio lleva a un altillo donde los aprendices muelen pigmentos. Sobre una mesa hay tres frascos y un cuadro a medio pintar: el color del maestro, un tono que Leonardo inventó mezclando los tres. Hay que repetirlo.",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+  ],
+  "pistas": [
+   "La paleta son varias cartas.",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+  ],
+  "arte": "Un altillo de pintores de un taller renacentista con una mesa con tres frascos de pigmentos, pinceles y un cuadro a medio pintar. Cristina remueve un frasco con un pincel con gesto concentrado y Alberto compara el color de la mezcla con el del cuadro con los ojos entornados."
+ },
+ "52": {
+  "titulo": "Carta 52 — La paleta de Leonardo",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: decir cuántas cucharadas de cada pigmento hay que mezclar para conseguir el color del maestro.",
+   "Al resolverlo, coged la carta 44."
+  ],
+  "pistas": [
+   "Lo que lleva cada pigmento, en la carta 54; el color que se quiere, en la 55; el acertijo, en la 59.",
+   "Cada pigmento aporta gotas de rojo, de amarillo y de azul por cucharada. Probad con un solo color de gotas y con lo que cada pigmento ofrece.",
+   "La mezcla: 3 cucharadas del pigmento I, 2 del II y 4 del III."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una mesa de pintor con tres frascos de cristal de pigmentos, una cuchara y una paleta de madera."
+ },
+ "54": {
+  "titulo": "Carta 54 — Los tres pigmentos",
+  "tipo": "gris",
+  "descripcion": [
+   "Los tres pigmentos y las gotas de cada color que lleva una cucharada de cada uno."
+  ],
+  "pistas": [
+   "Sirve para la paleta (carta 52).",
+   "Contad las gotas de rojo, amarillo y azul de cada pigmento.",
+   "La mezcla: 3 cucharadas del pigmento I, 2 del II y 4 del III."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): los tres pigmentos."
+ },
+ "55": {
+  "titulo": "Carta 55 — El color del maestro",
+  "tipo": "gris",
+  "descripcion": [
+   "Las gotas de rojo, amarillo y azul que tiene el color del maestro."
+  ],
+  "pistas": [
+   "Sirve para la paleta (carta 52).",
+   "La mezcla debe sumar exactamente esas gotas.",
+   "La mezcla: 3 cucharadas del pigmento I, 2 del II y 4 del III."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el color del maestro."
+ },
+ "59": {
+  "titulo": "Carta 59 — El acertijo de la paleta",
+  "tipo": "gris",
+  "descripcion": [
+   "Un acertijo escrito en el cajón de la paleta."
+  ],
+  "pistas": [
+   "Sirve para la paleta (carta 52).",
+   "Se echan cucharadas enteras de los tres pigmentos.",
+   "La mezcla: 3 cucharadas del pigmento I, 2 del II y 4 del III."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el acertijo de la paleta."
+ },
+ "44": {
+  "titulo": "Carta 44 — El estudio de Leonardo",
+  "tipo": "gris",
+  "coge": [
+   33,
+   37,
+   39,
+   46,
+   51,
+   61,
+   63
   ],
   "descarta": [
    36,
-   38,
-   40,
-   42
+   52,
+   54,
+   55,
+   59
   ],
   "descripcion": [
-   "El león ruge, arranca y su lomo se abre a una escalera: el altillo. Allí hay una caja de nogal con un cierre numérico (carta 54) junto a un boceto del matemático Luca Pacioli, amigo de Leonardo (carta 56), y una trampilla sobre una cisterna (carta 58) con una nota clavada (carta 60).",
-   "Coged las cartas 54, 56, 58 y 60. Descartad las cartas 36, 38, 40 y 42."
+   "El color seca y la pared del altillo se desliza: es el estudio de Leonardo, con estantes de libros, un gran reloj mecánico sin dar la hora y un plano de la ciudad. El reloj no marca la hora hasta que se averigüe cuánto gira una de sus ruedas, y el plano guarda un acertijo sobre las plazas. Tenéis dos encargos.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
-   "Hay dos puzles en el altillo: la caja y la cisterna.",
-   "Coged las cartas 54, 56, 58 y 60. Descartad las cartas 36, 38, 40 y 42."
+   "Hay dos puzles: el reloj de ruedas y las torres de vigía. El cuaderno de Leonardo sirve aquí.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
-  "arte": "Un altillo de madera bajo el tejado con vigas, una caja de nogal sobre una mesa, un boceto geométrico clavado en un caballete y una trampilla abierta sobre una cisterna de piedra con agua oscura. Cristina y Alberto suben por una escalera de madera con una lámpara de aceite."
+  "arte": "El estudio de Leonardo da Vinci con estantes de libros, un gran reloj mecánico de engranajes de bronce y un plano de la ciudad en la pared. Cristina observa los engranajes del reloj con la cabeza ladeada, curiosa, y Alberto sigue con el dedo las calles del plano con el ceño fruncido."
  },
- "54": {
-  "titulo": "Carta 54 — Caja de Pacioli",
+ "46": {
+  "titulo": "Carta 46 — El reloj del taller",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: la caja de las lentes se cierra con una cuadrícula de 4×4 casillas que hay que llenar con los números del 1 al 16, sin repetir, de modo que todas las filas, las columnas y las dos diagonales sumen lo mismo. El boceto de Pacioli (carta 56) da algunos números.",
-   "Al acertar se abre la caja y aparece la lente de Leonardo. Coged la carta 62."
+   "Es un juego de la app: saber cuántas vueltas da la última rueda del reloj y hacia dónde, cuando se gira la manivela.",
+   "Al resolverlo, coged la carta 56."
   ],
   "pistas": [
-   "Todas las filas, columnas y diagonales deben dar la misma suma.",
-   "Los números del 1 al 16 suman 136: repartidos en cuatro filas, ¿cuánto suma cada una?",
-   "Cada línea suma 34. La solución es: 16 3 2 13 / 5 10 11 8 / 9 6 7 12 / 4 15 14 1."
+   "El tren de ruedas, en la carta 37; la manivela, en la 39; el acertijo, en la 33.",
+   "Cada par de ruedas que se tocan reparte las vueltas según los dientes; las que comparten eje giran igual. Contad los dientes de cada rueda.",
+   "Solución: 2 vueltas hacia la derecha."
   ],
-  "arte": "Primer plano de una caja de nogal con una placa de latón dividida en una cuadrícula de dieciséis casillas con números grabados decorativos, y una cerradura, sobre una mesa de madera."
+  "arte": "Sin ninguna persona en la imagen. Un reloj mecánico de engranajes de bronce con una manivela en un lateral, en un estudio renacentista."
+ },
+ "37": {
+  "titulo": "Carta 37 — El tren de ruedas",
+  "tipo": "gris",
+  "descripcion": [
+   "Las cuatro ruedas del reloj, con sus dientes."
+  ],
+  "pistas": [
+   "Sirve para el reloj (carta 46).",
+   "Contad los dientes de cada rueda.",
+   "Solución: 2 vueltas hacia la derecha."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el tren de engranajes."
+ },
+ "39": {
+  "titulo": "Carta 39 — La manivela",
+  "tipo": "gris",
+  "descripcion": [
+   "La manivela de la rueda A: cuántas vueltas y hacia dónde."
+  ],
+  "pistas": [
+   "Sirve para el reloj (carta 46).",
+   "Es lo que se gira de la rueda A.",
+   "Solución: 2 vueltas hacia la derecha."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): la manivela."
+ },
+ "33": {
+  "titulo": "Carta 33 — El acertijo del reloj",
+  "tipo": "gris",
+  "descripcion": [
+   "Un acertijo grabado en el cárter del reloj."
+  ],
+  "pistas": [
+   "Sirve para el reloj (carta 46).",
+   "Ruedas que se tocan giran al revés; ruedas con un mismo eje giran juntas.",
+   "Solución: 2 vueltas hacia la derecha."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el acertijo del reloj."
  },
  "56": {
-  "titulo": "Carta 56 — Boceto de Pacioli",
-  "tipo": "gris",
+  "titulo": "Carta 56 — Mecha de lino",
+  "tipo": "roja",
+  "combina": [
+   38,
+   94
+  ],
   "descripcion": [
-   "Un boceto del matemático Luca Pacioli con algunos números del cuadrado mágico de la caja (carta 54). Sirve para completar el cuadrado."
+   "Una mecha de lino trenzado que cae de un hueco del reloj al marcar la hora.",
+   "Combinadla con la carta 38: sumad sus números (56 + 38 = 94) y coged la carta 94."
   ],
   "pistas": [
-   "Anotad esos números en la cuadrícula de la caja.",
-   "Sirve para la caja de Pacioli (carta 54)."
+   "Una mecha de lino trenzado que cae de un hueco del reloj al marcar la hora.",
+   "Se combina con la carta 38.",
+   "56 + 38 = 94."
   ],
-  "textoCarta": [
-   "Fila 1:  · 3 · ·",
-   "Fila 2:  · 10 · ·",
-   "Fila 3:  · · 7 ·"
-  ],
-  "arte": "Un boceto a tinta de un matemático renacentista con una cuadrícula de cuatro por cuatro casillas, compases y reglas dibujados alrededor, sobre papel viejo; sin texto legible."
+  "arte": "Sin ninguna persona en la imagen. Una mecha de lino trenzado sobre una bandeja de plata junto a un reloj mecánico de engranajes."
  },
- "58": {
-  "titulo": "Carta 58 — Cisterna",
+ "51": {
+  "titulo": "Carta 51 — Las torres de vigía",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: dos jarras (una de 3 medidas y otra de 5) y el grifo de la cisterna. Se puede llenar una jarra, vaciarla o verter una en otra. Hay que dejar justo la cantidad que pide la nota (carta 60) en la jarra grande.",
-   "Al vaciarla aparece una escalera de caracol, pero está atascada con las cajas de viaje del maestro. Coged la carta 44."
+   "Es un juego de la app: elegir en qué plazas levantar torres de vigía para que toda la ciudad quede vigilada con las menos posibles.",
+   "Al resolverlo, coged la carta 58."
   ],
   "pistas": [
-   "Solo se puede llenar, vaciar o verter de una jarra en otra hasta llenarla.",
-   "Empezad llenando la grande y vertiéndola en la pequeña.",
-   "Llenar la grande, verter en la pequeña, vaciar la pequeña, verter en la pequeña los 2 que quedan, llenar la grande y verter en la pequeña hasta que se llene: en la grande quedan 4."
+   "El plano de las plazas son las cartas 61 y 63; el cuaderno de Leonardo, la 26.",
+   "Una torre cubre su plaza y las vecinas por calle. Una plaza sin calles solo la cubre una torre propia. Probad con tres torres.",
+   "Una solución: torres en las plazas 1, 2, 5."
   ],
-  "arte": "Una cisterna de piedra bajo una trampilla de madera, con dos jarras de barro de distinto tamaño sobre el borde, un grifo de bronce y agua oscura reflejando una lámpara."
+  "arte": "Sin ninguna persona en la imagen. El plano de una ciudad renacentista con plazas circulares unidas por calles, y pequeñas torres de vigía dibujadas encima de algunas."
  },
- "60": {
-  "titulo": "Carta 60 — Nota de la cisterna",
+ "61": {
+  "titulo": "Carta 61 — Las plazas de la ciudad (mitad izquierda)",
   "tipo": "gris",
   "descripcion": [
-   "Una nota clavada junto a la cisterna: dice cuánta agua debe quedar en la jarra grande para que ceda la compuerta. Sirve para la cisterna (carta 58)."
+   "Media lámina del plano de las plazas."
   ],
   "pistas": [
-   "Es el objetivo de las jarras.",
-   "Sirve para la cisterna (carta 58)."
+   "Es la mitad de un plano: juntadla con la carta 63.",
+   "Las plazas están numeradas y las líneas son calles.",
+   "Una solución: torres en las plazas 1, 2, 5."
   ],
-  "textoCarta": [
-   "La compuerta cede cuando",
-   "la jarra grande guarda",
-   "justo cuatro medidas."
-  ],
-  "arte": "Una nota de papel clavada con un clavo en una viga húmeda junto a una cisterna, con manchas de tinta y un dibujo de dos jarras; sin texto legible."
+  "mosaico": {
+   "id": "plazas",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad izquierda de «Las plazas de la ciudad»."
  },
- "62": {
-  "titulo": "Carta 62 — Lente maestra",
-  "tipo": "roja",
-  "descarta": [
-   54,
-   56
-  ],
-  "combina": [
-   22,
-   84
-  ],
-  "descripcion": [
-   "La lente maestra de Leonardo: un disco de cristal de roca perfectamente pulido que concentra la luz como ninguna. Cristina: «Con esto, la luz del amanecer bastará».",
-   "Combinadla con el Cronoportal (carta 22): sumad sus números (62 + 22 = 84) y coged la carta 84. Descartad las cartas 54 y 56."
-  ],
-  "pistas": [
-   "Es lo que el aparato necesita.",
-   "Combinad la carta 62 con la carta 22.",
-   "Sumad los números de las dos cartas: 62 + 22 = 84."
-  ],
-  "arte": "Una lente de cristal de roca grande y perfectamente pulida en un soporte de bronce, sobre terciopelo azul oscuro, que concentra la luz de una vela en un punto brillante."
- },
- "84": {
-  "titulo": "Carta 84 — Cronoportal con lente",
+ "63": {
+  "titulo": "Carta 63 — Las plazas de la ciudad (mitad derecha)",
   "tipo": "gris",
-  "descarta": [
-   22,
-   62
-  ],
   "descripcion": [
-   "La lente encaja delante del anillo central del Cronoportal. Ahora solo falta que la luz del amanecer llegue hasta ella: hay que abrir el lucernario del tejado y dirigir el rayo con espejos.",
-   "Descartad las cartas 22 y 62."
+   "Media lámina del plano de las plazas."
   ],
   "pistas": [
-   "El aparato ya tiene su lente.",
-   "Descartad las cartas 22 y 62."
+   "Es la mitad de un plano: juntadla con la carta 61.",
+   "Las plazas están numeradas y las líneas son calles.",
+   "Una solución: torres en las plazas 1, 2, 5."
   ],
-  "arte": "El Cronoportal con una gran lente de cristal de roca encajada delante de su anillo central, a la espera de luz, en medio del taller. Alberto ajusta un dial y Cristina mira el cielo por una ventana."
+  "mosaico": {
+   "id": "plazas",
+   "filas": 1,
+   "cols": 2,
+   "fila": 0,
+   "col": 1
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad derecha de «Las plazas de la ciudad»."
  },
- "74": {
-  "titulo": "Carta 74 — La azotea",
+ "58": {
+  "titulo": "Carta 58 — El permiso del Gonfaloniere",
   "tipo": "gris",
   "coge": [
-   66,
-   68,
+   69,
    70,
-   71,
-   72
+   71
   ],
   "descarta": [
    51,
-   58,
-   60,
-   44,
-   46,
-   47,
-   48,
-   49,
-   50
+   61,
+   63,
+   26,
+   24
   ],
   "descripcion": [
-   "Con el baúl cerrado, la escalera de caracol sube a la azotea, bajo el lucernario cerrado. Allí está el ornitóptero de Leonardo (carta 66) y tres notas: el cuaderno de vuelo (carta 68), una nota del viento (carta 70) y los apuntes de Salaì (carta 71). En un cofre abierto brillan los espejos ustorios del maestro (carta 72).",
-   "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58, 60, 44, 46, 47, 48, 49 y 50."
+   "El Gonfaloniere, que miraba por la ventana, se sobresalta al veros: «¿Los de las torres? ¡Pasad!». Os deja pasar a su despacho, donde un aprendiz de Leonardo ha dejado una caja de pigmentos cerrada con cuatro colores. Sus intentos de abrirla están anotados en la tapa.",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
   "pistas": [
-   "Hay un puzle: el ornitóptero, con tres notas.",
-   "Coged las cartas 66, 68, 70, 71 y 72. Descartad las cartas 51, 58, 60, 44, 46, 47, 48, 49 y 50."
+   "Hay una caja de colores que abrir.",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
-  "arte": "Una azotea de madera bajo el tejado de un taller, con un lucernario cerrado en el techo, un ornitóptero de madera con grandes alas de tela sobre una rampa, tres notas clavadas en una viga y un cofre abierto con espejos de bronce brillantes. Cristina y Alberto lo miran con sorpresa."
+  "arte": "El despacho de un gobernante florentino con una gran ventana, un escritorio con una caja de madera cerrada y un hombre de gorro rojo y túnica oscura que sonríe. Cristina recibe un permiso sellado con una sonrisa radiante y Alberto se inclina con una reverencia exagerada y una ceja levantada."
  },
- "66": {
-  "titulo": "Carta 66 — Ornitóptero",
+ "69": {
+  "titulo": "Carta 69 — La caja de pigmentos",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: hay que preparar el ornitóptero eligiendo ala, tela y lastre. Las notas (cartas 68, 70 y 71) dicen qué combinaciones no funcionan; solo una vuela. Al hacerlo, su ala golpea la palanca del lucernario y lo abre.",
-   "Coged la carta 90."
+   "Es un juego de la app: la caja se abre con cuatro pigmentos de colores distintos en cierto orden.",
+   "Al resolverlo, coged la carta 80."
   ],
   "pistas": [
-   "Leed las tres notas: cada frase descarta combinaciones.",
-   "Empezad por el lastre: ¿qué cantidades quedan posibles?",
-   "Ala larga, tela de seda y dos sacos de lastre."
+   "Los intentos del aprendiz y lo que acertó cada uno, en la carta 70; los seis pigmentos y la norma, en la 71.",
+   "Un círculo negro es un color bien colocado; uno blanco, un color que está pero en otro sitio. Id descartando colores con los intentos.",
+   "El orden: verde, rojo, azul, violeta."
   ],
-  "arte": "Un ornitóptero de madera de Leonardo da Vinci con grandes alas articuladas de tela, un asiento y sacos de lastre colgados, sobre una rampa de madera en una azotea, con las primeras luces del alba al fondo."
- },
- "68": {
-  "titulo": "Carta 68 — Cuaderno de vuelo",
-  "tipo": "gris",
-  "descripcion": [
-   "Un cuaderno de vuelo con apuntes sobre las alas del ornitóptero. Sirve para el ornitóptero (carta 66)."
-  ],
-  "pistas": [
-   "Es una de las tres notas del ornitóptero.",
-   "Sirve para el ornitóptero (carta 66)."
-  ],
-  "textoCarta": [
-   "Ala corta: no levanta ni una pluma.",
-   "Con ala media, siempre dos sacos.",
-   "Ala larga: tres sacos son demasiados."
-  ],
-  "arte": "Un cuaderno de apuntes abierto con dibujos de alas de pájaro y de murciélago, flechas de viento y proporciones, sobre una mesa de madera; sin texto legible."
+  "arte": "Sin ninguna persona en la imagen. Una caja de madera de pintor con cuatro huecos redondos en la tapa y seis frascos de pigmentos de colores alrededor."
  },
  "70": {
-  "titulo": "Carta 70 — Nota del viento",
+  "titulo": "Carta 70 — Los intentos del aprendiz",
   "tipo": "gris",
   "descripcion": [
-   "Una nota de Leonardo sobre el viento del amanecer y el lastre del ornitóptero. Sirve para el ornitóptero (carta 66)."
+   "Los intentos anotados en la tapa de la caja, con los aciertos de cada uno."
   ],
   "pistas": [
-   "Es una de las tres notas del ornitóptero.",
-   "Sirve para el ornitóptero (carta 66)."
+   "Sirve para la caja de pigmentos (carta 69).",
+   "Cada fila es un intento; a la derecha, los aciertos.",
+   "El orden: verde, rojo, azul, violeta."
   ],
-  "textoCarta": [
-   "El viento del alba empuja fuerte.",
-   "Con un solo saco, el aparato cae de lado."
-  ],
-  "arte": "Una nota de papel clavada en una viga con un dibujo de remolinos de viento y un saco de arena, con una veleta de bronce al fondo; sin texto legible."
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): los intentos de la caja."
  },
  "71": {
-  "titulo": "Carta 71 — Apuntes de Salaì",
+  "titulo": "Carta 71 — Los seis pigmentos",
   "tipo": "gris",
   "descripcion": [
-   "Unos apuntes de Salaì sobre las telas del ornitóptero. Sirven para el ornitóptero (carta 66)."
+   "Los seis pigmentos y lo que significan los aciertos."
   ],
   "pistas": [
-   "Es una de las tres notas del ornitóptero.",
-   "Sirve para el ornitóptero (carta 66)."
+   "Sirve para la caja de pigmentos (carta 69).",
+   "Los cuatro pigmentos de la clave son distintos.",
+   "El orden: verde, rojo, azul, violeta."
   ],
-  "textoCarta": [
-   "Dos sacos y tela de cuero: vuelca.",
-   "Lino y dos sacos: se arruga.",
-   "Ala media con seda: sin fuerza."
-  ],
-  "arte": "Unas muestras de tela de lino, seda y cuero sujetas a una tabla con alfileres, junto a unos apuntes con manchas de tinta; sin texto legible."
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): los seis pigmentos."
  },
- "72": {
-  "titulo": "Carta 72 — Espejos ustorios",
-  "tipo": "gris",
-  "descripcion": [
-   "Tres espejos de bronce pulido, con los que Leonardo concentraba la luz. Servirán para dirigir el rayo del amanecer hasta el Cronoportal (carta 92)."
-  ],
-  "pistas": [
-   "Sirven para dirigir la luz.",
-   "Los necesitaréis en la última prueba (carta 92)."
-  ],
-  "arte": "Tres espejos redondos de bronce pulido sobre soportes giratorios, dentro de un cofre abierto forrado de terciopelo, reflejando la luz de una lámpara."
- },
- "90": {
-  "titulo": "Carta 90 — El lucernario",
+ "80": {
+  "titulo": "Carta 80 — El almacén de Leonardo",
   "tipo": "gris",
   "coge": [
-   92,
-   94
+   72,
+   75,
+   79
   ],
   "descarta": [
-   74,
-   66,
-   68,
+   58,
+   69,
    70,
    71
   ],
   "descripcion": [
-   "El ala del ornitóptero golpea la palanca: el lucernario se abre y entra el primer rayo del alba. El rayo está listo para ser dirigido (carta 92) y un plano del taller marca dónde va cada cosa (carta 94).",
-   "Coged las cartas 92 y 94. Descartad las cartas 74, 66, 68, 70 y 71."
+   "La caja se abre y dentro hay una llave del almacén de Leonardo, en lo alto de una torre del taller. Allí guarda lo más pesado: lentes de cristal enormes, y para subirlas hay un montacargas de cuerdas. Hay que elegir el aparejo adecuado.",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
   ],
   "pistas": [
-   "La luz del amanecer ya entra.",
-   "Coged las cartas 92 y 94. Descartad las cartas 74, 66, 68, 70 y 71."
+   "El montacargas es de poleas.",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
   ],
-  "arte": "El lucernario del tejado de un taller renacentista abierto: un primer rayo dorado del amanecer entra en diagonal e ilumina el polvo en el aire, con el ornitóptero detrás. Cristina y Alberto miran hacia arriba con esperanza."
+  "arte": "El almacén de un taller renacentista con grandes lentes de cristal sobre mesas, poleas colgadas del techo y cuerdas enrolladas. Alberto tira de una cuerda con esfuerzo, la cara roja y los dientes apretados, y Cristina contempla una enorme lente con una sonrisa de asombro."
  },
- "92": {
-  "titulo": "Carta 92 — Rayo del amanecer",
+ "72": {
+  "titulo": "Carta 72 — El montacargas",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: el taller visto desde arriba. Hay que colocar la lente en uno de los tres atriles y tres espejos de modo que el rayo que entra por el lucernario atraviese la lente y llegue al Cronoportal. El plano (carta 94) dice en qué atril va la lente.",
-   "Al acertar, el portal de vuelta se abre. Coged la carta 99."
+   "Es un juego de la app: elegir el aparejo de poleas que alza la carga con lo que aguanta la mano y gasta la menor cuerda.",
+   "Al resolverlo, coged la carta 82."
   ],
   "pistas": [
-   "La lente solo cabe en un atril: mirad el plano (carta 94).",
-   "El rayo entra por arriba, en la primera columna; colocad la lente y buscad el camino con tres espejos.",
-   "Lente en B3. Espejos: \\ en A2, \\ en C2 y / en C3."
+   "Los cuatro aparejos, en la carta 75; la carga y lo que aguanta la mano, en la 79.",
+   "Contad las cuerdas que sostienen el peso en el bloque de abajo: el peso se reparte entre ellas.",
+   "El aparejo n.º 1 (el de 4 cuerdas)."
   ],
-  "arte": "Vista cenital de un taller renacentista con un rayo de luz dorada que baja desde un lucernario, rebota en tres espejos de bronce y atraviesa una lente sobre un atril hasta llegar al Cronoportal, que brilla con luz azul."
+  "arte": "Sin ninguna persona en la imagen. Un montacargas de cuerdas y poleas de madera y bronce colgando del techo de un almacén renacentista, con un barril como carga."
  },
- "94": {
-  "titulo": "Carta 94 — Plano solar",
+ "75": {
+  "titulo": "Carta 75 — Los cuatro aparejos",
   "tipo": "gris",
   "descripcion": [
-   "Un plano del taller con una cruz sobre uno de los atriles: dice dónde va la lente. Sirve para el rayo del amanecer (carta 92)."
+   "Los cuatro aparejos de poleas del almacén."
   ],
   "pistas": [
-   "Fijaos en la cruz del plano.",
-   "Sirve para el rayo del amanecer (carta 92)."
+   "Sirve para el montacargas (carta 72).",
+   "Contad las cuerdas que bajan al bloque de abajo.",
+   "El aparejo n.º 1 (el de 4 cuerdas)."
   ],
-  "textoCarta": [
-   "La lente de cristal de roca",
-   "se apoya en el atril de la",
-   "columna B, fila 3."
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): los cuatro aparejos."
+ },
+ "79": {
+  "titulo": "Carta 79 — La carga y la mano",
+  "tipo": "gris",
+  "descripcion": [
+   "Lo que pesa la carga y lo que aguanta la mano."
   ],
-  "arte": "Un plano dibujado a tinta del suelo de un taller visto desde arriba, con una cuadrícula, tres atriles marcados con círculos y una cruz sobre uno de ellos, sobre papel viejo; sin texto legible."
+  "pistas": [
+   "Sirve para el montacargas (carta 72).",
+   "El peso se reparte entre las cuerdas que lo sostienen.",
+   "El aparejo n.º 1 (el de 4 cuerdas)."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): la carga y la mano."
+ },
+ "82": {
+  "titulo": "Carta 82 — El lucernario",
+  "tipo": "gris",
+  "coge": [
+   85,
+   86,
+   87
+  ],
+  "descarta": [
+   80,
+   72,
+   75,
+   79
+  ],
+  "descripcion": [
+   "El montacargas os sube a lo más alto del taller, bajo el lucernario: una ventana cenital con un cristal en el que Leonardo escribió algo con letras de colores. Falta poco para el amanecer. Sobre una mesa, una tabla muy rara.",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "pistas": [
+   "El lucernario es el último puzle.",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "arte": "La estancia más alta de un taller renacentista, con un lucernario de cristal en el techo por el que entra una luz azul de madrugada, y una mesa con pergaminos. Cristina mira el cristal con los ojos muy abiertos y una sonrisa nerviosa, y Alberto compara dos pergaminos con las cejas fruncidas."
+ },
+ "85": {
+  "titulo": "Carta 85 — El lucernario",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: el mensaje del cristal está cifrado con una clave de cuatro letras, una de cada uno de cuatro puzles.",
+   "Al resolverlo, coged la carta 99."
+  ],
+  "pistas": [
+   "El mensaje, con el acertijo de la clave, es la carta 86; la tabla, la 87.",
+   "Cada puzle del acertijo dejó una letra al resolverse. Con la clave, cada letra del mensaje se corrige según la letra de la clave que le toca, repitiéndola.",
+   "La clave SOLE (S de los pigmentos, O de las poleas, L de la caja de colores y E del caballo) da la palabra AMANECER."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un lucernario circular en el techo de un taller con un cristal en el que se ven ocho letras de colores y, debajo, una mesa con un papiro."
+ },
+ "86": {
+  "titulo": "Carta 86 — El mensaje del lucernario",
+  "tipo": "gris",
+  "descripcion": [
+   "El mensaje del cristal, y el acertijo de la clave."
+  ],
+  "pistas": [
+   "Sirve para el lucernario (carta 85).",
+   "La clave se forma con las letras de cuatro puzles, en el orden del acertijo.",
+   "La clave SOLE (S de los pigmentos, O de las poleas, L de la caja de colores y E del caballo) da la palabra AMANECER."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): el mensaje del lucernario."
+ },
+ "87": {
+  "titulo": "Carta 87 — La tabla del cifrador",
+  "tipo": "gris",
+  "descripcion": [
+   "Una tabla de veintiséis filas y columnas de letras."
+  ],
+  "pistas": [
+   "Sirve para el lucernario (carta 85).",
+   "Cada letra del mensaje se busca en la fila de la letra de la clave que le toca.",
+   "La clave SOLE (S de los pigmentos, O de las poleas, L de la caja de colores y E del caballo) da la palabra AMANECER."
+  ],
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): la tabla de Vigenère."
+ },
+ "94": {
+  "titulo": "Carta 94 — El sótano de las lentes",
+  "tipo": "gris",
+  "coge": [
+   64,
+   66,
+   67
+  ],
+  "descarta": [
+   38,
+   56,
+   30,
+   44,
+   33,
+   37,
+   39,
+   46
+  ],
+  "descripcion": [
+   "La mecha prende en la lámpara y la luz baja por una escalera hasta el sótano donde Leonardo pule sus lentes. La escalera, de caracol, tiene los peldaños numerados con pintura, pero faltan números: solo se baja pisando los peldaños seguidos en orden.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "pistas": [
+   "La escalera son dos cartas: juntadlas.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "arte": "Una escalera de caracol de piedra que baja a un sótano oscuro de un taller renacentista, iluminada por una lámpara de aceite de plata, con peldaños numerados con pintura. Cristina sostiene la lámpara con gesto cauteloso y Alberto pisa un peldaño con la punta del pie, tanteando con cara de duda."
+ },
+ "64": {
+  "titulo": "Carta 64 — La escalera de caracol",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: numerar los peldaños del 1 al 25 en un camino sin saltos, respetando los números que ya están puestos.",
+   "Al resolverlo, coged la carta 62."
+  ],
+  "pistas": [
+   "Los números ya puestos, en las cartas 66 y 67 (dos mitades). Cada número está pegado al siguiente, también en diagonal.",
+   "Uníos desde los números que ya están: ¿qué peldaños están entre el 2 y el 14? Probad los caminos más cortos.",
+   "El camino: fila 1: 1 18 17 14 13 / fila 2: 2 19 16 15 12 / fila 3: 3 20 21 22 11 / fila 4: 4 25 24 23 10 / fila 5: 5 6 7 8 9."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una escalera de caracol de piedra vista desde arriba como un cuadrado de peldaños numerados con pintura blanca, algunos sin número."
+ },
+ "66": {
+  "titulo": "Carta 66 — La escalera de caracol (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la escalera de caracol."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 67.",
+   "Los peldaños con número ya están puestos.",
+   "El camino: fila 1: 1 18 17 14 13 / fila 2: 2 19 16 15 12 / fila 3: 3 20 21 22 11 / fila 4: 4 25 24 23 10 / fila 5: 5 6 7 8 9."
+  ],
+  "mosaico": {
+   "id": "escalera",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad de arriba de «La escalera de caracol»."
+ },
+ "67": {
+  "titulo": "Carta 67 — La escalera de caracol (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la escalera de caracol."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 66.",
+   "Los peldaños con número ya están puestos.",
+   "El camino: fila 1: 1 18 17 14 13 / fila 2: 2 19 16 15 12 / fila 3: 3 20 21 22 11 / fila 4: 4 25 24 23 10 / fila 5: 5 6 7 8 9."
+  ],
+  "mosaico": {
+   "id": "escalera",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/florencia.py; no se pide a ChatGPT): mitad de abajo de «La escalera de caracol»."
+ },
+ "62": {
+  "titulo": "Carta 62 — Lente maestra",
+  "tipo": "roja",
+  "combina": [
+   12,
+   74
+  ],
+  "descripcion": [
+   "La lente maestra de Leonardo: un cristal perfecto, pulido durante años, del tamaño de un plato.",
+   "Combinadla con la carta 12: sumad sus números (62 + 12 = 74) y coged la carta 74."
+  ],
+  "pistas": [
+   "La lente maestra de Leonardo: un cristal perfecto, pulido durante años, del tamaño de un plato.",
+   "Se combina con la carta 12.",
+   "62 + 12 = 74."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una enorme lente de cristal perfecto del tamaño de un plato, sobre un cojín de terciopelo azul, reflejando la luz de una lámpara de aceite en un sótano."
+ },
+ "74": {
+  "titulo": "Carta 74 — Cronoportal con la lente",
+  "tipo": "gris",
+  "descarta": [
+   62,
+   12,
+   64,
+   66,
+   67,
+   94,
+   57
+  ],
+  "descripcion": [
+   "La lente maestra encaja en el pecho del Cronoportal. Solo falta la luz del amanecer, y ya asoma por el horizonte: hay que dejar que entre por el lucernario... pero el cristal del lucernario, cifrado, está tapado con un mensaje de Leonardo que solo se enciende con su palabra.",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
+  ],
+  "pistas": [
+   "Falta descifrar el lucernario.",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
+  ],
+  "arte": "El Cronoportal con una lente enorme encajada en el pecho, en el sótano de un taller renacentista iluminado por una lámpara. Alberto ajusta las antenas del aparato con la lengua entre los dientes y Cristina, a su lado, mira hacia arriba con una sonrisa expectante."
  },
  "99": {
   "titulo": "Carta 99 — De vuelta a casa (FIN)",
   "tipo": "gris",
   "descarta": [
-   84,
-   72,
-   90,
-   92,
-   94
+   74,
+   82,
+   85,
+   86,
+   87
   ],
   "descripcion": [
-   "El rayo atraviesa la lente y el Cronoportal despierta con un destello dorado. Se abre el portal justo cuando se oyen los pasos de Leonardo en la escalera. Cristina deja sobre la mesa una nota de agradecimiento, escrita al revés.",
-   "Aterrizan en su salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 84, 72, 90, 92 y 94.",
-   "FIN."
-  ],
-  "pistas": [],
-  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven el taller de Leonardo con un rayo de amanecer, la lente brillante y el ornitóptero. Llevan aún su ropa florentina de 1503. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
- },
- "44": {
-  "titulo": "Carta 44 — La escalera atascada",
-  "tipo": "gris",
-  "coge": [
-   46,
-   47,
-   48,
-   49,
-   50
-  ],
-  "descripcion": [
-   "La escalera de caracol sube a la azotea, pero Salaì la ha llenado con las cajas de viaje de Leonardo: mañana parten hacia Milán. Si las metéis todas en el gran baúl del rellano (carta 46), quedará libre el paso. Las cuatro cajas (cartas 47, 48, 49 y 50) tienen formas raras: la de un ornitóptero, un león, un laúd y un carro.",
-   "Coged las cartas 46, 47, 48, 49 y 50."
+   "La palabra enciende el cristal, el primer rayo del alba cruza la lente y el Cronoportal despierta con un destello dorado. Se abre el portal justo cuando se oyen los pasos de Leonardo en la escalera. Cristina deja sobre la mesa una nota de agradecimiento, escrita al revés. Aterrizáis en vuestro salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. FIN.",
+   "Descartad las cartas 74, 82, 85, 86 y 87."
   ],
   "pistas": [
-   "Hay un puzle: el baúl y las cuatro cajas.",
-   "Cada caja está dibujada desde arriba en una carta (47 a 50).",
-   "Coged las cartas 46, 47, 48, 49 y 50."
+   "Descartad las cartas 74, 82, 85, 86 y 87."
   ],
-  "arte": "Una escalera de caracol de piedra atascada de cajas de madera de formas extrañas, con un gran baúl de viaje abierto en el rellano, a la luz de una vela. Cristina intenta levantar una caja con cara de esfuerzo y Alberto mide el baúl con un palmo, pensativo."
- },
- "46": {
-  "titulo": "Carta 46 — El baúl de viaje",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: un baúl de 5 × 4 palmos y las cuatro cajas de viaje. Se elige una caja, se gira si hace falta y se toca la casilla del baúl donde va su esquina de arriba a la izquierda. Las formas están en las cartas 47, 48, 49 y 50 y tienen que caber las cuatro, sin huecos.",
-   "Al cerrar el baúl, la escalera queda libre. Coged la carta 74."
-  ],
-  "pistas": [
-   "Hacen falta las cuatro cartas de las cajas (47, 48, 49 y 50).",
-   "Empezad por las esquinas del baúl y por la caja más grande (el carro). No hay huecos de sobra: las cuatro llenan los 20 palmos.",
-   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1) (columna, fila)."
-  ],
-  "arte": "Un gran baúl de viaje renacentista de madera con herrajes de bronce, abierto, con el fondo dividido en cuadros y cuatro cajas de formas raras al lado. Alberto encaja una caja con cuidado, sacando la lengua, y Cristina le indica otra con la mano, muy segura."
- },
- "47": {
-  "titulo": "Carta 47 — Caja de viaje: el ornitóptero",
-  "tipo": "gris",
-  "descripcion": [
-   "La caja de viaje de el ornitóptero, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
-  ],
-  "pistas": [
-   "Es una de las cuatro cajas del baúl (carta 46).",
-   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
-   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
-  ],
-  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el ornitóptero."
- },
- "48": {
-  "titulo": "Carta 48 — Caja de viaje: el león mecánico",
-  "tipo": "gris",
-  "descripcion": [
-   "La caja de viaje de el león mecánico, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
-  ],
-  "pistas": [
-   "Es una de las cuatro cajas del baúl (carta 46).",
-   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
-   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
-  ],
-  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el león mecánico."
- },
- "49": {
-  "titulo": "Carta 49 — Caja de viaje: el laúd de plata",
-  "tipo": "gris",
-  "descripcion": [
-   "La caja de viaje de el laúd de plata, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
-  ],
-  "pistas": [
-   "Es una de las cuatro cajas del baúl (carta 46).",
-   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
-   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
-  ],
-  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el laúd de plata."
- },
- "50": {
-  "titulo": "Carta 50 — Caja de viaje: el carro blindado",
-  "tipo": "gris",
-  "descripcion": [
-   "La caja de viaje de el carro blindado, vista desde arriba, con su forma exacta en palmos. Es una de las cuatro cajas que van en el baúl (carta 46)."
-  ],
-  "pistas": [
-   "Es una de las cuatro cajas del baúl (carta 46).",
-   "Las cuatro cajas son las cartas 47, 48, 49 y 50. Se pueden girar, pero no poner del revés.",
-   "Un encaje posible: el ornitóptero en las casillas (2,4), (3,4), (4,3), (4,4), (5,4); el león en las casillas (1,1), (1,2), (1,3), (1,4), (2,2); el laúd en las casillas (4,2), (5,1), (5,2), (5,3); el carro en las casillas (2,1), (2,3), (3,1), (3,2), (3,3), (4,1)."
-  ],
-  "arte": "Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): la caja de el carro blindado."
+  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven el taller de Leonardo y una mesa con inventos. Llevan aún su ropa florentina. Cristina ríe con las manos en la boca, emocionada; Alberto mira el aparato con una sonrisa cansada y satisfecha. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
  }
 };
 window.fetchCartas = function () {

@@ -38,7 +38,7 @@
 
   /* ===== Carta (tamaño por --cw; --mm = 1 mm de la carta impresa de 63 mm) ===== */
   .carta{--mm:calc(var(--cw) / 63);position:relative;width:var(--cw);height:calc(88 * var(--mm));border-radius:calc(3 * var(--mm));overflow:hidden;background:#1b2733;border:calc(1.6 * var(--mm)) solid var(--c,var(--gris));color:#fff;flex:0 0 auto;transition:transform .15s;box-shadow:0 8px 22px rgba(0,0,0,.55);font-family:"Poppins",system-ui,sans-serif}
-  .mesa .carta{--cw:250px}
+  .mesa .carta{--cw:clamp(170px,20vw,250px)}
   .mazo .carta,.descartes .carta{--cw:96px}
   .arte{position:absolute;inset:0;background:#1c2b3a center/cover no-repeat}
   .num{position:absolute;top:calc(1.4 * var(--mm));left:calc(1.4 * var(--mm));width:calc(9.5 * var(--mm));height:calc(9.5 * var(--mm));border-radius:50%;background:var(--c);border:calc(.5 * var(--mm)) solid #fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:calc(4.2 * var(--mm));box-shadow:0 calc(.4 * var(--mm)) calc(1 * var(--mm)) rgba(0,0,0,.5)}
@@ -326,26 +326,33 @@
   function colocarTablero(){
     var mesa = $('mesa'), items = [].slice.call(mesa.querySelectorAll('.item'));
     if (!items.length) { mesa.style.height = ''; return; }
-    var W = mesa.clientWidth || 800, M = 12, pos = estado.pos || (estado.pos = {}), rects = [], fijos = [], nuevos = [];
+    var W = mesa.clientWidth || 800, M = 12, pos = estado.pos || (estado.pos = {}), fijos = [], nuevos = [];
     items.forEach(function(it){ it.style.left = '0px'; it.style.top = '0px'; (pos[it.dataset.id] ? fijos : nuevos).push(it); });
     fijos.forEach(function(it){
-      var p = pos[it.dataset.id], w = it.offsetWidth, h = it.offsetHeight;
+      var p = pos[it.dataset.id], w = it.offsetWidth;
       p.x = Math.max(0, Math.min(p.x, Math.max(0, W - w))); p.y = Math.max(0, p.y);
       it.style.left = p.x + 'px'; it.style.top = p.y + 'px';
-      rects.push({x: p.x, y: p.y, w: w, h: h});
     });
-    nuevos.forEach(function(it){
-      var w = it.offsetWidth, h = it.offsetHeight, pp = null;
-      for (var y = M; !pp; y += 24) {
-        for (var x = M; (x === M || x + w <= W - M) && !pp; x += 24) {
-          if (!rects.some(function(r){ return x < r.x + r.w + 10 && r.x < x + w + 10 && y < r.y + r.h + 10 && r.y < y + h + 10; })) pp = {x: x, y: y};
-        }
-      }
-      pos[it.dataset.id] = pp; it.style.left = pp.x + 'px'; it.style.top = pp.y + 'px';
-      rects.push({x: pp.x, y: pp.y, w: w, h: h});
-    });
+    if (nuevos.length) {
+      // las cartas nuevas entran siempre por arriba del todo, en fila de izquierda a derecha; lo que ya había en la mesa baja para hacerles sitio
+      var G = 14, x = M, y = M, altoFila = 0, colocadas = [];
+      nuevos.forEach(function(it){
+        var w = it.offsetWidth, h = it.offsetHeight;
+        if (x > M && x + w > W - M) { x = M; y += altoFila + G; altoFila = 0; }
+        colocadas.push({it: it, x: x, y: y});
+        x += w + G; altoFila = Math.max(altoFila, h);
+      });
+      var bajar = y + altoFila + G * 2;
+      fijos.forEach(function(it){ var p = pos[it.dataset.id]; p.y += bajar; it.style.top = p.y + 'px'; });
+      colocadas.forEach(function(c){ pos[c.it.dataset.id] = {x: c.x, y: c.y}; c.it.style.left = c.x + 'px'; c.it.style.top = c.y + 'px'; });
+    }
     ajustarAlto();
-    if (nuevos.length) guardar();
+    if (nuevos.length) { guardar(); verArriba(); }
+  }
+  function verArriba(){
+    // si la mesa se ha quedado fuera de la pantalla, se sube hasta que se vean las cartas nuevas
+    var r = $('mesa').getBoundingClientRect();
+    if (r.top < 0 || r.top > window.innerHeight * 0.5) window.scrollBy({top: r.top - 110, behavior: 'smooth'});
   }
   function ajustarAlto(){
     var mesa = $('mesa'), alto = 340;

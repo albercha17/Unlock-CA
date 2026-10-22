@@ -4,210 +4,232 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 38 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 59 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 27 pasos
+## Los 30 pasos
 
-### Paso 1 — Llegada a Piedra Negra
+### Paso 1 — Llegada
 
-Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12.
+Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12.
 
 - **La mesa queda con:** `P` `10` `12`
 - [ ] Hecho
 
 ### Paso 2 — El patio de armas
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 20 y 22. Hay dos puzles: el mensaje del cuervo (14, con la rueda 16) y el banquete (20, con la lista 18).
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la muralla: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `20` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
 - [ ] Hecho
 
-### Paso 3 — Lee el mensaje del cuervo
+### Paso 3 — Las jarras
 
-En el móvil: Acción, 14. La rueda (16) dice que cada letra está tres puestos adelantada. El mensaje dice BAJAD AL ARCHIVO. El mensaje te dice que cojas la 26 y anota la palabra de la profecía que aparece (HIELO).
+En el móvil: Acción, 14. Con las jarras y el cuenco (16): Una forma: llenad la jarra I, pasad de la I a la II, llenad la jarra I, pasad de la I a la II, llenad la jarra I, pasad de la I a la II, llenad la jarra I, pasad de la I a la II, vaciad la jarra II, pasad de la I a la II, llenad la jarra I, pasad de la I a la II. El mensaje te dice que cojas la 24. Anota la cifra de la profecía: 6.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `20` `22` `26`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
 - [ ] Hecho
 
-### Paso 4 — Los rumores
+### Paso 4 — El senescal os cree
 
-Lee la carta 26. Te manda descartar la 14 y la 16. Guárdala: sus frases sirven para los consejeros más adelante.
+Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para la sucesión).
 
-- **La mesa queda con:** `10` `12` `18` `20` `22` `26`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
 
-### Paso 5 — El banquete de las casas
+### Paso 5 — Los centinelas
 
-En el móvil: Acción, 20. Con la lista del senescal (18): de izquierda a derecha, León Dorado con la copa, Lobo Gris con las pieles, Oso Pardo con la espada y Halcón Plateado con el cuerno. El mensaje te dice que cojas la 28.
+En el móvil: Acción, 20. Con la muralla (19 y 21) y el acertijo (18): Los centinelas van en E1, B2, D3, G4, C5, H6, F7, A8. El mensaje te dice que cojas la 28. Anota la cifra de la profecía: 4.
 
 - **En el móvil:** Acción → `20`
-- **La mesa queda con:** `10` `12` `18` `20` `22` `26` `28`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26` `28`
 - [ ] Hecho
 
-### Paso 6 — La mesa del festín
+### Paso 6 — La muralla
 
-Lee la carta 28. Descarta 20 y 18 y coge 35 y 37. El pedernal (35) es combinable; el rollo (37) trae tres frases de la lengua del pueblo libre.
+Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
 
-- **La mesa queda con:** `10` `12` `22` `26` `28` `35` `37`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
 - [ ] Hecho
 
-### Paso 7 — Antorcha con pedernal
+### Paso 7 — La antorcha
 
 La antorcha (22) y el pedernal (35) son combinables: 22 + 35 = 57. Coge la 57.
 
 - **Suma:** `22 + 35 = 57`
-- **La mesa queda con:** `10` `12` `22` `26` `28` `35` `37` `57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
 - [ ] Hecho
 
 ### Paso 8 — La torre del maestre
 
-Lee la carta 57. Descarta 22, 35, 28 y 10 y coge 40 y 42.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **La mesa queda con:** `12` `26` `37` `40` `42` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
 - [ ] Hecho
 
-### Paso 9 — La crónica del maestre
+### Paso 9 — La torre de los cuervos
 
-En el móvil: Acción, 42. Pasa las páginas: dicen cuántos caminos salen de los castillos E y G (tres y cuatro).
+Lee la carta 31. Coge 40, 41, 43 y 45.
 
-- **En el móvil:** Acción → `42`
-- **La mesa queda con:** `12` `26` `37` `40` `42` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 10 — Une los castillos
+### Paso 10 — Los cuervos
 
-En el móvil: Acción, 40. Une los castillos: A con B, A con E, B con C, C con D, F con G, G con H y dos caminos entre E y G. El mensaje te dice que cojas la 44 y anota la palabra de la profecía (VENCERÁ).
+En el móvil: Acción, 40. Con el mapa (41), las leguas (43) y el acertijo (45): La ruta más corta (138 leguas): 1 → 3 → 5 → 2 → 6 → 4 → 1. El mensaje te dice que cojas la 30. Anota la cifra de la profecía: 7.
 
 - **En el móvil:** Acción → `40`
-- **La mesa queda con:** `12` `26` `37` `40` `42` `44` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
 
-### Paso 11 — El salón del consejo
+### Paso 11 — El cuervo vuela
 
-Lee la carta 44. Descarta 40, 42 y 57 y coge 46, 48, 51 y 52. Hay dos puzles: la lengua de la prisionera (46, con 37 y 48) y los consejeros (51, con 26 y 52).
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
 
-- **La mesa queda con:** `12` `26` `37` `44` `46` `48` `51` `52`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
 - [ ] Hecho
 
-### Paso 12 — Habla como el pueblo libre
+### Paso 12 — El calabozo
 
-En el móvil: Acción, 46. Con las frases de los rollos (37 y 48), escribe: krai skai hod ven. El mensaje te dice que cojas la 54 y anota la palabra de la profecía (DEL).
+Lee la carta 32. Coge 42, 48, 49 y 53.
+
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 13 — La carta de la prisionera
+
+En el móvil: Acción, 48. Con la carta (42), el cuadrado (49) y la regla (53): El mensaje es DRAGONES. El mensaje te dice que cojas la 36.
+
+- **En el móvil:** Acción → `48`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 14 — El carcelero
+
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
+
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- [ ] Hecho
+
+### Paso 15 — Las piedras
+
+En el móvil: Acción, 52. Con las partidas (55) y el dicho (59): Tomad 1 piedra al empezar (quedan 20) y, tras cada jugada del carcelero, tomad lo que haga que queden 16, 12, 8, 4 y 0. El mensaje te dice que cojas la 44. Anota la cifra de la profecía: 3.
+
+- **En el móvil:** Acción → `52`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- [ ] Hecho
+
+### Paso 16 — La biblioteca del maestre
+
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el mapa: 37 a la izquierda y 39 a la derecha; y el árbol: 61 a la izquierda y 63 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
+- [ ] Hecho
+
+### Paso 17 — Los castillos
+
+En el móvil: Acción, 46. Con el mapa (37 y 39) y el acertijo (33): E–G: dos puentes; G–K: un puente; D–J: un puente; A–C: dos puentes; G–H: dos puentes; D–E: dos puentes; H–I: un puente; J–K: dos puentes; B–H: dos puentes; F–G: dos puentes; B–C: un puente. El mensaje te dice que cojas la 56.
 
 - **En el móvil:** Acción → `46`
-- **La mesa queda con:** `12` `26` `37` `44` `46` `48` `51` `52` `54`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 13 — La confianza de la prisionera
+### Paso 18 — La sucesión
 
-Lee la carta 54. Descarta 46, 48 y 37 y coge la 56, una mitad del sello.
-
-- **La mesa queda con:** `12` `26` `44` `51` `52` `54` `56`
-- [ ] Hecho
-
-### Paso 14 — Leales y traidores
-
-En el móvil: Acción, 51. Con las frases de las cartas 26 y 52: Aldric y Brenna son traidores; Corvin y Dalia, leales. El mensaje te dice que cojas la 58 y anota la palabra de la profecía (FUEGO).
+En el móvil: Acción, 51. Con las leyes (26) y el árbol (61 y 63): Hereda Daemon: es el hijo del hijo mayor, Baelor, y los hijos del primer hijo van antes aunque este haya muerto; Maegor no puede por sus votos. El mensaje te dice que cojas la 58.
 
 - **En el móvil:** Acción → `51`
-- **La mesa queda con:** `12` `26` `44` `51` `52` `54` `56` `58`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
 - [ ] Hecho
 
-### Paso 15 — La traición
+### Paso 19 — La verdad del trono
 
-Lee la carta 58. Descarta 51, 52 y 26 y coge la 38, la otra mitad del sello.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71. Junta el tablero: 70 arriba y 71 abajo.
 
-- **La mesa queda con:** `12` `38` `44` `54` `56` `58`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
 
-### Paso 16 — El sello completo
+### Paso 20 — El tablero de las casas
 
-Las dos mitades del sello (56 y 38) son combinables: 56 + 38 = 94. Coge la 94.
-
-- **Suma:** `56 + 38 = 94`
-- **La mesa queda con:** `12` `38` `44` `54` `56` `58` `94`
-- [ ] Hecho
-
-### Paso 17 — La cripta del dragón
-
-Lee la carta 94. Descarta 56, 38, 44, 54 y 58 y coge 64 y 66. El plano (66) da el número de dos pilares de la cripta (64).
-
-- **La mesa queda con:** `12` `64` `66` `94`
-- [ ] Hecho
-
-### Paso 18 — Enciende las antorchas
-
-En el móvil: Acción, 64. Con el plano (66): antorchas en B1, D1, E2, A3, F3, B4, E4, C5 y A6. El mensaje te dice que cojas la 78 y anota la palabra de la profecía (NORTE).
-
-- **En el móvil:** Acción → `64`
-- **La mesa queda con:** `12` `64` `66` `78` `94`
-- [ ] Hecho
-
-### Paso 19 — La puerta de bronce
-
-Lee la carta 78. Descarta 64, 66 y 94 y coge 69 y 70. La nota (70) dice cuál es el ariete.
-
-- **La mesa queda con:** `12` `69` `70` `78`
-- [ ] Hecho
-
-### Paso 20 — Libera la puerta
-
-En el móvil: Acción, 69. Saca el ariete (el tronco largo de la tercera fila) por la derecha en diez movimientos. El mensaje te dice que cojas la 80 y anota la palabra de la profecía (AL).
+En el móvil: Acción, 69. Con el tablero (70 y 71): Con 1 lobo, 2 león, 3 kraken, 4 rosa, 5 sol y 6 trucha: 6 5 2 1 3 4 / 3 1 4 6 5 2 / 5 4 3 2 6 1 / 1 2 6 3 4 5 / 2 3 5 4 1 6 / 4 6 1 5 2 3. El mensaje te dice que cojas la 80.
 
 - **En el móvil:** Acción → `69`
-- **La mesa queda con:** `12` `69` `70` `78` `80`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71` `80`
 - [ ] Hecho
 
-### Paso 21 — El dragón dormido
+### Paso 21 — Las criptas
 
-Lee la carta 80. Descarta 69, 70 y 78 y coge 72 y 76. Las notas (76) dan los números de las columnas del tapiz.
+Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79.
 
-- **La mesa queda con:** `12` `72` `76` `80`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80`
 - [ ] Hecho
 
-### Paso 22 — Termina el tapiz
+### Paso 22 — Las torres de hielo
 
-En el móvil: Acción, 72. Pinta el sigilo (una llama) con los números de las filas de la pantalla y los de las columnas de la carta 76. El mensaje te dice que cojas la 82 y anota la palabra de la profecía (EL).
+En el móvil: Acción, 72. Con las torres (75) y el reloj de arena (79): Los 15 movimientos, de torre a torre: I→II, I→III, II→III, I→II, III→I, III→II, I→II, I→III, II→III, II→I, III→I, II→III, I→II, I→III, II→III. El mensaje te dice que cojas la 82.
 
 - **En el móvil:** Acción → `72`
-- **La mesa queda con:** `12` `72` `76` `80` `82`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80` `82`
 - [ ] Hecho
 
-### Paso 23 — La esquirla
+### Paso 23 — El altar de la profecía
 
-Lee la carta 82. Descarta 72, 76 y 80 y coge la 62, la esquirla de dragón.
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
 
-- **La mesa queda con:** `12` `62` `82`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
 - [ ] Hecho
 
-### Paso 24 — Esquirla en el Cronoportal
+### Paso 24 — El sello
+
+Las dos mitades del sello (38 y 56) son combinables: 38 + 56 = 94. Coge la 94.
+
+- **Suma:** `38 + 56 = 94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 25 — La cripta del dragón
+
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67.
+
+- **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 26 — El tapiz
+
+En el móvil: Acción, 64. Con las filas (66) y las columnas (67): ......## / ...####. / ###..#.# / .##.##.. / #.#.#... / .######. / #.##.### / .#.#..#.. El mensaje te dice que cojas la 62.
+
+- **En el móvil:** Acción → `64`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 27 — La esquirla
 
 El Cronoportal (12) y la esquirla (62) son combinables: 12 + 62 = 74. Coge la 74.
 
 - **Suma:** `12 + 62 = 74`
-- **La mesa queda con:** `12` `62` `74` `82`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `74` `82` `85` `86` `87` `94`
 - [ ] Hecho
 
-### Paso 25 — Cronoportal reconectado
+### Paso 28 — Cronoportal reconectado
 
-Lee la carta 74. Descarta 62, 12 y 82 y coge 84 y 86. Las notas (86) explican cómo ordenar la profecía.
+Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57.
 
-- **La mesa queda con:** `74` `84` `86`
+- **La mesa queda con:** `74` `82` `85` `86` `87`
 - [ ] Hecho
 
-### Paso 26 — Ordena la profecía
+### Paso 29 — La puerta
 
-En el móvil: Acción, 84. Con las notas (86), ordena las palabras: SOLO EL FUEGO VENCERÁ AL HIELO DEL NORTE. El mensaje te dice que cojas la 99.
+En el móvil: Acción, 85. Con las cifras de las pruebas y los acertijos (86 y 87): 7 × 6 − 3 + 4 = 43. El mensaje te dice que cojas la 99.
 
-- **En el móvil:** Acción → `84`
-- **La mesa queda con:** `74` `84` `86` `99`
+- **En el móvil:** Acción → `85`
+- **La mesa queda con:** `74` `82` `85` `86` `87` `99`
 - [ ] Hecho
 
-### Paso 27 — Final
+### Paso 30 — Final
 
-Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Fin!
+Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!
 
 - **La mesa queda con:** `99`
 - [ ] Hecho
@@ -216,45 +238,66 @@ Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Fin!
 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
-| P | Llegada a Piedra Negra | Normal | Coge 10, 12 | Inicio: llegada a la fortaleza. Te manda coger la 10 y la 12. | 1 |
-| 10 | Patio de armas | Normal | Coge 14, 16, 18, 20, 22; Descarta P | El patio de armas: reparte el cuervo, la rueda, la lista del senescal, el banquete y la antorcha. | 1 |
-| 12 | Cronoportal sin energía | Combina | Combinable: suma los números | El Cronoportal sin energía: se combina con la esquirla de dragón (62). | 1 |
-| 14 | Mensaje del cuervo | App | — | Mensaje del cuervo (app): descifrar un mensaje con la cifra del maestre (César). | 2 |
-| 16 | Rueda del maestre | Normal | Texto: «Cifra del maestre Osric: cada letra escrita está tres puestos DESPUÉS de la verdadera. Para leer, retroceded tres: la D es una A, la E es una B.» | Rueda del maestre: la regla de la cifra (retroceder tres letras). | 2 |
-| 18 | Lista del senescal | Normal | Texto: «Cuatro casas, cuatro asientos, de izquierda a derecha. El Halcón Plateado ocupa el último asiento. Quien trae la espada no se sienta en ninguna de las dos puntas de la mesa.» | Lista del senescal: las dos primeras pistas del banquete. | 2 |
-| 20 | Banquete de las casas | App | — | Banquete de las casas (app): tabla lógica de casas, asientos y regalos. | 2 |
-| 22 | Antorcha apagada | Combina | Combinable: suma los números | Antorcha apagada: se combina con el pedernal (35). | 2 |
-| 26 | Rumores del patio | Normal | Descarta 14, 16; Texto: «Rumores de los consejeros: Aldric: «Brenna y Corvin son leales.» Brenna: «Aldric es leal.»» | Rumores del patio: dos frases de consejeros; te manda descartar el cuervo y la rueda. | 3 |
-| 28 | La mesa del festín | Normal | Coge 35, 37; Descarta 20, 18 | La mesa del festín: reparte el pedernal y el rollo del pueblo libre. | 5 |
-| 35 | Pedernal | Combina | Combinable: suma los números | Pedernal: se combina con la antorcha (22). | 6 |
-| 37 | Rollo del pueblo libre | Normal | Texto: «Lengua del pueblo libre: kra zeh ven = El cuervo teme al dragón. hod mor ur sil = El guerrero grande ve al lobo. zehi kra ven = Los dragones temen al cuervo.» | Rollo del pueblo libre: tres frases de ejemplo de su lengua. | 6 |
-| 38 | Mitad del sello | Combina | Combinable: suma los números | Mitad del sello: se combina con la otra mitad (56). | 15 |
-| 40 | Caminos entre castillos | App | — | Caminos entre castillos (app): unir castillos con caminos (puentes, estilo hashi). | 8 |
-| 42 | Crónica del maestre | App | — | Crónica del maestre (app de lectura): los caminos de dos castillos del mapa. | 8 |
-| 44 | El salón del consejo | Normal | Coge 46, 48, 51, 52; Descarta 40, 42, 57 | El salón del consejo: reparte la lengua de la prisionera y los consejeros. | 10 |
-| 46 | Lengua del pueblo libre | App | — | Lengua del pueblo libre (app): traducir una frase con las reglas de los ejemplos. | 11 |
-| 48 | Pergamino de la prisionera | Normal | Texto: «Lengua del pueblo libre: ur kra sil = El lobo ve al cuervo. zeh ska ur sil = El dragón negro ve al lobo. uri mori kra sil = Los lobos grandes ven al cuervo.» | Pergamino de la prisionera: otras tres frases de ejemplo. | 11 |
-| 51 | Los consejeros | App | — | Los consejeros (app): deducir quién es leal y quién traidor. | 11 |
-| 52 | Declaraciones | Normal | Texto: «Declaraciones de los consejeros: Corvin: «Brenna es un traidor.» Dalia: «Corvin es leal.»» | Declaraciones: dos frases más de consejeros. | 11 |
-| 54 | La confianza de la prisionera | Normal | Coge 56; Descarta 46, 48, 37 | La confianza de la prisionera: reparte la primera mitad del sello. | 12 |
-| 56 | Mitad del sello | Combina | Combinable: suma los números | Mitad del sello: se combina con la otra mitad (38). | 13 |
-| 57 | La torre del maestre | Normal | Coge 40, 42; Descarta 22, 35, 28, 10 | La torre del maestre: resultado de 22 + 35; reparte el mapa y la crónica. | 7 |
-| 58 | La traición | Normal | Coge 38; Descarta 51, 52, 26 | La traición: reparte la segunda mitad del sello. | 14 |
-| 62 | Esquirla de dragón | Combina | Combinable: suma los números | Esquirla de dragón: se combina con el Cronoportal (12). | 23 |
-| 64 | Antorchas de la cripta | App | — | Antorchas de la cripta (app): iluminar el suelo sin que se vean entre sí (akari). | 17 |
-| 66 | Plano de la cripta | Normal | Texto: «Plano del maestre. Columnas de A a F, filas de 1 a 6. El pilar C1 tiene dos antorchas pegadas. El pilar C3 no tiene ninguna.» | Plano de la cripta: el número de dos pilares. | 17 |
-| 69 | Atasco ante la puerta | App | — | Atasco ante la puerta (app): bloques deslizantes; sacar el ariete. | 19 |
-| 70 | Nota del maestre | Normal | Texto: «El ariete es el tronco de la tercera fila que está pegado al borde izquierdo. Debe salir por el lado derecho.» | Nota del maestre: cuál es el ariete. | 19 |
-| 72 | Tapiz del sigilo | App | — | Tapiz del sigilo (app): nonograma que dibuja una llama. | 21 |
-| 74 | Cronoportal reconectado | Normal | Coge 84, 86; Descarta 62, 12, 82 | Cronoportal reconectado: resultado de 62 + 12; reparte la profecía y las pistas. | 24 |
-| 76 | Notas de las tejedoras | Normal | Texto: «Columnas del tapiz, de izquierda a derecha: A: 2 · B: 4 · C: 3 y 2 D: 3 y 2 · E: 4 · F: 2» | Notas de las tejedoras: los números de las columnas del tapiz. | 21 |
-| 78 | La puerta de bronce | Normal | Coge 69, 70; Descarta 64, 66, 94 | La puerta de bronce: reparte el atasco y la nota. | 18 |
-| 80 | El dragón dormido | Normal | Coge 72, 76; Descarta 69, 70, 78 | El dragón dormido: reparte el tapiz y las notas. | 20 |
-| 82 | La esquirla | Normal | Coge 62; Descarta 72, 76, 80 | La esquirla: reparte la esquirla de dragón. | 22 |
-| 84 | La profecía | App | — | La profecía (app): ordenar las ocho palabras recuperadas en los puzles (metapuzle final). | 25 |
-| 86 | Pistas del maestre | Normal | Texto: «Pistas del maestre: La profecía empieza con SOLO. FUEGO va justo después de EL. VENCERÁ va justo después de FUEGO y antes que HIELO. AL va justo antes de HIELO. DEL va justo antes de NORTE. NORTE es la última palabra.» | Pistas del maestre: reglas para ordenar las palabras. | 25 |
-| 94 | La cripta del dragón | Normal | Coge 64, 66; Descarta 56, 38, 44, 54, 58 | La cripta del dragón: resultado de 56 + 38; reparte las antorchas y el plano. | 16 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 84, 86 | Final de la aventura. | 26 |
+| P | Llegada a Piedra Negra | Normal | Coge 10, 12 | Llegada a Piedra Negra | 1 |
+| 10 | El patio de armas | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El patio de armas | 1 |
+| 12 | Cronoportal sin energía | Combina | Combinable: suma los números | Cronoportal sin energía | 1 |
+| 14 | Las jarras del senescal | App | — | Las jarras del senescal | 2 |
+| 16 | El encargo del senescal | Normal | — | El encargo del senescal | 2 |
+| 18 | El acertijo de la muralla | Normal | — | El acertijo de la muralla | 2 |
+| 19 | La muralla de Piedra Negra (mitad de arriba) | Normal | — | La muralla de Piedra Negra (mitad de arriba) | 2 |
+| 20 | Los centinelas de la muralla | App | — | Los centinelas de la muralla | 2 |
+| 21 | La muralla de Piedra Negra (mitad de abajo) | Normal | — | La muralla de Piedra Negra (mitad de abajo) | 2 |
+| 22 | Antorcha apagada | Combina | Combinable: suma los números | Antorcha apagada | 2 |
+| 24 | El senescal os cree | Normal | Coge 26; Descarta 14, 16 | El senescal os cree | 3 |
+| 26 | Las leyes del reino | Normal | — | Las leyes del reino | 4 |
+| 28 | La muralla | Normal | Coge 35; Descarta 18, 19, 20, 21 | La muralla | 5 |
+| 30 | El cuervo vuela | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | El cuervo vuela | 10 |
+| 31 | La torre de los cuervos | Normal | Coge 40, 41, 43, 45 | La torre de los cuervos | 8 |
+| 32 | El calabozo de la prisionera | Normal | Coge 42, 48, 49, 53 | El calabozo de la prisionera | 8 |
+| 33 | El acertijo de los puentes | Normal | — | El acertijo de los puentes | 16 |
+| 35 | Pedernal | Combina | Combinable: suma los números | Pedernal | 6 |
+| 36 | El carcelero | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El carcelero | 13 |
+| 37 | Los castillos del reino (mitad izquierda) | Normal | — | Los castillos del reino (mitad izquierda) | 16 |
+| 38 | Mitad del sello | Combina | Combinable: suma los números | Mitad del sello | 11 |
+| 39 | Los castillos del reino (mitad derecha) | Normal | — | Los castillos del reino (mitad derecha) | 16 |
+| 40 | Los cuervos mensajeros | App | — | Los cuervos mensajeros | 9 |
+| 41 | El mapa de los siete reinos | Normal | — | El mapa de los siete reinos | 9 |
+| 42 | La carta de la prisionera | Normal | — | La carta de la prisionera | 12 |
+| 43 | Las leguas entre fortalezas | Normal | — | Las leguas entre fortalezas | 9 |
+| 44 | La biblioteca del maestre | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La biblioteca del maestre | 15 |
+| 45 | El acertijo de los cuervos | Normal | — | El acertijo de los cuervos | 9 |
+| 46 | Los castillos del reino | App | — | Los castillos del reino | 16 |
+| 48 | La carta de la prisionera | App | — | La carta de la prisionera | 12 |
+| 49 | El cuadrado de la clave | Normal | — | El cuadrado de la clave | 12 |
+| 51 | La sucesión | App | — | La sucesión | 16 |
+| 52 | El juego de las piedras | App | — | El juego de las piedras | 14 |
+| 53 | La regla del cuadrado | Normal | — | La regla del cuadrado | 12 |
+| 54 | El juego de las piedras | Normal | — | El juego de las piedras | 14 |
+| 55 | Las partidas del carcelero | Normal | — | Las partidas del carcelero | 14 |
+| 56 | Mitad del sello | Combina | Combinable: suma los números | Mitad del sello | 17 |
+| 57 | La torre del maestre | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | La torre del maestre | 7 |
+| 58 | La verdad del trono | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | La verdad del trono | 18 |
+| 59 | El dicho del carcelero | Normal | — | El dicho del carcelero | 14 |
+| 61 | El árbol del rey Aerion (mitad izquierda) | Normal | — | El árbol del rey Aerion (mitad izquierda) | 16 |
+| 62 | Esquirla de dragón | Combina | Combinable: suma los números | Esquirla de dragón | 26 |
+| 63 | El árbol del rey Aerion (mitad derecha) | Normal | — | El árbol del rey Aerion (mitad derecha) | 16 |
+| 64 | El tapiz del sigilo | App | — | El tapiz del sigilo | 25 |
+| 66 | El tapiz del sigilo (filas) | Normal | — | El tapiz del sigilo (filas) | 25 |
+| 67 | El tapiz del sigilo (columnas) | Normal | — | El tapiz del sigilo (columnas) | 25 |
+| 69 | El tablero de las seis casas | App | — | El tablero de las seis casas | 19 |
+| 70 | El tablero de las seis casas (mitad de arriba) | Normal | — | El tablero de las seis casas (mitad de arriba) | 19 |
+| 71 | El tablero de las seis casas (mitad de abajo) | Normal | — | El tablero de las seis casas (mitad de abajo) | 19 |
+| 72 | Las torres de hielo | App | — | Las torres de hielo | 21 |
+| 74 | Cronoportal reconectado | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | Cronoportal reconectado | 27 |
+| 75 | Las torres de hielo | Normal | — | Las torres de hielo | 21 |
+| 79 | El reloj de arena | Normal | — | El reloj de arena | 21 |
+| 80 | Las criptas | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | Las criptas | 20 |
+| 82 | El altar de la profecía | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | El altar de la profecía | 22 |
+| 85 | La puerta de la profecía | App | — | La puerta de la profecía | 23 |
+| 86 | La profecía del maestre (I) | Normal | — | La profecía del maestre (I) | 23 |
+| 87 | La profecía del maestre (II) | Normal | — | La profecía del maestre (II) | 23 |
+| 94 | La cripta del dragón | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La cripta del dragón | 24 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | De vuelta a casa (FIN) | 29 |
 
 ## Si algo no cuadra
 

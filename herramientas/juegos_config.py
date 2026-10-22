@@ -55,10 +55,11 @@ JUEGOS = {
                    "51": "51-anillo.js", "69": "69-programa.js", "64": "64-paneles.js", "72": "72-sopa.js", "85": "85-consola.js"},
         pal=("#8a3a1a", "#1c0c10")),
     "Florencia": dict(
-        datos=F, dificultad=4, tema="florencia", titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞",
+        datos=F, dificultad=4, tema="florencia", titulo="Florencia, 1503: El Taller de Leonardo", emoji="🪞", minutos=90,
         grad="#5a3a1a,#140c06", acento="#d9a441", acento2="#f0c773", bg1="#120c07", bg2="#2a1c0e",
-        sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con una hora hasta el amanecer. Solo la luz del alba, concentrada por la lente del maestro, puede recargar el aparato.",
-        minigames={"24": "24-cofre.js", "32": "32-disco.js", "38": "38-engranajes.js", "54": "54-cuadrado.js", "58": "58-cisterna.js", "66": "66-ornitoptero.js", "92": "92-espejos.js", "46": "46-baul.js"},
+        sinopsis="Tercer salto del Cronoportal: Florencia, año 1503. Cristina y Alberto aterrizan de noche en el taller de Leonardo da Vinci, sin energía y con hora y media hasta el amanecer: solo la luz del alba, concentrada por la lente maestra, puede recargar el aparato. Para llegar a ella tendrán que leer una escítala, hallar un punto de fuga, resolver un tablero de desigualdades, recorrer un patio con saltos de caballo, mezclar pigmentos, calcular un reloj de engranajes, colocar torres de vigía, abrir una caja de colores, bajar una escalera numerada, elegir un aparejo de poleas y descifrar el mensaje del lucernario.",
+        minigames={"14": "14-escitala.js", "20": "20-perspectiva.js", "40": "40-futoshiki.js", "48": "48-caballo.js", "52": "52-pigmentos.js", "46": "46-engranajes.js",
+                   "51": "51-vigilantes.js", "69": "69-mastermind.js", "64": "64-hidato.js", "72": "72-poleas.js", "85": "85-cifrado.js"},
         pal=("#6a4a22", "#1a1008")),
     "Dinosaurios": dict(
         datos=D, dificultad=4, tema="dinosaurios", titulo="Cretácico, hace 66 millones de años: El Valle de los Gigantes", emoji="🦖", minutos=90,
@@ -77,9 +78,9 @@ JUEGOS = {
     "Trono": dict(
         datos=T, dificultad=4, tema="trono", titulo="Reino de Hielo y Fuego: La Corona del Dragón", emoji="🐉", minutos=100,
         grad="#2c3a4a,#0a0f16", acento="#8fc7ee", acento2="#cfe8fb", bg1="#06090e", bg2="#121a24",
-        sinopsis="Sexto salto del Cronoportal: un reino de hielo y fuego, en pleno invierno. Cristina y Alberto aterrizan en el patio de armas de la fortaleza de Piedra Negra, en mitad de una ventisca, con el aparato sin energía. Solo una esquirla de dragón puede encenderlo, y la tormenta cierra los pasos de montaña: tienen cien minutos antes de quedar atrapados hasta la primavera.",
-        minigames={"14": "14-cuervo.js", "20": "20-banquete.js", "40": "40-caminos.js", "42": "42-cronica.js", "46": "46-lengua.js",
-                   "51": "51-consejeros.js", "64": "64-antorchas.js", "69": "69-puerta.js", "72": "72-tapiz.js", "84": "84-profecia.js"},
+        sinopsis="Sexto salto del Cronoportal: un reino de hielo y fuego, en pleno invierno. Cristina y Alberto aterrizan en el patio de armas de la fortaleza de Piedra Negra, en mitad de una ventisca, con el aparato sin energía. Solo una esquirla de dragón puede encenderlo, y la tormenta cierra los pasos de montaña: tienen cien minutos antes de quedar atrapados hasta la primavera. Para llegar al dragón tendrán que medir hidromiel con jarras sin marcas, poner centinelas, trazar la ruta de un cuervo, descifrar la carta de una prisionera, ganar al carcelero en el juego de las piedras, tender puentes entre castillos, resolver una sucesión, un sudoku de seis casas, unas torres de hielo y un tapiz, y abrir la puerta de la profecía.",
+        minigames={"14": "14-jarras.js", "20": "20-centinelas.js", "40": "40-cuervos.js", "48": "48-playfair.js", "52": "52-piedras.js", "46": "46-caminos.js",
+                   "51": "51-sucesion.js", "69": "69-sudoku.js", "64": "64-tapiz.js", "72": "72-torres.js", "85": "85-profecia.js"},
         pal=("#3a4c60", "#0c121a")),
     "Pompeya": dict(
         datos=P, dificultad=3, tema="pompeya", titulo="Pompeya, 79 d.C.: El Mosaico del Mundo", emoji="🌋", minutos=90,
