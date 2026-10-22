@@ -110,10 +110,11 @@ JUEGOS = {
                    "51": "51-pasaporte.js", "64": "64-husos.js", "69": "69-cables.js", "72": "72-ruleta.js", "85": "85-teclado.js"},
         pal=("#1c7a8a", "#07202a")),
     "Futbol": dict(
-        datos=Fu, dificultad=2, tema="futbol", titulo="La Final del Siglo, 1970: La Copa de Cristal", emoji="⚽", minutos=90,
+        datos=Fu, dificultad=3, tema="futbol", titulo="La Final del Siglo, 1970: La Copa de Cristal", emoji="⚽", minutos=90,
         grad="#1f6a30,#06140a", acento="#f2c230", acento2="#a8ec96", bg1="#07140b", bg2="#12301a",
-        sinopsis="Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. El cristal de energía rueda hasta caer dentro de la Copa de cristal y solo saldrá del palco con el campeón. El entrenador os toma por su cuerpo técnico: para ayudarle a ganar hay que dar la vuelta a unos cromos, deducir una alineación, decidir jugadas del VAR, reconstruir los marcadores de una liguilla y marcar una tanda de penaltis.",
-        minigames={"20": "20-cromos.js", "24": "24-pizarra.js", "46": "46-var.js", "48": "48-liguilla.js", "69": "69-penaltis.js"},
+        sinopsis="Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. El cristal de energía rueda hasta caer dentro de la Copa de cristal, que queda bajo llave hasta que acabe el partido. El míster os toma por su cuerpo técnico y, para ayudarle a ganar, tendréis que reconstruir una liguilla, dar la vuelta a unos cromos, decidir jugadas del VAR, encadenar pases sin que los corten, elegir el once perfecto, marcar cinco penaltis contra un portero con manías, pintar el mosaico de la grada, cuadrar el calendario de una liga, reconstruir un cuadro de eliminatorias, seguir los cambios del míster y abrir la cerradura de la Copa con cinco aros.",
+        minigames={"14": "14-liguilla.js", "20": "20-convocatoria.js", "40": "40-var.js", "48": "48-pase.js", "52": "52-alineacion.js", "46": "46-penaltis.js",
+                   "51": "51-eliminatorias.js", "64": "64-calendario.js", "69": "69-sustituciones.js", "72": "72-grada.js", "85": "85-aros.js"},
         pal=("#2f7a3a", "#0b2412")),
     "Piratas": dict(
         datos=Pi, dificultad=3, tema="piratas", titulo="Mar de las Brumas, 1715: El Tesoro de la Isla Calavera", emoji="🏴‍☠️", minutos=90,

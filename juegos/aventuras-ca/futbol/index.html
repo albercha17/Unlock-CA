@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <p class="sinopsis">Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. El cristal de energía rueda hasta caer dentro de la Copa de cristal y solo saldrá del palco con el campeón. El entrenador os toma por su cuerpo técnico: para ayudarle a ganar hay que dar la vuelta a unos cromos, deducir una alineación, decidir jugadas del VAR, reconstruir los marcadores de una liguilla y marcar una tanda de penaltis.</p>
+      <p class="sinopsis">Undécima parada del Cronoportal: el estadio del Club Estrella, en 1970, una hora y media antes de la final del siglo. El cristal de energía rueda hasta caer dentro de la Copa de cristal, que queda bajo llave hasta que acabe el partido. El míster os toma por su cuerpo técnico y, para ayudarle a ganar, tendréis que reconstruir una liguilla, dar la vuelta a unos cromos, decidir jugadas del VAR, encadenar pases sin que los corten, elegir el once perfecto, marcar cinco penaltis contra un portero con manías, pintar el mosaico de la grada, cuadrar el calendario de una liga, reconstruir un cuadro de eliminatorias, seguir los cambios del míster y abrir la cerradura de la Copa con cinco aros.</p>
 
       <ol class="pasos">
         <li>Pulsa <b>Empezar</b>: el reloj corre <span id="introMin">1 hora</span>. Podéis pausarlo cuando haga falta.</li>
@@ -235,15 +235,21 @@
       juego: 'futbol',
       assets: '../../../assets/',
       segundos: 5400,
-      dificultad: 2,
+      dificultad: 3,
       final: '99',
       volver: '../index.html',
       minijuegos: {
-      '20': './minijuegos/20-cromos.js',
-      '24': './minijuegos/24-pizarra.js',
-      '46': './minijuegos/46-var.js',
-      '48': './minijuegos/48-liguilla.js',
-      '69': './minijuegos/69-penaltis.js'
+      '14': './minijuegos/14-liguilla.js',
+      '20': './minijuegos/20-convocatoria.js',
+      '40': './minijuegos/40-var.js',
+      '48': './minijuegos/48-pase.js',
+      '52': './minijuegos/52-alineacion.js',
+      '46': './minijuegos/46-penaltis.js',
+      '51': './minijuegos/51-eliminatorias.js',
+      '64': './minijuegos/64-calendario.js',
+      '69': './minijuegos/69-sustituciones.js',
+      '72': './minijuegos/72-grada.js',
+      '85': './minijuegos/85-aros.js'
       }
     };
   </script>
