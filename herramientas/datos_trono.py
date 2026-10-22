@@ -1,3 +1,18 @@
+"""Reino de Hielo y Fuego: La Corona del Dragón — versión de 60 cartas (21 oct 2026), mucho más difícil y variada.
+
+Once puzles de tipos que no salen en ningún otro juego de la serie, con las pistas dibujadas o en acertijo (ninguna carta explica cómo se
+resuelve su puzle): las jarras de hidromiel, los ocho centinelas de la muralla (problema de las damas), el viaje de los cuervos (viajante), el
+cifrado de Playfair, el juego de las piedras (Nim) contra el carcelero, los puentes entre castillos (Hashi), la sucesión al trono, el sudoku de las
+seis casas, las torres de hielo (Hanói), el tapiz del sigilo (nonograma) y la profecía final, una cuenta con las cifras de cuatro puzles.
+Solo 15 cartas tienen a Cristina y Alberto (escenas); el resto son objetos y pistas sin personas.
+Las cartas-pista las dibuja herramientas/trono.py (instancias_trono.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_trono as I  # noqa: E402
+
 ESTILO = ("Ilustración digital cinematográfica de fantasía medieval oscura y semirrealista, con aire de gran serie de aventuras: fortalezas de piedra negra, nieve, "
           "ventisca, antorchas y fuego, paleta de azules glaciales, grises de piedra y negros profundos con destellos naranjas de llamas, copos de nieve en el aire, "
           "formato vertical 2:3. Sin texto, letras ni números en la imagen; los mapas, rollos y tapices son solo dibujos decorativos sin escritura legible. "
@@ -25,372 +40,303 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfi
          "Escena 4 (12-15 s): primer plano de Cristina y Alberto, con capas de abrigo, mirando al cielo cubierto de nieve; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido del portal, golpe sordo al aterrizar, viento helado, graznido de cuervo, un rugido lejano de dragón, música épica de cuerdas graves y tambores, sin voz de narrador.")
 
+ESTILO += " Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes)."
+SIN_GENTE = "Sin ninguna persona en la imagen. "
+
+MOSAICOS = {
+    "muralla": dict(filas=2, cols=1, cartas=["19", "21"], titulo="La muralla de Piedra Negra"),
+    "castillos": dict(filas=1, cols=2, cartas=["37", "39"], titulo="Los castillos del reino"),
+    "arbol": dict(filas=1, cols=2, cartas=["61", "63"], titulo="El árbol del rey Aerion"),
+    "casas": dict(filas=2, cols=1, cartas=["70", "71"], titulo="El tablero de las seis casas"),
+}
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+_c = lambda x, y: f"{'ABCDEFGH'[x]}{y + 1}"
+_JT = {"llenar A": "llenad la jarra I", "llenar B": "llenad la jarra II", "vaciar A": "vaciad la jarra I", "vaciar B": "vaciad la jarra II",
+       "A a B": "pasad de la I a la II", "B a A": "pasad de la II a la I"}
+_S_JAR = "Una forma: " + ", ".join(_JT[m] for m in I.JARRAS["ruta"])
+_S_CEN = "Los centinelas van en " + ", ".join(_c(x, y) for x, y in I.CENTINELAS["solucion"])
+_S_CUE = "La ruta más corta (" + str(I.CUERVOS["minimo"]) + " leguas): " + " → ".join(str(i + 1) for i in I.CUERVOS["solucion"]) + " → 1"
+_S_PLA = f"El mensaje es {I.PLAYFAIR['claro']}"
+_S_PIE = "Tomad 1 piedra al empezar (quedan 20) y, tras cada jugada del carcelero, tomad lo que haga que queden 16, 12, 8, 4 y 0"
+_LET = {k: "ABCDEFGHIJKLMNOP"[i] for i, k in enumerate(sorted([tuple(map(int, s.split(","))) for s in I.CAMINOS["islas"]], key=lambda t: (t[1], t[0])))}
+_S_HAS = "; ".join(f"{_LET[tuple(a)]}–{_LET[tuple(b)]}: {'un puente' if c == 1 else 'dos puentes'}" for a, b, c in I.CAMINOS["puentes"])
+_S_SUC = "Hereda Daemon: es el hijo del hijo mayor, Baelor, y los hijos del primer hijo van antes aunque este haya muerto; Maegor no puede por sus votos"
+_S_SUD = "Con 1 lobo, 2 león, 3 kraken, 4 rosa, 5 sol y 6 trucha: " + " / ".join(" ".join(str(v) for v in f) for f in I.SUDOKU["solucion"])
+_S_TAP = " / ".join("".join("#" if v else "." for v in f) for f in I.TAPIZ["solucion"])
+
+
+def _hanoi(n, a, b, c, out):
+    if n:
+        _hanoi(n - 1, a, c, b, out)
+        out.append(f"{a}→{c}")
+        _hanoi(n - 1, b, a, c, out)
+
+
+_H = []
+_hanoi(I.TORRES["discos"], "I", "II", "III", _H)
+_S_TOR = "Los 15 movimientos, de torre a torre: " + ", ".join(_H)
+_S_PRO = f"{I.DATOS['40']} × {I.DATOS['14']} − {I.DATOS['52']} + {I.DATOS['20']} = {I.RESULTADO}"
+
+
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/trono.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=arte)
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
+
+
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada a Piedra Negra", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Sexta parada del Cronoportal: un reino de hielo y fuego, en pleno invierno. Cristina lleva toda la vida soñando con castillos, caballeros y dragones.",
-            "El salto vuelve a salir mal: aterrizáis en el patio de armas de la fortaleza de Piedra Negra, en el norte del reino, en mitad de una ventisca. El aparato golpea una piedra y su anillo de cristal se agrieta: sin una esquirla de dragón, esa piedra de fuego que solo guardan los dragones, no volverá a encenderse. Y la tormenta cierra los pasos de montaña: dentro de cien minutos el último paso quedará sellado hasta la primavera, y vosotros con él.",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="El patio de armas nevado de una fortaleza de piedra negra en plena ventisca, con torres y una muralla enormes al fondo y una sombra con alas cruzando las nubes. En primer plano, un aparato de latón y cristal retrofuturista (el Cronoportal) humea sobre la nieve con el anillo de cristal agrietado y la luz azul apagándose. Cristina, con capa gris de piel, se levanta con la boca abierta de asombro; Alberto, con capa de piel, frunce el ceño con preocupación mirando el aparato."),
-    "10": dict(
-        titulo="Carta 10 — Patio de armas", tipo="gris", coge=[14, 16, 18, 20, 22], descarta=["P"],
-        descripcion=[
-            "El patio de armas de Piedra Negra, cubierto de nieve. Sobre el brocal del pozo, un cuervo con un cilindro de mensaje atado a la pata (carta 14) y, clavada en la puerta del torreón, la rueda de cifrado del maestre (carta 16). Por la puerta entreabierta del gran comedor se ve la mesa puesta para el banquete de las cuatro casas (carta 20) y la lista del senescal (carta 18). Junto a un brasero apagado, una antorcha de brea sin lumbre (carta 22).",
-            "Coged las cartas 14, 16, 18, 20 y 22. Descartad la carta P."],
-        pistas=["Hay dos puzles: el mensaje del cuervo y el banquete de las casas.", "Coged las cartas 14, 16, 18, 20 y 22. Descartad la carta P."],
-        arte="El patio de armas de una fortaleza de piedra negra bajo la nieve: un cuervo posado sobre el brocal de un pozo con un cilindro atado a la pata, una gran puerta de madera entreabierta que deja ver un comedor con una larga mesa preparada, y un brasero apagado con una antorcha de brea al lado. Cristina observa al cuervo con curiosidad y una ceja levantada; Alberto mira hacia el comedor, boquiabierto de sorpresa."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin energía", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con un anillo central agrietado y apagado, y un hueco vacío en el pecho. Alberto: «Necesita algo que arda de verdad. En los libros, solo una esquirla de dragón sirve».",
-            "Cuando consigáis la esquirla (carta 62), combinadla con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una fuente de energía muy especial.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal medio cubierto de nieve: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal agrietado y apagado y un hueco circular vacío en el pecho del aparato, sobre un suelo de losas negras, con copos de nieve cayendo."),
-    "14": dict(
-        titulo="Carta 14 — Mensaje del cuervo", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el cuervo trae un mensaje del maestre del castillo, pero está escrito en cifra. Hay que leerlo con la rueda de cifrado (carta 16).",
-            "Al acertar, comprendéis lo que os pide el maestre y el cuervo se calma. Coged la carta 26."],
-        pistas=["El mensaje está en cifra: la rueda del maestre (carta 16) explica cómo leerla.", "Cada letra está corrida tres puestos hacia adelante: para leer hay que retroceder tres. La D es una A.", "El mensaje dice: BAJAD AL ARCHIVO."],
-        arte="Primer plano de un cuervo negro posado sobre una piedra nevada con un pequeño cilindro de cuero atado a la pata, y a su lado un trozo de pergamino enrollado con hileras de letras sin sentido (sin texto legible), con la fortaleza borrosa al fondo bajo la ventisca."),
-    "16": dict(
-        titulo="Carta 16 — Rueda del maestre", tipo="gris",
-        descripcion=["La rueda de cifrado del maestre, clavada en la puerta del torreón. Sirve para leer el mensaje del cuervo (carta 14)."],
-        pistas=["Es la clave de la cifra.", "Sirve para el mensaje del cuervo (carta 14)."],
-        textoCarta=["Cifra del maestre Osric:", "cada letra escrita está tres puestos DESPUÉS de la verdadera.", "Para leer, retroceded tres: la D es una A, la E es una B."],
-        arte="Una rueda de cifrado de bronce, con dos anillos concéntricos giratorios cubiertos de runas decorativas sin escritura legible, clavada en una puerta de madera cubierta de escarcha."),
-    "18": dict(
-        titulo="Carta 18 — Lista del senescal", tipo="gris",
-        descripcion=["La lista del senescal con el protocolo del banquete. Sirve para saber quién se sienta dónde (carta 20)."],
-        pistas=["Son las primeras pistas del banquete.", "Sirve para el banquete de las casas (carta 20)."],
-        textoCarta=["Cuatro casas, cuatro asientos, de izquierda a derecha.", "El Halcón Plateado ocupa el último asiento.", "Quien trae la espada no se sienta en ninguna de las dos puntas de la mesa."],
-        arte="Un pergamino colgado de un clavo junto a un gran portón, con un esquema decorativo de una larga mesa vista desde arriba con cuatro sillas dibujadas a lo largo y cuatro escudos de distintos animales, sin texto legible, a la luz de una antorcha."),
-    "20": dict(
-        titulo="Carta 20 — Banquete de las casas", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cuatro casas nobles —Lobo Gris, León Dorado, Halcón Plateado y Oso Pardo— se sientan a la larga mesa del gran comedor y cada una trae un regalo: espada, copa, pieles o cuerno. Hay que averiguar qué casa ocupa cada asiento y qué regalo trae, con la lista del senescal (carta 18) y lo que cuentan los criados.",
-            "Al acertar, el banquete se desarrolla en paz y los criados os dan lo que han encontrado. Coged la carta 28."],
-        pistas=["La lista del senescal (carta 18) trae solo una parte de las pistas; el resto lo cuentan los criados en la pantalla.", "Empezad por el último asiento y por quién puede llevar la espada: son las dos pistas más seguras.", "De izquierda a derecha: León Dorado con la copa, Lobo Gris con las pieles, Oso Pardo con la espada y Halcón Plateado con el cuerno."],
-        arte="El gran comedor de una fortaleza: una larguísima mesa de madera oscura con cuatro lugares preparados, cada uno con un estandarte de un animal distinto (un lobo gris, un león dorado, un halcón plateado, un oso pardo) y objetos sobre la mesa: una espada, una copa, unas pieles y un cuerno de beber. Alberto, con cara de concentración, rodea la mesa contando asientos; Cristina, con una sonrisa traviesa, señala un estandarte."),
-    "22": dict(
-        titulo="Carta 22 — Antorcha apagada", tipo="azul", combina=[35, 57],
-        descripcion=["Una antorcha de brea, seca y sin lumbre. Combinadla con el pedernal que aparezca en el banquete (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Necesita fuego.", "Cuando tengáis el pedernal, combinadlo con la antorcha.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="Una antorcha de madera con la cabeza cubierta de brea negra, apagada, apoyada junto a un brasero de hierro lleno de ceniza y cubierto de escarcha, con copos de nieve cayendo."),
-    "26": dict(
-        titulo="Carta 26 — Rumores del patio", tipo="gris", descarta=[14, 16],
-        descripcion=[
-            "El mensaje del maestre os pide que bajéis al archivo de la torre. Mientras el cuervo se calma, oís discutir a dos consejeros del señor del castillo: se acusan de mentir. Lo que dicen os servirá más adelante, para saber a quién creer (carta 51).",
-            "Descartad las cartas 14 y 16."],
-        pistas=["Son dos frases de dos consejeros.", "Sirven para decidir en quién confiar (carta 51)."],
-        textoCarta=["Rumores de los consejeros:", "Aldric: «Brenna y Corvin son leales.»", "Brenna: «Aldric es leal.»"],
-        arte="Dos consejeros de un señor medieval, con túnicas ricas y cadenas al cuello, discutiendo en voz baja bajo un soportal nevado de la fortaleza, y al fondo Cristina y Alberto escuchándolos a escondidas: Cristina con los ojos muy abiertos y los labios apretados, Alberto con una mueca de incredulidad."),
-    "28": dict(
-        titulo="Carta 28 — La mesa del festín", tipo="gris", coge=[35, 37], descarta=[20, 18],
-        descripcion=[
-            "Con las casas bien sentadas, el banquete se desarrolla en paz. Al retirarse los criados, entre los regalos queda un pedernal de buen tamaño (carta 35) y, olvidado bajo un plato, un rollo con signos extraños: lo dejó una prisionera del pueblo libre, que vive más allá del Muro (carta 37).",
-            "Coged las cartas 35 y 37. Descartad las cartas 20 y 18."],
-        pistas=["Mirad lo que han dejado sobre la mesa.", "Coged las cartas 35 y 37. Descartad las cartas 20 y 18."],
-        arte="Una mesa de banquete medieval ya casi recogida, con copas vacías, huesos y velas; sobre ella, un pedernal grande y un rollo de pergamino atado con una cuerda, lleno de signos decorativos extraños sin texto legible. Cristina lo recoge con asombro y cara de intriga; Alberto sonríe aliviado al ver el pedernal."),
-    "35": dict(
-        titulo="Carta 35 — Pedernal", tipo="roja", combina=[22, 57],
-        descripcion=["Un pedernal de bordes afilados, de los que sacan chispa al golpearlos con acero. Combinadlo con la antorcha (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Saca chispas.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="Un pedernal gris de bordes afilados junto a un trozo de acero y un puñado de yesca seca, sobre un paño de lana oscura, con la luz cálida de una vela."),
-    "37": dict(
-        titulo="Carta 37 — Rollo del pueblo libre", tipo="gris",
-        descripcion=["Un rollo con frases en la lengua del pueblo libre, con su traducción debajo. Sirve para la lengua de la prisionera (carta 46), junto con la carta 48."],
-        pistas=["Son tres frases con su traducción.", "Sirve para la lengua del pueblo libre (carta 46)."],
-        textoCarta=["Lengua del pueblo libre:", "kra zeh ven = El cuervo teme al dragón.", "hod mor ur sil = El guerrero grande ve al lobo.", "zehi kra ven = Los dragones temen al cuervo."],
-        arte="Un rollo de pergamino viejo medio desenrollado sobre una mesa de madera, con tres líneas de signos angulares decorativos parecidos a runas y, debajo de cada una, otra línea de garabatos, sin texto legible, a la luz de una vela."),
-    "57": dict(
-        titulo="Carta 57 — La torre del maestre", tipo="gris", coge=[40, 42], descarta=[22, 35, 28, 10],
-        descripcion=[
-            "Golpeáis el pedernal contra el acero y la antorcha prende con una llama anaranjada. Con ella subís las escaleras en espiral hasta la torre del maestre Osric, a oscuras. Sobre la mesa, el gran mapa de los caminos entre castillos (carta 40) y la crónica donde el maestre anotaba lo que sabía del reino (carta 42).",
-            "Coged las cartas 40 y 42. Descartad las cartas 22, 35, 28 y 10."],
-        pistas=["Subís a la torre con la antorcha encendida.", "Coged las cartas 40 y 42. Descartad las cartas 22, 35, 28 y 10."],
-        arte="Una escalera de caracol de piedra iluminada por una antorcha encendida, que desemboca en una sala circular llena de libros, mapas y pergaminos, con una gran mesa de madera con un mapa desplegado. Cristina sube con cara de pura ilusión, iluminada por la llama; Alberto, detrás, mira un libro abierto con curiosidad y la boca entreabierta."),
-    "40": dict(
-        titulo="Carta 40 — Caminos entre castillos", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el mapa del reino con ocho castillos señalados con letras. Hay que unirlos con caminos para que todos queden conectados. El número de cada castillo dice cuántos caminos salen de él; dos castillos pueden unirse con uno o con dos caminos, y los caminos no pueden cruzarse. De dos castillos no se ve el número: está en la crónica del maestre (carta 42).",
-            "Al acertar, el mapa muestra la ruta hasta el salón del consejo. Coged la carta 44."],
-        pistas=["La crónica del maestre (carta 42) dice cuántos caminos salen de los dos castillos que no tienen número.", "Empezad por los castillos con un solo camino: solo pueden unirse con un vecino en línea recta.", "Dos caminos entre E y G; los demás caminos son sencillos: A con B, A con E, B con C, C con D, F con G y G con H."],
-        arte="Un gran mapa antiguo de pergamino extendido sobre una mesa de madera, con ocho castillos dibujados con torres, unidos por caminos de tinta; sin texto legible; velas y un tintero alrededor. Alberto, con el ceño fruncido y un dedo sobre el mapa, calcula; Cristina lo mira con una sonrisa orgullosa."),
-    "42": dict(
-        titulo="Carta 42 — Crónica del maestre", tipo="verde",
-        descripcion=["Es un juego de la app (solo lectura): la crónica del maestre Osric. Contiene los datos de los castillos del mapa (carta 40) y la historia del reino."],
-        pistas=["Pasad las páginas con calma.", "En la crónica están los caminos que salen de dos de los castillos del mapa (carta 40).", "El castillo E tiene tres caminos y el castillo G tiene cuatro."],
-        arte="Un libro enorme de tapas de cuero y cierres de bronce, abierto sobre un atril de madera en una torre, con ilustraciones decorativas de castillos y dragones, sin texto legible, y una pluma y un tintero al lado."),
-    "44": dict(
-        titulo="Carta 44 — El salón del consejo", tipo="gris", coge=[46, 48, 51, 52], descarta=[40, 42, 57],
-        descripcion=[
-            "El mapa os muestra el camino hasta el salón del consejo, bajo la torre. En un rincón, encadenada a un banco, una mujer del pueblo libre os observa con desconfianza: es la dueña del rollo (carta 46). Su traducción empieza en un trozo de pergamino (carta 48). En el centro, frente al trono vacío, discuten los consejeros del señor (carta 51) y sus palabras han quedado anotadas en otra hoja (carta 52).",
-            "Coged las cartas 46, 48, 51 y 52. Descartad las cartas 40, 42 y 57."],
-        pistas=["Hay dos puzles: la lengua de la prisionera y los consejeros.", "Coged las cartas 46, 48, 51 y 52. Descartad las cartas 40, 42 y 57."],
-        arte="El salón del consejo de una fortaleza: un trono vacío de espadas oscuras al fondo, una mujer del pueblo libre con pieles y cabello trenzado encadenada a un banco, y cuatro consejeros discutiendo junto a una mesa. Cristina mira a la prisionera con compasión, con las cejas inclinadas; Alberto observa a los consejeros con una expresión recelosa."),
-    "46": dict(
-        titulo="Carta 46 — Lengua del pueblo libre", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la prisionera del pueblo libre solo confiará en vosotros si sabéis decir una frase en su lengua. Su lengua tiene reglas fijas: el orden de las palabras, la posición del adjetivo y cómo se hace el plural. Todo está en los ejemplos de los rollos (cartas 48 y 37).",
-            "Al acertar, la prisionera os da su confianza. Coged la carta 54."],
-        pistas=["Hay frases de ejemplo en las dos cartas (48 y 37): hacen falta las dos.", "Fijaos en dónde va el verbo, en dónde va el adjetivo y en cómo cambian las palabras en plural.", "La frase es: krai skai hod ven."],
-        arte="Primer plano de una mujer del pueblo libre, con pieles y trenzas, sentada en un banco de piedra con una cadena en la muñeca, que señala con un dedo un rollo con signos angulares decorativos sin texto legible; luz de antorchas en una sala de piedra."),
-    "48": dict(
-        titulo="Carta 48 — Pergamino de la prisionera", tipo="gris",
-        descripcion=["Un trozo de pergamino con otras tres frases en la lengua del pueblo libre. Sirve para la lengua de la prisionera (carta 46), junto con la carta 37."],
-        pistas=["Son tres frases con su traducción.", "Sirve para la lengua del pueblo libre (carta 46)."],
-        textoCarta=["Lengua del pueblo libre:", "ur kra sil = El lobo ve al cuervo.", "zeh ska ur sil = El dragón negro ve al lobo.", "uri mori kra sil = Los lobos grandes ven al cuervo."],
-        arte="Un trozo de pergamino arrugado y manchado, sujeto con una piedra sobre un banco de madera, con tres líneas de signos angulares decorativos y otras tres líneas de garabatos debajo, sin texto legible, a la luz de una antorcha."),
-    "51": dict(
-        titulo="Carta 51 — Los consejeros", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: cuatro consejeros del señor —Aldric, Brenna, Corvin y Dalia— hablan unos de otros. Los leales siempre dicen la verdad y los traidores siempre mienten. Hay que descubrir quién es leal y quién es traidor, con sus frases (cartas 26 y 52).",
-            "Al acertar, los traidores quedan al descubierto. Coged la carta 58."],
-        pistas=["Las frases de los cuatro consejeros están repartidas en dos cartas (26 y 52).", "Suponed que uno de ellos es leal y comprobad si lo que dice puede ser verdad; si hay contradicción, ese es un traidor.", "Aldric y Brenna son traidores; Corvin y Dalia son leales."],
-        arte="Cuatro consejeros de un señor medieval, de pie en semicírculo frente a un trono vacío de espadas oscuras: una mujer de cabello gris, un anciano calvo con cadenas, un hombre joven con capa de piel y una mujer de ojos oscuros, todos con gestos y miradas muy distintos (desconfianza, miedo, orgullo, astucia). Cristina y Alberto los observan desde un lado, ella con gesto escéptico y él con los brazos cruzados."),
-    "52": dict(
-        titulo="Carta 52 — Declaraciones", tipo="gris",
-        descripcion=["Las palabras de otros dos consejeros del señor, anotadas por un escribano. Sirven para decidir en quién confiar (carta 51), junto con la carta 26."],
-        pistas=["Son dos frases de dos consejeros.", "Sirven para decidir en quién confiar (carta 51)."],
-        textoCarta=["Declaraciones de los consejeros:", "Corvin: «Brenna es un traidor.»", "Dalia: «Corvin es leal.»"],
-        arte="Una hoja de pergamino con la letra apretada de un escribano, sujeta sobre un atril de madera junto a un tintero y una pluma, con dibujos decorativos de cuatro escudos pequeños, sin texto legible, a la luz de una vela."),
-    "54": dict(
-        titulo="Carta 54 — La confianza de la prisionera", tipo="gris", coge=[56], descarta=[46, 48, 37],
-        descripcion=[
-            "La mujer del pueblo libre sonríe por primera vez: habéis hablado como los suyos. Os cuenta que el sello que cierra la cripta del dragón se partió en dos mitades y que ella guarda una: os la entrega, cosida al forro de su capa de pieles.",
-            "Coged la carta 56. Descartad las cartas 46, 48 y 37."],
-        pistas=["Mirad lo que os da la prisionera.", "Coged la carta 56. Descartad las cartas 46, 48 y 37."],
-        arte="La mujer del pueblo libre, con una sonrisa cálida y los ojos brillantes, entrega a Cristina un medallón metálico partido por la mitad, desde una capa de pieles; Cristina lo recibe con los ojos muy abiertos y una gran sonrisa; Alberto, detrás, suspira aliviado. Sala de piedra iluminada por antorchas."),
-    "56": dict(
-        titulo="Carta 56 — Mitad del sello", tipo="azul", combina=[38, 94],
-        descripcion=["La mitad izquierda de un sello de metal negro con el relieve de un dragón: la mitad que guardaba la prisionera. Combinadla con la otra mitad (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Es solo una mitad de algo.", "Cuando tengáis la otra mitad, combinadlas.", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="La mitad izquierda de un sello circular de metal negro, con el relieve del lado izquierdo de un dragón enroscado, sobre un paño de lana gris, con una vela al lado."),
-    "58": dict(
-        titulo="Carta 58 — La traición", tipo="gris", coge=[38], descarta=[51, 52, 26],
-        descripcion=[
-            "Los consejeros desleales quedan al descubierto: Aldric y Brenna intentaban abrir la cripta del dragón para robar su tesoro. Sin embargo, en el forro del manto de Brenna, que se desmaya del susto, aparece la otra mitad del sello.",
-            "Coged la carta 38. Descartad las cartas 51, 52 y 26."],
-        pistas=["Los traidores han perdido algo.", "Coged la carta 38. Descartad las cartas 51, 52 y 26."],
-        arte="Una consejera cae desmayada sobre el suelo del salón del consejo, con la capa abierta y una mitad de sello brillante asomando del forro; otro consejero retrocede aterrado hacia la pared. Cristina se agacha con cara de sorpresa y la mano en la boca; Alberto levanta la mitad del sello con una sonrisa de triunfo."),
-    "38": dict(
-        titulo="Carta 38 — Mitad del sello", tipo="roja", combina=[56, 94],
-        descripcion=["La mitad derecha del sello de metal negro con el relieve del dragón. Combinadla con la otra mitad (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Es solo una mitad de algo.", "Combinad la carta 38 con la carta 56.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="La mitad derecha de un sello circular de metal negro, con el relieve del lado derecho de un dragón enroscado, sobre un paño de lana gris, con un hilo del forro de una capa aún pegado."),
-    "94": dict(
-        titulo="Carta 94 — La cripta del dragón", tipo="gris", coge=[64, 66], descarta=[56, 38, 44, 54, 58],
-        descripcion=[
-            "El sello completo encaja en una puerta de piedra al fondo del salón y la abre con un crujido. Una escalera baja a la cripta: una sala de columnas a oscuras, de donde sube un calor extraño. Hay antorchas en las paredes, pero apagadas (carta 64), y en el suelo, un plano del maestre con indicaciones sobre cómo iluminarla (carta 66).",
-            "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
-        pistas=["Hay un puzle: las antorchas de la cripta.", "Coged las cartas 64 y 66. Descartad las cartas 56, 38, 44, 54 y 58."],
-        arte="Una puerta circular de piedra negra que se abre con un sello metálico encajado, y tras ella una escalera de caracol que baja a una cripta de columnas inmensas en la oscuridad, con un resplandor naranja muy débil al fondo. Cristina baja con un gesto de miedo contenido y los ojos muy abiertos; Alberto, delante, alza una linterna de aceite con expresión decidida."),
-    "64": dict(
-        titulo="Carta 64 — Antorchas de la cripta", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el plano de la cripta, con pilares y muchas casillas libres. Hay que colocar antorchas en casillas libres. Cada antorcha ilumina su fila y su columna hasta un pilar, ninguna antorcha puede iluminar a otra, y todo el suelo debe quedar iluminado. El número de un pilar dice cuántas antorchas tiene pegadas. De algunos pilares no se ve el número: está en el plano del maestre (carta 66).",
-            "Al acertar, la cripta se ilumina por completo. Coged la carta 78."],
-        pistas=["El plano del maestre (carta 66) da el número de dos pilares que la pantalla no muestra.", "Un pilar con 0 no tiene ninguna antorcha pegada: empezad por ahí y por los pilares con números altos.", "Las antorchas están en B1, D1, E2, A3, F3, B4, E4, C5 y A6."],
-        arte="Una cripta de columnas inmensas de piedra negra sumida en la penumbra, con antorchas de pared apagadas y otras recién encendidas que iluminan franjas del suelo con una luz naranja. Alberto, de puntillas, acerca una antorcha a la pared con expresión concentrada; Cristina lo observa con los labios apretados y los ojos brillantes."),
-    "66": dict(
-        titulo="Carta 66 — Plano de la cripta", tipo="gris",
-        descripcion=["El plano del maestre con los números de dos pilares. Sirve para las antorchas de la cripta (carta 64)."],
-        pistas=["Son datos de dos pilares.", "Sirve para las antorchas de la cripta (carta 64)."],
-        textoCarta=["Plano del maestre. Columnas de A a F, filas de 1 a 6.", "El pilar C1 tiene dos antorchas pegadas.", "El pilar C3 no tiene ninguna."],
-        arte="Un plano dibujado en pergamino amarillento sobre el suelo de piedra de una cripta, con una cuadrícula de líneas y varios círculos negros que marcan pilares, junto a una antorcha apagada, sin texto legible, con luz naranja débil."),
-    "78": dict(
-        titulo="Carta 78 — La puerta de bronce", tipo="gris", coge=[69, 70], descarta=[64, 66, 94],
-        descripcion=[
-            "La cripta ilumina una inmensa puerta de bronce al fondo: es la entrada a la guarida del dragón. Pero está atascada por un amasijo de troncos y carros viejos que alguien amontonó para impedir que se abriera (carta 69). Una nota del maestre (carta 70) dice cuál de ellos es el ariete, el único que puede romper la barricada.",
-            "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
-        pistas=["Hay un puzle: el atasco ante la puerta.", "Coged las cartas 69 y 70. Descartad las cartas 64, 66 y 94."],
-        arte="Una inmensa puerta de bronce con relieves de dragones al fondo de una cripta iluminada por antorchas, bloqueada por un amasijo de troncos, carros y vigas amontonados. Cristina mira la barricada con las cejas levantadas y la boca abierta; Alberto se arremanga con una media sonrisa desafiante."),
-    "69": dict(
-        titulo="Carta 69 — Atasco ante la puerta", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un atasco de troncos y carros ante la puerta de bronce. Cada pieza solo se desliza en la dirección en la que apunta. Hay que sacar el ariete por el lado derecho. La nota del maestre (carta 70) dice cuál es.",
-            "Al acertar, la puerta queda libre y se abre. Coged la carta 80."],
-        pistas=["La nota del maestre (carta 70) dice cuál es el ariete.", "Empezad por la pieza que bloquea directamente el paso del ariete y pensad hacia dónde puede apartarse.", "Se resuelve en diez movimientos; el primero es mover hacia la izquierda el carro de la fila de abajo del ariete."],
-        arte="Un atasco de troncos largos y carros de madera amontonados ante una gran puerta de bronce, vistos desde arriba, con un tronco largo de punta metálica (el ariete) en primer plano; luz de antorchas."),
-    "70": dict(
-        titulo="Carta 70 — Nota del maestre", tipo="gris",
-        descripcion=["Una nota del maestre sobre el ariete. Sirve para el atasco ante la puerta (carta 69)."],
-        pistas=["Dice cuál es el ariete.", "Sirve para el atasco ante la puerta (carta 69)."],
-        textoCarta=["El ariete es el tronco de la tercera fila", "que está pegado al borde izquierdo.", "Debe salir por el lado derecho."],
-        arte="Una nota de papel clavada con una daga en una viga de madera, con un dibujo decorativo de un tronco con punta de metal y una flecha hacia la derecha, sin texto legible, a la luz de una antorcha."),
-    "80": dict(
-        titulo="Carta 80 — El dragón dormido", tipo="gris", coge=[72, 76], descarta=[69, 70, 78],
-        descripcion=[
-            "La puerta de bronce se abre y el calor os golpea el rostro: la guarida del dragón. Ceniza, un dragón viejísimo de escamas negras, duerme enroscado sobre su tesoro, y entre sus garras brilla una esquirla roja. Junto a la entrada, un viejo tapiz sin terminar con el sigilo de la casa que lo domó (carta 72) y las notas de las tejedoras (carta 76).",
-            "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
-        pistas=["Hay que terminar el tapiz con el sigilo antes de acercarse al dragón.", "Coged las cartas 72 y 76. Descartad las cartas 69, 70 y 78."],
-        arte="Una guarida enorme y caliente con un dragón de escamas negras dormido y enroscado sobre montones de oro, con una esquirla roja brillante entre sus garras, y en primer plano un tapiz sin terminar colgado de un bastidor. Cristina, paralizada, se lleva las manos a la boca con los ojos como platos; Alberto, con los hombros tensos, hace un gesto de silencio con el dedo sobre los labios."),
-    "72": dict(
-        titulo="Carta 72 — Tapiz del sigilo", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un tapiz de seis por seis casillas. Hay que pintar las casillas necesarias para que aparezca el sigilo del dragón. Los números de cada fila (a la izquierda) y de cada columna (arriba) dicen cuántas casillas seguidas hay pintadas, y entre bloques hay al menos una vacía. En la pantalla están los números de las filas; los de las columnas están en las notas de las tejedoras (carta 76).",
-            "Al acertar, el sigilo brilla y el dragón se apacigua. Coged la carta 82."],
-        pistas=["Los números de las columnas están en las notas de las tejedoras (carta 76).", "Una fila con un solo 6 está pintada del todo: empezad por ahí.", "El dibujo es una llama: la tercera fila está pintada entera y la cuarta tiene un hueco en el medio."],
-        arte="Un tapiz medieval sin terminar con el dibujo de una llama formada por cuadrados de hilo rojo y dorado, tensado sobre un bastidor de madera, con ovillos de lana y agujas al lado, a la luz de una antorcha."),
-    "76": dict(
-        titulo="Carta 76 — Notas de las tejedoras", tipo="gris",
-        descripcion=["Las notas de las tejedoras con los números de las columnas del tapiz. Sirven para el tapiz del sigilo (carta 72)."],
-        pistas=["Son los números de las columnas.", "Sirven para el tapiz del sigilo (carta 72)."],
-        textoCarta=["Columnas del tapiz, de izquierda a derecha:", "A: 2 · B: 4 · C: 3 y 2", "D: 3 y 2 · E: 4 · F: 2"],
-        arte="Una hoja de notas de tejedora con columnas de pequeños puntos de colores y números decorativos sin texto legible, sujeta con una aguja a un bastidor de madera, con ovillos de lana al lado."),
-    "82": dict(
-        titulo="Carta 82 — La esquirla", tipo="gris", coge=[62], descarta=[72, 76, 80],
-        descripcion=[
-            "El sigilo del tapiz brilla y el dragón, sin despertar, suelta la garra con un suspiro de humo: entre sus uñas queda una esquirla de cristal rojo, tibia y vibrante. Cristina la recoge con la capa y retrocede de puntillas.",
-            "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
-        pistas=["Recoged la esquirla.", "Coged la carta 62. Descartad las cartas 72, 76 y 80."],
-        arte="Cristina, de puntillas, recoge con el borde de su capa una esquirla de cristal rojo brillante de la garra de un dragón negro dormido; su cara muestra una concentración extrema, con la lengua entre los dientes; Alberto, detrás, aguanta la respiración con los ojos como platos."),
-    "62": dict(
-        titulo="Carta 62 — Esquirla de dragón", tipo="roja", combina=[12, 74],
-        descripcion=["Una esquirla de cristal rojo, tibia, con un fulgor interior como de brasa. Combinadla con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la energía que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Una esquirla de cristal rojo con un fulgor interior de brasa, sostenida sobre la palma de una mano enguantada, sobre un fondo oscuro de guarida con destellos dorados."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[84, 86], descarta=[62, 12, 82],
-        descripcion=[
-            "La esquirla encaja con un chasquido y el Cronoportal se enciende... pero no abre el paso: en el anillo, el aparato repite una y otra vez unas palabras sueltas, las que habéis ido encontrando por el castillo, como si pidiera que las pongáis en orden antes de abrir el portal. Es la profecía del reino (carta 84). El maestre dejó en su torre unas pistas para ordenarla (carta 86).",
-            "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal pide ordenar unas palabras.", "Coged las cartas 84 y 86. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con una esquirla roja encajada en su pecho, sobre las losas de la guarida del dragón dormido, con el anillo girando y proyectando palabras de luz dorada en el aire. Cristina sonríe con un ojo cerrado, medio incrédula; Alberto mira el anillo con expresión de curiosidad y la cabeza ladeada."),
-    "84": dict(
-        titulo="Carta 84 — La profecía", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el Cronoportal muestra las ocho palabras de la profecía del reino que habéis ido recuperando al resolver los puzles del castillo, pero mezcladas. Hay que ponerlas en orden con las pistas del maestre (carta 86). Si falta alguna palabra, la app dice qué carta hay que volver a resolver.",
-            "Al acertar, el portal se abre. Coged la carta 99."],
-        pistas=["Las palabras están en el anillo; las pistas para ordenarlas, en las notas del maestre (carta 86).", "Empezad por las palabras que tienen un lugar fijo: la primera y la última.", "La profecía dice: SOLO EL FUEGO VENCERÁ AL HIELO DEL NORTE."],
-        arte="Ocho palabras de luz dorada flotando sin orden en un círculo sobre el anillo de cristal de un Cronoportal encendido, en la penumbra de una guarida con un dragón dormido al fondo; sin texto legible, solo formas de letras difusas."),
-    "86": dict(
-        titulo="Carta 86 — Pistas del maestre", tipo="gris",
-        descripcion=["Las notas del maestre Osric para ordenar las palabras de la profecía. Sirven para la profecía (carta 84)."],
-        pistas=["Son las reglas para ordenar las palabras.", "Sirven para la profecía (carta 84)."],
-        textoCarta=["Pistas del maestre:", "La profecía empieza con SOLO. FUEGO va justo después de EL.", "VENCERÁ va justo después de FUEGO y antes que HIELO.", "AL va justo antes de HIELO. DEL va justo antes de NORTE.", "NORTE es la última palabra."],
-        arte="Una hoja de notas de un viejo maestre con ocho círculos pequeños unidos por flechas decorativas, sin texto legible, sobre una mesa de madera con una pluma y un tintero, a la luz de una vela."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74, 84, 86],
-        descripcion=[
-            "Las palabras se ordenan en el aire y el anillo del Cronoportal las pronuncia en voz alta: «Solo el fuego vencerá al hielo del norte». El portal se abre en un estallido de luz justo cuando el dragón abre un ojo dorado y os mira, sin enfado. Cristina le dedica una reverencia.",
-            "Aterrizan en su salón, con copos de nieve aún en el pelo. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. Descartad las cartas 74, 84 y 86.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ve la guarida de un dragón negro que abre un ojo dorado. Llevan aún su ropa medieval de invierno con copos de nieve que se derriten. Cristina sonríe radiante y Alberto se ríe sacudiéndose la nieve. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ El patio de armas
+    "P": escena("P", "Llegada a Piedra Negra", [10, 12], [],
+                "Sexta parada del Cronoportal: un reino de hielo y fuego, en pleno invierno. Cristina lleva toda la vida soñando con castillos, caballeros y dragones. El salto vuelve a salir mal: aterrizáis en el patio de armas de la fortaleza de Piedra Negra, en el norte del reino, en mitad de una ventisca. El aparato golpea una piedra y su anillo de cristal se agrieta: sin una esquirla de dragón, esa piedra de fuego que solo guardan los dragones, no volverá a encenderse. Y la tormenta cierra los pasos de montaña: dentro de cien minutos el último paso quedará sellado hasta la primavera, y vosotros con él.",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "El patio de armas de una fortaleza medieval de piedra negra en mitad de una ventisca, con torres, antorchas apagadas por el viento y nieve por todas partes. En el suelo, un aparato de latón y cristal con el anillo agrietado (el Cronoportal) humea sobre la nieve. Cristina, con capa gris de lana con capucha forrada de piel, mira las torres con los ojos brillantes y la boca abierta de pura emoción; Alberto, con capa larga de piel, se sacude la nieve con una mueca de frío y una ceja arqueada."),
+    "10": escena("10", "El patio de armas", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "Los guardias de Piedra Negra os miran con recelo, pero el senescal, un viejo con una gran llave al cinto, tiene un trato: «Si me ayudáis con dos encargos, os dejo ir a la torre del maestre. Primero, necesito medir hidromiel con dos jarras sin marcas. Y segundo, los centinelas de la muralla están mal puestos y se ven unos a otros». En el suelo, una antorcha apagada.",
+                 ["Hay dos encargos: las jarras del senescal y los centinelas de la muralla.", "La muralla son dos cartas: juntadlas, una encima de otra."],
+                 "El patio de armas de una fortaleza medieval nevada con unos guardias de armadura mirando con recelo y un senescal anciano con una gran llave al cinto, que señala una muralla. Cristina habla con el senescal con las manos abiertas y gesto conciliador; Alberto examina con el ceño fruncido una antorcha apagada que ha cogido del suelo."),
+    "12": combinable("12", "Cronoportal sin energía", "azul", 62, 74,
+                     "El Cronoportal con el anillo de cristal agrietado y apagado, sin energía.",
+                     SIN_GENTE + "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central agrietado y apagado, sobre la nieve del patio de una fortaleza."),
+    "14": app("14", "Las jarras del senescal", "Es un juego de la app: medir en el cuenco del rey justo lo que marca el fuego, con dos jarras sin marcas.", 24,
+              ["Lo que cabe en cada jarra y lo que se quiere en el cuenco, en la carta 16.", "Las jarras no tienen marcas: pasad hidromiel de una a otra hasta que quede una cantidad exacta. Llenad siempre la pequeña y pasadla a la grande.", f"{_S_JAR}."],
+              SIN_GENTE + "Dos jarras de barro sin marcas y un cuenco de madera sobre un barril de hidromiel en la cocina de una fortaleza medieval."),
+    "16": gris("16", "El encargo del senescal", "Dos jarras con sus rayas y el cuenco del rey, con la medida que se quiere.",
+               ["Sirve para las jarras (carta 14).", "Cada raya vale un cuenco pequeño de hidromiel.", f"{_S_JAR}."], codigo("las jarras y el cuenco")),
+    "18": gris("18", "El acertijo de la muralla", "Un acertijo pintado en la puerta de la torre.",
+               ["Sirve para los centinelas (carta 20).", "Ningún centinela ve a otro: ni en fila, ni en columna, ni en diagonal.", f"{_S_CEN}."], codigo("el acertijo de la muralla")),
+    "19": pieza("19", "muralla", "Media lámina de la muralla de Piedra Negra.", ["Es la mitad de una lámina: juntadla con la carta 21.", "Hay tres centinelas ya puestos.", f"{_S_CEN}."]),
+    "21": pieza("21", "muralla", "Media lámina de la muralla de Piedra Negra.", ["Es la mitad de una lámina: juntadla con la carta 19.", "Hay tres centinelas ya puestos.", f"{_S_CEN}."]),
+    "20": app("20", "Los centinelas de la muralla", "Es un juego de la app: poner ocho centinelas en una muralla de ocho por ocho sin que ninguno vea a otro.", 28,
+              ["La muralla, con los tres centinelas ya puestos, son las cartas 19 y 21; el acertijo, la 18.", "Cada fila y cada columna llevan un solo centinela. Empezad por los puestos y tachad todas las casillas que ven.", f"{_S_CEN}."],
+              SIN_GENTE + "Una muralla de piedra negra vista desde arriba como un tablero de casillas, con torres de vigía de tejado rojo y nieve."),
+    "22": combinable("22", "Antorcha apagada", "azul", 35, 57, "Una antorcha de la muralla, apagada por la ventisca, con la brea todavía fresca.",
+                     SIN_GENTE + "Una antorcha de madera con la brea fresca, apagada y cubierta de copos de nieve, apoyada en una muralla de piedra negra."),
+    "24": escena("24", "El senescal os cree", [26], [14, 16],
+                 "El senescal prueba el hidromiel con cara de satisfacción: «Medida exacta. No sois espías de los de más allá del Muro». Hurga entre sus llaves y os da una hoja arrugada con las leyes del reino, copiadas por el maestre, que él nunca ha sabido leer del todo.",
+                 ["Las leyes del reino servirán más adelante."],
+                 "Una cocina de fortaleza medieval con barriles de hidromiel y un senescal anciano de barba blanca que entrega a Cristina una hoja arrugada con una sonrisa socarrona. Ella la recoge con las dos manos y una mirada de agradecimiento; Alberto, detrás, prueba el hidromiel de un cuenco con los ojos cerrados de placer."),
+    "26": gris("26", "Las leyes del reino", "Las leyes de sucesión del reino, copiadas por el maestre.",
+               ["Sirve para la sucesión (carta 51).", "Apartad a quien no puede heredar y mirad la línea del hijo mayor, aunque haya muerto.", f"{_S_SUC}."], codigo("las leyes del reino")),
+    "28": escena("28", "La muralla", [35], [18, 19, 20, 21],
+                 "Los centinelas ocupan sus nuevos puestos y la muralla queda sin puntos ciegos. Un capitán agradecido os entrega un pedernal que lleva colgado al cuello: «Sirve para encender cualquier cosa, incluso con este viento».",
+                 ["Lo que habéis recibido se puede juntar con algo que ya tenéis."],
+                 "La muralla de una fortaleza medieval nevada con centinelas armados con lanzas en sus puestos de vigía y un capitán que entrega un pedernal a Alberto. Él lo recibe con una sonrisa de triunfo y la cabeza alta, y Cristina observa a los centinelas con las manos en las caderas y un gesto de satisfacción."),
+    "35": combinable("35", "Pedernal", "roja", 22, 57, "Un pedernal de borde afilado, con el que salen chispas aun con viento.",
+                     SIN_GENTE + "Un pedernal de borde afilado y un eslabón de acero sobre un guante de cuero, soltando chispas."),
+    "57": escena("57", "La torre del maestre", [31, 32], [22, 35, 10, 28],
+                 "La antorcha se enciende con las chispas del pedernal y os abre el camino por una escalera de caracol a la torre del maestre, un anciano de barba larga con una gran cadena al cuello. «Os esperaba, viajeros... Hay un cuervo que no llega y una prisionera que no habla. Haced las dos cosas y os daré la pista de la esquirla».",
+                 ["Hay dos caminos: la torre de los cuervos y el calabozo de la prisionera. Podéis seguir los dos."],
+                 "La torre de un maestre medieval, con una escalera de caracol de piedra iluminada por una antorcha, libros por todas partes y un anciano de barba larga y cadena al cuello. Cristina sostiene la antorcha encendida con gesto decidido; Alberto sube de dos en dos los escalones, con la boca abierta de pasmo al ver los libros."),
+    # ------------------------------------------------------------------ Rama 1: los cuervos
+    "31": escena("31", "La torre de los cuervos", [40, 41, 43, 45], [],
+                 "En lo alto de la torre hay un palomar lleno de cuervos negros. El maestre tiene que mandar uno con cartas a las seis fortalezas del reino, y cada legua se paga en trigo: quiere la ruta más corta. En la pared, un mapa y un libro con las leguas entre cada dos fortalezas.",
+                 ["El mapa y las leguas son cartas distintas."],
+                 SIN_GENTE + "Un palomar en lo alto de una torre medieval, lleno de cuervos negros, con un mapa clavado en la pared y un libro grueso abierto sobre un atril."),
+    "40": app("40", "Los cuervos mensajeros", "Es un juego de la app: elegir la ruta más corta para que un cuervo visite las seis fortalezas y vuelva a Piedra Negra.", 30,
+              ["Dónde está cada fortaleza, en la carta 41; las leguas entre cada dos, en la 43; el acertijo, en la 45.", "Probad a ir siempre a la fortaleza más cercana y ved si al final queda un tramo largo. Después buscad cómo mejorarlo.", f"{_S_CUE}."],
+              SIN_GENTE + "Un cuervo negro volando sobre un mapa de montañas nevadas con seis fortalezas pequeñas dibujadas."),
+    "41": gris("41", "El mapa de los siete reinos", "Las seis fortalezas, dibujadas y numeradas.",
+               ["Sirve para los cuervos (carta 40).", "La fortaleza 1 es Piedra Negra, de donde parte el cuervo.", f"{_S_CUE}."], codigo("el mapa de las fortalezas")),
+    "43": gris("43", "Las leguas entre fortalezas", "Una tabla con las leguas que hay entre cada dos fortalezas.",
+               ["Sirve para los cuervos (carta 40).", "Cada número es el camino entre dos fortalezas, por su fila y su columna.", f"{_S_CUE}."], codigo("la tabla de leguas")),
+    "45": gris("45", "El acertijo de los cuervos", "Un acertijo grabado en el palomar.",
+               ["Sirve para los cuervos (carta 40).", "Se visita cada fortaleza una vez y se vuelve a casa.", f"{_S_CUE}."], codigo("el acertijo de los cuervos")),
+    "30": escena("30", "El cuervo vuela", [38], [31, 40, 41, 43, 45],
+                 "El cuervo sale por la ventana, negro como el carbón, y el maestre sonríe: «Ruta perfecta». Como pago os da una mitad de un sello de cera partido por la mitad: «El sello del dragón. La otra mitad la tiene quien guarda la cripta. Juntas, abren la puerta del dragón».",
+                 ["Lo que habéis recibido se puede juntar con otra mitad."],
+                 "Un maestre medieval anciano que suelta un cuervo negro por una ventana de la torre en mitad de la nieve, y entrega a Cristina una mitad de un sello de cera. Ella sostiene la mitad del sello contra la luz de una vela con una sonrisa curiosa; Alberto sigue al cuervo con la mirada por la ventana, con la boca entreabierta."),
+    "38": combinable("38", "Mitad del sello", "roja", 56, 94, "Una mitad de un sello de cera roja con la cabeza de un dragón, partido en dos.",
+                     SIN_GENTE + "La mitad de un sello de cera roja con la cabeza de un dragón en relieve, partido por la mitad, sobre un pergamino."),
+    # ------------------------------------------------------------------ Rama 2: el calabozo
+    "32": escena("32", "El calabozo de la prisionera", [42, 48, 49, 53], [],
+                 "En el calabozo hay una mujer de más allá del Muro, de pelo rojo, encadenada. No habla con nadie, pero ha dejado una carta cifrada para quien sepa leerla, con un cuadrado de letras y una regla. La carta, el cuadrado y la regla, tres papeles.",
+                 ["La carta, el cuadrado y la regla son cartas distintas."],
+                 "Un calabozo de piedra de una fortaleza medieval con una mujer de pelo rojo encadenada a la pared y unos pergaminos cifrados sobre un taburete. Alberto lee los pergaminos con el ceño muy fruncido y los labios apretados; Cristina mira a la prisionera con gesto amable y compasivo."),
+    "48": app("48", "La carta de la prisionera", "Es un juego de la app: descifrar el mensaje de la prisionera, cifrado con el método de las parejas de letras.", 36,
+              ["La carta cifrada es la 42, el cuadrado de la clave es la 49 y la regla para cifrar es la 53.", "Para descifrar hay que hacer lo contrario que la regla: misma fila, la de la izquierda; misma columna, la de arriba; rectángulo, las esquinas en su fila.", f"{_S_PLA}."],
+              SIN_GENTE + "Una carta de pergamino cifrada con parejas de letras, un cuadrado de veinticinco letras dibujado y una vela, sobre un taburete en un calabozo."),
+    "42": gris("42", "La carta de la prisionera", "La carta cifrada: letras escritas por parejas.",
+               ["Sirve para el mensaje (carta 48).", "Se descifra pareja a pareja, con el cuadrado de la carta 49.", f"{_S_PLA}."], codigo("la carta cifrada")),
+    "49": gris("49", "El cuadrado de la clave", "Un cuadrado de veinticinco letras (la I y la J comparten casilla).",
+               ["Sirve para el mensaje (carta 48).", "Es el cuadrado con el que se cifró la carta.", f"{_S_PLA}."], codigo("el cuadrado de la clave")),
+    "53": gris("53", "La regla del cuadrado", "La regla para cifrar de dos en dos.",
+               ["Sirve para el mensaje (carta 48).", "Es la regla de cifrar; hay que hacerla al revés para descifrar.", f"{_S_PLA}."], codigo("la regla del cuadrado")),
+    "36": escena("36", "El carcelero", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "La prisionera susurra por fin: «DRAGONES. Eso es lo que buscáis». Pero para salir del calabozo hay que pasar ante el carcelero, un hombretón que siempre gana a un juego de piedras a los que quieren pasar. En la mesa, las reglas y las partidas de otros que lo intentaron.",
+                 ["Hay que ganar al carcelero. Las partidas de otros retadores son una pista."],
+                 "El corredor de un calabozo medieval con un carcelero enorme de barba negra sentado ante una mesa con piedras, y unos papeles con partidas anotadas. Cristina observa las partidas con el dedo sobre la barbilla, pensativa; Alberto se arremanga con una sonrisa desafiante ante el carcelero."),
+    "52": app("52", "El juego de las piedras", "Es un juego de la app: ganar al carcelero en el juego de las piedras, tomando 1, 2 o 3 por turno hasta llevarse la última.", 44,
+              ["Las reglas, en la carta 54; las partidas de otros retadores, en la 55; el dicho del carcelero, en la 59.", "Mirad en las partidas cuántas piedras quedaban tras cada jugada del carcelero y qué tienen en común esos números.", f"{_S_PIE}."],
+              SIN_GENTE + "Una mesa de madera con veintiuna piedras grises en fila, un cuenco y unas manos grandes de carcelero asomando."),
+    "54": gris("54", "El juego de las piedras", "Las reglas del juego: veintiuna piedras, de 1 a 3 por turno, gana quien se lleva la última.",
+               ["Sirve para el juego de las piedras (carta 52).", "Empieza el retador.", f"{_S_PIE}."], codigo("las reglas del juego de las piedras")),
+    "55": gris("55", "Las partidas del carcelero", "Tres partidas del carcelero contra otros retadores, con las piedras que quedaban tras cada jugada.",
+               ["Sirve para el juego de las piedras (carta 52).", "Mirad solo las piedras que quedan tras jugar el carcelero.", f"{_S_PIE}."], codigo("las partidas del carcelero")),
+    "59": gris("59", "El dicho del carcelero", "Un dicho que repiten los guardias.",
+               ["Sirve para el juego de las piedras (carta 52).", "Habla de contar de cuatro en cuatro.", f"{_S_PIE}."], codigo("el dicho del carcelero")),
+    # ------------------------------------------------------------------ La biblioteca
+    "44": escena("44", "La biblioteca del maestre", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "El carcelero se aparta con un gruñido y subís a la biblioteca del maestre, una sala redonda llena de libros con un gran mapa de castillos y, en la pared, un árbol de familia pintado. Dos puertas selladas con dos acertijos: el mapa de los castillos, con sus puentes por tender, y el árbol de la familia real, de quien depende quién se sienta en el trono. Las leyes del reino que os dio el senescal servirán aquí.",
+                 ["Hay dos puzles: los castillos del reino y la sucesión. Las leyes del reino sirven aquí."],
+                 "Una biblioteca circular de un castillo medieval con estanterías de libros hasta el techo, un gran mapa de castillos sobre una mesa y un árbol genealógico pintado en la pared. Cristina examina el árbol con una sonrisa de curiosidad, con el dedo siguiendo una de las ramas; Alberto estudia el mapa de los castillos con los ojos entornados."),
+    "46": app("46", "Los castillos del reino", "Es un juego de la app: unir los castillos con puentes rectos, tantos como dice el número de cada uno, sin cruces y todos conectados.", 56,
+              ["Los números, en el mapa de las cartas 37 y 39; el acertijo, en la 33.", "Empezad por los castillos con el número más alto o con pocos vecinos posibles: sus puentes se deducen.", f"Los puentes: {_S_HAS}."],
+              SIN_GENTE + "Un mapa de castillos pequeños de piedra gris dibujados sobre una cuadrícula, unidos por puentes de madera rectos, sobre un fondo de nieve."),
+    "37": pieza("37", "castillos", "Media lámina del mapa de los castillos del reino.", ["Es la mitad de un mapa: juntadla con la carta 39.", "Cada castillo lleva su número de puentes y una letra.", f"Los puentes: {_S_HAS}."]),
+    "39": pieza("39", "castillos", "Media lámina del mapa de los castillos del reino.", ["Es la mitad de un mapa: juntadla con la carta 37.", "Cada castillo lleva su número de puentes y una letra.", f"Los puentes: {_S_HAS}."]),
+    "33": gris("33", "El acertijo de los puentes", "Un acertijo grabado en el mapa del maestre.",
+               ["Sirve para los castillos (carta 46).", "Los puentes van rectos, sin cruzarse, uno o dos entre cada par, y todos los castillos conectados.", f"Los puentes: {_S_HAS}."], codigo("el acertijo de los puentes")),
+    "56": combinable("56", "Mitad del sello", "roja", 38, 94, "La otra mitad del sello de cera roja, con la cola del dragón, guardada en un hueco de la biblioteca.",
+                     SIN_GENTE + "La otra mitad de un sello de cera roja con la cola de un dragón en relieve, partida por la mitad, sobre un atril de madera."),
+    "51": app("51", "La sucesión", "Es un juego de la app: elegir quién hereda la corona de Piedra Negra según las leyes y el árbol de la familia real.", 58,
+              ["Las leyes, en la carta 26; el árbol de la familia, en las cartas 61 y 63.", "Tachad primero a quien no puede heredar (muertos y septones) y después mirad la línea del hijo mayor.", f"{_S_SUC}."],
+              SIN_GENTE + "Una corona de hierro con picos sobre un cojín de terciopelo, y un árbol genealógico pintado al fondo de una sala del trono."),
+    "61": pieza("61", "arbol", "Media lámina del árbol del rey Aerion.", ["Es la mitad de un árbol: juntadla con la carta 63.", "Cada persona lleva su edad, su sexo y si ha muerto o tiene votos.", f"{_S_SUC}."]),
+    "63": pieza("63", "arbol", "Media lámina del árbol del rey Aerion.", ["Es la mitad de un árbol: juntadla con la carta 61.", "Cada persona lleva su edad, su sexo y si ha muerto o tiene votos.", f"{_S_SUC}."]),
+    "58": escena("58", "La verdad del trono", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "El consejo, reunido en la biblioteca, aclama al heredero. El maestre os guía ahora por una escalera oculta al piso de abajo, donde hay un tablero de ajedrez enorme con los escudos de las seis casas del reino, que se abre solo si se ponen todos en su sitio.",
+                 ["Hay un tablero con los escudos de las casas."],
+                 "Una sala de consejo medieval con nobles en pie que aclaman a un niño de unos nueve años con una pequeña corona, y una escalera de caracol que baja a un sótano. Cristina sonríe al niño con ternura; Alberto, a su lado, aplaude con una ceja levantada de sorpresa."),
+    "69": app("69", "El tablero de las seis casas", "Es un juego de la app: colocar los seis escudos de las casas en cada fila, columna y recuadro sin repetir.", 80,
+              ["El tablero, con los escudos ya puestos, son las cartas 70 y 71.", "Empezad por la fila, columna o recuadro que tenga más escudos y deducid el que falta.", f"{_S_SUD}."],
+              SIN_GENTE + "Un tablero cuadrado de seis por seis casillas, con escudos de seis casas medievales (lobo, león, kraken, rosa, sol y trucha) en algunas casillas."),
+    "70": pieza("70", "casas", "Media lámina del tablero de las seis casas.", ["Es la mitad de un tablero: juntadla con la carta 71.", "Los escudos ya puestos están en las casillas; las reglas, arriba.", f"{_S_SUD}."]),
+    "71": pieza("71", "casas", "Media lámina del tablero de las seis casas.", ["Es la mitad de un tablero: juntadla con la carta 70.", "Los escudos ya puestos están en las casillas; las reglas, arriba.", f"{_S_SUD}."]),
+    "80": escena("80", "Las criptas", [72, 75, 79], [58, 69, 70, 71],
+                 "El tablero se abre y baja a unas criptas heladas, con el suelo cubierto de escarcha. Al fondo, una torre de hielo con cuatro discos de piedra que sostienen la corona del dragón: hay que llevarlos a otro pie de la torre antes de que se agote un reloj de arena.",
+                 ["Las torres de hielo son otro puzle."],
+                 "Unas criptas de piedra cubiertas de escarcha, iluminadas por antorchas azuladas, con tres torres de hielo y cuatro discos de piedra apilados en la primera. Cristina contempla las torres con el ceño fruncido y las manos en las caderas; Alberto se frota las manos heladas con aliento de vaho y una sonrisa nerviosa."),
+    "72": app("72", "Las torres de hielo", "Es un juego de la app: llevar los cuatro discos de la torre I a la III, de uno en uno y sin poner uno grande sobre uno pequeño.", 82,
+              ["Las torres, en la carta 75; las reglas y el reloj de arena, en la 79.", "El disco más pequeño se mueve cada dos movimientos, siempre en el mismo sentido. Para mover el mayor, los demás deben estar en la torre intermedia.", f"{_S_TOR}."],
+              SIN_GENTE + "Tres torres de hielo con cuatro discos de piedra de tamaños distintos apilados en la primera, en una cripta helada."),
+    "75": gris("75", "Las torres de hielo", "Las tres torres de la cripta y los cuatro discos de la corona, apilados en la primera.",
+               ["Sirve para las torres (carta 72).", "El disco menor está arriba.", f"{_S_TOR}."], codigo("las torres de hielo")),
+    "79": gris("79", "El reloj de arena", "Las reglas de la torre y el reloj de arena, con sus vueltas.",
+               ["Sirve para las torres (carta 72).", "Cada movimiento es una vuelta del reloj, y solo da 15.", f"{_S_TOR}."], codigo("el reloj de arena")),
+    "82": escena("82", "El altar de la profecía", [85, 86, 87], [80, 72, 75, 79],
+                 "Los discos quedan en su sitio y la corona del dragón brilla sobre un altar de hielo. Pero el altar está protegido por una puerta con una profecía del maestre, un acertijo que pide números: «Cuatro cifras, cuatro pruebas». Para abrirla necesitáis las cifras que dejaron las pruebas que habéis superado.",
+                 ["La puerta es el último puzle."],
+                 "Un altar de hielo en una cripta con una corona de hierro oscuro de picos sobre un cojín y, detrás, una gran puerta de piedra con inscripciones. Cristina lee los acertijos de un pergamino con los labios moviéndose; Alberto cuenta con los dedos de una mano y un gesto de concentración."),
+    "85": app("85", "La puerta de la profecía", "Es un juego de la app: la puerta se abre con el número que sale de una cuenta con las cifras de cuatro puzles resueltos.", 99,
+              ["Los acertijos, en las cartas 86 y 87; cada puzle dijo su «cifra de la profecía» al resolverse.", "Cada acertijo describe un puzle por lo que hacía: lo que lleva cartas, lo que reparte hidromiel, lo que quita piedras, los ocho que vigilan.", f"La cuenta: {_S_PRO}."],
+              SIN_GENTE + "Una puerta de piedra con un panel de dos ruedas de números talladas y un relieve de dragón dormido."),
+    "86": gris("86", "La profecía del maestre (I)", "La primera parte de la profecía: dos de las cuatro pruebas.",
+               ["Sirve para la puerta (carta 85).", "Dos pruebas: la del cuervo y la de las jarras.", f"La cuenta: {_S_PRO}."], codigo("la profecía, primera parte")),
+    "87": gris("87", "La profecía del maestre (II)", "La segunda parte de la profecía: las otras dos pruebas y la cuenta.",
+               ["Sirve para la puerta (carta 85).", "Dos pruebas: la de las piedras y la de los centinelas. Después, la cuenta.", f"La cuenta: {_S_PRO}."], codigo("la profecía, segunda parte")),
+    # ------------------------------------------------------------------ La cripta del dragón y el final
+    "94": escena("94", "La cripta del dragón", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Las dos mitades del sello se juntan en la puerta de la cripta con un chasquido y la puerta de bronce se abre. Dentro, un salón enorme y oscuro donde duerme un dragón de escamas rojas. Entre vosotros y él, un tapiz del sigilo: un dibujo que las tejedoras escondieron en números. Si se pinta bien, el dragón no se despierta. Las pistas, en dos cartas.",
+                 ["Las pistas del tapiz son dos cartas: filas y columnas."],
+                 "Un enorme salón de piedra oscura y fría con un dragón de escamas rojas dormido al fondo y un gran tapiz en la pared. Cristina da pasitos de puntillas con el dedo sobre los labios y los ojos como platos, y Alberto, tras ella, se tapa la boca con la mano para no hacer ruido, con cara de pánico."),
+    "64": app("64", "El tapiz del sigilo", "Es un juego de la app: pintar el tapiz según los números de filas y columnas para que dibuje el sigilo del dragón.", 62,
+              ["Las pistas de las filas, en la carta 66; las de las columnas, en la 67.", "Empezad por las filas o columnas con números grandes: dejan pocas posibilidades de colocación.", f"El tapiz, por filas (# pintada): {_S_TAP}."],
+              SIN_GENTE + "Un gran tapiz de lana con un dibujo de cuadrícula y un dragón estilizado bordado en negro sobre fondo gris, colgado de una pared de piedra."),
+    "66": gris("66", "El tapiz del sigilo (filas)", "Las pistas de las filas del tapiz.",
+               ["Sirve para el tapiz (carta 64).", "Cada número es un grupo de casillas pintadas seguidas.", f"El tapiz, por filas (# pintada): {_S_TAP}."], codigo("las pistas de las filas")),
+    "67": gris("67", "El tapiz del sigilo (columnas)", "Las pistas de las columnas del tapiz.",
+               ["Sirve para el tapiz (carta 64).", "Cada número es un grupo de casillas pintadas seguidas.", f"El tapiz, por filas (# pintada): {_S_TAP}."], codigo("las pistas de las columnas")),
+    "62": combinable("62", "Esquirla de dragón", "roja", 12, 74, "Una esquirla de piedra de fuego del tamaño de un puño, que cae de una escama del dragón y arde sin quemar.",
+                     SIN_GENTE + "Una esquirla de piedra de fuego roja y naranja del tamaño de un puño, con una luz interior palpitante, sobre una palma con guante de cuero."),
+    "74": escena("74", "Cronoportal reconectado", [], [62, 12, 64, 66, 67, 94, 57],
+                 "La esquirla encaja en el anillo del Cronoportal, que se enciende de rojo a dorado. Pero el aparato aún no abre el portal: la puerta del altar de la profecía lo bloquea con su cuenta, una puerta que también cierra el último paso de la montaña. Hay que abrirla.",
+                 ["Falta abrir la puerta de la profecía."],
+                 "El Cronoportal con una esquirla de piedra de fuego encajada en su anillo agrietado, que brilla con luz roja y dorada en una cripta de hielo. Alberto ajusta los diales con la lengua entre los dientes y Cristina sostiene la corona de hierro con las dos manos, con gesto de asombro."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87],
+                 "La puerta de piedra se abre y la luz de la corona baña la cripta. El anillo del Cronoportal pronuncia en voz alta una frase: «Solo el fuego vencerá al hielo del norte». El portal se abre en un estallido de luz justo cuando el dragón abre un ojo dorado y os mira, sin enfado. Cristina le dedica una reverencia. Aterrizáis en vuestro salón, con copos de nieve aún en el pelo. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ve la cripta oscura con un dragón rojo que les mira con un ojo dorado. Llevan aún su ropa medieval de invierno con copos de nieve en el pelo y la capa. Cristina ríe con las manos en la boca, emocionada; Alberto mira el aparato con una sonrisa cansada y satisfecha. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="Reino de Hielo y Fuego — La Corona del Dragón",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-)
+META = dict(juego="Reino de Hielo y Fuego — La Corona del Dragón", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["14", "16"], "28": ["20", "18"], "57": ["22", "35"], "44": ["40", "42"], "54": ["46", "48", "37"],
-           "58": ["51", "52", "26"], "94": ["56", "38"], "78": ["64", "66"], "80": ["69", "70"], "82": ["72", "76"],
-           "74": ["62", "12"], "99": ["84", "86"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada a la fortaleza. Te manda coger la 10 y la 12.",
-    "10": "El patio de armas: reparte el cuervo, la rueda, la lista del senescal, el banquete y la antorcha.",
-    "12": "El Cronoportal sin energía: se combina con la esquirla de dragón (62).",
-    "14": "Mensaje del cuervo (app): descifrar un mensaje con la cifra del maestre (César).",
-    "16": "Rueda del maestre: la regla de la cifra (retroceder tres letras).",
-    "18": "Lista del senescal: las dos primeras pistas del banquete.",
-    "20": "Banquete de las casas (app): tabla lógica de casas, asientos y regalos.",
-    "22": "Antorcha apagada: se combina con el pedernal (35).",
-    "26": "Rumores del patio: dos frases de consejeros; te manda descartar el cuervo y la rueda.",
-    "28": "La mesa del festín: reparte el pedernal y el rollo del pueblo libre.",
-    "35": "Pedernal: se combina con la antorcha (22).",
-    "37": "Rollo del pueblo libre: tres frases de ejemplo de su lengua.",
-    "57": "La torre del maestre: resultado de 22 + 35; reparte el mapa y la crónica.",
-    "40": "Caminos entre castillos (app): unir castillos con caminos (puentes, estilo hashi).",
-    "42": "Crónica del maestre (app de lectura): los caminos de dos castillos del mapa.",
-    "44": "El salón del consejo: reparte la lengua de la prisionera y los consejeros.",
-    "46": "Lengua del pueblo libre (app): traducir una frase con las reglas de los ejemplos.",
-    "48": "Pergamino de la prisionera: otras tres frases de ejemplo.",
-    "51": "Los consejeros (app): deducir quién es leal y quién traidor.",
-    "52": "Declaraciones: dos frases más de consejeros.",
-    "54": "La confianza de la prisionera: reparte la primera mitad del sello.",
-    "56": "Mitad del sello: se combina con la otra mitad (38).",
-    "58": "La traición: reparte la segunda mitad del sello.",
-    "38": "Mitad del sello: se combina con la otra mitad (56).",
-    "94": "La cripta del dragón: resultado de 56 + 38; reparte las antorchas y el plano.",
-    "64": "Antorchas de la cripta (app): iluminar el suelo sin que se vean entre sí (akari).",
-    "66": "Plano de la cripta: el número de dos pilares.",
-    "78": "La puerta de bronce: reparte el atasco y la nota.",
-    "69": "Atasco ante la puerta (app): bloques deslizantes; sacar el ariete.",
-    "70": "Nota del maestre: cuál es el ariete.",
-    "80": "El dragón dormido: reparte el tapiz y las notas.",
-    "72": "Tapiz del sigilo (app): nonograma que dibuja una llama.",
-    "76": "Notas de las tejedoras: los números de las columnas del tapiz.",
-    "82": "La esquirla: reparte la esquirla de dragón.",
-    "62": "Esquirla de dragón: se combina con el Cronoportal (12).",
-    "74": "Cronoportal reconectado: resultado de 62 + 12; reparte la profecía y las pistas.",
-    "84": "La profecía (app): ordenar las ocho palabras recuperadas en los puzles (metapuzle final).",
-    "86": "Pistas del maestre: reglas para ordenar las palabras.",
-    "99": "Final de la aventura.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-PASOS = [
-    dict(t="Llegada a Piedra Negra", que="Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12.",
-         acciones=[("leer", "P")], mesa=["P", "10", "12"]),
-    dict(t="El patio de armas", que="Lee la carta 10. Descarta la P y coge 14, 16, 18, 20 y 22. Hay dos puzles: el mensaje del cuervo (14, con la rueda 16) y el banquete (20, con la lista 18).",
-         acciones=[("leer", "10")], mesa=["10", "12", "14", "16", "18", "20", "22"]),
-    dict(t="Lee el mensaje del cuervo", que="En el móvil: Acción, 14. La rueda (16) dice que cada letra está tres puestos adelantada. El mensaje dice BAJAD AL ARCHIVO. El mensaje te dice que cojas la 26 y anota la palabra de la profecía que aparece (HIELO).",
-         acciones=[("app", "14", "carta 26")], mesa=["10", "12", "14", "16", "18", "20", "22", "26"]),
-    dict(t="Los rumores", que="Lee la carta 26. Te manda descartar la 14 y la 16. Guárdala: sus frases sirven para los consejeros más adelante.",
-         acciones=[("leer", "26")], mesa=["10", "12", "18", "20", "22", "26"]),
-    dict(t="El banquete de las casas", que="En el móvil: Acción, 20. Con la lista del senescal (18): de izquierda a derecha, León Dorado con la copa, Lobo Gris con las pieles, Oso Pardo con la espada y Halcón Plateado con el cuerno. El mensaje te dice que cojas la 28.",
-         acciones=[("app", "20", "carta 28")], mesa=["10", "12", "18", "20", "22", "26", "28"]),
-    dict(t="La mesa del festín", que="Lee la carta 28. Descarta 20 y 18 y coge 35 y 37. El pedernal (35) es combinable; el rollo (37) trae tres frases de la lengua del pueblo libre.",
-         acciones=[("leer", "28")], mesa=["10", "12", "22", "26", "28", "35", "37"]),
-    dict(t="Antorcha con pedernal", que="La antorcha (22) y el pedernal (35) son combinables: 22 + 35 = 57. Coge la 57.",
-         acciones=[("combinar", "22", "35")], mesa=["10", "12", "22", "26", "28", "35", "37", "57"]),
-    dict(t="La torre del maestre", que="Lee la carta 57. Descarta 22, 35, 28 y 10 y coge 40 y 42.",
-         acciones=[("leer", "57")], mesa=["12", "26", "37", "57", "40", "42"]),
-    dict(t="La crónica del maestre", que="En el móvil: Acción, 42. Pasa las páginas: dicen cuántos caminos salen de los castillos E y G (tres y cuatro).",
-         acciones=[("app", "42", "")], mesa=["12", "26", "37", "57", "40", "42"]),
-    dict(t="Une los castillos", que="En el móvil: Acción, 40. Une los castillos: A con B, A con E, B con C, C con D, F con G, G con H y dos caminos entre E y G. El mensaje te dice que cojas la 44 y anota la palabra de la profecía (VENCERÁ).",
-         acciones=[("app", "40", "carta 44")], mesa=["12", "26", "37", "57", "40", "42", "44"]),
-    dict(t="El salón del consejo", que="Lee la carta 44. Descarta 40, 42 y 57 y coge 46, 48, 51 y 52. Hay dos puzles: la lengua de la prisionera (46, con 37 y 48) y los consejeros (51, con 26 y 52).",
-         acciones=[("leer", "44")], mesa=["12", "26", "37", "44", "46", "48", "51", "52"]),
-    dict(t="Habla como el pueblo libre", que="En el móvil: Acción, 46. Con las frases de los rollos (37 y 48), escribe: krai skai hod ven. El mensaje te dice que cojas la 54 y anota la palabra de la profecía (DEL).",
-         acciones=[("app", "46", "carta 54")], mesa=["12", "26", "37", "44", "46", "48", "51", "52", "54"]),
-    dict(t="La confianza de la prisionera", que="Lee la carta 54. Descarta 46, 48 y 37 y coge la 56, una mitad del sello.",
-         acciones=[("leer", "54")], mesa=["12", "26", "44", "51", "52", "54", "56"]),
-    dict(t="Leales y traidores", que="En el móvil: Acción, 51. Con las frases de las cartas 26 y 52: Aldric y Brenna son traidores; Corvin y Dalia, leales. El mensaje te dice que cojas la 58 y anota la palabra de la profecía (FUEGO).",
-         acciones=[("app", "51", "carta 58")], mesa=["12", "26", "44", "51", "52", "54", "56", "58"]),
-    dict(t="La traición", que="Lee la carta 58. Descarta 51, 52 y 26 y coge la 38, la otra mitad del sello.",
-         acciones=[("leer", "58")], mesa=["12", "44", "54", "56", "58", "38"]),
-    dict(t="El sello completo", que="Las dos mitades del sello (56 y 38) son combinables: 56 + 38 = 94. Coge la 94.",
-         acciones=[("combinar", "56", "38")], mesa=["12", "44", "54", "56", "58", "38", "94"]),
-    dict(t="La cripta del dragón", que="Lee la carta 94. Descarta 56, 38, 44, 54 y 58 y coge 64 y 66. El plano (66) da el número de dos pilares de la cripta (64).",
-         acciones=[("leer", "94")], mesa=["12", "94", "64", "66"]),
-    dict(t="Enciende las antorchas", que="En el móvil: Acción, 64. Con el plano (66): antorchas en B1, D1, E2, A3, F3, B4, E4, C5 y A6. El mensaje te dice que cojas la 78 y anota la palabra de la profecía (NORTE).",
-         acciones=[("app", "64", "carta 78")], mesa=["12", "94", "64", "66", "78"]),
-    dict(t="La puerta de bronce", que="Lee la carta 78. Descarta 64, 66 y 94 y coge 69 y 70. La nota (70) dice cuál es el ariete.",
-         acciones=[("leer", "78")], mesa=["12", "78", "69", "70"]),
-    dict(t="Libera la puerta", que="En el móvil: Acción, 69. Saca el ariete (el tronco largo de la tercera fila) por la derecha en diez movimientos. El mensaje te dice que cojas la 80 y anota la palabra de la profecía (AL).",
-         acciones=[("app", "69", "carta 80")], mesa=["12", "78", "69", "70", "80"]),
-    dict(t="El dragón dormido", que="Lee la carta 80. Descarta 69, 70 y 78 y coge 72 y 76. Las notas (76) dan los números de las columnas del tapiz.",
-         acciones=[("leer", "80")], mesa=["12", "80", "72", "76"]),
-    dict(t="Termina el tapiz", que="En el móvil: Acción, 72. Pinta el sigilo (una llama) con los números de las filas de la pantalla y los de las columnas de la carta 76. El mensaje te dice que cojas la 82 y anota la palabra de la profecía (EL).",
-         acciones=[("app", "72", "carta 82")], mesa=["12", "80", "72", "76", "82"]),
-    dict(t="La esquirla", que="Lee la carta 82. Descarta 72, 76 y 80 y coge la 62, la esquirla de dragón.",
-         acciones=[("leer", "82")], mesa=["12", "82", "62"]),
-    dict(t="Esquirla en el Cronoportal", que="El Cronoportal (12) y la esquirla (62) son combinables: 12 + 62 = 74. Coge la 74.",
-         acciones=[("combinar", "12", "62")], mesa=["12", "82", "62", "74"]),
-    dict(t="Cronoportal reconectado", que="Lee la carta 74. Descarta 62, 12 y 82 y coge 84 y 86. Las notas (86) explican cómo ordenar la profecía.",
-         acciones=[("leer", "74")], mesa=["74", "84", "86"]),
-    dict(t="Ordena la profecía", que="En el móvil: Acción, 84. Con las notas (86), ordena las palabras: SOLO EL FUEGO VENCERÁ AL HIELO DEL NORTE. El mensaje te dice que cojas la 99.",
-         acciones=[("app", "84", "carta 99")], mesa=["74", "84", "86", "99"]),
-    dict(t="Final", que="Lee la carta 99. Descarta 74, 84 y 86. En la mesa solo queda la 99. ¡Fin!",
-         acciones=[("leer", "99")], mesa=["99"]),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "El patio de armas", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la muralla: 19 arriba y 21 abajo."),
+    ("app", "14", "Las jarras", f"En el móvil: Acción, 14. Con las jarras y el cuenco (16): {_S_JAR}. El mensaje te dice que cojas la 24. Anota la cifra de la profecía: {I.DATOS['14']}.", "carta 24"),
+    ("leer", "24", "El senescal os cree", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para la sucesión)."),
+    ("app", "20", "Los centinelas", f"En el móvil: Acción, 20. Con la muralla (19 y 21) y el acertijo (18): {_S_CEN}. El mensaje te dice que cojas la 28. Anota la cifra de la profecía: {I.DATOS['20']}.", "carta 28"),
+    ("leer", "28", "La muralla", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
+    ("combinar", "22", "35", "La antorcha", "La antorcha (22) y el pedernal (35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "La torre del maestre", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "La torre de los cuervos", "Lee la carta 31. Coge 40, 41, 43 y 45."),
+    ("app", "40", "Los cuervos", f"En el móvil: Acción, 40. Con el mapa (41), las leguas (43) y el acertijo (45): {_S_CUE}. El mensaje te dice que cojas la 30. Anota la cifra de la profecía: {I.DATOS['40']}.", "carta 30"),
+    ("leer", "30", "El cuervo vuela", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "El calabozo", "Lee la carta 32. Coge 42, 48, 49 y 53."),
+    ("app", "48", "La carta de la prisionera", f"En el móvil: Acción, 48. Con la carta (42), el cuadrado (49) y la regla (53): {_S_PLA}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "El carcelero", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59."),
+    ("app", "52", "Las piedras", f"En el móvil: Acción, 52. Con las partidas (55) y el dicho (59): {_S_PIE}. El mensaje te dice que cojas la 44. Anota la cifra de la profecía: {I.DATOS['52']}.", "carta 44"),
+    ("leer", "44", "La biblioteca del maestre", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el mapa: 37 a la izquierda y 39 a la derecha; y el árbol: 61 a la izquierda y 63 a la derecha."),
+    ("app", "46", "Los castillos", f"En el móvil: Acción, 46. Con el mapa (37 y 39) y el acertijo (33): {_S_HAS}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "La sucesión", f"En el móvil: Acción, 51. Con las leyes (26) y el árbol (61 y 63): {_S_SUC}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "La verdad del trono", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71. Junta el tablero: 70 arriba y 71 abajo."),
+    ("app", "69", "El tablero de las casas", f"En el móvil: Acción, 69. Con el tablero (70 y 71): {_S_SUD}. El mensaje te dice que cojas la 80.", "carta 80"),
+    ("leer", "80", "Las criptas", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79."),
+    ("app", "72", "Las torres de hielo", f"En el móvil: Acción, 72. Con las torres (75) y el reloj de arena (79): {_S_TOR}. El mensaje te dice que cojas la 82.", "carta 82"),
+    ("leer", "82", "El altar de la profecía", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "El sello", "Las dos mitades del sello (38 y 56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "La cripta del dragón", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67."),
+    ("app", "64", "El tapiz", f"En el móvil: Acción, 64. Con las filas (66) y las columnas (67): {_S_TAP}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "La esquirla", "El Cronoportal (12) y la esquirla (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "La puerta", f"En el móvil: Acción, 85. Con las cifras de las pruebas y los acertijos (86 y 87): {_S_PRO}. El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!"),
 ]
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.recalcular_mesas(PASOS, J)
