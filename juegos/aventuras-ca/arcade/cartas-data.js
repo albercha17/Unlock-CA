@@ -2,7 +2,7 @@
 window.JUEGO_LOCAL = {
  "_meta": {
   "juego": "Game Over, 1985 — La Última Moneda",
-  "estilo": "Ilustración semirrealista con aire de película de ciencia ficción de los años 80 (como Tron y Stranger Things), luz de neón cian, magenta y amarilla sobre fondos oscuros, interior de una gigantesca máquina recreativa: circuitos, pantallas CRT con rayas de barrido, píxeles de colores flotando en el aire, cables luminosos y joysticks enormes, formato vertical 2:3. Sin texto, letras ni números legibles en la imagen (las pantallas muestran solo dibujos de píxeles). Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).",
+  "estilo": "Ilustración semirrealista con aire de película de ciencia ficción de los años 80 (como Tron y Stranger Things), luz de neón cian, magenta y amarilla sobre fondos oscuros, interior de una gigantesca máquina recreativa: circuitos, pantallas CRT con rayas de barrido, píxeles de colores flotando en el aire, cables luminosos y joysticks enormes, formato vertical 2:3. Sin texto, letras ni números legibles en la imagen (las pantallas muestran solo dibujos de píxeles). Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes). Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).",
   "personajes": {
    "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado recogido en una coleta alta a un lado con una cinta de colores, ojos azules. Viste ropa de los años 80: chaqueta vaquera con hombreras y las mangas remangadas, camiseta rosa neón, mallas negras con calentadores de colores y zapatillas altas.",
    "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Viste ropa de los años 80: camiseta de rayas de colores, chaleco acolchado, vaqueros claros, gafas de sol de aviador subidas a la frente, riñonera y zapatillas deportivas."
@@ -11,91 +11,77 @@ window.JUEGO_LOCAL = {
   "foto": "Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). Pídele que mantenga el parecido real, pero con el estilo de ilustración de este juego.",
   "video": "Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfico de ciencia ficción de los años 80, luces de neón cian, magenta y amarillo y mucho contraste. Sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones) rodean un aparato de latón y cristal con un anillo central: el Cronoportal. Cristina señala una foto de un salón recreativo antiguo en una revista. Escena 2 (4-8 s): el anillo se enciende con un arco de luz azul y dorada y los dos son absorbidos por un túnel de luz. Escena 3 (8-12 s): caen en un salón recreativo de 1985, entre filas de máquinas encendidas, el aparato golpea una máquina y su cristal sale rodando hasta la ranura de las fichas; la pantalla se enciende y los absorbe. Escena 4 (12-15 s): primer plano de Cristina y Alberto, con ropa de los 80, asombrados, dentro de un mundo de píxeles de colores que se arma a su alrededor; fundido a negro. Sonido: zumbido eléctrico creciente, silbido del portal, sonidos de máquina recreativa (moneda, láser, 'ping') y música sintetizada de ocho bits, sin voz de narrador.",
   "mosaicos": {
-   "placa": {
+   "aparcamiento": {
     "filas": 2,
-    "cols": 3,
+    "cols": 1,
     "cartas": [
-     "17",
-     "14",
      "19",
-     "16",
-     "15",
-     "18"
+     "21"
     ],
-    "titulo": "La placa base",
-    "giros": {
-     "14": 180,
-     "16": 180,
-     "18": 180
-    }
+    "titulo": "El aparcamiento de naves"
    },
-   "radar": {
+   "record": {
     "filas": 2,
-    "cols": 2,
+    "cols": 1,
     "cartas": [
-     "32",
-     "30",
-     "33",
-     "31"
+     "61",
+     "63"
     ],
-    "titulo": "El radar del pasillo"
+    "titulo": "La tabla de récords"
    },
-   "marquesina": {
-    "filas": 1,
-    "cols": 3,
+   "deslizante": {
+    "filas": 2,
+    "cols": 1,
     "cartas": [
-     "41",
-     "42",
-     "40"
+     "66",
+     "67"
     ],
-    "titulo": "La marquesina"
+    "titulo": "El dibujo final"
    }
   }
  },
  "P": {
-  "titulo": "Carta P — Llegada al Salón Estrella",
+  "titulo": "Carta P — Llegada a la recreativa",
   "tipo": "gris",
   "coge": [
    10,
    12
   ],
   "descripcion": [
-   "Octava parada del Cronoportal: el Salón Estrella, un salón recreativo de 1985, a medianoche. Aterrizáis entre filas de máquinas encendidas y el aparato golpea la más grande de todas, COSMIC QUEST. De la sacudida, su cristal de energía sale volando y cae justo por la ranura de las fichas.",
-   "La pantalla se enciende, una luz de neón os envuelve y notáis cómo os convertís en píxeles: estáis dentro de la máquina. Sin el cristal el Cronoportal está muerto y en lo alto de la pantalla parpadea un contador: GAME OVER dentro de setenta y cinco minutos.",
+   "Octava parada del Cronoportal: un salón recreativo de 1985. Cristina lleva años con ganas de jugar a los clásicos en sus máquinas originales. El salto vuelve a salir mal: el aparato choca contra una máquina, su cristal sale rodando hasta la ranura de las fichas y desaparece dentro. La pantalla se enciende con un parpadeo y os absorbe: estáis DENTRO de la máquina, entre circuitos gigantes, y en el cielo de píxeles se enciende una cuenta atrás de cien minutos. Alberto lo tiene claro: si la máquina se apaga, os apagáis con ella.",
    "Coged las cartas 10 y 12."
   ],
   "pistas": [
    "Mirad a vuestro alrededor y revisad el aparato.",
    "Coged las cartas 10 y 12."
   ],
-  "arte": "El interior de un salón recreativo de 1985 a medianoche: filas de máquinas encendidas con pantallas de colores y una máquina gigante en primer plano, con una ranura de fichas que brilla. El Cronoportal, un aparato de latón y cristal, humea en el suelo con su luz azul apagándose. Cristina, con la boca abierta y los ojos muy abiertos de asombro, y Alberto, con las gafas de sol cayéndole de la frente y gesto de incredulidad, se levantan aturdidos con ropa de los años 80."
+  "arte": "El interior de una gigantesca máquina recreativa de 1985, con circuitos enormes, cables luminosos y pantallas CRT con rayas de barrido, bajo un cielo de píxeles de colores. En primer plano, un aparato de latón y cristal (el Cronoportal) humea sin su cristal central. Cristina, con chaqueta vaquera con hombreras y camiseta rosa neón, mira alrededor con la boca abierta de asombro; Alberto, con chaleco acolchado y gafas de aviador en la frente, frunce el ceño con preocupación."
  },
  "10": {
-  "titulo": "Carta 10 — Nivel 1: la placa base",
+  "titulo": "Carta 10 — La placa base",
   "tipo": "gris",
   "coge": [
    14,
-   15,
    16,
-   17,
    18,
    19,
    20,
+   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "Dentro de la máquina todo es un mundo de circuitos. Ante vosotros hay una enorme placa base en la que un cable de cobre une una pila con un chip, pero la placa se ha partido en seis piezas sueltas (cartas 14, 15, 16, 17, 18 y 19). Una terminal (carta 20) espera una palabra y, entre las piezas, brilla la mitad de una ficha dorada (carta 22).",
-   "Coged las cartas 14, 15, 16, 17, 18, 19, 20 y 22. Descartad la carta P."
+   "Estáis sobre una placa base gigante. A un lado, un panel con seis interruptores unidos por puertas lógicas a dos lámparas (carta 14) y su esquema grabado en el cobre (carta 16). Al otro, un aparcamiento de naves de píxeles atascado: lo que pintó el programador en el suelo (carta 18) y el plano del tablero, que ocupa dos láminas, así que juntad la 19 arriba y la 21 abajo (carta 20). En un rincón, el mango de un joystick de tamaño humano (carta 22).",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
   "pistas": [
-   "Hay un puzle: la placa partida y la terminal.",
-   "Las seis piezas (14 a 19) se juntan formando una sola placa.",
-   "Coged las cartas 14, 15, 16, 17, 18, 19, 20 y 22. Descartad la carta P."
+   "Hay dos puzles: el panel de interruptores y el aparcamiento de naves.",
+   "El aparcamiento son dos cartas: juntadlas, una encima de otra.",
+   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
   ],
-  "arte": "Dentro de una máquina recreativa gigante: una enorme placa de circuitos verde con pistas de cobre luminosas, partida en seis piezas sueltas que flotan, y una pantalla de terminal con un cursor parpadeando. Cristina se agacha con el ceño fruncido de concentración sobre una de las piezas y Alberto levanta otra con gesto de esfuerzo, ambos con ropa de los años 80 y un leve brillo de píxeles en la piel."
+  "arte": "Una placa base enorme vista desde arriba, con pistas de cobre luminosas, un panel con seis interruptores grandes unidos por cables a dos lámparas, y más allá un aparcamiento de pequeñas naves de píxeles de colores todas atascadas; en un rincón, el mango de un joystick gigante. Cristina toca los interruptores con una ceja arqueada de curiosidad; Alberto señala el aparcamiento, boquiabierto de sorpresa."
  },
  "12": {
   "titulo": "Carta 12 — Cronoportal sin cristal",
@@ -105,667 +91,975 @@ window.JUEGO_LOCAL = {
    74
   ],
   "descripcion": [
-   "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía. Alberto: «Sin el cristal no hay portal. Se coló por la ranura... tiene que estar en el corazón de la máquina».",
-   "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."
+   "El Cronoportal con el anillo central apagado: le falta el cristal que se tragó la ranura de las fichas.",
+   "Combinadla con la carta 62: sumad sus números (12 + 62 = 74) y coged la carta 74."
   ],
   "pistas": [
-   "Le falta una pieza: el cristal de energía.",
-   "Combinad la carta 12 con la carta 62.",
-   "Sumad los números de las dos cartas: 12 + 62 = 74."
+   "El Cronoportal con el anillo central apagado: le falta el cristal que se tragó la ranura de las fichas.",
+   "Se combina con la carta 62.",
+   "12 + 62 = 74."
   ],
-  "arte": "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, apoyado en el suelo de una máquina recreativa por dentro, con circuitos de neón al fondo."
+  "arte": "Sin ninguna persona en la imagen. Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo central apagado y un hueco circular vacío en el pecho del aparato, sobre una placa de circuitos con luces de neón."
  },
  "14": {
-  "titulo": "Carta 14 — Pieza de «La placa base» (arriba en el centro)",
-  "tipo": "gris",
+  "titulo": "Carta 14 — El panel de interruptores",
+  "tipo": "verde",
   "descripcion": [
-   "Una pieza de la placa base de la máquina. Es una pieza suelta: juntad las cartas 17, 14, 19, 16, 15 y 18 para ver la pantalla entera."
+   "Es un juego de la app: seis interruptores unidos por puertas lógicas a dos lámparas; hay que dejarlas como pide el esquema de la carta 16.",
+   "Al resolverlo, coged la carta 24."
   ],
   "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa, cambiad las piezas de sitio; y si alguna tiene las letras al revés, está boca abajo: dadle la vuelta.",
-   "Arriba, de izquierda a derecha: 17, 14 y 19. Abajo: 16, 15 y 18."
+   "El esquema de la carta 16 dice cómo están unidas las puertas. Hay que dejar la lámpara X encendida y la Y apagada.",
+   "Empezad por las puertas del final (la 6 y la 7) y retroceded: ¿qué tienen que valer sus entradas?",
+   "Solución: interruptores arriba (1): C, D; abajo (0): A, B, E, F. Byte de la máquina: 6."
   ],
-  "mosaico": {
-   "id": "placa",
-   "filas": 2,
-   "cols": 3,
-   "fila": 0,
-   "col": 1,
-   "giro": 180
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): arriba en el centro de «La placa base»."
- },
- "15": {
-  "titulo": "Carta 15 — Pieza de «La placa base» (abajo en el centro)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza de la placa base de la máquina. Es una pieza suelta: juntad las cartas 17, 14, 19, 16, 15 y 18 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa, cambiad las piezas de sitio; y si alguna tiene las letras al revés, está boca abajo: dadle la vuelta.",
-   "Arriba, de izquierda a derecha: 17, 14 y 19. Abajo: 16, 15 y 18."
-  ],
-  "mosaico": {
-   "id": "placa",
-   "filas": 2,
-   "cols": 3,
-   "fila": 1,
-   "col": 1
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): abajo en el centro de «La placa base»."
+  "arte": "Sin ninguna persona en la imagen. Un panel de control de neón con seis grandes interruptores de palanca, cables de colores que se juntan en cajas con símbolos de puertas lógicas y dos lámparas redondas al final, sobre una placa base luminosa."
  },
  "16": {
-  "titulo": "Carta 16 — Pieza de «La placa base» (abajo a la izquierda)",
+  "titulo": "Carta 16 — El circuito de la placa",
   "tipo": "gris",
   "descripcion": [
-   "Una pieza de la placa base de la máquina. Es una pieza suelta: juntad las cartas 17, 14, 19, 16, 15 y 18 para ver la pantalla entera."
+   "El esquema grabado en el cobre de la placa: cómo se unen los seis interruptores, las siete puertas y las dos lámparas."
   ],
   "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa, cambiad las piezas de sitio; y si alguna tiene las letras al revés, está boca abajo: dadle la vuelta.",
-   "Arriba, de izquierda a derecha: 17, 14 y 19. Abajo: 16, 15 y 18."
+   "Es el esquema del panel de interruptores (carta 14).",
+   "Cada puerta mira sus dos entradas y decide su salida. Los cables llevan un color por origen.",
+   "Lámpara X encendida y lámpara Y apagada."
   ],
-  "mosaico": {
-   "id": "placa",
-   "filas": 2,
-   "cols": 3,
-   "fila": 1,
-   "col": 0,
-   "giro": 180
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): abajo a la izquierda de «La placa base»."
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): El circuito de la placa."
  },
- "17": {
-  "titulo": "Carta 17 — Pieza de «La placa base» (arriba a la izquierda)",
+ "18": {
+  "titulo": "Carta 18 — El acertijo del aparcamiento",
   "tipo": "gris",
   "descripcion": [
-   "Una pieza de la placa base de la máquina. Es una pieza suelta: juntad las cartas 17, 14, 19, 16, 15 y 18 para ver la pantalla entera."
+   "Un acertijo pintado en el suelo por el programador."
   ],
   "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa, cambiad las piezas de sitio; y si alguna tiene las letras al revés, está boca abajo: dadle la vuelta.",
-   "Arriba, de izquierda a derecha: 17, 14 y 19. Abajo: 16, 15 y 18."
+   "Es la regla del aparcamiento de naves (carta 20).",
+   "Las naves solo avanzan y retroceden por donde apuntan.",
+   "La nave 1, la roja, es la que tiene que salir por la derecha."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): El acertijo del aparcamiento."
+ },
+ "19": {
+  "titulo": "Carta 19 — El aparcamiento de naves (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del aparcamiento de naves."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 21.",
+   "Cada nave lleva su número.",
+   "La puerta de salida está a la derecha."
   ],
   "mosaico": {
-   "id": "placa",
+   "id": "aparcamiento",
    "filas": 2,
-   "cols": 3,
+   "cols": 1,
    "fila": 0,
    "col": 0
   },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): arriba a la izquierda de «La placa base»."
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): mitad de arriba de «El aparcamiento de naves»."
  },
- "18": {
-  "titulo": "Carta 18 — Pieza de «La placa base» (abajo a la derecha)",
+ "21": {
+  "titulo": "Carta 21 — El aparcamiento de naves (mitad de abajo)",
   "tipo": "gris",
   "descripcion": [
-   "Una pieza de la placa base de la máquina. Es una pieza suelta: juntad las cartas 17, 14, 19, 16, 15 y 18 para ver la pantalla entera."
+   "Media lámina del aparcamiento de naves."
   ],
   "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa, cambiad las piezas de sitio; y si alguna tiene las letras al revés, está boca abajo: dadle la vuelta.",
-   "Arriba, de izquierda a derecha: 17, 14 y 19. Abajo: 16, 15 y 18."
+   "Es la mitad de una lámina: juntadla con la carta 19.",
+   "Cada nave lleva su número.",
+   "La puerta de salida está a la derecha."
   ],
   "mosaico": {
-   "id": "placa",
+   "id": "aparcamiento",
    "filas": 2,
-   "cols": 3,
+   "cols": 1,
    "fila": 1,
-   "col": 2,
-   "giro": 180
+   "col": 0
   },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): abajo a la derecha de «La placa base»."
- },
- "19": {
-  "titulo": "Carta 19 — Pieza de «La placa base» (arriba a la derecha)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza de la placa base de la máquina. Es una pieza suelta: juntad las cartas 17, 14, 19, 16, 15 y 18 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa, cambiad las piezas de sitio; y si alguna tiene las letras al revés, está boca abajo: dadle la vuelta.",
-   "Arriba, de izquierda a derecha: 17, 14 y 19. Abajo: 16, 15 y 18."
-  ],
-  "mosaico": {
-   "id": "placa",
-   "filas": 2,
-   "cols": 3,
-   "fila": 0,
-   "col": 2
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): arriba a la derecha de «La placa base»."
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): mitad de abajo de «El aparcamiento de naves»."
  },
  "20": {
-  "titulo": "Carta 20 — La terminal de la placa",
+  "titulo": "Carta 20 — El aparcamiento de naves",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: una terminal con un teclado de letras que pide una palabra. La palabra la forman las letras de los componentes por los que pasa el cable de cobre desde la pila hasta el chip, en ese orden (juntad las piezas 14 a 19).",
-   "Al acertar, el circuito se enciende. Coged la carta 26."
+   "Es un juego de la app: un aparcamiento de naves de píxeles; hay que sacar la nave 1 por la puerta de la derecha moviendo las demás.",
+   "Al resolverlo, coged la carta 28."
   ],
   "pistas": [
-   "Juntad las seis piezas de la placa; algunas pueden estar boca abajo.",
-   "Seguid el cable desde la pila (+) hasta el chip y apuntad la letra de cada componente por el que pasa. Los ramales que acaban en un punto apagado no cuentan.",
-   "La palabra es PIXEL."
+   "El plano está en las cartas 19 y 21, y la regla en la 18.",
+   "Hay que ir moviendo las naves que bloquean el camino de la nave 1; algunas hay que apartarlas dos veces.",
+   "Una solución en 18 movimientos: nave 2 a la izquierda; nave 4 a la izquierda (2 casillas); nave 5 a la izquierda (2 casillas); nave 7 hacia arriba (2 casillas); nave 6 a la derecha; nave 3 hacia arriba; nave 2 a la izquierda; nave 3 hacia arriba (2 casillas); nave 6 a la izquierda; nave 7 hacia abajo (3 casillas); nave 1 a la derecha (2 casillas)."
   ],
-  "arte": "Una pantalla de terminal verde fosforito con un cursor parpadeando y un teclado de letras de teclas grandes, dentro de una máquina recreativa, con cables de neón al fondo. Alberto teclea concentrado, con la lengua entre los dientes, y Cristina mira la pantalla con los brazos cruzados y una ceja arqueada de duda."
+  "arte": "Sin ninguna persona en la imagen. Un aparcamiento de naves espaciales de píxeles de colores, aparcadas muy juntas en una cuadrícula de neón, con una salida iluminada en un lado, sobre una placa base."
  },
  "22": {
-  "titulo": "Carta 22 — Media ficha",
+  "titulo": "Carta 22 — Mango de joystick",
   "tipo": "azul",
   "combina": [
    35,
    57
   ],
   "descripcion": [
-   "La mitad de una ficha dorada de recreativa, partida limpiamente por el medio. Combinadla con la otra mitad (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."
+   "Un mango de joystick de tamaño humano, de plástico negro, sin bola en la punta.",
+   "Combinadla con la carta 35: sumad sus números (22 + 35 = 57) y coged la carta 57."
   ],
   "pistas": [
-   "Es solo la mitad de una ficha.",
-   "Cuando encontréis la otra mitad, combinadlas.",
-   "Sumad los números de las dos cartas: 22 + 35 = 57."
+   "Un mango de joystick de tamaño humano, de plástico negro, sin bola en la punta.",
+   "Se combina con la carta 35.",
+   "22 + 35 = 57."
   ],
-  "arte": "Una mitad de ficha dorada de recreativa, partida por el medio, con un relieve de estrella, sobre una placa de circuitos verde luminosa, vista de cerca con luz de neón cian."
+  "arte": "Sin ninguna persona en la imagen. Un joystick gigante de recreativa de los 80, con la base y el mango negros, sin la bola roja de la punta, sobre una placa de circuitos con luces de neón."
  },
- "26": {
-  "titulo": "Carta 26 — Nivel 2: el pasillo del radar",
+ "24": {
+  "titulo": "Carta 24 — La placa se enciende",
   "tipo": "gris",
   "coge": [
-   24,
-   30,
-   31,
-   32,
-   33
+   26
   ],
   "descarta": [
    14,
-   15,
-   16,
-   17,
-   18,
-   19,
-   20
+   16
   ],
   "descripcion": [
-   "El cable se ilumina de la pila al chip y la máquina os deja pasar al segundo nivel: un pasillo de neón con un gran radar en la pared. El radar está partido en cuatro piezas (cartas 30, 31, 32 y 33) y un panel (carta 24) espera que señaléis una casilla.",
-   "Coged las cartas 24, 30, 31, 32 y 33. Descartad las cartas 14, 15, 16, 17, 18, 19 y 20."
+   "Las dos lámparas se encienden como dictaba el esquema y la placa empieza a zumbar: un panel se abre y deja ver una nota de papel, pegada con cinta por el programador (carta 26), que habla de cómo ordena la máquina sus récords. Un número parpadea en la pantalla del panel: guardadlo, lo pedirá el arranque.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
   ],
   "pistas": [
-   "Hay un puzle: el radar partido y su panel.",
-   "Coged las cartas 24, 30, 31, 32 y 33. Descartad las cartas 14, 15, 16, 17, 18, 19 y 20."
+   "Mirad el panel que se ha abierto.",
+   "Coged la carta 26. Descartad las cartas 14 y 16."
   ],
-  "arte": "Un pasillo largo de neón dentro de una máquina recreativa, con una pared de pantallas y un gran radar redondo partido en cuatro piezas que flotan; cables luminosos en el suelo. Cristina corre por el pasillo con una sonrisa de emoción y Alberto la sigue, sin aliento y con las manos en las rodillas."
+  "arte": "Un panel de una placa base que se abre hacia fuera con un destello, dejando ver una nota de papel pegada con cinta adhesiva, bajo dos lámparas redondas encendidas. Cristina, con una sonrisa de triunfo, levanta el puño; Alberto, con las gafas de aviador en la frente, mira la nota con curiosidad."
  },
- "24": {
-  "titulo": "Carta 24 — El panel del radar",
-  "tipo": "verde",
-  "descripcion": [
-   "Es un juego de la app: una rejilla de casillas con las letras de las columnas y los números de las filas. Hay que pulsar la casilla en la que está el cofre dorado del radar (juntad las piezas 30, 31, 32 y 33): la letra de la columna está arriba y el número de la fila, a la izquierda.",
-   "Al acertar, el radar abre una puerta. Coged la carta 28."
-  ],
-  "pistas": [
-   "Juntad las cuatro piezas del radar: es una rejilla con letras y números en el borde.",
-   "El cofre dorado está en una casilla; las señales rojas son falsas. Mirad la letra de su columna y el número de su fila.",
-   "El cofre está en la casilla F4."
-  ],
-  "arte": "Una gran pantalla táctil con una rejilla de casillas iluminada de cian y un panel de botones, en un pasillo de neón dentro de una máquina recreativa. Alberto señala la pantalla con el dedo y una sonrisa de triunfo, y Cristina comprueba la rejilla con los ojos muy abiertos de expectación."
- },
- "30": {
-  "titulo": "Carta 30 — Pieza de «El radar del pasillo» (arriba a la derecha)",
+ "26": {
+  "titulo": "Carta 26 — La nota del programador",
   "tipo": "gris",
   "descripcion": [
-   "Una pieza del radar del pasillo. Es una pieza suelta: juntad las cartas 32, 30, 33 y 31 para ver la pantalla entera."
+   "Una nota de papel pegada por el programador: cómo ordena la máquina su tabla de récords."
   ],
   "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio.",
-   "Arriba, de izquierda a derecha: 32 y 30. Abajo: 33 y 31."
+   "Habla de cómo se puede reordenar la tabla (carta 51).",
+   "Solo se pueden cambiar dos entradas vecinas, y hay un máximo de cambios.",
+   "Los puntos de cada entrada están en la tabla de las cartas 61 y 63."
   ],
-  "mosaico": {
-   "id": "radar",
-   "filas": 2,
-   "cols": 2,
-   "fila": 0,
-   "col": 1
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): arriba a la derecha de «El radar del pasillo»."
- },
- "31": {
-  "titulo": "Carta 31 — Pieza de «El radar del pasillo» (abajo a la derecha)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza del radar del pasillo. Es una pieza suelta: juntad las cartas 32, 30, 33 y 31 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio.",
-   "Arriba, de izquierda a derecha: 32 y 30. Abajo: 33 y 31."
-  ],
-  "mosaico": {
-   "id": "radar",
-   "filas": 2,
-   "cols": 2,
-   "fila": 1,
-   "col": 1
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): abajo a la derecha de «El radar del pasillo»."
- },
- "32": {
-  "titulo": "Carta 32 — Pieza de «El radar del pasillo» (arriba a la izquierda)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza del radar del pasillo. Es una pieza suelta: juntad las cartas 32, 30, 33 y 31 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio.",
-   "Arriba, de izquierda a derecha: 32 y 30. Abajo: 33 y 31."
-  ],
-  "mosaico": {
-   "id": "radar",
-   "filas": 2,
-   "cols": 2,
-   "fila": 0,
-   "col": 0
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): arriba a la izquierda de «El radar del pasillo»."
- },
- "33": {
-  "titulo": "Carta 33 — Pieza de «El radar del pasillo» (abajo a la izquierda)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza del radar del pasillo. Es una pieza suelta: juntad las cartas 32, 30, 33 y 31 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio.",
-   "Arriba, de izquierda a derecha: 32 y 30. Abajo: 33 y 31."
-  ],
-  "mosaico": {
-   "id": "radar",
-   "filas": 2,
-   "cols": 2,
-   "fila": 1,
-   "col": 0
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): abajo a la izquierda de «El radar del pasillo»."
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La nota del programador."
  },
  "28": {
-  "titulo": "Carta 28 — Nivel 3: la marquesina",
+  "titulo": "Carta 28 — El aparcamiento despejado",
   "tipo": "gris",
   "coge": [
-   35,
-   40,
-   41,
-   42,
-   46
+   35
   ],
   "descarta": [
-   26,
-   30,
-   31,
-   32,
-   33,
-   24
+   18,
+   19,
+   20,
+   21
   ],
   "descripcion": [
-   "La puerta del radar se abre y entráis en la sala de la marquesina, el cartel luminoso de la máquina. Allí, entre las bombillas, brilla la otra mitad de la ficha dorada (carta 35). El cartel está partido en tres piezas (cartas 40, 41 y 42) y el mando de la sala (carta 46) espera una combinación de botones.",
-   "Coged las cartas 35, 40, 41, 42 y 46. Descartad las cartas 26, 30, 31, 32, 33 y 24."
+   "La nave roja sale disparada por la puerta y el aparcamiento se despeja. Entre dos plazas, un reflejo rojo: la bola del joystick (carta 35), que se había caído de la nave.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
   ],
   "pistas": [
-   "Hay dos cosas: la otra mitad de la ficha y el cartel con el mando.",
-   "Las cartas 22 y 35 son combinables. Las piezas 40, 41 y 42 forman el cartel.",
-   "Coged las cartas 35, 40, 41, 42 y 46. Descartad las cartas 26, 30, 31, 32, 33 y 24."
+   "Mirad entre las plazas del aparcamiento.",
+   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
   ],
-  "arte": "Una sala enorme dentro de una máquina recreativa, con un cartel luminoso de bombillas amarillas y rojas partido en tres piezas que flotan, y en el suelo una consola con un joystick gigante. Cristina salta de alegría al ver una media ficha dorada entre las bombillas y Alberto la mira con gesto de alivio, secándose la frente."
+  "arte": "Un aparcamiento de naves de píxeles ya casi vacío, con una nave roja desapareciendo por una puerta iluminada al fondo y, entre dos plazas, una gran bola roja de joystick brillando. Cristina la recoge con cara de asombro y los ojos muy abiertos; Alberto sonríe aliviado con los pulgares arriba."
  },
  "35": {
-  "titulo": "Carta 35 — Otra media ficha",
+  "titulo": "Carta 35 — Bola del joystick",
   "tipo": "roja",
   "combina": [
    22,
    57
   ],
   "descripcion": [
-   "La otra mitad de la ficha dorada. Combinadla con la primera mitad (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."
+   "Una bola roja de joystick, brillante, con la rosca de la base al aire.",
+   "Combinadla con la carta 22: sumad sus números (35 + 22 = 57) y coged la carta 57."
   ],
   "pistas": [
-   "Es la otra mitad de la ficha.",
-   "Combinad la carta 35 con la carta 22.",
-   "Sumad los números de las dos cartas: 35 + 22 = 57."
+   "Una bola roja de joystick, brillante, con la rosca de la base al aire.",
+   "Se combina con la carta 22.",
+   "35 + 22 = 57."
   ],
-  "arte": "La otra mitad de una ficha dorada de recreativa, con el relieve de estrella partido, sobre un fondo de bombillas desenfocadas amarillas y rojas, con destellos de neón."
+  "arte": "Sin ninguna persona en la imagen. Una bola roja brillante de joystick de recreativa con una rosca metálica en la base, sobre una placa de circuitos con luces de neón."
+ },
+ "57": {
+  "titulo": "Carta 57 — El joystick gigante",
+  "tipo": "gris",
+  "coge": [
+   31,
+   32
+  ],
+  "descarta": [
+   22,
+   35,
+   10,
+   28
+  ],
+  "descripcion": [
+   "Enroscáis la bola en el mango y el joystick gigante cobra vida: al empujarlo, la placa se divide en dos pasillos. A la izquierda, el taller de sprites, donde se dibujan los personajes del juego (carta 31). A la derecha, la consola de mensajes de la máquina (carta 32).",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+  ],
+  "pistas": [
+   "Dos pasillos: el taller de sprites y la consola de mensajes.",
+   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+  ],
+  "arte": "Un joystick gigante de recreativa con una bola roja, inclinado hacia delante, y delante de él una placa base que se abre en dos pasillos de neón: a la izquierda uno con pantallas de píxeles y a la derecha otro con una consola con una pantalla negra. Cristina tira del joystick con los dientes apretados por el esfuerzo; Alberto, detrás, la sujeta riendo."
+ },
+ "31": {
+  "titulo": "Carta 31 — El taller de sprites",
+  "tipo": "gris",
+  "coge": [
+   40,
+   41,
+   43,
+   45
+  ],
+  "descripcion": [
+   "Una pantalla enorme, apagada, con una rejilla de doce por doce casillas (carta 40). En el suelo, dos tiras de papel con las tandas de casillas del dibujo, fila por fila (cartas 41 y 43), y una nota con la regla de la compresión (carta 45).",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "pistas": [
+   "Un único puzle: dibujar un sprite que está comprimido.",
+   "Coged las cartas 40, 41, 43 y 45."
+  ],
+  "arte": "Un taller de dibujo de píxeles dentro de una máquina recreativa: una pantalla enorme con una rejilla de casillas apagadas, tiras de papel con hileras de cifras en el suelo y pinceles de luz. Cristina examina una tira con la cabeza ladeada; Alberto se rasca la barbilla pensando."
  },
  "40": {
-  "titulo": "Carta 40 — Pieza de «La marquesina» (a la derecha)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza del cartel luminoso de la marquesina. Es una pieza suelta: juntad las cartas 41, 42 y 40 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio.",
-   "Tres cartas en fila, de izquierda a derecha: 41, 42 y 40."
-  ],
-  "mosaico": {
-   "id": "marquesina",
-   "filas": 1,
-   "cols": 3,
-   "fila": 0,
-   "col": 2
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): a la derecha de «La marquesina»."
- },
- "41": {
-  "titulo": "Carta 41 — Pieza de «La marquesina» (a la izquierda)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza del cartel luminoso de la marquesina. Es una pieza suelta: juntad las cartas 41, 42 y 40 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio.",
-   "Tres cartas en fila, de izquierda a derecha: 41, 42 y 40."
-  ],
-  "mosaico": {
-   "id": "marquesina",
-   "filas": 1,
-   "cols": 3,
-   "fila": 0,
-   "col": 0
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): a la izquierda de «La marquesina»."
- },
- "42": {
-  "titulo": "Carta 42 — Pieza de «La marquesina» (en el centro)",
-  "tipo": "gris",
-  "descripcion": [
-   "Una pieza del cartel luminoso de la marquesina. Es una pieza suelta: juntad las cartas 41, 42 y 40 para ver la pantalla entera."
-  ],
-  "pistas": [
-   "Las piezas encajan formando una sola pantalla.",
-   "Si el dibujo no continúa de una pieza a la siguiente, probad a cambiarlas de sitio.",
-   "Tres cartas en fila, de izquierda a derecha: 41, 42 y 40."
-  ],
-  "mosaico": {
-   "id": "marquesina",
-   "filas": 1,
-   "cols": 3,
-   "fila": 0,
-   "col": 1
-  },
-  "arte": "Pieza dibujada por código (herramientas/pixeles.py; no se pide a ChatGPT): en el centro de «La marquesina»."
- },
- "46": {
-  "titulo": "Carta 46 — El mando de la marquesina",
+  "titulo": "Carta 40 — La pantalla de sprites",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: un mando con una cruceta (arriba, abajo, izquierda y derecha) y dos botones, A y B. Hay que pulsar, en orden, los botones del cartel que tienen la luz amarilla encendida (juntad las piezas 40, 41 y 42); los apagados no cuentan.",
-   "Al acertar, el cartel se enciende del todo. Coged la carta 44."
+   "Es un juego de la app: dibujar en una rejilla de doce por doce casillas el sprite que describen las tandas de las cartas 41 y 43.",
+   "Al resolverlo, coged la carta 30."
   ],
   "pistas": [
-   "Juntad las tres piezas del cartel: hay nueve botones en una fila.",
-   "Solo cuentan los botones con la lucecita amarilla encendida encima. Pulsadlos de izquierda a derecha.",
-   "Arriba, arriba, abajo, izquierda, A y B."
+   "Las tandas están en las cartas 41 y 43 y la regla de la compresión, en la 45.",
+   "Cada fila se cuenta de izquierda a derecha, alternando casillas apagadas y encendidas, empezando por las apagadas.",
+   "El dibujo es un fantasmita, fila por fila ('#' encendida): ....####.... / ..########.. / .##########. / ###..##..### / ###..##..### / ############ / ############ / ############ / ############ / ##.##..##.## / #...#..#...# / ............. Byte de la máquina: 11."
   ],
-  "arte": "Un mando de recreativa gigante con una cruceta y dos botones grandes, sobre una consola luminosa dentro de una máquina, con un cartel de bombillas de fondo. Cristina pulsa los botones con los dedos crispados de concentración y Alberto cuenta con los dedos con cara de ilusión."
+  "arte": "Sin ninguna persona en la imagen. Una pantalla enorme de recreativa con una rejilla de casillas de píxeles en la que se dibuja un sprite de colores, con cables luminosos y reflejos de neón."
  },
- "44": {
-  "titulo": "Carta 44 — Nivel 4: la sala de máquinas",
+ "41": {
+  "titulo": "Carta 41 — Las tandas del sprite (I)",
+  "tipo": "gris",
+  "descripcion": [
+   "Las tandas de casillas de las filas 1 a 6 del sprite."
+  ],
+  "pistas": [
+   "Cada fila del dibujo mide doce casillas.",
+   "Las tandas se cuentan de izquierda a derecha: primero apagadas, luego encendidas, y así.",
+   "Si una fila empieza por casillas encendidas, el primer número es un cero."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Las tandas del sprite (I)."
+ },
+ "43": {
+  "titulo": "Carta 43 — Las tandas del sprite (II)",
+  "tipo": "gris",
+  "descripcion": [
+   "Las tandas de casillas de las filas 7 a 12 del sprite."
+  ],
+  "pistas": [
+   "Cada fila del dibujo mide doce casillas.",
+   "Las tandas se cuentan de izquierda a derecha: primero apagadas, luego encendidas, y así.",
+   "La última fila no tiene ceros al principio: empieza por una tanda de apagadas o de encendidas."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Las tandas del sprite (II)."
+ },
+ "45": {
+  "titulo": "Carta 45 — La regla de la compresión",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota con la regla de la compresión de los sprites."
+  ],
+  "pistas": [
+   "Explica cómo leer las tandas de las cartas 41 y 43.",
+   "Las tandas alternan apagadas y encendidas.",
+   "Empiezan siempre por las apagadas."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La regla de la compresión."
+ },
+ "30": {
+  "titulo": "Carta 30 — El sprite aprobado",
   "tipo": "gris",
   "coge": [
    38
   ],
   "descarta": [
-   28,
+   31,
    40,
    41,
-   42,
-   46
+   43,
+   45
   ],
   "descripcion": [
-   "El cartel se enciende y se abre un panel: la sala de máquinas, llena de motores y cables. Entre las herramientas, Alberto encuentra un fusible de repuesto (carta 38).",
-   "Coged la carta 38. Descartad las cartas 28, 40, 41, 42 y 46."
+   "El fantasmita cobra vida, hace una reverencia y se desvanece; la pantalla del taller escupe una pieza de metal: la mitad de una llave en forma de moneda (carta 38). Otro número parpadea en la pantalla del taller: guardadlo también.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
-   "Mirad lo que hay entre las herramientas.",
-   "La carta 38 es combinable.",
-   "Coged la carta 38. Descartad las cartas 28, 40, 41, 42 y 46."
+   "Mirad lo que ha escupido la pantalla.",
+   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
-  "arte": "Una sala de máquinas dentro de una recreativa: motores, engranajes, cables gordos y tubos con luces de neón magenta y cian. Alberto levanta un fusible de cristal entre las herramientas con una sonrisa de triunfo y Cristina lo mira con los ojos brillantes de entusiasmo."
+  "arte": "Una pantalla gigante en la que un fantasmita de píxeles amarillos se despide con una reverencia y, en una bandeja de metal debajo, una mitad de llave con forma de moneda dorada. Cristina aplaude con los ojos brillantes; Alberto se ríe a carcajadas."
  },
  "38": {
-  "titulo": "Carta 38 — Fusible",
-  "tipo": "azul",
+  "titulo": "Carta 38 — Mitad de la llave del jefe",
+  "tipo": "roja",
   "combina": [
    56,
    94
   ],
   "descripcion": [
-   "Un fusible de cristal, de los que protegen los circuitos de la máquina. Combinadlo con el cartucho (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."
+   "Una mitad de una llave dorada con forma de ficha de recreativa.",
+   "Combinadla con la carta 56: sumad sus números (38 + 56 = 94) y coged la carta 94."
   ],
   "pistas": [
-   "Protege un circuito.",
-   "Cuando tengáis el cartucho, combinadlo con el fusible.",
-   "Sumad los números de las dos cartas: 38 + 56 = 94."
+   "Una mitad de una llave dorada con forma de ficha de recreativa.",
+   "Se combina con la carta 56.",
+   "38 + 56 = 94."
   ],
-  "arte": "Un fusible de cristal con un filamento brillante sobre una toalla de taller manchada de aceite, junto a una llave inglesa, en una sala de máquinas con luz de neón."
+  "arte": "Sin ninguna persona en la imagen. La mitad izquierda de una llave dorada con forma de ficha de recreativa con ranuras, sobre una bandeja de metal con luces de neón."
  },
- "57": {
-  "titulo": "Carta 57 — La ficha de oro",
+ "32": {
+  "titulo": "Carta 32 — La consola de mensajes",
   "tipo": "gris",
   "coge": [
+   42,
    48,
-   52
-  ],
-  "descarta": [
-   22,
-   35,
-   10
+   49,
+   53
   ],
   "descripcion": [
-   "Las dos mitades encajan y forman una ficha de oro entera. Alberto la echa en la ranura de la sala y se abre la autopista del juego: el quinto nivel, una carretera de cuatro carriles llena de coches. En la entrada hay un panel de control (carta 48) y un tablero con el sentido y la velocidad de cada carril (carta 52).",
-   "Coged las cartas 48 y 52. Descartad las cartas 22, 35 y 10."
+   "Una consola con una pantalla negra y un cursor parpadeante: espera un mensaje (carta 48). Junto a ella, una pantalla pequeña con ocho bytes en hexadecimal (carta 42), la tabla de caracteres de la máquina (carta 49) y una nota con la regla de los bytes (carta 53).",
+   "Coged las cartas 42, 48, 49 y 53."
   ],
   "pistas": [
-   "Hay un puzle: la autopista y su tablero de tráfico.",
-   "El tablero (carta 52) dice hacia dónde va cada carril y a qué velocidad.",
-   "Coged las cartas 48 y 52. Descartad las cartas 22, 35 y 10."
+   "Un único puzle: leer un mensaje escrito en bytes.",
+   "Coged las cartas 42, 48, 49 y 53."
   ],
-  "arte": "Una carretera de píxeles de cuatro carriles con coches de neón de colores que cruzan la pantalla, vista desde la acera de salida, dentro de una máquina recreativa. Cristina sostiene una ficha de oro brillante con una sonrisa de orgullo y Alberto mira la autopista con cara de impaciencia."
- },
- "52": {
-  "titulo": "Carta 52 — El tablero de tráfico",
-  "tipo": "gris",
-  "descripcion": [
-   "Un tablero con los cuatro carriles de la autopista, de arriba (meta) a abajo (salida). Cada carril lleva una o dos flechas: apuntan hacia donde van los coches y su número dice cuántas casillas avanzan por turno."
-  ],
-  "pistas": [
-   "Es el tablero de la autopista (carta 48).",
-   "Los carriles se leen de arriba abajo, igual que en la autopista. Una flecha: una casilla por turno; dos flechas: dos casillas.",
-   "Los coches se mueven después de que os mováis vosotros."
-  ],
-  "arte": "Carta dibujada por código (herramientas/pixeles.py): el tablero de tráfico con las flechas de cada carril."
+  "arte": "Una consola antigua de ordenador con una gran pantalla negra y un cursor verde parpadeante, junto a una tira de papel de impresora con hileras de pares de símbolos. Cristina tamborilea con los dedos en la consola mirando la pantalla; Alberto, con el ceño fruncido, sigue la tira con el dedo."
  },
  "48": {
-  "titulo": "Carta 48 — El panel de la autopista",
+  "titulo": "Carta 48 — La consola de mensajes",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: una autopista de cuatro carriles. Os movéis un paso por turno (arriba, a un lado o esperar) y después se mueven los coches según el tablero de tráfico (carta 52). Hay que llegar a la meta sin chocar.",
-   "Al llegar a la meta, se abre el camino. Coged la carta 58."
+   "Es un juego de la app: escribir el mensaje de la pantalla, que está en ocho bytes (carta 42) y se lee con la tabla de la carta 49.",
+   "Al resolverlo, coged la carta 36."
   ],
   "pistas": [
-   "Fijaos en el tablero de tráfico: dice hacia dónde va cada carril y a qué velocidad.",
-   "A veces conviene esperar un turno o moverse de lado para que pase un coche. Los coches se mueven después de que os mováis.",
-   "Izquierda, derecha, arriba, arriba, derecha, esperar, arriba, arriba y arriba."
+   "Los bytes están en la carta 42, la tabla en la 49 y la regla en la 53.",
+   "Cada byte son dos cifras en base dieciséis; la tabla dice qué letra es cada uno.",
+   "El mensaje es CONTINUE."
   ],
-  "arte": "Un panel de control con una cruceta y una pantalla que muestra una autopista de píxeles con coches de colores, en el borde de una carretera de neón. Alberto pulsa un botón con el dedo en el aire y los ojos muy abiertos, y Cristina da saltitos de impaciencia a su lado."
+  "arte": "Sin ninguna persona en la imagen. Una consola de ordenador antigua con una pantalla negra de letras verdes, un teclado grande y una tira de papel de impresora, dentro de una placa base de neón."
  },
- "58": {
-  "titulo": "Carta 58 — El otro lado",
+ "42": {
+  "titulo": "Carta 42 — Los bytes del mensaje",
+  "tipo": "gris",
+  "descripcion": [
+   "La pantalla pequeña de la consola, con los ocho bytes del mensaje en hexadecimal."
+  ],
+  "pistas": [
+   "Son ocho bytes: ocho letras.",
+   "Se leen de izquierda a derecha y de arriba abajo.",
+   "Cada byte son dos cifras en base dieciséis."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Los bytes del mensaje."
+ },
+ "49": {
+  "titulo": "Carta 49 — La tabla de caracteres",
+  "tipo": "gris",
+  "descripcion": [
+   "La tabla de caracteres de la máquina: cada letra con su byte."
+  ],
+  "pistas": [
+   "Sirve para traducir los bytes de la carta 42 a letras.",
+   "Es una tabla de A a Z.",
+   "Cada letra tiene un byte de dos cifras."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La tabla de caracteres."
+ },
+ "53": {
+  "titulo": "Carta 53 — La regla de los bytes",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota con la regla de los bytes en hexadecimal."
+  ],
+  "pistas": [
+   "Explica cómo se escribe un byte.",
+   "Cada byte son dos cifras en base dieciséis: del 0 al 9 y de la A a la F.",
+   "La tabla de la carta 49 hace el resto."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La regla de los bytes."
+ },
+ "36": {
+  "titulo": "Carta 36 — El menú de los fantasmas",
   "tipo": "gris",
   "coge": [
-   56
+   52,
+   54,
+   55,
+   59
   ],
   "descarta": [
+   32,
+   42,
    48,
-   52,
-   57
+   49,
+   53
   ],
   "descripcion": [
-   "Cruzáis la autopista sin un rasguño y llegáis a una cabina de cartuchos. Dentro, sobre un cojín rojo, hay un cartucho brillante con una etiqueta de estrella: el jefe final está cerca.",
-   "Coged la carta 56. Descartad las cartas 48, 52 y 57."
+   "El mensaje desbloquea el menú de la máquina: cuatro fantasmas, uno por pasillo, patrullan una sala de neón, cada uno a su velocidad y persiguiendo su fruta. Alberto comprueba el panel (carta 52). En un cartel están las pistas del guardián, en dos tiras (cartas 54 y 55), y el plano de los cuatro pasillos (carta 59).",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "pistas": [
-   "Mirad lo que había en la cabina.",
-   "La carta 56 es combinable.",
-   "Coged la carta 56. Descartad las cartas 48, 52 y 57."
+   "Un único puzle: averiguar qué fantasma patrulla cada pasillo.",
+   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
-  "arte": "Una cabina de cartuchos de videojuego en el otro lado de una autopista de neón, con un cartucho brillante sobre un cojín rojo; Cristina lo toma con una sonrisa radiante de alegría y Alberto se asoma con cara de alivio, resoplando."
+  "arte": "Una sala de neón con cuatro pasillos paralelos y un fantasma de píxeles distinto en cada uno (rojo, rosa, cian y naranja), con frutas flotando sobre ellos, y un cartel con tiras de papel con pistas. Cristina señala a los fantasmas con los ojos muy abiertos y una gran sonrisa; Alberto se tapa la boca para disimular la risa."
+ },
+ "52": {
+  "titulo": "Carta 52 — Los cuatro fantasmas",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: averiguar qué fantasma patrulla cada pasillo, a qué velocidad y qué fruta persigue.",
+   "Al resolverlo, coged la carta 44."
+  ],
+  "pistas": [
+   "Las pistas están en las cartas 54 y 55 y el plano de los pasillos en la 59.",
+   "Empezad por las pistas que sitúan a un fantasma en un extremo o junto a otro; vais llenando el plano.",
+   "Solución: pasillo 1: fantasma rosa, rápido, fruta naranja; pasillo 2: fantasma cian, loco, fruta manzana; pasillo 3: fantasma rojo, lento, fruta cereza; pasillo 4: fantasma naranja, normal, fruta fresa. Byte de la máquina: 9."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una sala de neón con cuatro pasillos y un fantasma de píxeles distinto en cada uno, rojo, rosa, cian y naranja, con frutas flotando sobre ellos y un panel de control con cuatro columnas."
+ },
+ "54": {
+  "titulo": "Carta 54 — Las pistas de los fantasmas (I)",
+  "tipo": "gris",
+  "descripcion": [
+   "La primera tira de pistas del guardián de la sala."
+  ],
+  "pistas": [
+   "Son las primeras pistas sobre los fantasmas.",
+   "Cada frase compara a dos fantasmas.",
+   "Las frases con «izquierda» se leen de izquierda a derecha del plano."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Las pistas de los fantasmas (I)."
+ },
+ "55": {
+  "titulo": "Carta 55 — Las pistas de los fantasmas (II)",
+  "tipo": "gris",
+  "descripcion": [
+   "La segunda tira de pistas del guardián de la sala."
+  ],
+  "pistas": [
+   "Son las últimas pistas sobre los fantasmas.",
+   "Hacen falta todas las frases juntas.",
+   "Las frases con «izquierda» se leen de izquierda a derecha del plano."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Las pistas de los fantasmas (II)."
+ },
+ "59": {
+  "titulo": "Carta 59 — El plano de los pasillos",
+  "tipo": "gris",
+  "descripcion": [
+   "El plano de la sala: cuatro pasillos, de izquierda a derecha, y cuatro fantasmas, cuatro velocidades y cuatro frutas."
+  ],
+  "pistas": [
+   "Son cuatro pasillos numerados de izquierda a derecha.",
+   "Cada pasillo tiene un fantasma, una velocidad y una fruta, todos distintos.",
+   "Los extremos son el pasillo 1 y el pasillo 4."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): El plano de los pasillos."
+ },
+ "44": {
+  "titulo": "Carta 44 — La sala de puntuaciones",
+  "tipo": "gris",
+  "coge": [
+   33,
+   37,
+   39,
+   46,
+   51,
+   61,
+   63
+  ],
+  "descarta": [
+   36,
+   52,
+   54,
+   55,
+   59
+  ],
+  "descripcion": [
+   "Los fantasmas se retiran y se abre la sala de puntuaciones del jefe. Un marcador gigante con dieciséis casillas, la mayoría vacías (carta 46), con seis números ya puestos (carta 37), una nota con la regla de la suma (carta 39) y una bolsa de fichas (carta 33). Al fondo, una tabla de récords desordenada (carta 51) que ocupa dos láminas: juntad la 61 arriba y la 63 abajo.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+  ],
+  "pistas": [
+   "Hay dos puzles: el marcador y la tabla de récords.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+  ],
+  "arte": "Una sala enorme de neón con un marcador gigante de dieciséis casillas en la pared, una bolsa de fichas numeradas en el suelo y, al fondo, una tabla de récords con barras de colores desordenadas. Cristina cuenta con los dedos mirando el marcador; Alberto, boquiabierto, señala la tabla de récords."
+ },
+ "46": {
+  "titulo": "Carta 46 — El marcador del jefe",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: rellenar con los números del 1 al 16 un marcador de cuatro por cuatro para que todas las filas, columnas y diagonales sumen lo mismo.",
+   "Al resolverlo, coged la carta 56."
+  ],
+  "pistas": [
+   "Los seis números puestos, en la carta 37; la regla de la suma, en la 39; las fichas que faltan, en la 33.",
+   "Cada fila, cada columna y las dos diagonales suman 34. Empezad por una línea con tres números ya puestos.",
+   "Solución, fila por fila: 16 10 5 3 / 1 7 12 14 / 4 6 9 15 / 13 11 8 2."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un marcador gigante de recreativa con una cuadrícula de cuatro por cuatro casillas numeradas con luces de neón, en una sala oscura con cables luminosos."
+ },
+ "37": {
+  "titulo": "Carta 37 — El marcador del jefe",
+  "tipo": "gris",
+  "descripcion": [
+   "El marcador con seis de sus dieciséis casillas ya rellenas."
+  ],
+  "pistas": [
+   "Son seis números ya puestos del marcador (carta 46).",
+   "Ni una casilla de las vacías tiene nada puesto.",
+   "La regla de la suma, en la carta 39."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): El marcador del jefe."
+ },
+ "39": {
+  "titulo": "Carta 39 — La regla del marcador",
+  "tipo": "gris",
+  "descripcion": [
+   "La regla grabada en la carcasa del marcador."
+  ],
+  "pistas": [
+   "Dice cuánto suma cada fila, columna y diagonal.",
+   "Los números van del 1 al 16, una vez cada uno.",
+   "Todas las líneas suman treinta y cuatro."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La regla del marcador."
+ },
+ "33": {
+  "titulo": "Carta 33 — Las fichas de la bolsa",
+  "tipo": "gris",
+  "descripcion": [
+   "Las fichas que aún no están en el marcador."
+  ],
+  "pistas": [
+   "Son las fichas que faltan en el marcador (carta 46).",
+   "Coinciden con los números que no están puestos en la carta 37.",
+   "Cada ficha se usa una sola vez."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Las fichas de la bolsa."
  },
  "56": {
-  "titulo": "Carta 56 — Cartucho",
+  "titulo": "Carta 56 — Otra mitad de la llave",
   "tipo": "roja",
   "combina": [
    38,
    94
   ],
   "descripcion": [
-   "Un cartucho de videojuego con una etiqueta de estrella, con la ranura de un fusible vacía. Combinadlo con el fusible (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."
+   "La otra mitad de la llave del jefe, con forma de ficha de recreativa, que escupe el marcador al encenderse.",
+   "Combinadla con la carta 38: sumad sus números (56 + 38 = 94) y coged la carta 94."
   ],
   "pistas": [
-   "Es un cartucho al que le falta algo.",
-   "Cuando tengáis el fusible, combinadlo con el cartucho.",
-   "Sumad los números de las dos cartas: 56 + 38 = 94."
+   "La otra mitad de la llave del jefe, con forma de ficha de recreativa, que escupe el marcador al encenderse.",
+   "Se combina con la carta 38.",
+   "56 + 38 = 94."
   ],
-  "arte": "Un cartucho de videojuego de los años 80, con una etiqueta de estrella y una ranura vacía en un lateral, sobre un cojín rojo, visto de cerca con luz de neón lateral."
+  "arte": "Sin ninguna persona en la imagen. La mitad derecha de una llave dorada con forma de ficha de recreativa con ranuras, que sale de la boca de un marcador gigante, con luces de neón."
  },
- "94": {
-  "titulo": "Carta 94 — Nivel 6: el jefe final",
-  "tipo": "gris",
-  "coge": [
-   69,
-   70
-  ],
-  "descarta": [
-   56,
-   38,
-   44,
-   58
-  ],
-  "descripcion": [
-   "El cartucho, con su fusible puesto, se enciende y os lleva a la sala del jefe final: un gigantesco monstruo de bloques que guarda el corazón de la máquina. Para derrotarlo hay que llenar su pozo de bloques con las piezas exactas: un panel (carta 69) y una hoja con las piezas disponibles (carta 70).",
-   "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."
-  ],
-  "pistas": [
-   "Hay un puzle: el pozo del jefe y su hoja de piezas.",
-   "La carta 70 dice qué piezas hay que usar.",
-   "Coged las cartas 69 y 70. Descartad las cartas 56, 38, 44 y 58."
-  ],
-  "arte": "Una sala enorme dentro de una máquina recreativa, con un monstruo gigante hecho de bloques de colores que guarda un pozo de cristal; el suelo brilla de neón magenta. Cristina avanza con los puños apretados y cara de miedo contenido, y Alberto la sigue con los ojos muy abiertos y la boca entreabierta de asombro."
- },
- "70": {
-  "titulo": "Carta 70 — La hoja de piezas",
-  "tipo": "gris",
-  "descripcion": [
-   "Una hoja con las piezas que hay que usar para llenar el pozo del jefe final y cuántas de cada una. Se puede girar cada pieza, pero no darle la vuelta."
-  ],
-  "pistas": [
-   "Es la lista de piezas del pozo (carta 69).",
-   "Hay que usar exactamente esas piezas, ni una más ni una menos, y no debe quedar ningún hueco.",
-   "El pozo se llena con una I, una J, dos O y una T."
-  ],
-  "arte": "Carta dibujada por código (herramientas/pixeles.py): las piezas del pozo y cuántas hay de cada una."
- },
- "69": {
-  "titulo": "Carta 69 — El pozo del jefe",
+ "51": {
+  "titulo": "Carta 51 — La tabla de récords",
   "tipo": "verde",
   "descripcion": [
-   "Es un juego de la app: un pozo de bloques con algunas casillas ya ocupadas. Hay que llenarlo del todo, sin dejar huecos, con las piezas que dice la hoja de piezas (carta 70): se elige una pieza, se gira y se toca la casilla donde va.",
-   "Al llenar el pozo, el jefe se desmorona. Coged la carta 82."
+   "Es un juego de la app: ordenar la tabla de récords de menos a más puntos cambiando solo entradas vecinas, con un máximo de cambios.",
+   "Al resolverlo, coged la carta 58."
   ],
   "pistas": [
-   "Mirad la hoja de piezas: dice cuáles hay que usar y cuántas.",
-   "Empezad por las esquinas y los huecos más difíciles. Las piezas se pueden girar.",
-   "La I tumbada ocupa las cuatro casillas de arriba a la izquierda y una O llena la esquina de arriba a la derecha. La T va tumbada en la segunda fila con el pie hacia abajo, la otra O abajo a la izquierda y la J abajo a la derecha."
+   "La regla está en la carta 26 y los puntos de cada entrada, en las cartas 61 y 63.",
+   "Cada cambio solo mueve una entrada un puesto. Pensad en cuántos cambios hacen falta para colocar cada una.",
+   "De arriba abajo, los colores en este orden: verde, naranja, rosa, amarillo, violeta, cian, rojo, blanco."
   ],
-  "arte": "Un pozo de cristal con bloques de colores encajados, con huecos oscuros, frente a un monstruo gigante hecho de bloques; paneles de neón al fondo. Alberto sostiene una pieza en alto con el ceño fruncido de concentración y Cristina señala un hueco del pozo con la cara iluminada por una idea."
+  "arte": "Sin ninguna persona en la imagen. Una tabla de récords de recreativa con ocho barras de colores de distinto largo apiladas, en desorden, con una pantalla negra detrás y luces de neón."
  },
- "82": {
-  "titulo": "Carta 82 — El corazón de la máquina",
+ "61": {
+  "titulo": "Carta 61 — La tabla de récords (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la tabla de récords."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 63.",
+   "Cada color tiene su puntuación.",
+   "Los puntos de la tabla se usan para ordenar los bloques de la carta 51."
+  ],
+  "mosaico": {
+   "id": "record",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): mitad de arriba de «La tabla de récords»."
+ },
+ "63": {
+  "titulo": "Carta 63 — La tabla de récords (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de la tabla de récords."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 61.",
+   "Cada color tiene su puntuación.",
+   "Los puntos de la tabla se usan para ordenar los bloques de la carta 51."
+  ],
+  "mosaico": {
+   "id": "record",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): mitad de abajo de «La tabla de récords»."
+ },
+ "58": {
+  "titulo": "Carta 58 — La ranura de los récords",
   "tipo": "gris",
   "coge": [
-   62
-  ],
-  "descarta": [
    69,
    70,
-   94
+   71
+  ],
+  "descarta": [
+   51,
+   61,
+   63,
+   26,
+   24
   ],
   "descripcion": [
-   "El jefe se deshace en una lluvia de píxeles y deja al descubierto el corazón de la máquina: un núcleo de luz roja en el que flota el cristal de energía, tal y como cayó por la ranura.",
-   "Coged la carta 62. Descartad las cartas 69, 70 y 94."
+   "La tabla de récords se ordena y de su hueco sale un pasillo con una autopista de ocho carriles: el nivel de la rana. Cruzarla requiere programar los pasos de antemano (carta 69). En el arcén, la foto de la autopista tal y como está al empezar (carta 70) y las velocidades de cada carril (carta 71).",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
   "pistas": [
-   "Mirad dentro del núcleo de luz.",
-   "La carta 62 es combinable con el Cronoportal.",
-   "Coged la carta 62. Descartad las cartas 69, 70 y 94."
+   "Un único puzle: programar el cruce de la rana.",
+   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
-  "arte": "El corazón de una máquina recreativa: un núcleo esférico de luz roja con circuitos de neón a su alrededor y, flotando en el centro, un cristal de energía rojo; una lluvia de píxeles cae alrededor. Cristina lo toma con ambas manos con los ojos llenos de lágrimas de emoción y Alberto la mira con una sonrisa enorme."
+  "arte": "Una autopista de neón de cinco carriles con coches de colores de píxeles que pasan a distinta velocidad, con una rana verde de píxeles esperando en el arcén. Cristina, de rodillas, mira los coches con las manos en la cabeza; Alberto, con los brazos cruzados, calcula con los ojos entrecerrados."
+ },
+ "69": {
+  "titulo": "Carta 69 — La rana de la autopista",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: programar los pasos de una rana (arriba, izquierda, derecha o esperar) para cruzar cinco carriles de tráfico sin que la atropellen.",
+   "Al resolverlo, coged la carta 80."
+  ],
+  "pistas": [
+   "La autopista al empezar está en la carta 70 y las velocidades de los carriles, en la 71.",
+   "En cada turno la rana se mueve primero y luego los coches. Solo cuenta dónde están los coches al final del turno. Los coches que se salen por un lado entran por el otro.",
+   "Una solución en 11 turnos: LULLUWUULUU. Byte de la máquina: 12."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una autopista de neón de cinco carriles con coches de píxeles de colores y una rana verde de píxeles al borde, sobre una placa base luminosa."
+ },
+ "70": {
+  "titulo": "Carta 70 — La autopista al empezar",
+  "tipo": "gris",
+  "descripcion": [
+   "Una foto de la autopista al empezar el nivel."
+  ],
+  "pistas": [
+   "Muestra la posición de los coches y de la rana en el turno cero.",
+   "Los números de la izquierda son los carriles.",
+   "La rana empieza en la fila de abajo."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La autopista al empezar."
+ },
+ "71": {
+  "titulo": "Carta 71 — Las velocidades del tráfico",
+  "tipo": "gris",
+  "descripcion": [
+   "Cuántas casillas avanza cada carril por turno, y hacia dónde."
+  ],
+  "pistas": [
+   "Cada flecha es una casilla por turno.",
+   "Los coches que se salen por un lado entran por el otro.",
+   "En cada turno la rana se mueve primero y luego se mueven los coches."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Las velocidades del tráfico."
+ },
+ "80": {
+  "titulo": "Carta 80 — El almacén de monedas",
+  "tipo": "gris",
+  "coge": [
+   72,
+   75,
+   79
+  ],
+  "descarta": [
+   58,
+   69,
+   70,
+   71
+  ],
+  "descripcion": [
+   "La rana cruza y se queda esperando al otro lado, dando saltitos. Detrás de ella, el almacén de monedas de la máquina: una máquina de cambio con cuatro ranuras, cada una con su moneda (carta 72). Los valores de las monedas, en un cartel (carta 75), y el precio de la partida y la regla de la máquina, en la pantalla de continuar (carta 79).",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+  ],
+  "pistas": [
+   "Un único puzle: pagar justo con las menos monedas.",
+   "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+  ],
+  "arte": "Un almacén de neón con una máquina de cambio con cuatro ranuras de monedas de distinto tamaño y colores, una pantalla con un precio y montones de monedas doradas en el suelo. Cristina sostiene una moneda a la luz con los ojos entrecerrados, calculando; Alberto se pone las manos en la cintura con cara de satisfacción."
+ },
+ "72": {
+  "titulo": "Carta 72 — La máquina de cambio",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: pagar el precio exacto de la partida con la máquina de cambio, usando las menos monedas posibles, con cuatro clases de moneda.",
+   "Al resolverlo, coged la carta 82."
+  ],
+  "pistas": [
+   "Los valores de las monedas están en la carta 75 y el precio, en la 79.",
+   "La máquina no da cambio. No sirve echar siempre la moneda mayor que quepa: hay un pago con menos monedas.",
+   "Solución: 2 de 1 y 2 de 16 (cuatro monedas en total)."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una máquina de cambio de recreativa con cuatro ranuras de monedas de distinto tamaño y colores y una pantalla con luces de neón, con monedas doradas apiladas en el suelo."
+ },
+ "75": {
+  "titulo": "Carta 75 — Las monedas de la máquina",
+  "tipo": "gris",
+  "descripcion": [
+   "Las cuatro clases de moneda de la máquina de cambio, con su valor."
+  ],
+  "pistas": [
+   "Son cuatro monedas distintas, de la menor a la mayor.",
+   "De cada clase hay cuantas se quiera.",
+   "El precio de la partida está en la carta 79."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): Las monedas de la máquina."
+ },
+ "79": {
+  "titulo": "Carta 79 — El precio de la partida",
+  "tipo": "gris",
+  "descripcion": [
+   "La pantalla de continuar: el precio de la partida y la regla de la máquina."
+  ],
+  "pistas": [
+   "Dice cuánto hay que pagar.",
+   "La máquina no da cambio: se paga justo.",
+   "Hay que pagarlo con el menor número posible de monedas."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): El precio de la partida."
+ },
+ "82": {
+  "titulo": "Carta 82 — La ranura de continuar",
+  "tipo": "gris",
+  "coge": [
+   85,
+   86,
+   87
+  ],
+  "descarta": [
+   80,
+   72,
+   75,
+   79
+  ],
+  "descripcion": [
+   "La máquina de cambio escupe una ficha de continuar y, con ella, se abre la puerta del núcleo de la máquina: el arranque. Cristina lee en una pantalla: «Introduce la clave». La clave es la combinación de cuatro números que os dejaron los puzles del panel, los fantasmas, el taller de sprites y la rana (carta 85). Dos láminas explican cómo se combinan (cartas 86 y 87).",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "pistas": [
+   "Un único puzle: arrancar la máquina con la clave.",
+   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+  ],
+  "arte": "La sala del núcleo de una máquina recreativa, con un panel con cuatro ranuras, una pantalla negra con un cursor parpadeante y una gran palanca de arranque, con cables luminosos de neón por todas partes. Cristina, con una ficha en la mano, mira la pantalla con los labios apretados; Alberto, a su lado, se muerde el labio pensativo."
+ },
+ "85": {
+  "titulo": "Carta 85 — El arranque de la máquina",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: la clave de arranque sale de combinar con la «o exclusiva» los cuatro números que os dejaron los puzles del panel, los fantasmas, el taller de sprites y la rana.",
+   "Al resolverlo, coged la carta 99."
+  ],
+  "pistas": [
+   "Los números que anotasteis: el del panel de interruptores, el de los fantasmas, el del taller de sprites y el de la rana. Las reglas, en las cartas 86 y 87.",
+   "La «o exclusiva» se aplica cifra a cifra, con los números en binario: 0 y 0 da 0, 1 y 1 da 0, y 0 y 1 (o 1 y 0) da 1.",
+   "Los bytes son 6, 9, 11 y 12: 6 ^ 9 ^ 11 ^ 12 = 8."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un panel de arranque de una máquina recreativa con cuatro ranuras para números, una gran palanca de arranque y una pantalla con un cursor parpadeante, con cables luminosos de neón."
+ },
+ "86": {
+  "titulo": "Carta 86 — La clave del arranque (I)",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota del programador: de dónde sale cada número de la clave (primera parte)."
+  ],
+  "pistas": [
+   "Explica los dos primeros números de la clave.",
+   "Hay que combinar los cuatro números con la «o exclusiva».",
+   "El orden en que se combinan no importa."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La clave del arranque (I)."
+ },
+ "87": {
+  "titulo": "Carta 87 — La clave del arranque (II)",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota del programador: los otros dos números, y la tabla de la «o exclusiva»."
+  ],
+  "pistas": [
+   "Explica los otros dos números de la clave.",
+   "La tabla de la «o exclusiva» dice qué da cada pareja de cifras.",
+   "Se aplica cifra a cifra, con los números en binario."
+  ],
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): La clave del arranque (II)."
+ },
+ "94": {
+  "titulo": "Carta 94 — La sala del jefe final",
+  "tipo": "gris",
+  "coge": [
+   64,
+   66,
+   67
+  ],
+  "descarta": [
+   38,
+   56,
+   30,
+   44,
+   33,
+   37,
+   39,
+   46
+  ],
+  "descripcion": [
+   "Las dos mitades encajan: la llave del jefe, una ficha dorada completa, abre la sala del jefe final. En el centro, un tablero deslizante de nueve casillas con una ficha menos (carta 64) cierra el cerrojo. El dibujo final que tiene que formar ocupa dos láminas: juntad la 66 arriba y la 67 abajo.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "pistas": [
+   "Un único puzle: el puzle deslizante.",
+   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+  ],
+  "arte": "Una sala enorme con un tablero deslizante gigante de nueve casillas, con ocho fichas de colores numeradas y un hueco, que sirve de cerrojo de una puerta dorada, bajo luces de neón. Cristina, de puntillas, estudia el tablero con la lengua entre los dientes; Alberto, a su lado, levanta las cejas sorprendido."
+ },
+ "64": {
+  "titulo": "Carta 64 — El cerrojo deslizante",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: un tablero de tres por tres casillas con un hueco; hay que deslizar las fichas hasta formar el dibujo final.",
+   "Al resolverlo, coged la carta 62."
+  ],
+  "pistas": [
+   "El dibujo final, en las cartas 66 y 67 (dos mitades).",
+   "Colocad primero la fila de arriba y luego bajad a las otras dos; las últimas fichas son las más difíciles.",
+   "El dibujo final, fila por fila: 1 2 3 / 8 _ 4 / 7 6 5."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un tablero deslizante gigante de nueve casillas con ocho fichas de colores numeradas y un hueco, sobre un cerrojo dorado, con luces de neón."
+ },
+ "66": {
+  "titulo": "Carta 66 — El dibujo final (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del dibujo final del cerrojo."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 67.",
+   "Muestra cómo tienen que quedar las ocho fichas.",
+   "El hueco va en el centro."
+  ],
+  "mosaico": {
+   "id": "deslizante",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): mitad de arriba de «El dibujo final»."
+ },
+ "67": {
+  "titulo": "Carta 67 — El dibujo final (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina del dibujo final del cerrojo."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 66.",
+   "Muestra cómo tienen que quedar las ocho fichas.",
+   "El hueco va en el centro."
+  ],
+  "mosaico": {
+   "id": "deslizante",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/arcade.py; no se pide a ChatGPT): mitad de abajo de «El dibujo final»."
  },
  "62": {
-  "titulo": "Carta 62 — Cristal de energía",
+  "titulo": "Carta 62 — El cristal del Cronoportal",
   "tipo": "roja",
   "combina": [
    12,
    74
   ],
   "descripcion": [
-   "El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."
+   "El cristal del Cronoportal, que el cerrojo escupe al abrirse: se tragó la ranura de las fichas y acabó escondido en la sala del jefe.",
+   "Combinadla con la carta 12: sumad sus números (62 + 12 = 74) y coged la carta 74."
   ],
   "pistas": [
-   "Es la pieza que faltaba.",
-   "Combinad la carta 62 con la carta 12.",
-   "Sumad los números de las dos cartas: 62 + 12 = 74."
+   "El cristal del Cronoportal, que el cerrojo escupe al abrirse: se tragó la ranura de las fichas y acabó escondido en la sala del jefe.",
+   "Se combina con la carta 12.",
+   "62 + 12 = 74."
   ],
-  "arte": "Un cristal rojo facetado con un fulgor interior de brasa y finas líneas de energía, sostenido sobre la palma de una mano, con píxeles de neón flotando alrededor."
+  "arte": "Sin ninguna persona en la imagen. Un cristal redondo de color azul brillante, del tamaño de una ficha de recreativa, con destellos de luz, sobre una bandeja metálica con luces de neón."
  },
  "74": {
-  "titulo": "Carta 74 — Cronoportal reconectado",
+  "titulo": "Carta 74 — Cronoportal con el cristal",
   "tipo": "gris",
-  "coge": [
-   99
-  ],
   "descarta": [
    62,
    12,
-   82
+   64,
+   66,
+   67,
+   94,
+   57
   ],
   "descripcion": [
-   "El cristal encaja con un chasquido y el Cronoportal se enciende. Pero sobre vosotros el contador marca los últimos segundos y los píxeles empiezan a apagarse uno a uno. No hay tiempo que perder: activad el aparato antes del GAME OVER.",
-   "Coged la carta 99. Descartad las cartas 62, 12 y 82."
+   "Encajáis el cristal en el pecho del Cronoportal y el anillo se enciende con un arco de luz azul: la cuenta atrás se detiene en seguida. Solo falta la clave para arrancar la máquina y abrir la salida: cuatro números combinados con la «o exclusiva» (carta 85).",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
   ],
   "pistas": [
-   "El portal ya funciona. Solo queda activarlo.",
-   "Coged la carta 99. Descartad las cartas 62, 12 y 82."
+   "Ya solo queda arrancar la máquina.",
+   "Descartad las cartas 62, 12, 64, 66, 67, 94 y 57."
   ],
-  "arte": "El Cronoportal encendido con un cristal rojo encajado en su pecho, en un mundo de píxeles que se apaga poco a poco, con un contador de neón rojo en el cielo. Cristina, con la cara desencajada de urgencia, tira de Alberto, que carga el aparato con gesto de esfuerzo."
+  "arte": "Cristina y Alberto encajan un cristal azul brillante en el hueco del Cronoportal, un aparato de latón y cristal con un anillo central que se enciende con un arco de luz azul, entre circuitos gigantes de neón. Cristina lo sostiene con las dos manos con una enorme sonrisa; Alberto contiene el aliento, mirando el anillo con la boca abierta."
  },
  "99": {
   "titulo": "Carta 99 — De vuelta a casa (FIN)",
   "tipo": "gris",
   "descarta": [
-   74
+   74,
+   82,
+   85,
+   86,
+   87
   ],
   "descripcion": [
-   "El anillo se abre en un arco de luz justo cuando el contador llega a cero. Cristina y Alberto salen disparados de la máquina y aterrizan en su salón, con el corazón a mil.",
-   "Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo una pequeña ficha dorada. Descartad la carta 74.",
-   "FIN."
+   "La clave activa el arranque: la máquina arranca con un chasquido, la pantalla enseña «GAME OVER» y, al instante, una moneda enorme cae por la ranura y abre el portal. Cristina se despide del fantasmita con la mano. Aterrizáis en vuestro salón. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe. FIN.",
+   "Descartad las cartas 74, 82, 85, 86 y 87."
   ],
-  "pistas": [],
-  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven una máquina recreativa gigante y píxeles de neón que se apagan. Llevan aún su ropa de los años 80. Cristina ríe a carcajadas con una ficha dorada en la mano y Alberto grita de euforia con los brazos en alto. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."
+  "pistas": [
+   "Descartad las cartas 74, 82, 85, 86 y 87."
+  ],
+  "arte": "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y magenta que se abre detrás de ellos; a través del portal todavía se ven el interior de una máquina recreativa y una gran moneda dorada cayendo. Llevan aún la ropa de los años 80. Cristina sonríe, Alberto dice «Mañana, otro destino»; el Cronoportal humea sobre la mesa."
  }
 };
 window.fetchCartas = function () {

@@ -67,9 +67,9 @@
     "id": "arcade",
     "nombre": "Game Over, 1985: La Última Moneda",
     "ruta": "juegos/aventuras-ca/arcade/",
-    "dificultad": 3,
-    "minutos": 75,
-    "cartas": 37
+    "dificultad": 4,
+    "minutos": 90,
+    "cartas": 60
   },
   {
     "id": "oeste",
