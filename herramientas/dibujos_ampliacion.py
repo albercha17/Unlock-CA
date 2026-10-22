@@ -7,7 +7,7 @@ y las imágenes de los minijuegos nuevos. También copia en cada minijuego nuevo
   Montecarlo: 37, 39, 41 y 42 (las cuatro manos de póker).
   Piratas:    63 (las guardias), 65 (las campanadas) y 67 (el diario de la capitana).
   Juguetes:   67 (el dibujo de Leo que hay que formar con los cubos).
-  El Faro:    46 y 47 (plano de la bahía), 56 (la sombra en la pared), 57 (el estante del farero), 66 (almanaque) y 67 (nota de Anselmo).
+  El Faro:    (ya no se dibuja aquí: desde la versión de 60 cartas lo hace herramientas/faro.py).
 Uso (desde la raíz del repo):  python herramientas/dibujos_ampliacion.py
 """
 import json
@@ -607,9 +607,6 @@ DATOS = {
     ("espia", "36-poker.js"): lambda i: {"jugadores": i["espia_poker"]["jugadores"], "orden": i["espia_poker"]["orden"], "ranking": i["espia_poker"]["ranking"]},
     ("piratas", "61-reloj.js"): lambda i: {"hora": i["piratas_campanas"]["hora"]},
     ("juguetes", "64-cubos.js"): lambda i: {k: i["juguetes_cubos"][k] for k in ("dibujos", "caras", "objetivo", "inicial")},
-    ("@faro", "45-bahia.js"): lambda i: {"n": i["faro_bahia"]["n"], "tierra": i["faro_bahia"]["tierra"]},
-    ("@faro", "55-sombras.js"): lambda i: {k: i["faro_sombras"][k] for k in ("objetos", "solucion")},
-    ("@faro", "65-destellos.js"): lambda i: {"solucion": i["faro_destellos"]["solucion"]},
 }
 
 
@@ -646,13 +643,6 @@ def main():
     guardar("piratas", "67", piratas_diario(i["piratas_campanas"]), 67)
     guardar("juguetes", "67", juguetes_carta(i["juguetes_cubos"]), 67)
     juguetes_ui(i["juguetes_cubos"])
-    guardar_faro("46", faro_bahia(i["faro_bahia"], 0), 46)
-    guardar_faro("47", faro_bahia(i["faro_bahia"], 1), 47)
-    guardar_faro("56", faro_sombra(i["faro_sombras"]), 56)
-    guardar_faro("57", faro_estante(i["faro_sombras"]), 57)
-    guardar_faro("66", faro_almanaque(i["faro_destellos"]), 66)
-    guardar_faro("67", faro_leyenda(i["faro_destellos"]), 67)
-    faro_ui(i["faro_sombras"])
     inyectar(i)
     print("láminas de la ampliación escritas")
 

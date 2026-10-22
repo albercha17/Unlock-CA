@@ -1,0 +1,770 @@
+{
+ "puerta": {
+  "atraso": 20,
+  "inicio": [
+   12,
+   0
+  ],
+  "parado": [
+   3,
+   20
+  ],
+  "ejemplo": [
+   1,
+   0,
+   1,
+   30
+  ],
+  "real_min": 300,
+  "codigo": "1700"
+ },
+ "banderas": {
+  "palabra": "NIEBLA",
+  "banderas": {
+   "A": {
+    "patron": "franjas_v",
+    "c1": "rojo",
+    "c2": "blanco"
+   },
+   "B": {
+    "patron": "cruz",
+    "c1": "negro",
+    "c2": "blanco"
+   },
+   "C": {
+    "patron": "diagonal",
+    "c1": "amarillo",
+    "c2": "rojo"
+   },
+   "D": {
+    "patron": "mitad_v",
+    "c1": "negro",
+    "c2": "rojo"
+   },
+   "E": {
+    "patron": "mitad_h",
+    "c1": "amarillo",
+    "c2": "rojo"
+   },
+   "F": {
+    "patron": "triangulo",
+    "c1": "negro",
+    "c2": "amarillo"
+   },
+   "G": {
+    "patron": "cuartos",
+    "c1": "negro",
+    "c2": "blanco"
+   },
+   "H": {
+    "patron": "aspa",
+    "c1": "blanco",
+    "c2": "negro"
+   },
+   "I": {
+    "patron": "marco",
+    "c1": "rojo",
+    "c2": "azul"
+   },
+   "J": {
+    "patron": "triangulo",
+    "c1": "amarillo",
+    "c2": "azul"
+   },
+   "K": {
+    "patron": "cuartos",
+    "c1": "negro",
+    "c2": "amarillo"
+   },
+   "L": {
+    "patron": "marco",
+    "c1": "blanco",
+    "c2": "azul"
+   },
+   "M": {
+    "patron": "aspa",
+    "c1": "blanco",
+    "c2": "azul"
+   },
+   "N": {
+    "patron": "triangulo",
+    "c1": "blanco",
+    "c2": "azul"
+   },
+   "O": {
+    "patron": "franjas_v",
+    "c1": "rojo",
+    "c2": "amarillo"
+   },
+   "P": {
+    "patron": "marco",
+    "c1": "rojo",
+    "c2": "amarillo"
+   },
+   "Q": {
+    "patron": "mitad_v",
+    "c1": "amarillo",
+    "c2": "negro"
+   },
+   "R": {
+    "patron": "triangulo",
+    "c1": "amarillo",
+    "c2": "negro"
+   },
+   "S": {
+    "patron": "marco",
+    "c1": "blanco",
+    "c2": "rojo"
+   },
+   "T": {
+    "patron": "mitad_v",
+    "c1": "negro",
+    "c2": "amarillo"
+   },
+   "U": {
+    "patron": "cruz",
+    "c1": "amarillo",
+    "c2": "negro"
+   },
+   "V": {
+    "patron": "triangulo",
+    "c1": "negro",
+    "c2": "blanco"
+   },
+   "W": {
+    "patron": "disco",
+    "c1": "amarillo",
+    "c2": "azul"
+   },
+   "X": {
+    "patron": "cuartos",
+    "c1": "blanco",
+    "c2": "azul"
+   },
+   "Y": {
+    "patron": "disco",
+    "c1": "amarillo",
+    "c2": "negro"
+   },
+   "Z": {
+    "patron": "cuartos",
+    "c1": "negro",
+    "c2": "rojo"
+   }
+  }
+ },
+ "radio": {
+  "objetivo": 91.7,
+  "base": 80,
+  "rojas": [
+   4,
+   3,
+   4
+  ],
+  "verdes": [
+   2,
+   5
+  ],
+  "vientos": [
+   "N",
+   "NE",
+   "E",
+   "SE",
+   "S",
+   "SO",
+   "O",
+   "NO"
+  ],
+  "desvio": 2,
+  "mostrado": 1,
+  "verdadero": 7,
+  "falsas": [
+   95.3,
+   101.9
+  ]
+ },
+ "morse": {
+  "palabra": "BALIZA",
+  "letras": [
+   [
+    {
+     "c": "r",
+     "s": "-"
+    },
+    {
+     "c": "b",
+     "s": "-"
+    },
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "r",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "."
+    }
+   ],
+   [
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "-"
+    }
+   ],
+   [
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "-"
+    },
+    {
+     "c": "r",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "."
+    }
+   ],
+   [
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "."
+    }
+   ],
+   [
+    {
+     "c": "b",
+     "s": "-"
+    },
+    {
+     "c": "b",
+     "s": "-"
+    },
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "r",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "."
+    }
+   ],
+   [
+    {
+     "c": "b",
+     "s": "."
+    },
+    {
+     "c": "b",
+     "s": "-"
+    }
+   ]
+  ]
+ },
+ "bahia": {
+  "n": 7,
+  "pistas": [
+   [
+    0,
+    1,
+    3
+   ],
+   [
+    1,
+    3,
+    3
+   ],
+   [
+    1,
+    6,
+    3
+   ],
+   [
+    2,
+    2,
+    3
+   ],
+   [
+    4,
+    4,
+    1
+   ],
+   [
+    6,
+    1,
+    2
+   ],
+   [
+    6,
+    3,
+    2
+   ],
+   [
+    6,
+    6,
+    5
+   ]
+  ],
+  "tierra": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    5
+   ],
+   [
+    0,
+    6
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ]
+ },
+ "sombras": {
+  "objetos": [
+   "farol",
+   "ancla",
+   "botella",
+   "tetera",
+   "gaviota",
+   "catalejo",
+   "campana",
+   "llave"
+  ],
+  "solucion": [
+   "botella",
+   "catalejo",
+   "ancla",
+   "campana"
+  ]
+ },
+ "destellos": {
+  "faros": {
+   "Punta Gaviota": {
+    "grupos": [
+     2
+    ],
+    "periodo": 10,
+    "notacion": "Fl(2) 10 s"
+   },
+   "Isla del Moro": {
+    "grupos": [
+     3
+    ],
+    "periodo": 12,
+    "notacion": "Fl(3) 12 s"
+   },
+   "Cabo Niebla": {
+    "grupos": [
+     2,
+     1
+    ],
+    "periodo": 15,
+    "notacion": "Fl(2+1) 15 s"
+   },
+   "Roca Negra": {
+    "grupos": [
+     1
+    ],
+    "periodo": 6,
+    "notacion": "Fl(1) 6 s"
+   },
+   "Puerto Viejo": {
+    "grupos": [
+     4
+    ],
+    "periodo": 15,
+    "notacion": "Fl(4) 15 s"
+   },
+   "Cala Azul": {
+    "grupos": [
+     1,
+     2
+    ],
+    "periodo": 12,
+    "notacion": "Fl(1+2) 12 s"
+   },
+   "Punta Sal": {
+    "grupos": [
+     3,
+     1
+    ],
+    "periodo": 15,
+    "notacion": "Fl(3+1) 15 s"
+   },
+   "Faro del Norte": {
+    "grupos": [
+     2,
+     2
+    ],
+    "periodo": 15,
+    "notacion": "Fl(2+2) 15 s"
+   }
+  },
+  "faro": "Cabo Niebla",
+  "periodo": 15,
+  "solucion": [
+   1,
+   0,
+   1,
+   0,
+   0,
+   0,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ "guardianes": {
+  "nombres": [
+   "Elías",
+   "Nora",
+   "Teo",
+   "Irene",
+   "Bruno"
+  ],
+  "gorros": [
+   "rojo",
+   "azul",
+   "verde",
+   "amarillo",
+   "blanco"
+  ],
+  "solucion": [
+   [
+    "Nora",
+    "amarillo"
+   ],
+   [
+    "Teo",
+    "verde"
+   ],
+   [
+    "Bruno",
+    "azul"
+   ],
+   [
+    "Elías",
+    "blanco"
+   ],
+   [
+    "Irene",
+    "rojo"
+   ]
+  ],
+  "frases": [
+   "Quien lleva el gorro amarillo duerme justo a la izquierda de quien lleva el gorro verde.",
+   "Quien lleva el gorro amarillo duerme a la izquierda de Bruno, con al menos una litera de por medio.",
+   "Quien lleva el gorro blanco duerme justo a la izquierda de quien lleva el gorro rojo.",
+   "Elías lleva el gorro blanco.",
+   "Nora duerme a la izquierda de Irene, con al menos una litera de por medio.",
+   "Quien lleva el gorro amarillo duerme en una litera pegada a la de Teo.",
+   "Bruno duerme justo a la izquierda de quien lleva el gorro blanco."
+  ]
+ },
+ "laberinto": {
+  "n": 8,
+  "abierto": [
+   [
+    "ES",
+    "OS",
+    "ES",
+    "EO",
+    "EOS",
+    "EO",
+    "EO",
+    "OS"
+   ],
+   [
+    "NS",
+    "N",
+    "NS",
+    "S",
+    "EN",
+    "OS",
+    "ES",
+    "NO"
+   ],
+   [
+    "ENS",
+    "EO",
+    "NO",
+    "NS",
+    "ES",
+    "NO",
+    "EN",
+    "O"
+   ],
+   [
+    "ENS",
+    "EO",
+    "EO",
+    "NO",
+    "EN",
+    "EOS",
+    "EO",
+    "OS"
+   ],
+   [
+    "N",
+    "ES",
+    "EO",
+    "EO",
+    "OS",
+    "N",
+    "ES",
+    "NOS"
+   ],
+   [
+    "ES",
+    "NO",
+    "ES",
+    "OS",
+    "NS",
+    "ES",
+    "NO",
+    "NS"
+   ],
+   [
+    "NS",
+    "S",
+    "NS",
+    "NS",
+    "EN",
+    "NO",
+    "ES",
+    "NO"
+   ],
+   [
+    "N",
+    "EN",
+    "NO",
+    "EN",
+    "EO",
+    "EO",
+    "ENO",
+    "O"
+   ]
+  ],
+  "inicio": [
+   7,
+   0
+  ],
+  "meta": [
+   0,
+   7
+  ],
+  "mira": "N",
+  "camino": [
+   "N",
+   "N",
+   "E",
+   "N",
+   "E",
+   "E",
+   "E",
+   "S",
+   "S",
+   "E",
+   "N",
+   "E",
+   "N",
+   "E",
+   "N",
+   "O",
+   "O",
+   "O",
+   "N",
+   "E",
+   "N",
+   "O",
+   "N",
+   "E",
+   "E",
+   "E"
+  ],
+  "solucion": "AADAIADAAADAAIAIADAIADAIAIAAADADAIAIADADAAA",
+  "semilla": 1
+ },
+ "espejos": {
+  "inicial": {
+   "1,3": "\\",
+   "1,2": "\\",
+   "3,2": "\\",
+   "3,1": "/",
+   "6,1": "/",
+   "6,2": "/",
+   "5,2": "\\",
+   "0,5": "/",
+   "0,2": "\\",
+   "7,1": "\\",
+   "7,4": "/"
+  },
+  "solucion": {
+   "1,3": "/",
+   "1,2": "/",
+   "3,2": "/",
+   "3,1": "/",
+   "6,1": "\\",
+   "6,2": "/",
+   "5,2": "/"
+  },
+  "giran": [
+   "1,3",
+   "1,2",
+   "3,2",
+   "6,1",
+   "5,2"
+  ],
+  "orden": [
+   "Galería",
+   "Lente",
+   "Lámpara"
+  ]
+ },
+ "meta": {
+  "apps": [
+   "14",
+   "20",
+   "40",
+   "48",
+   "52"
+  ],
+  "cifras": {
+   "14": 3,
+   "20": 1,
+   "40": 5,
+   "48": 8,
+   "52": 6
+  },
+  "orden": [
+   "20",
+   "14",
+   "52",
+   "40",
+   "48"
+  ],
+  "tabla": [
+   0,
+   1,
+   2,
+   7,
+   4,
+   5,
+   9,
+   3,
+   8,
+   6
+  ],
+  "codigo": "17958"
+ }
+}

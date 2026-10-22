@@ -21,9 +21,9 @@ Escape rooms híbridos, al estilo Unlock: **cartas** (impresas o en pantalla con
 | &nbsp;&nbsp;Piratas, 1715 — *Mar de las Brumas: El Tesoro de la Isla Calavera* (60 cartas, 11 puzles distintos, con cartas que se **pliegan**: bitácora, persecución, constelación, suelo de losas, cañón, reparto del botín, mareas, timón, balanza, gruta y punto de la niebla) | [`juegos/aventuras-ca/piratas/`](juegos/aventuras-ca/piratas/) | [MANUAL.md](juegos/aventuras-ca/piratas/MANUAL.md) |
 | &nbsp;&nbsp;Juguetes, 1995 — *El Cuarto de Leo: La Noche de los Juguetes* (62 cartas, 11 puzles distintos, el más amable; cartas que se **hojean**: folioscopio; cubos de dibujos, diferencias con una Polaroid, tren, hilos de marioneta, oca, solitario de clavijas, collar, torre de bloques, canicas, memoria y nana de xilófono) | [`juegos/aventuras-ca/juguetes/`](juegos/aventuras-ca/juguetes/) | [MANUAL.md](juegos/aventuras-ca/juguetes/MANUAL.md) |
 | &nbsp;&nbsp;Apagón en el Colegio | repositorio propio, clonado en `juegos/apagon-colegio/` (enlace externo) | — |
-| **El Faro de Cabo Niebla** (juego de referencia) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
+| **El Faro de Cabo Niebla** (juego de referencia; 60 cartas, 11 puzles distintos: puerta con reloj que atrasa, banderas de señales, radio, morse con destellos rojos, bahía Nurikabe, sombras en la pared, característica de la luz, guardianes, desván a oscuras, espejos de la lente y panel de arranque) | [`juegos/el-faro/`](juegos/el-faro/) | [MANUAL.md](juegos/el-faro/MANUAL.md) |
 
-**El Faro es el juego de referencia** (desde el 20 oct 2026 lo protagonizan también Cristina y Alberto y tiene 36 cartas): su flujo está comprobado de principio a fin y los juegos nuevos se hacen igual (ver la [guía de diseño](GUIA-DE-JUEGOS.md)).
+**El Faro es el juego de referencia** (desde el 20 oct 2026 lo protagonizan también Cristina y Alberto y tiene 60 cartas desde el 22 oct 2026): su flujo está comprobado de principio a fin y los juegos nuevos se hacen igual (ver la [guía de diseño](GUIA-DE-JUEGOS.md)).
 
 ## Cómo se juega
 
