@@ -23,7 +23,19 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from oeste import S, Hoja, fuente, _discontinua  # noqa: E402
+from oeste import S, Hoja, fuente  # noqa: E402
+from mosaicos import cortar  # noqa: E402
+
+
+def _discontinua(h, pts, col, ancho, trazo=28, hueco=20):
+    """Línea de trazos a lo largo de los puntos `pts`."""
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        L = math.hypot(x1 - x0, y1 - y0)
+        n = int(L // (trazo + hueco)) + 1
+        for k in range(n):
+            a = k * (trazo + hueco) / L
+            b = min(1, (k * (trazo + hueco) + trazo) / L)
+            h.linea([(x0 + (x1 - x0) * a, y0 + (y1 - y0) * a), (x0 + (x1 - x0) * b, y0 + (y1 - y0) * b)], col, ancho)
 
 W, H = 630, 882
 PERG = (236, 218, 174)
@@ -368,7 +380,7 @@ def balanza(h, cx, y, izq, der, ancho=230):
 
 # ================================================================== carta 30: carta náutica (plegable)
 def carta_nautica(inst):
-    pl = inst["pliegues"]["30"]
+    pl = inst["pliegues"]["66"]
     A, B = pl["x"]
     r = inst["rumbo"]
     xs = A                                                       # el pliegue, en coordenadas de la composición
@@ -475,51 +487,13 @@ def carta_piloto(inst):
     h.texto((cx - R - 10, cy), "OESTE", "texto", 20, TINTA, "rm")
     h.texto((cx + R + 10, cy), "ESTE", "texto", 20, TINTA, "lm")
     lineas = ["Cada rayita del arco: 5 grados.",
-              "Para gobernar con la aguja:",
-              "rumbo de la carta + desvío.",
-              "El timón obedece a la aguja."]
+              "La aguja de este mar se tuerce",
+              "hacia el oeste, tantas rayitas",
+              "como marca el arco; y el timón",
+              "obedece a la aguja."]
     for k, t in enumerate(lineas):
         h.texto((W / 2, 650 + k * 36), t, "texto", 24 if k else 22, TINTA)
     return ruido(h.final(), 31)
-
-
-# ================================================================== carta 40: plano de estiba (bodega)
-def carta_estiba(inst):
-    b = inst["bodega"]
-    h = Hoja(W, H, (196, 150, 98))
-    for y in range(0, H, 34):
-        h.rect(0, y, W, y + 33, (196, 150, 98) if (y // 34) % 2 == 0 else (186, 140, 90))
-        h.linea([(0, y + 33), (W, y + 33)], MADERA2, 2)
-    h.rect(16, 16, W - 16, H - 16, None, MADERA2, 6)
-    h.rect(110, 34, W - 34, 128, PERG, TINTA, 3)
-    h.texto((W / 2 + 38, 66), "PLANO DE ESTIBA", "cartel", 38, TINTA)
-    h.texto((W / 2 + 38, 106), "Bodega de La Gaviota", "texto2", 22, TINTA)
-    celda = 70
-    x0 = (W - b["ancho"] * celda) / 2
-    y0 = 196
-    h.texto((W / 2, y0 - 40), "PROA", "texto", 24, TINTA)
-    h.rect(x0 - 10, y0 - 10, x0 + b["ancho"] * celda + 10, y0 + b["alto"] * celda + 10, PERG, TINTA, 4)
-    muros = {tuple(m) for m in b["muros"]}
-    metas = {tuple(m) for m in b["metas"]}
-    for yy in range(b["alto"]):
-        for xx in range(b["ancho"]):
-            cx0, cy0 = x0 + xx * celda, y0 + yy * celda
-            if (xx, yy) in muros:
-                h.rect(cx0 + 2, cy0 + 2, cx0 + celda - 2, cy0 + celda - 2, MADERA2, NEGRO, 2)
-                h.linea([(cx0 + 8, cy0 + 8), (cx0 + celda - 8, cy0 + celda - 8)], MADERA, 4)
-                h.linea([(cx0 + celda - 8, cy0 + 8), (cx0 + 8, cy0 + celda - 8)], MADERA, 4)
-            else:
-                h.rect(cx0, cy0, cx0 + celda, cy0 + celda, None, (170, 140, 100), 1)
-            if (xx, yy) in metas:
-                h.linea([(cx0 + 14, cy0 + 14), (cx0 + celda - 14, cy0 + celda - 14)], ROJO, 9)
-                h.linea([(cx0 + celda - 14, cy0 + 14), (cx0 + 14, cy0 + celda - 14)], ROJO, 9)
-    yb = y0 + b["alto"] * celda
-    h.texto((W / 2, yb + 40), "POPA", "texto", 24, TINTA)
-    h.rect(70, yb + 66, W - 70, yb + 152, PERG, TINTA, 3)
-    h.texto((W / 2, yb + 90), "X = aquí va un barril de pólvora", "texto", 22, ROJO)
-    h.rect(108, yb + 112, 136, yb + 140, MADERA2, NEGRO, 2)
-    h.texto((150, yb + 126), "= cuaderna (no se pasa)", "texto2", 21, TINTA, "lm")
-    return ruido(h.final(), 40)
 
 
 # ================================================================== carta 52: ordenanza de la fragata (la persecución)
@@ -589,7 +563,7 @@ def carta_celeste(inst):
 
 # ================================================================== carta 76: testamento (plegable)
 def carta_testamento(inst):
-    pl = inst["pliegues"]["76"]
+    pl = inst["pliegues"]["53"]
     A, B = pl["x"]
     lo = inst["losas"]
     xs = A
@@ -639,7 +613,7 @@ def carta_testamento(inst):
 
 # ================================================================== carta 70: mapa de la isla (plegable por los dos lados)
 def carta_mapa(inst):
-    pl = inst["pliegues"]["70"]
+    pl = inst["pliegues"]["75"]
     A, B = pl["x"]
     C, D = pl["y"]
     ru = inst["ruta"]
@@ -729,6 +703,416 @@ def carta_mapa(inst):
     return carta_plegable(pl, fondo, objetos, extras, marcas, 70)
 
 
+HIERRO = (86, 88, 96)
+MADERA2 = globals().get('MADERA2', (110, 72, 44))
+
+
+# ================================================================== láminas nuevas de la versión de 60 cartas
+def pagina(titulo, sub=None, w=W, h=H, fondo=PERG):
+    p = Hoja(w, h, fondo)
+    p.rect(16, 16, w - 16, h - 16, fondo, TINTA, 4)
+    p.rect(30, 30, w - 30, h - 30, None, ORO2, 2)
+    p.texto((w / 2, 74), titulo, "cartel", 32, TINTA)
+    if sub:
+        p.texto((w / 2, 112), sub, "texto2", 20, TINTA)
+    return p
+
+
+def versos(p, lineas, y0=210, paso=44, tam=22, x=W / 2, color=TINTA, tipo="texto2"):
+    for k, v in enumerate(lineas):
+        p.texto((x, y0 + k * paso), v, tipo, tam, color)
+
+
+def flecha_p(p, a, b, color, ancho=4, punta=14):
+    ang = math.atan2(b[1] - a[1], b[0] - a[0])
+    p.linea([a, (b[0] - math.cos(ang) * punta * 0.6, b[1] - math.sin(ang) * punta * 0.6)], color, ancho)
+    p.poli([b, (b[0] - punta * math.cos(ang - 0.45), b[1] - punta * math.sin(ang - 0.45)), (b[0] - punta * math.cos(ang + 0.45), b[1] - punta * math.sin(ang + 0.45))], color)
+
+
+def campana(h, cx, cy, r):
+    pts = [(cx - r * 0.3, cy - r * 0.6), (cx + r * 0.3, cy - r * 0.6), (cx + r * 0.46, cy - r * 0.1), (cx + r * 0.52, cy + r * 0.32),
+           (cx + r * 0.8, cy + r * 0.5), (cx - r * 0.8, cy + r * 0.5), (cx - r * 0.52, cy + r * 0.32), (cx - r * 0.46, cy - r * 0.1)]
+    h.poli(pts, ORO, TINTA, 2)
+    h.disco(cx, cy + r * 0.68, r * 0.16, ORO2, TINTA, 1)
+
+
+# ------------------------------------------------------------------ 16: la bitácora
+def carta_bitacora(inst):
+    b = inst["bitacora"]
+    p = pagina("LA BITÁCORA", "de La Gaviota")
+    p.rect(60, 150, W - 60, 440, (244, 230, 194), TINTA, 3)
+    p.texto((90, 176), "GUARDIA", "cartel", 20, ROJO, "lm")
+    p.texto((W - 90, 176), "EMPIEZA A LAS", "cartel", 20, ROJO, "rm")
+    for k, (nombre, h) in enumerate(b["guardias"]):
+        y = 212 + k * 38
+        p.texto((90, y), nombre, "texto", 22, TINTA, "lm")
+        p.texto((W - 90, y), f"{h}:00", "texto", 22, TINTA, "rm")
+        p.linea([(80, y + 18), (W - 80, y + 18)], (200, 176, 130), 1)
+    versos(p, ["Cada guardia dura cuatro horas.", "Cada media hora suena una campanada más:", "una, dos, tres... hasta ocho."], 470, 30, 19)
+    for k, (que, g, c) in enumerate(b["anotaciones"]):
+        y = 595 + k * 76
+        p.disco(80, y, 20, ROJO, TINTA, 2)
+        p.texto((80, y), str(k + 1), "cartel", 24, BLANCO)
+        p.texto((116, y - 14), que + ":", "texto", 21, TINTA, "lm")
+        p.texto((116, y + 14), f"{c} campanadas de la guardia de {g}", "texto2", 19, TINTA, "lm")
+    p.rect(60, 826, W - 60, 846, (244, 230, 194), ROJO, 2)
+    p.texto((W / 2, 836), "¿Cuánto pasó entre el aviso 1 y el aviso 3?", "texto", 17, ROJO)
+    return ruido(p.final(), 16)
+
+
+# ------------------------------------------------------------------ 19 y 21: la carta de aguas (la persecución)
+def aguas(inst):
+    d = inst["persecucion"]
+    celda = 88
+    x0, y0 = 7, 530
+    h = Hoja(W, H * 2, MAR)
+    h.degradado(0, H * 2, (80, 146, 168), (46, 104, 130))
+    h.rect(16, 16, W - 16, H * 2 - 16, None, ORO2, 4)
+    h.texto((W / 2, 74), "CARTA DE AGUAS DE LA BAHÍA", "cartel", 30, BLANCO, "mm", NEGRO, 3)
+    rosa(h, W / 2, 270, 90, fondo=(244, 230, 194))
+    for yy in range(d["alto"]):
+        for xx in range(d["ancho"]):
+            h.rect(x0 + xx * celda, y0 + yy * celda, x0 + (xx + 1) * celda, y0 + (yy + 1) * celda, None, (190, 226, 236), 2)
+    rng = random.Random(21)
+    for rx, ry in d["rocas"]:
+        roca(h, x0 + rx * celda + celda / 2, y0 + ry * celda + celda / 2, 30, rng)
+    bx, by = d["barco"]
+    barco(h, x0 + bx * celda + celda / 2, y0 + by * celda + celda / 2 + 14, 0.9)
+    fx, fy = d["fragata"]
+    cx, cy = x0 + fx * celda + celda / 2, y0 + fy * celda + celda / 2
+    h.poli([(cx - 34, cy + 12), (cx + 34, cy + 12), (cx + 24, cy + 28), (cx - 26, cy + 28)], (60, 70, 90), NEGRO, 2)
+    for dx in (-14, 14):
+        h.linea([(cx + dx, cy + 12), (cx + dx, cy - 28)], NEGRO, 3)
+        h.poli([(cx + dx - 2, cy - 24), (cx + dx - 20, cy + 6), (cx + dx - 2, cy + 8)], BLANCO, NEGRO, 2)
+    nx, ny = d["niebla"]
+    for k in range(6):
+        h.disco(x0 + nx * celda + celda / 2 + rng.uniform(-18, 18), y0 + ny * celda + celda / 2 + rng.uniform(-14, 14), rng.uniform(18, 28), (246, 250, 252))
+    yb = y0 + d["alto"] * celda
+    h.rect(50, yb + 40, W - 50, yb + 200, (244, 230, 194), TINTA, 3)
+    h.texto((W / 2, yb + 70), "LEYENDA", "cartel", 22, TINTA)
+    barco(h, 110, yb + 150, 0.5)
+    h.texto((150, yb + 130), "La Gaviota", "texto2", 18, TINTA, "lm")
+    h.poli([(300, yb + 160), (350, yb + 160), (342, yb + 172), (308, yb + 172)], (60, 70, 90), NEGRO, 2)
+    h.linea([(325, yb + 160), (325, yb + 126)], NEGRO, 3)
+    h.texto((362, yb + 140), "la fragata", "texto2", 18, TINTA, "lm")
+    for k in range(3):
+        h.disco(470 + k * 16, yb + 150, 13, (246, 250, 252), (150, 170, 176), 1)
+    h.texto((520, yb + 130), "niebla", "texto2", 18, TINTA, "lm")
+    return ruido(h.final(), 19)
+
+
+# ------------------------------------------------------------------ 41 y 43: el cielo del cofre (la constelación)
+def cielo_cofre(inst):
+    c = inst["cielo"]
+    h = Hoja(W * 2, H, (18, 26, 52))
+    h.degradado(0, H, (28, 40, 78), (10, 14, 32))
+    h.rect(16, 16, W * 2 - 16, H - 16, None, ORO, 4)
+    h.texto((W, 74), "EL CIELO DE LA TAPA", "cartel", 36, (240, 226, 180))
+    rng = random.Random(41)
+    for _ in range(220):
+        x, y = rng.uniform(40, W * 2 - 40), rng.uniform(130, H - 40)
+        h.disco(x, y, rng.choice((1, 1, 1.5)), (120, 130, 170))
+    for k, (x, y) in enumerate(c["estrellas"]):
+        h.disco(x, y, 16, (255, 236, 170))
+        h.disco(x, y, 9, BLANCO)
+        h.texto((x + 22, y - 18), str(k + 1), "texto", 17, (240, 226, 180), "lm")
+    return ruido(h.final(), 41)
+
+
+# ------------------------------------------------------------------ 42 y 49: el suelo de la cueva (las losas)
+def suelo_cueva(inst):
+    s = inst["losas"]
+    n = s["n"]
+    lado = 110
+    x0, y0 = 300, 150
+    h = Hoja(W * 2, H, (60, 52, 44))
+    h.rect(16, 16, W * 2 - 16, H - 16, None, ORO2, 4)
+    h.texto((W, 66), "EL SUELO DE LA CUEVA", "cartel", 34, (240, 226, 180))
+    h.texto((W, 98), "visto desde la entrada", "texto2", 19, (240, 226, 180))
+    for y in range(n):
+        for x in range(n):
+            cx0, cy0 = x0 + x * lado, y0 + y * lado
+            h.rect(cx0 + 3, cy0 + 3, cx0 + lado - 3, cy0 + lado - 3, (136, 130, 116), (30, 26, 22), 3)
+            h.rect(cx0 + 8, cy0 + 8, cx0 + lado - 8, cy0 + lado - 8, (148, 142, 128))
+            simbolo(h, s["suelo"][y][x], cx0 + lado / 2, cy0 + lado / 2, 40, (40, 34, 28), (148, 142, 128))
+    h.texto((W, y0 - 14), "FONDO", "texto", 17, (240, 226, 180))
+    h.texto((W, y0 + n * lado + 22), "ENTRADA", "texto", 17, (240, 226, 180))
+    return ruido(h.final(), 42)
+
+
+# ------------------------------------------------------------------ 54, 55 y 59: la tabla de tiro
+def sacos(h, cx, cy, k):
+    for i in range(k):
+        x = cx + (i % 3) * 30 - (min(k, 3) - 1) * 15
+        y = cy + (i // 3) * 26
+        h.disco(x, y, 12, (150, 112, 70), MADERA2, 2)
+        h.linea([(x - 5, y - 11), (x + 5, y - 11)], MADERA2, 2)
+
+
+def carta_cargas(inst):
+    c = inst["canon"]
+    p = pagina("LA TABLA DE TIRO (I)", "por la carga de pólvora")
+    for k in range(6):
+        y = 190 + k * 110
+        p.rect(50, y - 46, W - 50, y + 46, (244, 230, 194), TINTA, 3)
+        sacos(p, 130, y - 12, k + 1)
+        flecha_p(p, (240, y), (330, y), TINTA, 4)
+        p.texto((440, y), f"{c['base'][k]}", "cartel", 50, ROJO)
+        p.texto((490, y + 10), "cables", "texto2", 17, TINTA, "lm")
+    return ruido(p.final(), 54)
+
+
+def carta_elevaciones(inst):
+    c = inst["canon"]
+    p = pagina("LA TABLA DE TIRO (II)", "por la elevación del cañón")
+    for k, (ang, cor) in enumerate(zip(c["elevaciones"], c["corr"])):
+        y = 190 + k * 130
+        p.rect(50, y - 54, W - 50, y + 54, (244, 230, 194), TINTA, 3)
+        bx, by = 120, y + 26
+        p.linea([(bx - 60, by), (bx + 90, by)], TINTA, 3)
+        a = math.radians(ang)
+        p.linea([(bx, by), (bx + 110 * math.cos(a), by - 110 * math.sin(a))], ROJO, 8)
+        p.disco(bx, by, 10, NEGRO)
+        p.texto((300, y), f"{ang}°", "cartel", 36, TINTA)
+        col = VERDE if cor >= 0 else ROJO
+        p.texto((440, y), ("+" if cor >= 0 else "−") + str(abs(cor)), "cartel", 50, col)
+        p.texto((490, y + 10), "cables", "texto2", 17, TINTA, "lm")
+    return ruido(p.final(), 55)
+
+
+def carta_presas(inst):
+    c = inst["canon"]
+    p = pagina("LAS TRES PRESAS", "tres barcos a tiro")
+    for k, b in enumerate(c["barcos"]):
+        y = 210 + k * 140
+        p.rect(60, y - 54, W - 60, y + 54, (244, 230, 194), TINTA, 3)
+        p.texto((100, y - 20), f"Barco {k + 1}", "cartel", 24, TINTA, "lm")
+        p.texto((100, y + 18), f"a {b['dist']} cables", "texto", 22, ROJO, "lm")
+        v = b["viento"]
+        if v:
+            for m in range(abs(v)):
+                x = 330 + m * 44
+                col = VERDE if v > 0 else ROJO
+                if v > 0:
+                    p.poli([(x, y - 22), (x + 30, y), (x, y + 22), (x + 10, y)], col, NEGRO, 2)
+                else:
+                    p.poli([(x + 30, y - 22), (x, y), (x + 30, y + 22), (x + 20, y)], col, NEGRO, 2)
+        else:
+            p.texto((380, y), "sin viento", "texto2", 20, TINTA)
+    p.rect(60, 640, W - 60, 800, (244, 230, 194), ROJO, 3)
+    p.texto((W / 2, 672), f"Quedan {c['limite']} sacos de pólvora", "cartel", 26, ROJO)
+    versos(p, ["Cada barco, una carga distinta.", "El alcance es la suma de lo que da", "la carga, la elevación y el viento."], 706, 28, 19)
+    return ruido(p.final(), 59)
+
+
+# ------------------------------------------------------------------ 37, 39 y 33: el reparto del botín
+def pirata_cara(h, cx, cy, k, rango):
+    cols = [(172, 38, 32), (36, 76, 160), (58, 116, 62), (228, 180, 56), (140, 80, 150), (230, 120, 40), (60, 60, 70)]
+    h.disco(cx, cy, 36, (222, 176, 130), NEGRO, 3)
+    h.poli([(cx - 40, cy - 14), (cx + 40, cy - 14), (cx + 28, cy - 44), (cx - 28, cy - 44)], cols[k % 7], NEGRO, 3)
+    h.disco(cx + (10 if k % 2 else -10), cy - 4, 10, NEGRO)
+    h.disco(cx + (-12 if k % 2 else 12), cy - 6, 4, BLANCO)
+    h.linea([(cx - 16, cy + 18), (cx + 16, cy + 18)], NEGRO, 3)
+    h.disco(cx, cy + 56, 16, ROJO, TINTA, 2)
+    h.texto((cx, cy + 56), str(rango), "cartel", 20, BLANCO)
+
+
+def carta_tripulacion(inst):
+    b = inst["botin"]
+    p = pagina("LA TRIPULACIÓN", "por orden de antigüedad")
+    for k in range(b["piratas"]):
+        cx = 120 + (k % 3) * 195 if k < 6 else 315
+        cy = 220 + (k // 3) * 190 if k < 6 else 600
+        pirata_cara(p, cx, cy, k, k + 1)
+    p.texto((W / 2, 740), "El 1 es el capitán.", "texto", 22, TINTA)
+    return ruido(p.final(), 37)
+
+
+def carta_codigo(inst):
+    p = pagina("EL CÓDIGO DE LA HERMANDAD", "colgado en el palo mayor")
+    versos(p, ["«Manda el más antiguo, y reparte.", "", "Todos votan: sí o no.", "Con la mitad de síes, por lo menos,", "se reparte como dijo el capitán.", "",
+               "Si no, al capitán, por la borda,", "y reparte el que sigue.", "", "Cada pirata quiere vivir;", "luego, tener más doblones;", "y, a igual botín, ver caer al capitán.»"], 175, 44, 21)
+    return ruido(p.final(), 39)
+
+
+def carta_botin(inst):
+    b = inst["botin"]
+    p = pagina("EL BOTÍN", "de la Isla Calavera")
+    for k in range(12):
+        x = 110 + (k % 6) * 85
+        y = 240 + (k // 6) * 110
+        for j in range(5):
+            doblon(p, x, y - j * 7, 30)
+    p.texto((W / 2, 480), f"{b['monedas']} doblones", "cartel", 50, ROJO)
+    p.texto((W / 2, 560), f"{b['piratas']} piratas a bordo", "cartel", 30, TINTA)
+    p.texto((W / 2, 640), "Todos votan, también el capitán.", "texto", 22, TINTA)
+    return ruido(p.final(), 33)
+
+
+# ------------------------------------------------------------------ 26, 61 y 63: las mareas
+def carta_calado(inst):
+    m = inst["mareas"]
+    p = pagina("EL PASO DE LAS BARRAS", "con La Gaviota cargada")
+    p.rect(60, 150, W - 60, 260, (244, 230, 194), TINTA, 3)
+    barco(p, 140, 230, 0.8)
+    p.texto((420, 190), "CALADO", "cartel", 26, TINTA)
+    p.texto((420, 232), f"{m['calado']} decímetros", "cartel", 30, ROJO)
+    nombres = ["Barra del Cangrejo", "Barra del Faro", "Barra Seca"]
+    for k, b in enumerate(m["barras"]):
+        y = 340 + k * 150
+        p.rect(60, y - 56, W - 60, y + 56, (244, 230, 194), TINTA, 3)
+        p.texto((90, y - 26), nombres[k], "texto", 22, TINTA, "lm")
+        p.texto((90, y + 12), "se cruza " + ("al salir" if b["tras"] == 0 else f"{b['tras']} horas después"), "texto2", 20, TINTA, "lm")
+        p.texto((W - 90, y + 8), f"+{b['fondo']} dm", "cartel", 32, ROJO, "rm")
+    versos(p, ["El agua sobre cada barra es lo que marca", "la tabla de la marea más su fondo propio."], 800, 28, 18)
+    return ruido(p.final(), 26)
+
+
+def tabla_mareas(inst):
+    m = inst["mareas"]
+    h = Hoja(W, H * 2, PERG)
+    h.rect(16, 16, W - 16, H * 2 - 16, PERG, TINTA, 4)
+    h.rect(30, 30, W - 30, H * 2 - 30, None, ORO2, 2)
+    h.texto((W / 2, 74), "LA TABLA DE LA MAREA", "cartel", 32, TINTA)
+    h.texto((W / 2, 110), "altura del agua, en decímetros, hora por hora", "texto2", 19, TINTA)
+    paso = 62
+    y0 = [150, 150 + 12 * paso + 60]
+    # las doce primeras horas arriba (hasta la mitad) y las otras doce abajo; el corte está entre las dos tandas
+    for t in range(24):
+        bloque = 0 if t < 12 else 1
+        y = (150 + t * paso) if bloque == 0 else (H + 36 + (t - 12) * paso)
+        h.texto((84, y + 24), f"{t:02d}", "cartel", 24, TINTA)
+        h.rect(120, y + 6, 120 + m["alturas"][t] * 9, y + 42, MAR, TINTA, 2)
+        h.texto((120 + m["alturas"][t] * 9 + 14, y + 24), str(m["alturas"][t]), "cartel", 22, ROJO, "lm")
+    return ruido(h.final(), 61)
+
+
+# ------------------------------------------------------------------ 70 y 71: las pesas
+def carta_cofres(inst):
+    d = inst["pesas"]
+    p = pagina("LOS COFRES DEL BOTÍN", "pesados uno a uno")
+    for k, w in enumerate(d["objetos"]):
+        y = 250 + k * 190
+        p.rect(60, y - 80, W - 60, y + 80, (244, 230, 194), TINTA, 3)
+        p.rect(100, y - 40, 250, y + 40, MADERA, NEGRO, 3)
+        p.rect(100, y - 40, 250, y - 14, MADERA2, NEGRO, 3)
+        p.disco(175, y + 4, 9, ORO, NEGRO, 2)
+        p.texto((430, y - 10), f"{w}", "cartel", 64, ROJO)
+        p.texto((430, y + 44), "libras", "texto2", 20, TINTA)
+    return ruido(p.final(), 70)
+
+
+def carta_pesas(inst):
+    d = inst["pesas"]
+    p = pagina("LAS PESAS DE HIERRO", "una de cada")
+    for k, w in enumerate(d["pesas"]):
+        x = 120 + k * 130
+        r = 22 + k * 8
+        p.poli([(x - r, 330), (x + r, 330), (x + r * 0.7, 330 - r * 1.2), (x - r * 0.7, 330 - r * 1.2)], HIERRO, NEGRO, 3)
+        p.disco(x, 330 - r * 1.3, 8, HIERRO, NEGRO, 2)
+        p.texto((x, 330 - 6), str(w), "cartel", 20 + k * 3, BLANCO)
+    p.rect(60, 420, W - 60, 530, (244, 230, 194), TINTA, 3)
+    balanza(p, W / 2, 440, ["doblon"], ["doblon"], ancho=300)
+    versos(p, ["«Cada pesa, en un solo platillo:", "con el cofre, o enfrente.", "Todas pueden quedarse fuera.»"], 700, 44, 21)
+    return ruido(p.final(), 71)
+
+
+# ------------------------------------------------------------------ 79: la entrada de la gruta
+def carta_gruta(inst):
+    r = inst["ruta"]
+    p = pagina("LA ENTRADA DE LA GRUTA", "por el lado del este")
+    ancho, alto = r["filas"], r["cols"]
+    lado = 50
+    x0, y0 = 60, 210
+    p.rect(x0 - 8, y0 - 8, x0 + ancho * lado + 8, y0 + alto * lado + 8, (200, 160, 100), TINTA, 4)
+    for y in range(alto):
+        for x in range(ancho):
+            p.rect(x0 + x * lado + 2, y0 + y * lado + 2, x0 + (x + 1) * lado - 2, y0 + (y + 1) * lado - 2, (230, 200, 136), (170, 130, 80), 1)
+    flecha_p(p, (540, y0 + alto * lado + 30), (540, y0 + alto * lado - 60), ROJO, 5, 18)
+    p.texto((540, y0 + alto * lado + 56), "ENTRADA", "texto", 15, ROJO)
+    flecha_p(p, (480, y0 - 10), (580, y0 - 10), TINTA, 4, 14)
+    p.texto((530, y0 - 34), "NORTE", "texto", 15, TINTA)
+    versos(p, ["«Se entra por el este,", "y quien entra mira a poniente:", "el norte le cae a la derecha.", "", "Es el mismo suelo del mapa,", "visto de otro lado.»"], 600, 38, 20)
+    return ruido(p.final(), 79)
+
+
+# ------------------------------------------------------------------ 86 y 87: la isla
+def icono_isla(h, k, cx, cy):
+    if k == "14":                                               # la bitácora
+        h.rect(cx - 28, cy - 30, cx + 28, cy + 30, (160, 100, 60), NEGRO, 3)
+        for a in range(3):
+            h.linea([(cx - 18, cy - 14 + a * 14), (cx + 18, cy - 14 + a * 14)], PERG, 3)
+    elif k == "40":                                             # el cielo
+        pts = []
+        for i in range(10):
+            a = -math.pi / 2 + i * math.pi / 5
+            rad = 32 if i % 2 == 0 else 13
+            pts.append((cx + rad * math.cos(a), cy + rad * math.sin(a)))
+        h.poli(pts, AMARILLO, NEGRO, 2)
+    elif k == "52":                                             # el cañón
+        h.rect(cx - 34, cy - 10, cx + 20, cy + 14, HIERRO, NEGRO, 3)
+        h.disco(cx - 14, cy + 22, 14, MADERA2, NEGRO, 3)
+    elif k == "69":                                             # la balanza
+        h.linea([(cx, cy - 28), (cx, cy + 28)], NEGRO, 4)
+        h.linea([(cx - 32, cy - 20), (cx + 32, cy - 20)], NEGRO, 4)
+        h.poli([(cx - 40, cy + 4), (cx - 24, cy + 4), (cx - 32, cy - 20)], ORO, NEGRO, 2)
+        h.poli([(cx + 24, cy + 4), (cx + 40, cy + 4), (cx + 32, cy - 20)], ORO, NEGRO, 2)
+    else:                                                       # la gruta
+        palmera(h, cx - 4, cy + 30, 0.7)
+
+
+def carta_rumbos(inst):
+    d = inst["isla"]
+    p = pagina("LOS CINCO RUMBOS", "con el norte arriba")
+    for n, k in enumerate(d["orden"]):
+        y = 205 + n * 132
+        p.rect(50, y - 54, W - 50, y + 54, (244, 230, 194), TINTA, 3)
+        icono_isla(p, k, 120, y)
+        cx, cy, r = 320, y, 40
+        p.disco(cx, cy, r, PERG, TINTA, 2)
+        dx, dy = RUMBOS_DIR[d["rumbos"][n]]
+        flecha_p(p, (cx - dx * r * 0.7, cy - dy * r * 0.7), (cx + dx * r * 0.9, cy + dy * r * 0.9), ROJO, 6, 18)
+        p.texto((cx, cy - r - 12), "N", "texto", 15, TINTA)
+        p.linea([(480, y + 12), (580, y + 12)], TINTA, 3)
+        p.texto((530, y - 18), "casillas", "texto2", 17, TINTA)
+    return ruido(p.final(), 86)
+
+
+RUMBOS_DIR = {"N": (0, -1), "NE": (0.7071, -0.7071), "E": (1, 0), "SE": (0.7071, 0.7071), "S": (0, 1), "SO": (-0.7071, 0.7071), "O": (-1, 0), "NO": (-0.7071, -0.7071)}
+
+
+def carta_isla_mapa(inst):
+    d = inst["isla"]
+    n = d["n"]
+    celda = 54
+    x0, y0 = (W - n * celda) / 2, 170
+    p = Hoja(W, H, MAR)
+    p.degradado(0, H, (80, 146, 168), (46, 104, 130))
+    p.rect(16, 16, W - 16, H - 16, None, ORO2, 4)
+    p.texto((W / 2, 70), "LA CARTA DE LA ISLA CALAVERA", "cartel", 28, BLANCO, "mm", NEGRO, 3)
+    for i in range(n):
+        for j in range(n):
+            p.rect(x0 + i * celda, y0 + j * celda, x0 + (i + 1) * celda, y0 + (j + 1) * celda, None, (190, 226, 236), 2)
+    for i in range(n):
+        p.texto((x0 + i * celda + celda / 2, y0 - 16), str(i + 1), "texto", 15, BLANCO)
+        p.texto((x0 - 18, y0 + i * celda + celda / 2), str(i + 1), "texto", 15, BLANCO)
+    rng = random.Random(87)
+    ocupadas = {tuple(c) for c in d["camino"]}
+    for _ in range(14):
+        i, j = rng.randrange(n), rng.randrange(n)
+        if (i, j) in ocupadas or abs(i - d["final"][0]) + abs(j - d["final"][1]) < 2:
+            continue
+        cx, cy = x0 + i * celda + celda / 2, y0 + j * celda + celda / 2
+        p.poli([(cx - 20, cy + 8), (cx - 12, cy - 12), (cx + 14, cy - 14), (cx + 22, cy + 6), (cx + 4, cy + 20)], ARENA, ARENA2, 2)
+        if rng.random() < 0.6:
+            palmera(p, cx, cy + 14, 0.38)
+    sx, sy = d["inicio"]
+    barco(p, x0 + sx * celda + celda / 2, y0 + sy * celda + celda / 2 + 8, 0.45)
+    p.texto((x0 + sx * celda + celda / 2, y0 + (sy + 1) * celda + 10), "SALIDA", "cartel", 13, BLANCO, "mm", NEGRO, 2)
+    rosa(p, 540, 780, 40, fondo=(244, 230, 194))
+    return ruido(p.final(), 87)
+
+
 # ================================================================== imágenes de la interfaz (img/ui)
 def ui_imagenes(carpeta, inst):
     ui = os.path.join(carpeta, "img", "ui")
@@ -778,11 +1162,22 @@ def ui_imagenes(carpeta, inst):
 
 
 # ================================================================== datos de los minijuegos
+def _dist(i, k):
+    return i["isla"]["distancias"][i["isla"]["orden"].index(k)]
+
+
 DATOS_MINIJUEGOS = {
-    "48-persecucion.js": lambda i: {k: i["persecucion"][k] for k in ("ancho", "alto", "rocas", "barco", "fragata", "niebla")},
-    "66-cofre.js": lambda i: {k: i["cielo"][k] for k in ("estrellas", "solucion")},
-    "79-suelo.js": lambda i: {k: i["losas"][k] for k in ("n", "ciclo", "suelo")},
-    "69-gruta.js": lambda i: {k: i["ruta"][k] for k in ("cols", "filas", "inicio", "celdas")},
+    "14-bitacora.js": lambda i: {"entre_horas": i["bitacora"]["entre_horas"], "entre_min": i["bitacora"]["entre_min"], "distancia": _dist(i, "14")},
+    "20-persecucion.js": lambda i: {k: i["persecucion"][k] for k in ("ancho", "alto", "rocas", "barco", "fragata", "niebla")},
+    "40-cielo.js": lambda i: {"estrellas": i["cielo"]["estrellas"], "solucion": i["cielo"]["solucion"], "distancia": _dist(i, "40")},
+    "48-suelo.js": lambda i: {k: i["losas"][k] for k in ("n", "ciclo", "suelo")},
+    "52-canon.js": lambda i: dict({k: i["canon"][k] for k in ("base", "corr", "barcos", "limite", "solucion")}, distancia=_dist(i, "52")),
+    "46-botin.js": lambda i: {k: i["botin"][k] for k in ("piratas", "monedas", "solucion", "necesarios", "previo")},
+    "51-mareas.js": lambda i: {"salida": i["mareas"]["salida"], "alturas": i["mareas"]["alturas"], "calado": i["mareas"]["calado"], "barras": i["mareas"]["barras"]},
+    "64-rumbo.js": lambda i: {"carta": i["rumbo"]["carta"], "aguja": i["rumbo"]["aguja"], "senuelos": i["rumbo"]["senuelos"]},
+    "69-pesas.js": lambda i: dict({k: i["pesas"][k] for k in ("pesas", "objetos", "solucion")}, distancia=_dist(i, "69")),
+    "72-gruta.js": lambda i: dict({k: i["ruta"][k] for k in ("cols", "filas", "inicio", "celdas")}, distancia=_dist(i, "72")),
+    "85-isla.js": lambda i: {k: i["isla"][k] for k in ("n", "inicio", "final")},
 }
 
 
@@ -790,7 +1185,11 @@ def inyectar_datos(carpeta, inst):
     """Copia en cada minijuego (entre /*DATOS*/ y /*FIN*/) su instancia, para que la app y los solucionadores usen los mismos datos."""
     for nombre, f in DATOS_MINIJUEGOS.items():
         ruta = os.path.join(carpeta, "minijuegos", nombre)
+        if not os.path.exists(ruta):
+            continue
         js = open(ruta, encoding="utf-8").read()
+        if "/*DATOS*/" not in js:
+            continue
         a, b = js.index("/*DATOS*/") + len("/*DATOS*/"), js.index("/*FIN*/")
         js = js[:a] + json.dumps(f(inst), ensure_ascii=False, separators=(", ", ": ")) + js[b:]
         open(ruta, "w", encoding="utf-8", newline="\n").write(js)
@@ -802,12 +1201,23 @@ def main(carpeta="juegos/aventuras-ca/piratas"):
     arte = os.path.join(carpeta, "arte")
     comprobar = os.path.join(arte, "comprobar")
     os.makedirs(comprobar, exist_ok=True)
-    laminas = {"30": carta_nautica(inst), "31": carta_piloto(inst), "40": carta_estiba(inst), "52": carta_ordenanza(inst),
-               "64": carta_celeste(inst), "76": carta_testamento(inst), "70": carta_mapa(inst)}
+    laminas = {"16": carta_bitacora(inst), "18": carta_ordenanza(inst), "45": carta_celeste(inst), "67": carta_piloto(inst), "66": carta_nautica(inst),
+               "53": carta_testamento(inst), "75": carta_mapa(inst), "54": carta_cargas(inst), "55": carta_elevaciones(inst), "59": carta_presas(inst),
+               "37": carta_tripulacion(inst), "39": carta_codigo(inst), "33": carta_botin(inst), "26": carta_calado(inst), "70": carta_cofres(inst),
+               "71": carta_pesas(inst), "79": carta_gruta(inst), "86": carta_rumbos(inst), "87": carta_isla_mapa(inst)}
     for k, im in laminas.items():
         im.save(os.path.join(arte, f"{k}.png"))
         if k in inst["pliegues"]:
             plegar(im, inst["pliegues"][k]).save(os.path.join(comprobar, f"{k}-plegada.png"))
+
+    def mosaico(nombre, im, filas, cols, cartas):
+        im.save(os.path.join(arte, f"mosaico-{nombre}.png"))
+        for pieza, k in zip(cortar(im, filas, cols), cartas):
+            pieza.save(os.path.join(arte, f"{k}.png"))
+    mosaico("aguas", aguas(inst), 2, 1, ("19", "21"))
+    mosaico("cielo", cielo_cofre(inst), 1, 2, ("41", "43"))
+    mosaico("suelo", suelo_cueva(inst), 1, 2, ("42", "49"))
+    mosaico("mareas", tabla_mareas(inst), 2, 1, ("61", "63"))
     ui_imagenes(carpeta, inst)
     inyectar_datos(carpeta, inst)
     print("láminas escritas en", arte, "y comprobaciones en", comprobar)

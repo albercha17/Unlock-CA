@@ -4,179 +4,232 @@
 
 ## Preparación
 
-- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 35 cartas boca abajo en el mazo.
+- **PC:** abre el juego, pulsa *Modo PC* (o *Reiniciar* si ya habías jugado). Debe haber la carta **P** en la mesa y 59 cartas boca abajo en el mazo.
 - **Móvil:** abre el juego y pulsa *Empezar* (arranca la hora). *Acción* abre un minijuego con el número de su carta y *Pista* da ayuda de esa carta.
 - **Reglas:** «Coge» → a la mesa; «Descarta» → a los descartes (se pueden recuperar). Dos cartas con la etiqueta *Combina* se suman: el resultado es la carta que coges.
 
-## Los 23 pasos
+## Los 30 pasos
 
-### Paso 1 — Llegada a bordo
+### Paso 1 — Llegada
 
-Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12.
+Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12.
 
 - **La mesa queda con:** `P` `10` `12`
 - [ ] Hecho
 
 ### Paso 2 — La cubierta de La Gaviota
 
-Lee la carta 10. Descarta la P y coge 22, 24, 30 y 31. La carta náutica (30) se pliega: en papel, en acordeón hasta que A toque B; en el Modo PC, botón «Plegar».
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la carta de aguas: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `22` `24` `30` `31`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
 - [ ] Hecho
 
-### Paso 3 — El timón
+### Paso 3 — La bitácora
 
-En el móvil: Acción, 24. Plegada, la carta 30 dice 95; el cuaderno del piloto (31) dibuja un desvío de 20 grados. Fija el timón en 115. El mensaje te dice que cojas la 26.
+En el móvil: Acción, 14. Con la bitácora (16), el tiempo entre el aviso 1 y el aviso 3 es de 8 horas y 30 minutos. El mensaje te dice que cojas la 24. Anota la distancia de la bitácora: 3.
 
-- **En el móvil:** Acción → `24`
-- **La mesa queda con:** `10` `12` `22` `24` `26` `30` `31`
+- **En el móvil:** Acción → `14`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
 - [ ] Hecho
 
-### Paso 4 — Rumbo a la Isla Calavera
+### Paso 4 — El pañol de la capitana
 
-Lee la carta 26. Descarta 10, 24, 30 y 31 y coge 35, 40 y 46. Las cartas 22 y 35 son combinables.
+Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para las mareas).
 
-- **La mesa queda con:** `12` `22` `26` `35` `40` `46`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
 
-### Paso 5 — La bodega
+### Paso 5 — La persecución
 
-En el móvil: Acción, 46. Marca con tiza las X del plano de estiba (carta 40) y empuja los tres barriles hasta ellas (hay botones para deshacer y empezar de nuevo). El mensaje te dice que cojas la 44.
+En el móvil: Acción, 20. Con la carta de aguas (19 y 21) y la ordenanza (18), una salida es: derecha, derecha, derecha, derecha, arriba, derecha, izquierda, abajo, izquierda, izquierda, izquierda, abajo, izquierda, abajo, abajo, abajo, derecha, derecha, derecha. El mensaje te dice que cojas la 28.
 
-- **En el móvil:** Acción → `46`
-- **La mesa queda con:** `12` `22` `26` `35` `40` `44` `46`
+- **En el móvil:** Acción → `20`
+- **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26` `28`
 - [ ] Hecho
 
-### Paso 6 — La bodega estibada
+### Paso 6 — El banco de niebla
 
-Lee la carta 44. Descarta 26, 40 y 46 y coge la 38, una antorcha apagada.
+Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
 
-- **La mesa queda con:** `12` `22` `35` `38` `44`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
 - [ ] Hecho
 
 ### Paso 7 — El catalejo
 
-La lente (22) y el tubo (35) son combinables: 22 + 35 = 57. Coge la 57.
+Las dos mitades de la lente (22 y 35) son combinables: 22 + 35 = 57. Coge la 57.
 
 - **Suma:** `22 + 35 = 57`
-- **La mesa queda con:** `12` `22` `35` `38` `44` `57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
 - [ ] Hecho
 
 ### Paso 8 — El catalejo
 
-Lee la carta 57. Descarta 22 y 35 y coge 48 y 52. El código de señales está en la 52.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **La mesa queda con:** `12` `38` `44` `48` `52` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
 - [ ] Hecho
 
-### Paso 9 — La persecución
+### Paso 9 — El cofre del capitán Calavera
 
-En el móvil: Acción, 48. La fragata se mueve según la ordenanza (carta 52). Una solución: derecha, esperar, izquierda, izquierda, arriba, izquierda, arriba, arriba, arriba, derecha, derecha, arriba, derecha. El mensaje te dice que cojas la 59.
+Lee la carta 31. Coge 40, 41, 43 y 45. Junta el cielo: 41 a la izquierda y 43 a la derecha.
+
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
+- [ ] Hecho
+
+### Paso 10 — La tapa del cofre
+
+En el móvil: Acción, 40. Con el cielo (41 y 43) y la carta celeste (45), las estrellas de la Calavera son 6, 11, 14, 17, 22, 25. El mensaje te dice que cojas la 30. Anota la distancia de las estrellas: 2.
+
+- **En el móvil:** Acción → `40`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
+- [ ] Hecho
+
+### Paso 11 — El cofre abierto
+
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- [ ] Hecho
+
+### Paso 12 — La entrada de la cueva
+
+Lee la carta 32. Coge 42, 48, 49 y 53. Junta el suelo: 42 a la izquierda y 49 a la derecha. Pliega el testamento (53): A sobre B.
+
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- [ ] Hecho
+
+### Paso 13 — El suelo de la cueva
+
+En el móvil: Acción, 48. Con el testamento plegado (53) y el suelo (42 y 49), el orden de los símbolos es luna, llave, calavera, corona y el camino, desde abajo: luna (fila 1, columna 5), llave (fila 1, columna 4), calavera (fila 1, columna 3), corona (fila 2, columna 3), luna (fila 2, columna 2), llave (fila 3, columna 2), calavera (fila 3, columna 3), corona (fila 3, columna 4), luna (fila 4, columna 4), llave (fila 4, columna 3), calavera (fila 5, columna 3), corona (fila 6, columna 3). El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `38` `44` `48` `52` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
 - [ ] Hecho
 
-### Paso 10 — Al pairo frente a la isla
+### Paso 14 — La santabárbara
 
-Lee la carta 59. Coge 61, 63, 65 y 67.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 
-- **La mesa queda con:** `12` `38` `44` `48` `52` `57` `59` `61` `63` `65` `67`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
 - [ ] Hecho
 
-### Paso 11 — El reloj de bitácora
+### Paso 15 — El cañón
 
-En el móvil: Acción, 61. La guardia de la tarde empieza a las 12 y cada campanada es media hora: pon el reloj a las 14:30. El mensaje te dice que cojas la 58.
+En el móvil: Acción, 52. Con las tablas (54 y 55) y las presas (59): barco 1: 4 sacos y 10°; barco 2: 3 sacos y 15°; barco 3: 1 sacos y 15°. El mensaje te dice que cojas la 44. Anota la distancia del cañón: 4.
 
-- **En el móvil:** Acción → `61`
-- **La mesa queda con:** `12` `38` `44` `48` `52` `57` `58` `59` `61` `63` `65` `67`
+- **En el móvil:** Acción → `52`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
 - [ ] Hecho
 
-### Paso 12 — Desembarco en la Isla Calavera
+### Paso 16 — La toldilla
 
-Lee la carta 58. Descarta 48, 52, 57, 59, 61, 63, 65 y 67 y coge 64 y 66.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta la tabla de la marea: 61 arriba y 63 abajo.
 
-- **La mesa queda con:** `12` `38` `44` `58` `64` `66`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 13 — La tapa del cofre
+### Paso 17 — El reparto del botín
 
-En el móvil: Acción, 66. Busca en la tapa la Calavera de la carta celeste (64), girada un tercio de vuelta, arriba a la derecha del centro; toca sus seis tachuelas y abre. El mensaje te dice que cojas la 72.
+En el móvil: Acción, 46. Con la tripulación (37), el Código (39) y el botín (33), el reparto es: 117, 0, 1, 0, 1, 0, 1. El mensaje te dice que cojas la 56.
 
-- **En el móvil:** Acción → `66`
-- **La mesa queda con:** `12` `38` `44` `58` `64` `66` `72`
+- **En el móvil:** Acción → `46`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
 - [ ] Hecho
 
-### Paso 14 — El cofre del capitán Calavera
+### Paso 18 — Las mareas
 
-Lee la carta 72. Descarta 58, 64 y 66 y coge 76 y 79. El testamento (76) también se pliega.
+En el móvil: Acción, 51. Con el calado (26) y la tabla de la marea (61 y 63), hay que salir a las 04:00. El mensaje te dice que cojas la 58.
 
-- **La mesa queda con:** `12` `38` `44` `72` `76` `79`
+- **En el móvil:** Acción → `51`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
 - [ ] Hecho
 
-### Paso 15 — El suelo de la cueva
+### Paso 19 — La bodega
 
-En el móvil: Acción, 79. Plegado, el testamento enseña, de arriba abajo: luna, llave, calavera, corona. Cruza el suelo de losa vecina en losa vecina siguiendo ese ciclo: luna (fila 1, columna 4), llave (fila 1, columna 3), calavera (fila 1, columna 2), corona (fila 1, columna 1), luna (fila 2, columna 1), llave (fila 2, columna 2), calavera (fila 3, columna 2), corona (fila 3, columna 1), luna (fila 4, columna 1), llave (fila 4, columna 2), calavera (fila 5, columna 2). El mensaje te dice que cojas la 80.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71.
 
-- **En el móvil:** Acción → `79`
-- **La mesa queda con:** `12` `38` `44` `72` `76` `79` `80`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
 
-### Paso 16 — La boca de la cueva
+### Paso 20 — La balanza
 
-Lee la carta 80. Descarta 72, 76 y 79 y coge la 56, el pedernal y el eslabón.
-
-- **La mesa queda con:** `12` `38` `44` `56` `80`
-- [ ] Hecho
-
-### Paso 17 — La antorcha encendida
-
-La antorcha (38) y el pedernal (56) son combinables: 38 + 56 = 94. Coge la 94.
-
-- **Suma:** `38 + 56 = 94`
-- **La mesa queda con:** `12` `38` `44` `56` `80` `94`
-- [ ] Hecho
-
-### Paso 18 — La antorcha encendida
-
-Lee la carta 94. Descarta 38, 56, 44 y 80 y coge 69 y 70. El mapa (70) se pliega por los dos lados.
-
-- **La mesa queda con:** `12` `69` `70` `94`
-- [ ] Hecho
-
-### Paso 19 — Cavar en la gruta
-
-En el móvil: Acción, 69. Plegado el mapa (A sobre B y C sobre D), la X está 2 casillas al este y 5 al sur de la palmera. En la gruta, con el norte a la derecha: fila 3 desde arriba, columna 2 desde la izquierda. El mensaje te dice que cojas la 82.
+En el móvil: Acción, 69. Con los cofres (70) y las pesas (71): cofre 1 (22 lb): 1 enfrente, 3 enfrente, 9 con el cofre, 27 enfrente; cofre 2 (31 lb): 1 enfrente, 3 enfrente, 27 enfrente; cofre 3 (17 lb): 1 con el cofre, 9 con el cofre, 27 enfrente. El mensaje te dice que cojas la 80. Anota la distancia de la balanza: 1.
 
 - **En el móvil:** Acción → `69`
-- **La mesa queda con:** `12` `69` `70` `82` `94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71` `80`
 - [ ] Hecho
 
-### Paso 20 — El tesoro de Calavera
+### Paso 21 — La playa
 
-Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía.
+Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79. Pliega el mapa (75): A sobre B y C sobre D.
 
-- **La mesa queda con:** `12` `62` `82`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80`
 - [ ] Hecho
 
-### Paso 21 — Cristal en el Cronoportal
+### Paso 22 — Cavar en la gruta
+
+En el móvil: Acción, 72. Con el mapa plegado (75) y el plano de la gruta (79), la X está 2 casillas al este y 5 al sur de la palmera. El mensaje te dice que cojas la 82. Anota la distancia de la gruta: 2.
+
+- **En el móvil:** Acción → `72`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `72` `75` `79` `80` `82`
+- [ ] Hecho
+
+### Paso 23 — El camarote de la capitana
+
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
+
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
+- [ ] Hecho
+
+### Paso 24 — La llave de la capitana
+
+Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94.
+
+- **Suma:** `38 + 56 = 94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 25 — El cofre de la capitana
+
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Pliega la carta náutica (66): A sobre B.
+
+- **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 26 — El timón
+
+En el móvil: Acción, 64. Con la carta náutica plegada (66) y el cuaderno del piloto (67), el rumbo de la aguja es 111. El mensaje te dice que cojas la 62.
+
+- **En el móvil:** Acción → `64`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `82` `85` `86` `87` `94`
+- [ ] Hecho
+
+### Paso 27 — El cristal
 
 El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74.
 
 - **Suma:** `12 + 62 = 74`
-- **La mesa queda con:** `12` `62` `74` `82`
+- **La mesa queda con:** `12` `57` `62` `64` `66` `67` `74` `82` `85` `86` `87` `94`
 - [ ] Hecho
 
-### Paso 22 — Cronoportal reconectado
+### Paso 28 — Cronoportal con el cristal
 
-Lee la carta 74. Descarta 62, 12 y 82 y coge la 99.
+Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57.
 
-- **La mesa queda con:** `74` `99`
+- **La mesa queda con:** `74` `82` `85` `86` `87`
 - [ ] Hecho
 
-### Paso 23 — Final
+### Paso 29 — El punto de la niebla
 
-Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
+En el móvil: Acción, 85. Con los rumbos (86) y la carta de la isla (87), y las distancias de la bitácora, las estrellas, el cañón, la balanza y la gruta, el ancla se echa en la columna 6, fila 5. El mensaje te dice que cojas la 99.
+
+- **En el móvil:** Acción → `85`
+- **La mesa queda con:** `74` `82` `85` `86` `87` `99`
+- [ ] Hecho
+
+### Paso 30 — Final
+
+Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!
 
 - **La mesa queda con:** `99`
 - [ ] Hecho
@@ -185,42 +238,66 @@ Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
-| P | Llegada a bordo | Normal | Coge 10, 12 | Inicio: llegada a bordo. Te manda coger la 10 y la 12. | 1 |
-| 10 | La cubierta de La Gaviota | Normal | Coge 22, 24, 30, 31; Descarta P | La cubierta: reparte el timón, la carta náutica, el cuaderno del piloto y la lente. | 1 |
-| 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | El Cronoportal sin cristal: se combina con el cristal de energía (62). | 1 |
-| 22 | Lente de catalejo | Combina | Combinable: suma los números | Lente de catalejo: se combina con el tubo (35). | 2 |
-| 24 | El timón | App | — | El timón (app): rumbo de la carta plegada + desvío de la aguja. | 2 |
-| 26 | Rumbo a la Isla Calavera | Normal | Coge 35, 40, 46; Descarta 10, 24, 30, 31 | Rumbo a la isla: reparte la bodega, el plano y el tubo del catalejo. | 3 |
-| 30 | Carta náutica (se pliega) | Normal | — | Carta náutica que se pliega: el rumbo verdadero. | 2 |
-| 31 | Cuaderno del piloto | Normal | — | Cuaderno del piloto: el desvío de la aguja. | 2 |
-| 35 | Tubo de catalejo | Combina | Combinable: suma los números | Tubo de catalejo: se combina con la lente (22). | 4 |
-| 38 | Antorcha apagada | Combina | Combinable: suma los números | Antorcha apagada: se combina con el pedernal (56). | 6 |
-| 40 | Plano de estiba | Normal | — | Plano de estiba: las X de los barriles. | 4 |
-| 44 | La bodega estibada | Normal | Coge 38; Descarta 26, 40, 46 | La bodega estibada: reparte la antorcha. | 5 |
-| 46 | La bodega | App | — | La bodega (app): empujar los barriles a las X. | 4 |
-| 48 | La persecución | App | — | La persecución (app): llegar a la niebla sin que la fragata os alcance. | 8 |
-| 52 | Ordenanza de la Armada | Normal | — | Ordenanza de la Armada: cómo se mueve la fragata. | 8 |
-| 56 | Pedernal y eslabón | Combina | Combinable: suma los números | Pedernal y eslabón: se combina con la antorcha (38). | 16 |
-| 57 | El catalejo | Normal | Coge 48, 52; Descarta 22, 35 | El catalejo (22 + 35): reparte la persecución y la ordenanza. | 7 |
-| 58 | Desembarco en la Isla Calavera | Normal | Coge 64, 66; Descarta 48, 52, 57, 59, 61, 63, 65, 67 | Desembarco: aparece al pasar los arrecifes. | 11 |
-| 59 | Al pairo frente a la isla | Normal | Coge 61, 63, 65, 67 | Al pairo frente a la isla: reparte el reloj, los cuadros y el diario. | 9 |
-| 61 | El reloj de bitácora | App | — | El reloj de bitácora (app): la hora de la marea. | 10 |
-| 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía: se combina con el Cronoportal (12). | 20 |
-| 63 | Las guardias | Normal | — | Cuadro de las guardias. | 10 |
-| 64 | Carta celeste | Normal | — | Carta celeste: la constelación de la Calavera. | 12 |
-| 65 | Las campanadas | Normal | — | Cuadro de las campanadas. | 10 |
-| 66 | La tapa del cofre | App | — | La tapa del cofre (app): las seis tachuelas de la Calavera girada. | 12 |
-| 67 | Diario de la capitana | Normal | — | Diario de la capitana: guardia y campanadas. | 10 |
-| 69 | Cavar en la gruta | App | — | Cavar en la gruta (app): la X del mapa plegado, con el suelo girado. | 18 |
-| 70 | Mapa de la isla (se pliega) | Normal | — | Mapa de la isla que se pliega por los dos lados: dónde está la X. | 18 |
-| 72 | El cofre del capitán Calavera | Normal | Coge 76, 79; Descarta 58, 64, 66 | El cofre de Calavera: reparte el testamento y el suelo de la cueva. | 13 |
-| 74 | Cronoportal reconectado | Normal | Coge 99; Descarta 62, 12, 82 | Cronoportal reconectado (62 + 12): reparte la 99. | 21 |
-| 76 | Testamento (se pliega) | Normal | — | Testamento que se pliega: el ciclo de símbolos del suelo. | 14 |
-| 79 | El suelo de la cueva | App | — | El suelo de la cueva (app): cruzar por losas vecinas siguiendo el ciclo. | 14 |
-| 80 | La boca de la cueva | Normal | Coge 56; Descarta 72, 76, 79 | La boca de la cueva: reparte el pedernal. | 15 |
-| 82 | El tesoro de Calavera | Normal | Coge 62; Descarta 69, 70, 94 | El tesoro: reparte el cristal de energía. | 19 |
-| 94 | La antorcha encendida | Normal | Coge 69, 70; Descarta 38, 56, 44, 80 | La antorcha encendida (38 + 56): reparte la gruta y el mapa. | 17 |
-| 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | Final de la aventura, ya en casa. | 22 |
+| P | Llegada a bordo | Normal | Coge 10, 12 | Llegada a bordo | 1 |
+| 10 | La cubierta de La Gaviota | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | La cubierta de La Gaviota | 1 |
+| 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | Cronoportal sin cristal | 1 |
+| 14 | La bitácora | App | — | La bitácora | 2 |
+| 16 | La bitácora | Normal | — | La bitácora | 2 |
+| 18 | La ordenanza de la Armada | Normal | — | La ordenanza de la Armada | 2 |
+| 19 | La carta de aguas de la bahía (mitad de arriba) | Normal | — | La carta de aguas de la bahía (mitad de arriba) | 2 |
+| 20 | La persecución | App | — | La persecución | 2 |
+| 21 | La carta de aguas de la bahía (mitad de abajo) | Normal | — | La carta de aguas de la bahía (mitad de abajo) | 2 |
+| 22 | Media lente de catalejo | Combina | Combinable: suma los números | Media lente de catalejo | 2 |
+| 24 | El pañol de la capitana | Normal | Coge 26; Descarta 14, 16 | El pañol de la capitana | 3 |
+| 26 | El paso de las barras | Normal | — | El paso de las barras | 4 |
+| 28 | El banco de niebla | Normal | Coge 35; Descarta 18, 19, 20, 21 | El banco de niebla | 5 |
+| 30 | El cofre abierto | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | El cofre abierto | 10 |
+| 31 | El cofre del capitán Calavera | Normal | Coge 40, 41, 43, 45 | El cofre del capitán Calavera | 8 |
+| 32 | La entrada de la cueva | Normal | Coge 42, 48, 49, 53 | La entrada de la cueva | 8 |
+| 33 | El botín | Normal | — | El botín | 16 |
+| 35 | Otra media lente de catalejo | Combina | Combinable: suma los números | Otra media lente de catalejo | 6 |
+| 36 | La santabárbara | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | La santabárbara | 13 |
+| 37 | La tripulación | Normal | — | La tripulación | 16 |
+| 38 | Mitad de la llave de la capitana | Combina | Combinable: suma los números | Mitad de la llave de la capitana | 11 |
+| 39 | El Código de la Hermandad | Normal | — | El Código de la Hermandad | 16 |
+| 40 | La tapa del cofre | App | — | La tapa del cofre | 9 |
+| 41 | El cielo de la tapa del cofre (mitad izquierda) | Normal | — | El cielo de la tapa del cofre (mitad izquierda) | 9 |
+| 42 | El suelo de la cueva (mitad izquierda) | Normal | — | El suelo de la cueva (mitad izquierda) | 12 |
+| 43 | El cielo de la tapa del cofre (mitad derecha) | Normal | — | El cielo de la tapa del cofre (mitad derecha) | 9 |
+| 44 | La toldilla | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La toldilla | 15 |
+| 45 | La carta celeste | Normal | — | La carta celeste | 9 |
+| 46 | El reparto del botín | App | — | El reparto del botín | 16 |
+| 48 | El suelo de la cueva | App | — | El suelo de la cueva | 12 |
+| 49 | El suelo de la cueva (mitad derecha) | Normal | — | El suelo de la cueva (mitad derecha) | 12 |
+| 51 | Las mareas | App | — | Las mareas | 16 |
+| 52 | El cañón | App | — | El cañón | 14 |
+| 53 | Testamento (se pliega) | Normal | — | Testamento (se pliega) | 12 |
+| 54 | La tabla de tiro (I) | Normal | — | La tabla de tiro (I) | 14 |
+| 55 | La tabla de tiro (II) | Normal | — | La tabla de tiro (II) | 14 |
+| 56 | Otra mitad de la llave | Combina | Combinable: suma los números | Otra mitad de la llave | 17 |
+| 57 | El catalejo | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | El catalejo | 7 |
+| 58 | La bodega | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | La bodega | 18 |
+| 59 | Las tres presas | Normal | — | Las tres presas | 14 |
+| 61 | La tabla de la marea (mitad de arriba) | Normal | — | La tabla de la marea (mitad de arriba) | 16 |
+| 62 | El cristal del Cronoportal | Combina | Combinable: suma los números | El cristal del Cronoportal | 26 |
+| 63 | La tabla de la marea (mitad de abajo) | Normal | — | La tabla de la marea (mitad de abajo) | 16 |
+| 64 | El timón | App | — | El timón | 25 |
+| 66 | Carta náutica (se pliega) | Normal | — | Carta náutica (se pliega) | 25 |
+| 67 | El cuaderno del piloto | Normal | — | El cuaderno del piloto | 25 |
+| 69 | La balanza | App | — | La balanza | 19 |
+| 70 | Los cofres del botín | Normal | — | Los cofres del botín | 19 |
+| 71 | Las pesas de hierro | Normal | — | Las pesas de hierro | 19 |
+| 72 | Cavar en la gruta | App | — | Cavar en la gruta | 21 |
+| 74 | Cronoportal con el cristal | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | Cronoportal con el cristal | 27 |
+| 75 | Mapa de la isla (se pliega) | Normal | — | Mapa de la isla (se pliega) | 21 |
+| 79 | La entrada de la gruta | Normal | — | La entrada de la gruta | 21 |
+| 80 | La playa | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | La playa | 20 |
+| 82 | El camarote de la capitana | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | El camarote de la capitana | 22 |
+| 85 | El punto de la niebla | App | — | El punto de la niebla | 23 |
+| 86 | Los cinco rumbos | Normal | — | Los cinco rumbos | 23 |
+| 87 | La carta de la Isla Calavera | Normal | — | La carta de la Isla Calavera | 23 |
+| 94 | El cofre de la capitana | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | El cofre de la capitana | 24 |
+| 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | De vuelta a casa (FIN) | 29 |
 
 ## Si algo no cuadra
 

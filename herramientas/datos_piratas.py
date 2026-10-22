@@ -1,16 +1,21 @@
-"""Mar de las Brumas, 1715: El Tesoro de la Isla Calavera. Duodécima parada del Cronoportal: un barco pirata en el Caribe. La mecánica de cartas
-nueva son las CARTAS QUE SE PLIEGAN (como los «fold-in» de la revista MAD): una carta náutica, un testamento y un mapa que, plegados en acordeón
-hasta que la línea A toque la B (y la C, la D), enseñan lo que desplegados esconden. Los puzles de la app tampoco se han usado antes: timón con
-brújula y desvío de la aguja, bodega de barriles (empujar), persecución de una fragata con regla fija (como el Minotauro), constelación
-girada en la tapa de un cofre, suelo de losas que se cruza siguiendo un ciclo de símbolos y cavar en un mapa visto girado. Las cartas que se dibujan por código (30, 31, 40, 52, 64, 70 y 76) las hace herramientas/piratas.py
-(a partir de instancias_piratas.json)."""
-import json
-import os
+"""Mar de las Brumas, 1715: El Tesoro de la Isla Calavera — versión de 60 cartas (22 oct 2026), mucho más difícil y variada.
 
-_AQUI = os.path.dirname(os.path.abspath(__file__))
-INST = json.load(open(os.path.join(_AQUI, "instancias_piratas.json"), encoding="utf-8"))
+La mecánica de cartas propia siguen siendo las CARTAS QUE SE PLIEGAN (como los «fold-in» de la revista MAD): una carta náutica, un testamento y un mapa que,
+plegados en acordeón hasta que la línea A toque la B (y la C, la D), enseñan lo que desplegados esconden. Once puzles de tipos que no salen en ningún otro
+juego de la serie, con las pistas dibujadas o en acertijo: una bitácora de guardias y campanadas, una persecución de fragata con regla fija (como el
+Minotauro), una constelación girada entre treinta y seis estrellas, un suelo de losas que sigue los símbolos de un testamento plegado, una tabla de tiro
+de cañón, el reparto del botín entre siete piratas (inducción hacia atrás), las mareas y las barras de arena, un timón con la aguja torcida, una balanza
+con pesas en los dos platillos, el mapa plegado de una isla y un último viaje con cinco rumbos. Solo 16 cartas tienen a Cristina y Alberto (escenas); el
+resto son objetos y pistas sin personas. Las cartas-pista las dibuja herramientas/piratas.py (instancias_piratas.py)."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ampliacion as _amp  # noqa: E402
+import instancias_piratas as I  # noqa: E402
+
+INST = I.INST
 RUMBO = INST["rumbo"]
-PERSIGUE = INST["persecucion"]
 LOSAS = INST["losas"]
 RUTA = INST["ruta"]
 _W, _H = INST["lamina"]
@@ -25,14 +30,6 @@ def _plegado(k):
         out["y"] = [round(p["y"][0] / _H, 4), round(p["y"][1] / _H, 4)]
     return out
 
-
-_PERSIGUE = ", ".join(PERSIGUE["solucion"])
-_CICLO = ", ".join(LOSAS["ciclo"])
-_SUELO = ", ".join(f"{LOSAS['suelo'][y][x]} (fila {LOSAS['n'] - y}, columna {x + 1})" for x, y in LOSAS["camino"])
-_xm, _ym = RUTA["celdas"][-1]
-_xp, _yp = RUTA["inicio"]
-_X = f"{_xm - _xp} casillas al este y {_ym - _yp} al sur de la palmera"
-_XG = f"fila {_xm + 1} desde arriba, columna {RUTA['filas'] - _ym} desde la izquierda"
 
 ESTILO = ("Ilustración pictórica semirrealista de aventuras de piratas, como una portada de novela de aventuras clásica: mar turquesa del Caribe, "
           "velas blancas y remendadas, madera gastada, cuerdas, faroles de aceite, luz cálida de atardecer y brumas suaves sobre el agua, formato vertical 2:3. "
@@ -61,375 +58,290 @@ VIDEO = ("Crea un vídeo vertical 9:16 de 15 segundos, con estilo cinematográfi
          "Escena 4 (12-15 s): primer plano de Cristina y Alberto, ya vestidos de piratas, boquiabiertos, mientras una capitana con sombrero de plumas recoge el cristal del loro y sonríe; fundido a negro. "
          "Sonido: zumbido eléctrico creciente, silbido del portal, golpe de madera al aterrizar, olas, gaviotas, graznido de loro y una música de acordeón marinero, sin voz de narrador.")
 
+SIN_GENTE = "Sin ninguna persona en la imagen. "
 
-def pieza(titulo, que):
-    return f"Carta dibujada por código (herramientas/piratas.py; no se pide a ChatGPT): {que} de «{titulo}»."
+MOSAICOS = {
+    "aguas": dict(filas=2, cols=1, cartas=["19", "21"], titulo="La carta de aguas de la bahía"),
+    "cielo": dict(filas=1, cols=2, cartas=["41", "43"], titulo="El cielo de la tapa del cofre"),
+    "suelo": dict(filas=1, cols=2, cartas=["42", "49"], titulo="El suelo de la cueva"),
+    "mareas": dict(filas=2, cols=1, cartas=["61", "63"], titulo="La tabla de la marea"),
+}
+POS = {(2, 1): ["mitad de arriba", "mitad de abajo"], (1, 2): ["mitad izquierda", "mitad derecha"]}
+
+_B = INST["bitacora"]
+_S_BIT = f"{_B['entre_horas']} horas" + (f" y {_B['entre_min']} minutos" if _B["entre_min"] else "")
+_S_PER = ", ".join(INST["persecucion"]["solucion"])
+_S_CIE = ", ".join(str(n) for n in INST["cielo"]["solucion"])
+_S_CICLO = ", ".join(LOSAS["ciclo"])
+_S_SUE = ", ".join(f"{LOSAS['suelo'][y][x]} (fila {LOSAS['n'] - y}, columna {x + 1})" for x, y in LOSAS["camino"])
+_C = INST["canon"]
+_S_CAN = "; ".join(f"barco {i + 1}: {c + 1} sacos y {_C['elevaciones'][a]}°" for i, (c, a) in enumerate(_C["solucion"]))
+_S_BOT = ", ".join(str(x) for x in INST["botin"]["solucion"])
+_M = INST["mareas"]
+_S_MAR = f"{_M['salida']:02d}:00"
+_S_RUM = str(RUMBO["aguja"])
+_P = INST["pesas"]
+_S_PES = "; ".join(f"cofre {o + 1} ({w} lb): " + (", ".join(f"{p} {'con el cofre' if c < 0 else 'enfrente'}" for p, c in zip(_P["pesas"], s) if c) or "ninguna") for o, (w, s) in enumerate(zip(_P["objetos"], _P["solucion"])))
+_xm, _ym = RUTA["celdas"][-1]
+_xp, _yp = RUTA["inicio"]
+_S_GRU = f"{_xm - _xp} casillas al este y {_ym - _yp} al sur de la palmera"
+_ISL = INST["isla"]
+_S_ISL = f"columna {_ISL['final'][0] + 1}, fila {_ISL['final'][1] + 1}"
+_D = dict(zip(_ISL["orden"], _ISL["distancias"]))
+
+
+def codigo(que):
+    return f"Carta dibujada por código (herramientas/piratas.py; no se pide a ChatGPT): {que}."
+
+
+def pieza(carta, mosaico, que, pistas):
+    m = MOSAICOS[mosaico]
+    i = m["cartas"].index(carta)
+    pos = POS[(m["filas"], m["cols"])][i]
+    return dict(titulo=f"Carta {carta} — {m['titulo']} ({pos})", tipo="gris",
+                mosaico=dict(id=mosaico, filas=m["filas"], cols=m["cols"], fila=i // m["cols"], col=i % m["cols"]),
+                descripcion=[que], pistas=pistas, arte=codigo(f"{pos} de «{m['titulo']}»"))
+
+
+def gris(carta, titulo, que, pistas):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=[que], pistas=pistas, arte=codigo(titulo))
+
+
+def plegable(carta, titulo, que, pistas):
+    c = gris(carta, titulo, que, pistas)
+    c["plegado"] = _plegado(carta)
+    return c
+
+
+def app(carta, titulo, que, sale, pistas, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo="verde", descripcion=[que, f"Al resolverlo, coged la carta {sale}."], pistas=pistas, arte=arte)
+
+
+def _lista(xs):
+    xs = [str(x) for x in xs]
+    return ", ".join(xs[:-1]) + " y " + xs[-1] if len(xs) > 1 else xs[0]
+
+
+def escena(carta, titulo, coge, descarta, texto, pistas, arte):
+    partes = []
+    if coge:
+        partes.append("Coged las cartas " + _lista(coge) + "." if len(coge) > 1 else f"Coged la carta {coge[0]}.")
+    if descarta:
+        partes.append("Descartad " + ("las cartas " + _lista(descarta) if len(descarta) > 1 else f"la carta {descarta[0]}") + ".")
+    lineas = [texto, " ".join(partes)]
+    c = dict(titulo=f"Carta {carta} — {titulo}", tipo="gris", descripcion=lineas, pistas=pistas + [lineas[-1]], arte=arte)
+    if coge:
+        c["coge"] = coge
+    if descarta:
+        c["descarta"] = descarta
+    return c
+
+
+def combinable(carta, titulo, color, con, da, que, arte):
+    return dict(titulo=f"Carta {carta} — {titulo}", tipo=color, combina=[con, da],
+                descripcion=[que, f"Combinadla con la carta {con}: sumad sus números ({carta} + {con} = {da}) y coged la carta {da}."],
+                pistas=[que.split(".")[0] + ".", f"Se combina con la carta {con}.", f"{carta} + {con} = {da}."], arte=arte)
 
 
 J = {
-    "P": dict(
-        titulo="Carta P — Llegada a bordo", tipo="gris", coge=[10, 12],
-        descripcion=[
-            "Duodécima parada del Cronoportal: el Mar de las Brumas, en 1715. Aterrizáis sobre la cubierta de La Gaviota, un bergantín pirata, entre cuerdas y barriles. Antes de que os pongáis en pie, un loro verde y rojo baja en picado y se lleva en el pico el cristal de energía del aparato.",
-            "El loro se llama Doblón y es de la capitana Leonor Bruma, que guarda el cristal en su cofre: «Una gema así paga el pasaje de dos polizones... salvo que me ayudéis a encontrar el tesoro del capitán Calavera antes de que la marea cubra su cueva, al ponerse el sol».",
-            "Coged las cartas 10 y 12."],
-        pistas=["Mirad a vuestro alrededor y revisad el aparato.", "Coged las cartas 10 y 12."],
-        arte="La cubierta de un bergantín pirata al atardecer, con cuerdas, barriles y velas remendadas. Un loro verde y rojo vuela con un cristal rojo brillante en el pico. En primer plano, el Cronoportal, un aparato de latón y cristal, humea en el suelo de madera. Cristina, despeinada y con la boca abierta de sorpresa, señala al loro, y Alberto, en el suelo, se sujeta el tricornio con cara de incredulidad."),
-    "10": dict(
-        titulo="Carta 10 — La cubierta de La Gaviota", tipo="gris", coge=[22, 24, 30, 31], descarta=["P"],
-        descripcion=[
-            "La capitana Bruma os lleva al timón: «El piloto se ha bebido el ron de la semana. Fijad vosotros el rumbo a la Isla Calavera». Os da la carta náutica (carta 30), que hay que plegar como hacía su piloto, y el cuaderno del piloto (carta 31). Junto al timón (carta 24), Cristina encuentra una lente de catalejo suelta (carta 22).",
-            "Coged las cartas 22, 24, 30 y 31. Descartad la carta P."],
-        pistas=["Hay un puzle: el timón, la carta náutica y el cuaderno del piloto.", "La carta náutica (30) es una carta que se pliega: buscad las líneas A y B.", "Coged las cartas 22, 24, 30 y 31. Descartad la carta P."],
-        arte="La cubierta de un bergantín pirata con un gran timón de madera, el mástil y las velas hinchadas por el viento; una capitana con sombrero de plumas y casaca roja señala el horizonte con un loro en el hombro. Cristina recoge del suelo una lente de cristal con curiosidad y los ojos entrecerrados, y Alberto sujeta un mapa enrollado con gesto de preocupación."),
-    "12": dict(
-        titulo="Carta 12 — Cronoportal sin cristal", tipo="azul", combina=[62, 74],
-        descripcion=[
-            "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía. Alberto: «Sin el cristal no hay vuelta a casa. Y la capitana no lo soltará sin su tesoro».",
-            "Cuando recuperéis el cristal (carta 62), combinadlo con el Cronoportal: sumad sus números (12 + 62 = 74) y coged la carta 74."],
-        pistas=["Le falta una pieza: el cristal de energía.", "Combinad la carta 12 con la carta 62.", "Sumad los números de las dos cartas: 12 + 62 = 74."],
-        arte="Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, apoyado sobre la madera mojada de la cubierta de un barco, con cuerdas y un barril desenfocados al fondo."),
-    "22": dict(
-        titulo="Carta 22 — Lente de catalejo", tipo="azul", combina=[35, 57],
-        descripcion=["Una lente de cristal gruesa, con un aro de latón: es de un catalejo. Combinadla con el tubo del catalejo (carta 35): sumad sus números (22 + 35 = 57) y coged la carta 57."],
-        pistas=["Es la lente de un catalejo, pero le falta el tubo.", "Cuando encontréis el tubo, combinadlo con la lente.", "Sumad los números de las dos cartas: 22 + 35 = 57."],
-        arte="Una lente de catalejo de cristal grueso con un aro de latón, sobre las tablas mojadas de la cubierta de un barco, con un reflejo del atardecer en el cristal, vista de cerca."),
-    "30": dict(
-        titulo="Carta 30 — Carta náutica (se pliega)", tipo="gris", plegado=_plegado("30"),
-        descripcion=["La carta náutica del Mar de las Brumas. Es una carta que SE PLIEGA: hay que doblarla en acordeón hasta que la línea A toque la línea B, de modo que la franja de en medio quede escondida detrás. Plegada, los arrecifes dibujan el rumbo verdadero a la Isla Calavera. En el Modo PC, botón «Plegar»."],
-        pistas=["Desplegada engaña: los arrecifes forman otros números. Buscad las líneas A y B.", "Plegadla en acordeón hasta que A toque B (en el Modo PC, botón «Plegar»): los arrecifes de los dos lados se juntan. Leed de arriba abajo.", f"Plegada, la carta dice {RUMBO['carta']}: es el rumbo verdadero."],
-        arte=pieza("Carta náutica", "la carta plegable con los arrecifes")),
-    "31": dict(
-        titulo="Carta 31 — Cuaderno del piloto", tipo="gris",
-        descripcion=["El cuaderno del piloto: una brújula dibujada en la que la aguja no apunta a la estrella polar (el norte verdadero), sino un poco al oeste. Entre la estrella y la aguja hay un arco con rayitas de 5 grados. Para gobernar con la aguja: rumbo de la carta + desvío."],
-        pistas=["Es lo que hay que corregir al rumbo de la carta náutica (carta 30).", "Contad los huecos entre las rayitas del arco, entre la estrella y la aguja: cada uno son 5 grados. Ese es el desvío, y se suma.", f"El desvío es de {RUMBO['desvio']} grados: el rumbo de la aguja es {RUMBO['carta']} + {RUMBO['desvio']} = {RUMBO['aguja']}."],
-        arte=pieza("Cuaderno del piloto", "la brújula con el desvío")),
-    "24": dict(
-        titulo="Carta 24 — El timón", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un timón con su brújula. Se gira la rosa de 5 en 5 grados hasta el rumbo que debe marcar la aguja y se fija. El rumbo verdadero sale de la carta náutica plegada (carta 30) y el desvío de la aguja, del cuaderno del piloto (carta 31).",
-            "Al acertar, La Gaviota pone proa a la Isla Calavera. Coged la carta 26."],
-        pistas=["Hacen falta las dos cartas: la carta náutica plegada (30) y el cuaderno del piloto (31).", "Plegad la carta 30 para leer el rumbo verdadero y sumadle el desvío de la aguja que dibuja la carta 31.", f"Fijad el timón en {RUMBO['aguja']} grados ({RUMBO['carta']} + {RUMBO['desvio']})."],
-        arte="El gran timón de madera de un bergantín pirata con una bitácora de latón y una brújula iluminada por un farol, el mar al atardecer al fondo. Alberto gira el timón con fuerza y la mandíbula apretada de esfuerzo y Cristina mira la brújula con la nariz arrugada de concentración."),
-    "26": dict(
-        titulo="Carta 26 — Rumbo a la Isla Calavera", tipo="gris", coge=[35, 40, 46], descarta=[10, 24, 30, 31],
-        descripcion=[
-            "La Gaviota vira y navega a toda vela. Pero una ola de costado hace crujir el casco: en la bodega, los barriles de pólvora se han soltado y ruedan junto a la cocina. El contramaestre os da el plano de estiba (carta 40) y os manda abajo (carta 46). Entre los cabos, Alberto encuentra el tubo de un catalejo sin lente (carta 35).",
-            "Coged las cartas 35, 40 y 46. Descartad las cartas 10, 24, 30 y 31."],
-        pistas=["Hay dos cosas: la bodega y el tubo del catalejo.", "Las cartas 22 y 35 son combinables. El plano de estiba (40) sirve para la bodega (46).", "Coged las cartas 35, 40 y 46. Descartad las cartas 10, 24, 30 y 31."],
-        arte="Un bergantín pirata navegando a toda vela por un mar picado al atardecer, con espuma saltando por la borda y gaviotas. Cristina se agarra a un cabo con el pelo al viento y una carcajada de emoción, y Alberto, empapado por una ola, levanta un tubo de catalejo de latón con cara de sorpresa."),
-    "35": dict(
-        titulo="Carta 35 — Tubo de catalejo", tipo="roja", combina=[22, 57],
-        descripcion=["El tubo de latón de un catalejo, con sus anillas, pero sin la lente de delante. Combinadlo con la lente (carta 22): sumad sus números (35 + 22 = 57) y coged la carta 57."],
-        pistas=["Es un catalejo al que le falta la lente.", "Combinad la carta 35 con la carta 22.", "Sumad los números de las dos cartas: 35 + 22 = 57."],
-        arte="El tubo de latón de un catalejo plegable, sin lente delantera, enredado entre cabos y redes sobre la cubierta de un barco, con gotas de agua de mar y luz dorada, visto de cerca."),
-    "40": dict(
-        titulo="Carta 40 — Plano de estiba", tipo="gris",
-        descripcion=["El plano de la bodega de La Gaviota, con la proa arriba: las cuadernas por donde no se puede pasar y unas X rojas donde deben ir los barriles de pólvora, lejos de la cocina."],
-        pistas=["Es el plano de la bodega (carta 46).", "En la app no se ven las X: marcadlas con tiza (tocad las casillas) copiándolas del plano, con la proa arriba.", "Hay que dejar un barril sobre cada X del plano."],
-        arte=pieza("Plano de estiba", "el plano de la bodega")),
-    "46": dict(
-        titulo="Carta 46 — La bodega", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la bodega vista desde arriba, con tres barriles de pólvora sueltos. Se mueve al marinero con las flechas y empuja los barriles (no se puede tirar de ellos). Hay que dejarlos sobre las X del plano de estiba (carta 40), que en la app no se ven: se pueden marcar con tiza.",
-            "Al estibarlos, el contramaestre respira tranquilo. Coged la carta 44."],
-        pistas=["Copiad las X del plano de estiba (carta 40) con la tiza: tocad esas casillas.", "Los barriles solo se pueden empujar: no dejéis ninguno en un rincón ni pegado a una cuaderna si no es su X. Hay botones para deshacer y empezar de nuevo.", "Llevad primero a su X el barril que está más lejos de la cocina y despejad el camino de los otros dos."],
-        arte="La bodega de un barco pirata a la luz de un farol, con barriles de pólvora tumbados que ruedan entre sacos y cuadernas de madera. Cristina empuja un barril con el hombro y los dientes apretados de esfuerzo y Alberto señala un hueco con el farol en alto y cara de alarma."),
-    "44": dict(
-        titulo="Carta 44 — La bodega estibada", tipo="gris", coge=[38], descarta=[26, 40, 46],
-        descripcion=[
-            "Los barriles quedan bien sujetos sobre sus X. El contramaestre os da las gracias y una antorcha apagada (carta 38): «En la Isla Calavera hay una cueva, y dentro no se ve ni la mano».",
-            "Coged la carta 38. Descartad las cartas 26, 40 y 46."],
-        pistas=["Mirad lo que os da el contramaestre.", "La carta 38 es combinable.", "Coged la carta 38. Descartad las cartas 26, 40 y 46."],
-        arte="La bodega de un barco pirata con los barriles de pólvora bien atados con cuerdas, a la luz de un farol; un contramaestre tuerto y fornido entrega una antorcha apagada. Alberto la coge con una sonrisa de orgullo y Cristina se seca el sudor de la frente con cara de alivio."),
-    "38": dict(
-        titulo="Carta 38 — Antorcha apagada", tipo="azul", combina=[56, 94],
-        descripcion=["Una antorcha de madera envuelta en trapos con brea, apagada. Combinadla con el pedernal y el eslabón (carta 56): sumad sus números (38 + 56 = 94) y coged la carta 94."],
-        pistas=["Es una antorcha, pero no tenéis con qué encenderla.", "Cuando tengáis el pedernal, combinadlo con la antorcha.", "Sumad los números de las dos cartas: 38 + 56 = 94."],
-        arte="Una antorcha de madera envuelta en trapos negros de brea, apagada, apoyada en un barril de un barco, con cuerdas alrededor y luz de farol, vista de cerca."),
-    "57": dict(
-        titulo="Carta 57 — El catalejo", tipo="gris", coge=[48, 52], descarta=[22, 35],
-        descripcion=[
-            "Con la lente en su sitio, Cristina mira por el catalejo y se le corta la respiración: una fragata de la Armada viene a por vosotros. La capitana Bruma no se inmuta: «Esa fragata navega siempre igual, según su ordenanza (carta 52). Si llegamos al banco de niebla, no nos verá». La carta de navegación de la persecución es la 48.",
-            "Coged las cartas 48 y 52. Descartad las cartas 22 y 35."],
-        pistas=["Hay un puzle: la persecución y la ordenanza de la fragata.", "La ordenanza (carta 52) dice exactamente cómo se mueve la fragata.", "Coged las cartas 48 y 52. Descartad las cartas 22 y 35."],
-        arte="Cristina mira por un catalejo de latón desde la borda de un barco pirata, con la boca abierta de alarma; en el horizonte, una fragata de guerra con muchas velas se acerca entre islotes rocosos y, a lo lejos, un banco de niebla blanca. Alberto, a su lado, se lleva las manos a la cabeza con cara de pánico."),
-    "52": dict(
-        titulo="Carta 52 — Ordenanza de la Armada", tipo="gris",
-        descripcion=["La ordenanza de la Armada con la regla de persecución de sus fragatas: por cada casilla que avanza el pirata (o cada turno que se queda quieto), la fragata da dos pasos; en cada paso se acerca primero en horizontal y, si no puede, en vertical; si tampoco, se queda quieta. No cruza las rocas. Trae un ejemplo dibujado."],
-        pistas=["Es la regla de la fragata de la persecución (carta 48).", "Como la fragata siempre intenta primero acercarse en horizontal, una roca puede dejarla atascada: buscad dónde se queda quieta.", f"Una solución: {_PERSIGUE}."],
-        arte=pieza("Ordenanza de la Armada", "la regla de la fragata con su ejemplo")),
-    "48": dict(
-        titulo="Carta 48 — La persecución", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: un mar con rocas en cuadrícula, La Gaviota, la fragata y el banco de niebla. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según su ordenanza (carta 52). Hay que meterse en la niebla sin que os alcance. Se puede deshacer.",
-            "Al llegar a la niebla, la fragata os pierde. Coged la carta 58."],
-        pistas=["Leed la ordenanza (carta 52): la fragata es rápida, pero muy previsible.", "Ir derecho a la niebla no funciona. Atraed a la fragata a un sitio donde una roca la deje atascada y usad «Esperar» cuando os convenga.", f"Una solución: {_PERSIGUE}."],
-        arte="Un barco pirata huye a toda vela entre islotes rocosos perseguido por una fragata de guerra que dispara un cañonazo de aviso, hacia un banco de niebla blanca. Alberto, al timón, gira la rueda con los dientes apretados de tensión y Cristina, agarrada a un cabo, mira hacia atrás con los ojos muy abiertos de miedo."),
-    "58": dict(
-        titulo="Carta 58 — Desembarco en la Isla Calavera", tipo="gris", coge=[64, 66], descarta=[48, 52, 57],
-        descripcion=[
-            "La fragata se pierde en la niebla y La Gaviota fondea frente a la Isla Calavera. En el viejo campamento del capitán Calavera, entre palmeras, hay un cofre cuya tapa es un cielo de tachuelas con forma de estrella (carta 66). Clavada en un poste, la carta celeste del capitán (carta 64).",
-            "Coged las cartas 64 y 66. Descartad las cartas 48, 52 y 57."],
-        pistas=["Hay un puzle: la tapa del cofre y la carta celeste.", "La carta celeste (64) dibuja la constelación de la Calavera.", "Coged las cartas 64 y 66. Descartad las cartas 48, 52 y 57."],
-        arte="Una playa de arena blanca con palmeras al atardecer y un viejo campamento pirata: un cofre grande con la tapa cuajada de tachuelas doradas en forma de estrellas y un poste con un pergamino clavado. Cristina salta de un bote al agua con una sonrisa radiante y Alberto, todavía en el bote, mira el cofre con una ceja levantada de duda."),
-    "64": dict(
-        titulo="Carta 64 — Carta celeste", tipo="gris",
-        descripcion=["La carta celeste del capitán Calavera: la constelación de la Calavera, de seis estrellas, con sus líneas. En la tapa del cofre aparece más pequeña y girada, entre muchas otras estrellas."],
-        pistas=["Es la constelación de la tapa del cofre (carta 66).", "Fijaos en la forma: una estrella arriba, dos a los lados, otras dos más abajo y una sola en la punta. En la tapa está girada: buscad esa forma de lado.", "En la tapa, la Calavera está girada un tercio de vuelta (120 grados), en la parte de arriba a la derecha del centro."],
-        arte=pieza("Carta celeste", "la constelación de la Calavera")),
-    "66": dict(
-        titulo="Carta 66 — La tapa del cofre", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: la tapa del cofre del capitán Calavera, con treinta tachuelas en forma de estrella. Hay que tocar las seis que forman la constelación de la Calavera de la carta celeste (carta 64), que en la tapa está girada y es más pequeña.",
-            "Al acertar, el cofre se abre. Coged la carta 72."],
-        pistas=["Hace falta la carta celeste (carta 64): la forma de la Calavera.", "La forma es la misma pero girada: buscad seis tachuelas con una arriba, dos a los lados, dos más abajo y una en la punta, y girad la carta hasta que encaje.", "Está girada un tercio de vuelta, arriba a la derecha del centro de la tapa: es la única forma así en toda la tapa."],
-        arte="La tapa de un cofre pirata de madera oscura cuajada de tachuelas doradas en forma de estrella, como un cielo nocturno, en una playa al atardecer. Alberto acerca la nariz a la tapa con los ojos entrecerrados de concentración y Cristina gira una carta celeste en las manos con la lengua entre los dientes."),
-    "72": dict(
-        titulo="Carta 72 — El cofre del capitán Calavera", tipo="gris", coge=[76, 79], descarta=[58, 64, 66],
-        descripcion=[
-            "Las seis tachuelas se hunden y el cofre se abre. Dentro no hay oro, sino el testamento del capitán Calavera (carta 76), un papel que también se pliega. Detrás del campamento, en la boca de la cueva, el suelo está hecho de losas con símbolos (carta 79).",
-            "Coged las cartas 76 y 79. Descartad las cartas 58, 64 y 66."],
-        pistas=["Hay un puzle: el suelo de la cueva y el testamento.", "El testamento (carta 76) se pliega como la carta náutica.", "Coged las cartas 76 y 79. Descartad las cartas 58, 64 y 66."],
-        arte="Un cofre pirata abierto en la arena, con un pergamino enrollado y atado con un lazo rojo en su interior en lugar de oro; al fondo, la boca de una cueva entre rocas con forma de calavera y un suelo de losas talladas. Cristina sostiene el pergamino con la boca torcida de decepción y Alberto se asoma al cofre vacío con cara de chasco."),
-    "76": dict(
-        titulo="Carta 76 — Testamento (se pliega)", tipo="gris", plegado=_plegado("76"),
-        descripcion=["El testamento del capitán Calavera. Se pliega en acordeón hasta que la línea A toque la B: desplegado, los símbolos del centro son quimeras de dos mitades distintas; plegado, se ven cuatro símbolos de verdad, de arriba abajo. El texto dice que se pisan en ese orden, una y otra vez, de losa en losa vecina. En el Modo PC, botón «Plegar»."],
-        pistas=["Los símbolos del centro están rotos: plegad el testamento (líneas A y B).", "Plegado, quedan cuatro símbolos en columna: es el orden de las losas del suelo (carta 79), que se repite en bucle.", f"Plegado, el orden es: {_CICLO}, y vuelta a empezar."],
-        arte=pieza("Testamento", "el testamento plegable")),
-    "79": dict(
-        titulo="Carta 79 — El suelo de la cueva", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el suelo de la entrada de la cueva, de cinco por cinco losas con símbolos. Se entra por abajo y hay que llegar a la fila de arriba pisando solo losas vecinas (arriba, abajo o a los lados) cuyos símbolos sigan, una y otra vez, el orden del testamento del capitán Calavera (carta 76) plegado. Una pisada en falso hunde la losa y se vuelve a la entrada.",
-            "Al llegar al fondo, la pared se abre. Coged la carta 80."],
-        pistas=["El orden está en el testamento (carta 76), pero solo se lee plegado.", "Empezad en una losa de la fila de abajo con el primer símbolo y buscad siempre, al lado, el siguiente; tras el cuarto vuelve el primero. Solo un camino llega arriba.", f"Pisad, desde abajo: {_SUELO}."],
-        arte="La entrada de una cueva marina con el suelo de grandes losas de piedra talladas con símbolos, iluminada por la luz del atardecer que entra desde el mar; algunas losas se han hundido en un agujero oscuro. Cristina salta de una losa a otra de puntillas con los brazos abiertos y cara de miedo, y Alberto le señala la siguiente desde atrás, mordiéndose el labio."),
-    "80": dict(
-        titulo="Carta 80 — La boca de la cueva", tipo="gris", coge=[56], descarta=[72, 76, 79],
-        descripcion=[
-            "La pared de roca se abre con un ruido de piedra y aparece un pasadizo que baja a la oscuridad. En un nicho de la pared, el capitán Calavera dejó un pedernal y un eslabón para encender fuego (carta 56).",
-            "Coged la carta 56. Descartad las cartas 72, 76 y 79."],
-        pistas=["Mirad lo que hay en el nicho de la pared.", "La carta 56 es combinable.", "Coged la carta 56. Descartad las cartas 72, 76 y 79."],
-        arte="Un pasadizo de piedra que baja a la oscuridad en una cueva marina, con escalones tallados y un nicho en la pared con un pedernal y un eslabón de hierro. Alberto alarga la mano hacia el nicho con los ojos muy abiertos de cautela y Cristina se asoma al pasadizo oscuro con un escalofrío."),
-    "56": dict(
-        titulo="Carta 56 — Pedernal y eslabón", tipo="roja", combina=[38, 94],
-        descripcion=["Un pedernal y un eslabón de hierro para sacar chispas. Combinadlos con la antorcha (carta 38): sumad sus números (56 + 38 = 94) y coged la carta 94."],
-        pistas=["Sirven para sacar chispas y encender fuego.", "Combinad la carta 56 con la antorcha (carta 38).", "Sumad los números de las dos cartas: 56 + 38 = 94."],
-        arte="Un pedernal gris y un eslabón de hierro curvado sobre una piedra húmeda de una cueva, con unas chispas saltando, visto de cerca en la penumbra."),
-    "94": dict(
-        titulo="Carta 94 — La antorcha encendida", tipo="gris", coge=[69, 70], descarta=[38, 56, 44, 80],
-        descripcion=[
-            "La antorcha prende con un chisporroteo y alumbra una gruta enorme con el suelo de arena y el mar entrando por abajo: la marea ya está subiendo. El suelo de arena (carta 69) repite la cuadrícula del mapa de la isla, pero entráis por el este. En la pared, clavado con un puñal, el mapa de la isla del capitán Calavera (carta 70), que se pliega por los dos lados.",
-            "Coged las cartas 69 y 70. Descartad las cartas 38, 56, 44 y 80."],
-        pistas=["Hay un puzle: cavar en la gruta con el mapa.", "El mapa (carta 70) se pliega por los dos lados: A sobre B y C sobre D.", "Coged las cartas 69 y 70. Descartad las cartas 38, 56, 44 y 80."],
-        arte="Una gruta marina enorme iluminada por una antorcha, con el suelo de arena surcado de rayas como una cuadrícula, una palmera tallada en piedra, el agua del mar entrando y subiendo y estalactitas; un mapa viejo clavado a la pared con un puñal. Cristina sostiene la antorcha en alto con cara de asombro y Alberto, con una pala, mira el agua que sube con gesto de preocupación."),
-    "70": dict(
-        titulo="Carta 70 — Mapa de la isla (se pliega)", tipo="gris", plegado=_plegado("70"),
-        descripcion=["El mapa de la Isla Calavera con una cuadrícula y el camino de la palmera a la X. Se pliega por los dos lados (A sobre B y C sobre D): plegado, la roca calavera aparece entera y la cuadrícula tiene las mismas casillas que el suelo de la gruta. En el Modo PC, botón «Plegar»."],
-        pistas=["Desplegado, el mapa tiene casillas de más: plegadlo por los dos lados.", "Plegado, contad dónde está la X respecto a la palmera. En la gruta entráis por el este: el norte del mapa queda a vuestra derecha.", f"Plegado, la X está {_X}."],
-        arte=pieza("Mapa de la isla", "el mapa plegable")),
-    "69": dict(
-        titulo="Carta 69 — Cavar en la gruta", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el suelo de arena de la gruta, con la misma cuadrícula que el mapa de la isla (carta 70) plegado y una palmera de piedra donde el mapa tiene la palmera. Pero se entra por el este, así que se ve girado: el norte queda a la derecha. Hay que tocar la casilla de la X.",
-            "Al acertar, aparece el tesoro. Coged la carta 82."],
-        pistas=["La casilla está en el mapa de la isla (carta 70), pero desplegado engaña.", "Plegad el mapa por los dos lados y contad desde la palmera. Después girad el mapa un cuarto de vuelta para que el norte quede a la derecha, como en la gruta.", f"Plegado, la X está {_X}. En la gruta (norte a la derecha): {_XG}."],
-        arte="Una gruta marina con el suelo de arena dividido en casillas y una palmera tallada en piedra, iluminada por una antorcha; el agua sube por la entrada. Alberto cava con una pala con todas sus fuerzas y la frente sudada y Cristina, con el mapa girado en las manos, le señala el sitio con cara de urgencia."),
-    "82": dict(
-        titulo="Carta 82 — El tesoro de Calavera", tipo="gris", coge=[62], descarta=[69, 70, 94],
-        descripcion=[
-            "La reja se abre: montañas de doblones, joyas y copas brillan a la luz de la antorcha. La capitana Bruma llega justo antes de que el agua cubra la entrada, ríe a carcajadas y cumple su palabra: os devuelve el cristal de energía de su cofre. Doblón, el loro, os lo trae en el pico.",
-            "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        pistas=["La capitana cumple su palabra.", "La carta 62 es combinable con el Cronoportal.", "Coged la carta 62. Descartad las cartas 69, 70 y 94."],
-        arte="Una cámara de tesoro en una gruta marina, con montañas de doblones de oro, joyas y copas brillando a la luz de una antorcha y el agua del mar subiendo por la entrada. Una capitana pirata con sombrero de plumas ríe a carcajadas y un loro verde y rojo vuela hacia Cristina con un cristal rojo en el pico; Cristina extiende la mano con los ojos brillantes de emoción y Alberto se lanza sobre las monedas con una carcajada."),
-    "62": dict(
-        titulo="Carta 62 — Cristal de energía", tipo="roja", combina=[12, 74],
-        descripcion=["El cristal de energía del Cronoportal: una gema roja con un fulgor interior. Combinadlo con el Cronoportal (carta 12): sumad sus números (62 + 12 = 74) y coged la carta 74."],
-        pistas=["Es la pieza que faltaba.", "Combinad la carta 62 con la carta 12.", "Sumad los números de las dos cartas: 62 + 12 = 74."],
-        arte="Un cristal rojo facetado con un fulgor interior de brasa y finas líneas de energía, sobre un montón de doblones de oro, a la luz de una antorcha en una cueva."),
-    "74": dict(
-        titulo="Carta 74 — Cronoportal reconectado", tipo="gris", coge=[99], descarta=[62, 12, 82],
-        descripcion=[
-            "El cristal encaja con un chasquido y el Cronoportal se enciende. El agua os llega ya a las rodillas y la capitana Bruma, con los bolsillos llenos, os grita desde la reja: «¡Si alguna vez queréis un barco, La Gaviota es vuestra!». Activad el aparato antes de que la marea cubra la gruta.",
-            "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        pistas=["El portal ya funciona. Solo queda activarlo.", "Coged la carta 99. Descartad las cartas 62, 12 y 82."],
-        arte="El Cronoportal encendido con un cristal rojo encajado en su pecho, en una gruta marina que se inunda, con un arco de luz azul y dorada en el anillo y el agua por las rodillas. Cristina, con la cara desencajada de urgencia, tira de Alberto, que carga el aparato con gesto de esfuerzo, mientras una capitana pirata les dice adiós con el sombrero desde el fondo."),
-    "99": dict(
-        titulo="Carta 99 — De vuelta a casa (FIN)", tipo="gris", descarta=[74],
-        descripcion=[
-            "El anillo se abre en un arco de luz justo cuando el agua cubre la gruta. Cristina y Alberto salen disparados del Caribe y aterrizan en su salón, empapados y con olor a mar.",
-            "Alberto se quita el tricornio: «Mañana, otro destino». Cristina abre la mano: lleva un doblón de oro. Descartad la carta 74.",
-            "FIN."],
-        pistas=[],
-        arte="La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven una gruta marina con oro y agua que sube. Llevan aún su ropa de pirata, empapados y goteando sobre la alfombra. Cristina ríe a carcajadas enseñando un doblón de oro en la palma de la mano y Alberto, con el tricornio torcido, escurre agua de su casaca con cara de alivio y risa. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
+    # ------------------------------------------------------------------ La cubierta
+    "P": escena("P", "Llegada a bordo", [10, 12], [],
+                "Duodécima parada del Cronoportal: el Mar de las Brumas, en 1715. Aterrizáis sobre la cubierta de La Gaviota, un bergantín pirata, entre cuerdas y barriles. Antes de que os pongáis en pie, un loro verde y rojo baja en picado y se lleva en el pico el cristal de energía del aparato. Se lo lleva a su dueña, la capitana Bruma, que lo guarda en un cofre y os propone un trato: «Os lo devuelvo cuando me traigáis el tesoro del capitán Calavera, antes de que la marea cubra su cueva. Tenéis noventa minutos».",
+                ["Mirad a vuestro alrededor y revisad el aparato."],
+                "La cubierta de un bergantín pirata al atardecer, con cuerdas, barriles y velas remendadas. Un loro verde y rojo vuela con un cristal rojo brillante en el pico. En primer plano, el Cronoportal, un aparato de latón y cristal, humea en el suelo de madera. Cristina, despeinada y con la boca abierta de sorpresa, señala al loro, y Alberto, en el suelo, se sujeta el tricornio con cara de incredulidad."),
+    "10": escena("10", "La cubierta de La Gaviota", [14, 16, 18, 19, 20, 21, 22], ["P"],
+                 "La capitana Bruma os lleva al timón: «El piloto se ha bebido el ron de la semana. Ayudadme». Sobre una caja de pólvora, la bitácora del barco (carta 16): hay que echar cuentas con sus campanadas. Una fragata de la Armada se acerca y solo se puede escapar hacia un banco de niebla: la ordenanza de la Armada (carta 18) y la carta de aguas de la bahía, en dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Junto al timón, Cristina encuentra una lente de catalejo suelta (carta 22).",
+                 ["Hay dos puzles: la bitácora y la persecución.", "La carta de aguas son dos cartas: juntadlas, una encima de otra."],
+                 "La cubierta de un bergantín pirata con un gran timón de madera, el mástil y las velas hinchadas por el viento; una capitana con sombrero de plumas y casaca roja señala el horizonte con un loro en el hombro. Cristina recoge del suelo una lente de cristal con curiosidad y los ojos entrecerrados, y Alberto sujeta una carta de aguas enrollada con gesto de preocupación."),
+    "12": combinable("12", "Cronoportal sin cristal", "azul", 62, 74,
+                     "El Cronoportal: una consola de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde iba el cristal de energía.",
+                     SIN_GENTE + "Primer plano del Cronoportal: una consola portátil de latón y cristal con dos antenas de cobre, un anillo de cristal central apagado y un hueco circular vacío en el pecho del aparato, sobre las tablas de madera de una cubierta de barco pirata, con cuerdas enrolladas al fondo."),
+    "14": app("14", "La bitácora", "Es un juego de la app: tres anotaciones de la bitácora dicen cuántas campanadas sonaron en qué guardia. Hay que decir cuánto tiempo pasó entre el aviso 1 y el aviso 3.", 24,
+              ["La bitácora está en la carta 16.", "Cada guardia empieza a su hora y dura cuatro horas; la primera campanada suena media hora después de empezar. Pasad cada aviso a hora de reloj y restad.", f"Pasaron {_S_BIT}. Distancia de la bitácora: {_D['14']}."],
+              SIN_GENTE + "Una bitácora de a bordo abierta sobre una caja de madera, con un tintero, una pluma y una campana de latón colgada al fondo, a la luz de un farol de aceite."),
+    "16": gris("16", "La bitácora", "La bitácora de La Gaviota: las seis guardias del día con su hora de comienzo y tres anotaciones con las campanadas de cada aviso.",
+               ["Es la bitácora de la carta 14.", "Cada media hora suena una campanada más dentro de la guardia.", "La pregunta está al pie de la hoja."]),
+    "18": gris("18", "La ordenanza de la Armada", "La ordenanza de la Armada con la regla de la persecución de una fragata y un ejemplo dibujado.",
+               ["Es la regla de la persecución (carta 20).", "Por cada casilla que avanzáis, la fragata da dos pasos.", "El ejemplo dibujado enseña qué hace cuando hay una roca."]),
+    "19": pieza("19", "aguas", "Media lámina de la carta de aguas de la bahía.", ["Es la mitad de una lámina: juntadla con la carta 21.", "Es una cuadrícula con rocas, La Gaviota, la fragata y un banco de niebla.", "La ordenanza está en la carta 18."]),
+    "21": pieza("21", "aguas", "Media lámina de la carta de aguas de la bahía.", ["Es la mitad de una lámina: juntadla con la carta 19.", "Es una cuadrícula con rocas, La Gaviota, la fragata y un banco de niebla.", "La ordenanza está en la carta 18."]),
+    "20": app("20", "La persecución", "Es un juego de la app: llevar La Gaviota al banco de niebla sin que la alcance la fragata, que da dos pasos por cada uno vuestro con una regla fija.", 28,
+              ["La carta de aguas está en las cartas 19 y 21 y la ordenanza, en la 18. Las rocas no se ven en la app.", "No vale ir en línea recta: la fragata os alcanza. Esperad a que una roca la frene, o cambiad de lado para que tenga que dar un rodeo.", f"Una salida (19 turnos): {_S_PER}."],
+              SIN_GENTE + "Un bergantín pirata de velas blancas en un mar turquesa con rocas y bancos de niebla, con una fragata de la Armada de velas grises al fondo, al atardecer."),
+    "22": combinable("22", "Media lente de catalejo", "azul", 35, 57, "Una mitad de la lente de un catalejo de latón, con un aro de metal y el cristal partido.",
+                     SIN_GENTE + "La mitad izquierda de la lente de un catalejo de latón, con su aro de metal, sobre las tablas de madera de una cubierta de barco."),
+    "24": escena("24", "El pañol de la capitana", [26], [14, 16],
+                 "Con las cuentas de las guardias claras, la capitana Bruma os abre el pañol, un cuartito lleno de cartas y compases, y os da una carta con el paso de las barras de arena del puerto de la Isla Calavera: la usaréis para entrar con el barco (carta 26).",
+                 ["Mirad lo que os da la capitana."],
+                 "El pañol de un barco pirata, un cuartito con estantes llenos de cartas náuticas enrolladas, compases y sextantes, y una lámpara de aceite. La capitana Bruma, con sombrero de plumas, entrega una carta a Cristina y Alberto. Cristina la recibe con una reverencia exagerada y una sonrisa traviesa; Alberto la desenrolla con las cejas arqueadas de sorpresa."),
+    "26": gris("26", "El paso de las barras", "Una carta con el calado de La Gaviota y tres barras de arena del puerto, con las horas que tarda el barco en llegar a cada una y su fondo propio.",
+               ["Es la carta de las mareas (carta 51).", "El agua sobre cada barra es la marea más su fondo propio.", "La tabla de la marea está en las cartas 61 y 63."]),
+    "28": escena("28", "El banco de niebla", [35], [18, 19, 20, 21],
+                 "La Gaviota se mete en el banco de niebla y la fragata pasa de largo, perdida. Cuando la bruma se levanta un poco, en una caja de pólvora vacía hay un paquete envuelto en lona: la otra mitad de la lente del catalejo (carta 35).",
+                 ["Mirad en la caja de pólvora."],
+                 "El interior de un banco de niebla blanca alrededor de la cubierta de un bergantín pirata, con una caja de madera abierta y un paquete de lona. Cristina saca el paquete con los ojos muy abiertos de emoción; Alberto, con la mano de visera, escruta la niebla con la boca torcida de desconfianza."),
+    "35": combinable("35", "Otra media lente de catalejo", "roja", 22, 57, "La otra mitad de la lente del catalejo, con el resto del cristal.",
+                     SIN_GENTE + "La mitad derecha de la lente de un catalejo de latón, con el resto del cristal, sobre un paño de lona en una caja de pólvora."),
+    "57": escena("57", "El catalejo", [31, 32], [22, 35, 10, 28],
+                 "Montáis las dos mitades en el catalejo y, al mirar por él, la niebla se abre: a un lado, el cofre del capitán Calavera, con la tapa de cielo estrellado (carta 31); al otro, la entrada de una cueva con el testamento del capitán (carta 32). Hay que visitar los dos.",
+                 ["Dos sitios: el cofre de la tapa estrellada y la cueva."],
+                 "Cristina mira por un catalejo de latón en la cubierta de un bergantín pirata, con la niebla abriéndose a su alrededor, y el cofre de un capitán sobre una roca de una isla a lo lejos y una cueva oscura. Cristina, con el ojo pegado al catalejo y la boca abierta, señala hacia la isla; Alberto, a su lado, sonríe de oreja a oreja y levanta un puño."),
+    # ------------------------------------------------------------------ Rama 1: el cofre de la tapa estrellada
+    "31": escena("31", "El cofre del capitán Calavera", [40, 41, 43, 45], [],
+                 "Sobre una roca de la playa, el cofre del capitán Calavera: su tapa es un cielo de tachuelas numeradas, en dos láminas (cartas 41 y 43), y el capitán dejó su carta celeste con la constelación que abre el cofre (carta 45). Una pantalla de madera (carta 40) espera los números.",
+                 ["Un único puzle: la constelación de la tapa."],
+                 "Una playa del Caribe al atardecer con un cofre de madera sobre una roca; la tapa del cofre está cubierta de tachuelas doradas que forman un cielo estrellado. Cristina compara una carta celeste con la tapa del cofre con el ceño fruncido; Alberto, de rodillas, sigue las tachuelas con el dedo con los ojos entrecerrados."),
+    "40": app("40", "La tapa del cofre", "Es un juego de la app: la tapa del cofre es un cielo de treinta y seis tachuelas numeradas. Hay que tocar las seis que forman la Calavera de la carta celeste, que aparece girada y más pequeña.", 30,
+              ["El cielo está en las cartas 41 y 43 y la carta celeste, en la 45.", "La Calavera tiene dos estrellas arriba, una a cada lado, y dos abajo, unidas por una más. En el cielo está girada: buscad primero un grupo de seis estrellas que se parezca a su forma.", f"Son las estrellas {_S_CIE}. Distancia de las estrellas: {_D['40']}."],
+              SIN_GENTE + "La tapa de un cofre de madera cubierta de tachuelas doradas que forman un cielo estrellado, sobre una roca de una playa al atardecer."),
+    "41": pieza("41", "cielo", "Media lámina del cielo de la tapa del cofre.", ["Es la mitad de una lámina: juntadla con la carta 43.", "Son treinta y seis estrellas numeradas.", "La carta celeste está en la carta 45."]),
+    "43": pieza("43", "cielo", "Media lámina del cielo de la tapa del cofre.", ["Es la mitad de una lámina: juntadla con la carta 41.", "Son treinta y seis estrellas numeradas.", "La carta celeste está en la carta 45."]),
+    "45": gris("45", "La carta celeste", "La carta celeste del capitán Calavera, con la constelación de la Calavera: seis estrellas unidas por líneas de puntos.", ["Es la constelación de la tapa del cofre (carta 40).", "Tiene seis estrellas.", "En la tapa está más pequeña y girada."]),
+    "30": escena("30", "El cofre abierto", [38], [31, 40, 41, 43, 45],
+                 "La tapa se levanta sola y, en el cofre, sobre un lecho de arena, hay media llave de hierro con una calavera grabada en el ojo (carta 38). Una pareja de cifras queda grabada en el interior de la tapa: guardadla.",
+                 ["Mirad dentro del cofre."],
+                 "Un cofre de madera abierto sobre una roca de una playa, con media llave de hierro con una calavera en el ojo sobre la arena del fondo. Cristina la levanta con dos dedos con los ojos brillantes; Alberto aplaude con las manos sobre la cabeza y una sonrisa enorme."),
+    "38": combinable("38", "Mitad de la llave de la capitana", "roja", 56, 94, "Una mitad de una llave de hierro con una calavera grabada en el ojo, de las del cofre de la capitana Bruma.",
+                     SIN_GENTE + "La mitad izquierda de una llave de hierro pesada con una calavera grabada en el ojo, sobre la arena de una playa."),
+    # ------------------------------------------------------------------ Rama 2: la cueva
+    "32": escena("32", "La entrada de la cueva", [42, 48, 49, 53], [],
+                 "La entrada de la cueva está cerrada por un suelo de losas: solo se cruza pisando las que siguen el testamento del capitán Calavera, un papel que hay que plegar (carta 53). El suelo, visto desde la entrada, ocupa dos láminas: juntad la 42 a la izquierda y la 49 a la derecha. Una pantalla de piedra (carta 48) espera vuestros pasos.",
+                 ["Un único puzle: el suelo de la cueva.", "El suelo son dos cartas: juntadlas, una al lado de la otra."],
+                 "La boca de una cueva marina con un suelo de grandes losas con símbolos grabados, con la luz del atardecer entrando por la entrada. Cristina sostiene un papel doblado y mira el suelo con la cabeza ladeada; Alberto da un paso con precaución, con un pie en el aire y cara de miedo."),
+    "48": app("48", "El suelo de la cueva", "Es un juego de la app: el suelo de la entrada de la cueva, de seis por seis losas. Se entra por abajo y hay que llegar a la fila de arriba pisando solo losas vecinas cuyos símbolos sigan, una y otra vez, el orden del testamento plegado.", 36,
+              ["El testamento está en la carta 53, pero solo se lee plegado. Los símbolos de las losas están en las cartas 42 y 49.", f"Empezad en una losa de la fila de abajo con el primer símbolo ({_S_CICLO.split(', ')[0]}) y buscad siempre, al lado, el siguiente; tras el cuarto vuelve el primero. Solo un camino llega arriba.", f"Pisad, desde abajo: {_S_SUE}."],
+              SIN_GENTE + "El suelo de la entrada de una cueva marina hecho de grandes losas de piedra con símbolos grabados (ancla, calavera, luna, llave, corona), con un resplandor dorado al fondo."),
+    "42": pieza("42", "suelo", "Media lámina del suelo de la cueva.", ["Es la mitad de una lámina: juntadla con la carta 49.", "Son las losas con sus símbolos.", "El orden de los símbolos está en el testamento (carta 53)."]),
+    "49": pieza("49", "suelo", "Media lámina del suelo de la cueva.", ["Es la mitad de una lámina: juntadla con la carta 42.", "Son las losas con sus símbolos.", "El orden de los símbolos está en el testamento (carta 53)."]),
+    "53": plegable("53", "Testamento (se pliega)", "El testamento del capitán Calavera. Se pliega en acordeón hasta que la línea A toque la B: desplegado, los símbolos del centro son quimeras de dos mitades distintas; plegado, se ven cuatro símbolos de verdad, de arriba abajo. El texto dice que se pisan en ese orden, una y otra vez, de losa en losa vecina. En el Modo PC, botón «Plegar».",
+                   ["Es el orden de las losas del suelo de la cueva (carta 48).", "Hay que doblarla en acordeón hasta que A toque B: la franja de en medio queda escondida detrás.", "Plegada, se ven cuatro símbolos en columna."]),
+    "36": escena("36", "La santabárbara", [52, 54, 55, 59], [32, 42, 48, 49, 53],
+                 "El pasadizo baja a la santabárbara, la bodega de la pólvora de La Gaviota, donde tres barcos enemigos aparecen a lo lejos. Hay que cargar y apuntar el cañón para cada uno (carta 52): la tabla de tiro por la carga está en la carta 54 y por la elevación, en la 55, y los tres barcos con su viento y la pólvora que queda, en la 59.",
+                 ["Un único puzle: apuntar el cañón."],
+                 "La santabárbara de un bergantín pirata, una bodega con barriles de pólvora, balas de hierro apiladas y un gran cañón de bronce asomando por una portilla, con un farol de aceite colgado. Cristina carga el cañón con una bala con la lengua entre los dientes y los ojos muy abiertos; Alberto mira por la portilla con el catalejo y cara de susto."),
+    "52": app("52", "El cañón", "Es un juego de la app: tres barcos enemigos a tiro. Para cada uno hay que elegir los sacos de pólvora y la elevación del cañón de modo que el tiro caiga justo en él, sin repetir carga y sin pasarse de la pólvora que queda.", 44,
+              ["Las tablas están en las cartas 54 y 55 y los barcos, el viento y la pólvora, en la 59.", "El alcance es la suma de lo que da la carga, lo que da la elevación y el viento. Para cada barco, buscad las parejas carga-elevación que dan su distancia; luego, que no se repita carga y que la pólvora alcance.", f"{_S_CAN}. Distancia del cañón: {_D['52']}."],
+              SIN_GENTE + "Un gran cañón de bronce sobre su cureña, apuntando por una portilla de un barco pirata hacia tres barcos lejanos, con barriles de pólvora y balas de hierro apiladas al lado."),
+    "54": gris("54", "La tabla de tiro (I)", "La tabla del artillero con el alcance, en cables, de cada carga de pólvora, de uno a seis sacos.", ["Es el alcance por la carga (carta 52).", "Más sacos, más alcance.", "La elevación y el viento se suman aparte."]),
+    "55": gris("55", "La tabla de tiro (II)", "La tabla del artillero con lo que suma o resta cada elevación del cañón al alcance, en cables.", ["Es la corrección por la elevación (carta 52).", "Algunas elevaciones restan.", "La carga está en la carta 54."]),
+    "59": gris("59", "Las tres presas", "Tres barcos enemigos con su distancia en cables, el viento que les afecta y los sacos de pólvora que quedan.", ["Son los tres barcos del cañón (carta 52).", "El viento suma, o resta, al alcance.", "Cada barco necesita una carga distinta."]),
+    # ------------------------------------------------------------------ La toldilla
+    "44": escena("44", "La toldilla", [33, 37, 39, 46, 51, 61, 63], [36, 52, 54, 55, 59],
+                 "Los tres barcos huyen y la tripulación sube a la toldilla pidiendo cuentas: quieren su parte. La tripulación, por orden de antigüedad, está en la carta 37, el Código de la Hermandad en la 39 y el botín, en la 33 (carta 46). Mientras, la marea baja: para salir del puerto, La Gaviota debe cruzar tres barras de arena (carta 51); la tabla de la marea ocupa dos láminas: juntad la 61 arriba y la 63 abajo.",
+                 ["Hay dos puzles: el reparto del botín y las mareas."],
+                 "La toldilla de un bergantín pirata con siete piratas con pañuelos de colores alrededor de un pequeño montón de doblones de oro, junto al timón, con el puerto de una isla al fondo y la marea bajando. Cristina, con las manos en la cintura, mira a los piratas con una ceja arqueada; Alberto cuenta monedas con los dedos y cara de agobio."),
+    "46": app("46", "El reparto del botín", "Es un juego de la app: siete piratas por orden de antigüedad reparten los doblones del botín según el Código de la Hermandad. Hay que proponer el reparto que se aprueba y en el que el capitán se queda con lo máximo.", 56,
+              ["La tripulación está en la carta 37, el Código en la 39 y el botín, en la 33.", "Pensad en el último pirata: si quedan solo dos, ¿qué pasa? Y con tres, cuatro... Cada pirata solo vota a favor si recibe más de lo que tendría si el capitán se fuera por la borda.", f"El reparto: {_S_BOT}."],
+              SIN_GENTE + "Un montón de doblones de oro sobre una mesa de capitán, con un cuaderno de cuentas abierto y un tintero, a la luz de un farol de aceite, en la toldilla de un barco pirata."),
+    "37": gris("37", "La tripulación", "Los siete piratas de La Gaviota, con un pañuelo de cada color y su número de antigüedad; el 1 es el capitán.", ["Son los siete piratas del reparto (carta 46).", "Cuanto más bajo el número, más antiguo.", "El Código de la Hermandad está en la carta 39."]),
+    "39": gris("39", "El Código de la Hermandad", "El Código de la Hermandad pirata, colgado en el palo mayor, en versos.", ["Explica cómo se vota el reparto (carta 46).", "Hacen falta, por lo menos, la mitad de los votos.", "Cada pirata quiere vivir, luego tener más doblones."]),
+    "33": gris("33", "El botín", "El botín de la Isla Calavera, en doblones, y cuántos piratas hay a bordo.", ["Es el botín que se reparte (carta 46).", "Todos votan, también el capitán.", "La tripulación está en la carta 37."]),
+    "56": combinable("56", "Otra mitad de la llave", "roja", 38, 94, "La otra mitad de la llave de hierro con la calavera, que el cocinero guardaba en la panera y os da tras ver el reparto.",
+                     SIN_GENTE + "La mitad derecha de una llave de hierro pesada con una calavera grabada en el ojo, sobre una panera de madera con un paño blanco."),
+    "51": app("51", "Las mareas", "Es un juego de la app: La Gaviota tiene que cruzar tres barras de arena, una al salir, otra dos horas después y otra cinco horas después de salir. Hay que elegir la hora de salida.", 58,
+              ["El calado y las barras están en la carta 26 y la tabla de la marea, en las cartas 61 y 63.", "El agua sobre cada barra es la altura de la marea a la hora en que se cruza, más el fondo propio de la barra. Tiene que ser, por lo menos, el calado. Probad una hora de salida y mirad si pasáis las tres.", f"Hay que salir a las {_S_MAR}."],
+              SIN_GENTE + "Un bergantín pirata varado en la arena de una barra al bajar la marea, con las olas lamiendo el casco, un faro lejano y gaviotas, a la luz del atardecer."),
+    "61": pieza("61", "mareas", "Media lámina de la tabla de la marea.", ["Es la mitad de una lámina: juntadla con la carta 63.", "Son las alturas del agua de las horas 0 a 11.", "El calado y las barras están en la carta 26."]),
+    "63": pieza("63", "mareas", "Media lámina de la tabla de la marea.", ["Es la mitad de una lámina: juntadla con la carta 61.", "Son las alturas del agua de las horas 12 a 23.", "El calado y las barras están en la carta 26."]),
+    "58": escena("58", "La bodega", [69, 70, 71], [51, 61, 63, 26, 24],
+                 "La Gaviota cruza las barras con el agua justa y fondea. En la bodega, tres cofres del botín esperan a ser pesados (carta 70) y solo hay cuatro pesas de hierro (carta 71): hay que equilibrar la balanza de cada uno (carta 69).",
+                 ["Un único puzle: pesar los tres cofres."],
+                 "La bodega de un bergantín pirata con tres cofres de madera con herrajes sobre una balanza de dos platillos grande, cuatro pesas de hierro en una caja y un farol de aceite. Cristina coloca una pesa en un platillo con mucho cuidado y los labios apretados; Alberto sujeta el fiel de la balanza con una mano y una mueca de concentración."),
+    "69": app("69", "La balanza", "Es un juego de la app: tres cofres del botín y cuatro pesas de hierro de 1, 3, 9 y 27 libras. Cada pesa puede ir en el mismo platillo que el cofre, en el otro o quedarse fuera. Hay que equilibrar la balanza de cada cofre.", 80,
+              ["Los pesos de los cofres están en la carta 70 y las pesas, en la 71.", "Las pesas pueden ir en los dos platillos: poner una con el cofre es como restarla. Empezad por la pesa más grande que no se pase del peso del cofre.", f"{_S_PES}. Distancia de la balanza: {_D['69']}."],
+              SIN_GENTE + "Una gran balanza de dos platillos con un cofre de madera en un platillo y varias pesas de hierro en el otro, en la bodega de un barco pirata, con luz de farol."),
+    "70": gris("70", "Los cofres del botín", "Tres cofres del botín con el peso de cada uno, en libras.", ["Son los tres cofres de la balanza (carta 69).", "Cada cofre se pesa por separado.", "Las pesas están en la carta 71."]),
+    "71": gris("71", "Las pesas de hierro", "Cuatro pesas de hierro de 1, 3, 9 y 27 libras sobre una balanza, con una regla en versos.", ["Son las pesas de la balanza (carta 69).", "Solo hay una pesa de cada.", "Se pueden poner en cualquiera de los dos platillos."]),
+    "80": escena("80", "La playa", [72, 75, 79], [58, 69, 70, 71],
+                 "Los cofres quedan pesados y desembarcáis en la playa de la Isla Calavera, donde la marea ya sube. En un papel, el mapa de la isla, que hay que plegar por los dos lados como hacía el capitán (carta 75); y, en la roca, el plano de la entrada de la gruta (carta 79). Un candado de flechas guarda el tesoro (carta 72).",
+                 ["Un único puzle: la X del mapa."],
+                 "Una playa de arena blanca de una isla del Caribe al atardecer, con palmeras y una gran roca con forma de calavera, y la marea subiendo. Cristina despliega un mapa de pergamino con los ojos entrecerrados y una sonrisa de emoción; Alberto cava un hoyo con una pala, sudoroso y con el tricornio ladeado."),
+    "72": app("72", "Cavar en la gruta", "Es un juego de la app: el suelo de arena de la gruta repite la cuadrícula del mapa de la isla, pero se entra por el este, así que se ve girado. Hay que cavar en la casilla de la X del mapa plegado por los dos lados.", 82,
+              ["El mapa está en la carta 75 y el plano de la entrada de la gruta, en la 79. El mapa solo se lee plegado por los dos lados.", "Contad las casillas desde la palmera hasta la X en el mapa plegado, y pasadlas a la gruta: allí el norte queda a la derecha.", f"La X está {_S_GRU}. Distancia de la gruta: {_D['72']}."],
+              SIN_GENTE + "El suelo de arena de una gruta marina vista desde la entrada, con una palmera de piedra en una esquina y la marea entrando por el fondo, con luz dorada de atardecer."),
+    "75": plegable("75", "Mapa de la isla (se pliega)", "El mapa de la Isla Calavera con una cuadrícula y el camino de la palmera a la X. Se pliega por los dos lados (A sobre B y C sobre D): plegado, la roca calavera aparece entera y la cuadrícula tiene las mismas casillas que el suelo de la gruta. En el Modo PC, botón «Plegar».",
+                   ["Es el mapa de la gruta (carta 72).", "Hay que doblarlo por los dos lados: A sobre B y C sobre D.", "Plegado, el camino de la palmera a la X tiene las casillas justas."]),
+    "79": gris("79", "La entrada de la gruta", "El plano de la entrada de la gruta con una cuadrícula, el norte a la derecha y la entrada por el este, con unos versos.", ["Es el plano de la gruta (carta 72).", "Se entra por el este.", "El norte cae a la derecha."]),
+    "82": escena("82", "El camarote de la capitana", [85, 86, 87], [80, 72, 75, 79],
+                 "La trampilla del tesoro se abre y el oro brilla: el tesoro del capitán Calavera. Con él a bordo, la capitana Bruma os lleva a su camarote: el anillo del Cronoportal solo se abrirá en el sitio del mar donde la niebla es más espesa, y su carta marca cinco rumbos desde la salida (carta 86), con las distancias que os dejaron cinco puzles. La carta de la isla, con la casilla de salida, es la 87 y el punto se marca en la 85.",
+                 ["Un único puzle: el punto de la niebla."],
+                 "El camarote de una capitana pirata con una mesa cubierta de cartas, un compás de latón y un gran ventanal que da al mar, y un cofre abierto con oro. La capitana Bruma, con sombrero de plumas, señala una carta con un dedo con una sonrisa de orgullo; Cristina y Alberto la miran, ella con los ojos muy abiertos y él con las cejas arqueadas."),
+    "85": app("85", "El punto de la niebla", "Es un juego de la app: cinco rumbos de rosa de los vientos con las distancias, en casillas, que dejaron otros puzles. Hay que marcar la casilla donde acaba el viaje desde la salida.", 99,
+              ["Los rumbos están en la carta 86 y la carta de la isla, con la salida, en la 87.", "Las cinco distancias las dejaron la bitácora, las estrellas, el cañón, la balanza y la gruta. Cada rumbo es una flecha de rosa de los vientos (el norte, arriba): avanzad en esa dirección tantas casillas como diga la distancia, en diagonal si la flecha lo es.", f"Acabáis en la {_S_ISL}."],
+              SIN_GENTE + "Una carta náutica extendida sobre una mesa con un compás de latón, una regla y un lápiz, con unas rosas de los vientos dibujadas y una cuadrícula en el mar, a la luz de un farol."),
+    "86": gris("86", "Los cinco rumbos", "Cinco rumbos dibujados con una rosa de los vientos, cada uno con el dibujo del puzle que deja su distancia y una raya para escribirla.", ["Explica los cinco rumbos del viaje (carta 85).", "Cada rumbo lleva el dibujo de un puzle: la bitácora, las estrellas, el cañón, la balanza y la gruta.", "La flecha de cada rosa va hacia donde hay que ir; el norte, arriba."]),
+    "87": gris("87", "La carta de la Isla Calavera", "La carta de la Isla Calavera: una cuadrícula de diez por diez con la casilla de salida de La Gaviota.", ["Es la carta del viaje (carta 85).", "Las casillas están numeradas.", "La salida está marcada con el barco."]),
+    # ------------------------------------------------------------------ El cofre de la capitana y el final
+    "94": escena("94", "El cofre de la capitana", [64, 66, 67], [38, 56, 30, 44, 33, 37, 39, 46],
+                 "Las dos mitades de la llave encajan en el cofre de la capitana Bruma, donde el loro dejó el cristal. Pero el cofre está sobre el timón y se cierra con un candado de brújula: hay que fijar el rumbo que debe marcar la aguja para ir a la isla (carta 64). La carta náutica plegada está en la carta 66 y el cuaderno del piloto, en la 67.",
+                 ["Un único puzle: el rumbo de la aguja."],
+                 "El timón de un bergantín pirata con un gran cofre de la capitana encima, con un candado en forma de brújula de latón, y el mar al fondo. Cristina gira la rueda de la brújula con la lengua entre los dientes y los ojos muy abiertos; Alberto sostiene la carta náutica con las dos manos y cara de mucha concentración."),
+    "64": app("64", "El timón", "Es un juego de la app: fijar en la brújula el rumbo que debe marcar la aguja, que en este mar se tuerce. La carta náutica plegada da el rumbo verdadero y el cuaderno del piloto, cuánto se tuerce la aguja.", 62,
+              ["La carta náutica plegada está en la carta 66 y el cuaderno del piloto, en la 67.", "Hay que doblar la carta náutica hasta que A toque B: los arrecifes dibujan entonces el rumbo verdadero con dos cifras. La aguja se tuerce hacia el oeste tantas rayitas (5 grados cada una) como dibuja el arco: ese tanto hay que sumar.", f"El rumbo de la aguja: {_S_RUM}."],
+              SIN_GENTE + "Un compás de latón sobre el timón de madera de un bergantín pirata, con una rosa de los vientos pintada y la aguja temblando, y el mar turquesa al fondo."),
+    "66": plegable("66", "Carta náutica (se pliega)", "La carta náutica del Mar de las Brumas. Es una carta que SE PLIEGA: hay que doblarla en acordeón hasta que la línea A toque la línea B, de modo que la franja de en medio quede escondida detrás. Plegada, los arrecifes dibujan el rumbo verdadero a la Isla Calavera. En el Modo PC, botón «Plegar».",
+                   ["Es la carta del rumbo (carta 64).", "Hay que doblarla en acordeón hasta que A toque B.", "Plegada, los arrecifes forman dos cifras."]),
+    "67": gris("67", "El cuaderno del piloto", "El cuaderno del piloto: una brújula con la aguja torcida hacia el oeste y un arco con rayitas entre la estrella polar y la aguja.", ["Es el desvío de la aguja (carta 64).", "Cada rayita del arco son 5 grados.", "El timón obedece a la aguja."]),
+    "62": combinable("62", "El cristal del Cronoportal", "roja", 12, 74, "El cristal del Cronoportal, que el loro dejó en el cofre de la capitana Bruma.",
+                     SIN_GENTE + "Un cristal redondo de color azul brillante, del tamaño de una moneda grande, con destellos de luz, sobre un lecho de terciopelo rojo en un cofre de madera con herrajes abierto, a la luz de un farol."),
+    "74": escena("74", "Cronoportal con el cristal", [], [62, 12, 64, 66, 67, 94, 57],
+                 "Encajáis el cristal en el pecho del Cronoportal y el anillo se enciende con un arco de luz azul. Fuera, la marea sube: el agua ya cubre la gruta y solo falta llegar al punto de la niebla donde se abre el anillo (carta 85).",
+                 ["Ya solo queda llegar al punto de la niebla."],
+                 "Cristina y Alberto encajan un cristal azul brillante en el hueco del Cronoportal, un aparato de latón y cristal con un anillo que se enciende con un arco de luz azul, sobre la cubierta de un bergantín pirata al atardecer. Cristina lo sostiene con las dos manos con una enorme sonrisa; Alberto contiene el aliento mirando el anillo con la boca abierta."),
+    "99": escena("99", "De vuelta a casa (FIN)", [], [74, 82, 85, 86, 87],
+                 "La Gaviota llega al punto de la niebla, el anillo se abre en un arco de luz justo cuando el agua cubre la gruta y la capitana Bruma os despide con el sombrero en alto. Aterrizáis en vuestro salón, empapados y con olor a mar. Alberto mira el aparato: «Mañana, otro destino». Cristina sonríe y guarda en el bolsillo un doblón de oro. FIN.",
+                 [],
+                 "La escena ocurre DENTRO del salón de su casa actual, en el presente (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida de tarde por la ventana): acaban de VOLVER a casa. Cristina y Alberto acaban de salir de un portal circular de luz azul y dorada que se abre detrás de ellos; a través del portal todavía se ven un barco pirata en medio de la niebla, una gruta marina y la capitana Bruma saludando con el sombrero. Llevan aún su ropa de pirata, empapados y goteando sobre la alfombra. Cristina ríe a carcajadas enseñando un doblón de oro en la palma de la mano y Alberto, con el tricornio torcido, escurre agua de su casaca con cara de alivio. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda y se está cerrando; el mundo de la aventura solo se ve a través del portal, detrás de ellos. No están entrando en el portal ni saliendo de casa: están llegando."),
 }
 
-META = dict(
-    juego="Mar de las Brumas, 1715 — El Tesoro de la Isla Calavera",
-    estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
-)
+META = dict(juego="Mar de las Brumas, 1715 — El Tesoro de la Isla Calavera", estilo=ESTILO, personajes=PERSONAJES, hoja=HOJA, foto=FOTO, video=VIDEO,
+            mosaicos={k: dict(filas=m["filas"], cols=m["cols"], cartas=m["cartas"], titulo=m["titulo"]) for k, m in MOSAICOS.items()})
 
-SPEC = dict(
-    final="99",
-    needs={"26": ["24", "30", "31"], "44": ["46", "40"], "57": ["22", "35"], "58": ["48", "52"], "72": ["66", "64"],
-           "80": ["79", "76"], "94": ["38", "56"], "82": ["69", "70"], "74": ["62", "12"]},
-    eventos={},
-)
+SPEC = dict(final="99", needs={
+    "24": ["14", "16"], "28": ["20", "18", "19", "21"], "57": ["22", "35"], "30": ["40", "41", "43", "45"], "36": ["48", "42", "49", "53"],
+    "44": ["52", "54", "55", "59"], "56": ["46", "37", "39", "33"], "58": ["51", "26", "61", "63"], "80": ["69", "70", "71"], "94": ["38", "56"],
+    "62": ["64", "66", "67"], "82": ["72", "75", "79"], "74": ["12", "62"], "99": ["85", "86", "87", "74"]}, eventos={})
 
-PARA_QUE = {
-    "P": "Inicio: llegada a bordo. Te manda coger la 10 y la 12.",
-    "10": "La cubierta: reparte el timón, la carta náutica, el cuaderno del piloto y la lente.",
-    "12": "El Cronoportal sin cristal: se combina con el cristal de energía (62).",
-    "22": "Lente de catalejo: se combina con el tubo (35).",
-    "24": "El timón (app): rumbo de la carta plegada + desvío de la aguja.",
-    "26": "Rumbo a la isla: reparte la bodega, el plano y el tubo del catalejo.",
-    "30": "Carta náutica que se pliega: el rumbo verdadero.",
-    "31": "Cuaderno del piloto: el desvío de la aguja.",
-    "35": "Tubo de catalejo: se combina con la lente (22).",
-    "38": "Antorcha apagada: se combina con el pedernal (56).",
-    "40": "Plano de estiba: las X de los barriles.",
-    "44": "La bodega estibada: reparte la antorcha.",
-    "46": "La bodega (app): empujar los barriles a las X.",
-    "48": "La persecución (app): llegar a la niebla sin que la fragata os alcance.",
-    "52": "Ordenanza de la Armada: cómo se mueve la fragata.",
-    "56": "Pedernal y eslabón: se combina con la antorcha (38).",
-    "57": "El catalejo (22 + 35): reparte la persecución y la ordenanza.",
-    "58": "Desembarco: reparte la tapa del cofre y la carta celeste.",
-    "62": "Cristal de energía: se combina con el Cronoportal (12).",
-    "64": "Carta celeste: la constelación de la Calavera.",
-    "66": "La tapa del cofre (app): las seis tachuelas de la Calavera girada.",
-    "69": "Cavar en la gruta (app): la X del mapa plegado, con el suelo girado.",
-    "70": "Mapa de la isla que se pliega por los dos lados: dónde está la X.",
-    "72": "El cofre de Calavera: reparte el testamento y el suelo de la cueva.",
-    "74": "Cronoportal reconectado (62 + 12): reparte la 99.",
-    "76": "Testamento que se pliega: el ciclo de símbolos del suelo.",
-    "79": "El suelo de la cueva (app): cruzar por losas vecinas siguiendo el ciclo.",
-    "80": "La boca de la cueva: reparte el pedernal.",
-    "82": "El tesoro: reparte el cristal de energía.",
-    "94": "La antorcha encendida (38 + 56): reparte la gruta y el mapa.",
-    "99": "Final de la aventura, ya en casa.",
-}
+PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
-# ---------------------------------------------------------------- manual (los estados de la mesa se calculan simulando las cartas)
-_TEXTOS = [
-    ("leer", "P", "Llegada a bordo", "Pon el Modo PC en el ordenador (solo debe haber la carta P en la mesa y el resto boca abajo en el mazo) y en el móvil abre el juego y pulsa Empezar. Lee la carta P: te manda coger la 10 y la 12."),
-    ("leer", "10", "La cubierta de La Gaviota", "Lee la carta 10. Descarta la P y coge 22, 24, 30 y 31. La carta náutica (30) se pliega: en papel, en acordeón hasta que A toque B; en el Modo PC, botón «Plegar»."),
-    ("app", "24", "El timón", f"En el móvil: Acción, 24. Plegada, la carta 30 dice {RUMBO['carta']}; el cuaderno del piloto (31) dibuja un desvío de {RUMBO['desvio']} grados. Fija el timón en {RUMBO['aguja']}. El mensaje te dice que cojas la 26.", "carta 26"),
-    ("leer", "26", "Rumbo a la Isla Calavera", "Lee la carta 26. Descarta 10, 24, 30 y 31 y coge 35, 40 y 46. Las cartas 22 y 35 son combinables."),
-    ("app", "46", "La bodega", "En el móvil: Acción, 46. Marca con tiza las X del plano de estiba (carta 40) y empuja los tres barriles hasta ellas (hay botones para deshacer y empezar de nuevo). El mensaje te dice que cojas la 44.", "carta 44"),
-    ("leer", "44", "La bodega estibada", "Lee la carta 44. Descarta 26, 40 y 46 y coge la 38, una antorcha apagada."),
-    ("combinar", "22", "35", "El catalejo", "La lente (22) y el tubo (35) son combinables: 22 + 35 = 57. Coge la 57."),
-    ("leer", "57", "El catalejo", "Lee la carta 57. Descarta 22 y 35 y coge 48 y 52. El código de señales está en la 52."),
-    ("app", "48", "La persecución", f"En el móvil: Acción, 48. La fragata se mueve según la ordenanza (carta 52). Una solución: {_PERSIGUE}. El mensaje te dice que cojas la 58.", "carta 58"),
-    ("leer", "58", "Desembarco en la Isla Calavera", "Lee la carta 58. Descarta 48, 52 y 57 y coge 64 y 66."),
-    ("app", "66", "La tapa del cofre", "En el móvil: Acción, 66. Busca en la tapa la Calavera de la carta celeste (64), girada un tercio de vuelta, arriba a la derecha del centro; toca sus seis tachuelas y abre. El mensaje te dice que cojas la 72.", "carta 72"),
-    ("leer", "72", "El cofre del capitán Calavera", "Lee la carta 72. Descarta 58, 64 y 66 y coge 76 y 79. El testamento (76) también se pliega."),
-    ("app", "79", "El suelo de la cueva", f"En el móvil: Acción, 79. Plegado, el testamento enseña, de arriba abajo: {_CICLO}. Cruza el suelo de losa vecina en losa vecina siguiendo ese ciclo: {_SUELO}. El mensaje te dice que cojas la 80.", "carta 80"),
-    ("leer", "80", "La boca de la cueva", "Lee la carta 80. Descarta 72, 76 y 79 y coge la 56, el pedernal y el eslabón."),
-    ("combinar", "38", "56", "La antorcha encendida", "La antorcha (38) y el pedernal (56) son combinables: 38 + 56 = 94. Coge la 94."),
-    ("leer", "94", "La antorcha encendida", "Lee la carta 94. Descarta 38, 56, 44 y 80 y coge 69 y 70. El mapa (70) se pliega por los dos lados."),
-    ("app", "69", "Cavar en la gruta", f"En el móvil: Acción, 69. Plegado el mapa (A sobre B y C sobre D), la X está {_X}. En la gruta, con el norte a la derecha: {_XG}. El mensaje te dice que cojas la 82.", "carta 82"),
-    ("leer", "82", "El tesoro de Calavera", "Lee la carta 82. Descarta 69, 70 y 94 y coge la 62, el cristal de energía."),
-    ("combinar", "12", "62", "Cristal en el Cronoportal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
-    ("leer", "74", "Cronoportal reconectado", "Lee la carta 74. Descarta 62, 12 y 82 y coge la 99."),
-    ("leer", "99", "Final", "Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!"),
+_T = [
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "10", "La cubierta de La Gaviota", "Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la carta de aguas: 19 arriba y 21 abajo."),
+    ("app", "14", "La bitácora", f"En el móvil: Acción, 14. Con la bitácora (16), el tiempo entre el aviso 1 y el aviso 3 es de {_S_BIT}. El mensaje te dice que cojas la 24. Anota la distancia de la bitácora: {_D['14']}.", "carta 24"),
+    ("leer", "24", "El pañol de la capitana", "Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para las mareas)."),
+    ("app", "20", "La persecución", f"En el móvil: Acción, 20. Con la carta de aguas (19 y 21) y la ordenanza (18), una salida es: {_S_PER}. El mensaje te dice que cojas la 28.", "carta 28"),
+    ("leer", "28", "El banco de niebla", "Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35."),
+    ("combinar", "22", "35", "El catalejo", "Las dos mitades de la lente (22 y 35) son combinables: 22 + 35 = 57. Coge la 57."),
+    ("leer", "57", "El catalejo", "Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32."),
+    ("leer", "31", "El cofre del capitán Calavera", "Lee la carta 31. Coge 40, 41, 43 y 45. Junta el cielo: 41 a la izquierda y 43 a la derecha."),
+    ("app", "40", "La tapa del cofre", f"En el móvil: Acción, 40. Con el cielo (41 y 43) y la carta celeste (45), las estrellas de la Calavera son {_S_CIE}. El mensaje te dice que cojas la 30. Anota la distancia de las estrellas: {_D['40']}.", "carta 30"),
+    ("leer", "30", "El cofre abierto", "Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38."),
+    ("leer", "32", "La entrada de la cueva", "Lee la carta 32. Coge 42, 48, 49 y 53. Junta el suelo: 42 a la izquierda y 49 a la derecha. Pliega el testamento (53): A sobre B."),
+    ("app", "48", "El suelo de la cueva", f"En el móvil: Acción, 48. Con el testamento plegado (53) y el suelo (42 y 49), el orden de los símbolos es {_S_CICLO} y el camino, desde abajo: {_S_SUE}. El mensaje te dice que cojas la 36.", "carta 36"),
+    ("leer", "36", "La santabárbara", "Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59."),
+    ("app", "52", "El cañón", f"En el móvil: Acción, 52. Con las tablas (54 y 55) y las presas (59): {_S_CAN}. El mensaje te dice que cojas la 44. Anota la distancia del cañón: {_D['52']}.", "carta 44"),
+    ("leer", "44", "La toldilla", "Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta la tabla de la marea: 61 arriba y 63 abajo."),
+    ("app", "46", "El reparto del botín", f"En el móvil: Acción, 46. Con la tripulación (37), el Código (39) y el botín (33), el reparto es: {_S_BOT}. El mensaje te dice que cojas la 56.", "carta 56"),
+    ("app", "51", "Las mareas", f"En el móvil: Acción, 51. Con el calado (26) y la tabla de la marea (61 y 63), hay que salir a las {_S_MAR}. El mensaje te dice que cojas la 58.", "carta 58"),
+    ("leer", "58", "La bodega", "Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71."),
+    ("app", "69", "La balanza", f"En el móvil: Acción, 69. Con los cofres (70) y las pesas (71): {_S_PES}. El mensaje te dice que cojas la 80. Anota la distancia de la balanza: {_D['69']}.", "carta 80"),
+    ("leer", "80", "La playa", "Lee la carta 80. Descarta 58, 69, 70 y 71 y coge 72, 75 y 79. Pliega el mapa (75): A sobre B y C sobre D."),
+    ("app", "72", "Cavar en la gruta", f"En el móvil: Acción, 72. Con el mapa plegado (75) y el plano de la gruta (79), la X está {_S_GRU}. El mensaje te dice que cojas la 82. Anota la distancia de la gruta: {_D['72']}.", "carta 82"),
+    ("leer", "82", "El camarote de la capitana", "Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87."),
+    ("combinar", "38", "56", "La llave de la capitana", "Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94."),
+    ("leer", "94", "El cofre de la capitana", "Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Pliega la carta náutica (66): A sobre B."),
+    ("app", "64", "El timón", f"En el móvil: Acción, 64. Con la carta náutica plegada (66) y el cuaderno del piloto (67), el rumbo de la aguja es {_S_RUM}. El mensaje te dice que cojas la 62.", "carta 62"),
+    ("combinar", "12", "62", "El cristal", "El Cronoportal (12) y el cristal (62) son combinables: 12 + 62 = 74. Coge la 74."),
+    ("leer", "74", "Cronoportal con el cristal", "Lee la carta 74. Descarta 62, 12, 64, 66, 67, 94 y 57."),
+    ("app", "85", "El punto de la niebla", f"En el móvil: Acción, 85. Con los rumbos (86) y la carta de la isla (87), y las distancias de la bitácora, las estrellas, el cañón, la balanza y la gruta, el ancla se echa en la {_S_ISL}. El mensaje te dice que cojas la 99.", "carta 99"),
+    ("leer", "99", "Final", "Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fin!"),
 ]
-
-
-def _orden(m):
-    return sorted(m, key=lambda x: (x != "P", int(x) if x != "P" else 0))
-
-
-def _pasos():
-    mesa = set()
-    pasos = []
-    for p in _TEXTOS:
-        if p[0] == "leer":
-            c = J[p[1]]
-            for d in c.get("descarta", []):
-                mesa.discard(str(d))
-            for h in c.get("coge", []):
-                mesa.add(str(h))
-            if p[1] == "P":
-                mesa = {"P", "10", "12"}
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("leer", p[1])], mesa=_orden(mesa)))
-        elif p[0] == "app":
-            mesa.add(p[4].split()[-1])
-            pasos.append(dict(t=p[2], que=p[3], acciones=[("app", p[1], p[4])], mesa=_orden(mesa)))
-        else:
-            mesa.add(str(int(p[1]) + int(p[2])))
-            pasos.append(dict(t=p[3], que=p[4], acciones=[("combinar", p[1], p[2])], mesa=_orden(mesa)))
-    return pasos
-
-
-PASOS = _pasos()
-
-
-# ================================================================== ampliación a 36 cartas (20 oct 2026)
-# Entre la persecución y el desembarco: la marea entre los arrecifes. El diario de la capitana dice cuándo pasar en campanadas de una
-# guardia; dos cartas explican las guardias y las campanadas, y la app es el reloj de bitácora. Láminas: dibujos_ampliacion.py.
-import json as _json  # noqa: E402
-import os as _os  # noqa: E402
-import ampliacion as _amp  # noqa: E402
-
-_AMP = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "instancias_ampliacion.json"), encoding="utf-8"))
-_HORA = "{:02d}:{:02d}".format(*_AMP["piratas_campanas"]["hora"])
-
-
-def _pieza2(que):
-    return f"Carta dibujada por código (herramientas/dibujos_ampliacion.py; no se pide a ChatGPT): {que}."
-
-
-J["48"]["descripcion"][1] = J["48"]["descripcion"][1].replace("Coged la carta 58", "Coged la carta 59")
-J.update({
-    "59": dict(
-        titulo="Carta 59 — Al pairo frente a la isla", tipo="gris", coge=[61, 63, 65, 67],
-        descripcion=[
-            "La Gaviota sale de la niebla frente a la Isla Calavera, pero un cinturón de arrecifes rodea la playa. La capitana Bruma busca en su diario (carta 67): solo se puede pasar con la marea justa, y ella lo apuntó a la manera de los marinos, en campanadas. Hay que poner en hora el reloj de bitácora (carta 61) con el cuadro de guardias (carta 63) y el de campanadas (carta 65).",
-            "Coged las cartas 61, 63, 65 y 67."],
-        pistas=["Hay un puzle: el reloj de bitácora, el diario y dos cuadros.", "El diario (67) dice la guardia y las campanadas; las cartas 63 y 65 explican cómo se cuentan.", "Coged las cartas 61, 63, 65 y 67."],
-        arte="Un barco pirata al pairo al atardecer frente a una isla con palmeras rodeada de arrecifes con espuma, con una campana de bronce colgada junto al timón. Cristina mira las rocas por encima de la borda con cara de preocupación y Alberto sostiene un diario abierto, rascándose la cabeza confundido."),
-    "61": dict(
-        titulo="Carta 61 — El reloj de bitácora", tipo="verde",
-        descripcion=[
-            "Es un juego de la app: el reloj de bitácora de La Gaviota, que se adelanta o se atrasa de media en media hora. Hay que ponerlo a la hora que apuntó la capitana en su diario (carta 67), convirtiendo la guardia y las campanadas con los cuadros de las cartas 63 y 65.",
-            "Al acertar, la marea abre el paso entre los arrecifes. Coged la carta 58."],
-        pistas=["Hacen falta el diario (67), las guardias (63) y las campanadas (65).", "La guardia de la tarde empieza a las 12; cada campanada es media hora desde que empezó la guardia.", f"Poned el reloj a las {_HORA}."],
-        arte="Un reloj de bitácora de latón con esfera de veinticuatro horas, montado junto a la rueda del timón de un barco pirata, con la luz dorada del atardecer. Alberto gira la corona del reloj con cuidado, sacando la lengua, y Cristina cuenta campanadas con los dedos, muy seria."),
-    "63": dict(titulo="Carta 63 — Las guardias", tipo="gris",
-               descripcion=["El cuadro de las seis guardias de a bordo: cómo se reparte el día en turnos de cuatro horas y a qué hora empieza cada uno."],
-               pistas=["Sirve para el reloj de bitácora (carta 61).", "Buscad la guardia que dice el diario (carta 67) y mirad a qué hora empieza.", f"La hora es las {_HORA}."],
-               arte=_pieza2("el cuadro de las guardias")),
-    "65": dict(titulo="Carta 65 — Las campanadas", tipo="gris",
-               descripcion=["El cuadro de las campanadas: cada media hora de guardia suena una campanada más, de una a ocho."],
-               pistas=["Sirve para el reloj de bitácora (carta 61).", "Contad las campanas del diario (carta 67): cada una es media hora desde el principio de la guardia.", f"La hora es las {_HORA}."],
-               arte=_pieza2("el cuadro de las campanadas")),
-    "67": dict(titulo="Carta 67 — Diario de la capitana", tipo="gris",
-               descripcion=["Una página del diario de la capitana Bruma: el paso entre los arrecifes se abre en la guardia de la tarde, con las campanadas dibujadas."],
-               pistas=["Sirve para el reloj de bitácora (carta 61).", "El sol dice la guardia; las campanas, cuántas medias horas han pasado desde que empezó.", f"La hora es las {_HORA}."],
-               arte=_pieza2("la página del diario")),
-})
-J["58"]["descarta"] = [48, 52, 57, 59, 61, 63, 65, 67]
-J["58"]["descripcion"][0] = J["58"]["descripcion"][0].replace("La fragata se pierde en la niebla y La Gaviota fondea", "La marea abre el paso y La Gaviota fondea")
-J["58"]["descripcion"][1] = "Coged las cartas 64 y 66. Descartad las cartas 48, 52, 57, 59, 61, 63, 65 y 67."
-J["58"]["pistas"][2] = "Coged las cartas 64 y 66. Descartad las cartas 48, 52, 57, 59, 61, 63, 65 y 67."
-
-SPEC["needs"]["59"] = SPEC["needs"].pop("58")
-SPEC["needs"]["58"] = ["61", "63", "65", "67"]
-PARA_QUE.update({
-    "59": "Al pairo frente a la isla: reparte el reloj, los cuadros y el diario.", "61": "El reloj de bitácora (app): la hora de la marea.",
-    "63": "Cuadro de las guardias.", "65": "Cuadro de las campanadas.", "67": "Diario de la capitana: guardia y campanadas.",
-    "58": "Desembarco: aparece al pasar los arrecifes.",
-})
-
-_i = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("app", "48"))
-PASOS[_i]["que"] = PASOS[_i]["que"].replace("cojas la 58", "cojas la 59")
-PASOS[_i]["acciones"] = [("app", "48", "carta 59")]
-PASOS[_i + 1:_i + 1] = [
-    dict(t="Al pairo frente a la isla", que="Lee la carta 59. Coge 61, 63, 65 y 67.", acciones=[("leer", "59")]),
-    dict(t="El reloj de bitácora", que=f"En el móvil: Acción, 61. La guardia de la tarde empieza a las 12 y cada campanada es media hora: pon el reloj a las {_HORA}. El mensaje te dice que cojas la 58.",
-         acciones=[("app", "61", "carta 58")]),
-]
-_j = next(i for i, p in enumerate(PASOS) if p["acciones"][0][:2] == ("leer", "58"))
-PASOS[_j]["que"] = PASOS[_j]["que"].replace("Descarta 48, 52 y 57", "Descarta 48, 52, 57, 59, 61, 63, 65 y 67")
+PASOS = []
+for _p in _T:
+    if _p[0] == "combinar":
+        PASOS.append(dict(t=_p[3], que=_p[4], acciones=[("combinar", _p[1], _p[2])]))
+    elif _p[0] == "app":
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
+    else:
+        PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
 _amp.recalcular_mesas(PASOS, J)

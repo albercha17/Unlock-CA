@@ -1,23 +1,23 @@
-// Carta 79 — El suelo de la cueva: cruzar de abajo arriba pisando losas vecinas que siguen, una y otra vez, los cuatro símbolos del
-// testamento plegado (carta 76). Instancia de herramientas/instancias_piratas.py: hay un único camino.
+// Carta 48 — El suelo de la cueva: cruzar de abajo arriba pisando losas vecinas que siguen, una y otra vez, los cuatro símbolos del testamento plegado
+// (carta 53). Los símbolos de las losas solo están en el suelo dibujado (cartas 42 y 49, dos mitades); aquí las losas están en blanco.
+// Instancia de herramientas/instancias_piratas.py: hay un único camino.
 import { openGame } from './ui.js';
 
-const S = /*DATOS*/{"n": 5, "ciclo": ["luna", "llave", "calavera", "corona"], "suelo": [["calavera", "calavera", "campana", "corona", "ancla"], ["luna", "llave", "llave", "campana", "calavera"], ["corona", "calavera", "espada", "estrella", "espada"], ["luna", "llave", "ancla", "llave", "ancla"], ["corona", "calavera", "llave", "luna", "calavera"]]}/*FIN*/;
+const S = /*DATOS*/{"n": 6, "ciclo": ["luna", "llave", "calavera", "corona"], "suelo": [["calavera", "espada", "corona", "espada", "llave", "espada"], ["llave", "corona", "calavera", "espada", "espada", "campana"], ["espada", "estrella", "llave", "luna", "espada", "corona"], ["pez", "llave", "calavera", "corona", "calavera", "ancla"], ["campana", "luna", "corona", "corona", "luna", "ancla"], ["calavera", "luna", "calavera", "llave", "luna", "llave"]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
-    title: 'Carta 79 — El suelo de la cueva',
-    instr: 'Entrad por abajo y cruzad hasta la fila de arriba pisando solo losas vecinas (arriba, abajo o a los lados), con los símbolos del testamento en su orden, una y otra vez. Una pisada en falso y la losa se hunde.',
+    title: 'Carta 48 — El suelo de la cueva',
+    instr: 'Entrad por abajo y cruzad hasta la fila de arriba pisando solo losas vecinas (arriba, abajo o a los lados) cuyos símbolos sigan el testamento (carta 53), una y otra vez. Los símbolos están en el suelo dibujado (cartas 42 y 49). Una pisada en falso y la losa se hunde.',
     ...opts
   });
 
   const style = document.createElement('style');
   style.textContent = `
     .pir-fondo{text-align:center;font:700 .75rem system-ui,sans-serif;letter-spacing:.2em;color:#e8b84a;margin:0}
-    .pir-suelo{display:grid;grid-template-columns:repeat(${S.n},1fr);gap:5px;width:min(80vw,290px);margin:4px auto}
+    .pir-suelo{display:grid;grid-template-columns:repeat(${S.n},1fr);gap:5px;width:min(84vw,320px);margin:4px auto}
     .pir-losa{position:relative;aspect-ratio:1;border-radius:5px;border:2px solid #1a1410;padding:5px;cursor:pointer;
       background:radial-gradient(circle at 30% 25%,#8a8274,#5a544a 60%,#3a352e);box-shadow:inset 0 2px 0 rgba(255,255,255,.18),0 4px 0 #1a1612}
-    .pir-losa img{width:100%;height:100%;object-fit:contain;mix-blend-mode:screen;opacity:.8;pointer-events:none}
     .pir-losa.pisada{transform:translateY(3px);box-shadow:0 1px 0 #1a1612;background:radial-gradient(circle at 30% 25%,#9a8a5a,#6a5a30 60%,#3a3018)}
     .pir-losa.aqui{outline:3px solid #ffd27a;outline-offset:-3px}
     .pir-losa.hunde{animation:pir-hunde .5s}
@@ -64,14 +64,14 @@ export function startMinigame(opts = {}) {
       void b.offsetWidth;
       b.classList.add('hunde');
       pintar();
-      ui.say('¡La losa se hunde y volvéis a la entrada de un salto! No tocaba ese símbolo. El orden está en el testamento (carta 76)... ¿lo habéis plegado?', 'bad');
+      ui.say('¡La losa se hunde y volvéis a la entrada de un salto! No tocaba ese símbolo. El orden está en el testamento (carta 53)... ¿lo habéis plegado?', 'bad');
       return;
     }
     camino.push([x, y]);
     pintar();
     if (y === 0) {
       resuelto = true;
-      ui.say('Llegáis al fondo sin hundir ni una losa. La pared de roca se abre con un ruido sordo: un pasadizo baja hacia la oscuridad. Coged la carta 80.', 'ok');
+      ui.say('Llegáis al fondo sin hundir ni una losa. La pared de roca se abre con un ruido sordo: un pasadizo baja hacia la oscuridad. Coged la carta 36.', 'ok');
     } else {
       ui.say('');
     }
@@ -84,9 +84,7 @@ export function startMinigame(opts = {}) {
       b.className = 'pir-losa';
       b.dataset.x = String(x);
       b.dataset.y = String(y);
-      b.dataset.s = S.suelo[y][x];
-      b.setAttribute('aria-label', 'Losa con ' + S.suelo[y][x] + ', fila ' + (S.n - y) + ', columna ' + (x + 1));
-      b.innerHTML = '<img src="./img/ui/sim-' + S.suelo[y][x] + '.png" alt="">';
+      b.setAttribute('aria-label', 'Losa, fila ' + (S.n - y) + ', columna ' + (x + 1));
       b.addEventListener('click', () => pisar(x, y, b));
       suelo.appendChild(b);
     }

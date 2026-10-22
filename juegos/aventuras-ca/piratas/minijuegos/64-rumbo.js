@@ -1,16 +1,17 @@
-// Carta 24 — El timón: fijar en la brújula el rumbo que debe marcar la aguja.
-// La carta náutica plegada (carta 30) da el rumbo verdadero, 95; el cuaderno del piloto (carta 31), un desvío de 20 grados al oeste que se suma.
-// Solución: 115. Desplegada, la carta náutica enseña señuelos (59 y 86, o 58 y 96 leídos de lado).
+// Carta 64 — El timón: fijar en la brújula el rumbo que debe marcar la aguja. La carta náutica plegada (carta 66) da el rumbo verdadero con arrecifes en
+// forma de cifras; el cuaderno del piloto (carta 67) dibuja la aguja torcida hacia el oeste. Desplegada, la carta náutica enseña cifras falsas.
+// Instancia de herramientas/instancias_piratas.py (RUMBO).
 import { openGame } from './ui.js';
 
-const SOLUCION = 115;
-const VERDADERO = 95;
-const SENUELOS = [59, 86, 58, 96];
+const R = /*DATOS*/{"carta": "86", "aguja": 111, "senuelos": ["68", "95"]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
+  const SOLUCION = R.aguja;
+  const VERDADERO = Number(R.carta);
+  const SENUELOS = R.senuelos.map(Number).concat(R.senuelos.map(s => Number(s.split('').reverse().join(''))));
   const ui = openGame({
-    title: 'Carta 24 — El timón',
-    instr: 'Gira la rosa de la brújula hasta el rumbo que debe marcar la aguja y fija el timón. El rumbo verdadero está en la carta náutica plegada; el desvío de la aguja, en el cuaderno del piloto.',
+    title: 'Carta 64 — El timón',
+    instr: 'Gira la rosa de la brújula hasta el rumbo que debe marcar la aguja y fija el timón. El rumbo verdadero está en la carta náutica plegada (carta 66); el desvío de la aguja, en el cuaderno del piloto (carta 67).',
     ...opts
   });
 
@@ -66,9 +67,9 @@ export function startMinigame(opts = {}) {
     if (rumbo === SOLUCION) {
       resuelto = true;
       bit.classList.add('ok');
-      ui.say('¡Rumbo fijado! La Gaviota vira y pone proa a la Isla Calavera con el viento a favor. La capitana Bruma asiente: «Por fin alguien que sabe leer una carta». Coged la carta 26.', 'ok');
+      ui.say('¡Rumbo fijado! La Gaviota vira y pone proa a la Isla Calavera con el viento a favor. La capitana Bruma asiente: «Por fin alguien que sabe leer una carta». Coged la carta 62.', 'ok');
     } else if (rumbo === VERDADERO) {
-      ui.say('Ese es el rumbo de la carta náutica, pero el timón obedece a la aguja, y en este mar la aguja se desvía. Mirad el cuaderno del piloto (carta 31).', 'bad');
+      ui.say('Ese es el rumbo de la carta náutica, pero el timón obedece a la aguja, y en este mar la aguja se tuerce. Mirad el cuaderno del piloto (carta 67).', 'bad');
     } else if (SENUELOS.includes(rumbo)) {
       ui.say('¡Ese rumbo lleva derecho a los arrecifes! La carta náutica desplegada engaña: buscad las líneas A y B.', 'bad');
     } else {
