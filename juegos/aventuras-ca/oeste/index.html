@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <p class="sinopsis">Novena parada del Cronoportal: Dry Gulch, un pueblo del Lejano Oeste en 1878. El aparato golpea un barril en el apartadero de la estación y un jinete enmascarado, que cree haber encontrado una joya, se lleva el cristal de energía. Para recuperarlo hay que enganchar un tren, reconocer a un bandido en un cartel de «Se busca», seguir un mapa, volar un túnel con dos mechas y encontrar una barra de oro falsa, antes de que salga el tren del oro, dentro de hora y media.</p>
+      <p class="sinopsis">Novena parada del Cronoportal: Dry Gulch, un pueblo del Lejano Oeste en 1878. El aparato golpea un barril en el apartadero de la estación y un jinete enmascarado, que cree haber encontrado una joya, se lleva el cristal de energía hacia el tren del oro, que sale dentro de hora y media. Para recuperarlo tendrán que descifrar un telegrama en zigzag, tachar un cuadro de banco, llenar la caja de un carro, rellenar un cuadro de apuestas, cargar un carro con la mejor ganancia, sobrevivir a un duelo en corro, empujar barriles en una bodega, arreglar una bomba de agua, ordenar vagones con un apartadero, reconocer los hierros de un ganadero y abrir la válvula de la locomotora con cinco coordenadas.</p>
 
       <ol class="pasos">
         <li>Pulsa <b>Empezar</b>: el reloj corre <span id="introMin">1 hora</span>. Podéis pausarlo cuando haga falta.</li>
@@ -235,15 +235,21 @@
       juego: 'oeste',
       assets: '../../../assets/',
       segundos: 5400,
-      dificultad: 3,
+      dificultad: 4,
       final: '99',
       volver: '../index.html',
       minijuegos: {
-      '20': './minijuegos/20-candado.js',
-      '24': './minijuegos/24-celda.js',
-      '46': './minijuegos/46-caja.js',
-      '48': './minijuegos/48-mechas.js',
-      '69': './minijuegos/69-bascula.js'
+      '14': './minijuegos/14-telegrama.js',
+      '20': './minijuegos/20-banco.js',
+      '40': './minijuegos/40-caja.js',
+      '48': './minijuegos/48-apuestas.js',
+      '52': './minijuegos/52-carga.js',
+      '46': './minijuegos/46-duelo.js',
+      '51': './minijuegos/51-bodega.js',
+      '64': './minijuegos/64-bomba.js',
+      '69': './minijuegos/69-maniobra.js',
+      '72': './minijuegos/72-hierros.js',
+      '85': './minijuegos/85-polibio.js'
       }
     };
   </script>
