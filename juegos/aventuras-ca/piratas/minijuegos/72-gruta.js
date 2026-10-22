@@ -1,9 +1,9 @@
-// Carta 69 — Cavar en la gruta: el suelo de arena de la gruta repite la cuadrícula del mapa de la isla (carta 70), pero se entra por el
-// este, así que se ve girado (el norte queda a la derecha). Hay que cavar en la casilla de la X del mapa PLEGADO por los dos lados.
-// Desplegado, el mapa tiene más filas y columnas que el suelo y la X cae en otro sitio. Datos de herramientas/instancias_piratas.py.
+// Carta 72 — Cavar en la gruta: el suelo de arena de la gruta repite la cuadrícula del mapa de la isla (carta 75), pero se entra por el este, así que se ve
+// girado (carta 79: el norte queda a la derecha). Hay que cavar en la casilla de la X del mapa PLEGADO por los dos lados. Desplegado, el mapa tiene más filas y
+// columnas que el suelo y la X cae en otro sitio. Datos de herramientas/instancias_piratas.py. Distancia de la gruta: R.distancia.
 import { openGame } from './ui.js';
 
-const R = /*DATOS*/{"cols": 6, "filas": 8, "inicio": [0, 1], "celdas": [[0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [3, 5], [2, 5], [2, 6]]}/*FIN*/;
+const R = /*DATOS*/{"cols": 6, "filas": 8, "inicio": [0, 1], "celdas": [[0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [3, 5], [2, 5], [2, 6]], "distancia": 2}/*FIN*/;
 
 export function startMinigame(opts = {}) {
   // en pantalla: entrando por el este, el oeste queda arriba y el norte a la derecha
@@ -14,8 +14,8 @@ export function startMinigame(opts = {}) {
   const palmera = aPantalla(R.inicio[0], R.inicio[1]);
 
   const ui = openGame({
-    title: 'Carta 69 — Cavar en la gruta',
-    instr: 'El suelo de la gruta repite la cuadrícula del mapa, pero entráis por el este: lo veis girado, con el norte a la derecha. La palmera de piedra marca la palmera del mapa. Tocad la casilla donde hay que cavar.',
+    title: 'Carta 72 — Cavar en la gruta',
+    instr: 'El suelo de la gruta repite la cuadrícula del mapa, pero entráis por el este: lo veis girado, con el norte a la derecha (carta 79). La palmera de piedra marca la palmera del mapa (carta 75). Tocad la casilla donde hay que cavar.',
     ...opts
   });
 
@@ -57,7 +57,7 @@ export function startMinigame(opts = {}) {
         if (xx === tesoro[0] && y === tesoro[1]) {
           resuelto = true;
           b.classList.add('tesoro');
-          ui.say('¡La pala choca con madera! Bajo la arena hay una trampilla con argollas de hierro. Al levantarla, brilla el oro: el tesoro del capitán Calavera. Coged la carta 82.', 'ok');
+          ui.say('¡La pala choca con madera! Bajo la arena hay una trampilla con argollas de hierro. Al levantarla, brilla el oro: el tesoro del capitán Calavera. Distancia de la gruta: ' + R.distancia + (R.distancia === 1 ? ' casilla' : ' casillas') + '. Coged la carta 82.', 'ok');
         } else {
           b.classList.add('hoyo');
           ui.say('Solo arena y conchas. Recordad: el mapa se pliega por los dos lados y aquí lo veis girado, con el norte a la derecha.', 'bad');

@@ -117,10 +117,11 @@ JUEGOS = {
                    "51": "51-eliminatorias.js", "64": "64-calendario.js", "69": "69-sustituciones.js", "72": "72-grada.js", "85": "85-aros.js"},
         pal=("#2f7a3a", "#0b2412")),
     "Piratas": dict(
-        datos=Pi, dificultad=3, tema="piratas", titulo="Mar de las Brumas, 1715: El Tesoro de la Isla Calavera", emoji="🏴‍☠️", minutos=90,
+        datos=Pi, dificultad=4, tema="piratas", titulo="Mar de las Brumas, 1715: El Tesoro de la Isla Calavera", emoji="🏴‍☠️", minutos=90,
         grad="#1c5a6a,#06141a", acento="#e8b84a", acento2="#9fe0e0", bg1="#06141a", bg2="#103440",
-        sinopsis="Duodécima parada del Cronoportal: la cubierta de La Gaviota, un bergantín pirata del Caribe, en 1715. Un loro se lleva el cristal de energía al cofre de la capitana Bruma, que solo lo devolverá si encontráis el tesoro del capitán Calavera antes de que la marea cubra su cueva. Hay cartas que se pliegan como los mapas antiguos: fijad el rumbo, estibad la pólvora, burlad a una fragata que persigue siempre igual, encontrad una constelación girada en la tapa de un cofre, cruzad un suelo de losas trampa y cavad donde marca el mapa.",
-        minigames={"24": "24-timon.js", "46": "46-bodega.js", "48": "48-persecucion.js", "66": "66-cofre.js", "79": "79-suelo.js", "69": "69-gruta.js", "61": "61-reloj.js"},
+        sinopsis="Duodécima parada del Cronoportal: la cubierta de La Gaviota, un bergantín pirata del Caribe, en 1715. Un loro se lleva el cristal de energía al cofre de la capitana Bruma, que solo lo devolverá si encontráis el tesoro del capitán Calavera antes de que la marea cubra su cueva. Hay cartas que se pliegan como los mapas antiguos. Tendréis que echar cuentas con las campanadas de a bordo, burlar a una fragata, encontrar una constelación girada en la tapa de un cofre, cruzar un suelo de losas trampa, apuntar el cañón, repartir el botín entre siete piratas, cruzar las barras de arena con la marea, fijar el rumbo con una aguja torcida, equilibrar una balanza con pesas en los dos platillos, cavar donde marca el mapa y llegar al punto de la niebla.",
+        minigames={"14": "14-bitacora.js", "20": "20-persecucion.js", "40": "40-cielo.js", "48": "48-suelo.js", "52": "52-canon.js", "46": "46-botin.js",
+                   "51": "51-mareas.js", "64": "64-rumbo.js", "69": "69-pesas.js", "72": "72-gruta.js", "85": "85-isla.js"},
         pal=("#1f6a7a", "#08202a")),
     "Juguetes": dict(
         datos=Ju, dificultad=1, tema="juguetes", titulo="El Cuarto de Leo, 1995: La Noche de los Juguetes", emoji="🧸", minutos=60,

@@ -99,9 +99,9 @@
     "id": "piratas",
     "nombre": "Mar de las Brumas, 1715: El Tesoro de la Isla Calavera",
     "ruta": "juegos/aventuras-ca/piratas/",
-    "dificultad": 3,
+    "dificultad": 4,
     "minutos": 90,
-    "cartas": 36
+    "cartas": 60
   },
   {
     "id": "juguetes",

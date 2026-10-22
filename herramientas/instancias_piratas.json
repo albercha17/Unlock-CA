@@ -1,125 +1,76 @@
 {
- "rumbo": {
-  "carta": "95",
-  "desvio": 20,
-  "aguja": 115,
-  "senuelos": [
-   "59",
-   "86"
-  ],
-  "mitades_falsas": {
-   "derechas": [
-    "c",
-    "bc"
-   ],
-   "izquierdas": [
-    "fe",
-    "fe"
-   ]
-  }
- },
- "bodega": {
-  "ancho": 7,
-  "alto": 6,
-  "muros": [
+ "bitacora": {
+  "guardias": [
    [
-    0,
-    5
+    "Media",
+    0
    ],
    [
-    1,
+    "Alba",
     4
    ],
    [
-    2,
-    5
+    "Mañana",
+    8
    ],
    [
-    3,
-    4
+    "Tarde",
+    12
    ],
    [
-    4,
-    5
+    "Vísperas",
+    16
+   ],
+   [
+    "Primera",
+    20
    ]
   ],
-  "cajas": [
+  "anotaciones": [
    [
-    1,
+    "Avistamos la isla",
+    "Alba",
+    5
+   ],
+   [
+    "Echamos el ancla",
+    "Mañana",
     3
    ],
    [
-    2,
-    2
-   ],
-   [
-    3,
-    2
+    "La marea nos deja en seco",
+    "Tarde",
+    6
    ]
   ],
-  "metas": [
-   [
-    0,
-    0
-   ],
-   [
-    1,
-    0
-   ],
-   [
-    4,
-    1
-   ]
+  "minutos": [
+   390,
+   570,
+   900
   ],
-  "jugador": [
-   5,
-   3
+  "pregunta": [
+   0,
+   2
   ],
-  "solucion": [
-   "izquierda",
-   "izquierda",
-   "arriba",
-   "arriba",
-   "derecha",
-   "arriba",
-   "izquierda",
-   "izquierda",
-   "izquierda",
-   "abajo",
-   "abajo",
-   "izquierda",
-   "abajo",
-   "derecha",
-   "derecha",
-   "derecha",
-   "arriba",
-   "derecha",
-   "derecha",
-   "abajo",
-   "abajo",
-   "izquierda",
-   "arriba",
-   "arriba",
-   "izquierda",
-   "izquierda",
-   "abajo",
-   "izquierda",
-   "arriba",
-   "arriba"
-  ],
-  "empujes": 13
+  "entre": 510,
+  "entre_horas": 8,
+  "entre_min": 30
  },
  "persecucion": {
-  "ancho": 6,
-  "alto": 6,
+  "ancho": 7,
+  "alto": 7,
   "rocas": [
    [
-    0,
-    3
+    1,
+    4
    ],
    [
     2,
-    0
+    2
+   ],
+   [
+    2,
+    4
    ],
    [
     3,
@@ -127,45 +78,67 @@
    ],
    [
     3,
-    3
+    4
    ],
    [
     4,
     2
    ],
    [
-    4,
+    5,
+    1
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
     4
+   ],
+   [
+    6,
+    5
    ]
   ],
   "barco": [
-   4,
-   5
+   0,
+   1
   ],
   "fragata": [
-   4,
-   0
+   2,
+   5
   ],
   "niebla": [
-   5,
-   0
+   3,
+   5
   ],
   "solucion": [
    "derecha",
-   "esperar",
-   "izquierda",
-   "izquierda",
-   "arriba",
-   "izquierda",
-   "arriba",
-   "arriba",
-   "arriba",
+   "derecha",
    "derecha",
    "derecha",
    "arriba",
+   "derecha",
+   "izquierda",
+   "abajo",
+   "izquierda",
+   "izquierda",
+   "izquierda",
+   "abajo",
+   "izquierda",
+   "abajo",
+   "abajo",
+   "abajo",
+   "derecha",
+   "derecha",
    "derecha"
   ],
-  "directo": 6
+  "directo": 7
  },
  "cielo": {
   "figura": [
@@ -194,140 +167,195 @@
     56
    ]
   ],
+  "enlaces": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    1,
+    2
+   ]
+  ],
   "giro": 120,
+  "escala": 2.0,
   "estrellas": [
    [
-    234,
-    199
+    948,
+    670
    ],
    [
-    56,
-    229
+    991,
+    446
    ],
    [
-    134,
-    254
+    671,
+    440
    ],
    [
-    186,
-    144
+    112,
+    172
    ],
    [
-    281,
-    107
-   ],
-   [
-    222,
-    24
-   ],
-   [
-    96,
-    168
-   ],
-   [
-    212,
-    163
-   ],
-   [
-    69,
-    39
-   ],
-   [
-    48,
-    105
-   ],
-   [
-    172,
+    1049,
     179
    ],
    [
-    124,
-    112
+    338,
+    391
    ],
    [
-    31,
-    250
+    1172,
+    387
+   ],
+   [
+    1064,
+    610
+   ],
+   [
+    527,
+    503
+   ],
+   [
+    848,
+    593
+   ],
+   [
+    314,
+    248
+   ],
+   [
+    808,
+    651
+   ],
+   [
+    479,
+    246
+   ],
+   [
+    240,
+    256
+   ],
+   [
+    898,
+    327
+   ],
+   [
+    102,
+    704
+   ],
+   [
+    406,
+    273
    ],
    [
     259,
-    79
+    475
    ],
    [
-    116,
-    61
+    572,
+    270
    ],
    [
-    243,
-    169
+    817,
+    238
    ],
    [
-    41,
-    16
+    458,
+    702
    ],
    [
-    241,
-    117
+    270,
+    324
    ],
    [
-    77,
-    277
+    493,
+    582
    ],
    [
-    276,
-    173
+    54,
+    606
    ],
    [
-    160,
-    108
+    417,
+    358
    ],
    [
-    138,
-    146
+    1089,
+    344
    ],
    [
-    98,
-    125
+    522,
+    374
    ],
    [
-    28,
-    58
+    1065,
+    716
    ],
    [
-    202,
-    265
+    1189,
+    252
    ],
    [
-    178,
-    279
+    1017,
+    538
    ],
    [
-    171,
-    73
+    139,
+    465
    ],
    [
-    232,
-    258
+    1116,
+    552
    ],
    [
-    206,
-    121
+    514,
+    162
    ],
    [
-    141,
-    31
+    430,
+    453
+   ],
+   [
+    395,
+    664
+   ],
+   [
+    855,
+    753
    ]
   ],
   "solucion": [
-   7,
-   10,
+   6,
    11,
-   20,
-   21,
-   28
+   14,
+   17,
+   22,
+   25
   ]
  },
  "losas": {
-  "n": 5,
+  "n": 6,
   "ciclo": [
    "luna",
    "llave",
@@ -337,44 +365,65 @@
   "suelo": [
    [
     "calavera",
-    "calavera",
-    "campana",
-    "corona",
-    "ancla"
-   ],
-   [
-    "luna",
-    "llave",
-    "llave",
-    "campana",
-    "calavera"
-   ],
-   [
-    "corona",
-    "calavera",
     "espada",
-    "estrella",
+    "corona",
+    "espada",
+    "llave",
     "espada"
    ],
    [
+    "llave",
+    "corona",
+    "calavera",
+    "espada",
+    "espada",
+    "campana"
+   ],
+   [
+    "espada",
+    "estrella",
+    "llave",
     "luna",
+    "espada",
+    "corona"
+   ],
+   [
+    "pez",
     "llave",
-    "ancla",
-    "llave",
+    "calavera",
+    "corona",
+    "calavera",
     "ancla"
    ],
    [
+    "campana",
+    "luna",
     "corona",
+    "corona",
+    "luna",
+    "ancla"
+   ],
+   [
+    "calavera",
+    "luna",
     "calavera",
     "llave",
     "luna",
-    "calavera"
+    "llave"
    ]
   ],
   "camino": [
    [
+    4,
+    5
+   ],
+   [
     3,
-    4
+    5
+   ],
+   [
+    2,
+    5
    ],
    [
     2,
@@ -385,35 +434,31 @@
     4
    ],
    [
-    0,
-    4
-   ],
-   [
-    0,
-    3
-   ],
-   [
     1,
     3
    ],
    [
-    1,
+    2,
+    3
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
     2
    ],
    [
-    0,
+    2,
     2
    ],
    [
-    0,
+    2,
     1
    ],
    [
-    1,
-    1
-   ],
-   [
-    1,
+    2,
     0
    ]
   ],
@@ -428,6 +473,177 @@
    "campana",
    "espada",
    "ancla"
+  ]
+ },
+ "canon": {
+  "base": [
+   2,
+   6,
+   7,
+   8,
+   9,
+   12
+  ],
+  "corr": [
+   4,
+   3,
+   0,
+   5,
+   -1
+  ],
+  "barcos": [
+   {
+    "dist": 8,
+    "viento": 0
+   },
+   {
+    "dist": 12,
+    "viento": 0
+   },
+   {
+    "dist": 9,
+    "viento": 2
+   }
+  ],
+  "limite": 8,
+  "elevaciones": [
+   0,
+   5,
+   10,
+   15,
+   20
+  ],
+  "solucion": [
+   [
+    3,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    0,
+    3
+   ]
+  ]
+ },
+ "botin": {
+  "piratas": 7,
+  "monedas": 120,
+  "solucion": [
+   117,
+   0,
+   1,
+   0,
+   1,
+   0,
+   1
+  ],
+  "necesarios": 4,
+  "previo": [
+   118,
+   0,
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ "mareas": {
+  "alturas": [
+   5,
+   8,
+   14,
+   22,
+   31,
+   37,
+   39,
+   37,
+   31,
+   23,
+   15,
+   8,
+   5,
+   6,
+   11,
+   19,
+   27,
+   35,
+   39,
+   38,
+   34,
+   27,
+   18,
+   11
+  ],
+  "calado": 32,
+  "barras": [
+   {
+    "fondo": 2,
+    "tras": 0
+   },
+   {
+    "fondo": 5,
+    "tras": 2
+   },
+   {
+    "fondo": 9,
+    "tras": 5
+   }
+  ],
+  "salida": 4
+ },
+ "rumbo": {
+  "carta": "86",
+  "desvio": 25,
+  "aguja": 111,
+  "senuelos": [
+   "68",
+   "95"
+  ],
+  "mitades_falsas": {
+   "derechas": [
+    "c",
+    "bc"
+   ],
+   "izquierdas": [
+    "f",
+    "f"
+   ]
+  }
+ },
+ "pesas": {
+  "pesas": [
+   1,
+   3,
+   9,
+   27
+  ],
+  "objetos": [
+   22,
+   31,
+   17
+  ],
+  "solucion": [
+   [
+    1,
+    1,
+    -1,
+    1
+   ],
+   [
+    1,
+    1,
+    0,
+    1
+   ],
+   [
+    -1,
+    0,
+    -1,
+    1
+   ]
   ]
  },
  "ruta": {
@@ -523,20 +739,78 @@
    "abajo"
   ]
  },
+ "isla": {
+  "n": 10,
+  "inicio": [
+   1,
+   7
+  ],
+  "orden": [
+   "14",
+   "40",
+   "52",
+   "69",
+   "72"
+  ],
+  "rumbos": [
+   "E",
+   "SE",
+   "N",
+   "NE",
+   "O"
+  ],
+  "distancias": [
+   3,
+   2,
+   4,
+   1,
+   2
+  ],
+  "camino": [
+   [
+    1,
+    7
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    6,
+    9
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    7,
+    4
+   ],
+   [
+    5,
+    4
+   ]
+  ],
+  "final": [
+   5,
+   4
+  ]
+ },
  "pliegues": {
-  "30": {
+  "66": {
    "x": [
     235,
     395
    ]
   },
-  "76": {
+  "53": {
    "x": [
     240,
     390
    ]
   },
-  "70": {
+  "75": {
    "x": [
     251,
     379

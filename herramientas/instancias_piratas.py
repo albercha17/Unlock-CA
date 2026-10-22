@@ -1,15 +1,19 @@
-"""Instancias de «Mar de las Brumas, 1715» (piratas), buscadas con semilla fija y comprobadas por fuerza bruta. Escribe instancias_piratas.json,
-que leen piratas.py (las láminas de las cartas), datos_piratas.py (pistas y manual), los minijuegos (copiados como constantes) y solvers_piratas.py.
+"""Instancias de «Mar de las Brumas, 1715» (piratas), versión de 60 cartas (22 oct 2026), buscadas con semilla fija y comprobadas por fuerza bruta.
+Escribe instancias_piratas.json, que leen piratas.py (las láminas de las cartas), datos_piratas.py (pistas y manual), los minijuegos (copiados como
+constantes) y solvers_piratas.py.
 
-  - rumbo:       la carta náutica plegada (carta 30) enseña el rumbo verdadero con arrecifes en forma de cifras; desplegada, las mitades forman
-                 otras cifras (señuelos). El cuaderno del piloto (carta 31) da el desvío de la aguja: rumbo de la aguja = rumbo de la carta + desvío.
-  - bodega:      Sokoban de barriles de pólvora (carta 46) con las X en el plano de estiba (carta 40); BFS con la solución más corta.
-  - persecucion: la fragata (carta 48) persigue a La Gaviota dos pasos por turno con la regla de la ordenanza (carta 52), como el Minotauro de
-                 «Teseo y el Minotauro»; BFS sobre (barco, fragata) hasta el banco de niebla.
-  - cielo:       la tapa del cofre (carta 66) con 30 tachuelas-estrella; la constelación de la Calavera (carta 64) aparece una sola vez, girada.
-  - losas:       el testamento plegado (carta 76) da cuatro símbolos; el suelo de la cueva (carta 79) se cruza pisando losas vecinas que siguen
-                 esos símbolos en bucle; camino único comprobado.
-  - ruta:        el mapa de la isla plegado por los dos lados (carta 70): camino de la palmera a la X; la gruta (carta 69) es la misma rejilla girada.
+Once puzles; los tres primeros siguen siendo las cartas que se PLIEGAN (fold-in) y el resto no se parece a ningún otro juego de la serie:
+  bitacora     las guardias y campanadas de a bordo: la hora de tres anotaciones y el tiempo entre dos
+  persecucion  la fragata persigue a La Gaviota con una regla fija (mapa de aguas en dos láminas); BFS hasta el banco de niebla
+  cielo        la constelación de la Calavera, girada y más pequeña entre treinta y seis estrellas numeradas (cielo en dos láminas); única
+  suelo        el testamento plegado da cuatro símbolos; el suelo de la cueva (dos láminas) se cruza por losas vecinas que los siguen; camino único
+  canon        la tabla de tiro: tres barcos enemigos, cargas de pólvora y elevaciones; alcance exacto con viento y pólvora limitada; solución única
+  botin        el reparto del botín entre siete piratas (inducción hacia atrás, el Código de la Hermandad)
+  mareas       el calado y las barras de arena: la hora de salida única para cruzar tres barras con la marea
+  rumbo        la carta náutica plegada da el rumbo verdadero con arrecifes en forma de cifras; el cuaderno del piloto, el desvío de la aguja
+  pesas        la balanza con cuatro pesas (1, 3, 9 y 27) que se pueden poner en los dos platillos (ternario equilibrado)
+  gruta        el mapa de la isla plegado por los dos lados: camino de la palmera a la X; la gruta es la misma rejilla girada
+  isla         metapuzle: cinco rumbos de rosa de los vientos con las distancias que dejan otros puzles; casilla final de la carta
 Uso (desde la raíz del repo):  python herramientas/instancias_piratas.py
 """
 import itertools
@@ -49,7 +53,7 @@ def senuelos(c):
 
 
 def rumbo():
-    verdadero, desvio = "95", 20
+    verdadero, desvio = "86", 25
     col_izq, col_der = [], []
     for c in verdadero:
         iz, de = senuelos(c)
@@ -62,109 +66,13 @@ def rumbo():
             "mitades_falsas": {"derechas": [mitades(c)[2] for c in col_izq], "izquierdas": [mitades(c)[1] for c in col_der]}}
 
 
-# ------------------------------------------------------------------ bodega (Sokoban)
-DIRS = {"arriba": (0, -1), "abajo": (0, 1), "izquierda": (-1, 0), "derecha": (1, 0)}
-
-
-def resolver_sokoban(muros, cajas, metas, jugador, ancho, alto, limite=400000):
-    """BFS por movimientos del jugador: devuelve la lista de movimientos más corta que deja las cajas en las metas (o None)."""
-    metas = frozenset(metas)
-    inicio = (jugador, frozenset(cajas))
-    previo = {inicio: None}
-    cola = deque([inicio])
-    while cola:
-        estado = cola.popleft()
-        p, cs = estado
-        if cs == metas:
-            camino = []
-            while previo[estado]:
-                estado, mov = previo[estado]
-                camino.append(mov)
-            return camino[::-1]
-        for nombre, (dx, dy) in DIRS.items():
-            q = (p[0] + dx, p[1] + dy)
-            if q in muros or not (0 <= q[0] < ancho and 0 <= q[1] < alto):
-                continue
-            ncs = cs
-            if q in cs:
-                r = (q[0] + dx, q[1] + dy)
-                if r in muros or r in cs or not (0 <= r[0] < ancho and 0 <= r[1] < alto):
-                    continue
-                if r not in metas and _rincon(r, muros, ancho, alto):
-                    continue
-                ncs = (cs - {q}) | {r}
-            nuevo = (q, ncs)
-            if nuevo not in previo:
-                previo[nuevo] = (estado, nombre)
-                if len(previo) > limite:
-                    return None
-                cola.append(nuevo)
-    return None
-
-
-def _rincon(c, muros, ancho, alto):
-    bloq = lambda x, y: (x, y) in muros or not (0 <= x < ancho and 0 <= y < alto)
-    x, y = c
-    return (bloq(x - 1, y) or bloq(x + 1, y)) and (bloq(x, y - 1) or bloq(x, y + 1))
-
-
-def empujes(muros, cajas, jugador, movs):
-    cs, p, n = set(cajas), jugador, 0
-    for m in movs:
-        dx, dy = DIRS[m]
-        q = (p[0] + dx, p[1] + dy)
-        if q in cs:
-            cs.remove(q)
-            cs.add((q[0] + dx, q[1] + dy))
-            n += 1
-        p = q
-    return n, cs
-
-
-def bodega():
-    ancho, alto = 7, 6
-    rng = random.Random(1715)
-    mejor = None
-    for intento in range(4000):
-        celdas = [(x, y) for y in range(alto) for x in range(ancho)]
-        rng.shuffle(celdas)
-        muros = set(celdas[:rng.randint(5, 7)])
-        libres = [c for c in celdas if c not in muros]
-        cajas = set(libres[:3])
-        metas = set(libres[3:6])
-        jugador = libres[6]
-        if any(_rincon(c, muros, ancho, alto) for c in cajas):
-            continue
-        sol = resolver_sokoban(muros, cajas, metas, jugador, ancho, alto)
-        if not sol:
-            continue
-        n_emp, final = empujes(muros, cajas, jugador, sol)
-        assert final == metas
-        # que haga falta pensar: bastantes empujes, alguna caja empujada en dos direcciones y ninguna meta pegada a su caja
-        if not 10 <= n_emp <= 13 or len(sol) > 40 or any(abs(c[0] - m[0]) + abs(c[1] - m[1]) <= 1 for c in cajas for m in metas):
-            continue
-        clave = (n_emp, len(sol))
-        if mejor is None or clave > mejor[0]:
-            mejor = (clave, dict(ancho=ancho, alto=alto, muros=sorted(muros), cajas=sorted(cajas), metas=sorted(metas), jugador=jugador,
-                                 solucion=sol, empujes=n_emp))
-        if intento > 1500 and mejor:
-            break
-    assert mejor, "no se encontró una bodega"
-    b = mejor[1]
-    b["muros"] = [list(c) for c in b["muros"]]
-    b["cajas"] = [list(c) for c in b["cajas"]]
-    b["metas"] = [list(c) for c in b["metas"]]
-    b["jugador"] = list(b["jugador"])
-    return b
-
-
 # ------------------------------------------------------------------ la persecución (la fragata, como el Minotauro de «Teseo y el Minotauro»)
 MOV = {"arriba": (0, -1), "abajo": (0, 1), "izquierda": (-1, 0), "derecha": (1, 0), "esperar": (0, 0)}
 
 
 def paso_fragata(f, b, rocas, ancho, alto):
-    """Un paso de la fragata (la ordenanza de la carta 52): si puede acercarse en horizontal, va en horizontal; si no, si puede acercarse
-    en vertical, va en vertical; si no, se queda. Las rocas no se cruzan."""
+    """Un paso de la fragata (la ordenanza): si puede acercarse en horizontal, va en horizontal; si no, si puede acercarse en vertical, va en
+    vertical; si no, se queda. Las rocas no se cruzan."""
     libre = lambda c: c not in rocas and 0 <= c[0] < ancho and 0 <= c[1] < alto
     if b[0] != f[0]:
         c = (f[0] + (1 if b[0] > f[0] else -1), f[1])
@@ -215,22 +123,22 @@ def resolver_persecucion(rocas, barco, fragata, niebla, ancho, alto):
 
 
 def persecucion():
-    ancho, alto = 6, 6
+    ancho, alto = 7, 7
     rng = random.Random(1716)
     mejor = None
-    for _ in range(6000):
+    for _ in range(8000):
         celdas = [(x, y) for y in range(alto) for x in range(ancho)]
         rng.shuffle(celdas)
-        rocas = set(celdas[:rng.randint(6, 8)])
+        rocas = set(celdas[:rng.randint(9, 11)])
         libres = [c for c in celdas if c not in rocas]
         barco, fragata, niebla = libres[0], libres[1], libres[2]
-        if abs(barco[0] - niebla[0]) + abs(barco[1] - niebla[1]) < 6 or abs(barco[0] - fragata[0]) + abs(barco[1] - fragata[1]) < 3:
+        if abs(barco[0] - niebla[0]) + abs(barco[1] - niebla[1]) < 7 or abs(barco[0] - fragata[0]) + abs(barco[1] - fragata[1]) < 3:
             continue
         sol = resolver_persecucion(rocas, barco, fragata, niebla, ancho, alto)
-        if not sol or not 9 <= len(sol) <= 16:
+        if not sol or not 12 <= len(sol) <= 20:
             continue
         directo = resolver_persecucion(rocas, barco, (-9, -9), niebla, ancho, alto)
-        if len(sol) - len(directo) < 3:                        # que no valga ir directo: hay que engañar a la fragata
+        if len(sol) - len(directo) < 4:                        # que no valga ir directo: hay que engañar a la fragata
             continue
         clave = (len(sol) - len(directo), "esperar" in sol, len(sol))
         if mejor is None or clave > mejor[0]:
@@ -240,41 +148,57 @@ def persecucion():
     return mejor[1]
 
 
-# ------------------------------------------------------------------ la tapa del cofre (constelación girada entre tachuelas)
-def cielo():
-    """La constelación de la Calavera (carta 64) aparece en la tapa del cofre girada 120 grados entre otras estrellas.
-    Se comprueba que ninguna otra elección de estrellas forma la misma figura (con cualquier giro y el mismo tamaño)."""
-    figura = [(0, -46), (-34, -20), (34, -20), (-22, 26), (22, 26), (0, 56)]          # en píxeles de la tapa de la app (300 x 300)
-    rng = random.Random(64)
-    giro = math.radians(120)
-    cx, cy = 172, 140
-    estrellas = [(round(cx + x * math.cos(giro) - y * math.sin(giro)), round(cy + x * math.sin(giro) + y * math.cos(giro))) for x, y in figura]
-    while len(estrellas) < 30:
-        p = (rng.randint(16, 284), rng.randint(16, 284))
-        if all(math.dist(p, q) >= 26 for q in estrellas):
-            estrellas.append(p)
-    tol = 6
-    encontradas = 0
-    d01 = math.dist(figura[0], figura[1])
+# ------------------------------------------------------------------ el cielo (constelación girada y más pequeña entre estrellas numeradas)
+FIGURA = [(0, -46), (-34, -20), (34, -20), (-22, 26), (22, 26), (0, 56)]          # la Calavera de la carta celeste
+ENLACES = [(0, 1), (0, 2), (1, 3), (2, 4), (3, 5), (4, 5), (1, 2)]
+
+
+def _ocurrencias(estrellas, tol=7):
+    """Cuántas veces aparece la figura (con cualquier giro y tamaño) entre las estrellas."""
+    f0 = FIGURA[0]
+    n = 0
     for i, a in enumerate(estrellas):
         for j, b in enumerate(estrellas):
-            if i == j or abs(math.dist(a, b) - d01) > tol:
+            if i == j:
                 continue
-            ang = math.atan2(b[1] - a[1], b[0] - a[0]) - math.atan2(figura[1][1] - figura[0][1], figura[1][0] - figura[0][0])
+            fx, fy = FIGURA[1][0] - f0[0], FIGURA[1][1] - f0[1]
+            esc = math.dist(a, b) / math.hypot(fx, fy)
+            if not 0.4 <= esc <= 3.0:
+                continue
+            ang = math.atan2(b[1] - a[1], b[0] - a[0]) - math.atan2(fy, fx)
             ok = True
-            for x, y in figura:
-                dx, dy = x - figura[0][0], y - figura[0][1]
+            for x, y in FIGURA:
+                dx, dy = (x - f0[0]) * esc, (y - f0[1]) * esc
                 p = (a[0] + dx * math.cos(ang) - dy * math.sin(ang), a[1] + dx * math.sin(ang) + dy * math.cos(ang))
                 if min(math.dist(p, q) for q in estrellas) > tol:
                     ok = False
                     break
-            encontradas += ok
-    assert encontradas == 1, f"la constelación aparece {encontradas} veces"
-    orden = list(range(len(estrellas)))
-    rng.shuffle(orden)
-    estrellas = [estrellas[k] for k in orden]
-    solucion = sorted(orden.index(k) for k in range(6))
-    return {"figura": figura, "giro": 120, "estrellas": [list(e) for e in estrellas], "solucion": solucion}
+            n += ok
+    return n
+
+
+def cielo():
+    """La Calavera aparece girada 120° y a escala 2 entre treinta y seis estrellas numeradas del cielo de la carta (1260 × 700 repartidas en
+    las dos láminas). Se comprueba que no hay ninguna otra figura igual."""
+    for sem in range(1, 4000):
+        rng = random.Random(sem)
+        giro = math.radians(120)
+        cx, cy = rng.randint(200, 1060), rng.randint(280, 560)
+        estrellas = [(round(cx + 2.0 * (x * math.cos(giro) - y * math.sin(giro))), round(cy + 2.0 * (x * math.sin(giro) + y * math.cos(giro)))) for x, y in FIGURA]
+        if any(abs(x - 630) < 36 or not 50 <= x <= 1210 or not 150 <= y <= 780 for x, y in estrellas):
+            continue
+        while len(estrellas) < 36:
+            p = (rng.randint(50, 1210), rng.randint(150, 780))
+            if abs(p[0] - 630) >= 36 and all(math.dist(p, q) >= 70 for q in estrellas):
+                estrellas.append(p)
+        if _ocurrencias(estrellas) != 1:
+            continue
+        orden = list(range(len(estrellas)))
+        rng.shuffle(orden)
+        estrellas = [estrellas[k] for k in orden]
+        solucion = sorted(orden.index(k) + 1 for k in range(6))         # los números de las seis estrellas (1 a 36)
+        return {"figura": FIGURA, "enlaces": ENLACES, "giro": 120, "escala": 2.0, "estrellas": [list(e) for e in estrellas], "solucion": solucion}
+    raise SystemExit("sin cielo")
 
 
 # ------------------------------------------------------------------ el suelo de la cueva (camino que sigue en bucle los símbolos del testamento)
@@ -305,14 +229,14 @@ def caminos_suelo(rej, ciclo, n):
 
 
 def suelo():
-    n = 5
+    n = 6
     ciclo = ["luna", "llave", "calavera", "corona"]
     otros = [s for s in SIMBOLOS if s not in ciclo]
     rng = random.Random(79)
-    for _ in range(50000):
+    for _ in range(200000):
         x = rng.randrange(n)
         camino = [(x, n - 1)]
-        while camino[-1][1] > 0 and len(camino) < 14:
+        while camino[-1][1] > 0 and len(camino) < 17:
             cx, cy = camino[-1]
             c = rng.choice([(cx, cy - 1), (cx, cy - 1)] + [(cx + d, cy) for d in (-1, 1) if 0 <= cx + d < n])
             if c in camino:
@@ -320,7 +244,7 @@ def suelo():
                     break
                 continue
             camino.append(c)
-        if camino[-1][1] != 0 or len(camino) < 9:
+        if camino[-1][1] != 0 or len(camino) < 12:
             continue
         rej = [[None] * n for _ in range(n)]
         for k, (cx, cy) in enumerate(camino):
@@ -353,7 +277,6 @@ def ruta():
         assert 0 <= p[0] < cols and 0 <= p[1] < filas
         celdas.append(p)
     assert len(set(celdas)) == len(celdas)
-    # desplegado: cada vez que la ruta cruza el pliegue vertical se dan 2 pasos más; el horizontal, igual
     desplegada = []
     for a, b, m in zip(celdas, celdas[1:], movs):
         cruza_v = m in ("derecha", "izquierda") and {a[0], b[0]} == {corte_c - 1, corte_c}
@@ -366,26 +289,171 @@ def ruta():
 # Pliegues de las cartas plegables, en píxeles de la lámina de 630 x 882: la franja [x0, x1) (o [y0, y1)) queda escondida detrás
 # al plegar la carta en acordeón hasta que la línea A toque la B (y la C, la D). El Modo PC los usa como fracciones (campo `plegado`).
 PLIEGUES = {
-    "30": {"x": [235, 395]},
-    "76": {"x": [240, 390]},
-    "70": {"x": [251, 379], "y": [372, 500]},
+    "66": {"x": [235, 395]},            # la carta náutica
+    "53": {"x": [240, 390]},            # el testamento
+    "75": {"x": [251, 379], "y": [372, 500]},          # el mapa de la isla
 }
 
 
-def main():
-    inst = {"rumbo": rumbo(), "bodega": bodega(), "persecucion": persecucion(), "cielo": cielo(), "losas": suelo(), "ruta": ruta(),
-            "pliegues": PLIEGUES, "lamina": [630, 882]}
-    with open(os.path.join(AQUI, "instancias_piratas.json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump(inst, f, ensure_ascii=False, indent=1)
-        f.write("\n")
-    r, b, pe = inst["rumbo"], inst["bodega"], inst["persecucion"]
-    print(f"rumbo: carta {r['carta']} (desplegada se lee {r['senuelos']}), aguja {r['aguja']}")
-    print(f"bodega: {len(b['solucion'])} movimientos, {b['empujes']} empujes; muros {b['muros']}")
-    print(f"persecución: {len(pe['solucion'])} turnos ({pe['directo']} sin fragata): {pe['solucion']}")
-    print(f"cielo: constelación en las estrellas {inst['cielo']['solucion']}")
-    print(f"suelo: camino de {len(inst['losas']['camino'])} losas")
-    print(f"ruta: {len(inst['ruta']['movimientos'])} flechas plegada, {len(inst['ruta']['desplegada'])} desplegada")
+# ------------------------------------------------------------------ la bitácora (guardias y campanadas)
+GUARDIAS = [("Media", 0), ("Alba", 4), ("Mañana", 8), ("Tarde", 12), ("Vísperas", 16), ("Primera", 20)]
 
+
+def hora_de(guardia, campanadas):
+    """Hora (en minutos desde las 0:00) a la que suena la campanada número `campanadas` de la guardia dada: una cada media hora."""
+    ini = dict(GUARDIAS)[guardia] * 60
+    return ini + campanadas * 30
+
+
+def bitacora():
+    anotaciones = [("Avistamos la isla", "Alba", 5), ("Echamos el ancla", "Mañana", 3), ("La marea nos deja en seco", "Tarde", 6)]
+    t = [hora_de(g, c) for _, g, c in anotaciones]
+    return {"guardias": [list(g) for g in GUARDIAS], "anotaciones": [list(a) for a in anotaciones], "minutos": t,
+            "pregunta": [0, 2], "entre": t[2] - t[0], "entre_horas": (t[2] - t[0]) // 60, "entre_min": (t[2] - t[0]) % 60}
+
+
+# ------------------------------------------------------------------ la tabla de tiro del cañón
+def canon(semilla=1):
+    for sem in range(semilla, semilla + 20000):
+        rng = random.Random(sem)
+        base = sorted(rng.sample(range(2, 15), 6))                    # alcance, en cables, de cada carga (1 a 6 sacos)
+        corr = [rng.randint(-3, 5) for _ in range(5)]                 # corrección de cada elevación (0° a 20°)
+        if len(set(corr)) < 5:
+            continue
+        barcos = [{"dist": rng.randint(4, 18), "viento": rng.choice([-2, -1, 0, 1, 2])} for _ in range(3)]
+        limite = rng.randint(8, 12)
+        opciones = []
+        for b in barcos:
+            op = [(c, a) for c in range(6) for a in range(5) if base[c] + corr[a] + b["viento"] == b["dist"]]
+            opciones.append(op)
+        if any(len(o) == 0 for o in opciones):
+            continue
+        sols = []
+        for combo in itertools.product(*opciones):
+            cargas = [c for c, _ in combo]
+            if len(set(cargas)) == 3 and sum(c + 1 for c in cargas) <= limite:
+                sols.append(combo)
+        if len(sols) == 1 and all(len(o) >= 2 for o in opciones):
+            return {"base": base, "corr": corr, "barcos": barcos, "limite": limite, "elevaciones": [0, 5, 10, 15, 20],
+                    "solucion": [list(x) for x in sols[0]]}
+    raise SystemExit("sin cañón")
+
+
+# ------------------------------------------------------------------ el botín (reparto entre piratas, inducción hacia atrás)
+def reparto(n, monedas):
+    """Reparto que propone el capitán entre n piratas: cada pirata (en orden de antigüedad, 0 es el capitán) vota que sí solo si recibe estrictamente
+    más de lo que recibiría si el capitán fuera a la mar; para aprobarse hacen falta al menos la mitad de los votos (el empate se aprueba)."""
+    sol = {1: [monedas]}
+    for m in range(2, n + 1):
+        necesarios = (m + 1) // 2
+        previo = sol[m - 1]
+        costes = sorted((previo[k - 1] + 1, k) for k in range(1, m))
+        prop = [0] * m
+        for c, k in costes[:necesarios - 1]:
+            prop[k] = c
+        prop[0] = monedas - sum(prop)
+        sol[m] = prop
+    return sol
+
+
+def botin():
+    n, monedas = 7, 120
+    sol = reparto(n, monedas)
+    return {"piratas": n, "monedas": monedas, "solucion": sol[n], "necesarios": (n + 1) // 2, "previo": sol[n - 1]}
+
+
+# ------------------------------------------------------------------ las mareas y las barras de arena
+def mareas(semilla=1):
+    for sem in range(semilla, semilla + 20000):
+        rng = random.Random(sem)
+        fase = rng.uniform(0, 12.4)
+        alt = [round(22 + 17 * math.sin(2 * math.pi * (t - fase) / 12.4)) for t in range(24)]
+        calado = rng.randint(24, 32)
+        barras = [{"fondo": rng.randint(0, 12), "tras": d} for d in (0, 2, 5)]
+        # el agua sobre cada barra es la altura de la marea más el fondo propio de la barra; el barco necesita calado
+        sol = [t0 for t0 in range(0, 24 - 5) if all(alt[t0 + b["tras"]] + b["fondo"] >= calado for b in barras)]
+        if len(sol) == 1:
+            return {"alturas": alt, "calado": calado, "barras": barras, "salida": sol[0]}
+    raise SystemExit("sin mareas")
+
+
+# ------------------------------------------------------------------ las pesas (ternario equilibrado)
+PESAS = [1, 3, 9, 27]
+
+
+def ternario(n):
+    """Coeficientes (-1, 0 o 1) de las pesas 1, 3, 9, 27 para pesar n: +1 en el platillo contrario al objeto, -1 en el mismo platillo."""
+    d = []
+    for _ in PESAS:
+        r = n % 3
+        if r == 2:
+            r = -1
+        d.append(r)
+        n = (n - r) // 3
+    assert n == 0
+    return d
+
+
+def pesas():
+    objetos = [22, 31, 17]
+    sol = [ternario(o) for o in objetos]
+    for o, s in zip(objetos, sol):
+        assert sum(p * c for p, c in zip(PESAS, s)) == o
+    return {"pesas": PESAS, "objetos": objetos, "solucion": sol}
+
+
+# ------------------------------------------------------------------ la isla (cinco rumbos con las distancias de otros puzles)
+RUMBOS = {"N": (0, -1), "NE": (1, -1), "E": (1, 0), "SE": (1, 1), "S": (0, 1), "SO": (-1, 1), "O": (-1, 0), "NO": (-1, -1)}
+ORDEN_ISLA = ["14", "40", "52", "69", "72"]               # bitácora, cielo, cañón, pesas y gruta
+DISTANCIA = {"14": 3, "40": 2, "52": 4, "69": 1, "72": 2}
+RUMBOS_ISLA = {"14": "E", "40": "SE", "52": "N", "69": "NE", "72": "O"}
+
+
+def isla():
+    n = 10
+    inicio = (1, 7)
+    p = inicio
+    camino = [p]
+    for k in ORDEN_ISLA:
+        dx, dy = RUMBOS[RUMBOS_ISLA[k]]
+        p = (p[0] + dx * DISTANCIA[k], p[1] + dy * DISTANCIA[k])
+        assert 0 <= p[0] < n and 0 <= p[1] < n, p
+        camino.append(p)
+    return {"n": n, "inicio": list(inicio), "orden": ORDEN_ISLA, "rumbos": [RUMBOS_ISLA[k] for k in ORDEN_ISLA], "distancias": [DISTANCIA[k] for k in ORDEN_ISLA],
+            "camino": [list(c) for c in camino], "final": list(camino[-1])}
+
+
+_CACHE = os.path.join(AQUI, "instancias_piratas.json")
+_CLAVES = ("bitacora", "persecucion", "cielo", "losas", "canon", "botin", "mareas", "rumbo", "pesas", "ruta", "isla")
+
+
+def _funcs():
+    return {"bitacora": bitacora, "persecucion": persecucion, "cielo": cielo, "losas": suelo, "canon": canon, "botin": botin, "mareas": mareas, "rumbo": rumbo,
+            "pesas": pesas, "ruta": ruta, "isla": isla}
+
+
+def _construir():
+    f = _funcs()
+    d = {k: f[k]() for k in _CLAVES}
+    d["pliegues"] = PLIEGUES
+    d["lamina"] = [630, 882]
+    return d
+
+
+if __name__ != "__main__" and os.path.exists(_CACHE):
+    INST = json.load(open(_CACHE, encoding="utf-8"))
 
 if __name__ == "__main__":
-    main()
+    import time
+    t0 = time.time()
+    res = {}
+    for k, f in _funcs().items():
+        t = time.time()
+        res[k] = f()
+        print(f"{k:12s} OK ({time.time() - t:.1f} s)")
+    res["pliegues"] = PLIEGUES
+    res["lamina"] = [630, 882]
+    with open(_CACHE, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(res, fh, ensure_ascii=False, indent=1)
+        fh.write("\n")
+    print("OK", f"{time.time() - t0:.0f} s")

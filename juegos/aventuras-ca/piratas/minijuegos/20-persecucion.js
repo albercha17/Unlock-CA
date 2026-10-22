@@ -1,24 +1,23 @@
-// Carta 48 — La persecución: llevar La Gaviota al banco de niebla sin que la alcance la fragata, que da dos pasos por cada uno vuestro
-// con la regla de la ordenanza (carta 52): primero se acerca en horizontal; si no puede, en vertical; si no, se queda (como el Minotauro).
-// Instancia de herramientas/instancias_piratas.py (BFS: 13 turnos como mínimo; ir directo son 6 y la fragata os apresa).
+// Carta 20 — La persecución: llevar La Gaviota al banco de niebla sin que la alcance la fragata, que da dos pasos por cada uno vuestro con la regla de la
+// ordenanza (carta 18): primero se acerca en horizontal; si no puede, en vertical; si no, se queda (como el Minotauro). Las rocas solo están dibujadas en la
+// carta de aguas (cartas 19 y 21, dos mitades); aquí no se ven. Instancia de herramientas/instancias_piratas.py (BFS).
 import { openGame } from './ui.js';
 
-const P = /*DATOS*/{"ancho": 6, "alto": 6, "rocas": [[0, 3], [2, 0], [3, 0], [3, 3], [4, 2], [4, 4]], "barco": [4, 5], "fragata": [4, 0], "niebla": [5, 0]}/*FIN*/;
+const P = /*DATOS*/{"ancho": 7, "alto": 7, "rocas": [[1, 4], [2, 2], [2, 4], [3, 0], [3, 4], [4, 2], [5, 1], [6, 1], [6, 3], [6, 4], [6, 5]], "barco": [0, 1], "fragata": [2, 5], "niebla": [3, 5]}/*FIN*/;
 const MOV = { arriba: [0, -1], abajo: [0, 1], izquierda: [-1, 0], derecha: [1, 0], esperar: [0, 0] };
 const k = c => c[0] + ',' + c[1];
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
-    title: 'Carta 48 — La persecución',
-    instr: 'Llevad La Gaviota (marco dorado) al banco de niebla blanco; la fragata va con marco rojo. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según la ordenanza de la Armada. Si os alcanza, os apresa.',
+    title: 'Carta 20 — La persecución',
+    instr: 'Llevad La Gaviota (marco dorado) al banco de niebla blanco; la fragata va con marco rojo. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según la ordenanza. Las rocas están en la carta de aguas (cartas 19 y 21) y la ordenanza, en la 18.',
     ...opts
   });
 
   const style = document.createElement('style');
   style.textContent = `
-    .pir-mar{display:grid;grid-template-columns:repeat(${P.ancho},1fr);gap:2px;width:min(86vw,312px);margin:4px auto 8px;padding:4px;border-radius:8px;background:#0c3440;border:3px solid #e8b84a}
+    .pir-mar{display:grid;grid-template-columns:repeat(${P.ancho},1fr);gap:2px;width:min(86vw,330px);margin:4px auto 8px;padding:4px;border-radius:8px;background:#0c3440;border:3px solid #e8b84a}
     .pir-casilla{position:relative;aspect-ratio:1;border-radius:3px;background:linear-gradient(160deg,#3a8aa0,#22647a)}
-    .pir-casilla.roca{background:radial-gradient(circle at 40% 35%,#9a8a7a,#5a4c40 55%,#2a2018 75%),#22647a}
     .pir-casilla.niebla{background:radial-gradient(circle,#f4f8fa,#c8d8de 60%,#8aaab4)}
     .pir-casilla img{position:absolute;inset:4%;width:92%;height:92%;object-fit:contain;transition:transform .25s}
     .pir-casilla.con-fragata{box-shadow:inset 0 0 0 3px #e0443a;background:linear-gradient(160deg,#6a3a3a,#3a2026)}
@@ -71,7 +70,7 @@ export function startMinigame(opts = {}) {
       for (let x = 0; x < P.ancho; x++) {
         const d = document.createElement('div');
         const id = k([x, y]);
-        d.className = 'pir-casilla' + (rocas.has(id) ? ' roca' : '') + (k(P.niebla) === id ? ' niebla' : '') + (estela.has(id) ? ' huella' : '');
+        d.className = 'pir-casilla' + (k(P.niebla) === id ? ' niebla' : '') + (estela.has(id) ? ' huella' : '');
         d.dataset.x = String(x);
         d.dataset.y = String(y);
         if (k(barco) === id) { d.classList.add('con-gaviota'); d.innerHTML = '<img src="./img/ui/gaviota.png" alt="La Gaviota">'; }
@@ -87,7 +86,7 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     const [dx, dy] = MOV[dir];
     const nb = [barco[0] + dx, barco[1] + dy];
-    if (!libre(nb)) { ui.say('Por ahí hay rocas o se acaba la carta: La Gaviota no puede ir.', 'bad'); return; }
+    if (!libre(nb)) { ui.say('Por ahí hay una roca o se acaba la carta: La Gaviota no puede ir.', 'bad'); return; }
     if (k(nb) === k(fragata)) { ui.say('¡Eso es meterse en la boca del lobo! No os acerquéis a la fragata.', 'bad'); return; }
     historia.push({ barco: barco.slice(), fragata: fragata.slice(), estela: new Set(estela) });
     estela.add(k(barco));
@@ -95,14 +94,14 @@ export function startMinigame(opts = {}) {
     if (k(barco) === k(P.niebla)) {
       resuelto = true;
       pintar();
-      ui.say('¡La Gaviota se mete en el banco de niebla y la fragata pasa de largo, perdida! La capitana Bruma suelta una carcajada: «¡Tierra a la vista!». Coged la carta 59.', 'ok');
+      ui.say('¡La Gaviota se mete en el banco de niebla y la fragata pasa de largo, perdida! La capitana Bruma suelta una carcajada: «¡Tierra a la vista!». Coged la carta 28.', 'ok');
       return;
     }
     for (let i = 0; i < 2; i++) {
       pasoFragata();
       if (k(fragata) === k(barco)) {
         pintar();
-        ui.say('¡La fragata os da alcance y os apresa! Volvéis a empezar. Pensad cómo se mueve (carta 52): a veces conviene esperar a que una roca la frene.', 'bad');
+        ui.say('¡La fragata os da alcance y os apresa! Volvéis a empezar. Pensad cómo se mueve (carta 18): a veces conviene esperar a que una roca la frene.', 'bad');
         reiniciar();
         setTimeout(pintar, 900);
         return;
