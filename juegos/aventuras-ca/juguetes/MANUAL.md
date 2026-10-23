@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — La estantería de Leo
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la foto: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta la foto: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — El baúl de los cubos
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la foto
 En el móvil: Acción, 14. Con el dibujo de la tapa (16), hay que girar los cubos así: cubo 1: 3 toques; cubo 2: 4 toques; cubo 3: 5 toques; cubo 4: 4 toques. El mensaje te dice que cojas la 24. Anota la nota de los cubos: MI.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — El baúl abierto
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para el collar).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para el collar).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -64,16 +64,16 @@ El mando (22) y las pilas (35) son combinables: 22 + 35 = 57. Coge la 57.
 
 ### Paso 8 — El coche teledirigido
 
-Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31, 32 y 55.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `55` `57`
 - [ ] Hecho
 
 ### Paso 9 — El cajón del teatrillo
 
 Lee la carta 31. Coge 40, 41, 43, 45, 27 y 23. Las cinco páginas (41, 43, 45, 27 y 23) son un folioscopio: en el Modo PC, botón «Hojear».
 
-- **La mesa queda con:** `12` `23` `24` `26` `27` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `23` `24` `26` `27` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 10 — El tren de Leo
@@ -81,21 +81,21 @@ Lee la carta 31. Coge 40, 41, 43, 45, 27 y 23. Las cinco páginas (41, 43, 45, 2
 En el móvil: Acción, 40. Ordena las páginas por el sol de la ventana (41, 43, 45, 27 y 23) y carga los juguetes en los vagones: 1.º pelota, 2.º cometa, 3.º patito, 4.º tambor, 5.º cohete. El mensaje te dice que cojas la 30. Anota la nota del tren: DO.
 
 - **En el móvil:** Acción → `40`
-- **La mesa queda con:** `12` `23` `24` `26` `27` `30` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `23` `24` `26` `27` `30` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 11 — La estación
 
-Lee la carta 30. Descarta 31, 40, 41, 43, 45, 27 y 23 y coge la 38.
+Lee la carta 30. Descarta 31, 40, 41, 43, 45, 27 y 23 y coge 38 y 49.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `49` `55` `57`
 - [ ] Hecho
 
 ### Paso 12 — El teatrillo de Pipo
 
-Lee la carta 32. Coge 42, 48, 49 y 53. Junta los hilos: 42 arriba y 49 abajo.
+Lee la carta 32. Coge 42, 48, 53 y 63. Junta los hilos: 42 arriba y 49 abajo.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `55` `57` `63`
 - [ ] Hecho
 
 ### Paso 13 — La marioneta
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53. Junta los hilos: 42 arriba y 49 abajo.
 En el móvil: Acción, 48. Con los hilos (42 y 49) y el cartel (53), hay que tirar de los mandos amarillo y verde. El mensaje te dice que cojas la 36. Anota la nota de la marioneta: RE.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `55` `57` `63`
 - [ ] Hecho
 
 ### Paso 14 — Bajo la cama
 
-Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el tablero: 54 arriba y 55 abajo.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54 y 59. Junta el tablero: 54 arriba y 55 abajo.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — La oca de Leo
@@ -118,12 +118,12 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el t
 En el móvil: Acción, 52. Con el tablero (54 y 55) y las tiradas (59), la ficha pasa por las casillas 2, 8, 12, 18, 9, 21, 23, 25, 38, 39 y acaba en la 39. El mensaje te dice que cojas la 44. Anota la nota de la oca: LA.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — Encima de la cama
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el collar: 61 arriba y 63 abajo.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51 y 61. Junta el collar: 61 arriba y 63 abajo.
 
 - **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
@@ -239,26 +239,26 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Del tamaño de un juguete | Normal | Coge 10, 12 | Del tamaño de un juguete | 1 |
-| 10 | La estantería de Leo | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | La estantería de Leo | 1 |
+| 10 | La estantería de Leo | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | La estantería de Leo | 1 |
 | 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | Cronoportal sin cristal | 1 |
 | 14 | El baúl de los cubos | App | — | El baúl de los cubos | 2 |
 | 16 | La tapa de la caja de cubos | Normal | — | La tapa de la caja de cubos | 2 |
 | 18 | La nota de Leo | Normal | — | La nota de Leo | 2 |
 | 19 | La foto Polaroid de la estantería (mitad de arriba) | Normal | — | La foto Polaroid de la estantería (mitad de arriba) | 2 |
 | 20 | Las diferencias | App | — | Las diferencias | 2 |
-| 21 | La foto Polaroid de la estantería (mitad de abajo) | Normal | — | La foto Polaroid de la estantería (mitad de abajo) | 2 |
+| 21 | La foto Polaroid de la estantería (mitad de abajo) | Normal | — | La foto Polaroid de la estantería (mitad de abajo) | 4 |
 | 22 | Mando sin pilas | Combina | Combinable: suma los números | Mando sin pilas | 2 |
 | 23 | Página del cuaderno de Leo | Normal | — | Página del cuaderno de Leo | 9 |
-| 24 | El baúl abierto | Normal | Coge 26; Descarta 14, 16 | El baúl abierto | 3 |
+| 24 | El baúl abierto | Normal | Coge 26, 21; Descarta 14, 16 | El baúl abierto | 3 |
 | 26 | La nota del collar | Normal | — | La nota del collar | 4 |
 | 27 | Página del cuaderno de Leo | Normal | — | Página del cuaderno de Leo | 9 |
 | 28 | Detrás de la estantería | Normal | Coge 35; Descarta 18, 19, 20, 21 | Detrás de la estantería | 5 |
-| 30 | La estación | Normal | Coge 38; Descarta 31, 40, 41, 43, 45, 27, 23 | La estación | 10 |
+| 30 | La estación | Normal | Coge 38, 49; Descarta 31, 40, 41, 43, 45, 27, 23 | La estación | 10 |
 | 31 | El cajón del teatrillo | Normal | Coge 40, 41, 43, 45, 27, 23 | El cajón del teatrillo | 8 |
-| 32 | El teatrillo de Pipo | Normal | Coge 42, 48, 49, 53 | El teatrillo de Pipo | 8 |
+| 32 | El teatrillo de Pipo | Normal | Coge 42, 48, 53, 63 | El teatrillo de Pipo | 8 |
 | 33 | La meta | Normal | — | La meta | 16 |
 | 35 | Pilas de botón | Combina | Combinable: suma los números | Pilas de botón | 6 |
-| 36 | Bajo la cama | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | Bajo la cama | 13 |
+| 36 | Bajo la cama | Normal | Coge 52, 54, 59; Descarta 32, 42, 48, 49, 53 | Bajo la cama | 13 |
 | 37 | El solitario de Leo | Normal | — | El solitario de Leo | 16 |
 | 38 | Mitad de la llave de cuerda | Combina | Combinable: suma los números | Mitad de la llave de cuerda | 11 |
 | 39 | La regla del solitario | Normal | — | La regla del solitario | 16 |
@@ -266,23 +266,23 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 41 | Página del cuaderno de Leo | Normal | — | Página del cuaderno de Leo | 9 |
 | 42 | Los hilos de Pipo (mitad de arriba) | Normal | — | Los hilos de Pipo (mitad de arriba) | 12 |
 | 43 | Página del cuaderno de Leo | Normal | — | Página del cuaderno de Leo | 9 |
-| 44 | Encima de la cama | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | Encima de la cama | 15 |
+| 44 | Encima de la cama | Normal | Coge 33, 37, 39, 46, 51, 61; Descarta 36, 52, 54, 55, 59 | Encima de la cama | 15 |
 | 45 | Página del cuaderno de Leo | Normal | — | Página del cuaderno de Leo | 9 |
 | 46 | El solitario de clavijas | App | — | El solitario de clavijas | 16 |
 | 48 | La marioneta | App | — | La marioneta | 12 |
-| 49 | Los hilos de Pipo (mitad de abajo) | Normal | — | Los hilos de Pipo (mitad de abajo) | 12 |
+| 49 | Los hilos de Pipo (mitad de abajo) | Normal | — | Los hilos de Pipo (mitad de abajo) | 11 |
 | 51 | El collar de mamá | App | — | El collar de mamá | 16 |
 | 52 | La oca de Leo | App | — | La oca de Leo | 14 |
 | 53 | El cartel de la función | Normal | — | El cartel de la función | 12 |
 | 54 | El tablero de la oca de Leo (mitad de arriba) | Normal | — | El tablero de la oca de Leo (mitad de arriba) | 14 |
-| 55 | El tablero de la oca de Leo (mitad de abajo) | Normal | — | El tablero de la oca de Leo (mitad de abajo) | 14 |
+| 55 | El tablero de la oca de Leo (mitad de abajo) | Normal | — | El tablero de la oca de Leo (mitad de abajo) | 8 |
 | 56 | Otra mitad de la llave de cuerda | Combina | Combinable: suma los números | Otra mitad de la llave de cuerda | 17 |
-| 57 | El coche teledirigido | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | El coche teledirigido | 7 |
+| 57 | El coche teledirigido | Normal | Coge 31, 32, 55; Descarta 22, 35, 10, 28 | El coche teledirigido | 7 |
 | 58 | El escritorio | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | El escritorio | 18 |
 | 59 | Las tiradas de Marta | Normal | — | Las tiradas de Marta | 14 |
 | 61 | Las primeras cuentas del collar (mitad de arriba) | Normal | — | Las primeras cuentas del collar (mitad de arriba) | 16 |
 | 62 | El cristal del Cronoportal | Combina | Combinable: suma los números | El cristal del Cronoportal | 26 |
-| 63 | Las primeras cuentas del collar (mitad de abajo) | Normal | — | Las primeras cuentas del collar (mitad de abajo) | 16 |
+| 63 | Las primeras cuentas del collar (mitad de abajo) | Normal | — | Las primeras cuentas del collar (mitad de abajo) | 12 |
 | 64 | La torre de bloques | App | — | La torre de bloques | 25 |
 | 66 | Las instrucciones de la torre (I) | Normal | — | Las instrucciones de la torre (I) | 25 |
 | 67 | Las instrucciones de la torre (II) | Normal | — | Las instrucciones de la torre (II) | 25 |

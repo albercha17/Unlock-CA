@@ -75,20 +75,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "Los guardias de Piedra Negra os miran con recelo, pero el senescal, un viejo con una gran llave al cinto, tiene un trato: «Si me ayudáis con dos encargos, os dejo ir a la torre del maestre. Primero, necesito medir hidromiel con dos jarras sin marcas. Y segundo, los centinelas de la muralla están mal puestos y se ven unos a otros». En el suelo, una antorcha apagada.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Los guardias de Piedra Negra os miran con recelo, pero el senescal, un viejo con una gran llave al cinto, tiene un trato: «Si me ayudáis con dos encargos, os dejo ir a la torre del maestre. Primero, necesito medir hidromiel con dos jarras sin marcas. Y segundo, los centinelas de la muralla están mal puestos y se ven unos a otros». En el suelo, una antorcha apagada. La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos encargos: las jarras del senescal y los centinelas de la muralla.",
    "La muralla son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "El patio de armas de una fortaleza medieval nevada con unos guardias de armadura mirando con recelo y un senescal anciano con una gran llave al cinto, que señala una muralla. Cristina habla con el senescal con las manos abiertas y gesto conciliador; Alberto examina con el ceño fruncido una antorcha apagada que ha cogido del suelo."
  },
@@ -226,19 +225,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — El senescal os cree",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "El senescal prueba el hidromiel con cara de satisfacción: «Medida exacta. No sois espías de los de más allá del Muro». Hurga entre sus llaves y os da una hoja arrugada con las leyes del reino, copiadas por el maestre, que él nunca ha sabido leer del todo.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "El senescal prueba el hidromiel con cara de satisfacción: «Medida exacta. No sois espías de los de más allá del Muro». Hurga entre sus llaves y os da una hoja arrugada con las leyes del reino, copiadas por el maestre, que él nunca ha sabido leer del todo. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "Las leyes del reino servirán más adelante.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "Una cocina de fortaleza medieval con barriles de hidromiel y un senescal anciano de barba blanca que entrega a Cristina una hoja arrugada con una sonrisa socarrona. Ella la recoge con las dos manos y una mirada de agradecimiento; Alberto, detrás, prueba el hidromiel de un cuenco con los ojos cerrados de placer."
  },
@@ -438,15 +438,16 @@ window.JUEGO_LOCAL = {
    42,
    48,
    49,
-   53
+   53,
+   39
   ],
   "descripcion": [
-   "En el calabozo hay una mujer de más allá del Muro, de pelo rojo, encadenada. No habla con nadie, pero ha dejado una carta cifrada para quien sepa leerla, con un cuadrado de letras y una regla. La carta, el cuadrado y la regla, tres papeles.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "En el calabozo hay una mujer de más allá del Muro, de pelo rojo, encadenada. No habla con nadie, pero ha dejado una carta cifrada para quien sepa leerla, con un cuadrado de letras y una regla. La carta, el cuadrado y la regla, tres papeles. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 39); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 49, 53 y 39."
   ],
   "pistas": [
    "La carta, el cuadrado y la regla son cartas distintas.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 49, 53 y 39."
   ],
   "arte": "Un calabozo de piedra de una fortaleza medieval con una mujer de pelo rojo encadenada a la pared y unos pergaminos cifrados sobre un taburete. Alberto lee los pergaminos con el ceño muy fruncido y los labios apretados; Cristina mira a la prisionera con gesto amable y compasivo."
  },
@@ -510,7 +511,8 @@ window.JUEGO_LOCAL = {
    52,
    54,
    55,
-   59
+   59,
+   63
   ],
   "descarta": [
    32,
@@ -520,12 +522,12 @@ window.JUEGO_LOCAL = {
    53
   ],
   "descripcion": [
-   "La prisionera susurra por fin: «DRAGONES. Eso es lo que buscáis». Pero para salir del calabozo hay que pasar ante el carcelero, un hombretón que siempre gana a un juego de piedras a los que quieren pasar. En la mesa, las reglas y las partidas de otros que lo intentaron.",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "La prisionera susurra por fin: «DRAGONES. Eso es lo que buscáis». Pero para salir del calabozo hay que pasar ante el carcelero, un hombretón que siempre gana a un juego de piedras a los que quieren pasar. En la mesa, las reglas y las partidas de otros que lo intentaron. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 52, 54, 55, 59 y 63. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "pistas": [
    "Hay que ganar al carcelero. Las partidas de otros retadores son una pista.",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "Coged las cartas 52, 54, 55, 59 y 63. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "arte": "El corredor de un calabozo medieval con un carcelero enorme de barba negra sentado ante una mesa con piedras, y unos papeles con partidas anotadas. Cristina observa las partidas con el dedo sobre la barbilla, pensativa; Alberto se arremanga con una sonrisa desafiante ante el carcelero."
  },
@@ -588,11 +590,10 @@ window.JUEGO_LOCAL = {
   "coge": [
    33,
    37,
-   39,
    46,
    51,
    61,
-   63
+   71
   ],
   "descarta": [
    36,
@@ -602,12 +603,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "El carcelero se aparta con un gruñido y subís a la biblioteca del maestre, una sala redonda llena de libros con un gran mapa de castillos y, en la pared, un árbol de familia pintado. Dos puertas selladas con dos acertijos: el mapa de los castillos, con sus puentes por tender, y el árbol de la familia real, de quien depende quién se sienta en el trono. Las leyes del reino que os dio el senescal servirán aquí.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "El carcelero se aparta con un gruñido y subís a la biblioteca del maestre, una sala redonda llena de libros con un gran mapa de castillos y, en la pared, un árbol de familia pintado. Dos puertas selladas con dos acertijos: el mapa de los castillos, con sus puentes por tender, y el árbol de la familia real, de quien depende quién se sienta en el trono. Las leyes del reino que os dio el senescal servirán aquí. La carta 39 no está aquí: la encontraréis en otro sitio. La carta 63 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 71); la otra mitad estará en otro sitio.",
+   "Coged las cartas 33, 37, 46, 51, 61 y 71. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: los castillos del reino y la sucesión. Las leyes del reino sirven aquí.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 46, 51, 61 y 71. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "Una biblioteca circular de un castillo medieval con estanterías de libros hasta el techo, un gran mapa de castillos sobre una mesa y un árbol genealógico pintado en la pared. Cristina examina el árbol con una sonrisa de curiosidad, con el dedo siguiendo una de las ramas; Alberto estudia el mapa de los castillos con los ojos entornados."
  },
@@ -755,8 +756,7 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    69,
-   70,
-   71
+   70
   ],
   "descarta": [
    51,
@@ -766,12 +766,12 @@ window.JUEGO_LOCAL = {
    24
   ],
   "descripcion": [
-   "El consejo, reunido en la biblioteca, aclama al heredero. El maestre os guía ahora por una escalera oculta al piso de abajo, donde hay un tablero de ajedrez enorme con los escudos de las seis casas del reino, que se abre solo si se ponen todos en su sitio.",
-   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+   "El consejo, reunido en la biblioteca, aclama al heredero. El maestre os guía ahora por una escalera oculta al piso de abajo, donde hay un tablero de ajedrez enorme con los escudos de las seis casas del reino, que se abre solo si se ponen todos en su sitio. La carta 71 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 69 y 70. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
   "pistas": [
    "Hay un tablero con los escudos de las casas.",
-   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+   "Coged las cartas 69 y 70. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
   "arte": "Una sala de consejo medieval con nobles en pie que aclaman a un niño de unos nueve años con una pequeña corona, y una escalera de caracol que baja a un sótano. Cristina sonríe al niño con ternura; Alberto, a su lado, aplaude con una ceja levantada de sorpresa."
  },

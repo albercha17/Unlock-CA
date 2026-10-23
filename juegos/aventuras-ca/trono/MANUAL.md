@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — El patio de armas
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la muralla: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta la muralla: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — Las jarras
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la mura
 En el móvil: Acción, 14. Con las jarras y el cuenco (16): Una forma: llenad la jarra I, pasad de la I a la II, llenad la jarra I, pasad de la I a la II, llenad la jarra I, pasad de la I a la II, llenad la jarra I, pasad de la I a la II, vaciad la jarra II, pasad de la I a la II, llenad la jarra I, pasad de la I a la II. El mensaje te dice que cojas la 24. Anota la cifra de la profecía: 6.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — El senescal os cree
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para la sucesión).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para la sucesión).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -93,9 +93,9 @@ Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
 
 ### Paso 12 — El calabozo
 
-Lee la carta 32. Coge 42, 48, 49 y 53.
+Lee la carta 32. Coge 42, 48, 49, 53 y 39.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `39` `42` `48` `49` `53` `57`
 - [ ] Hecho
 
 ### Paso 13 — La carta de la prisionera
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53.
 En el móvil: Acción, 48. Con la carta (42), el cuadrado (49) y la regla (53): El mensaje es DRAGONES. El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `39` `42` `48` `49` `53` `57`
 - [ ] Hecho
 
 ### Paso 14 — El carcelero
 
-Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55, 59 y 63.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `39` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — Las piedras
@@ -118,14 +118,14 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 En el móvil: Acción, 52. Con las partidas (55) y el dicho (59): Tomad 1 piedra al empezar (quedan 20) y, tras cada jugada del carcelero, tomad lo que haga que queden 16, 12, 8, 4 y 0. El mensaje te dice que cojas la 44. Anota la cifra de la profecía: 3.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `39` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — La biblioteca del maestre
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el mapa: 37 a la izquierda y 39 a la derecha; y el árbol: 61 a la izquierda y 63 a la derecha.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 46, 51, 61 y 71. Junta el mapa: 37 a la izquierda y 39 a la derecha; y el árbol: 61 a la izquierda y 63 a la derecha.
 
-- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63` `71`
 - [ ] Hecho
 
 ### Paso 17 — Los castillos
@@ -133,7 +133,7 @@ Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63
 En el móvil: Acción, 46. Con el mapa (37 y 39) y el acertijo (33): E–G: dos puentes; G–K: un puente; D–J: un puente; A–C: dos puentes; G–H: dos puentes; D–E: dos puentes; H–I: un puente; J–K: dos puentes; B–H: dos puentes; F–G: dos puentes; B–C: un puente. El mensaje te dice que cojas la 56.
 
 - **En el móvil:** Acción → `46`
-- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63` `71`
 - [ ] Hecho
 
 ### Paso 18 — La sucesión
@@ -141,12 +141,12 @@ En el móvil: Acción, 46. Con el mapa (37 y 39) y el acertijo (33): E–G: dos 
 En el móvil: Acción, 51. Con las leyes (26) y el árbol (61 y 63): Hereda Daemon: es el hijo del hijo mayor, Baelor, y los hijos del primer hijo van antes aunque este haya muerto; Maegor no puede por sus votos. El mensaje te dice que cojas la 58.
 
 - **En el móvil:** Acción → `51`
-- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63` `71`
 - [ ] Hecho
 
 ### Paso 19 — La verdad del trono
 
-Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71. Junta el tablero: 70 arriba y 71 abajo.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69 y 70. Junta el tablero: 70 arriba y 71 abajo.
 
 - **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
@@ -239,32 +239,32 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada a Piedra Negra | Normal | Coge 10, 12 | Llegada a Piedra Negra | 1 |
-| 10 | El patio de armas | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El patio de armas | 1 |
+| 10 | El patio de armas | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | El patio de armas | 1 |
 | 12 | Cronoportal sin energía | Combina | Combinable: suma los números | Cronoportal sin energía | 1 |
 | 14 | Las jarras del senescal | App | — | Las jarras del senescal | 2 |
 | 16 | El encargo del senescal | Normal | — | El encargo del senescal | 2 |
 | 18 | El acertijo de la muralla | Normal | — | El acertijo de la muralla | 2 |
 | 19 | La muralla de Piedra Negra (mitad de arriba) | Normal | — | La muralla de Piedra Negra (mitad de arriba) | 2 |
 | 20 | Los centinelas de la muralla | App | — | Los centinelas de la muralla | 2 |
-| 21 | La muralla de Piedra Negra (mitad de abajo) | Normal | — | La muralla de Piedra Negra (mitad de abajo) | 2 |
+| 21 | La muralla de Piedra Negra (mitad de abajo) | Normal | — | La muralla de Piedra Negra (mitad de abajo) | 4 |
 | 22 | Antorcha apagada | Combina | Combinable: suma los números | Antorcha apagada | 2 |
-| 24 | El senescal os cree | Normal | Coge 26; Descarta 14, 16 | El senescal os cree | 3 |
+| 24 | El senescal os cree | Normal | Coge 26, 21; Descarta 14, 16 | El senescal os cree | 3 |
 | 26 | Las leyes del reino | Normal | — | Las leyes del reino | 4 |
 | 28 | La muralla | Normal | Coge 35; Descarta 18, 19, 20, 21 | La muralla | 5 |
 | 30 | El cuervo vuela | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | El cuervo vuela | 10 |
 | 31 | La torre de los cuervos | Normal | Coge 40, 41, 43, 45 | La torre de los cuervos | 8 |
-| 32 | El calabozo de la prisionera | Normal | Coge 42, 48, 49, 53 | El calabozo de la prisionera | 8 |
+| 32 | El calabozo de la prisionera | Normal | Coge 42, 48, 49, 53, 39 | El calabozo de la prisionera | 8 |
 | 33 | El acertijo de los puentes | Normal | — | El acertijo de los puentes | 16 |
 | 35 | Pedernal | Combina | Combinable: suma los números | Pedernal | 6 |
-| 36 | El carcelero | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El carcelero | 13 |
+| 36 | El carcelero | Normal | Coge 52, 54, 55, 59, 63; Descarta 32, 42, 48, 49, 53 | El carcelero | 13 |
 | 37 | Los castillos del reino (mitad izquierda) | Normal | — | Los castillos del reino (mitad izquierda) | 16 |
 | 38 | Mitad del sello | Combina | Combinable: suma los números | Mitad del sello | 11 |
-| 39 | Los castillos del reino (mitad derecha) | Normal | — | Los castillos del reino (mitad derecha) | 16 |
+| 39 | Los castillos del reino (mitad derecha) | Normal | — | Los castillos del reino (mitad derecha) | 12 |
 | 40 | Los cuervos mensajeros | App | — | Los cuervos mensajeros | 9 |
 | 41 | El mapa de los siete reinos | Normal | — | El mapa de los siete reinos | 9 |
 | 42 | La carta de la prisionera | Normal | — | La carta de la prisionera | 12 |
 | 43 | Las leguas entre fortalezas | Normal | — | Las leguas entre fortalezas | 9 |
-| 44 | La biblioteca del maestre | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La biblioteca del maestre | 15 |
+| 44 | La biblioteca del maestre | Normal | Coge 33, 37, 46, 51, 61, 71; Descarta 36, 52, 54, 55, 59 | La biblioteca del maestre | 15 |
 | 45 | El acertijo de los cuervos | Normal | — | El acertijo de los cuervos | 9 |
 | 46 | Los castillos del reino | App | — | Los castillos del reino | 16 |
 | 48 | La carta de la prisionera | App | — | La carta de la prisionera | 12 |
@@ -276,17 +276,17 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 55 | Las partidas del carcelero | Normal | — | Las partidas del carcelero | 14 |
 | 56 | Mitad del sello | Combina | Combinable: suma los números | Mitad del sello | 17 |
 | 57 | La torre del maestre | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | La torre del maestre | 7 |
-| 58 | La verdad del trono | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | La verdad del trono | 18 |
+| 58 | La verdad del trono | Normal | Coge 69, 70; Descarta 51, 61, 63, 26, 24 | La verdad del trono | 18 |
 | 59 | El dicho del carcelero | Normal | — | El dicho del carcelero | 14 |
 | 61 | El árbol del rey Aerion (mitad izquierda) | Normal | — | El árbol del rey Aerion (mitad izquierda) | 16 |
 | 62 | Esquirla de dragón | Combina | Combinable: suma los números | Esquirla de dragón | 26 |
-| 63 | El árbol del rey Aerion (mitad derecha) | Normal | — | El árbol del rey Aerion (mitad derecha) | 16 |
+| 63 | El árbol del rey Aerion (mitad derecha) | Normal | — | El árbol del rey Aerion (mitad derecha) | 14 |
 | 64 | El tapiz del sigilo | App | — | El tapiz del sigilo | 25 |
 | 66 | El tapiz del sigilo (filas) | Normal | — | El tapiz del sigilo (filas) | 25 |
 | 67 | El tapiz del sigilo (columnas) | Normal | — | El tapiz del sigilo (columnas) | 25 |
 | 69 | El tablero de las seis casas | App | — | El tablero de las seis casas | 19 |
 | 70 | El tablero de las seis casas (mitad de arriba) | Normal | — | El tablero de las seis casas (mitad de arriba) | 19 |
-| 71 | El tablero de las seis casas (mitad de abajo) | Normal | — | El tablero de las seis casas (mitad de abajo) | 19 |
+| 71 | El tablero de las seis casas (mitad de abajo) | Normal | — | El tablero de las seis casas (mitad de abajo) | 16 |
 | 72 | Las torres de hielo | App | — | Las torres de hielo | 21 |
 | 74 | Cronoportal reconectado | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | Cronoportal reconectado | 27 |
 | 75 | Las torres de hielo | Normal | — | Las torres de hielo | 21 |

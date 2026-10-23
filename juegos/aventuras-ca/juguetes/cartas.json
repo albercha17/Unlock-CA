@@ -86,20 +86,19 @@
       18,
       19,
       20,
-      21,
       22
     ],
     "descarta": [
       "P"
     ],
     "descripcion": [
-      "El Capitán Pelusa os lleva a la estantería: «Trufo, el perro, ha estado olisqueando aquí y lo ha revuelto todo. Leo dejó una nota (carta 18) y una foto Polaroid de la estantería ordenada, que ocupa dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Y detrás hay un baúl que Leo cierra con cuatro cubos de dibujos: la tapa de su caja de cubos enseña el dibujo (carta 16) que hay que formar (carta 14)». En el suelo, Cristina encuentra el mando de un coche teledirigido, sin pilas (carta 22).",
-      "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+      "El Capitán Pelusa os lleva a la estantería: «Trufo, el perro, ha estado olisqueando aquí y lo ha revuelto todo. Leo dejó una nota (carta 18) y una foto Polaroid de la estantería ordenada, que ocupa dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Y detrás hay un baúl que Leo cierra con cuatro cubos de dibujos: la tapa de su caja de cubos enseña el dibujo (carta 16) que hay que formar (carta 14)». En el suelo, Cristina encuentra el mando de un coche teledirigido, sin pilas (carta 22). La carta 21 no está aquí: la encontraréis en otro sitio.",
+      "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
     ],
     "pistas": [
       "Hay dos puzles: el baúl de los cubos y las diferencias de la estantería.",
       "La foto son dos cartas: juntadlas, una encima de otra.",
-      "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+      "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
     ],
     "arte": "Una estantería de madera enorme vista desde el suelo, llena de juguetes de los años 90 (un tambor, un cohete, un osito, un barco), con una foto Polaroid pegada con celo en el lateral y un baúl cerrado detrás. Cristina, la muñeca de trapo, señala la foto con la boca abierta de sorpresa y Alberto, el robot de hojalata, sujeta una nota con los ojos entrecerrados de concentración."
   },
@@ -237,19 +236,20 @@
     "titulo": "Carta 24 — El baúl abierto",
     "tipo": "gris",
     "coge": [
-      26
+      26,
+      21
     ],
     "descarta": [
       14,
       16
     ],
     "descripcion": [
-      "El baúl se abre con un clic y dentro hay un collar de cuentas roto, de un color distinto cada una, y una nota de la mamá de Leo (carta 26). El Capitán Pelusa os lo explica: «Leo se la guardó antes de la mudanza. Lo enhebraremos cuando haga falta».",
-      "Coged la carta 26. Descartad las cartas 14 y 16."
+      "El baúl se abre con un clic y dentro hay un collar de cuentas roto, de un color distinto cada una, y una nota de la mamá de Leo (carta 26). El Capitán Pelusa os lo explica: «Leo se la guardó antes de la mudanza. Lo enhebraremos cuando haga falta». Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+      "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
     ],
     "pistas": [
       "Mirad lo que hay dentro del baúl.",
-      "Coged la carta 26. Descartad las cartas 14 y 16."
+      "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
     ],
     "arte": "Un baúl de juguetes de madera abierto, con un collar de cuentas de colores roto y un papel doblado dentro, sobre la alfombra del cuarto de un niño. Cristina, la muñeca de trapo, saca el collar con cuidado y los ojos muy abiertos; Alberto, el robot de hojalata, lee la nota con las pinzas sujetando el papel y una ceja arqueada."
   },
@@ -311,7 +311,8 @@
     "tipo": "gris",
     "coge": [
       31,
-      32
+      32,
+      55
     ],
     "descarta": [
       22,
@@ -320,12 +321,12 @@
       28
     ],
     "descripcion": [
-      "Con las pilas puestas, el coche teledirigido arranca con un zumbido y os lleva por la alfombra hasta el teatrillo de marionetas de Leo. A un lado, el cajón del teatrillo, con un cuaderno de dibujos de Leo y su tren de juguete (carta 31); al otro, Pipo, la marioneta, colgada de su cruceta con los hilos enredados (carta 32).",
-      "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+      "Con las pilas puestas, el coche teledirigido arranca con un zumbido y os lleva por la alfombra hasta el teatrillo de marionetas de Leo. A un lado, el cajón del teatrillo, con un cuaderno de dibujos de Leo y su tren de juguete (carta 31); al otro, Pipo, la marioneta, colgada de su cruceta con los hilos enredados (carta 32). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 55); la otra mitad estará en otro sitio.",
+      "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
     ],
     "pistas": [
       "Dos sitios: el cajón del teatrillo y Pipo.",
-      "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+      "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
     ],
     "arte": "Un coche teledirigido de juguete corriendo por una alfombra con carreteras dibujadas, con Cristina, la muñeca de trapo, al volante riendo a carcajadas y Alberto, el robot de hojalata, agarrado al alerón con los ojos como platos; al fondo, un teatrillo de marionetas con una marioneta colgada."
   },
@@ -434,7 +435,8 @@
     "titulo": "Carta 30 — La estación",
     "tipo": "gris",
     "coge": [
-      38
+      38,
+      49
     ],
     "descarta": [
       31,
@@ -446,12 +448,12 @@
       23
     ],
     "descripcion": [
-      "El tren silba y da la vuelta al cuarto hasta la estación de cartón, junto al escritorio. Allí os espera Tic, un ratón de cuerda que ha perdido su llave: «Yo sé trepar por el cable de la lámpara hasta el escritorio, pero sin cuerda no me muevo». En el andén, media llave de cuerda dorada (carta 38).",
-      "Coged la carta 38. Descartad las cartas 31, 40, 41, 43, 45, 27 y 23."
+      "El tren silba y da la vuelta al cuarto hasta la estación de cartón, junto al escritorio. Allí os espera Tic, un ratón de cuerda que ha perdido su llave: «Yo sé trepar por el cable de la lámpara hasta el escritorio, pero sin cuerda no me muevo». En el andén, media llave de cuerda dorada (carta 38). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+      "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43, 45, 27 y 23."
     ],
     "pistas": [
       "Mirad en el andén.",
-      "Coged la carta 38. Descartad las cartas 31, 40, 41, 43, 45, 27 y 23."
+      "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43, 45, 27 y 23."
     ],
     "arte": "Una estación de tren de cartón pintado junto a la pata de un escritorio enorme, con un tren de juguete parado y un ratón de cuerda gris sin llave sentado en el andén con cara triste. Cristina, la muñeca de trapo, le acaricia la cabeza con ternura y Alberto, el robot de hojalata, recoge del suelo media llave dorada con una gran sonrisa."
   },
@@ -479,17 +481,17 @@
     "coge": [
       42,
       48,
-      49,
-      53
+      53,
+      63
     ],
     "descripcion": [
-      "Pipo, la marioneta, está colgada de su cruceta con cuatro mandos de colores; los hilos están tan enredados que ocupan dos láminas: juntad la 42 arriba y la 49 abajo. El cartel de la función (carta 53) enseña cómo saluda Pipo y el teatrillo es la carta 48.",
-      "Coged las cartas 42, 48, 49 y 53."
+      "Pipo, la marioneta, está colgada de su cruceta con cuatro mandos de colores; los hilos están tan enredados que ocupan dos láminas: juntad la 42 arriba y la 49 abajo. El cartel de la función (carta 53) enseña cómo saluda Pipo y el teatrillo es la carta 48. La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+      "Coged las cartas 42, 48, 53 y 63."
     ],
     "pistas": [
       "Un único puzle: los hilos de Pipo.",
       "Los hilos son dos cartas: juntadlas, una encima de otra.",
-      "Coged las cartas 42, 48, 49 y 53."
+      "Coged las cartas 42, 48, 53 y 63."
     ],
     "arte": "Un teatrillo de marionetas de juguete con una cortina roja y una marioneta de madera colgada de una cruceta con cuatro mandos de colores y los hilos enredados. Cristina, la muñeca de trapo, sigue un hilo con el dedo y la lengua entre los dientes; Alberto, el robot de hojalata, mira los mandos con la cabeza ladeada y una antena torcida."
   },
@@ -566,7 +568,6 @@
     "coge": [
       52,
       54,
-      55,
       59
     ],
     "descarta": [
@@ -577,13 +578,13 @@
       53
     ],
     "descripcion": [
-      "Una trampilla del teatrillo da a un pasadizo que sale bajo la cama de Leo, donde guarda su juego de la oca. El tablero, de sesenta casillas con escaleras y toboganes, ocupa dos láminas: juntad la 54 arriba y la 55 abajo. Su hermana Marta jugó con él y dejó sus diez tiradas de dado apuntadas (carta 59): hay que saber dónde quedó la ficha (carta 52).",
-      "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+      "Una trampilla del teatrillo da a un pasadizo que sale bajo la cama de Leo, donde guarda su juego de la oca. El tablero, de sesenta casillas con escaleras y toboganes, ocupa dos láminas: juntad la 54 arriba y la 55 abajo. Su hermana Marta jugó con él y dejó sus diez tiradas de dado apuntadas (carta 59): hay que saber dónde quedó la ficha (carta 52). La carta 55 no está aquí: la encontraréis en otro sitio.",
+      "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
     ],
     "pistas": [
       "Un único puzle: la oca de Leo.",
       "El tablero son dos cartas: juntadlas, una encima de otra.",
-      "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+      "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
     ],
     "arte": "El espacio bajo una cama infantil enorme, con un tablero de la oca desplegado en el suelo, una ficha roja y un dado gigante, y una caja de zapatos al lado. Cristina, la muñeca de trapo, cuenta casillas con los dedos y los ojos muy abiertos; Alberto, el robot de hojalata, empuja el dado con las pinzas con cara de concentración."
   },
@@ -663,8 +664,7 @@
       39,
       46,
       51,
-      61,
-      63
+      61
     ],
     "descarta": [
       36,
@@ -674,12 +674,12 @@
       59
     ],
     "descripcion": [
-      "Trepáis por una escalera de la oca hasta la cama de Leo, que duerme abrazado a su almohada. A un lado, su solitario de clavijas, con las clavijas desordenadas (carta 37), la regla de la caja (carta 39) y la meta (carta 33): hay que ganarlo (carta 46). Al otro, colgado del cabecero, el collar de mamá, que ya sabéis enhebrar: las primeras cuentas, en dos láminas (juntad la 61 arriba y la 63 abajo) y las preguntas de su nota (carta 26), para el collar (carta 51).",
-      "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+      "Trepáis por una escalera de la oca hasta la cama de Leo, que duerme abrazado a su almohada. A un lado, su solitario de clavijas, con las clavijas desordenadas (carta 37), la regla de la caja (carta 39) y la meta (carta 33): hay que ganarlo (carta 46). Al otro, colgado del cabecero, el collar de mamá, que ya sabéis enhebrar: las primeras cuentas, en dos láminas (juntad la 61 arriba y la 63 abajo) y las preguntas de su nota (carta 26), para el collar (carta 51). La carta 63 no está aquí: la encontraréis en otro sitio.",
+      "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
     ],
     "pistas": [
       "Hay dos puzles: el solitario de clavijas y el collar.",
-      "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+      "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
     ],
     "arte": "Una cama infantil enorme vista desde el colchón, con un niño dormido abrazado a su almohada, un edredón de cohetes, un tablero de solitario de clavijas junto a su mano y un collar de cuentas colgado del cabecero. Cristina, la muñeca de trapo, se tapa la boca con la mano para no reír y Alberto, el robot de hojalata, levanta una clavija de puntillas con cara de mucha atención."
   },

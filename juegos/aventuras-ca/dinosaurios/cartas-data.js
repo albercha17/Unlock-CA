@@ -75,20 +75,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "El rastro del núcleo acaba en un vado de barro pisoteado: esta mañana han cruzado cinco dinosaurios y uno de ellos se lo ha llevado pegado a la pata. Junto al vado, en un tronco, alguien clavó una guía de huellas dibujada a mano. Al otro lado, en el abrevadero, se oyen bufidos detrás de un muro de helechos. Y en el suelo, un rollo de cuerda que no es vuestro.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "El rastro del núcleo acaba en un vado de barro pisoteado: esta mañana han cruzado cinco dinosaurios y uno de ellos se lo ha llevado pegado a la pata. Junto al vado, en un tronco, alguien clavó una guía de huellas dibujada a mano. Al otro lado, en el abrevadero, se oyen bufidos detrás de un muro de helechos. Y en el suelo, un rollo de cuerda que no es vuestro. La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: el orden de las huellas del barro y la manada del abrevadero.",
    "La manada son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "Un vado de barro junto a un río del Cretácico, lleno de huellas de dinosaurio pisadas unas sobre otras; en un tronco, un papel clavado con dibujos de huellas; al fondo, un muro de helechos altísimos con cabezas de dinosaurio asomando. Cristina, agachada, mide una huella con la mano abierta y cara de asombro; Alberto levanta un rollo de cuerda del suelo con el ceño fruncido de sospecha."
  },
@@ -226,7 +225,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — El campamento escondido",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
@@ -234,12 +234,12 @@ window.JUEGO_LOCAL = {
    18
   ],
   "descripcion": [
-   "El rastro del último en cruzar os lleva a un campamento escondido entre helechos: una lona remendada, cacharros de hojalata y un cuaderno con tapas de cuero. En la primera página, una firma: «Dra. Ibarra, expedición de 2009». Alguien vino del futuro antes que vosotros... y se quedó. El cuaderno guarda un árbol dibujado con mucho cariño.",
-   "Coged la carta 26. Descartad las cartas 14, 16 y 18."
+   "El rastro del último en cruzar os lleva a un campamento escondido entre helechos: una lona remendada, cacharros de hojalata y un cuaderno con tapas de cuero. En la primera página, una firma: «Dra. Ibarra, expedición de 2009». Alguien vino del futuro antes que vosotros... y se quedó. El cuaderno guarda un árbol dibujado con mucho cariño. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14, 16 y 18."
   ],
   "pistas": [
    "El árbol del cuaderno servirá más adelante.",
-   "Coged la carta 26. Descartad las cartas 14, 16 y 18."
+   "Coged las cartas 26 y 21. Descartad las cartas 14, 16 y 18."
   ],
   "arte": "Un campamento escondido entre helechos gigantes con una lona remendada, cacharros de hojalata y un cuaderno de tapas de cuero abierto sobre una caja. Cristina lee el cuaderno con la boca abierta de sorpresa y Alberto sostiene una taza de hojalata oxidada con cara de no entender nada."
  },
@@ -300,7 +300,8 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    31,
-   32
+   32,
+   55
   ],
   "descarta": [
    22,
@@ -309,12 +310,12 @@ window.JUEGO_LOCAL = {
    28
   ],
   "descripcion": [
-   "Con la cuerda y el garfio trepáis a lo alto del acantilado. Desde arriba se ve todo el valle: a un lado, una playa llena de nidos y, detrás, una tienda de lona; al otro, la ladera humeante del volcán y un claro donde acaba de caer una piedra de fuego.",
-   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+   "Con la cuerda y el garfio trepáis a lo alto del acantilado. Desde arriba se ve todo el valle: a un lado, una playa llena de nidos y, detrás, una tienda de lona; al otro, la ladera humeante del volcán y un claro donde acaba de caer una piedra de fuego. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 55); la otra mitad estará en otro sitio.",
+   "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
   ],
   "pistas": [
    "Hay dos caminos: la playa de los nidos y el valle del volcán. Podéis seguir los dos.",
-   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+   "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
   ],
   "arte": "Lo alto de un acantilado del Cretácico al atardecer, con una cuerda y un garfio enganchados al borde; abajo, una playa con nidos y al fondo un volcán humeante y una columna de humo donde ha caído un meteorito. Cristina, agarrada a la cuerda, asoma la cabeza con una sonrisa de triunfo; Alberto, ya arriba, señala el humo con el brazo extendido y cara de alarma."
  },
@@ -394,7 +395,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 30 — La tienda de la playa",
   "tipo": "gris",
   "coge": [
-   38
+   38,
+   49
   ],
   "descarta": [
    31,
@@ -404,12 +406,12 @@ window.JUEGO_LOCAL = {
    45
   ],
   "descripcion": [
-   "Llegáis a la tienda sin despertar a ninguna madre. Dentro hay un catre, un mapa de una ciénaga clavado en un poste y una nota: «El raptor guarda lo brillante en su cueva de la ciénaga. De noche no se ve nada: linterna». La linterna está ahí, pero sin pilas.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Llegáis a la tienda sin despertar a ninguna madre. Dentro hay un catre, un mapa de una ciénaga clavado en un poste y una nota: «El raptor guarda lo brillante en su cueva de la ciénaga. De noche no se ve nada: linterna». La linterna está ahí, pero sin pilas. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
    "La linterna necesita energía: buscad una batería.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "arte": "El interior de una tienda de lona remendada con un catre, un mapa clavado en un poste y una linterna de metal sobre una caja. Cristina enciende y apaga la linterna sin éxito, con un mohín de fastidio, y Alberto lee la nota del poste rascándose la barba, pensativo."
  },
@@ -437,16 +439,16 @@ window.JUEGO_LOCAL = {
   "coge": [
    42,
    48,
-   49,
-   53
+   53,
+   39
   ],
   "descripcion": [
-   "Bajáis hacia el humo y encontráis una atalaya de troncos con un mapa del valle cuadriculado y un cuaderno de vigías: tres puestos vieron caer la piedra de fuego anoche, cada uno desde su sitio. Quien la vio caer quizá siga allí.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Bajáis hacia el humo y encontráis una atalaya de troncos con un mapa del valle cuadriculado y un cuaderno de vigías: tres puestos vieron caer la piedra de fuego anoche, cada uno desde su sitio. Quien la vio caer quizá siga allí. La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 39); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 53 y 39."
   ],
   "pistas": [
    "El mapa son dos cartas: juntadlas. Los tres vigías os dicen hacia dónde miraron.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 53 y 39."
   ],
   "arte": "Una atalaya de troncos atados con lianas en lo alto de una colina del Cretácico, con un mapa cuadriculado clavado en una tabla y una brújula colgando; al fondo, una columna de humo. Alberto sube por la escalerilla con el gesto tenso de vértigo y Cristina, abajo, sostiene la brújula muy concentrada, mordiéndose el labio."
  },
@@ -523,7 +525,6 @@ window.JUEGO_LOCAL = {
   "coge": [
    52,
    54,
-   55,
    59
   ],
   "descarta": [
@@ -534,12 +535,12 @@ window.JUEGO_LOCAL = {
    53
   ],
   "descripcion": [
-   "Al borde del cráter os espera una mujer de pelo gris, con gafas remendadas: «¡Gente del futuro! Soy la doctora Ibarra. Mi portal se rompió hace años y aquí sigo». No hay tiempo para abrazos: la piedra de fuego ha despertado al volcán y va a escupir lava por la ladera, justo hacia los nidos. Ella apuntó la altura de cada palmo de la ladera.",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "Al borde del cráter os espera una mujer de pelo gris, con gafas remendadas: «¡Gente del futuro! Soy la doctora Ibarra. Mi portal se rompió hace años y aquí sigo». No hay tiempo para abrazos: la piedra de fuego ha despertado al volcán y va a escupir lava por la ladera, justo hacia los nidos. Ella apuntó la altura de cada palmo de la ladera. La carta 55 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "pistas": [
    "Las alturas de la ladera son dos cartas: juntadlas.",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "arte": "El borde de un cráter humeante en un valle del Cretácico, con un volcán rugiendo al fondo. La doctora Ibarra, paleontóloga de unos sesenta años, piel curtida por el sol, pelo gris recogido en una trenza, gafas remendadas con cuerda, chaqueta de expedición de hace diecisiete años llena de parches y un sombrero de ala ancha muy gastado, abraza a Cristina, que se ha quedado con los ojos como platos de la emoción, mientras Alberto, con la boca abierta, mira alternativamente a la doctora y al volcán."
  },
@@ -616,7 +617,6 @@ window.JUEGO_LOCAL = {
   "coge": [
    33,
    37,
-   39,
    46,
    51,
    61,
@@ -630,12 +630,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "La lava se enfría lejos de los nidos y la doctora os lleva a su refugio, una cueva seca llena de dibujos. Os cuenta que guarda una batería de su viejo portal escondida donde duermen los edmontosaurios, y que su corral lo encontraréis en su cofre... cuyo cierre es el árbol de su cuaderno.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "La lava se enfría lejos de los nidos y la doctora os lleva a su refugio, una cueva seca llena de dibujos. Os cuenta que guarda una batería de su viejo portal escondida donde duermen los edmontosaurios, y que su corral lo encontraréis en su cofre... cuyo cierre es el árbol de su cuaderno. La carta 39 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 33, 37, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: la ruta de la manada y el árbol del cofre. El árbol del cuaderno sirve aquí.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "El interior de una cueva seca con las paredes llenas de dibujos de dinosaurios a carbón, un cofre de madera con cinco huecos en la tapa y una lámpara de aceite. La doctora Ibarra, paleontóloga de unos sesenta años, piel curtida por el sol, pelo gris recogido en una trenza, gafas remendadas con cuerda, chaqueta de expedición de hace diecisiete años llena de parches y un sombrero de ala ancha muy gastado, dibuja un mapa con un palo; Alberto la escucha con una sonrisa admirada y Cristina examina el cofre con la nariz casi pegada, intrigada."
  },

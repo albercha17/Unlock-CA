@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — La estación
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el cuadro del banco: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta el cuadro del banco: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — El telegrama en zigzag
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el cuad
 En el móvil: Acción, 14. Con el telegrama (16) y su zigzag de cuatro rieles, el mensaje es ELORONOVIAJAENELTERCERVAGONDETRAS. El mensaje te dice que cojas la 24. Anota la coordenada: 51.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — El telégrafo habla
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para la bodega).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para la bodega).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -49,9 +49,9 @@ En el móvil: Acción, 20. Con el cuadro (19 y 21) y el acertijo (18), los tacho
 
 ### Paso 6 — La reja abierta
 
-Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
+Lee la carta 28. Descarta 18, 19, 20 y 21 y coge 35 y 43.
 
-- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `43`
 - [ ] Hecho
 
 ### Paso 7 — La estrella del sheriff
@@ -59,19 +59,19 @@ Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
 Las dos mitades de la estrella (22 y 35) son combinables: 22 + 35 = 57. Coge la 57.
 
 - **Suma:** `22 + 35 = 57`
-- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `43` `57`
 - [ ] Hecho
 
 ### Paso 8 — La estrella del sheriff
 
 Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `43` `57`
 - [ ] Hecho
 
 ### Paso 9 — El patio del carretero
 
-Lee la carta 31. Coge 40, 41, 43 y 45. Junta el tablero: 41 a la izquierda y 43 a la derecha.
+Lee la carta 31. Coge 40, 41 y 45. Junta el tablero: 41 a la izquierda y 43 a la derecha.
 
 - **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
@@ -86,16 +86,16 @@ En el móvil: Acción, 40. Con el tablero (41 y 43) y las seis piezas (45), por 
 
 ### Paso 11 — La caja cerrada
 
-Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge 38 y 49.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `49` `57`
 - [ ] Hecho
 
 ### Paso 12 — El saloon
 
-Lee la carta 32. Coge 42, 48, 49 y 53. Junta el cuadro: 42 a la izquierda y 49 a la derecha.
+Lee la carta 32. Coge 42, 48, 53 y 63. Junta el cuadro: 42 a la izquierda y 49 a la derecha.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 13 — El cuadro de apuestas
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53. Junta el cuadro: 42 a la izquierda y 49 a
 En el móvil: Acción, 48. Con el cuadro (42 y 49) y la regla (53): fila 1: - - - - - - / fila 2: - - 1 2 - - / fila 3: - - 2 8 1 - / fila 4: - - - 9 2 1 / fila 5: - 9 7 - 8 9 / fila 6: - 8 2 - 3 8. El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 14 — El almacén del tendero
 
 Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — La carga del carro
@@ -118,12 +118,12 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 En el móvil: Acción, 52. Con los pesos (54), los valores (55) y el eje (59), la mejor carga es: caja de herramientas, cajón de balas, bidón de petróleo, baúl de plata. El mensaje te dice que cojas la 44. Anota la coordenada: 35.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — La plaza de Dry Gulch
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el suelo de la bodega: 61 a la izquierda y 63 a la derecha.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51 y 61. Junta el suelo de la bodega: 61 a la izquierda y 63 a la derecha.
 
 - **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
@@ -176,9 +176,9 @@ En el móvil: Acción, 72. Con las marcas (75) y el hierro (79): las reses 2, 3,
 
 ### Paso 23 — La locomotora
 
-Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86, 87 y 67.
 
-- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `67` `82` `85` `86` `87`
 - [ ] Hecho
 
 ### Paso 24 — La llave del furgón
@@ -186,12 +186,12 @@ Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
 Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94.
 
 - **Suma:** `38 + 56 = 94`
-- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `67` `82` `85` `86` `87` `94`
 - [ ] Hecho
 
 ### Paso 25 — El furgón del oro
 
-Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el plano: 66 arriba y 67 abajo.
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64 y 66. Junta el plano: 66 arriba y 67 abajo.
 
 - **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
 - [ ] Hecho
@@ -239,21 +239,21 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada a Dry Gulch | Normal | Coge 10, 12 | Llegada a Dry Gulch | 1 |
-| 10 | La estación de Dry Gulch | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | La estación de Dry Gulch | 1 |
+| 10 | La estación de Dry Gulch | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | La estación de Dry Gulch | 1 |
 | 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | Cronoportal sin cristal | 1 |
 | 14 | El telegrama en zigzag | App | — | El telegrama en zigzag | 2 |
 | 16 | El telegrama | Normal | — | El telegrama | 2 |
 | 18 | El acertijo del banquero | Normal | — | El acertijo del banquero | 2 |
 | 19 | El cuadro del banco (mitad de arriba) | Normal | — | El cuadro del banco (mitad de arriba) | 2 |
 | 20 | El cuadro del banquero | App | — | El cuadro del banquero | 2 |
-| 21 | El cuadro del banco (mitad de abajo) | Normal | — | El cuadro del banco (mitad de abajo) | 2 |
+| 21 | El cuadro del banco (mitad de abajo) | Normal | — | El cuadro del banco (mitad de abajo) | 4 |
 | 22 | Media estrella | Combina | Combinable: suma los números | Media estrella | 2 |
-| 24 | El telégrafo habla | Normal | Coge 26; Descarta 14, 16 | El telégrafo habla | 3 |
+| 24 | El telégrafo habla | Normal | Coge 26, 21; Descarta 14, 16 | El telégrafo habla | 3 |
 | 26 | El refrán del tabernero | Normal | — | El refrán del tabernero | 4 |
-| 28 | La reja abierta | Normal | Coge 35; Descarta 18, 19, 20, 21 | La reja abierta | 5 |
-| 30 | La caja cerrada | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | La caja cerrada | 10 |
-| 31 | El patio del carretero | Normal | Coge 40, 41, 43, 45 | El patio del carretero | 8 |
-| 32 | El saloon | Normal | Coge 42, 48, 49, 53 | El saloon | 8 |
+| 28 | La reja abierta | Normal | Coge 35, 43; Descarta 18, 19, 20, 21 | La reja abierta | 5 |
+| 30 | La caja cerrada | Normal | Coge 38, 49; Descarta 31, 40, 41, 43, 45 | La caja cerrada | 10 |
+| 31 | El patio del carretero | Normal | Coge 40, 41, 45 | El patio del carretero | 8 |
+| 32 | El saloon | Normal | Coge 42, 48, 53, 63 | El saloon | 8 |
 | 33 | La nota del juez | Normal | — | La nota del juez | 16 |
 | 35 | Otra media estrella | Combina | Combinable: suma los números | Otra media estrella | 6 |
 | 36 | El almacén del tendero | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El almacén del tendero | 13 |
@@ -263,12 +263,12 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 40 | La caja del carro | App | — | La caja del carro | 9 |
 | 41 | La caja del carro (mitad izquierda) | Normal | — | La caja del carro (mitad izquierda) | 9 |
 | 42 | El cuadro de apuestas (mitad izquierda) | Normal | — | El cuadro de apuestas (mitad izquierda) | 12 |
-| 43 | La caja del carro (mitad derecha) | Normal | — | La caja del carro (mitad derecha) | 9 |
-| 44 | La plaza de Dry Gulch | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La plaza de Dry Gulch | 15 |
+| 43 | La caja del carro (mitad derecha) | Normal | — | La caja del carro (mitad derecha) | 6 |
+| 44 | La plaza de Dry Gulch | Normal | Coge 33, 37, 39, 46, 51, 61; Descarta 36, 52, 54, 55, 59 | La plaza de Dry Gulch | 15 |
 | 45 | Las seis piezas | Normal | — | Las seis piezas | 9 |
 | 46 | El duelo en corro | App | — | El duelo en corro | 16 |
 | 48 | El cuadro de apuestas | App | — | El cuadro de apuestas | 12 |
-| 49 | El cuadro de apuestas (mitad derecha) | Normal | — | El cuadro de apuestas (mitad derecha) | 12 |
+| 49 | El cuadro de apuestas (mitad derecha) | Normal | — | El cuadro de apuestas (mitad derecha) | 11 |
 | 51 | La bodega de barriles | App | — | La bodega de barriles | 16 |
 | 52 | La carga del carro | App | — | La carga del carro | 14 |
 | 53 | La regla del tahúr | Normal | — | La regla del tahúr | 12 |
@@ -280,10 +280,10 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 59 | El carro del abuelo | Normal | — | El carro del abuelo | 14 |
 | 61 | El suelo de la bodega (mitad izquierda) | Normal | — | El suelo de la bodega (mitad izquierda) | 16 |
 | 62 | El cristal del Cronoportal | Combina | Combinable: suma los números | El cristal del Cronoportal | 26 |
-| 63 | El suelo de la bodega (mitad derecha) | Normal | — | El suelo de la bodega (mitad derecha) | 16 |
+| 63 | El suelo de la bodega (mitad derecha) | Normal | — | El suelo de la bodega (mitad derecha) | 12 |
 | 64 | La bomba de agua | App | — | La bomba de agua | 25 |
 | 66 | El plano de la bomba (mitad de arriba) | Normal | — | El plano de la bomba (mitad de arriba) | 25 |
-| 67 | El plano de la bomba (mitad de abajo) | Normal | — | El plano de la bomba (mitad de abajo) | 25 |
+| 67 | El plano de la bomba (mitad de abajo) | Normal | — | El plano de la bomba (mitad de abajo) | 23 |
 | 69 | La maniobra de vagones | App | — | La maniobra de vagones | 19 |
 | 70 | Los vagones de la estación | Normal | — | Los vagones de la estación | 19 |
 | 71 | La maniobra | Normal | — | La maniobra | 19 |
@@ -292,11 +292,11 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 75 | Los hierros de la subasta | Normal | — | Los hierros de la subasta | 21 |
 | 79 | El hierro de Don Abel | Normal | — | El hierro de Don Abel | 21 |
 | 80 | El despacho del jefe de estación | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | El despacho del jefe de estación | 20 |
-| 82 | La locomotora | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | La locomotora | 22 |
+| 82 | La locomotora | Normal | Coge 85, 86, 87, 67; Descarta 80, 72, 75, 79 | La locomotora | 22 |
 | 85 | La válvula de la locomotora | App | — | La válvula de la locomotora | 23 |
 | 86 | Las cinco coordenadas | Normal | — | Las cinco coordenadas | 23 |
 | 87 | El cuadrado de Polibio | Normal | — | El cuadrado de Polibio | 23 |
-| 94 | El furgón del oro | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | El furgón del oro | 24 |
+| 94 | El furgón del oro | Normal | Coge 64, 66; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | El furgón del oro | 24 |
 | 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | De vuelta a casa (FIN) | 29 |
 
 ## Si algo no cuadra

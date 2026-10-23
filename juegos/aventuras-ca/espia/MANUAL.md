@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — El sobre de la Agente Zorro
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el plano: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta el plano: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — La nota de la Agente Zorro
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el plan
 En el móvil: Acción, 14. Con la nota (16), el mensaje es AGENTE ZORRO ESPERA EN EL MUELLE DE LA RULETA AZUL. El mensaje te dice que cojas la 24. Anota las pulsaciones del teléfono rojo: 9999.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — Zorro en el muelle
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para los pasaportes).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para los pasaportes).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -64,16 +64,16 @@ Las dos mitades del microfilm (22 y 35) son combinables: 22 + 35 = 57. Coge la 5
 
 ### Paso 8 — El microfilm completo
 
-Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31, 32 y 55.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `55` `57`
 - [ ] Hecho
 
 ### Paso 9 — La azotea del hotel
 
 Lee la carta 31. Coge 40, 41, 43 y 45.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 10 — El skyline del casino
@@ -81,21 +81,21 @@ Lee la carta 31. Coge 40, 41, 43 y 45.
 En el móvil: Acción, 40. Con los números del borde (41 y 43) y la regla (45), el skyline por filas es 23145 / 34251 / 51423 / 12534 / 45312. El mensaje te dice que cojas la 30. Anota las pulsaciones: 2.
 
 - **En el móvil:** Acción → `40`
-- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 11 — La trampilla de la azotea
 
 Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `55` `57`
 - [ ] Hecho
 
 ### Paso 12 — La biblioteca del casino
 
-Lee la carta 32. Coge 42, 48, 49 y 53.
+Lee la carta 32. Coge 42, 48, 49, 53 y 63.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `55` `57` `63`
 - [ ] Hecho
 
 ### Paso 13 — La cifra del libro
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53.
 En el móvil: Acción, 48. Con las páginas (42 y 49) y los números (53), el mensaje es CRISTAL BAJO LA RULETA. El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `55` `57` `63`
 - [ ] Hecho
 
 ### Paso 14 — La caja fuerte del joyero
 
-Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el tablero: 54 a la izquierda y 55 a la derecha.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54 y 59. Junta el tablero: 54 a la izquierda y 55 a la derecha.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — La caja fuerte del joyero
@@ -118,12 +118,12 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el t
 En el móvil: Acción, 52. Con las jaulas (54 y 55) y la regla (59), la caja por filas es 13524 / 32451 / 41235 / 25143 / 54312. El mensaje te dice que cojas la 44. Anota las pulsaciones: 777.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — La sala de juego
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta los pasaportes: 61 arriba y 63 abajo.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51 y 61. Junta los pasaportes: 61 arriba y 63 abajo.
 
 - **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
@@ -239,24 +239,24 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada a Montecarlo | Normal | Coge 10, 12 | Llegada a Montecarlo | 1 |
-| 10 | El sobre de la Agente Zorro | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El sobre de la Agente Zorro | 1 |
+| 10 | El sobre de la Agente Zorro | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | El sobre de la Agente Zorro | 1 |
 | 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | Cronoportal sin cristal | 1 |
 | 14 | La nota de la Agente Zorro | App | — | La nota de la Agente Zorro | 2 |
 | 16 | La nota de Zorro | Normal | — | La nota de Zorro | 2 |
 | 18 | El acertijo del desfile | Normal | — | El acertijo del desfile | 2 |
 | 19 | El plano de Montecarlo (mitad de arriba) | Normal | — | El plano de Montecarlo (mitad de arriba) | 2 |
 | 20 | La persecución por Montecarlo | App | — | La persecución por Montecarlo | 2 |
-| 21 | El plano de Montecarlo (mitad de abajo) | Normal | — | El plano de Montecarlo (mitad de abajo) | 2 |
+| 21 | El plano de Montecarlo (mitad de abajo) | Normal | — | El plano de Montecarlo (mitad de abajo) | 4 |
 | 22 | Media tira de microfilm | Combina | Combinable: suma los números | Media tira de microfilm | 2 |
-| 24 | Zorro en el muelle | Normal | Coge 26; Descarta 14, 16 | Zorro en el muelle | 3 |
+| 24 | Zorro en el muelle | Normal | Coge 26, 21; Descarta 14, 16 | Zorro en el muelle | 3 |
 | 26 | La regla del aduanero | Normal | — | La regla del aduanero | 4 |
 | 28 | El Puerto | Normal | Coge 35; Descarta 18, 19, 20, 21 | El Puerto | 5 |
 | 30 | La trampilla de la azotea | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | La trampilla de la azotea | 10 |
 | 31 | La azotea del hotel | Normal | Coge 40, 41, 43, 45 | La azotea del hotel | 8 |
-| 32 | La biblioteca del casino | Normal | Coge 42, 48, 49, 53 | La biblioteca del casino | 8 |
+| 32 | La biblioteca del casino | Normal | Coge 42, 48, 49, 53, 63 | La biblioteca del casino | 8 |
 | 33 | La cuenta del crupier | Normal | — | La cuenta del crupier | 16 |
 | 35 | Otra media tira de microfilm | Combina | Combinable: suma los números | Otra media tira de microfilm | 6 |
-| 36 | La caja fuerte del joyero | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | La caja fuerte del joyero | 13 |
+| 36 | La caja fuerte del joyero | Normal | Coge 52, 54, 59; Descarta 32, 42, 48, 49, 53 | La caja fuerte del joyero | 13 |
 | 37 | Las cartas del crupier (I) | Normal | — | Las cartas del crupier (I) | 16 |
 | 38 | Mitad de la llave del camarote | Combina | Combinable: suma los números | Mitad de la llave del camarote | 11 |
 | 39 | Las cartas del crupier (II) | Normal | — | Las cartas del crupier (II) | 16 |
@@ -264,7 +264,7 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 41 | Los números del borde (arriba e izquierda) | Normal | — | Los números del borde (arriba e izquierda) | 9 |
 | 42 | La página 17 de «La última carta» | Normal | — | La página 17 de «La última carta» | 12 |
 | 43 | Los números del borde (abajo y derecha) | Normal | — | Los números del borde (abajo y derecha) | 9 |
-| 44 | La sala de juego | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La sala de juego | 15 |
+| 44 | La sala de juego | Normal | Coge 33, 37, 39, 46, 51, 61; Descarta 36, 52, 54, 55, 59 | La sala de juego | 15 |
 | 45 | La regla del arquitecto | Normal | — | La regla del arquitecto | 9 |
 | 46 | La cuenta del crupier | App | — | La cuenta del crupier | 16 |
 | 48 | La cifra del libro | App | — | La cifra del libro | 12 |
@@ -273,14 +273,14 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 52 | La caja fuerte del joyero | App | — | La caja fuerte del joyero | 14 |
 | 53 | Los renglones del mensaje | Normal | — | Los renglones del mensaje | 12 |
 | 54 | La caja fuerte del joyero (mitad izquierda) | Normal | — | La caja fuerte del joyero (mitad izquierda) | 14 |
-| 55 | La caja fuerte del joyero (mitad derecha) | Normal | — | La caja fuerte del joyero (mitad derecha) | 14 |
+| 55 | La caja fuerte del joyero (mitad derecha) | Normal | — | La caja fuerte del joyero (mitad derecha) | 8 |
 | 56 | Otra mitad de la llave | Combina | Combinable: suma los números | Otra mitad de la llave | 17 |
-| 57 | El microfilm completo | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | El microfilm completo | 7 |
+| 57 | El microfilm completo | Normal | Coge 31, 32, 55; Descarta 22, 35, 10, 28 | El microfilm completo | 7 |
 | 58 | La aduana del puerto | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | La aduana del puerto | 18 |
 | 59 | La regla del joyero | Normal | — | La regla del joyero | 14 |
 | 61 | Los pasaportes falsos (mitad de arriba) | Normal | — | Los pasaportes falsos (mitad de arriba) | 16 |
 | 62 | El cristal del Cronoportal | Combina | Combinable: suma los números | El cristal del Cronoportal | 26 |
-| 63 | Los pasaportes falsos (mitad de abajo) | Normal | — | Los pasaportes falsos (mitad de abajo) | 16 |
+| 63 | Los pasaportes falsos (mitad de abajo) | Normal | — | Los pasaportes falsos (mitad de abajo) | 12 |
 | 64 | El vuelo con escalas | App | — | El vuelo con escalas | 25 |
 | 66 | El itinerario de Zorro | Normal | — | El itinerario de Zorro | 25 |
 | 67 | Los husos horarios | Normal | — | Los husos horarios | 25 |

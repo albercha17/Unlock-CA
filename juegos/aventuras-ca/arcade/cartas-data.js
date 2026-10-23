@@ -66,20 +66,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "Estáis sobre una placa base gigante. A un lado, un panel con seis interruptores unidos por puertas lógicas a dos lámparas (carta 14) y su esquema grabado en el cobre (carta 16). Al otro, un aparcamiento de naves de píxeles atascado: lo que pintó el programador en el suelo (carta 18) y el plano del tablero, que ocupa dos láminas, así que juntad la 19 arriba y la 21 abajo (carta 20). En un rincón, el mango de un joystick de tamaño humano (carta 22).",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Estáis sobre una placa base gigante. A un lado, un panel con seis interruptores unidos por puertas lógicas a dos lámparas (carta 14) y su esquema grabado en el cobre (carta 16). Al otro, un aparcamiento de naves de píxeles atascado: lo que pintó el programador en el suelo (carta 18) y el plano del tablero, que ocupa dos láminas, así que juntad la 19 arriba y la 21 abajo (carta 20). En un rincón, el mango de un joystick de tamaño humano (carta 22). La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: el panel de interruptores y el aparcamiento de naves.",
    "El aparcamiento son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "Una placa base enorme vista desde arriba, con pistas de cobre luminosas, un panel con seis interruptores grandes unidos por cables a dos lámparas, y más allá un aparcamiento de pequeñas naves de píxeles de colores todas atascadas; en un rincón, el mango de un joystick gigante. Cristina toca los interruptores con una ceja arqueada de curiosidad; Alberto señala el aparcamiento, boquiabierto de sorpresa."
  },
@@ -217,19 +216,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — La placa se enciende",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "Las dos lámparas se encienden como dictaba el esquema y la placa empieza a zumbar: un panel se abre y deja ver una nota de papel, pegada con cinta por el programador (carta 26), que habla de cómo ordena la máquina sus récords. Un número parpadea en la pantalla del panel: guardadlo, lo pedirá el arranque.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Las dos lámparas se encienden como dictaba el esquema y la placa empieza a zumbar: un panel se abre y deja ver una nota de papel, pegada con cinta por el programador (carta 26), que habla de cómo ordena la máquina sus récords. Un número parpadea en la pantalla del panel: guardadlo, lo pedirá el arranque. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "Mirad el panel que se ha abierto.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "Un panel de una placa base que se abre hacia fuera con un destello, dejando ver una nota de papel pegada con cinta adhesiva, bajo dos lámparas redondas encendidas. Cristina, con una sonrisa de triunfo, levanta el puño; Alberto, con las gafas de aviador en la frente, mira la nota con curiosidad."
  },
@@ -429,15 +429,16 @@ window.JUEGO_LOCAL = {
    42,
    48,
    49,
-   53
+   53,
+   63
   ],
   "descripcion": [
-   "Una consola con una pantalla negra y un cursor parpadeante: espera un mensaje (carta 48). Junto a ella, una pantalla pequeña con ocho bytes en hexadecimal (carta 42), la tabla de caracteres de la máquina (carta 49) y una nota con la regla de los bytes (carta 53).",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Una consola con una pantalla negra y un cursor parpadeante: espera un mensaje (carta 48). Junto a ella, una pantalla pequeña con ocho bytes en hexadecimal (carta 42), la tabla de caracteres de la máquina (carta 49) y una nota con la regla de los bytes (carta 53). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 49, 53 y 63."
   ],
   "pistas": [
    "Un único puzle: leer un mensaje escrito en bytes.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 49, 53 y 63."
   ],
   "arte": "Una consola antigua de ordenador con una gran pantalla negra y un cursor verde parpadeante, junto a una tira de papel de impresora con hileras de pares de símbolos. Cristina tamborilea con los dedos en la consola mirando la pantalla; Alberto, con el ceño fruncido, sigue la tira con el dedo."
  },
@@ -582,8 +583,7 @@ window.JUEGO_LOCAL = {
    39,
    46,
    51,
-   61,
-   63
+   61
   ],
   "descarta": [
    36,
@@ -593,12 +593,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "Los fantasmas se retiran y se abre la sala de puntuaciones del jefe. Un marcador gigante con dieciséis casillas, la mayoría vacías (carta 46), con seis números ya puestos (carta 37), una nota con la regla de la suma (carta 39) y una bolsa de fichas (carta 33). Al fondo, una tabla de récords desordenada (carta 51) que ocupa dos láminas: juntad la 61 arriba y la 63 abajo.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Los fantasmas se retiran y se abre la sala de puntuaciones del jefe. Un marcador gigante con dieciséis casillas, la mayoría vacías (carta 46), con seis números ya puestos (carta 37), una nota con la regla de la suma (carta 39) y una bolsa de fichas (carta 33). Al fondo, una tabla de récords desordenada (carta 51) que ocupa dos láminas: juntad la 61 arriba y la 63 abajo. La carta 63 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: el marcador y la tabla de récords.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "Una sala enorme de neón con un marcador gigante de dieciséis casillas en la pared, una bolsa de fichas numeradas en el suelo y, al fondo, una tabla de récords con barras de colores desordenadas. Cristina cuenta con los dedos mirando el marcador; Alberto, boquiabierto, señala la tabla de récords."
  },
@@ -862,7 +862,8 @@ window.JUEGO_LOCAL = {
   "coge": [
    85,
    86,
-   87
+   87,
+   67
   ],
   "descarta": [
    80,
@@ -871,12 +872,12 @@ window.JUEGO_LOCAL = {
    79
   ],
   "descripcion": [
-   "La máquina de cambio escupe una ficha de continuar y, con ella, se abre la puerta del núcleo de la máquina: el arranque. Cristina lee en una pantalla: «Introduce la clave». La clave es la combinación de cuatro números que os dejaron los puzles del panel, los fantasmas, el taller de sprites y la rana (carta 85). Dos láminas explican cómo se combinan (cartas 86 y 87).",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "La máquina de cambio escupe una ficha de continuar y, con ella, se abre la puerta del núcleo de la máquina: el arranque. Cristina lee en una pantalla: «Introduce la clave». La clave es la combinación de cuatro números que os dejaron los puzles del panel, los fantasmas, el taller de sprites y la rana (carta 85). Dos láminas explican cómo se combinan (cartas 86 y 87). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 67); la otra mitad estará en otro sitio.",
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "pistas": [
    "Un único puzle: arrancar la máquina con la clave.",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "arte": "La sala del núcleo de una máquina recreativa, con un panel con cuatro ranuras, una pantalla negra con un cursor parpadeante y una gran palanca de arranque, con cables luminosos de neón por todas partes. Cristina, con una ficha en la mano, mira la pantalla con los labios apretados; Alberto, a su lado, se muerde el labio pensativo."
  },
@@ -925,8 +926,7 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    64,
-   66,
-   67
+   66
   ],
   "descarta": [
    38,
@@ -939,12 +939,12 @@ window.JUEGO_LOCAL = {
    46
   ],
   "descripcion": [
-   "Las dos mitades encajan: la llave del jefe, una ficha dorada completa, abre la sala del jefe final. En el centro, un tablero deslizante de nueve casillas con una ficha menos (carta 64) cierra el cerrojo. El dibujo final que tiene que formar ocupa dos láminas: juntad la 66 arriba y la 67 abajo.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "Las dos mitades encajan: la llave del jefe, una ficha dorada completa, abre la sala del jefe final. En el centro, un tablero deslizante de nueve casillas con una ficha menos (carta 64) cierra el cerrojo. El dibujo final que tiene que formar ocupa dos láminas: juntad la 66 arriba y la 67 abajo. La carta 67 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "pistas": [
    "Un único puzle: el puzle deslizante.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "arte": "Una sala enorme con un tablero deslizante gigante de nueve casillas, con ocho fichas de colores numeradas y un hueco, que sirve de cerrojo de una puerta dorada, bajo luces de neón. Cristina, de puntillas, estudia el tablero con la lengua entre los dientes; Alberto, a su lado, levanta las cejas sorprendido."
  },

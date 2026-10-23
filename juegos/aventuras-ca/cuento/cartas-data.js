@@ -66,20 +66,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "La aldea es gris como un dibujo a medio pintar. La panadería de Doña Hogaza tiene un cartel de palitos de canela que no cuadra con su escaparate. Junto al río, cuatro duendes tiritan ante un puente: el troll solo les deja cruzar de noche, con un farolillo, y su vela ya está encendida. En el suelo, una varita rota, sin estrella.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "La aldea es gris como un dibujo a medio pintar. La panadería de Doña Hogaza tiene un cartel de palitos de canela que no cuadra con su escaparate. Junto al río, cuatro duendes tiritan ante un puente: el troll solo les deja cruzar de noche, con un farolillo, y su vela ya está encendida. En el suelo, una varita rota, sin estrella. La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: el cartel de la panadería y el puente de los duendes.",
    "La vela del troll son dos cartas: juntadlas.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "Una plaza de aldea de cuento en tonos grises, al anochecer: una panadería con un cartel torcido hecho de palitos de canela, un puente de piedra sobre un río con cuatro duendecillos esperando con un farolillo, una vela enorme encendida en la ventana de una cueva al otro lado del río y una varita mágica rota sobre los adoquines. Cristina examina el cartel con una ceja levantada y una sonrisa pícara mientras Alberto se rasca la cabeza con gesto de duda y los labios apretados."
  },
@@ -217,19 +216,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — Doña Hogaza",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "El cartel por fin dice la verdad y Doña Hogaza sale a la puerta, harina hasta las cejas: «¡Gracias, forasteros! El color se fue cuando se rompió la varita del hada mayor. Desde entonces todo son chismes... y yo me los sé todos». Os da una servilleta llena de garabatos.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "El cartel por fin dice la verdad y Doña Hogaza sale a la puerta, harina hasta las cejas: «¡Gracias, forasteros! El color se fue cuando se rompió la varita del hada mayor. Desde entonces todo son chismes... y yo me los sé todos». Os da una servilleta llena de garabatos. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "Los chismes de Doña Hogaza servirán más adelante, con las hadas.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "La puerta de una panadería de cuento en tonos grises, con una panadera regordeta llena de harina que gesticula con un rodillo mientras cuenta un chisme. Alberto escucha mordiendo un bollo con los ojos muy abiertos y Cristina se tapa la boca para no reírse."
  },
@@ -385,7 +385,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 30 — El castillo dormido",
   "tipo": "gris",
   "coge": [
-   38
+   38,
+   49
   ],
   "descarta": [
    31,
@@ -395,12 +396,12 @@ window.JUEGO_LOCAL = {
    45
   ],
   "descripcion": [
-   "El camino queda libre y llegáis al castillo del gigante. Todo duerme: el gigante ronca en el patio y las salas están a oscuras. Junto a la puerta del sótano cuelga un farolillo de cristal vacío, sin nada que dé luz.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "El camino queda libre y llegáis al castillo del gigante. Todo duerme: el gigante ronca en el patio y las salas están a oscuras. Junto a la puerta del sótano cuelga un farolillo de cristal vacío, sin nada que dé luz. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
    "Algo de la torre de las hadas podría encender el farolillo.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "arte": "El patio de un castillo de cuento en penumbra, con un gigante que ronca tumbado contra una muralla y una puerta de sótano con un farolillo apagado colgado. Alberto camina de puntillas exageradas con un dedo en los labios y Cristina descuelga el farolillo con cara de susto, mirando de reojo al gigante."
  },
@@ -428,16 +429,15 @@ window.JUEGO_LOCAL = {
   "coge": [
    42,
    48,
-   49,
    53
   ],
   "descripcion": [
-   "En la linde del bosque hay un par de botas tan grandes que se podría vivir dentro. Alberto mete un pie y sale disparado varias casillas por el aire. El bosque está tan oscuro que no se ve un árbol a dos pasos... pero en la caseta del guarda hay un mapa colgado.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "En la linde del bosque hay un par de botas tan grandes que se podría vivir dentro. Alberto mete un pie y sale disparado varias casillas por el aire. El bosque está tan oscuro que no se ve un árbol a dos pasos... pero en la caseta del guarda hay un mapa colgado. La carta 49 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 42, 48 y 53."
   ],
   "pistas": [
    "Las botas saltan de una forma muy concreta: leed lo bordado en la lengüeta.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48 y 53."
   ],
   "arte": "La linde de un bosque oscuro de cuento con un par de botas gigantes de cuero junto a la caseta de un guardabosques con un mapa colgado en la pared. Alberto, con un pie dentro de una bota, sale volando por los aires con cara de pánico y los brazos abiertos, y Cristina lo mira desde abajo partiéndose de risa."
  },
@@ -862,7 +862,8 @@ window.JUEGO_LOCAL = {
   "coge": [
    85,
    86,
-   87
+   87,
+   67
   ],
   "descarta": [
    80,
@@ -871,12 +872,12 @@ window.JUEGO_LOCAL = {
    79
   ],
   "descripcion": [
-   "La caja de música se abre como una flor. Dentro hay una página arrancada del libro, en blanco, con ocho huecos para letras, una nota doblada del Búho y una lámina del gran banquete que el rey prepara para el final del cuento.",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "La caja de música se abre como una flor. Dentro hay una página arrancada del libro, en blanco, con ocho huecos para letras, una nota doblada del Búho y una lámina del gran banquete que el rey prepara para el final del cuento. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 67); la otra mitad estará en otro sitio.",
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "pistas": [
    "La última página es el último puzle: guarda las letras de todos los demás.",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "arte": "Una caja de música de nácar abierta como una flor, de la que salen una página en blanco con huecos para letras y una lámina pintada. Cristina saca la página con cuidado y una sonrisa nerviosa, y Alberto se asoma por encima de su hombro con cara de curiosidad."
  },
@@ -925,8 +926,7 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    64,
-   66,
-   67
+   66
   ],
   "descarta": [
    38,
@@ -939,12 +939,12 @@ window.JUEGO_LOCAL = {
    46
   ],
   "descripcion": [
-   "El cristal de luna enciende el farolillo y bajáis al sótano del castillo: una sala de espejos rotos, a oscuras, con una flor de luna dormida en algún rincón. Si la luz de la luna la toca, se abrirá. Por un ventanuco entra un rayo de luna y, en la pared, cuelga el plano de la sala.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "El cristal de luna enciende el farolillo y bajáis al sótano del castillo: una sala de espejos rotos, a oscuras, con una flor de luna dormida en algún rincón. Si la luz de la luna la toca, se abrirá. Por un ventanuco entra un rayo de luna y, en la pared, cuelga el plano de la sala. La carta 67 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "pistas": [
    "El plano son dos cartas: juntadlas. La flor no se ve en la app.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "arte": "El sótano de un castillo de cuento con espejos colgados torcidos y rotos, iluminado por un farolillo con luz plateada, y un rayo de luna que entra por un ventanuco. Cristina levanta el farolillo con el ceño fruncido de concentración y Alberto da un respingo al ver su reflejo deformado en un espejo."
  },

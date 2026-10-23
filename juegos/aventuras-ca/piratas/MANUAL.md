@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — La cubierta de La Gaviota
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la carta de aguas: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta la carta de aguas: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — La bitácora
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la cart
 En el móvil: Acción, 14. Con la bitácora (16), el tiempo entre el aviso 1 y el aviso 3 es de 8 horas y 30 minutos. El mensaje te dice que cojas la 24. Anota la distancia de la bitácora: 3.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — El pañol de la capitana
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para las mareas).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para las mareas).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -49,9 +49,9 @@ En el móvil: Acción, 20. Con la carta de aguas (19 y 21) y la ordenanza (18), 
 
 ### Paso 6 — El banco de niebla
 
-Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
+Lee la carta 28. Descarta 18, 19, 20 y 21 y coge 35 y 43.
 
-- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `43`
 - [ ] Hecho
 
 ### Paso 7 — El catalejo
@@ -59,19 +59,19 @@ Lee la carta 28. Descarta 18, 19, 20 y 21 y coge la 35.
 Las dos mitades de la lente (22 y 35) son combinables: 22 + 35 = 57. Coge la 57.
 
 - **Suma:** `22 + 35 = 57`
-- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `57`
+- **La mesa queda con:** `10` `12` `22` `24` `26` `28` `35` `43` `57`
 - [ ] Hecho
 
 ### Paso 8 — El catalejo
 
 Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `43` `57`
 - [ ] Hecho
 
 ### Paso 9 — El cofre del capitán Calavera
 
-Lee la carta 31. Coge 40, 41, 43 y 45. Junta el cielo: 41 a la izquierda y 43 a la derecha.
+Lee la carta 31. Coge 40, 41 y 45. Junta el cielo: 41 a la izquierda y 43 a la derecha.
 
 - **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
 - [ ] Hecho
@@ -86,16 +86,16 @@ En el móvil: Acción, 40. Con el cielo (41 y 43) y la carta celeste (45), las e
 
 ### Paso 11 — El cofre abierto
 
-Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge 38 y 49.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `49` `57`
 - [ ] Hecho
 
 ### Paso 12 — La entrada de la cueva
 
-Lee la carta 32. Coge 42, 48, 49 y 53. Junta el suelo: 42 a la izquierda y 49 a la derecha. Pliega el testamento (53): A sobre B.
+Lee la carta 32. Coge 42, 48, 53 y 63. Junta el suelo: 42 a la izquierda y 49 a la derecha. Pliega el testamento (53): A sobre B.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 13 — El suelo de la cueva
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53. Junta el suelo: 42 a la izquierda y 49 a 
 En el móvil: Acción, 48. Con el testamento plegado (53) y el suelo (42 y 49), el orden de los símbolos es luna, llave, calavera, corona y el camino, desde abajo: luna (fila 1, columna 5), llave (fila 1, columna 4), calavera (fila 1, columna 3), corona (fila 2, columna 3), luna (fila 2, columna 2), llave (fila 3, columna 2), calavera (fila 3, columna 3), corona (fila 3, columna 4), luna (fila 4, columna 4), llave (fila 4, columna 3), calavera (fila 5, columna 3), corona (fila 6, columna 3). El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 14 — La santabárbara
 
 Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — El cañón
@@ -118,12 +118,12 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 En el móvil: Acción, 52. Con las tablas (54 y 55) y las presas (59): barco 1: 4 sacos y 10°; barco 2: 3 sacos y 15°; barco 3: 1 sacos y 15°. El mensaje te dice que cojas la 44. Anota la distancia del cañón: 4.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — La toldilla
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta la tabla de la marea: 61 arriba y 63 abajo.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51 y 61. Junta la tabla de la marea: 61 arriba y 63 abajo.
 
 - **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
@@ -239,21 +239,21 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada a bordo | Normal | Coge 10, 12 | Llegada a bordo | 1 |
-| 10 | La cubierta de La Gaviota | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | La cubierta de La Gaviota | 1 |
+| 10 | La cubierta de La Gaviota | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | La cubierta de La Gaviota | 1 |
 | 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | Cronoportal sin cristal | 1 |
 | 14 | La bitácora | App | — | La bitácora | 2 |
 | 16 | La bitácora | Normal | — | La bitácora | 2 |
 | 18 | La ordenanza de la Armada | Normal | — | La ordenanza de la Armada | 2 |
 | 19 | La carta de aguas de la bahía (mitad de arriba) | Normal | — | La carta de aguas de la bahía (mitad de arriba) | 2 |
 | 20 | La persecución | App | — | La persecución | 2 |
-| 21 | La carta de aguas de la bahía (mitad de abajo) | Normal | — | La carta de aguas de la bahía (mitad de abajo) | 2 |
+| 21 | La carta de aguas de la bahía (mitad de abajo) | Normal | — | La carta de aguas de la bahía (mitad de abajo) | 4 |
 | 22 | Media lente de catalejo | Combina | Combinable: suma los números | Media lente de catalejo | 2 |
-| 24 | El pañol de la capitana | Normal | Coge 26; Descarta 14, 16 | El pañol de la capitana | 3 |
+| 24 | El pañol de la capitana | Normal | Coge 26, 21; Descarta 14, 16 | El pañol de la capitana | 3 |
 | 26 | El paso de las barras | Normal | — | El paso de las barras | 4 |
-| 28 | El banco de niebla | Normal | Coge 35; Descarta 18, 19, 20, 21 | El banco de niebla | 5 |
-| 30 | El cofre abierto | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | El cofre abierto | 10 |
-| 31 | El cofre del capitán Calavera | Normal | Coge 40, 41, 43, 45 | El cofre del capitán Calavera | 8 |
-| 32 | La entrada de la cueva | Normal | Coge 42, 48, 49, 53 | La entrada de la cueva | 8 |
+| 28 | El banco de niebla | Normal | Coge 35, 43; Descarta 18, 19, 20, 21 | El banco de niebla | 5 |
+| 30 | El cofre abierto | Normal | Coge 38, 49; Descarta 31, 40, 41, 43, 45 | El cofre abierto | 10 |
+| 31 | El cofre del capitán Calavera | Normal | Coge 40, 41, 45 | El cofre del capitán Calavera | 8 |
+| 32 | La entrada de la cueva | Normal | Coge 42, 48, 53, 63 | La entrada de la cueva | 8 |
 | 33 | El botín | Normal | — | El botín | 16 |
 | 35 | Otra media lente de catalejo | Combina | Combinable: suma los números | Otra media lente de catalejo | 6 |
 | 36 | La santabárbara | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | La santabárbara | 13 |
@@ -263,12 +263,12 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 40 | La tapa del cofre | App | — | La tapa del cofre | 9 |
 | 41 | El cielo de la tapa del cofre (mitad izquierda) | Normal | — | El cielo de la tapa del cofre (mitad izquierda) | 9 |
 | 42 | El suelo de la cueva (mitad izquierda) | Normal | — | El suelo de la cueva (mitad izquierda) | 12 |
-| 43 | El cielo de la tapa del cofre (mitad derecha) | Normal | — | El cielo de la tapa del cofre (mitad derecha) | 9 |
-| 44 | La toldilla | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La toldilla | 15 |
+| 43 | El cielo de la tapa del cofre (mitad derecha) | Normal | — | El cielo de la tapa del cofre (mitad derecha) | 6 |
+| 44 | La toldilla | Normal | Coge 33, 37, 39, 46, 51, 61; Descarta 36, 52, 54, 55, 59 | La toldilla | 15 |
 | 45 | La carta celeste | Normal | — | La carta celeste | 9 |
 | 46 | El reparto del botín | App | — | El reparto del botín | 16 |
 | 48 | El suelo de la cueva | App | — | El suelo de la cueva | 12 |
-| 49 | El suelo de la cueva (mitad derecha) | Normal | — | El suelo de la cueva (mitad derecha) | 12 |
+| 49 | El suelo de la cueva (mitad derecha) | Normal | — | El suelo de la cueva (mitad derecha) | 11 |
 | 51 | Las mareas | App | — | Las mareas | 16 |
 | 52 | El cañón | App | — | El cañón | 14 |
 | 53 | Testamento (se pliega) | Normal | — | Testamento (se pliega) | 12 |
@@ -280,7 +280,7 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 59 | Las tres presas | Normal | — | Las tres presas | 14 |
 | 61 | La tabla de la marea (mitad de arriba) | Normal | — | La tabla de la marea (mitad de arriba) | 16 |
 | 62 | El cristal del Cronoportal | Combina | Combinable: suma los números | El cristal del Cronoportal | 26 |
-| 63 | La tabla de la marea (mitad de abajo) | Normal | — | La tabla de la marea (mitad de abajo) | 16 |
+| 63 | La tabla de la marea (mitad de abajo) | Normal | — | La tabla de la marea (mitad de abajo) | 12 |
 | 64 | El timón | App | — | El timón | 25 |
 | 66 | Carta náutica (se pliega) | Normal | — | Carta náutica (se pliega) | 25 |
 | 67 | El cuaderno del piloto | Normal | — | El cuaderno del piloto | 25 |

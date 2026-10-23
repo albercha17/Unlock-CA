@@ -83,20 +83,19 @@
       18,
       19,
       20,
-      21,
       22
     ],
     "descarta": [
       "P"
     ],
     "descripcion": [
-      "La cámara tiene dos salidas cerradas. Una puerta de bronce guarda un granero y lleva grabado un acertijo de sacos. La otra es un muro de bloques con una pirámide escrita encima, como si un cantero hubiera dejado un recado a medias: dos láminas de piedra con medio recado cada una y un acertijo. Y en el suelo, partido en dos, un medallón.",
-      "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+      "La cámara tiene dos salidas cerradas. Una puerta de bronce guarda un granero y lleva grabado un acertijo de sacos. La otra es un muro de bloques con una pirámide escrita encima, como si un cantero hubiera dejado un recado a medias: dos láminas de piedra con medio recado cada una y un acertijo. Y en el suelo, partido en dos, un medallón. La carta 21 no está aquí: la encontraréis en otro sitio.",
+      "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
     ],
     "pistas": [
       "Hay dos puzles: el granero y la pirámide del cantero.",
       "La pirámide son dos cartas: juntadlas, una encima de otra.",
-      "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+      "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
     ],
     "arte": "Una cámara secreta egipcia con una puerta de bronce con un relieve grabado a un lado y, al otro, un muro de bloques de piedra con una pirámide cincelada; en el suelo, medio medallón de oro. Cristina examina el relieve de la puerta con el ceño fruncido de concentración y Alberto toca los bloques del muro con la punta de los dedos, con gesto de duda."
   },
@@ -234,19 +233,20 @@
     "titulo": "Carta 24 — El granero abierto",
     "tipo": "gris",
     "coge": [
-      26
+      26,
+      21
     ],
     "descarta": [
       14,
       16
     ],
     "descripcion": [
-      "La puerta de bronce se abre con un chirrido y deja ver un granero lleno de cebada. Entre los sacos asoma un papiro enrollado con el sello de una sacerdotisa: Henut, la guardiana de las cámaras del templo, que escondió aquí instrucciones para quien llegara hasta aquí.",
-      "Coged la carta 26. Descartad las cartas 14 y 16."
+      "La puerta de bronce se abre con un chirrido y deja ver un granero lleno de cebada. Entre los sacos asoma un papiro enrollado con el sello de una sacerdotisa: Henut, la guardiana de las cámaras del templo, que escondió aquí instrucciones para quien llegara hasta aquí. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+      "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
     ],
     "pistas": [
       "El papiro de la sacerdotisa servirá más adelante.",
-      "Coged la carta 26. Descartad las cartas 14 y 16."
+      "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
     ],
     "arte": "Un granero egipcio abierto, lleno de sacos de cebada y vasijas, con un papiro enrollado entre los sacos. Alberto levanta el papiro con una sonrisa de triunfo y Cristina, a su lado, se tapa la nariz entre toses por el polvo, con los ojos llorosos."
   },
@@ -402,7 +402,8 @@
     "titulo": "Carta 30 — Las compuertas",
     "tipo": "gris",
     "coge": [
-      38
+      38,
+      49
     ],
     "descarta": [
       31,
@@ -412,12 +413,12 @@
       45
     ],
     "descripcion": [
-      "Los sacerdotes abren las compuertas justo a tiempo y el agua del Nilo llena los canales sin desbordarse. Agradecido, uno de ellos os entrega una lámpara de aceite de bronce... apagada, claro, y sin una gota de fuego para encenderla.",
-      "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+      "Los sacerdotes abren las compuertas justo a tiempo y el agua del Nilo llena los canales sin desbordarse. Agradecido, uno de ellos os entrega una lámpara de aceite de bronce... apagada, claro, y sin una gota de fuego para encenderla. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+      "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
     ],
     "pistas": [
       "La lámpara necesita llama: buscad algo que arda.",
-      "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+      "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
     ],
     "arte": "Una compuerta de piedra abierta junto al Nilo con el agua entrando a raudales en un canal de riego; un sacerdote con túnica blanca entrega una lámpara de bronce a Alberto. Cristina aplaude emocionada, con una gran sonrisa, mientras Alberto coge la lámpara con las dos manos, mirándola con respeto reverencial."
   },
@@ -445,16 +446,16 @@
     "coge": [
       42,
       48,
-      49,
-      53
+      53,
+      63
     ],
     "descripcion": [
-      "Una larga galería con un friso de animales que recorre las dos paredes. Al fondo, un guardián de piedra con cabeza de chacal impide el paso: solo se aparta si se le dice la cuenta que él mismo grabó en su cerradura. El friso está partido en dos láminas que hay que juntar.",
-      "Coged las cartas 42, 48, 49 y 53."
+      "Una larga galería con un friso de animales que recorre las dos paredes. Al fondo, un guardián de piedra con cabeza de chacal impide el paso: solo se aparta si se le dice la cuenta que él mismo grabó en su cerradura. El friso está partido en dos láminas que hay que juntar. La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+      "Coged las cartas 42, 48, 53 y 63."
     ],
     "pistas": [
       "El friso son dos cartas: juntadlas.",
-      "Coged las cartas 42, 48, 49 y 53."
+      "Coged las cartas 42, 48, 53 y 63."
     ],
     "arte": "Una larga galería egipcia con un friso de animales pintado en la pared (ibis, cobras, chacales y halcones) y, al fondo, una estatua de piedra de un guardián con cabeza de chacal. Alberto mira el friso con los ojos entornados, contando con los dedos, y Cristina da un paso atrás ante el guardián con una ceja levantada y gesto de recelo."
   },
@@ -613,8 +614,7 @@
       39,
       46,
       51,
-      61,
-      63
+      61
     ],
     "descarta": [
       36,
@@ -624,12 +624,12 @@
       59
     ],
     "descripcion": [
-      "Las cuentas cuadran y el escriba os agradece con un resoplido. «Pasad a mi casa. Tengo un cofre que lo cierra una suma de signos que no entiendo ni yo, y la sacerdotisa Henut necesita que alguien pinte las cámaras del templo antes de la fiesta de mañana». Tenéis delante dos encargos.",
-      "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+      "Las cuentas cuadran y el escriba os agradece con un resoplido. «Pasad a mi casa. Tengo un cofre que lo cierra una suma de signos que no entiendo ni yo, y la sacerdotisa Henut necesita que alguien pinte las cámaras del templo antes de la fiesta de mañana». Tenéis delante dos encargos. La carta 63 no está aquí: la encontraréis en otro sitio.",
+      "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
     ],
     "pistas": [
       "Hay dos puzles: el cofre del escriba y las cámaras del templo. El papiro de la sacerdotisa sirve aquí.",
-      "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+      "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
     ],
     "arte": "El interior de la casa de un escriba egipcio, con papiros enrollados por todas partes, un cofre de madera con signos grabados y un plano pintado en la pared. El escriba, rechoncho, les señala el cofre con un dedo regordete, y Cristina mira el plano con la cabeza ladeada y una sonrisa curiosa mientras Alberto se rasca la barba, perplejo."
   },
@@ -764,7 +764,8 @@
     "coge": [
       69,
       70,
-      71
+      71,
+      79
     ],
     "descarta": [
       51,
@@ -774,12 +775,12 @@
       24
     ],
     "descripcion": [
-      "Henut aparece, riendo entre los tarros de pintura. «Me habéis ahorrado una semana. Os diré lo que no debo: el Ojo de Horus está en la cripta, pero para bajar hay que oír antes al visir. Quiere que el agua del Nilo llegue a todos los campos del valle, sin gastar de más». Ya conocéis la nota del visir.",
-      "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+      "Henut aparece, riendo entre los tarros de pintura. «Me habéis ahorrado una semana. Os diré lo que no debo: el Ojo de Horus está en la cripta, pero para bajar hay que oír antes al visir. Quiere que el agua del Nilo llegue a todos los campos del valle, sin gastar de más». Ya conocéis la nota del visir. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 79); la otra mitad estará en otro sitio.",
+      "Coged las cartas 69, 70, 71 y 79. Descartad las cartas 51, 61, 63, 26 y 24."
     ],
     "pistas": [
       "Hay que repartir el agua entre los campos.",
-      "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+      "Coged las cartas 69, 70, 71 y 79. Descartad las cartas 51, 61, 63, 26 y 24."
     ],
     "arte": "Un patio de templo egipcio con tarros de pintura y una sacerdotisa de túnica blanca y pelo negro con una diadema de oro, riendo con las manos en la cintura. Cristina la mira con una sonrisa de complicidad y Alberto, con restos de pintura turquesa en la mejilla, levanta un pincel con gesto triunfal."
   },
@@ -828,8 +829,7 @@
     "tipo": "gris",
     "coge": [
       72,
-      75,
-      79
+      75
     ],
     "descarta": [
       58,
@@ -838,12 +838,12 @@
       71
     ],
     "descripcion": [
-      "El agua corre por los canales y el visir, un hombre alto con una tira de lino dorado al pecho, os recibe con una reverencia. «Ahora el reparto: tras la crecida, el río se lleva los mojones de los campos y hay que volver a medirlos. No saben cómo. Y yo, tampoco». Os da un plano del campo con las medidas.",
-      "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+      "El agua corre por los canales y el visir, un hombre alto con una tira de lino dorado al pecho, os recibe con una reverencia. «Ahora el reparto: tras la crecida, el río se lleva los mojones de los campos y hay que volver a medirlos. No saben cómo. Y yo, tampoco». Os da un plano del campo con las medidas. La carta 79 no está aquí: la encontraréis en otro sitio.",
+      "Coged las cartas 72 y 75. Descartad las cartas 58, 69, 70 y 71."
     ],
     "pistas": [
       "El campo por repartir son dos cartas.",
-      "Coged las cartas 72, 75 y 79. Descartad las cartas 58, 69, 70 y 71."
+      "Coged las cartas 72 y 75. Descartad las cartas 58, 69, 70 y 71."
     ],
     "arte": "Un campo egipcio junto al Nilo tras la crecida, con un visir alto de lino blanco y collar dorado señalando con un bastón el terreno vacío, y campesinos esperando. Alberto asiente con aire de seriedad profesional, midiendo con la vista, y Cristina mira el campo con las manos en la frente a modo de visera."
   },
@@ -907,7 +907,8 @@
     "coge": [
       85,
       86,
-      87
+      87,
+      67
     ],
     "descarta": [
       80,
@@ -916,12 +917,12 @@
       79
     ],
     "descripcion": [
-      "Los campesinos replantan los mojones y el visir os entrega, para agradeceros, lo que guardaba un viejo sacerdote: las instrucciones para despertar a un «carro del sol» de latón y cristal. Os suena. Y una nota con dos acertijos sobre cinco sellos.",
-      "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+      "Los campesinos replantan los mojones y el visir os entrega, para agradeceros, lo que guardaba un viejo sacerdote: las instrucciones para despertar a un «carro del sol» de latón y cristal. Os suena. Y una nota con dos acertijos sobre cinco sellos. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 67); la otra mitad estará en otro sitio.",
+      "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
     ],
     "pistas": [
       "La consola es el último puzle.",
-      "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+      "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
     ],
     "arte": "Los campesinos clavan mojones de piedra en un campo recién repartido, y el visir de lino blanco entrega a Cristina un papiro sellado. Ella lo desenrolla con una sonrisa emocionada, y Alberto, detrás, mira el aparato de latón que lleva en la mochila con las cejas muy altas."
   },
@@ -970,8 +971,7 @@
     "tipo": "gris",
     "coge": [
       64,
-      66,
-      67
+      66
     ],
     "descarta": [
       38,
@@ -984,12 +984,12 @@
       46
     ],
     "descripcion": [
-      "La brasa enciende la lámpara y una luz cálida baja por una escalera de piedra hasta una cripta redonda. En las paredes, un friso de azulejos con una figura que falta: un hueco entre los demás. Cuando el friso esté completo, la cripta se abrirá. El friso, dibujado, es lo único que se ve del hueco.",
-      "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+      "La brasa enciende la lámpara y una luz cálida baja por una escalera de piedra hasta una cripta redonda. En las paredes, un friso de azulejos con una figura que falta: un hueco entre los demás. Cuando el friso esté completo, la cripta se abrirá. El friso, dibujado, es lo único que se ve del hueco. La carta 67 no está aquí: la encontraréis en otro sitio.",
+      "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
     ],
     "pistas": [
       "El friso son dos cartas: juntadlas.",
-      "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+      "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
     ],
     "arte": "Una cripta circular egipcia iluminada por una lámpara de bronce con llama cálida, con un friso de azulejos de colores en la pared al que le falta uno. Cristina sostiene la lámpara en alto con gesto cauteloso y Alberto mira el friso con la cabeza ladeada, pensativo, apretando los labios."
   },

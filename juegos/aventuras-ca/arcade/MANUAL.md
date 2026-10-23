@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — La placa base
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el aparcamiento: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta el aparcamiento: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — El panel de interruptores
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta el apar
 En el móvil: Acción, 14. Con el esquema (16): interruptores arriba (1): C, D; abajo (0): A, B, E, F. El mensaje te dice que cojas la 24. Anota el byte de la máquina: 6.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — La placa se enciende
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para la tabla de récords).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para la tabla de récords).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -93,9 +93,9 @@ Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
 
 ### Paso 12 — La consola de mensajes
 
-Lee la carta 32. Coge 42, 48, 49 y 53.
+Lee la carta 32. Coge 42, 48, 49, 53 y 63.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 13 — La consola de mensajes
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53.
 En el móvil: Acción, 48. Con los bytes (42), la tabla (49) y la regla (53), el mensaje es CONTINUE. El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 14 — El menú de los fantasmas
 
 Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — Los cuatro fantasmas
@@ -118,12 +118,12 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 En el móvil: Acción, 52. Con las pistas (54 y 55) y el plano (59): pasillo 1: fantasma rosa, rápido, fruta naranja; pasillo 2: fantasma cian, loco, fruta manzana; pasillo 3: fantasma rojo, lento, fruta cereza; pasillo 4: fantasma naranja, normal, fruta fresa. El mensaje te dice que cojas la 44. Anota el byte de la máquina: 9.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — La sala de puntuaciones
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta la tabla de récords: 61 arriba y 63 abajo.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51 y 61. Junta la tabla de récords: 61 arriba y 63 abajo.
 
 - **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
@@ -176,9 +176,9 @@ En el móvil: Acción, 72. Con las monedas (75) y el precio (79): 2 de 1 y 2 de 
 
 ### Paso 23 — La ranura de continuar
 
-Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86, 87 y 67.
 
-- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `67` `82` `85` `86` `87`
 - [ ] Hecho
 
 ### Paso 24 — La llave del jefe
@@ -186,12 +186,12 @@ Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
 Las dos mitades de la llave (38 y 56) son combinables: 38 + 56 = 94. Coge la 94.
 
 - **Suma:** `38 + 56 = 94`
-- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `67` `82` `85` `86` `87` `94`
 - [ ] Hecho
 
 ### Paso 25 — La sala del jefe final
 
-Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el dibujo final: 66 arriba y 67 abajo.
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64 y 66. Junta el dibujo final: 66 arriba y 67 abajo.
 
 - **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
 - [ ] Hecho
@@ -239,21 +239,21 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada a la recreativa | Normal | Coge 10, 12 | Llegada a la recreativa | 1 |
-| 10 | La placa base | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | La placa base | 1 |
+| 10 | La placa base | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | La placa base | 1 |
 | 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | Cronoportal sin cristal | 1 |
 | 14 | El panel de interruptores | App | — | El panel de interruptores | 2 |
 | 16 | El circuito de la placa | Normal | — | El circuito de la placa | 2 |
 | 18 | El acertijo del aparcamiento | Normal | — | El acertijo del aparcamiento | 2 |
 | 19 | El aparcamiento de naves (mitad de arriba) | Normal | — | El aparcamiento de naves (mitad de arriba) | 2 |
 | 20 | El aparcamiento de naves | App | — | El aparcamiento de naves | 2 |
-| 21 | El aparcamiento de naves (mitad de abajo) | Normal | — | El aparcamiento de naves (mitad de abajo) | 2 |
+| 21 | El aparcamiento de naves (mitad de abajo) | Normal | — | El aparcamiento de naves (mitad de abajo) | 4 |
 | 22 | Mango de joystick | Combina | Combinable: suma los números | Mango de joystick | 2 |
-| 24 | La placa se enciende | Normal | Coge 26; Descarta 14, 16 | La placa se enciende | 3 |
+| 24 | La placa se enciende | Normal | Coge 26, 21; Descarta 14, 16 | La placa se enciende | 3 |
 | 26 | La nota del programador | Normal | — | La nota del programador | 4 |
 | 28 | El aparcamiento despejado | Normal | Coge 35; Descarta 18, 19, 20, 21 | El aparcamiento despejado | 5 |
 | 30 | El sprite aprobado | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | El sprite aprobado | 10 |
 | 31 | El taller de sprites | Normal | Coge 40, 41, 43, 45 | El taller de sprites | 8 |
-| 32 | La consola de mensajes | Normal | Coge 42, 48, 49, 53 | La consola de mensajes | 8 |
+| 32 | La consola de mensajes | Normal | Coge 42, 48, 49, 53, 63 | La consola de mensajes | 8 |
 | 33 | Las fichas de la bolsa | Normal | — | Las fichas de la bolsa | 16 |
 | 35 | Bola del joystick | Combina | Combinable: suma los números | Bola del joystick | 6 |
 | 36 | El menú de los fantasmas | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El menú de los fantasmas | 13 |
@@ -264,7 +264,7 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 41 | Las tandas del sprite (I) | Normal | — | Las tandas del sprite (I) | 9 |
 | 42 | Los bytes del mensaje | Normal | — | Los bytes del mensaje | 12 |
 | 43 | Las tandas del sprite (II) | Normal | — | Las tandas del sprite (II) | 9 |
-| 44 | La sala de puntuaciones | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | La sala de puntuaciones | 15 |
+| 44 | La sala de puntuaciones | Normal | Coge 33, 37, 39, 46, 51, 61; Descarta 36, 52, 54, 55, 59 | La sala de puntuaciones | 15 |
 | 45 | La regla de la compresión | Normal | — | La regla de la compresión | 9 |
 | 46 | El marcador del jefe | App | — | El marcador del jefe | 16 |
 | 48 | La consola de mensajes | App | — | La consola de mensajes | 12 |
@@ -280,10 +280,10 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 59 | El plano de los pasillos | Normal | — | El plano de los pasillos | 14 |
 | 61 | La tabla de récords (mitad de arriba) | Normal | — | La tabla de récords (mitad de arriba) | 16 |
 | 62 | El cristal del Cronoportal | Combina | Combinable: suma los números | El cristal del Cronoportal | 26 |
-| 63 | La tabla de récords (mitad de abajo) | Normal | — | La tabla de récords (mitad de abajo) | 16 |
+| 63 | La tabla de récords (mitad de abajo) | Normal | — | La tabla de récords (mitad de abajo) | 12 |
 | 64 | El cerrojo deslizante | App | — | El cerrojo deslizante | 25 |
 | 66 | El dibujo final (mitad de arriba) | Normal | — | El dibujo final (mitad de arriba) | 25 |
-| 67 | El dibujo final (mitad de abajo) | Normal | — | El dibujo final (mitad de abajo) | 25 |
+| 67 | El dibujo final (mitad de abajo) | Normal | — | El dibujo final (mitad de abajo) | 23 |
 | 69 | La rana de la autopista | App | — | La rana de la autopista | 19 |
 | 70 | La autopista al empezar | Normal | — | La autopista al empezar | 19 |
 | 71 | Las velocidades del tráfico | Normal | — | Las velocidades del tráfico | 19 |
@@ -292,11 +292,11 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 75 | Las monedas de la máquina | Normal | — | Las monedas de la máquina | 21 |
 | 79 | El precio de la partida | Normal | — | El precio de la partida | 21 |
 | 80 | El almacén de monedas | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | El almacén de monedas | 20 |
-| 82 | La ranura de continuar | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | La ranura de continuar | 22 |
+| 82 | La ranura de continuar | Normal | Coge 85, 86, 87, 67; Descarta 80, 72, 75, 79 | La ranura de continuar | 22 |
 | 85 | El arranque de la máquina | App | — | El arranque de la máquina | 23 |
 | 86 | La clave del arranque (I) | Normal | — | La clave del arranque (I) | 23 |
 | 87 | La clave del arranque (II) | Normal | — | La clave del arranque (II) | 23 |
-| 94 | La sala del jefe final | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La sala del jefe final | 24 |
+| 94 | La sala del jefe final | Normal | Coge 64, 66; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La sala del jefe final | 24 |
 | 99 | De vuelta a casa (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | De vuelta a casa (FIN) | 29 |
 
 ## Si algo no cuadra

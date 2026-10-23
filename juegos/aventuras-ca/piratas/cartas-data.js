@@ -75,20 +75,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "La capitana Bruma os lleva al timón: «El piloto se ha bebido el ron de la semana. Ayudadme». Sobre una caja de pólvora, la bitácora del barco (carta 16): hay que echar cuentas con sus campanadas. Una fragata de la Armada se acerca y solo se puede escapar hacia un banco de niebla: la ordenanza de la Armada (carta 18) y la carta de aguas de la bahía, en dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Junto al timón, Cristina encuentra una lente de catalejo suelta (carta 22).",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "La capitana Bruma os lleva al timón: «El piloto se ha bebido el ron de la semana. Ayudadme». Sobre una caja de pólvora, la bitácora del barco (carta 16): hay que echar cuentas con sus campanadas. Una fragata de la Armada se acerca y solo se puede escapar hacia un banco de niebla: la ordenanza de la Armada (carta 18) y la carta de aguas de la bahía, en dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Junto al timón, Cristina encuentra una lente de catalejo suelta (carta 22). La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: la bitácora y la persecución.",
    "La carta de aguas son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "La cubierta de un bergantín pirata con un gran timón de madera, el mástil y las velas hinchadas por el viento; una capitana con sombrero de plumas y casaca roja señala el horizonte con un loro en el hombro. Cristina recoge del suelo una lente de cristal con curiosidad y los ojos entrecerrados, y Alberto sujeta una carta de aguas enrollada con gesto de preocupación."
  },
@@ -226,19 +225,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — El pañol de la capitana",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "Con las cuentas de las guardias claras, la capitana Bruma os abre el pañol, un cuartito lleno de cartas y compases, y os da una carta con el paso de las barras de arena del puerto de la Isla Calavera: la usaréis para entrar con el barco (carta 26).",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Con las cuentas de las guardias claras, la capitana Bruma os abre el pañol, un cuartito lleno de cartas y compases, y os da una carta con el paso de las barras de arena del puerto de la Isla Calavera: la usaréis para entrar con el barco (carta 26). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "Mirad lo que os da la capitana.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "El pañol de un barco pirata, un cuartito con estantes llenos de cartas náuticas enrolladas, compases y sextantes, y una lámpara de aceite. La capitana Bruma, con sombrero de plumas, entrega una carta a Cristina y Alberto. Cristina la recibe con una reverencia exagerada y una sonrisa traviesa; Alberto la desenrolla con las cejas arqueadas de sorpresa."
  },
@@ -259,7 +259,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 28 — El banco de niebla",
   "tipo": "gris",
   "coge": [
-   35
+   35,
+   43
   ],
   "descarta": [
    18,
@@ -268,12 +269,12 @@ window.JUEGO_LOCAL = {
    21
   ],
   "descripcion": [
-   "La Gaviota se mete en el banco de niebla y la fragata pasa de largo, perdida. Cuando la bruma se levanta un poco, en una caja de pólvora vacía hay un paquete envuelto en lona: la otra mitad de la lente del catalejo (carta 35).",
-   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+   "La Gaviota se mete en el banco de niebla y la fragata pasa de largo, perdida. Cuando la bruma se levanta un poco, en una caja de pólvora vacía hay un paquete envuelto en lona: la otra mitad de la lente del catalejo (carta 35). Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 43); la otra mitad estará en otro sitio.",
+   "Coged las cartas 35 y 43. Descartad las cartas 18, 19, 20 y 21."
   ],
   "pistas": [
    "Mirad en la caja de pólvora.",
-   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+   "Coged las cartas 35 y 43. Descartad las cartas 18, 19, 20 y 21."
   ],
   "arte": "El interior de un banco de niebla blanca alrededor de la cubierta de un bergantín pirata, con una caja de madera abierta y un paquete de lona. Cristina saca el paquete con los ojos muy abiertos de emoción; Alberto, con la mano de visera, escruta la niebla con la boca torcida de desconfianza."
  },
@@ -324,16 +325,15 @@ window.JUEGO_LOCAL = {
   "coge": [
    40,
    41,
-   43,
    45
   ],
   "descripcion": [
-   "Sobre una roca de la playa, el cofre del capitán Calavera: su tapa es un cielo de tachuelas numeradas, en dos láminas (cartas 41 y 43), y el capitán dejó su carta celeste con la constelación que abre el cofre (carta 45). Una pantalla de madera (carta 40) espera los números.",
-   "Coged las cartas 40, 41, 43 y 45."
+   "Sobre una roca de la playa, el cofre del capitán Calavera: su tapa es un cielo de tachuelas numeradas, en dos láminas (cartas 41 y 43), y el capitán dejó su carta celeste con la constelación que abre el cofre (carta 45). Una pantalla de madera (carta 40) espera los números. La carta 43 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 40, 41 y 45."
   ],
   "pistas": [
    "Un único puzle: la constelación de la tapa.",
-   "Coged las cartas 40, 41, 43 y 45."
+   "Coged las cartas 40, 41 y 45."
   ],
   "arte": "Una playa del Caribe al atardecer con un cofre de madera sobre una roca; la tapa del cofre está cubierta de tachuelas doradas que forman un cielo estrellado. Cristina compara una carta celeste con la tapa del cofre con el ceño fruncido; Alberto, de rodillas, sigue las tachuelas con el dedo con los ojos entrecerrados."
  },
@@ -408,7 +408,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 30 — El cofre abierto",
   "tipo": "gris",
   "coge": [
-   38
+   38,
+   49
   ],
   "descarta": [
    31,
@@ -418,12 +419,12 @@ window.JUEGO_LOCAL = {
    45
   ],
   "descripcion": [
-   "La tapa se levanta sola y, en el cofre, sobre un lecho de arena, hay media llave de hierro con una calavera grabada en el ojo (carta 38). Una pareja de cifras queda grabada en el interior de la tapa: guardadla.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "La tapa se levanta sola y, en el cofre, sobre un lecho de arena, hay media llave de hierro con una calavera grabada en el ojo (carta 38). Una pareja de cifras queda grabada en el interior de la tapa: guardadla. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
    "Mirad dentro del cofre.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "arte": "Un cofre de madera abierto sobre una roca de una playa, con media llave de hierro con una calavera en el ojo sobre la arena del fondo. Cristina la levanta con dos dedos con los ojos brillantes; Alberto aplaude con las manos sobre la cabeza y una sonrisa enorme."
  },
@@ -451,17 +452,17 @@ window.JUEGO_LOCAL = {
   "coge": [
    42,
    48,
-   49,
-   53
+   53,
+   63
   ],
   "descripcion": [
-   "La entrada de la cueva está cerrada por un suelo de losas: solo se cruza pisando las que siguen el testamento del capitán Calavera, un papel que hay que plegar (carta 53). El suelo, visto desde la entrada, ocupa dos láminas: juntad la 42 a la izquierda y la 49 a la derecha. Una pantalla de piedra (carta 48) espera vuestros pasos.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "La entrada de la cueva está cerrada por un suelo de losas: solo se cruza pisando las que siguen el testamento del capitán Calavera, un papel que hay que plegar (carta 53). El suelo, visto desde la entrada, ocupa dos láminas: juntad la 42 a la izquierda y la 49 a la derecha. Una pantalla de piedra (carta 48) espera vuestros pasos. La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "pistas": [
    "Un único puzle: el suelo de la cueva.",
    "El suelo son dos cartas: juntadlas, una al lado de la otra.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "arte": "La boca de una cueva marina con un suelo de grandes losas con símbolos grabados, con la luz del atardecer entrando por la entrada. Cristina sostiene un papel doblado y mira el suelo con la cabeza ladeada; Alberto da un paso con precaución, con un pie en el aire y cara de miedo."
  },
@@ -626,8 +627,7 @@ window.JUEGO_LOCAL = {
    39,
    46,
    51,
-   61,
-   63
+   61
   ],
   "descarta": [
    36,
@@ -637,12 +637,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "Los tres barcos huyen y la tripulación sube a la toldilla pidiendo cuentas: quieren su parte. La tripulación, por orden de antigüedad, está en la carta 37, el Código de la Hermandad en la 39 y el botín, en la 33 (carta 46). Mientras, la marea baja: para salir del puerto, La Gaviota debe cruzar tres barras de arena (carta 51); la tabla de la marea ocupa dos láminas: juntad la 61 arriba y la 63 abajo.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Los tres barcos huyen y la tripulación sube a la toldilla pidiendo cuentas: quieren su parte. La tripulación, por orden de antigüedad, está en la carta 37, el Código de la Hermandad en la 39 y el botín, en la 33 (carta 46). Mientras, la marea baja: para salir del puerto, La Gaviota debe cruzar tres barras de arena (carta 51); la tabla de la marea ocupa dos láminas: juntad la 61 arriba y la 63 abajo. La carta 63 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: el reparto del botín y las mareas.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "La toldilla de un bergantín pirata con siete piratas con pañuelos de colores alrededor de un pequeño montón de doblones de oro, junto al timón, con el puerto de una isla al fondo y la marea bajando. Cristina, con las manos en la cintura, mira a los piratas con una ceja arqueada; Alberto cuenta monedas con los dedos y cara de agobio."
  },
