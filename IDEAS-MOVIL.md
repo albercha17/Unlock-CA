@@ -89,8 +89,8 @@ Ideas de juegos completos cuyo núcleo es el móvil. Cada uno sigue siendo un es
 - **Prueba automática:** los solucionadores de Selenium no pueden agitar un móvil real, así que cada app de sensor llevará un modo «simulado» (por URL o botón oculto) que dispara el evento a mano para las pruebas.
 - **Primer prototipo sugerido** (bajo coste): un único puzle con micro (silencio + soplar) y otro con acelerómetro (agitar con intensidad), dentro del Faro, para probar permisos en el móvil real de Cristina y Alberto (iPhone y Android) antes de generalizar.
 
-## 5. Preguntas abiertas
+## 5. Respuestas (23 oct 2026)
 
-- ¿Qué móviles se usan (Android, iPhone o ambos)? Define cuánto usar vibración y linterna.
-- ¿Queremos un juego **solo móvil** (sin cartas) o sigue siendo híbrido cartas + móvil?
-- ¿Se admiten dos móviles a la vez (uno por jugador) o siempre uno?
+- **Dispositivos:** iPhone.
+- **Formato:** siempre **cartas + móvil**. Como máximo, **móvil + PC** (el Modo PC que ya existe) o **móvil + otro móvil**; nunca un juego solo de móvil ni sin cartas.
+- **Consecuencia de diseño:** los puzles de sensor deben funcionar con un solo móvil y, si usan dos dispositivos, el segundo (PC u otro móvil) hace de «segunda pantalla» (muestra la tabla o la mitad del código) sin que el juego dependa de él para avanzar.
