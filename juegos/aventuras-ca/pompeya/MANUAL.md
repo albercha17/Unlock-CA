@@ -12,14 +12,14 @@
 
 ### Paso 1 — Llegada
 
-Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12.
+Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge 10, 12, 15 y 17.
 
-- **La mesa queda con:** `P` `10` `12`
+- **La mesa queda con:** `P` `10` `12` `15` `17`
 - [ ] Hecho
 
 ### Paso 2 — El atrio
 
-Lee la carta 10. Descarta la P y coge 13, 14, 15, 16, 17, 18 y 22. Junta las placas 16 y 14 arriba y 17 y 15 abajo.
+Lee la carta 10. Descarta la P y coge 13, 14, 16, 18 y 22. Junta las placas 16 y 14 arriba y 17 y 15 abajo.
 
 - **La mesa queda con:** `10` `12` `13` `14` `15` `16` `17` `18` `22`
 - [ ] Hecho
@@ -34,9 +34,9 @@ En el móvil: Acción, 13. En el mosaico, el único camino blanco del sol (este)
 
 ### Paso 4 — El despacho
 
-Lee la carta 19. Descarta 10, 13, 14, 15, 16, 17 y 18 y coge 20, 21, 23, 24 y 25.
+Lee la carta 19. Descarta 10, 13, 14, 15, 16, 17 y 18 y coge 20, 21, 23, 24, 25 y 29.
 
-- **La mesa queda con:** `12` `19` `20` `21` `22` `23` `24` `25`
+- **La mesa queda con:** `12` `19` `20` `21` `22` `23` `24` `25` `29`
 - [ ] Hecho
 
 ### Paso 5 — El arca
@@ -44,12 +44,12 @@ Lee la carta 19. Descarta 10, 13, 14, 15, 16, 17 y 18 y coge 20, 21, 23, 24 y 25
 En el móvil: Acción, 20. Las sumas verdaderas de los tres días dan 1747 (MDCCXLVII): ponlo en el ábaco. El mensaje te dice que cojas la 26.
 
 - **En el móvil:** Acción → `20`
-- **La mesa queda con:** `12` `19` `20` `21` `22` `23` `24` `25` `26`
+- **La mesa queda con:** `12` `19` `20` `21` `22` `23` `24` `25` `26` `29`
 - [ ] Hecho
 
 ### Paso 6 — El arca abierta
 
-Lee la carta 26. Descarta 19, 20, 21, 23, 24 y 25 y coge 27, 28 y 29.
+Lee la carta 26. Descarta 19, 20, 21, 23, 24 y 25 y coge 27 y 28.
 
 - **La mesa queda con:** `12` `22` `26` `27` `28` `29`
 - [ ] Hecho
@@ -132,9 +132,9 @@ El pedernal (38) y la lámpara (56) son combinables: 38 + 56 = 94. Coge la 94.
 
 ### Paso 17 — El pasadizo de la calle
 
-Lee la carta 94. Descarta 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46 y coge 51, 52, 53, 54 y 55.
+Lee la carta 94. Descarta 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46 y coge 51, 52, 53, 54, 55 y 63.
 
-- **La mesa queda con:** `12` `51` `52` `53` `54` `55` `94`
+- **La mesa queda con:** `12` `51` `52` `53` `54` `55` `63` `94`
 - [ ] Hecho
 
 ### Paso 18 — La casa de la manzana
@@ -142,12 +142,12 @@ Lee la carta 94. Descarta 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46 y coge 51,
 En el móvil: Acción, 55. Los tres grafitos dejan una sola casa: la casa de la fila 4 (de norte a sur) y la columna 4 (de oeste a este). El mensaje te dice que cojas la 58.
 
 - **En el móvil:** Acción → `55`
-- **La mesa queda con:** `12` `51` `52` `53` `54` `55` `58` `94`
+- **La mesa queda con:** `12` `51` `52` `53` `54` `55` `58` `63` `94`
 - [ ] Hecho
 
 ### Paso 19 — El templo de Isis
 
-Lee la carta 58. Descarta 94, 51, 52, 53, 54 y 55 y coge 59, 61, 63 y 65.
+Lee la carta 58. Descarta 94, 51, 52, 53, 54 y 55 y coge 59, 61 y 65.
 
 - **La mesa queda con:** `12` `58` `59` `61` `63` `65`
 - [ ] Hecho
@@ -223,26 +223,26 @@ Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
-| P | Llegada a Pompeya | Normal | Coge 10, 12 | Llegada a Pompeya | 1 |
-| 10 | El atrio | Normal | Coge 13, 14, 15, 16, 17, 18, 22; Descarta P | El atrio | 1 |
+| P | Llegada a Pompeya | Normal | Coge 10, 12, 15, 17 | Llegada a Pompeya | 1 |
+| 10 | El atrio | Normal | Coge 13, 14, 16, 18, 22; Descarta P | El atrio | 1 |
 | 12 | Cronoportal sin cristal | Combina | Combinable: suma los números | Cronoportal sin cristal | 1 |
 | 13 | El panel del despacho | App | — | El panel del despacho | 2 |
 | 14 | Mosaico del atrio (arriba a la derecha) | Normal | — | Mosaico del atrio (arriba a la derecha) | 2 |
-| 15 | Mosaico del atrio (abajo a la derecha) | Normal | — | Mosaico del atrio (abajo a la derecha) | 2 |
+| 15 | Mosaico del atrio (abajo a la derecha) | Normal | — | Mosaico del atrio (abajo a la derecha) | 1 |
 | 16 | Mosaico del atrio (arriba a la izquierda) | Normal | — | Mosaico del atrio (arriba a la izquierda) | 2 |
-| 17 | Mosaico del atrio (abajo a la izquierda) | Normal | — | Mosaico del atrio (abajo a la izquierda) | 2 |
+| 17 | Mosaico del atrio (abajo a la izquierda) | Normal | — | Mosaico del atrio (abajo a la izquierda) | 1 |
 | 18 | Tablilla de Lucio | Normal | — | Tablilla de Lucio | 2 |
-| 19 | El despacho de Lucrecia | Normal | Coge 20, 21, 23, 24, 25; Descarta 10, 13, 14, 15, 16, 17, 18 | El despacho de Lucrecia | 3 |
+| 19 | El despacho de Lucrecia | Normal | Coge 20, 21, 23, 24, 25, 29; Descarta 10, 13, 14, 15, 16, 17, 18 | El despacho de Lucrecia | 3 |
 | 20 | El arca de Lucrecia | App | — | El arca de Lucrecia | 4 |
 | 21 | Cuentas de Lucrecia (día I) | Normal | — | Cuentas de Lucrecia (día I) | 4 |
 | 22 | Mitad de llave | Combina | Combinable: suma los números | Mitad de llave | 2 |
 | 23 | Cuentas de Lucrecia (día II) | Normal | — | Cuentas de Lucrecia (día II) | 4 |
 | 24 | Cuentas de Lucrecia (día III) | Normal | — | Cuentas de Lucrecia (día III) | 4 |
 | 25 | La regla del escriba | Normal | — | La regla del escriba | 4 |
-| 26 | El arca abierta | Normal | Coge 27, 28, 29; Descarta 19, 20, 21, 23, 24, 25 | El arca abierta | 5 |
+| 26 | El arca abierta | Normal | Coge 27, 28; Descarta 19, 20, 21, 23, 24, 25 | El arca abierta | 5 |
 | 27 | El lacre partido (mitad izquierda) | Normal | — | El lacre partido (mitad izquierda) | 6 |
 | 28 | El joyero de anillos | App | — | El joyero de anillos | 6 |
-| 29 | El lacre partido (mitad derecha) | Normal | — | El lacre partido (mitad derecha) | 6 |
+| 29 | El lacre partido (mitad derecha) | Normal | — | El lacre partido (mitad derecha) | 4 |
 | 30 | La carta de Lucrecia | Normal | Coge 32, 39; Descarta 26, 27, 28, 29 | La carta de Lucrecia | 7 |
 | 32 | El peristilo | Normal | Coge 33, 36, 37 | El peristilo | 8 |
 | 33 | Las compuertas | App | — | Las compuertas | 9 |
@@ -264,11 +264,11 @@ Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 | 55 | La casa de la manzana | App | — | La casa de la manzana | 17 |
 | 56 | Lámpara de aceite | Combina | Combinable: suma los números | Lámpara de aceite | 13 |
 | 57 | La despensa | Normal | Coge 43, 45, 46; Descarta 22, 35, 32, 33, 36, 37 | La despensa | 11 |
-| 58 | El templo de Isis | Normal | Coge 59, 61, 63, 65; Descarta 94, 51, 52, 53, 54, 55 | El templo de Isis | 18 |
+| 58 | El templo de Isis | Normal | Coge 59, 61, 65; Descarta 94, 51, 52, 53, 54, 55 | El templo de Isis | 18 |
 | 59 | El calendario de piedra | App | — | El calendario de piedra | 19 |
 | 61 | El calendario de piedra (mitad izquierda) | Normal | — | El calendario de piedra (mitad izquierda) | 19 |
 | 62 | Cristal de energía | Combina | Combinable: suma los números | Cristal de energía | 25 |
-| 63 | El calendario de piedra (mitad derecha) | Normal | — | El calendario de piedra (mitad derecha) | 19 |
+| 63 | El calendario de piedra (mitad derecha) | Normal | — | El calendario de piedra (mitad derecha) | 17 |
 | 64 | La erupción | Normal | Coge 66, 67, 75; Descarta 58, 59, 61, 63, 65 | La erupción | 20 |
 | 65 | Carta de Plinio | Normal | — | Carta de Plinio | 19 |
 | 66 | La huida | App | — | La huida | 21 |
@@ -281,7 +281,7 @@ Lee la carta 99. Descarta la 74. En la mesa solo queda la 99. ¡Fin!
 | 75 | El vigía de la torre | Normal | — | El vigía de la torre | 21 |
 | 76 | Tablilla de Lucrecia | Normal | — | Tablilla de Lucrecia | 23 |
 | 82 | La gema de Lucrecia | Normal | Coge 62; Descarta 69, 70, 71, 72, 76 | La gema de Lucrecia | 24 |
-| 94 | El pasadizo de la calle | Normal | Coge 51, 52, 53, 54, 55; Descarta 38, 56, 30, 39, 40, 41, 42, 57, 43, 45, 46 | El pasadizo de la calle | 16 |
+| 94 | El pasadizo de la calle | Normal | Coge 51, 52, 53, 54, 55, 63; Descarta 38, 56, 30, 39, 40, 41, 42, 57, 43, 45, 46 | El pasadizo de la calle | 16 |
 | 99 | De vuelta a casa (FIN) | Normal | Descarta 74 | De vuelta a casa (FIN) | 27 |
 
 ## Si algo no cuadra

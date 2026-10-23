@@ -80,32 +80,40 @@ def _mitad(c):
     return "una pieza"
 
 
-def separar_mosaicos(J, PASOS):
+def separar_mosaicos(J, PASOS, explicito=None):
     """Para cada mosaico de dos piezas cogidas en la misma escena, la segunda pieza pasa a cogerse en una escena anterior (DESTINO_MITAD).
-    Ajusta las listas «coge», los textos de las dos escenas y los pasos del manual."""
+    Con `explicito` ({carta: escena_destino}) se mueven esas piezas en vez de aplicar la regla. Ajusta las listas «coge», los textos de las
+    dos escenas y los pasos del manual."""
     escena_de = {}
     for k, c in J.items():
         for h in c.get("coge", []):
             escena_de[str(h)] = k
-    mosaicos = {}
-    for k, c in J.items():
-        if c.get("mosaico"):
-            mosaicos.setdefault(c["mosaico"]["id"], []).append(k)
-    por_escena = {}
-    for mid, piezas in mosaicos.items():
-        piezas = sorted(piezas, key=int)
-        if len(piezas) == 2 and escena_de.get(piezas[0]) == escena_de.get(piezas[1]) and escena_de.get(piezas[0]) in DESTINO_MITAD:
-            por_escena.setdefault(escena_de[piezas[0]], []).append(piezas)
-    for src, lista in por_escena.items():
-        for i, piezas in enumerate(sorted(lista)):
-            b = piezas[1]
-            dest = DESTINO_MITAD[src][min(i, len(DESTINO_MITAD[src]) - 1)]
-            assert dest in J and J[dest].get("coge") is not None, (src, dest)
-            J[src]["coge"].remove(int(b))
-            J[dest]["coge"].append(int(b))
-            J[src]["descripcion"][0] += f" La carta {b} no está aquí: la encontraréis en otro sitio."
-            J[dest]["descripcion"][0] += f" Entre las cosas encontráis también {_mitad(J[b])} de una lámina partida (carta {b}); la otra mitad estará en otro sitio."
-    for k in {s for s in por_escena} | {DESTINO_MITAD[s][min(i, len(DESTINO_MITAD[s]) - 1)] for s, l in por_escena.items() for i in range(len(l))}:
+    movs = []
+    if explicito:
+        movs = [(b, d) for b, d in explicito.items()]
+    else:
+        mosaicos = {}
+        for k, c in J.items():
+            if c.get("mosaico"):
+                mosaicos.setdefault(c["mosaico"]["id"], []).append(k)
+        por_escena = {}
+        for mid, piezas in mosaicos.items():
+            piezas = sorted(piezas, key=int)
+            if len(piezas) == 2 and escena_de.get(piezas[0]) == escena_de.get(piezas[1]) and escena_de.get(piezas[0]) in DESTINO_MITAD:
+                por_escena.setdefault(escena_de[piezas[0]], []).append(piezas)
+        for src, lista in por_escena.items():
+            for i, piezas in enumerate(sorted(lista)):
+                movs.append((piezas[1], DESTINO_MITAD[src][min(i, len(DESTINO_MITAD[src]) - 1)]))
+    tocadas = set()
+    for b, dest in movs:
+        src = escena_de[b]
+        assert dest in J and J[dest].get("coge") is not None, (src, dest)
+        J[src]["coge"].remove(int(b))
+        J[dest]["coge"].append(int(b))
+        J[src]["descripcion"][0] += f" La carta {b} no está aquí: la encontraréis en otro sitio."
+        J[dest]["descripcion"][0] += f" Entre las cosas encontráis también {_mitad(J[b])} de una lámina partida (carta {b}); la otra mitad estará en otro sitio."
+        tocadas |= {src, dest}
+    for k in tocadas:
         for campo in ("descripcion", "pistas"):
             nuevo = _reescribir_coge(J[k][campo][-1], J[k]["coge"])
             assert nuevo is not None, (k, campo)
