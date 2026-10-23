@@ -84,20 +84,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "El taller está lleno de inventos a medio hacer. Sobre una mesa hay un cofre del maestro con una tira de cuero cosida a la tapa, llena de letras. En el suelo, el maestro dejó pintada una cuadrícula de perspectiva con unas rectas que se pierden hacia el fondo, y junto a ella, partido en dos, un compás de bronce.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "El taller está lleno de inventos a medio hacer. Sobre una mesa hay un cofre del maestro con una tira de cuero cosida a la tapa, llena de letras. En el suelo, el maestro dejó pintada una cuadrícula de perspectiva con unas rectas que se pierden hacia el fondo, y junto a ella, partido en dos, un compás de bronce. La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: el cofre y el suelo de la perspectiva.",
    "El suelo son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "El taller de Leonardo da Vinci con un cofre de madera sobre una mesa con una tira de cuero cosida a la tapa, y en el suelo una cuadrícula pintada con rectas que se juntan a lo lejos. Cristina toca la tira de cuero con una ceja arqueada de curiosidad y Alberto se agacha sobre las rectas del suelo con un dedo apoyado en los labios, pensativo."
  },
@@ -235,19 +234,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — El cofre abierto",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "La tapa se levanta con un chasquido y dentro hay pergaminos, plumas y un cuaderno de tapas de cuero con la letra de Leonardo, escrita al revés, de derecha a izquierda. Alberto lo acerca a una vela: es el plano de las plazas de Florencia, con un acertijo sobre torres de vigía.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "La tapa se levanta con un chasquido y dentro hay pergaminos, plumas y un cuaderno de tapas de cuero con la letra de Leonardo, escrita al revés, de derecha a izquierda. Alberto lo acerca a una vela: es el plano de las plazas de Florencia, con un acertijo sobre torres de vigía. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "El cuaderno del maestro servirá más adelante.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "Un cofre de madera abierto con pergaminos, plumas y un cuaderno de tapas de cuero con una escritura al revés. Alberto sostiene el cuaderno frente a un espejo de mano con los ojos muy abiertos de asombro y Cristina se asoma por encima de su hombro con la boca entreabierta."
  },
@@ -268,7 +268,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 28 — El suelo hundido",
   "tipo": "gris",
   "coge": [
-   35
+   35,
+   43
   ],
   "descarta": [
    18,
@@ -277,12 +278,12 @@ window.JUEGO_LOCAL = {
    21
   ],
   "descripcion": [
-   "Las rectas del suelo se encuentran y una losa se hunde con un crujido, dejando ver una cavidad con un nicho. Dentro, sobre un cojín de terciopelo, la otra mitad del compás de bronce.",
-   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+   "Las rectas del suelo se encuentran y una losa se hunde con un crujido, dejando ver una cavidad con un nicho. Dentro, sobre un cojín de terciopelo, la otra mitad del compás de bronce. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 43); la otra mitad estará en otro sitio.",
+   "Coged las cartas 35 y 43. Descartad las cartas 18, 19, 20 y 21."
   ],
   "pistas": [
    "Lo que habéis encontrado se puede juntar con algo que ya tenéis.",
-   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+   "Coged las cartas 35 y 43. Descartad las cartas 18, 19, 20 y 21."
   ],
   "arte": "El suelo de madera de un taller renacentista con una losa hundida que deja ver una cavidad con un nicho. Alberto saca la otra mitad de un compás de bronce con mucho cuidado, la lengua entre los dientes, y Cristina sujeta una vela con gesto maravillado."
  },
@@ -333,16 +334,15 @@ window.JUEGO_LOCAL = {
   "coge": [
    40,
    41,
-   43,
    45
   ],
   "descripcion": [
-   "Un león de madera y bronce del tamaño de un caballo vigila una sala. Su pecho es un tablero de cinco por cinco con signos de desigualdad grabados: la boca del león solo se abre si se rellena. El tablero son dos láminas.",
-   "Coged las cartas 40, 41, 43 y 45."
+   "Un león de madera y bronce del tamaño de un caballo vigila una sala. Su pecho es un tablero de cinco por cinco con signos de desigualdad grabados: la boca del león solo se abre si se rellena. El tablero son dos láminas. La carta 43 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 40, 41 y 45."
   ],
   "pistas": [
    "El tablero son dos cartas: juntadlas.",
-   "Coged las cartas 40, 41, 43 y 45."
+   "Coged las cartas 40, 41 y 45."
   ],
   "arte": "Sin ninguna persona en la imagen. Un gran león mecánico de madera y bronce en una sala de taller renacentista, con un tablero cuadrado de casillas con signos grabado en el pecho."
  },
@@ -417,7 +417,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 30 — Las fauces del león",
   "tipo": "gris",
   "coge": [
-   38
+   38,
+   49
   ],
   "descarta": [
    31,
@@ -427,12 +428,12 @@ window.JUEGO_LOCAL = {
    45
   ],
   "descripcion": [
-   "El león abre las fauces con un rugido de engranajes. En su interior, entre dientes de bronce, hay una lámpara de aceite de plata sin mecha: la lámpara con la que Leonardo ilumina las lentes del sótano.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "El león abre las fauces con un rugido de engranajes. En su interior, entre dientes de bronce, hay una lámpara de aceite de plata sin mecha: la lámpara con la que Leonardo ilumina las lentes del sótano. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
    "A la lámpara le falta una mecha.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "arte": "Un león mecánico de madera y bronce con las fauces abiertas, y en su interior una lámpara de aceite de plata entre los dientes. Alberto mete el brazo con cara de pánico fingido y Cristina se tapa la boca para no reírse."
  },
@@ -460,16 +461,16 @@ window.JUEGO_LOCAL = {
   "coge": [
    42,
    48,
-   49,
-   53
+   53,
+   63
   ],
   "descripcion": [
-   "El patio tiene las losas pintadas como un tablero de ajedrez, con algunas casillas tachadas con carbón. En una esquina, la estatua de un caballo de bronce. Leonardo dejó escrito en el muro que quien recorra el patio con los saltos del caballo, pisando todas las casillas libres, abrirá la puerta del fondo. El patio son dos láminas.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "El patio tiene las losas pintadas como un tablero de ajedrez, con algunas casillas tachadas con carbón. En una esquina, la estatua de un caballo de bronce. Leonardo dejó escrito en el muro que quien recorra el patio con los saltos del caballo, pisando todas las casillas libres, abrirá la puerta del fondo. El patio son dos láminas. La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "pistas": [
    "El patio son dos cartas: juntadlas.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "arte": "Un patio de un taller renacentista con las losas pintadas como un tablero de ajedrez, algunas casillas tachadas con carbón, y una estatua de un caballo de bronce en una esquina. Cristina salta de una casilla a otra con los brazos extendidos para no perder el equilibrio y Alberto la observa con los brazos cruzados y una sonrisa divertida."
  },
@@ -628,8 +629,7 @@ window.JUEGO_LOCAL = {
    39,
    46,
    51,
-   61,
-   63
+   61
   ],
   "descarta": [
    36,
@@ -639,12 +639,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "El color seca y la pared del altillo se desliza: es el estudio de Leonardo, con estantes de libros, un gran reloj mecánico sin dar la hora y un plano de la ciudad. El reloj no marca la hora hasta que se averigüe cuánto gira una de sus ruedas, y el plano guarda un acertijo sobre las plazas. Tenéis dos encargos.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "El color seca y la pared del altillo se desliza: es el estudio de Leonardo, con estantes de libros, un gran reloj mecánico sin dar la hora y un plano de la ciudad. El reloj no marca la hora hasta que se averigüe cuánto gira una de sus ruedas, y el plano guarda un acertijo sobre las plazas. Tenéis dos encargos. La carta 63 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: el reloj de ruedas y las torres de vigía. El cuaderno de Leonardo sirve aquí.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "El estudio de Leonardo da Vinci con estantes de libros, un gran reloj mecánico de engranajes de bronce y un plano de la ciudad en la pared. Cristina observa los engranajes del reloj con la cabeza ladeada, curiosa, y Alberto sigue con el dedo las calles del plano con el ceño fruncido."
  },
@@ -908,7 +908,8 @@ window.JUEGO_LOCAL = {
   "coge": [
    85,
    86,
-   87
+   87,
+   67
   ],
   "descarta": [
    80,
@@ -917,12 +918,12 @@ window.JUEGO_LOCAL = {
    79
   ],
   "descripcion": [
-   "El montacargas os sube a lo más alto del taller, bajo el lucernario: una ventana cenital con un cristal en el que Leonardo escribió algo con letras de colores. Falta poco para el amanecer. Sobre una mesa, una tabla muy rara.",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "El montacargas os sube a lo más alto del taller, bajo el lucernario: una ventana cenital con un cristal en el que Leonardo escribió algo con letras de colores. Falta poco para el amanecer. Sobre una mesa, una tabla muy rara. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 67); la otra mitad estará en otro sitio.",
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "pistas": [
    "El lucernario es el último puzle.",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "arte": "La estancia más alta de un taller renacentista, con un lucernario de cristal en el techo por el que entra una luz azul de madrugada, y una mesa con pergaminos. Cristina mira el cristal con los ojos muy abiertos y una sonrisa nerviosa, y Alberto compara dos pergaminos con las cejas fruncidas."
  },
@@ -971,8 +972,7 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    64,
-   66,
-   67
+   66
   ],
   "descarta": [
    38,
@@ -985,12 +985,12 @@ window.JUEGO_LOCAL = {
    46
   ],
   "descripcion": [
-   "La mecha prende en la lámpara y la luz baja por una escalera hasta el sótano donde Leonardo pule sus lentes. La escalera, de caracol, tiene los peldaños numerados con pintura, pero faltan números: solo se baja pisando los peldaños seguidos en orden.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "La mecha prende en la lámpara y la luz baja por una escalera hasta el sótano donde Leonardo pule sus lentes. La escalera, de caracol, tiene los peldaños numerados con pintura, pero faltan números: solo se baja pisando los peldaños seguidos en orden. La carta 67 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "pistas": [
    "La escalera son dos cartas: juntadlas.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "arte": "Una escalera de caracol de piedra que baja a un sótano oscuro de un taller renacentista, iluminada por una lámpara de aceite de plata, con peldaños numerados con pintura. Cristina sostiene la lámpara con gesto cauteloso y Alberto pisa un peldaño con la punta del pie, tanteando con cara de duda."
  },

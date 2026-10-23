@@ -323,4 +323,5 @@ for _p in _T:
         PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
     else:
         PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.separar_mosaicos(J, PASOS)
 _amp.recalcular_mesas(PASOS, J)

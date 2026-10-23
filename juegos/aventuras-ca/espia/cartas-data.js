@@ -66,20 +66,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "En el sobre hay una nota con letras sin sentido, firmada por Zorro (carta 16), y un acertijo de la policía sobre el desfile del Gran Premio (carta 18). Sobre el mantel, un plano de Montecarlo en dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Entre los papeles, Alberto encuentra además la mitad de un microfilm (carta 22).",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "En el sobre hay una nota con letras sin sentido, firmada por Zorro (carta 16), y un acertijo de la policía sobre el desfile del Gran Premio (carta 18). Sobre el mantel, un plano de Montecarlo en dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Entre los papeles, Alberto encuentra además la mitad de un microfilm (carta 22). La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: la nota secreta y la persecución.",
    "El plano son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "Una mesa de terraza de un casino de Montecarlo en 1965 con un sobre abierto, una nota con letras raras, un plano de calles y la mitad de una tira de microfilm. Cristina lee la nota con los ojos entrecerrados y la nariz arrugada; Alberto, con una copa de champán en la mano, repasa el plano con la boca abierta."
  },
@@ -217,19 +216,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — Zorro en el muelle",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "Descifráis la nota: Zorro os espera en el muelle de la ruleta azul, junto al puerto. Allí os da la mano y os pasa discretamente una hoja con las normas de la aduana, por si acaso tenéis que revisar pasaportes más adelante (carta 26). «Guardadla —susurra—, el Dr. Noche tiene a medio puerto con documentos falsos».",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Descifráis la nota: Zorro os espera en el muelle de la ruleta azul, junto al puerto. Allí os da la mano y os pasa discretamente una hoja con las normas de la aduana, por si acaso tenéis que revisar pasaportes más adelante (carta 26). «Guardadla —susurra—, el Dr. Noche tiene a medio puerto con documentos falsos». Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "Mirad lo que os da Zorro.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "Un muelle de Montecarlo de noche con un cartel luminoso en forma de ruleta azul y yates amarrados. La Agente Zorro, con gabardina y gafas de sol, entrega una hoja doblada a Cristina y Alberto. Cristina la coge con una sonrisa cómplice y el dedo en los labios; Alberto mira de reojo a ambos lados con cara de sospecha."
  },
@@ -291,7 +291,8 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    31,
-   32
+   32,
+   55
   ],
   "descarta": [
    22,
@@ -300,12 +301,12 @@ window.JUEGO_LOCAL = {
    28
   ],
   "descripcion": [
-   "Juntáis las dos mitades y a la luz del proyector aparecen los planos secretos del Dr. Noche: una azotea de un hotel con torres de oficinas (carta 31) y la biblioteca del casino, donde se esconde su libro de cuentas (carta 32). Hay que visitar los dos.",
-   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+   "Juntáis las dos mitades y a la luz del proyector aparecen los planos secretos del Dr. Noche: una azotea de un hotel con torres de oficinas (carta 31) y la biblioteca del casino, donde se esconde su libro de cuentas (carta 32). Hay que visitar los dos. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 55); la otra mitad estará en otro sitio.",
+   "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
   ],
   "pistas": [
    "Dos sitios: la azotea del hotel y la biblioteca del casino.",
-   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+   "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
   ],
   "arte": "Cristina y Alberto con un proyector de diapositivas antiguo sobre una mesa, que proyecta en la pared unos planos de un hotel y de una biblioteca, en la penumbra de una suite de los años 60. Cristina señala la pared con la boca entreabierta de emoción; Alberto levanta las cejas y se frota las manos."
  },
@@ -429,15 +430,16 @@ window.JUEGO_LOCAL = {
    42,
    48,
    49,
-   53
+   53,
+   63
   ],
   "descripcion": [
-   "En la biblioteca hay una novela de bolsillo, «La última carta», con dos páginas marcadas con una cinta rosa (cartas 42 y 49). En el borde de un marcapáginas, el Dr. Noche anotó su mensaje con tres números por palabra (carta 53).",
-   "Coged las cartas 42, 48, 49 y 53."
+   "En la biblioteca hay una novela de bolsillo, «La última carta», con dos páginas marcadas con una cinta rosa (cartas 42 y 49). En el borde de un marcapáginas, el Dr. Noche anotó su mensaje con tres números por palabra (carta 53). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 49, 53 y 63."
   ],
   "pistas": [
    "Un único puzle: el mensaje escondido en el libro.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 49, 53 y 63."
   ],
   "arte": "Una biblioteca elegante de un casino de los años 60 con estanterías hasta el techo, un sillón de cuero y una novela de bolsillo abierta sobre una mesa con una cinta rosa de marcapáginas. Cristina pasa un dedo por las páginas con la cabeza ladeada; Alberto cuenta con los dedos mirando el techo."
  },
@@ -500,7 +502,6 @@ window.JUEGO_LOCAL = {
   "coge": [
    52,
    54,
-   55,
    59
   ],
   "descarta": [
@@ -511,12 +512,12 @@ window.JUEGO_LOCAL = {
    53
   ],
   "descripcion": [
-   "El mensaje apunta a la joyería del casino, donde hay una caja fuerte a la vista de todos. Su cerradura tiene la forma de una rejilla de cinco por cinco (carta 52): el tablero con las jaulas ocupa dos láminas, que juntáis a izquierda y derecha (cartas 54 y 55), y la regla del joyero está grabada en la propia cerradura (carta 59).",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "El mensaje apunta a la joyería del casino, donde hay una caja fuerte a la vista de todos. Su cerradura tiene la forma de una rejilla de cinco por cinco (carta 52): el tablero con las jaulas ocupa dos láminas, que juntáis a izquierda y derecha (cartas 54 y 55), y la regla del joyero está grabada en la propia cerradura (carta 59). La carta 55 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "pistas": [
    "Un único puzle: abrir la caja fuerte.",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "arte": "La trastienda de una joyería de lujo de los años 60, con vitrinas de cristal y una caja fuerte redonda de acero en la pared, con una cerradura en forma de rejilla. Cristina examina la cerradura con una lupa de joyero y los ojos desorbitados; Alberto se limpia el sudor de la frente con un pañuelo y cara de agobio."
  },
@@ -596,8 +597,7 @@ window.JUEGO_LOCAL = {
    39,
    46,
    51,
-   61,
-   63
+   61
   ],
   "descarta": [
    36,
@@ -607,12 +607,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "El joyero os abre la puerta de la sala de juego. En la mesa de blackjack, un crupier reparte veintiocho cartas seguidas (cartas 37 y 39) y susurra que el que lleve bien la cuenta se llevará una sorpresa (carta 46); la regla de la cuenta la cuelga en un cartel (carta 33). Al fondo, en la mesa de documentos, tres pasaportes sin acabar de sellar, en dos láminas: juntad la 61 arriba y la 63 abajo (carta 51).",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "El joyero os abre la puerta de la sala de juego. En la mesa de blackjack, un crupier reparte veintiocho cartas seguidas (cartas 37 y 39) y susurra que el que lleve bien la cuenta se llevará una sorpresa (carta 46); la regla de la cuenta la cuelga en un cartel (carta 33). Al fondo, en la mesa de documentos, tres pasaportes sin acabar de sellar, en dos láminas: juntad la 61 arriba y la 63 abajo (carta 51). La carta 63 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: la cuenta del crupier y los pasaportes.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "Una sala de juego de un casino de Montecarlo en 1965, con una mesa de blackjack con fieltro verde y un crupier repartiendo cartas, y al fondo una mesa de documentos con pasaportes abiertos. Cristina, con una mano en la cadera, vigila al crupier con una ceja levantada de sospecha; Alberto mira los pasaportes con la boca torcida de duda."
  },

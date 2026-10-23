@@ -9,6 +9,7 @@ Uso:  python herramientas/ampliacion.py Marte [Egipto ...]
 """
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -46,6 +47,74 @@ def recalcular_mesas(pasos, J, comprobar=False):
             print(f"  aviso: paso {i + 1} «{p['t']}»: mesa escrita {sorted(p['mesa'])} y simulada {sorted(nueva)}")
         p["mesa"] = nueva
     return pasos
+
+
+# ------------------------------------------------------------------ mosaicos cuyas mitades se consiguen en momentos distintos (22 oct 2026)
+# Escena en la que hoy se cogen las dos mitades -> escena anterior donde se coge la segunda mitad (por orden de carta cuando hay varias parejas).
+DESTINO_MITAD = {"10": ["24"], "31": ["28"], "32": ["30"], "36": ["57"], "44": ["32", "36"], "58": ["44"], "80": ["58"], "94": ["82"]}
+_RE_COGE = re.compile(r"(?i)(coged?)(\s+(?:las cartas|la carta|las|la))?\s+(\d+(?:(?:,\s*|\s+y\s+)\d+)*)")
+
+
+def _reescribir_coge(txt, nums):
+    """Cambia los números de la frase «coge/coged ...» de un texto por la lista `nums` (conserva el estilo)."""
+    m = _RE_COGE.search(txt)
+    if not m:
+        return None
+    verbo, art = m.group(1), m.group(2) or ""
+    lista = ", ".join(str(n) for n in nums[:-1]) + " y " + str(nums[-1]) if len(nums) > 1 else str(nums[0])
+    if len(nums) == 1:
+        pref = (" la carta" if "carta" in art else " la")
+    else:
+        pref = (" las cartas" if "carta" in art else "")
+    return txt[:m.start()] + verbo + pref + " " + lista + txt[m.end():]
+
+
+def _mitad(c):
+    mo = c.get("mosaico")
+    if not mo:
+        return "una pieza"
+    if mo["filas"] == 2 and mo["cols"] == 1:
+        return "la mitad de arriba" if mo["fila"] == 0 else "la mitad de abajo"
+    if mo["filas"] == 1 and mo["cols"] == 2:
+        return "la mitad izquierda" if mo["col"] == 0 else "la mitad derecha"
+    return "una pieza"
+
+
+def separar_mosaicos(J, PASOS):
+    """Para cada mosaico de dos piezas cogidas en la misma escena, la segunda pieza pasa a cogerse en una escena anterior (DESTINO_MITAD).
+    Ajusta las listas «coge», los textos de las dos escenas y los pasos del manual."""
+    escena_de = {}
+    for k, c in J.items():
+        for h in c.get("coge", []):
+            escena_de[str(h)] = k
+    mosaicos = {}
+    for k, c in J.items():
+        if c.get("mosaico"):
+            mosaicos.setdefault(c["mosaico"]["id"], []).append(k)
+    por_escena = {}
+    for mid, piezas in mosaicos.items():
+        piezas = sorted(piezas, key=int)
+        if len(piezas) == 2 and escena_de.get(piezas[0]) == escena_de.get(piezas[1]) and escena_de.get(piezas[0]) in DESTINO_MITAD:
+            por_escena.setdefault(escena_de[piezas[0]], []).append(piezas)
+    for src, lista in por_escena.items():
+        for i, piezas in enumerate(sorted(lista)):
+            b = piezas[1]
+            dest = DESTINO_MITAD[src][min(i, len(DESTINO_MITAD[src]) - 1)]
+            assert dest in J and J[dest].get("coge") is not None, (src, dest)
+            J[src]["coge"].remove(int(b))
+            J[dest]["coge"].append(int(b))
+            J[src]["descripcion"][0] += f" La carta {b} no está aquí: la encontraréis en otro sitio."
+            J[dest]["descripcion"][0] += f" Entre las cosas encontráis también {_mitad(J[b])} de una lámina partida (carta {b}); la otra mitad estará en otro sitio."
+    for k in {s for s in por_escena} | {DESTINO_MITAD[s][min(i, len(DESTINO_MITAD[s]) - 1)] for s, l in por_escena.items() for i in range(len(l))}:
+        for campo in ("descripcion", "pistas"):
+            nuevo = _reescribir_coge(J[k][campo][-1], J[k]["coge"])
+            assert nuevo is not None, (k, campo)
+            J[k][campo][-1] = nuevo
+        for p in PASOS:
+            if any(a[0] == "leer" and a[1] == k for a in p["acciones"]):
+                nuevo = _reescribir_coge(p["que"], J[k]["coge"])
+                assert nuevo is not None, (k, p["que"])
+                p["que"] = nuevo
 
 
 def escribir_cartas(nombre):

@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — El vado del barro
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la manada: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta la manada: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — El barro del vado
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la mana
 En el móvil: Acción, 14. Por las huellas que pisan a otras (16 y 18): tricerátops, tiranosaurio, edmontosaurio, anquilosaurio, velocirraptor. El mensaje te dice que cojas la 24.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — El campamento escondido
 
-Lee la carta 24. Descarta 14, 16 y 18 y coge la 26 (guárdala para el árbol).
+Lee la carta 24. Descarta 14, 16 y 18 y coge 26 y 21 (guárdala para el árbol).
 
 - **La mesa queda con:** `10` `12` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -64,16 +64,16 @@ La cuerda (22) y el garfio (35) son combinables: 22 + 35 = 57. Coge la 57.
 
 ### Paso 8 — Lo alto del acantilado
 
-Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31, 32 y 55.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `55` `57`
 - [ ] Hecho
 
 ### Paso 9 — La playa de los nidos
 
 Lee la carta 31. Coge 40, 41, 43 y 45.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 10 — Los nidos
@@ -81,21 +81,21 @@ Lee la carta 31. Coge 40, 41, 43 y 45.
 En el móvil: Acción, 40. Con las vistas (41 y 43) y la costumbre (45): nidos en A1, A5, B3, C5, E6, F2, F4. El mensaje te dice que cojas la 30.
 
 - **En el móvil:** Acción → `40`
-- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 11 — La tienda de la playa
 
-Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge 38 y 49.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `49` `55` `57`
 - [ ] Hecho
 
 ### Paso 12 — La atalaya
 
-Lee la carta 32. Coge 42, 48, 49 y 53. Junta el mapa: 42 a la izquierda y 49 a la derecha.
+Lee la carta 32. Coge 42, 48, 53 y 39. Junta el mapa: 42 a la izquierda y 49 a la derecha.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `39` `42` `48` `49` `53` `55` `57`
 - [ ] Hecho
 
 ### Paso 13 — El cráter
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53. Junta el mapa: 42 a la izquierda y 49 a l
 En el móvil: Acción, 48. Las tres flechas de los vigías (53) se cruzan en el mapa (42 y 49) en F4. El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `39` `42` `48` `49` `53` `55` `57`
 - [ ] Hecho
 
 ### Paso 14 — La doctora Ibarra
 
-Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta la ladera: 54 a la izquierda y 55 a la derecha.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54 y 59. Junta la ladera: 54 a la izquierda y 55 a la derecha.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `39` `52` `54` `55` `57` `59`
 - [ ] Hecho
 
 ### Paso 15 — La lava
@@ -118,12 +118,12 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta la l
 En el móvil: Acción, 52. Siguiendo siempre la vecina más baja (54, 55 y 59), la roca va en C2. El mensaje te dice que cojas la 44.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `39` `44` `52` `54` `55` `57` `59`
 - [ ] Hecho
 
 ### Paso 16 — El refugio
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta los senderos: 37 a la izquierda y 39 a la derecha.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 46, 51, 61 y 63. Junta los senderos: 37 a la izquierda y 39 a la derecha.
 
 - **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
@@ -239,43 +239,43 @@ Lee la carta 99. Descarta 74, 82, 85, 86, 87 y 76. En la mesa solo queda la 99. 
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada al Cretácico | Normal | Coge 10, 12 | Llegada al Cretácico | 1 |
-| 10 | El vado del barro | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El vado del barro | 1 |
+| 10 | El vado del barro | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | El vado del barro | 1 |
 | 12 | Cronoportal sin núcleo | Combina | Combinable: suma los números | Cronoportal sin núcleo | 1 |
 | 14 | El barro del vado | App | — | El barro del vado | 2 |
 | 16 | El barro del vado | Normal | — | El barro del vado | 2 |
 | 18 | Guía de huellas | Normal | — | Guía de huellas | 2 |
 | 19 | La manada del abrevadero (mitad de arriba) | Normal | — | La manada del abrevadero (mitad de arriba) | 2 |
 | 20 | La manada del abrevadero | App | — | La manada del abrevadero | 2 |
-| 21 | La manada del abrevadero (mitad de abajo) | Normal | — | La manada del abrevadero (mitad de abajo) | 2 |
+| 21 | La manada del abrevadero (mitad de abajo) | Normal | — | La manada del abrevadero (mitad de abajo) | 4 |
 | 22 | Cuerda | Combina | Combinable: suma los números | Cuerda | 2 |
-| 24 | El campamento escondido | Normal | Coge 26; Descarta 14, 16, 18 | El campamento escondido | 3 |
+| 24 | El campamento escondido | Normal | Coge 26, 21; Descarta 14, 16, 18 | El campamento escondido | 3 |
 | 26 | El árbol de la doctora | Normal | — | El árbol de la doctora | 4 |
 | 28 | Al otro lado del abrevadero | Normal | Coge 35; Descarta 19, 20, 21 | Al otro lado del abrevadero | 5 |
-| 30 | La tienda de la playa | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | La tienda de la playa | 10 |
+| 30 | La tienda de la playa | Normal | Coge 38, 49; Descarta 31, 40, 41, 43, 45 | La tienda de la playa | 10 |
 | 31 | La playa de los nidos | Normal | Coge 40, 41, 43, 45 | La playa de los nidos | 8 |
-| 32 | La atalaya | Normal | Coge 42, 48, 49, 53 | La atalaya | 8 |
+| 32 | La atalaya | Normal | Coge 42, 48, 53, 39 | La atalaya | 8 |
 | 33 | La ruta de los edmontosaurios | Normal | — | La ruta de los edmontosaurios | 16 |
 | 35 | Garfio de escalada | Combina | Combinable: suma los números | Garfio de escalada | 6 |
-| 36 | La doctora Ibarra | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | La doctora Ibarra | 13 |
+| 36 | La doctora Ibarra | Normal | Coge 52, 54, 59; Descarta 32, 42, 48, 49, 53 | La doctora Ibarra | 13 |
 | 37 | Los senderos del valle (mitad izquierda) | Normal | — | Los senderos del valle (mitad izquierda) | 16 |
 | 38 | Linterna sin pilas | Combina | Combinable: suma los números | Linterna sin pilas | 11 |
-| 39 | Los senderos del valle (mitad derecha) | Normal | — | Los senderos del valle (mitad derecha) | 16 |
+| 39 | Los senderos del valle (mitad derecha) | Normal | — | Los senderos del valle (mitad derecha) | 12 |
 | 40 | La playa de los nidos | App | — | La playa de los nidos | 9 |
 | 41 | Desde el acantilado oeste | Normal | — | Desde el acantilado oeste | 9 |
 | 42 | El valle, de ladera a ladera (mitad izquierda) | Normal | — | El valle, de ladera a ladera (mitad izquierda) | 12 |
 | 43 | Desde la duna del sur | Normal | — | Desde la duna del sur | 9 |
-| 44 | El refugio de la doctora | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | El refugio de la doctora | 15 |
+| 44 | El refugio de la doctora | Normal | Coge 33, 37, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | El refugio de la doctora | 15 |
 | 45 | Las madres maiasaura | Normal | — | Las madres maiasaura | 9 |
 | 46 | La ruta de la manada | App | — | La ruta de la manada | 16 |
 | 48 | El cráter | App | — | El cráter | 12 |
-| 49 | El valle, de ladera a ladera (mitad derecha) | Normal | — | El valle, de ladera a ladera (mitad derecha) | 12 |
+| 49 | El valle, de ladera a ladera (mitad derecha) | Normal | — | El valle, de ladera a ladera (mitad derecha) | 11 |
 | 51 | El cofre del árbol | App | — | El cofre del árbol | 16 |
 | 52 | La lava | App | — | La lava | 14 |
 | 53 | Los tres vigías | Normal | — | Los tres vigías | 12 |
 | 54 | La ladera del volcán (mitad izquierda) | Normal | — | La ladera del volcán (mitad izquierda) | 14 |
-| 55 | La ladera del volcán (mitad derecha) | Normal | — | La ladera del volcán (mitad derecha) | 14 |
+| 55 | La ladera del volcán (mitad derecha) | Normal | — | La ladera del volcán (mitad derecha) | 8 |
 | 56 | Batería de campaña | Combina | Combinable: suma los números | Batería de campaña | 17 |
-| 57 | Lo alto del acantilado | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | Lo alto del acantilado | 7 |
+| 57 | Lo alto del acantilado | Normal | Coge 31, 32, 55; Descarta 22, 35, 10, 28 | Lo alto del acantilado | 7 |
 | 58 | El cofre abierto | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | El cofre abierto | 18 |
 | 59 | La canción de los volcanes | Normal | — | La canción de los volcanes | 14 |
 | 61 | Fichas de la doctora (I) | Normal | — | Fichas de la doctora (I) | 16 |

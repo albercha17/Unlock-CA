@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — La aldea sin color
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la vela: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta la vela: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — El cartel
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la vela
 En el móvil: Acción, 14. Los panes del escaparate (16) valen 5 y 4: mueve el palito de arriba a la derecha del 9 al 5 para que diga 5 + 4 = 9. El mensaje te dice que cojas la 24. Letra: C.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — Doña Hogaza
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para las hadas).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para las hadas).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -86,14 +86,14 @@ En el móvil: Acción, 40. Con los ejemplos de 41, 43 y 45: fuego en la casilla 
 
 ### Paso 11 — El castillo dormido
 
-Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge 38 y 49.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `49` `57`
 - [ ] Hecho
 
 ### Paso 12 — Las botas del gigante
 
-Lee la carta 32. Coge 42, 48, 49 y 53. Junta el mapa: 42 a la izquierda y 49 a la derecha.
+Lee la carta 32. Coge 42, 48 y 53. Junta el mapa: 42 a la izquierda y 49 a la derecha.
 
 - **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
 - [ ] Hecho
@@ -176,9 +176,9 @@ En el móvil: Acción, 72. Los animales de la partitura (75) en el xilófono (79
 
 ### Paso 23 — La caja abierta
 
-Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
+Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86, 87 y 67.
 
-- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `67` `82` `85` `86` `87`
 - [ ] Hecho
 
 ### Paso 24 — El farolillo
@@ -186,12 +186,12 @@ Lee la carta 82. Descarta 80, 72, 75 y 79 y coge 85, 86 y 87.
 El farolillo (38) y el cristal de luna (56) son combinables: 38 + 56 = 94. Coge la 94.
 
 - **Suma:** `38 + 56 = 94`
-- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `82` `85` `86` `87` `94`
+- **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `67` `82` `85` `86` `87` `94`
 - [ ] Hecho
 
 ### Paso 25 — La sala de los espejos
 
-Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64, 66 y 67. Junta el plano: 66 a la izquierda y 67 a la derecha.
+Lee la carta 94. Descarta 38, 56, 30, 44, 33, 37, 39 y 46 y coge 64 y 66. Junta el plano: 66 a la izquierda y 67 a la derecha.
 
 - **La mesa queda con:** `12` `57` `64` `66` `67` `82` `85` `86` `87` `94`
 - [ ] Hecho
@@ -239,21 +239,21 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Co
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada al libro | Normal | Coge 10, 12 | Llegada al libro | 1 |
-| 10 | La aldea sin color | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | La aldea sin color | 1 |
+| 10 | La aldea sin color | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | La aldea sin color | 1 |
 | 12 | Cronoportal sin tintero | Combina | Combinable: suma los números | Cronoportal sin tintero | 1 |
 | 14 | El cartel de la panadería | App | — | El cartel de la panadería | 2 |
 | 16 | El escaparate | Normal | — | El escaparate | 2 |
 | 18 | Los cuatro duendes | Normal | — | Los cuatro duendes | 2 |
 | 19 | La vela del troll (mitad de arriba) | Normal | — | La vela del troll (mitad de arriba) | 2 |
 | 20 | El puente del troll | App | — | El puente del troll | 2 |
-| 21 | La vela del troll (mitad de abajo) | Normal | — | La vela del troll (mitad de abajo) | 2 |
+| 21 | La vela del troll (mitad de abajo) | Normal | — | La vela del troll (mitad de abajo) | 4 |
 | 22 | Varita rota | Combina | Combinable: suma los números | Varita rota | 2 |
-| 24 | Doña Hogaza | Normal | Coge 26; Descarta 14, 16 | Doña Hogaza | 3 |
+| 24 | Doña Hogaza | Normal | Coge 26, 21; Descarta 14, 16 | Doña Hogaza | 3 |
 | 26 | Los chismes de Doña Hogaza | Normal | — | Los chismes de Doña Hogaza | 4 |
 | 28 | El troll se aparta | Normal | Coge 35; Descarta 18, 19, 20, 21 | El troll se aparta | 5 |
-| 30 | El castillo dormido | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | El castillo dormido | 10 |
+| 30 | El castillo dormido | Normal | Coge 38, 49; Descarta 31, 40, 41, 43, 45 | El castillo dormido | 10 |
 | 31 | El camino cortado | Normal | Coge 40, 41, 43, 45 | El camino cortado | 8 |
-| 32 | Las botas del gigante | Normal | Coge 42, 48, 49, 53 | Las botas del gigante | 8 |
+| 32 | Las botas del gigante | Normal | Coge 42, 48, 53 | Las botas del gigante | 8 |
 | 33 | Nota del vidriero | Normal | — | Nota del vidriero | 16 |
 | 35 | Estrella caída | Combina | Combinable: suma los números | Estrella caída | 6 |
 | 36 | La casa del leñador | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | La casa del leñador | 13 |
@@ -268,7 +268,7 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Co
 | 45 | Encender fuego | Normal | — | Encender fuego | 9 |
 | 46 | La vidriera de la torre | App | — | La vidriera de la torre | 16 |
 | 48 | Las botas de siete leguas | App | — | Las botas de siete leguas | 12 |
-| 49 | El bosque de las siete leguas (mitad derecha) | Normal | — | El bosque de las siete leguas (mitad derecha) | 12 |
+| 49 | El bosque de las siete leguas (mitad derecha) | Normal | — | El bosque de las siete leguas (mitad derecha) | 11 |
 | 51 | Las cuatro hadas | App | — | Las cuatro hadas | 16 |
 | 52 | La habichuela mágica | App | — | La habichuela mágica | 14 |
 | 53 | La lengüeta de las botas | Normal | — | La lengüeta de las botas | 12 |
@@ -283,7 +283,7 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Co
 | 63 | Un papelito de Nube | Normal | — | Un papelito de Nube | 16 |
 | 64 | Rayos de luna | App | — | Rayos de luna | 25 |
 | 66 | La sala de los espejos (mitad izquierda) | Normal | — | La sala de los espejos (mitad izquierda) | 25 |
-| 67 | La sala de los espejos (mitad derecha) | Normal | — | La sala de los espejos (mitad derecha) | 25 |
+| 67 | La sala de los espejos (mitad derecha) | Normal | — | La sala de los espejos (mitad derecha) | 23 |
 | 69 | Tarros de colores | App | — | Tarros de colores | 19 |
 | 70 | El tapiz del salón | Normal | — | El tapiz del salón | 19 |
 | 71 | Nota de la cocinera real | Normal | — | Nota de la cocinera real | 19 |
@@ -292,11 +292,11 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Co
 | 75 | La partitura de la caja | Normal | — | La partitura de la caja | 21 |
 | 79 | El xilófono del bosque | Normal | — | El xilófono del bosque | 21 |
 | 80 | El castillo recobra el color | Normal | Coge 72, 75, 79; Descarta 58, 69, 70, 71 | El castillo recobra el color | 20 |
-| 82 | La caja abierta | Normal | Coge 85, 86, 87; Descarta 80, 72, 75, 79 | La caja abierta | 22 |
+| 82 | La caja abierta | Normal | Coge 85, 86, 87, 67; Descarta 80, 72, 75, 79 | La caja abierta | 22 |
 | 85 | La última página | App | — | La última página | 23 |
 | 86 | Nota del Búho Narrador | Normal | — | Nota del Búho Narrador | 23 |
 | 87 | El banquete del rey | Normal | — | El banquete del rey | 23 |
-| 94 | La sala de los espejos | Normal | Coge 64, 66, 67; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La sala de los espejos | 24 |
+| 94 | La sala de los espejos | Normal | Coge 64, 66; Descarta 38, 56, 30, 44, 33, 37, 39, 46 | La sala de los espejos | 24 |
 | 99 | Colorín colorado (FIN) | Normal | Descarta 74, 82, 85, 86, 87 | Colorín colorado (FIN) | 29 |
 
 ## Si algo no cuadra

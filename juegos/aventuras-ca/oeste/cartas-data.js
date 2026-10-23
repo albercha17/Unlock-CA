@@ -84,20 +84,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "La estación es un hervidero. En la oficina de telégrafos, un telegrama urgente en un papel sin sentido (carta 14) con el aviso del telegrafista (carta 16). En la ventanilla del banco, el acertijo del banquero (carta 18) y el cuadro de números que cuelga tras la reja, que ocupa dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Sobre el mostrador del sheriff, media estrella de latón (carta 22).",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "La estación es un hervidero. En la oficina de telégrafos, un telegrama urgente en un papel sin sentido (carta 14) con el aviso del telegrafista (carta 16). En la ventanilla del banco, el acertijo del banquero (carta 18) y el cuadro de números que cuelga tras la reja, que ocupa dos láminas: juntad la 19 arriba y la 21 abajo (carta 20). Sobre el mostrador del sheriff, media estrella de latón (carta 22). La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: el telegrama y el cuadro del banco.",
    "El cuadro son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "El interior de una estación del Lejano Oeste con una oficina de telégrafos con una ventanilla y un telégrafo, una reja de banco con un cuadro de cifras colgado al fondo y un mostrador de madera con media estrella de sheriff de latón. Cristina lee un telegrama con una ceja levantada de extrañeza; Alberto mira el cuadro del banco con la boca abierta."
  },
@@ -235,19 +234,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — El telégrafo habla",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "El telegrafista lee el mensaje y se pone pálido: avisa del jinete que se llevó el cristal. Mientras tanto, entre las cintas del telégrafo aparece un papel doblado con un refrán que el tabernero grabó a fuego en un barril de su bodega (carta 26). Una pareja de cifras se queda grabada en la cinta: guardadla, el telegrafista la usa para abrir la válvula de la locomotora.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "El telegrafista lee el mensaje y se pone pálido: avisa del jinete que se llevó el cristal. Mientras tanto, entre las cintas del telégrafo aparece un papel doblado con un refrán que el tabernero grabó a fuego en un barril de su bodega (carta 26). Una pareja de cifras se queda grabada en la cinta: guardadla, el telegrafista la usa para abrir la válvula de la locomotora. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "Mirad entre las cintas del telégrafo.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "Un telegrafista del Oeste con visera verde y manguitos leyendo una cinta de telégrafo con la boca abierta de sorpresa, y entre las cintas, un papel doblado. Cristina señala el papel con una sonrisa de triunfo; Alberto tiene la oreja pegada al telégrafo y los ojos en blanco de concentración."
  },
@@ -268,7 +268,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 28 — La reja abierta",
   "tipo": "gris",
   "coge": [
-   35
+   35,
+   43
   ],
   "descarta": [
    18,
@@ -277,12 +278,12 @@ window.JUEGO_LOCAL = {
    21
   ],
   "descripcion": [
-   "El banquero abre la reja y deja ver la caja del banco. Dentro, junto a unas monedas, la otra mitad de la estrella de sheriff (carta 35).",
-   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+   "El banquero abre la reja y deja ver la caja del banco. Dentro, junto a unas monedas, la otra mitad de la estrella de sheriff (carta 35). Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 43); la otra mitad estará en otro sitio.",
+   "Coged las cartas 35 y 43. Descartad las cartas 18, 19, 20 y 21."
   ],
   "pistas": [
    "Mirad dentro de la caja del banco.",
-   "Coged la carta 35. Descartad las cartas 18, 19, 20 y 21."
+   "Coged las cartas 35 y 43. Descartad las cartas 18, 19, 20 y 21."
   ],
   "arte": "Un banquero con visera y chaleco abriendo una reja de banco que deja ver una caja fuerte con monedas y media estrella de sheriff de latón brillando dentro. Cristina la coge con cara de asombro y los ojos muy abiertos; Alberto da un puñetazo al aire de alegría."
  },
@@ -333,16 +334,15 @@ window.JUEGO_LOCAL = {
   "coge": [
    40,
    41,
-   43,
    45
   ],
   "descripcion": [
-   "Un patio de tierra con un carro sin ruedas y una caja de madera enorme sin llenar (carta 40). El tablero de la caja, con dos piezas ya puestas, ocupa dos láminas: juntad la 41 a la izquierda y la 43 a la derecha. Colgadas de un clavo, las seis piezas de carga que hay que encajar (carta 45).",
-   "Coged las cartas 40, 41, 43 y 45."
+   "Un patio de tierra con un carro sin ruedas y una caja de madera enorme sin llenar (carta 40). El tablero de la caja, con dos piezas ya puestas, ocupa dos láminas: juntad la 41 a la izquierda y la 43 a la derecha. Colgadas de un clavo, las seis piezas de carga que hay que encajar (carta 45). La carta 43 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 40, 41 y 45."
   ],
   "pistas": [
    "Un único puzle: llenar la caja del carro.",
-   "Coged las cartas 40, 41, 43 y 45."
+   "Coged las cartas 40, 41 y 45."
   ],
   "arte": "Un patio de tierra con un carro del Oeste sin ruedas y una enorme caja de madera de fondo plano, con seis piezas de madera de formas distintas colgadas de un clavo. Cristina estudia las piezas con la cabeza ladeada; Alberto se rasca la barbilla pensando."
  },
@@ -417,7 +417,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 30 — La caja cerrada",
   "tipo": "gris",
   "coge": [
-   38
+   38,
+   49
   ],
   "descarta": [
    31,
@@ -427,12 +428,12 @@ window.JUEGO_LOCAL = {
    45
   ],
   "descripcion": [
-   "La caja queda llena y la tapa se cierra sola. Debajo, pegada al fondo de madera, la mitad de una llave de hierro (carta 38). Una pareja de cifras queda grabada en la tapa: guardadla.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "La caja queda llena y la tapa se cierra sola. Debajo, pegada al fondo de madera, la mitad de una llave de hierro (carta 38). Una pareja de cifras queda grabada en la tapa: guardadla. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
    "Mirad debajo de la caja.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "arte": "Una caja de madera enorme cerrada, con la tapa encajada, y debajo, pegada a la madera, la mitad de una llave de hierro grande. Cristina la despega con cuidado y los labios apretados; Alberto sonríe de oreja a oreja."
  },
@@ -460,16 +461,16 @@ window.JUEGO_LOCAL = {
   "coge": [
    42,
    48,
-   49,
-   53
+   53,
+   63
   ],
   "descripcion": [
-   "En el saloon, una mesa de apuestas con un tahúr que reparte cartas. Sobre la mesa, el cuadro de apuestas del tahúr (carta 48), que ocupa dos láminas: juntad la 42 a la izquierda y la 49 a la derecha. En el reverso de una baraja, la regla del tahúr (carta 53).",
-   "Coged las cartas 42, 48, 49 y 53."
+   "En el saloon, una mesa de apuestas con un tahúr que reparte cartas. Sobre la mesa, el cuadro de apuestas del tahúr (carta 48), que ocupa dos láminas: juntad la 42 a la izquierda y la 49 a la derecha. En el reverso de una baraja, la regla del tahúr (carta 53). La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "pistas": [
    "Un único puzle: el cuadro de apuestas.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "arte": "El interior de un saloon del Oeste con una mesa de póker de fieltro verde, un tahúr con visera repartiendo cartas y un cuadro de sumas escrito con tiza en una pizarra. Cristina mira las cartas con los ojos entrecerrados; Alberto, de brazos cruzados, sigue las sumas con la vista."
  },
@@ -628,8 +629,7 @@ window.JUEGO_LOCAL = {
    39,
    46,
    51,
-   61,
-   63
+   61
   ],
   "descarta": [
    36,
@@ -639,12 +639,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "El carro sale cargado y llegáis a la plaza. Diecisiete pistoleros se han sentado en corro a la mesa del saloon para un duelo a muerte (carta 46): el corro está en la carta 37 y la regla de la cuenta, en las cartas 39 y 33. Al otro lado, la bodega del tabernero, con tres barriles que hay que meter en su sitio (carta 51), cuyo suelo ocupa dos láminas: juntad la 61 a la izquierda y la 63 a la derecha.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "El carro sale cargado y llegáis a la plaza. Diecisiete pistoleros se han sentado en corro a la mesa del saloon para un duelo a muerte (carta 46): el corro está en la carta 37 y la regla de la cuenta, en las cartas 39 y 33. Al otro lado, la bodega del tabernero, con tres barriles que hay que meter en su sitio (carta 51), cuyo suelo ocupa dos láminas: juntad la 61 a la izquierda y la 63 a la derecha. La carta 63 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: el duelo en corro y la bodega.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "La plaza de un pueblo del Lejano Oeste, con una mesa redonda en el centro rodeada de diecisiete pistoleros sentados y, al fondo, la puerta de una bodega con barriles apilados. Cristina, con una mano en la cadera, observa el corro con ojos desorbitados; Alberto se muerde el labio sin quitar ojo a la bodega."
  },
@@ -908,7 +908,8 @@ window.JUEGO_LOCAL = {
   "coge": [
    85,
    86,
-   87
+   87,
+   67
   ],
   "descarta": [
    80,
@@ -917,12 +918,12 @@ window.JUEGO_LOCAL = {
    79
   ],
   "descripcion": [
-   "Don Abel recupera sus reses y os acompaña a la locomotora del tren del oro. La válvula de vapor está cerrada y se abre con una palabra que el telegrafista guardó en cinco coordenadas, las que os dejaron cinco de vuestros puzles (carta 85). Dos hojas explican en qué orden están (carta 86) y cómo se leen (carta 87).",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "Don Abel recupera sus reses y os acompaña a la locomotora del tren del oro. La válvula de vapor está cerrada y se abre con una palabra que el telegrafista guardó en cinco coordenadas, las que os dejaron cinco de vuestros puzles (carta 85). Dos hojas explican en qué orden están (carta 86) y cómo se leen (carta 87). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 67); la otra mitad estará en otro sitio.",
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "pistas": [
    "Un único puzle: abrir la válvula de la locomotora.",
-   "Coged las cartas 85, 86 y 87. Descartad las cartas 80, 72, 75 y 79."
+   "Coged las cartas 85, 86, 87 y 67. Descartad las cartas 80, 72, 75 y 79."
   ],
   "arte": "El interior de la cabina de una locomotora de vapor del Oeste, con una caldera, un panel de manómetros y una gran válvula de bronce con un cierre de combinación. Cristina, con las manos negras de hollín, mira la válvula con los labios apretados; Alberto, a su lado, se limpia el sudor de la frente y observa."
  },
@@ -971,8 +972,7 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    64,
-   66,
-   67
+   66
   ],
   "descarta": [
    38,
@@ -985,12 +985,12 @@ window.JUEGO_LOCAL = {
    46
   ],
   "descripcion": [
-   "Las dos mitades de la llave encajan y abren la puerta del furgón del oro. Dentro, ni rastro del jinete: solo un depósito de agua de la locomotora, con una bomba atascada (carta 64) y un plano del fontanero con tubos ya colocados (cartas 66 y 67, dos mitades: juntad la 66 arriba y la 67 abajo). Dicen que el cristal cayó dentro del depósito.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "Las dos mitades de la llave encajan y abren la puerta del furgón del oro. Dentro, ni rastro del jinete: solo un depósito de agua de la locomotora, con una bomba atascada (carta 64) y un plano del fontanero con tubos ya colocados (cartas 66 y 67, dos mitades: juntad la 66 arriba y la 67 abajo). Dicen que el cristal cayó dentro del depósito. La carta 67 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "pistas": [
    "Un único puzle: arreglar la bomba de agua.",
-   "Coged las cartas 64, 66 y 67. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
+   "Coged las cartas 64 y 66. Descartad las cartas 38, 56, 30, 44, 33, 37, 39 y 46."
   ],
   "arte": "El interior de un furgón blindado de tren, con las paredes de hierro y una escotilla abierta en el suelo que da a un depósito de agua con tuberías de hierro cruzadas. Cristina se asoma al depósito con ojos como platos; Alberto, con una llave grande de hierro en la mano, mira las tuberías con la boca abierta."
  },

@@ -19,9 +19,9 @@ Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta
 
 ### Paso 2 — El recibidor del faro
 
-Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la tabla de banderas: 19 arriba y 21 abajo.
+Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20 y 22. Junta la tabla de banderas: 19 arriba y 21 abajo.
 
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22`
 - [ ] Hecho
 
 ### Paso 3 — La puerta de la escalera
@@ -29,12 +29,12 @@ Lee la carta 10. Descarta la P y coge 14, 16, 18, 19, 20, 21 y 22. Junta la tabl
 En el móvil: Acción, 14. El reloj (16) marca 3:20, lo pusieron en hora a las 12:00 y atrasa 20 minutos cada hora: la hora real es las 17:00. Código 1700. El mensaje te dice que cojas la 24. Apunta la cifra de la puerta: 3.
 
 - **En el móvil:** Acción → `14`
-- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `21` `22` `24`
+- **La mesa queda con:** `10` `12` `14` `16` `18` `19` `20` `22` `24`
 - [ ] Hecho
 
 ### Paso 4 — La escalera de caracol
 
-Lee la carta 24. Descarta 14 y 16 y coge la 26 (guárdala para el temporizador).
+Lee la carta 24. Descarta 14 y 16 y coge 26 y 21 (guárdala para el temporizador).
 
 - **La mesa queda con:** `10` `12` `18` `19` `20` `21` `22` `24` `26`
 - [ ] Hecho
@@ -64,16 +64,16 @@ La manivela (22) y la correa (35) son combinables: 22 + 35 = 57. Coge la 57.
 
 ### Paso 8 — El generador arranca
 
-Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31 y 32.
+Lee la carta 57. Descarta 22, 35, 10 y 28 y coge 31, 32 y 55.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `55` `57`
 - [ ] Hecho
 
 ### Paso 9 — La mesa de la radio
 
 Lee la carta 31. Coge 40, 41, 43 y 45.
 
-- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `24` `26` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 10 — La radio
@@ -81,21 +81,21 @@ Lee la carta 31. Coge 40, 41, 43 y 45.
 En el móvil: Acción, 40. Con el mapa (41), la brújula (43) y los versos (45): 80 + 4 + 3 + 4 = 91 y la décima 7: 91,7 MHz. El mensaje te dice que cojas la 30. Apunta la cifra de la radio: 5.
 
 - **En el móvil:** Acción → `40`
-- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `31` `32` `40` `41` `43` `45` `55` `57`
 - [ ] Hecho
 
 ### Paso 11 — La guardia costera
 
-Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge 38 y 49.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `49` `55` `57`
 - [ ] Hecho
 
 ### Paso 12 — La ventana de señales
 
-Lee la carta 32. Coge 42, 48, 49 y 53. Junta la tabla morse: 42 arriba y 49 abajo.
+Lee la carta 32. Coge 42, 48, 53 y 63. Junta la tabla morse: 42 arriba y 49 abajo.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `55` `57` `63`
 - [ ] Hecho
 
 ### Paso 13 — La ventana de señales
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53. Junta la tabla morse: 42 arriba y 49 abaj
 En el móvil: Acción, 48. Con la tabla morse (42 y 49) y el aviso (53), sin contar los destellos rojos, la palabra es BALIZA. El mensaje te dice que cojas la 36. Apunta la cifra de la ventana: 8.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `55` `57` `63`
 - [ ] Hecho
 
 ### Paso 14 — El carguero contesta
 
-Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el plano: 54 arriba y 55 abajo.
+Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54 y 59. Junta el plano: 54 arriba y 55 abajo.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — El plano de la bahía
@@ -118,14 +118,14 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59. Junta el p
 En el móvil: Acción, 52. Con el plano (54 y 55) y los versos (59), los islotes ocupan las casillas A1, A2, A6, A7, B1, B4, B5, B7, C3, C5, D2, D3, D7, E5, E7, F2, F4, F7, G2, G4, G6, G7. El mensaje te dice que cojas la 44. Apunta la cifra de la bahía: 6.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — El cuarto de guardia
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el almanaque: 61 arriba y 63 abajo.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 71. Junta el almanaque: 61 arriba y 63 abajo.
 
-- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63` `71`
 - [ ] Hecho
 
 ### Paso 17 — La lámpara de la mesa
@@ -133,7 +133,7 @@ Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63
 En el móvil: Acción, 46. Con la sombra (37), el estante (39) y la nota (33), de izquierda a derecha: botella, catalejo, ancla, campana. El mensaje te dice que cojas la 56.
 
 - **En el móvil:** Acción → `46`
-- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `61` `63` `71`
 - [ ] Hecho
 
 ### Paso 18 — El temporizador de la lente
@@ -141,12 +141,12 @@ En el móvil: Acción, 46. Con la sombra (37), el estante (39) y la nota (33), d
 En el móvil: Acción, 51. Con la nota (26) y el almanaque (61 y 63), Cabo Niebla es Fl(2+1) 15 s: luz encendida en los segundos 1, 3, 7. El mensaje te dice que cojas la 58.
 
 - **En el móvil:** Acción → `51`
-- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63`
+- **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `56` `57` `58` `61` `63` `71`
 - [ ] Hecho
 
 ### Paso 19 — El desván
 
-Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69, 70 y 71. Junta el plano: 70 arriba y 71 abajo.
+Lee la carta 58. Descarta 51, 61, 63, 26 y 24 y coge 69 y 70. Junta el plano: 70 arriba y 71 abajo.
 
 - **La mesa queda con:** `12` `30` `33` `37` `38` `39` `44` `46` `56` `57` `58` `69` `70` `71`
 - [ ] Hecho
@@ -239,24 +239,24 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | Carta | Nombre | Tipo | Impreso en la carta | Para qué sirve | Paso |
 |---|---|---|---|---|---|
 | P | Llegada al faro | Normal | Coge 10, 12 | Llegada al faro | 1 |
-| 10 | El recibidor del faro | Normal | Coge 14, 16, 18, 19, 20, 21, 22; Descarta P | El recibidor del faro | 1 |
+| 10 | El recibidor del faro | Normal | Coge 14, 16, 18, 19, 20, 22; Descarta P | El recibidor del faro | 1 |
 | 12 | Lámpara de aceite vacía | Combina | Combinable: suma los números | Lámpara de aceite vacía | 1 |
 | 14 | La puerta de la escalera | App | — | La puerta de la escalera | 2 |
 | 16 | El reloj del recibidor | Normal | — | El reloj del recibidor | 2 |
 | 18 | El mensaje del armario | Normal | — | El mensaje del armario | 2 |
 | 19 | La tabla de banderas (mitad de arriba) | Normal | — | La tabla de banderas (mitad de arriba) | 2 |
 | 20 | El armario de banderas | App | — | El armario de banderas | 2 |
-| 21 | La tabla de banderas (mitad de abajo) | Normal | — | La tabla de banderas (mitad de abajo) | 2 |
+| 21 | La tabla de banderas (mitad de abajo) | Normal | — | La tabla de banderas (mitad de abajo) | 4 |
 | 22 | Manivela del generador | Combina | Combinable: suma los números | Manivela del generador | 2 |
-| 24 | La escalera de caracol | Normal | Coge 26; Descarta 14, 16 | La escalera de caracol | 3 |
+| 24 | La escalera de caracol | Normal | Coge 26, 21; Descarta 14, 16 | La escalera de caracol | 3 |
 | 26 | La nota de Anselmo | Normal | — | La nota de Anselmo | 4 |
 | 28 | Detrás de las banderas | Normal | Coge 35; Descarta 18, 19, 20, 21 | Detrás de las banderas | 5 |
-| 30 | La guardia costera | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | La guardia costera | 10 |
+| 30 | La guardia costera | Normal | Coge 38, 49; Descarta 31, 40, 41, 43, 45 | La guardia costera | 10 |
 | 31 | La mesa de la radio | Normal | Coge 40, 41, 43, 45 | La mesa de la radio | 8 |
-| 32 | La ventana de señales | Normal | Coge 42, 48, 49, 53 | La ventana de señales | 8 |
+| 32 | La ventana de señales | Normal | Coge 42, 48, 53, 63 | La ventana de señales | 8 |
 | 33 | La nota de Anselmo | Normal | — | La nota de Anselmo | 16 |
 | 35 | Correa de transmisión | Combina | Combinable: suma los números | Correa de transmisión | 6 |
-| 36 | El carguero contesta | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El carguero contesta | 13 |
+| 36 | El carguero contesta | Normal | Coge 52, 54, 59; Descarta 32, 42, 48, 49, 53 | El carguero contesta | 13 |
 | 37 | La sombra de la pared | Normal | — | La sombra de la pared | 16 |
 | 38 | Mitad de la llave de bronce | Combina | Combinable: suma los números | Mitad de la llave de bronce | 11 |
 | 39 | El estante del farero | Normal | — | El estante del farero | 16 |
@@ -264,29 +264,29 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 41 | La carta náutica | Normal | — | La carta náutica | 9 |
 | 42 | La tabla morse (mitad de arriba) | Normal | — | La tabla morse (mitad de arriba) | 12 |
 | 43 | La brújula rota | Normal | — | La brújula rota | 9 |
-| 44 | El cuarto de guardia | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | El cuarto de guardia | 15 |
+| 44 | El cuarto de guardia | Normal | Coge 33, 37, 39, 46, 51, 61, 71; Descarta 36, 52, 54, 55, 59 | El cuarto de guardia | 15 |
 | 45 | Los versos del radioaficionado | Normal | — | Los versos del radioaficionado | 9 |
 | 46 | La lámpara de la mesa | App | — | La lámpara de la mesa | 16 |
 | 48 | La ventana de señales | App | — | La ventana de señales | 12 |
-| 49 | La tabla morse (mitad de abajo) | Normal | — | La tabla morse (mitad de abajo) | 12 |
+| 49 | La tabla morse (mitad de abajo) | Normal | — | La tabla morse (mitad de abajo) | 11 |
 | 51 | El temporizador de la lente | App | — | El temporizador de la lente | 16 |
 | 52 | El plano de la bahía | App | — | El plano de la bahía | 14 |
 | 53 | El aviso de la sirena | Normal | — | El aviso de la sirena | 12 |
 | 54 | El plano de la bahía (mitad de arriba) | Normal | — | El plano de la bahía (mitad de arriba) | 14 |
-| 55 | El plano de la bahía (mitad de abajo) | Normal | — | El plano de la bahía (mitad de abajo) | 14 |
+| 55 | El plano de la bahía (mitad de abajo) | Normal | — | El plano de la bahía (mitad de abajo) | 8 |
 | 56 | Otra mitad de la llave de bronce | Combina | Combinable: suma los números | Otra mitad de la llave de bronce | 17 |
-| 57 | El generador arranca | Normal | Coge 31, 32; Descarta 22, 35, 10, 28 | El generador arranca | 7 |
-| 58 | El desván | Normal | Coge 69, 70, 71; Descarta 51, 61, 63, 26, 24 | El desván | 18 |
+| 57 | El generador arranca | Normal | Coge 31, 32, 55; Descarta 22, 35, 10, 28 | El generador arranca | 7 |
+| 58 | El desván | Normal | Coge 69, 70; Descarta 51, 61, 63, 26, 24 | El desván | 18 |
 | 59 | Los versos de Anselmo | Normal | — | Los versos de Anselmo | 14 |
 | 61 | El almanaque de faros (mitad de arriba) | Normal | — | El almanaque de faros (mitad de arriba) | 16 |
 | 62 | Bidón de aceite | Combina | Combinable: suma los números | Bidón de aceite | 26 |
-| 63 | El almanaque de faros (mitad de abajo) | Normal | — | El almanaque de faros (mitad de abajo) | 16 |
+| 63 | El almanaque de faros (mitad de abajo) | Normal | — | El almanaque de faros (mitad de abajo) | 12 |
 | 64 | La barraca de los guardianes | App | — | La barraca de los guardianes | 25 |
 | 66 | El cuaderno de relevos (I) | Normal | — | El cuaderno de relevos (I) | 25 |
 | 67 | El cuaderno de relevos (II) | Normal | — | El cuaderno de relevos (II) | 25 |
 | 69 | El desván a oscuras | App | — | El desván a oscuras | 19 |
 | 70 | El plano del desván (mitad de arriba) | Normal | — | El plano del desván (mitad de arriba) | 19 |
-| 71 | El plano del desván (mitad de abajo) | Normal | — | El plano del desván (mitad de abajo) | 19 |
+| 71 | El plano del desván (mitad de abajo) | Normal | — | El plano del desván (mitad de abajo) | 16 |
 | 72 | Los espejos de la lente | App | — | Los espejos de la lente | 21 |
 | 74 | La lámpara llena | Normal | Descarta 62, 12, 64, 66, 67, 94, 57 | La lámpara llena | 27 |
 | 75 | El papel del nido | Normal | — | El papel del nido | 21 |

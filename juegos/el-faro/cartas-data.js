@@ -85,20 +85,19 @@ window.JUEGO_LOCAL = {
    18,
    19,
    20,
-   21,
    22
   ],
   "descarta": [
    "P"
   ],
   "descripcion": [
-   "Recibidor circular y oscuro, iluminado solo con vuestras linternas. Al fondo, la puerta de la escalera, con un teclado numérico (carta 14); a su lado, el reloj de pared, parado, con una etiqueta (carta 16). De la pared cuelga un mensaje de banderas (carta 18) y en un rincón hay un armario de banderas con su cerradura (carta 20) y la tabla del código, en dos hojas: juntad la 19 arriba y la 21 abajo. En el suelo, una manivela de generador (carta 22).",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Recibidor circular y oscuro, iluminado solo con vuestras linternas. Al fondo, la puerta de la escalera, con un teclado numérico (carta 14); a su lado, el reloj de pared, parado, con una etiqueta (carta 16). De la pared cuelga un mensaje de banderas (carta 18) y en un rincón hay un armario de banderas con su cerradura (carta 20) y la tabla del código, en dos hojas: juntad la 19 arriba y la 21 abajo. En el suelo, una manivela de generador (carta 22). La carta 21 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Hay dos puzles: la puerta de la escalera y el armario de banderas.",
    "La tabla de banderas son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 14, 16, 18, 19, 20, 21 y 22. Descartad la carta P."
+   "Coged las cartas 14, 16, 18, 19, 20 y 22. Descartad la carta P."
   ],
   "arte": "Interior del recibidor circular de un faro, a oscuras e iluminado solo por linternas: una puerta de madera con un panel metálico de teclado numérico al fondo, un reloj de pared grande parado, un mensaje de banderas de señales colgado de una pared, un armario de madera con banderas y una manivela de hierro en el suelo. Cristina señala el reloj con la boca abierta de asombro, y Alberto, con el ceño fruncido de concentración, examina las banderas."
  },
@@ -236,19 +235,20 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 24 — La escalera de caracol",
   "tipo": "gris",
   "coge": [
-   26
+   26,
+   21
   ],
   "descarta": [
    14,
    16
   ],
   "descripcion": [
-   "La cerradura cede y la puerta se abre. Subís por una escalera de caracol de hierro, vuelta a vuelta, hasta un rellano con una ventana al mar y una puerta de máquinas. Clavada en la pared con una chincheta hay una nota de Anselmo sobre cómo leer las luces de los faros (carta 26).",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "La cerradura cede y la puerta se abre. Subís por una escalera de caracol de hierro, vuelta a vuelta, hasta un rellano con una ventana al mar y una puerta de máquinas. Clavada en la pared con una chincheta hay una nota de Anselmo sobre cómo leer las luces de los faros (carta 26). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 21); la otra mitad estará en otro sitio.",
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "pistas": [
    "Mirad la nota del rellano.",
-   "Coged la carta 26. Descartad las cartas 14 y 16."
+   "Coged las cartas 26 y 21. Descartad las cartas 14 y 16."
   ],
   "arte": "Escalera de caracol de hierro forjado vista desde abajo, con un rellano que tiene una ventana redonda con vista al mar tormentoso, una puerta de hierro y una nota clavada en la pared con una chincheta. Cristina, con la linterna en alto, mira hacia arriba con cara de admiración y Alberto, un peldaño más abajo, resopla con las manos en las rodillas, cansado."
  },
@@ -310,7 +310,8 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    31,
-   32
+   32,
+   55
   ],
   "descarta": [
    22,
@@ -319,12 +320,12 @@ window.JUEGO_LOCAL = {
    28
   ],
   "descripcion": [
-   "Subís hasta la sala de máquinas. Con la correa puesta y la manivela en su sitio, el viejo generador diésel tose, escupe humo y arranca con un trueno: las bombillas parpadean. A un lado, la mesa de la radio (carta 31); al otro, la ventana redonda de señales (carta 32).",
-   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+   "Subís hasta la sala de máquinas. Con la correa puesta y la manivela en su sitio, el viejo generador diésel tose, escupe humo y arranca con un trueno: las bombillas parpadean. A un lado, la mesa de la radio (carta 31); al otro, la ventana redonda de señales (carta 32). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 55); la otra mitad estará en otro sitio.",
+   "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
   ],
   "pistas": [
    "Dos sitios: la mesa de la radio y la ventana de señales.",
-   "Coged las cartas 31 y 32. Descartad las cartas 22, 35, 10 y 28."
+   "Coged las cartas 31, 32 y 55. Descartad las cartas 22, 35, 10 y 28."
   ],
   "arte": "Sala de máquinas de un faro: un generador diésel antiguo arrancando entre humo, tuberías, cuadros de válvulas y bombillas que se encienden, con una radio de onda corta en una mesa y una ventana redonda al fondo. Cristina da vueltas a la manivela con cara de esfuerzo y los dientes apretados, y Alberto, con los brazos en jarras y una gran sonrisa, mira el generador funcionar."
  },
@@ -404,7 +405,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 30 — La guardia costera",
   "tipo": "gris",
   "coge": [
-   38
+   38,
+   49
   ],
   "descarta": [
    31,
@@ -414,12 +416,12 @@ window.JUEGO_LOCAL = {
    45
   ],
   "descripcion": [
-   "La radio cruje y responde la guardia costera: «Aquí Cabo Niebla Radio. El Estrella del Norte está a cuarenta minutos de Los Dientes. El abuelo Anselmo dejaba la llave de la sala de la lente partida en dos. Una mitad está dentro de la caja de la radio». En el fondo de la caja, media llave de bronce (carta 38).",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "La radio cruje y responde la guardia costera: «Aquí Cabo Niebla Radio. El Estrella del Norte está a cuarenta minutos de Los Dientes. El abuelo Anselmo dejaba la llave de la sala de la lente partida en dos. Una mitad está dentro de la caja de la radio». En el fondo de la caja, media llave de bronce (carta 38). Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
    "Mirad dentro de la caja de la radio.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "arte": "La radio de onda corta de un faro con la tapa levantada y, en el fondo de su caja, media llave de bronce. Alberto, con el micrófono en la mano y los ojos muy abiertos de emoción, escucha la respuesta de la guardia costera, mientras Cristina, con una sonrisa de alivio, saca la media llave con dos dedos."
  },
@@ -447,17 +449,17 @@ window.JUEGO_LOCAL = {
   "coge": [
    42,
    48,
-   49,
-   53
+   53,
+   63
   ],
   "descripcion": [
-   "La ventana redonda da al mar tormentoso, y en el alféizar hay una lámpara de señales con un teclado (carta 48). Pegados en el marco, la tabla morse de Anselmo, en dos hojas (juntad la 42 arriba y la 49 abajo), y un aviso (carta 53).",
-   "Coged las cartas 42, 48, 49 y 53."
+   "La ventana redonda da al mar tormentoso, y en el alféizar hay una lámpara de señales con un teclado (carta 48). Pegados en el marco, la tabla morse de Anselmo, en dos hojas (juntad la 42 arriba y la 49 abajo), y un aviso (carta 53). La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "pistas": [
    "Un único puzle: la ventana de señales.",
    "La tabla morse son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "arte": "Una ventana redonda de un faro con vista al mar tormentoso, una lámpara de señales con teclado en el alféizar y un aviso pegado en el marco. Se ve a lo lejos un carguero que parpadea con luces blancas y rojas. Cristina entrecierra los ojos para leer los destellos con una mano sobre la frente, y Alberto, con un lápiz tras la oreja y un papel en la mano, anota con cara de duda."
  },
@@ -534,7 +536,6 @@ window.JUEGO_LOCAL = {
   "coge": [
    52,
    54,
-   55,
    59
   ],
   "descarta": [
@@ -545,13 +546,13 @@ window.JUEGO_LOCAL = {
    53
   ],
   "descripcion": [
-   "El carguero contesta con la lámpara: ha perdido el radar y no sabe por dónde pasa el canal entre los islotes de la bahía. Anselmo dibujó la bahía en dos hojas (juntad la 54 arriba y la 55 abajo) y dejó unos versos para trazar el canal (carta 59). En el panel de la radio se marca el plano y se transmite (carta 52).",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "El carguero contesta con la lámpara: ha perdido el radar y no sabe por dónde pasa el canal entre los islotes de la bahía. Anselmo dibujó la bahía en dos hojas (juntad la 54 arriba y la 55 abajo) y dejó unos versos para trazar el canal (carta 59). En el panel de la radio se marca el plano y se transmite (carta 52). La carta 55 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "pistas": [
    "Un único puzle: el plano de la bahía.",
    "El plano son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 52, 54, 55 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
+   "Coged las cartas 52, 54 y 59. Descartad las cartas 32, 42, 48, 49 y 53."
   ],
   "arte": "La sala de máquinas de un faro con un panel de radio con un mapa de islotes dibujado a lápiz sobre una mesa, y por la ventana, a lo lejos, las luces de un carguero. Alberto sostiene el micrófono con cara de preocupación y los labios apretados y Cristina, con el chubasquero amarillo empapado, señala las hojas con una gran ceja levantada de determinación."
  },
@@ -632,7 +633,7 @@ window.JUEGO_LOCAL = {
    46,
    51,
    61,
-   63
+   71
   ],
   "descarta": [
    36,
@@ -642,13 +643,13 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "El capitán da las gracias por el canal, pero necesita ver la luz del faro. Subís al cuarto de guardia. Sobre la mesa, una lámpara de aceite ante una pared pintada (carta 46), con la sombra de la pared (carta 37), el estante del farero (carta 39) y una nota (carta 33). Colgado de un clavo, el temporizador de la lente (carta 51), con el almanaque de faros en dos hojas: juntad la 61 arriba y la 63 abajo.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "El capitán da las gracias por el canal, pero necesita ver la luz del faro. Subís al cuarto de guardia. Sobre la mesa, una lámpara de aceite ante una pared pintada (carta 46), con la sombra de la pared (carta 37), el estante del farero (carta 39) y una nota (carta 33). Colgado de un clavo, el temporizador de la lente (carta 51), con el almanaque de faros en dos hojas: juntad la 61 arriba y la 63 abajo. La carta 63 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 71); la otra mitad estará en otro sitio.",
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 71. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: las sombras de la pared y el temporizador de la lente.",
    "El almanaque son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 39, 46, 51, 61 y 71. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "El cuarto de guardia de un faro: una mesa de madera con una lámpara de aceite delante de una pared con una sombra pintada, un estante con objetos de marino (un farol, un ancla, una botella, una tetera, un catalejo) y un temporizador de latón colgado de un clavo. Cristina, con una mano en la barbilla y la ceja arqueada de duda, mira la pared, y Alberto, de puntillas y con una sonrisa traviesa, descuelga el temporizador."
  },
@@ -782,8 +783,7 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    69,
-   70,
-   71
+   70
   ],
   "descarta": [
    51,
@@ -793,13 +793,13 @@ window.JUEGO_LOCAL = {
    24
   ],
   "descripcion": [
-   "El temporizador queda programado y, arriba, se oye un crujido: una trampilla del techo se abre y cae una escalera hacia el desván. Está lleno de cajas apiladas, a oscuras, y solo se ve lo que alumbra la linterna. Anselmo dibujó un plano en dos hojas: juntad la 70 arriba y la 71 abajo (carta 69).",
-   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+   "El temporizador queda programado y, arriba, se oye un crujido: una trampilla del techo se abre y cae una escalera hacia el desván. Está lleno de cajas apiladas, a oscuras, y solo se ve lo que alumbra la linterna. Anselmo dibujó un plano en dos hojas: juntad la 70 arriba y la 71 abajo (carta 69). La carta 71 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 69 y 70. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
   "pistas": [
    "Un único puzle: el desván a oscuras.",
    "El plano son dos cartas: juntadlas, una encima de otra.",
-   "Coged las cartas 69, 70 y 71. Descartad las cartas 51, 61, 63, 26 y 24."
+   "Coged las cartas 69 y 70. Descartad las cartas 51, 61, 63, 26 y 24."
   ],
   "arte": "Un desván oscuro de un faro, lleno de cajas y baúles apilados que forman pasillos estrechos, iluminado solo por el haz de una linterna que se pierde entre las cajas. Cristina, con la linterna en alto y los ojos entrecerrados por el miedo, avanza con cuidado, y Alberto, tras ella, se agarra a su chubasquero con cara de susto."
  },

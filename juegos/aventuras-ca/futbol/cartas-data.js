@@ -364,7 +364,8 @@ window.JUEGO_LOCAL = {
   "titulo": "Carta 30 — La tarjeta del árbitro",
   "tipo": "gris",
   "coge": [
-   38
+   38,
+   49
   ],
   "descarta": [
    31,
@@ -374,12 +375,12 @@ window.JUEGO_LOCAL = {
    45
   ],
   "descripcion": [
-   "Las seis decisiones coinciden con el libro y el árbitro de campo, al verlo, os agradece la ayuda y os da, de su cartera, media llave pequeña con un llavero en forma de balón: es de la vitrina de la Copa de cristal (carta 38). Una pareja de cifras queda escrita en el cartel de la sala: ya la veréis más adelante.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Las seis decisiones coinciden con el libro y el árbitro de campo, al verlo, os agradece la ayuda y os da, de su cartera, media llave pequeña con un llavero en forma de balón: es de la vitrina de la Copa de cristal (carta 38). Una pareja de cifras queda escrita en el cartel de la sala: ya la veréis más adelante. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 49); la otra mitad estará en otro sitio.",
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "pistas": [
    "Mirad lo que os da el árbitro.",
-   "Coged la carta 38. Descartad las cartas 31, 40, 41, 43 y 45."
+   "Coged las cartas 38 y 49. Descartad las cartas 31, 40, 41, 43 y 45."
   ],
   "arte": "Un árbitro con camiseta negra entrega media llave pequeña con un llavero en forma de balón a Cristina y Alberto en la sala del VAR. Cristina la coge con una sonrisa triunfante y la ceja levantada; Alberto aplaude con los pulgares hacia arriba y los ojos brillantes."
  },
@@ -407,16 +408,16 @@ window.JUEGO_LOCAL = {
   "coge": [
    42,
    48,
-   49,
-   53
+   53,
+   63
   ],
   "descripcion": [
-   "En una sala del palco, la pizarra del entrenador con un campo de entrenamiento dibujado, en dos mitades: juntad la 42 a la izquierda y la 49 a la derecha. Sobre la mesa, la regla del entrenador (carta 53) y una pantalla (carta 48) para ensayar el pase en cadena.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "En una sala del palco, la pizarra del entrenador con un campo de entrenamiento dibujado, en dos mitades: juntad la 42 a la izquierda y la 49 a la derecha. Sobre la mesa, la regla del entrenador (carta 53) y una pantalla (carta 48) para ensayar el pase en cadena. La carta 49 no está aquí: la encontraréis en otro sitio. Entre las cosas encontráis también la mitad de abajo de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "pistas": [
    "Un único puzle: el pase en cadena.",
-   "Coged las cartas 42, 48, 49 y 53."
+   "Coged las cartas 42, 48, 53 y 63."
   ],
   "arte": "Una sala de entrenadores con una gran pizarra con un campo de fútbol dibujado con chinchetas de colores, una mesa con papeles y tazas de café. Cristina estudia la pizarra con el ceño fruncido y el dedo en la barbilla; Alberto da golpecitos a una chincheta azul con la mirada fija."
  },
@@ -575,8 +576,7 @@ window.JUEGO_LOCAL = {
    39,
    46,
    51,
-   61,
-   63
+   61
   ],
   "descarta": [
    36,
@@ -586,12 +586,12 @@ window.JUEGO_LOCAL = {
    59
   ],
   "descripcion": [
-   "El míster anuncia su once y salís al túnel de vestuarios, donde dos cosas esperan. Un cartel avisa de que hay que ensayar la tanda de penaltis (carta 46): el informe del entrenador sobre el portero rival, de once penaltis, está en dos hojas (cartas 37 y 39) y la explicación de cómo se lee, en la 33. Y en el tablón de la sala de prensa, el cuadro de la Copa, en dos mitades: juntad la 61 arriba y la 63 abajo (carta 51).",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "El míster anuncia su once y salís al túnel de vestuarios, donde dos cosas esperan. Un cartel avisa de que hay que ensayar la tanda de penaltis (carta 46): el informe del entrenador sobre el portero rival, de once penaltis, está en dos hojas (cartas 37 y 39) y la explicación de cómo se lee, en la 33. Y en el tablón de la sala de prensa, el cuadro de la Copa, en dos mitades: juntad la 61 arriba y la 63 abajo (carta 51). La carta 63 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "pistas": [
    "Hay dos puzles: la tanda de penaltis y el cuadro de la Copa.",
-   "Coged las cartas 33, 37, 39, 46, 51, 61 y 63. Descartad las cartas 36, 52, 54, 55 y 59."
+   "Coged las cartas 33, 37, 39, 46, 51 y 61. Descartad las cartas 36, 52, 54, 55 y 59."
   ],
   "arte": "El túnel de vestuarios de un estadio de 1970, con la luz del campo al fondo, un cartel de entrenamientos y un tablón de corcho con un cuadro de eliminatorias a lo lejos. Cristina mira el cartel con las manos en la cintura y los labios apretados; Alberto cuenta penaltis con los dedos con cara de agobio."
  },

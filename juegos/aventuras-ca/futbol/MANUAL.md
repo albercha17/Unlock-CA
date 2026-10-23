@@ -86,16 +86,16 @@ En el móvil: Acción, 40. Con las jugadas (41 y 43) y el reglamento (45): A fue
 
 ### Paso 11 — La tarjeta del árbitro
 
-Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge la 38.
+Lee la carta 30. Descarta 31, 40, 41, 43 y 45 y coge 38 y 49.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `49` `57`
 - [ ] Hecho
 
 ### Paso 12 — La pizarra del entrenador
 
-Lee la carta 32. Coge 42, 48, 49 y 53. Junta el campo: 42 a la izquierda y 49 a la derecha.
+Lee la carta 32. Coge 42, 48, 53 y 63. Junta el campo: 42 a la izquierda y 49 a la derecha.
 
-- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 13 — El pase en cadena
@@ -103,14 +103,14 @@ Lee la carta 32. Coge 42, 48, 49 y 53. Junta el campo: 42 a la izquierda y 49 a 
 En el móvil: Acción, 48. Con el campo (42 y 49) y la regla (53), una cadena de pases es P → C → B → D → E → A → Z. El mensaje te dice que cojas la 36.
 
 - **En el móvil:** Acción → `48`
-- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57`
+- **La mesa queda con:** `12` `24` `26` `30` `32` `36` `38` `42` `48` `49` `53` `57` `63`
 - [ ] Hecho
 
 ### Paso 14 — El banquillo
 
 Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 15 — El once del míster
@@ -118,12 +118,12 @@ Lee la carta 36. Descarta 32, 42, 48, 49 y 53 y coge 52, 54, 55 y 59.
 En el móvil: Acción, 52. Con las notas (54 y 55) y la sentencia (59), el once es: Toni de defensa, Beto de lateral, Rafa de portero, Luis de medio, Nico de delantero. El mensaje te dice que cojas la 44. Anota el aro de la camiseta: 4.
 
 - **En el móvil:** Acción → `52`
-- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59`
+- **La mesa queda con:** `12` `24` `26` `30` `36` `38` `44` `52` `54` `55` `57` `59` `63`
 - [ ] Hecho
 
 ### Paso 16 — El túnel de vestuarios
 
-Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51, 61 y 63. Junta el cuadro: 61 arriba y 63 abajo.
+Lee la carta 44. Descarta 36, 52, 54, 55 y 59 y coge 33, 37, 39, 46, 51 y 61. Junta el cuadro: 61 arriba y 63 abajo.
 
 - **La mesa queda con:** `12` `24` `26` `30` `33` `37` `38` `39` `44` `46` `51` `57` `61` `63`
 - [ ] Hecho
@@ -251,9 +251,9 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 24 | El despacho del míster | Normal | Coge 26; Descarta 14, 16 | El despacho del míster | 3 |
 | 26 | Los titulares de la prensa | Normal | — | Los titulares de la prensa | 4 |
 | 28 | La lista entregada | Normal | Coge 35; Descarta 18, 19, 20, 21 | La lista entregada | 5 |
-| 30 | La tarjeta del árbitro | Normal | Coge 38; Descarta 31, 40, 41, 43, 45 | La tarjeta del árbitro | 10 |
+| 30 | La tarjeta del árbitro | Normal | Coge 38, 49; Descarta 31, 40, 41, 43, 45 | La tarjeta del árbitro | 10 |
 | 31 | La sala del VAR | Normal | Coge 40, 41, 43, 45 | La sala del VAR | 8 |
-| 32 | La pizarra del entrenador | Normal | Coge 42, 48, 49, 53 | La pizarra del entrenador | 8 |
+| 32 | La pizarra del entrenador | Normal | Coge 42, 48, 53, 63 | La pizarra del entrenador | 8 |
 | 33 | Cómo se lee el informe | Normal | — | Cómo se lee el informe | 16 |
 | 35 | Otra media pase de prensa | Combina | Combinable: suma los números | Otra media pase de prensa | 6 |
 | 36 | El banquillo | Normal | Coge 52, 54, 55, 59; Descarta 32, 42, 48, 49, 53 | El banquillo | 13 |
@@ -264,11 +264,11 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 41 | Las jugadas del VAR (I) | Normal | — | Las jugadas del VAR (I) | 9 |
 | 42 | El campo de entrenamiento (mitad izquierda) | Normal | — | El campo de entrenamiento (mitad izquierda) | 12 |
 | 43 | Las jugadas del VAR (II) | Normal | — | Las jugadas del VAR (II) | 9 |
-| 44 | El túnel de vestuarios | Normal | Coge 33, 37, 39, 46, 51, 61, 63; Descarta 36, 52, 54, 55, 59 | El túnel de vestuarios | 15 |
+| 44 | El túnel de vestuarios | Normal | Coge 33, 37, 39, 46, 51, 61; Descarta 36, 52, 54, 55, 59 | El túnel de vestuarios | 15 |
 | 45 | El reglamento del fuera de juego | Normal | — | El reglamento del fuera de juego | 9 |
 | 46 | La tanda de penaltis | App | — | La tanda de penaltis | 16 |
 | 48 | El pase en cadena | App | — | El pase en cadena | 12 |
-| 49 | El campo de entrenamiento (mitad derecha) | Normal | — | El campo de entrenamiento (mitad derecha) | 12 |
+| 49 | El campo de entrenamiento (mitad derecha) | Normal | — | El campo de entrenamiento (mitad derecha) | 11 |
 | 51 | El cuadro de la Copa | App | — | El cuadro de la Copa | 16 |
 | 52 | El once del míster | App | — | El once del míster | 14 |
 | 53 | La regla del entrenador | Normal | — | La regla del entrenador | 12 |
@@ -280,7 +280,7 @@ Lee la carta 99. Descarta 74, 82, 85, 86 y 87. En la mesa solo queda la 99. ¡Fi
 | 59 | La sentencia del míster | Normal | — | La sentencia del míster | 14 |
 | 61 | El cuadro de la Copa (mitad de arriba) | Normal | — | El cuadro de la Copa (mitad de arriba) | 16 |
 | 62 | El cristal del Cronoportal | Combina | Combinable: suma los números | El cristal del Cronoportal | 26 |
-| 63 | El cuadro de la Copa (mitad de abajo) | Normal | — | El cuadro de la Copa (mitad de abajo) | 16 |
+| 63 | El cuadro de la Copa (mitad de abajo) | Normal | — | El cuadro de la Copa (mitad de abajo) | 12 |
 | 64 | El calendario de la liga | App | — | El calendario de la liga | 25 |
 | 66 | Los cruces de la jornada 1 | Normal | — | Los cruces de la jornada 1 | 25 |
 | 67 | El método del calendario | Normal | — | El método del calendario | 25 |
