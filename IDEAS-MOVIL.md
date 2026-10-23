@@ -2,6 +2,9 @@
 
 Lluvia de ideas para sacar partido a los sensores del móvil en nuestros juegos (que son una web instalable). Primero, qué se puede y qué no; después, ideas de puzles sueltos para meter en los juegos actuales y, al final, juegos nuevos pensados desde el móvil. Todo lo marcado con **[Android]** no funciona en iPhone y necesita una alternativa táctil (regla de la serie: nunca un sensor como única vía).
 
+> **Decisión (23 oct 2026): el móvil es un iPhone.** Se descartan las ideas que solo funcionan en Android: vibración, linterna encendida por la app, NFC y batería. Lo que sí vale en iPhone (Safari o la app instalada): micrófono, cámara, acelerómetro y giroscopio (con botón de permiso), brújula, `visibilitychange`, Wake Lock (iOS 16.4 o superior), multitoque y sonido. El reconocimiento de voz es poco fiable: solo como extra, con teclado de respaldo. En iPhone el sonido y el micrófono solo arrancan tras un toque del jugador, y el interruptor de silencio apaga el sonido de la web (lo que da el truco de «tono + micro» para comprobarlo).
+> Ideas que quedan descartadas por esto: 12 (linterna del compañero con vibración), la vibración como señal en cualquier puzle y todo lo marcado **[Android]**. La «luz» de la partida será siempre la pantalla en blanco.
+
 ## 1. Qué se puede hacer desde una web
 
 | Sensor / acción | ¿Se puede? | Cómo y trampas |
