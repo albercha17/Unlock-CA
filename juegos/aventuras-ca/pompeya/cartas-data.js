@@ -47,16 +47,18 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    10,
-   12
+   12,
+   15,
+   17
   ],
   "descarta": [],
   "descripcion": [
-   "Séptima parada del Cronoportal: Pompeya, 24 de agosto del año 79. Aterrizáis en el atrio de una villa rica y el aparato golpea el borde del estanque: su cristal de energía sale volando y se pierde entre las columnas. Al fondo, el Vesubio echa humo. Nadie en la ciudad sabe lo que va a pasar hoy... salvo vosotros.",
-   "Coged las cartas 10 y 12."
+   "Séptima parada del Cronoportal: Pompeya, 24 de agosto del año 79. Aterrizáis en el atrio de una villa rica y el aparato golpea el borde del estanque: su cristal de energía sale volando y se pierde entre las columnas. Al fondo, el Vesubio echa humo. Nadie en la ciudad sabe lo que va a pasar hoy... salvo vosotros. Entre las cosas encontráis también una pieza de una lámina partida (carta 15); la otra mitad estará en otro sitio. Entre las cosas encontráis también una pieza de una lámina partida (carta 17); la otra mitad estará en otro sitio.",
+   "Coged las cartas 10, 12, 15 y 17."
   ],
   "pistas": [
    "Mirad a vuestro alrededor y revisad el aparato.",
-   "Coged las cartas 10 y 12."
+   "Coged las cartas 10, 12, 15 y 17."
   ],
   "arte": "El atrio de una villa romana de Pompeya al amanecer: columnas, un estanque de lluvia y un suelo de mosaico; sobre los tejados, la columna de humo del Vesubio. En primer plano, un aparato de latón y cristal (el Cronoportal) humea en el suelo. Cristina, con los ojos muy abiertos de asombro, y Alberto, con una ceja arqueada de incredulidad, se levantan aturdidos con ropa romana."
  },
@@ -66,9 +68,7 @@ window.JUEGO_LOCAL = {
   "coge": [
    13,
    14,
-   15,
    16,
-   17,
    18,
    22
   ],
@@ -76,13 +76,13 @@ window.JUEGO_LOCAL = {
    "P"
   ],
   "descripcion": [
-   "Es la villa de Lucrecia, comerciante de aceite y de vino. El golpe ha partido el mosaico del suelo en cuatro placas. La puerta del despacho tiene un panel de bronce con huecos para figuras. Junto al mosaico, una tablilla firmada por Lucio, el mosaiquista. En el fondo del estanque brilla media llave de bronce.",
-   "Coged las cartas 13, 14, 15, 16, 17, 18 y 22. Descartad la carta P."
+   "Es la villa de Lucrecia, comerciante de aceite y de vino. El golpe ha partido el mosaico del suelo en cuatro placas. La puerta del despacho tiene un panel de bronce con huecos para figuras. Junto al mosaico, una tablilla firmada por Lucio, el mosaiquista. En el fondo del estanque brilla media llave de bronce. La carta 15 no está aquí: la encontraréis en otro sitio. La carta 17 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 13, 14, 16, 18 y 22. Descartad la carta P."
   ],
   "pistas": [
    "Las cuatro placas son un solo mosaico.",
    "La tablilla de Lucio es un acertijo sobre el mosaico.",
-   "Coged las cartas 13, 14, 15, 16, 17, 18 y 22. Descartad la carta P."
+   "Coged las cartas 13, 14, 16, 18 y 22. Descartad la carta P."
   ],
   "arte": "El atrio de una villa romana con un mosaico roto en cuatro placas sobre las losas, una puerta de madera con un panel de bronce y un estanque con un brillo dorado en el fondo. Cristina se agacha junto a las placas con el ceño fruncido de concentración y Alberto mete la mano en el agua del estanque con cara de asco."
  },
@@ -237,7 +237,8 @@ window.JUEGO_LOCAL = {
    21,
    23,
    24,
-   25
+   25,
+   29
   ],
   "descarta": [
    10,
@@ -249,13 +250,13 @@ window.JUEGO_LOCAL = {
    18
   ],
   "descripcion": [
-   "El panel cede y entráis en el tablinum, el despacho de Lucrecia. Hay un arca de bronce cerrada con un ábaco en la tapa, tres tablillas de cuentas de su esclavo Tiro y, clavada en la pared, la regla del escriba.",
-   "Coged las cartas 20, 21, 23, 24 y 25. Descartad las cartas 10, 13, 14, 15, 16, 17 y 18."
+   "El panel cede y entráis en el tablinum, el despacho de Lucrecia. Hay un arca de bronce cerrada con un ábaco en la tapa, tres tablillas de cuentas de su esclavo Tiro y, clavada en la pared, la regla del escriba. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 29); la otra mitad estará en otro sitio.",
+   "Coged las cartas 20, 21, 23, 24, 25 y 29. Descartad las cartas 10, 13, 14, 15, 16, 17 y 18."
   ],
   "pistas": [
    "El arca se abre con un número.",
    "Las tablillas son las cuentas de tres días.",
-   "Coged las cartas 20, 21, 23, 24 y 25. Descartad las cartas 10, 13, 14, 15, 16, 17 y 18."
+   "Coged las cartas 20, 21, 23, 24, 25 y 29. Descartad las cartas 10, 13, 14, 15, 16, 17 y 18."
   ],
   "arte": "El despacho de una villa romana con estantes de rollos y tablillas, una mesa con tres tablillas de cera y un arca de bronce con un ábaco de cuentas en la tapa. Alberto ojea una tablilla con la boca torcida de desconfianza y Cristina mueve una cuenta del ábaco, curiosa."
  },
@@ -330,8 +331,7 @@ window.JUEGO_LOCAL = {
   "tipo": "gris",
   "coge": [
    27,
-   28,
-   29
+   28
   ],
   "descarta": [
    19,
@@ -342,12 +342,12 @@ window.JUEGO_LOCAL = {
    25
   ],
   "descripcion": [
-   "El arca se abre. Dentro hay monedas, una carta de Lucrecia cerrada con lacre, que se ha partido en dos al abrir la tapa, y un joyero con seis anillos de sello. Solo el anillo de Lucrecia rompe el hechizo del lacre, dice una inscripción... o eso cree Tiro.",
-   "Coged las cartas 27, 28 y 29. Descartad las cartas 19, 20, 21, 23, 24 y 25."
+   "El arca se abre. Dentro hay monedas, una carta de Lucrecia cerrada con lacre, que se ha partido en dos al abrir la tapa, y un joyero con seis anillos de sello. Solo el anillo de Lucrecia rompe el hechizo del lacre, dice una inscripción... o eso cree Tiro. La carta 29 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 27 y 28. Descartad las cartas 19, 20, 21, 23, 24 y 25."
   ],
   "pistas": [
    "Hay un puzle: el joyero de anillos y el lacre partido.",
-   "Coged las cartas 27, 28 y 29. Descartad las cartas 19, 20, 21, 23, 24 y 25."
+   "Coged las cartas 27 y 28. Descartad las cartas 19, 20, 21, 23, 24 y 25."
   ],
   "arte": "Un arca de bronce abierta llena de monedas de oro, con una carta enrollada sellada con lacre rojo partido y un joyero con seis anillos de sello. Cristina sostiene la carta con los ojos brillantes de curiosidad y Alberto cuenta monedas con una sonrisa pícara."
  },
@@ -675,7 +675,8 @@ window.JUEGO_LOCAL = {
    52,
    53,
    54,
-   55
+   55,
+   63
   ],
   "descarta": [
    38,
@@ -691,12 +692,12 @@ window.JUEGO_LOCAL = {
    46
   ],
   "descripcion": [
-   "Con la lámpara encendida bajáis por el pasadizo de los esclavos hasta la calle. La ceniza empieza a caer. Tiro, el esclavo, os explica que Lucrecia no fue directa al puerto: pasó a esconder algo en una casa de la manzana. En las paredes hay grafitos sobre ella y, en el foro, el plano de la manzana.",
-   "Coged las cartas 51, 52, 53, 54 y 55. Descartad las cartas 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46."
+   "Con la lámpara encendida bajáis por el pasadizo de los esclavos hasta la calle. La ceniza empieza a caer. Tiro, el esclavo, os explica que Lucrecia no fue directa al puerto: pasó a esconder algo en una casa de la manzana. En las paredes hay grafitos sobre ella y, en el foro, el plano de la manzana. Entre las cosas encontráis también la mitad derecha de una lámina partida (carta 63); la otra mitad estará en otro sitio.",
+   "Coged las cartas 51, 52, 53, 54, 55 y 63. Descartad las cartas 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46."
   ],
   "pistas": [
    "Hay un puzle: la casa donde paró Lucrecia.",
-   "Coged las cartas 51, 52, 53, 54 y 55. Descartad las cartas 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46."
+   "Coged las cartas 51, 52, 53, 54, 55 y 63. Descartad las cartas 38, 56, 30, 39, 40, 41, 42, 57, 43, 45 y 46."
   ],
   "arte": "Una calle de Pompeya con aceras altas, pasos de piedra y paredes pintadas llenas de grafitos, bajo una lluvia fina de ceniza gris; al fondo, el Vesubio. Cristina protege la llama de una lámpara de aceite con la mano, con cara de miedo, y Alberto lee un grafito con la nariz pegada a la pared."
  },
@@ -772,7 +773,6 @@ window.JUEGO_LOCAL = {
   "coge": [
    59,
    61,
-   63,
    65
   ],
   "descarta": [
@@ -784,12 +784,12 @@ window.JUEGO_LOCAL = {
    55
   ],
   "descripcion": [
-   "En la casa no está Lucrecia, pero sí una nota: «Dejé al sacerdote de Isis la llave de la puerta del mar». En el templo, el sacerdote solo la entrega a quien ponga en el calendario de piedra el día que dice la carta de Plinio.",
-   "Coged las cartas 59, 61, 63 y 65. Descartad las cartas 94, 51, 52, 53, 54 y 55."
+   "En la casa no está Lucrecia, pero sí una nota: «Dejé al sacerdote de Isis la llave de la puerta del mar». En el templo, el sacerdote solo la entrega a quien ponga en el calendario de piedra el día que dice la carta de Plinio. La carta 63 no está aquí: la encontraréis en otro sitio.",
+   "Coged las cartas 59, 61 y 65. Descartad las cartas 94, 51, 52, 53, 54 y 55."
   ],
   "pistas": [
    "Hay un puzle: el calendario de piedra y la carta de Plinio.",
-   "Coged las cartas 59, 61, 63 y 65. Descartad las cartas 94, 51, 52, 53, 54 y 55."
+   "Coged las cartas 59, 61 y 65. Descartad las cartas 94, 51, 52, 53, 54 y 55."
   ],
   "arte": "El patio de un pequeño templo de Isis en Pompeya, con columnas, palmeras y un altar, bajo la ceniza que cae; un sacerdote con túnica de lino blanco sostiene una carta. Cristina habla con el sacerdote con gesto suplicante y Alberto mira el calendario de piedra con los ojos entrecerrados."
  },

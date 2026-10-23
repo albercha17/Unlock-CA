@@ -262,7 +262,7 @@ SPEC = dict(final="99", needs={
 PARA_QUE = {k: c["titulo"].split("— ", 1)[1] for k, c in J.items()}
 
 _T = [
-    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge la 10 y la 12."),
+    ("leer", "P", "Llegada", "Pon el Modo PC (solo la P en la mesa) y en el móvil pulsa Empezar. Lee la carta P: coge 10 y 12."),
     ("leer", "10", "El atrio", "Lee la carta 10. Descarta la P y coge 13, 14, 15, 16, 17, 18 y 22. Junta las placas 16 y 14 arriba y 17 y 15 abajo."),
     ("app", "13", "El panel del despacho", f"En el móvil: Acción, 13. En el mosaico, el único camino blanco del sol (este) a la puerta (oeste) pasa por: {_S_LAB}. El mensaje te dice que cojas la 19.", "carta 19"),
     ("leer", "19", "El despacho", "Lee la carta 19. Descarta 10, 13, 14, 15, 16, 17 y 18 y coge 20, 21, 23, 24 y 25."),
@@ -299,4 +299,5 @@ for _p in _T:
         PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("app", _p[1], _p[4])]))
     else:
         PASOS.append(dict(t=_p[2], que=_p[3], acciones=[("leer", _p[1])]))
+_amp.separar_mosaicos(J, PASOS, {"15": "P", "17": "P", "29": "19", "63": "94"})
 _amp.recalcular_mesas(PASOS, J)
