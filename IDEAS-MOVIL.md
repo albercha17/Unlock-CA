@@ -94,3 +94,12 @@ Ideas de juegos completos cuyo núcleo es el móvil. Cada uno sigue siendo un es
 - **Dispositivos:** iPhone.
 - **Formato:** siempre **cartas + móvil**. Como máximo, **móvil + PC** (el Modo PC que ya existe) o **móvil + otro móvil**; nunca un juego solo de móvil ni sin cartas.
 - **Consecuencia de diseño:** los puzles de sensor deben funcionar con un solo móvil y, si usan dos dispositivos, el segundo (PC u otro móvil) hace de «segunda pantalla» (muestra la tabla o la mitad del código) sin que el juego dependa de él para avanzar.
+
+## 6. Prototipo hecho (26 oct 2026)
+
+Página de prueba en `juegos/el-faro/sensores.html` (en la web: `…/juegos/el-faro/sensores.html`), sin enlazar desde el juego. Tiene dos puzles que usan la misma API que las apps (`startMinigame`), para pasarlos a un juego cuando estén probados en el iPhone:
+
+- **La niebla del faro (micrófono):** mide el ruido de la sala 1,2 s, exige 6 s de silencio (cualquier ruido reinicia la cuenta) y luego un soplido de 1,2 s. Versión táctil: mantener pulsado 6 s y pulsar 12 veces.
+- **El generador (acelerómetro):** agitar con fuerza media y constante mantiene la barra en la franja verde 3 s; agitar demasiado fuerte funde el fusible. Versión táctil: pulsar la manivela a buen ritmo.
+
+Los permisos se piden solo al pulsar el botón (obligatorio en iPhone). Con `?sim=1` aparecen botones que simulan los sensores, y `python herramientas/probar_sensores.py` prueba los cuatro caminos (micro, micro táctil, agitar, agitar táctil) con Selenium. **Falta probarlo en el iPhone real**: el umbral de soplido (volumen) y la intensidad de agitar (barra de 0 a 25) están calculados sin un iPhone en la mano y puede que haya que ajustarlos.

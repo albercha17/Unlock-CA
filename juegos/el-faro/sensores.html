@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es" data-tema="faro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>El Faro - Prueba de sensores</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 50% 0%, #1c3a52, #060d14 70%); color: #e8f0f6; font: 16px/1.5 system-ui, -apple-system, sans-serif; }
+    main { max-width: 460px; margin: 0 auto; padding: 24px 16px 48px; }
+    h1 { font-size: 1.4rem; margin: 8px 0 4px; }
+    p { color: #b7c8d6; }
+    .tarjeta { border: 1px solid rgba(201, 164, 90, .5); border-radius: 14px; padding: 14px; margin: 14px 0; background: rgba(0, 0, 0, .28); }
+    .tarjeta h2 { margin: 0 0 4px; font-size: 1.05rem; color: #ffd27a; }
+    button.ir { width: 100%; margin-top: 10px; padding: 14px; border: 0; border-radius: 12px; background: #c9a45a; color: #10202c; font: 800 1rem system-ui, sans-serif; }
+    a { color: #ffd27a; }
+    small { color: #8aa0b2; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Prueba de sensores</h1>
+    <p>Prototipo de dos puzles que usan el móvil. Sirve para comprobar en el iPhone que los permisos del micrófono y del movimiento funcionan, antes de meterlos en un juego.</p>
+    <div class="tarjeta">
+      <h2>La niebla del faro (micrófono)</h2>
+      <p>Silencio durante 6 segundos y luego un soplido. Pide permiso de micrófono.</p>
+      <button type="button" class="ir" id="irSilencio">Probar el micrófono</button>
+    </div>
+    <div class="tarjeta">
+      <h2>El generador (agitar)</h2>
+      <p>Agitar el móvil con fuerza media y constante. En iPhone pide permiso de movimiento.</p>
+      <button type="button" class="ir" id="irAgitar">Probar el movimiento</button>
+    </div>
+    <p><small>Cada puzle tiene una versión táctil por si el permiso no está disponible. Con <code>?sim=1</code> al final de la dirección aparecen botones que simulan los sensores. Nada de lo que oye o mide el móvil sale de él.</small></p>
+    <p><a href="index.html">← Volver al Faro</a></p>
+  </main>
+  <script type="module">
+    import { startMinigame as silencio } from './minijuegos/s-silencio.js';
+    import { startMinigame as agitar } from './minijuegos/s-agitar.js';
+    document.getElementById('irSilencio').addEventListener('click', () => silencio());
+    document.getElementById('irAgitar').addEventListener('click', () => agitar());
+  </script>
+</body>
+</html>
