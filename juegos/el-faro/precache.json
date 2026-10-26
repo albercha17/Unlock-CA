@@ -109,9 +109,13 @@
  "juegos/el-faro/minijuegos/72-espejos.js",
  "juegos/el-faro/minijuegos/85-panel.js",
  "juegos/el-faro/minijuegos/comun.js",
+ "juegos/el-faro/minijuegos/s-agitar.js",
+ "juegos/el-faro/minijuegos/s-silencio.js",
+ "juegos/el-faro/minijuegos/sensores.js",
  "juegos/el-faro/minijuegos/ui.js",
  "juegos/el-faro/musica.js",
  "juegos/el-faro/pc.html",
  "juegos/el-faro/pistas.js",
+ "juegos/el-faro/sensores.html",
  "juegos/el-faro/style.css"
 ]
