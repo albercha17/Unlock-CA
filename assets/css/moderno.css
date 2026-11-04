@@ -1,0 +1,90 @@
+/* moderno.css — capa visual con animaciones para los menús (inicio, aventuras, partidas, ajustes). Se activa con assets/js/moderno.js, que
+   añade la clase «moderno» a <html>; sin JS o con «reducir movimiento» no cambia nada. Pensado para el móvil, como una app. */
+:root { --spring: cubic-bezier(.2, .9, .25, 1.15); }
+
+/* ===== fondo vivo: tres manchas de luz que derivan despacio ===== */
+/* el fondo (degradado de html) pasa a verse por debajo de las manchas de luz */
+html.moderno body { background: transparent; }
+.ca-aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ca-aurora i { position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%; filter: blur(70px); opacity: .26; mix-blend-mode: screen; will-change: transform;
+  animation: ca-deriva 28s ease-in-out infinite alternate; }
+.ca-aurora i:nth-child(1) { left: -28vmax; top: -34vmax; background: radial-gradient(circle, var(--accent, #ff2a77), transparent 66%); }
+.ca-aurora i:nth-child(2) { right: -32vmax; top: 18vh; background: radial-gradient(circle, var(--accent-2, #ff6ea1), transparent 66%); animation-duration: 34s; animation-delay: -9s; }
+.ca-aurora i:nth-child(3) { left: -10vmax; bottom: -42vmax; background: radial-gradient(circle, #3dd6c6, transparent 66%); animation-duration: 40s; animation-delay: -16s; opacity: .16; }
+@keyframes ca-deriva { to { transform: translate3d(14vmax, 9vmax, 0) scale(1.18); } }
+
+/* ===== aparición escalonada ===== */
+.moderno .rv { opacity: 0; transform: translateY(26px) scale(.97); }
+.moderno .rv.rv-in { opacity: 1; transform: none; transition: opacity .55s ease var(--d, 0ms), transform .75s var(--spring) var(--d, 0ms); }
+
+/* ===== cabecera ===== */
+.moderno .logo-img { animation: ca-flota 5.5s ease-in-out infinite; box-shadow: 0 0 0 0 rgba(255, 255, 255, .35); }
+@keyframes ca-flota { 50% { transform: translateY(-4px) rotate(-1.5deg); } }
+.moderno h1.title { background: linear-gradient(100deg, var(--accent, #ff2a77), var(--accent-2, #ff6ea1), #ffd27a, var(--accent, #ff2a77)); background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: ca-brilla 7s linear infinite; }
+@keyframes ca-brilla { to { background-position: 250% 0; } }
+
+/* ===== tarjetas de juego ===== */
+.moderno .option, .moderno [data-juego] { position: relative; overflow: hidden; -webkit-backdrop-filter: blur(10px) saturate(1.25); backdrop-filter: blur(10px) saturate(1.25);
+  transition: transform .4s var(--spring), box-shadow .35s ease, border-color .35s ease; -webkit-tap-highlight-color: transparent; }
+.moderno .option::after { content: ""; position: absolute; inset: 0; pointer-events: none; transform: translateX(-130%);
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .2) 50%, transparent 62%); }
+.moderno .option:hover::after, .moderno .option.brillo::after { animation: ca-brillo .95s ease; }
+@keyframes ca-brillo { to { transform: translateX(130%); } }
+.moderno .option:hover { transform: translateY(-5px) scale(1.012); box-shadow: 0 22px 46px rgba(0, 0, 0, .55), 0 0 0 1px rgba(255, 255, 255, .22); }
+.moderno .option:active { transform: scale(.975); transition-duration: .12s; }
+.moderno .opt-thumb { transition: transform .9s var(--spring), filter .5s; }
+.moderno .option:hover .opt-thumb { transform: scale(1.08) rotate(-1.2deg); filter: saturate(1.2) brightness(1.06); }
+.moderno .opt-num { transition: transform .5s var(--spring); }
+.moderno .option:hover .opt-num { transform: scale(1.18) rotate(-6deg); }
+.moderno .option .dif-fila .puntos i.on { animation: ca-pop .5s var(--spring) backwards; }
+.moderno .option .dif-fila .puntos i:nth-child(2) { animation-delay: .08s; }
+.moderno .option .dif-fila .puntos i:nth-child(3) { animation-delay: .16s; }
+.moderno .option .dif-fila .puntos i:nth-child(4) { animation-delay: .24s; }
+.moderno .option .dif-fila .puntos i:nth-child(5) { animation-delay: .32s; }
+@keyframes ca-pop { from { transform: scale(0); } }
+
+/* ===== tarjetas del hub de aventuras (a.salto) ===== */
+.moderno .salto { position: relative; overflow: hidden; transition: transform .4s var(--spring), box-shadow .35s ease, border-color .35s ease; -webkit-tap-highlight-color: transparent; }
+.moderno .salto::after { content: ""; position: absolute; inset: 0; pointer-events: none; transform: translateX(-130%);
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .18) 50%, transparent 62%); }
+.moderno .salto:hover::after, .moderno .salto.brillo::after { animation: ca-brillo .95s ease; }
+.moderno a.salto:hover, .moderno a.salto:focus-visible { transform: translateY(-6px) scale(1.015); box-shadow: 0 24px 48px rgba(0, 0, 0, .5); }
+.moderno a.salto:active { transform: scale(.975); transition-duration: .12s; }
+.moderno .salto .cartel { overflow: hidden; }
+.moderno .salto .cartel img { transition: transform 1.2s var(--spring), filter .5s; }
+.moderno .salto:hover .cartel img { transform: scale(1.1) rotate(-1deg); filter: saturate(1.2) brightness(1.06); }
+.moderno .chip { transition: transform .3s var(--spring), background .25s; }
+.moderno .salto:hover .chip { transform: translateY(-2px); }
+.moderno .portal { transition: transform .4s var(--spring); }
+
+/* ===== botones: onda al tocar y brillo suave ===== */
+.rip-host { position: relative; overflow: hidden; }
+.rip { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .38); transform: scale(0); pointer-events: none; animation: ca-onda .65s ease-out forwards; }
+@keyframes ca-onda { to { transform: scale(1); opacity: 0; } }
+.moderno .btn-primary, .moderno .mis-btn:not(.sec) { background-size: 220% 100%; animation: ca-fluye 5s linear infinite; }
+@keyframes ca-fluye { to { background-position: 220% 0; } }
+.moderno .btn, .moderno .mis-btn, .moderno .boton { transition: transform .3s var(--spring), box-shadow .3s, filter .2s; }
+.moderno .btn:active, .moderno .mis-btn:active, .moderno .boton:active { transform: scale(.95); }
+
+/* ===== barra inferior: una pastilla que se desliza entre pestañas ===== */
+.moderno .ca-barra { position: fixed; overflow: hidden; }
+.moderno .ca-tab { position: relative; z-index: 1; transition: color .3s, transform .3s var(--spring); }
+.moderno .ca-tab.activa { background: transparent; }
+.moderno .ca-tab.activa svg { animation: ca-salta .6s var(--spring) .15s backwards; }
+@keyframes ca-salta { 35% { transform: translateY(-6px) scale(1.18); } }
+.ca-ind { position: absolute; z-index: 0; top: 6px; bottom: calc(6px + env(safe-area-inset-bottom)); left: 0; width: 0; border-radius: 12px; pointer-events: none;
+  background: rgba(240, 199, 115, .14); box-shadow: inset 0 0 0 1px rgba(240, 199, 115, .22), 0 0 18px rgba(240, 199, 115, .16); transition: transform .45s var(--spring), width .45s var(--spring); }
+
+/* ===== buscador y filtros ===== */
+.moderno .fj input { transition: box-shadow .3s, border-color .3s, transform .3s var(--spring); }
+.moderno .fj input:focus { transform: scale(1.015); box-shadow: 0 0 0 3px rgba(255, 210, 122, .35); }
+.moderno .fj-dif button { transition: background .25s, transform .3s var(--spring), opacity .25s; }
+.moderno .fj-dif button:active { transform: scale(.93); }
+.moderno .fj-dif button[aria-pressed="true"] { animation: ca-pop .4s var(--spring); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-aurora i, .moderno .logo-img, .moderno h1.title, .moderno .btn-primary, .moderno .mis-btn { animation: none !important; }
+  .moderno .rv, .moderno .rv.rv-in { opacity: 1; transform: none; transition: none; }
+  .ca-ind { transition: none; }
+}

@@ -760,3 +760,129 @@ $('relojEtiqueta').textContent = ETIQUETA_RELOJ[TEMA] || 'El tiempo corre';
 gameTimerEl.textContent = formatTime(TOTAL);
 mostrarContinuar();
 cargarCartas();
+
+
+// ===== capa moderna (animaciones): ondas al tocar, tic del reloj, teclado, polvo de luz de fondo y confeti al ganar. Se apaga con «reducir movimiento». =====
+(function modernizar() {
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('moderno');
+
+  // onda al tocar
+  const HOST = '.boton, .control-btn, .num-key, .icono, .btn-ghost, .pestanas button, .num-modal-actions .btn, .sys-dialog .btn';
+  document.addEventListener('pointerdown', (e) => {
+    const el = e.target.closest && e.target.closest(HOST);
+    if (!el || el.disabled) return;
+    const r = el.getBoundingClientRect();
+    const d = Math.max(r.width, r.height) * 2;
+    const s = document.createElement('span');
+    s.className = 'rip';
+    s.style.cssText = 'width:' + d + 'px;height:' + d + 'px;left:' + (e.clientX - r.left - d / 2) + 'px;top:' + (e.clientY - r.top - d / 2) + 'px';
+    el.classList.add('rip-host');
+    el.appendChild(s);
+    setTimeout(() => { if (s.parentNode) s.parentNode.removeChild(s); }, 700);
+  }, { passive: true });
+
+  // el reloj «late» cada segundo y el número tecleado «salta»
+  const reloj = document.getElementById('gameTimer');
+  if (reloj) {
+    new MutationObserver(() => { reloj.classList.remove('tick'); void reloj.offsetWidth; reloj.classList.add('tick'); }).observe(reloj, { childList: true, characterData: true, subtree: true });
+  }
+  const disp = document.getElementById('numDisplay');
+  if (disp) {
+    new MutationObserver(() => { disp.classList.remove('bump'); void disp.offsetWidth; disp.classList.add('bump'); }).observe(disp, { childList: true, characterData: true, subtree: true });
+  }
+
+  // polvo de luz que sube despacio por detrás de todo (con el color del juego)
+  const lienzo = document.createElement('canvas');
+  lienzo.id = 'ca-polvo';
+  lienzo.setAttribute('aria-hidden', 'true');
+  document.body.insertBefore(lienzo, document.body.firstChild);
+  const cx = lienzo.getContext('2d');
+  let W = 0, H = 0, motas = [], ultimo = 0, vivo = true;
+  const color = () => {
+    const c = getComputedStyle(document.documentElement).getPropertyValue('--accent-2').trim() || '#ffd27a';
+    const t = document.createElement('i'); t.style.color = c; document.body.appendChild(t);
+    const rgb = getComputedStyle(t).color; document.body.removeChild(t);
+    return (rgb.match(/\d+/g) || [255, 210, 122]).slice(0, 3).join(',');
+  };
+  let RGB = '255,210,122';
+  function medir() {
+    const k = Math.min(window.devicePixelRatio || 1, 2);
+    W = lienzo.width = Math.round(innerWidth * k); H = lienzo.height = Math.round(innerHeight * k);
+    const n = Math.max(18, Math.min(44, Math.round(innerWidth / 14)));
+    motas = Array.from({ length: n }, () => nueva(k, true));
+  }
+  function nueva(k, inicial) {
+    return { x: Math.random() * W, y: inicial ? Math.random() * H : H + 10, r: (Math.random() * 1.8 + 0.6) * k, v: (Math.random() * 0.25 + 0.08) * k, d: (Math.random() - 0.5) * 0.18 * k, f: Math.random() * 6.28, a: Math.random() * 0.45 + 0.15 };
+  }
+  function pintar(t) {
+    if (!vivo) return;
+    requestAnimationFrame(pintar);
+    if (t - ultimo < 33) return;               // unos 30 fotogramas por segundo bastan
+    ultimo = t;
+    cx.clearRect(0, 0, W, H);
+    const k = Math.min(window.devicePixelRatio || 1, 2);
+    for (let i = 0; i < motas.length; i++) {
+      const m = motas[i];
+      m.y -= m.v; m.x += m.d + Math.sin(t / 1800 + m.f) * 0.12 * k;
+      if (m.y < -10) motas[i] = nueva(k, false);
+      const a = m.a * (0.6 + 0.4 * Math.sin(t / 700 + m.f));
+      cx.beginPath(); cx.fillStyle = 'rgba(' + RGB + ',' + a.toFixed(3) + ')'; cx.arc(m.x, m.y, m.r, 0, 6.2832); cx.fill();
+    }
+  }
+  RGB = color();
+  medir();
+  addEventListener('resize', medir);
+  document.addEventListener('visibilitychange', () => { vivo = !document.hidden; if (vivo) requestAnimationFrame(pintar); });
+  requestAnimationFrame(pintar);
+
+  // confeti y números que suben al terminar bien la partida
+  const fin = document.getElementById('finalPanel');
+  if (fin) {
+    let hecho = false;
+    new MutationObserver(() => {
+      const visible = fin.style.display !== 'none';
+      if (!visible) { hecho = false; return; }
+      if (hecho) return;
+      hecho = true;
+      cuentaArriba();
+      if (/cumplida/i.test((document.getElementById('finalTitulo') || {}).textContent || '')) confeti();
+    }).observe(fin, { attributes: true, attributeFilter: ['style'] });
+  }
+  function cuentaArriba() {
+    ['finPistas', 'finCartas'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const meta = parseInt(el.textContent, 10);
+      if (!(meta > 0)) return;
+      const t0 = performance.now();
+      const paso = (t) => {
+        const p = Math.min(1, (t - t0) / 900);
+        el.textContent = String(Math.round(meta * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(paso);
+      };
+      el.textContent = '0';
+      requestAnimationFrame(paso);
+    });
+  }
+  function confeti() {
+    const c = document.createElement('canvas');
+    c.id = 'ca-confeti';
+    document.body.appendChild(c);
+    const k = Math.min(window.devicePixelRatio || 1, 2);
+    const w = c.width = Math.round(innerWidth * k), h = c.height = Math.round(innerHeight * k);
+    const g = c.getContext('2d');
+    const col = ['#ffd27a', '#ff6ea1', '#7be495', '#6ec6ff', '#ffffff', '#c792ff'];
+    const trozos = Array.from({ length: 110 }, () => ({ x: w / 2 + (Math.random() - 0.5) * w * 0.3, y: h * 0.62, vx: (Math.random() - 0.5) * 16 * k, vy: -(Math.random() * 16 + 8) * k, s: (Math.random() * 7 + 4) * k, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.4, c: col[(Math.random() * col.length) | 0] }));
+    const t0 = performance.now();
+    (function cae(t) {
+      const dt = t - t0;
+      g.clearRect(0, 0, w, h);
+      trozos.forEach((p) => {
+        p.vy += 0.45 * k; p.x += p.vx; p.y += p.vy; p.vx *= 0.99; p.r += p.vr;
+        g.save(); g.translate(p.x, p.y); g.rotate(p.r); g.globalAlpha = Math.max(0, 1 - dt / 3600); g.fillStyle = p.c; g.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); g.restore();
+      });
+      if (dt < 3600) requestAnimationFrame(cae); else c.remove();
+    })(t0);
+  }
+})();

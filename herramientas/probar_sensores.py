@@ -96,9 +96,11 @@ def main():
         d.find_element(By.XPATH, "//button[normalize-space()='No puedo usar el movimiento']").click()
         time.sleep(0.4)
         t0 = time.time()
-        while time.time() - t0 < 12 and "enciende" not in feedback(d):
-            clic(d, ".agi-t")
-            time.sleep(0.33)
+        while time.time() - t0 < 25 and "enciende" not in feedback(d):
+            ancho = d.execute_script("return parseFloat(document.querySelector('.agi-b i').style.width) || 0")
+            if ancho < 63:                      # pulsa solo cuando la barra baja de la franja verde (55-75 %)
+                clic(d, ".agi-t")
+            time.sleep(0.12)
         "enciende" in feedback(d) or fallos.append("la manivela táctil no resuelve el puzle")
         print("agitar táctil:", feedback(d)[:60])
         errores = [e for e in d.get_log("browser") if e["level"] == "SEVERE" and "favicon" not in e["message"] and "vibrate" not in e["message"]] if hasattr(d, "get_log") else []
