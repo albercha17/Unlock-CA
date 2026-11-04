@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from oeste import Hoja  # noqa: E402
 from mosaicos import cortar  # noqa: E402
 from dibujos_ampliacion import dibujo as dibujo_cubo, juguetes_ui as _cubos_ui  # noqa: E402
+import juguetes_sprites  # noqa: E402
 
 W, H = 630, 882
 PAPEL = (250, 244, 226)
@@ -479,7 +480,7 @@ def carta_hilos_doble(inst):
     cx, top = W / 2, 1250
     for nombre, x in xs_mando.items():
         forma(h, FORMA_MANDO[nombre], x, barra_y, 20, COLOR_MANDO[nombre])
-    dibujar_marioneta(h, cx, top, ())
+    dibujar_marioneta(h, cx, top, (), k=1.5)
     rng = random.Random(52)
     ctrl1 = [70, 230, 400, 560]
     ctrl2 = [95, 215, 415, 535]
@@ -487,7 +488,7 @@ def carta_hilos_doble(inst):
     rng.shuffle(ctrl2)
     for i, (mando, miembro) in enumerate(m["hilos"].items()):
         x0 = xs_mando[mando]
-        x1, y1 = punto_miembro(cx, top, miembro, ())
+        x1, y1 = punto_miembro(cx, top, miembro, (), k=1.5)
         c1 = (ctrl1[i], 640)
         c2 = (ctrl2[i], 1010)
         pts = []
@@ -791,6 +792,7 @@ def inyectar_datos(carpeta, inst):
 
 def main(carpeta="juegos/aventuras-ca/juguetes"):
     inst = _inst()
+    juguetes_sprites.activar(sys.modules[__name__], carpeta)
     arte = os.path.join(carpeta, "arte")
     os.makedirs(arte, exist_ok=True)
     laminas = {"16": carta_tapa(inst), "18": nota_leo(inst), "26": nota_collar(inst), "33": carta_clavijas_meta(inst), "37": carta_clavijas(inst),
