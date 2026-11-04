@@ -16,7 +16,7 @@ function nombre(i) { return NOMBRES_COLUMNA[i % N] + (Math.floor(i / N) + 1); }
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 64 — Rayos de luna',
-    instr: 'El rayo de luna entra por la flecha y avanza recto. Toca una casilla para poner un espejo /, otra vez para \\ y otra vez para quitarlo. Usad exactamente tres espejos, que el rayo toque los tres, y que llegue a la flor (el plano está en las cartas 66 y 67).',
+    instr: 'El rayo de luna entra por la flecha y avanza recto. Toca una casilla para poner un espejo /, otra vez para \\ y otra vez para quitarlo. Usad exactamente tres espejos, que el rayo toque los tres, y que llegue a la flor.',
     ...opts
   });
   estilo('cu-rayos-estilo', `

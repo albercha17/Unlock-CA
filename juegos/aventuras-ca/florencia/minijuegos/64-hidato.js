@@ -20,7 +20,7 @@ export function startMinigame(opts = {}) {
       if (ruta.every((p, i) => p[0] === D.camino[i][0] && p[1] === D.camino[i][1])) {
         resuelto = true;
         ui.say('Todos los peldaños tienen su número y la escalera de caracol se desenrolla hasta el fondo del sótano. Coged la carta 62.', 'ok');
-      } else ui.say('Se han numerado todas las casillas, pero algún número no coincide con los que ya estaban puestos o hay un salto (cartas 66 y 67). Quitad el último o empezad de nuevo.', 'bad');
+      } else ui.say('Se han numerado todas las casillas, pero algún número no coincide con los que ya estaban puestos o hay un salto. Quitad el último o empezad de nuevo.', 'bad');
     }
   });
   r.el.classList.add('hid');

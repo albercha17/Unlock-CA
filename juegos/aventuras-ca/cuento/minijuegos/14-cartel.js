@@ -17,7 +17,7 @@ const NOMBRES = ['primer número', 'signo', 'segundo número', 'resultado'];
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 14 — Cartel de la panadería',
-    instr: 'La cuenta del cartel está mal. Mueve UN solo palito de canela (tócalo y luego toca un hueco vacío) para que la cuenta sea cierta y cuadre con los precios del escaparate (carta 16).',
+    instr: 'La cuenta del cartel está mal. Mueve UN solo palito de canela (tócalo y luego toca un hueco vacío) para que la cuenta sea cierta y cuadre con los precios del escaparate.',
     ...opts
   });
   estilo('cu-cartel-estilo', `

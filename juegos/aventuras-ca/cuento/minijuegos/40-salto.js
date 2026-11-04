@@ -32,7 +32,7 @@ function efecto(accion, t) {
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 40 — Había una vez... y ahora',
-    instr: 'Elige una acción y toca una casilla de «Había una vez»: cambiará «Y ahora». Tenéis exactamente tres saltos y una acción por casilla. Lo que hace cada salto lo enseñan las cartas 41, 43 y 45.',
+    instr: 'Elige una acción y toca una casilla de «Había una vez»: cambiará «Y ahora». Tenéis exactamente tres saltos y una acción por casilla.',
     ...opts
   });
   estilo('cu-salto-estilo', `

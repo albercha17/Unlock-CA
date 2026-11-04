@@ -8,7 +8,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 48 — La ventana de señales',
-    instr: 'El carguero parpadea un mensaje. Escribid la palabra que transmite con la tabla morse (cartas 42 y 49). Leed el aviso de la carta 53.',
+    instr: 'El carguero parpadea un mensaje. Escribid la palabra que transmite con la tabla morse.',
     ...opts
   });
 

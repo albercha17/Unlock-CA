@@ -8,7 +8,7 @@ const S = /*DATOS*/{"n": 6, "ciclo": ["luna", "llave", "calavera", "corona"], "s
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 48 — El suelo de la cueva',
-    instr: 'Entrad por abajo y cruzad hasta la fila de arriba pisando solo losas vecinas (arriba, abajo o a los lados) cuyos símbolos sigan el testamento (carta 53), una y otra vez. Los símbolos están en el suelo dibujado (cartas 42 y 49). Una pisada en falso y la losa se hunde.',
+    instr: 'Entrad por abajo y cruzad hasta la fila de arriba pisando solo losas vecinas (arriba, abajo o a los lados) cuyos símbolos sigan el testamento, una y otra vez. Los símbolos están en el suelo dibujado. Una pisada en falso y la losa se hunde.',
     ...opts
   });
 
@@ -64,7 +64,7 @@ export function startMinigame(opts = {}) {
       void b.offsetWidth;
       b.classList.add('hunde');
       pintar();
-      ui.say('¡La losa se hunde y volvéis a la entrada de un salto! No tocaba ese símbolo. El orden está en el testamento (carta 53)... ¿lo habéis plegado?', 'bad');
+      ui.say('¡La losa se hunde y volvéis a la entrada de un salto! No tocaba ese símbolo. El orden está en el testamento... ¿lo habéis plegado?', 'bad');
       return;
     }
     camino.push([x, y]);

@@ -35,7 +35,7 @@ export function startMinigame(opts = {}) {
     if (d <= D.tolerancia) {
       resuelto = true;
       ui.say('Las rectas se juntan justo ahí: el suelo del taller se hunde con un crujido y deja ver una cavidad. Coged la carta 28.', 'ok');
-    } else ui.say('Ahí no se juntan las rectas. Alargadlas con una regla desde la lámina de abajo hasta que se encuentren (cartas 18, 19 y 21).', 'bad');
+    } else ui.say('Ahí no se juntan las rectas. Alargadlas con una regla desde la lámina de abajo hasta que se encuentren.', 'bad');
   });
   return { close: ui.close };
 }

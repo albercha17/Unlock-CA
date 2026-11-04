@@ -15,7 +15,7 @@ const HADAS = [
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 51 — Las cuatro hadas',
-    instr: 'Marca el ala de cada hada tocándola: sin marca, azul (dice siempre la verdad) o roja (miente siempre). Lo que dijeron Brisa, Lila y Nube está en las cartas 26, 61 y 63; lo de Dalia, aquí.',
+    instr: 'Marca el ala de cada hada tocándola: sin marca, azul (dice siempre la verdad) o roja (miente siempre). Lo que dijo Dalia, aquí; lo de las otras hadas, en vuestras cartas.',
     ...opts
   });
   estilo('cu-hadas-estilo', `

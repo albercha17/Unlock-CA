@@ -89,7 +89,7 @@ export function startMinigame(opts = {}) {
       tren.classList.add('arranca');
       ui.say('¡Chu-chu! El tren de Leo arranca con su carga en el orden del cuaderno y da la vuelta al cuarto hasta la estación de cartón. Nota del tren: ' + F.nota + '. Coged la carta 30.', 'ok');
     } else {
-      ui.say('El tren no arranca: no es el orden del cuaderno de Leo. Ordenad las páginas por el sol de la ventana (cartas 41, 43, 45, 27 y 23).', 'bad');
+      ui.say('El tren no arranca: no es el orden del cuaderno de Leo. Ordenad las páginas por el sol de la ventana.', 'bad');
     }
   });
   ui.button('Vaciar', '', () => { if (!resuelto) { carga.fill(null); elegido = null; ui.say(''); pintar(); } });

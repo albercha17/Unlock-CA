@@ -7,7 +7,7 @@ const D = /*DATOS*/{"periodo": 15, "solucion": [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 51 — El temporizador de la lente',
-    instr: 'Cada casilla es un segundo del ciclo de la luz. Tocad las casillas en las que la luz debe estar encendida y pulsad «Programar». El almanaque está en las cartas 61 y 63 y la nota de Anselmo, en la 26.',
+    instr: 'Cada casilla es un segundo del ciclo de la luz. Tocad las casillas en las que la luz debe estar encendida y pulsad «Programar».',
     ...opts
   });
 
@@ -49,7 +49,7 @@ export function startMinigame(opts = {}) {
       tira.classList.add('ok');
       ui.say('El temporizador hace clic y la lente queda lista para dar la luz de Cabo Niebla: el capitán la reconocerá. Se oye un crujido en el piso de arriba. Coged la carta 58.', 'ok');
     } else {
-      ui.say('Esa no es la luz de Cabo Niebla: el capitán la confundiría con otro faro. Repasad el almanaque (cartas 61 y 63) y la nota de Anselmo (carta 26).', 'bad');
+      ui.say('Esa no es la luz de Cabo Niebla: el capitán la confundiría con otro faro. Repasad el almanaque y la nota de Anselmo.', 'bad');
     }
   });
   ui.button('Apagar todo', '', () => { if (!resuelto) { v.fill(0); tira.querySelectorAll('.on').forEach(x => x.classList.remove('on')); ui.say(''); } });

@@ -39,7 +39,7 @@ export function startMinigame(opts = {}) {
     if (corta) { ui.say('¡Columnas caídas! Esa calle está cortada y tenéis que volver al foro.', 'bad'); ruta = ['F']; pintar(); return; }
     const t = ruta.slice(1).reduce((s, n, i) => s + tramo(ruta[i], n)[2], 0);
     if (t <= D.limite) { resuelto = true; ui.say('Llegáis al puerto tosiendo, justo cuando la ceniza empieza a tapar la puerta. Coged la carta 69.', 'ok'); }
-    else { ui.say('Por ahí se tarda demasiado: la ceniza os cierra el paso y tenéis que volver al foro. Sumad bien los tramos (carta 67).', 'bad'); ruta = ['F']; pintar(); }
+    else { ui.say('Por ahí se tarda demasiado: la ceniza os cierra el paso y tenéis que volver al foro. Sumad bien los tramos.', 'bad'); ruta = ['F']; pintar(); }
   });
   ui.button('Volver al foro', '', () => { if (!resuelto) { ruta = ['F']; ui.say(''); pintar(); } });
   pintar();

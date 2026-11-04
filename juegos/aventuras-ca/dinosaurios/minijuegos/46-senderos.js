@@ -35,8 +35,8 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     const desde = ruta[ruta.length - 1];
     const i = sendero(desde, k);
-    if (i < 0) { ui.say('No hay ningún sendero directo de ' + D.claros[desde] + ' a ' + D.claros[k] + ' (mapa, cartas 37 y 39).', 'bad'); return; }
-    if (usados.has(i)) { ui.say('La manada nunca pisa dos veces el mismo sendero (carta 33). Se dispersa y vuelve a la Roca Alta.', 'bad'); ruta = ['R']; usados = new Set(); pintar(); return; }
+    if (i < 0) { ui.say('No hay ningún sendero directo de ' + D.claros[desde] + ' a ' + D.claros[k] + '.', 'bad'); return; }
+    if (usados.has(i)) { ui.say('La manada nunca pisa dos veces el mismo sendero. Se dispersa y vuelve a la Roca Alta.', 'bad'); ruta = ['R']; usados = new Set(); pintar(); return; }
     usados.add(i); ruta.push(k); ui.say(''); pintar();
     if (usados.size === D.senderos.length) {
       resuelto = true;

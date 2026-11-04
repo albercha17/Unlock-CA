@@ -25,8 +25,8 @@ export function startMinigame(opts = {}) {
     const vigilada = new Set(on);
     D.aristas.forEach(([a, b]) => { if (on.has(a)) vigilada.add(b); if (on.has(b)) vigilada.add(a); });
     const sin = D.n - vigilada.size;
-    if (sin > 0) { ui.say('Quedan ' + sin + ' plaza' + (sin > 1 ? 's' : '') + ' fuera de vista (plano, cartas 61 y 63).', 'bad'); return; }
-    if (on.size > D.minimo) { ui.say('Toda la ciudad está vigilada, pero el Gonfaloniere dice que se puede hacer con menos torres (carta 26).', 'bad'); return; }
+    if (sin > 0) { ui.say('Quedan ' + sin + ' plaza' + (sin > 1 ? 's' : '') + ' fuera de vista.', 'bad'); return; }
+    if (on.size > D.minimo) { ui.say('Toda la ciudad está vigilada, pero el Gonfaloniere dice que se puede hacer con menos torres.', 'bad'); return; }
     resuelto = true;
     ui.say('Toda Florencia queda a la vista con el mínimo de torres y el Gonfaloniere firma el permiso. Coged la carta 58.', 'ok');
   });

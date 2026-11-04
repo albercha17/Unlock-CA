@@ -31,7 +31,7 @@ export function startMinigame(opts = {}) {
     const [dx, dy] = DIRS[d], x = pos[0] + dx, y = pos[1] + dy, k = x + ',' + y;
     if (x < 0 || y < 0 || x >= D.n || y >= D.n) { ui.say('Por ahí se sale del valle.', 'bad'); return; }
     if (montes.has(k)) { ui.say('¡Una montaña! El Quetzal da media vuelta asustado y volvéis al acantilado.', 'bad'); reiniciar(); pintar(); return; }
-    if (alt === 0) { ui.say('Sin altura no se puede seguir: el Quetzal toca el suelo. Volvéis al acantilado (cartas 75 y 79).', 'bad'); reiniciar(); pintar(); return; }
+    if (alt === 0) { ui.say('Sin altura no se puede seguir: el Quetzal toca el suelo. Volvéis al acantilado.', 'bad'); reiniciar(); pintar(); return; }
     alt -= 1; pos = [x, y]; pasos.add(k);
     if (term[k] && !usadas.has(k)) { alt += term[k]; usadas.add(k); ui.say('¡Una térmica! El Quetzal sube en espiral.', 'ok'); } else ui.say('');
     if (x === D.nido[0] && y === D.nido[1]) {

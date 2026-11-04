@@ -20,7 +20,7 @@ export function startMinigame(opts = {}) {
     if (ok === D.animales.length) {
       resuelto = true; guardarSello('48');
       ui.say('El guardián de piedra asiente despacio y se aparta de la puerta. Coged la carta 36.', 'ok');
-    } else ui.say('El guardián niega con la cabeza: ' + (ok === 0 ? 'ninguna cuenta es correcta' : 'alguna cuenta es correcta, pero no todas') + '. Mirad bien hacia dónde miran (cartas 42, 49 y 53).', 'bad');
+    } else ui.say('El guardián niega con la cabeza: ' + (ok === 0 ? 'ninguna cuenta es correcta' : 'alguna cuenta es correcta, pero no todas') + '. Mirad bien hacia dónde miran.', 'bad');
   });
   return { close: ui.close };
 }

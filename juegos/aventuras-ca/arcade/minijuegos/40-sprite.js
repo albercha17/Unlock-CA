@@ -26,7 +26,7 @@ export function startMinigame(opts = {}) {
     if (!est.some(f => f.some(v => v))) { ui.say('La pantalla sigue en negro: encended alguna casilla.', 'bad'); return; }
     const malas = [];
     for (let y = 0; y < F; y++) if (est[y].some((v, x) => v !== D.pixeles[y][x])) malas.push(y + 1);
-    if (malas.length) { ui.say('Hay ' + (malas.length === 1 ? 'una fila' : malas.length + ' filas') + ' que no cuadra con sus tandas (cartas 41 y 43).', 'bad'); return; }
+    if (malas.length) { ui.say('Hay ' + (malas.length === 1 ? 'una fila' : malas.length + ' filas') + ' que no cuadra con sus tandas.', 'bad'); return; }
     resuelto = true;
     ui.say('El sprite aparece en la pantalla y la máquina lo reconoce. Byte de la máquina: ' + D.dato + '. Coged la carta 30.', 'ok');
   });

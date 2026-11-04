@@ -17,7 +17,7 @@ const PIEZAS = [
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 46 — Vidriera de la torre',
-    instr: 'Toca un cristal para elegirlo y muévelo con las flechas (o arrástralo). Deben llenar el dibujo de la ventana (carta 37). Los cristales y la nota del vidriero, en las cartas 39 y 33.',
+    instr: 'Toca un cristal para elegirlo y muévelo con las flechas (o arrástralo). Deben llenar el dibujo de la ventana.',
     ...opts
   });
   estilo('cu-vidriera-estilo', `
@@ -170,7 +170,7 @@ export function startMinigame(opts = {}) {
       guardarLetra('46', LETRA);
       ui.say('¡Los tres cristales encajan y la vidriera se enciende con todos sus colores! Coged la carta 56. Letra del libro: ' + LETRA + '.', 'ok');
     } else {
-      ui.say('Todavía no coincide con el dibujo de la carta 37: ' + de_mas + ' cuadrado' + (de_mas === 1 ? '' : 's') + ' iluminado' + (de_mas === 1 ? '' : 's') + ' de más y ' + faltan + ' sin iluminar.', 'bad');
+      ui.say('Todavía no coincide con el dibujo: ' + de_mas + ' cuadrado' + (de_mas === 1 ? '' : 's') + ' iluminado' + (de_mas === 1 ? '' : 's') + ' de más y ' + faltan + ' sin iluminar.', 'bad');
     }
   }
 

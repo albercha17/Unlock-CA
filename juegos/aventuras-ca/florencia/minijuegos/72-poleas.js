@@ -23,7 +23,7 @@ export function startMinigame(opts = {}) {
     if (sel === D.solucion) {
       resuelto = true;
       ui.say('La carga sube con un tirón firme y sin romper la cuerda: el montacargas lleva hasta el archivo. Letra de la clave: ' + D.letra + '. Coged la carta 82.', 'ok');
-    } else ui.say('Con ese aparejo la mano no puede, o se gasta más cuerda de la necesaria (cartas 75 y 79).', 'bad');
+    } else ui.say('Con ese aparejo la mano no puede, o se gasta más cuerda de la necesaria.', 'bad');
   });
   return { close: ui.close };
 }

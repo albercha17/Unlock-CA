@@ -7,7 +7,7 @@ const D = /*DATOS*/{"palabra": "NIEBLA", "cifra": 1}/*FIN*/;
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 20 — El armario de banderas',
-    instr: 'Escribid la palabra que deletrean las banderas del mensaje (carta 18). La tabla de banderas está en las cartas 19 y 21.',
+    instr: 'Escribid la palabra que deletrean las banderas del mensaje.',
     ...opts
   });
   estilo('fa-ban', '.fa-ban-d{letter-spacing:4px}');

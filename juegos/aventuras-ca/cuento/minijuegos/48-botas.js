@@ -45,7 +45,7 @@ export function startMinigame(opts = {}) {
       if (resuelto) return;
       const s = B.saltos[turno], nx = pos[0] + DIR[d][0] * s, ny = pos[1] + DIR[d][1] * s;
       if (nx < 0 || ny < 0 || nx >= B.n || ny >= B.n) { ui.say('Ese salto os saca del bosque. Probad otra dirección.', 'bad'); return; }
-      if (obst.has(nx + ',' + ny)) { ui.say('¡Plaf! Habéis caído contra un árbol o en el agua. Volvéis a empezar. Mirad bien el mapa (cartas 42 y 49).', 'bad'); reiniciar(); pintar(); return; }
+      if (obst.has(nx + ',' + ny)) { ui.say('¡Plaf! Habéis caído contra un árbol o en el agua. Volvéis a empezar. Mirad bien el mapa.', 'bad'); reiniciar(); pintar(); return; }
       pos = [nx, ny]; turno = 1 - turno; pisadas.add(pos.join(',')); ui.say('');
       if (nx === B.fin[0] && ny === B.fin[1]) { resuelto = true; pintar(); ui.say('¡Último salto y aterrizáis delante de la casa del leñador, que os abre la puerta. Coged la carta 36.', 'ok'); return; }
       pintar();

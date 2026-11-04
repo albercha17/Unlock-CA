@@ -7,7 +7,7 @@ const E = /*DATOS*/{"zonas": [[[8.71, 43.0, 14.84, 20.0]], [[32.9, 43.0, 14.84, 
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 20 — Las diferencias',
-    instr: 'Así está ahora la estantería de Leo. Comparadla con la foto Polaroid (cartas 19 y 21) y tocad las siete cosas que han cambiado. La nota de Leo está en la carta 18.',
+    instr: 'Así está ahora la estantería de Leo. Comparadla con la foto Polaroid y tocad las siete cosas que han cambiado.',
     ...opts
   });
 
@@ -37,7 +37,7 @@ export function startMinigame(opts = {}) {
 
   estante.addEventListener('click', e => {
     if (resuelto || e.target !== estante) return;
-    ui.say('Ahí todo está igual que en la foto. Mirad bien la Polaroid (cartas 19 y 21).', 'bad');
+    ui.say('Ahí todo está igual que en la foto. Mirad bien la Polaroid.', 'bad');
   });
 
   E.zonas.forEach((rects, i) => rects.forEach(([x, y, w, h]) => {

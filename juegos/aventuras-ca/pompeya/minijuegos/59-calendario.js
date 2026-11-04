@@ -23,7 +23,7 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     if (dia === null) { ui.say('Clavad la clavija en algún día.', 'bad'); return; }
     if (dia === D.dia) { resuelto = true; ui.say('El sacerdote asiente: «Ese es el día». Os da la llave de la puerta del mar... y en ese momento el monte revienta. Coged la carta 64.', 'ok'); }
-    else ui.say('El sacerdote frunce el ceño: ese no es el día. Los romanos cuentan hacia atrás y de una forma especial (cartas 61, 63 y 65).', 'bad');
+    else ui.say('El sacerdote frunce el ceño: ese no es el día. Los romanos cuentan hacia atrás y de una forma especial.', 'bad');
   });
   return { close: ui.close };
 }

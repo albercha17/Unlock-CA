@@ -79,7 +79,7 @@ export function startMinigame(opts = {}) {
   ui.button('Comprobar', 'primary', () => {
     if (resuelto) return;
     const n = h.flat().reduce((a, b) => a + b, 0);
-    if (n !== T.bloques) { ui.say('La torre lleva ' + T.bloques + ' bloques y habéis puesto ' + n + '. Mirad la carta 67.', 'bad'); return; }
+    if (n !== T.bloques) { ui.say('La torre lleva ' + T.bloques + ' bloques y habéis puesto ' + n + '.', 'bad'); return; }
     if (h.every((fila, f) => fila.every((x, c) => x === T.alturas[f][c]))) {
       resuelto = true;
       pintar();
@@ -91,7 +91,7 @@ export function startMinigame(opts = {}) {
     if (a.frente.join() !== b.frente.join()) mal.push('de frente');
     if (a.lado.join() !== b.lado.join()) mal.push('desde la derecha');
     if (a.arriba !== b.arriba) mal.push('desde arriba');
-    ui.say('Así no se ve como en las instrucciones' + (mal.length ? ' (falla la vista ' + mal.join(' y la vista ') + ')' : '') + '. Repasad las cartas 66 y 67.', 'bad');
+    ui.say('Así no se ve como en las instrucciones' + (mal.length ? ' (falla la vista ' + mal.join(' y la vista ') + ')' : '') + '. Repasad las instrucciones de la torre.', 'bad');
   });
   ui.button('Vaciar', '', () => { if (!resuelto) { h.forEach(f => f.fill(0)); ui.say(''); pintar(); } });
 

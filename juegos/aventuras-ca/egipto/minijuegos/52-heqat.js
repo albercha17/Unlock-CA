@@ -42,7 +42,7 @@ export function startMinigame(opts = {}) {
     if (on.size === sol.size && [...on].every(i => sol.has(i))) {
       resuelto = true; guardarSello('52');
       ui.say('La balanza de cebada se equilibra y el escriba sonríe: las cuentas del día cuadran. Coged la carta 44.', 'ok');
-    } else ui.say('El escriba frunce el ceño: esa medida no es lo que se ha cobrado hoy (cartas 54, 55 y 59).', 'bad');
+    } else ui.say('El escriba frunce el ceño: esa medida no es lo que se ha cobrado hoy.', 'bad');
   });
   ui.button('Vaciar', 'ghost', () => { if (!resuelto) { on.clear(); c.querySelectorAll('.heq-parte').forEach(b => b.classList.remove('on')); ui.say(''); } });
   return { close: ui.close };

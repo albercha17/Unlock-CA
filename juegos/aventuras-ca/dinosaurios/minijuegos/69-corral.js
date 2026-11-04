@@ -44,11 +44,11 @@ export function startMinigame(opts = {}) {
     if (Object.keys(pos).length < D.animales.length) { ui.say('Faltan animales por encerrar.', 'bad'); return; }
     const pegados = ([a, b]) => Math.abs(pos[a][0] - pos[b][0]) + Math.abs(pos[a][1] - pos[b][1]) === 1;
     const mal = D.come.find(pegados);
-    if (mal) { ui.say('A medianoche se oyen gruñidos: el ' + NOM[mal[0]].toLowerCase() + ' tiene al ' + NOM[mal[1]].toLowerCase() + ' pared con pared (carta 70). Volved a repartirlos.', 'bad'); return; }
+    if (mal) { ui.say('A medianoche se oyen gruñidos: el ' + NOM[mal[0]].toLowerCase() + ' tiene al ' + NOM[mal[1]].toLowerCase() + ' pared con pared. Volved a repartirlos.', 'bad'); return; }
     if (D.animales.every(a => pos[a][0] === D.solucion[a][0] && pos[a][1] === D.solucion[a][1])) {
       resuelto = true;
       ui.say('Noche tranquila en el corral. Al amanecer, el pterosaurio de la doctora se posa en la cerca y os mira. Coged la carta 80.', 'ok');
-    } else ui.say('Nadie se come a nadie, pero el animal que ya estaba dentro no estaba ahí (carta 71).', 'bad');
+    } else ui.say('Nadie se come a nadie, pero el animal que ya estaba dentro no estaba ahí.', 'bad');
   });
   pintar();
   return { close: ui.close };

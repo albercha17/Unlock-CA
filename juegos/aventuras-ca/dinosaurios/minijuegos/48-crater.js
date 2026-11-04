@@ -22,7 +22,7 @@ export function startMinigame(opts = {}) {
     if (marca[0] === D.solucion[0] && marca[1] === D.solucion[1]) {
       resuelto = true;
       ui.say('Ahí está el cráter, todavía humeante. En el borde, alguien agita un sombrero y os llama a gritos. Coged la carta 36.', 'ok');
-    } else ui.say('Allí solo hay helechos aplastados. Alguno de los tres vigías no vio caer nada en esa dirección (cartas 42, 49 y 53).', 'bad');
+    } else ui.say('Allí solo hay helechos aplastados. Alguno de los tres vigías no vio caer nada en esa dirección.', 'bad');
   });
   return { close: ui.close };
 }

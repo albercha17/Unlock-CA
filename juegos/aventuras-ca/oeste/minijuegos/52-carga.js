@@ -36,7 +36,7 @@ export function startMinigame(opts = {}) {
     if (!sel.some(v => v)) { ui.say('El carro está vacío.', 'bad'); return; }
     const peso = sel.reduce((a, v, i) => a + v * D.pesos[i], 0);
     const valor = sel.reduce((a, v, i) => a + v * D.valores[i], 0);
-    if (peso > D.capacidad) { ui.say('El eje cruje y se rompe: os habéis pasado de peso (carta 59).', 'bad'); return; }
+    if (peso > D.capacidad) { ui.say('El eje cruje y se rompe: os habéis pasado de peso.', 'bad'); return; }
     if (valor < D.optimo) { ui.say('El carro aguanta, pero se puede llevar una cartera más gorda sin romper nada.', 'bad'); return; }
     resuelto = true;
     ui.say('El carro sale cargado hasta el límite y con la mayor ganancia posible. Coordenada de Polibio: ' + D.coord + '. Coged la carta 44.', 'ok');

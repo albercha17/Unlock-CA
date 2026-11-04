@@ -19,7 +19,7 @@ export function startMinigame(opts = {}) {
     if (v === D.solucion) {
       resuelto = true;
       ui.say('La cerradura gira con un chasquido y la tapa del cofre se levanta. Coged la carta 24.', 'ok');
-    } else ui.say('La cerradura no cede. Tiene ' + D.solucion.length + ' letras y es lo que dice el mensaje de la tira: recordad que la vara tiene ' + D.caras + ' caras (carta 16).', 'bad');
+    } else ui.say('La cerradura no cede. Tiene ' + D.solucion.length + ' letras y es lo que dice el mensaje de la tira: recordad que la vara tiene ' + D.caras + ' caras.', 'bad');
   };
   e.addEventListener('keydown', ev => { if (ev.key === 'Enter') prueba(); });
   ui.button('Probar', 'primary', prueba);

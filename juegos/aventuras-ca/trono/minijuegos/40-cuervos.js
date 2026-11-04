@@ -33,7 +33,7 @@ export function startMinigame(opts = {}) {
     if (total === D.minimo) {
       resuelto = true;
       ui.say('El cuervo vuela sin desviarse y vuelve con el pico lleno de cartas: es la ruta más corta. Cifra de la profecía: ' + D.dato + '. Coged la carta 30.', 'ok');
-    } else ui.say('Todas las fortalezas, pero el cuervo gasta ' + total + ' leguas y el maestre sabe de una ruta más corta (cartas 41, 43 y 45).', 'bad');
+    } else ui.say('Todas las fortalezas, pero el cuervo gasta ' + total + ' leguas y el maestre sabe de una ruta más corta.', 'bad');
   });
   ui.button('Empezar de nuevo', 'ghost', () => { if (!resuelto) { ruta.length = 1; ui.say(''); pintar(); } });
   pintar();

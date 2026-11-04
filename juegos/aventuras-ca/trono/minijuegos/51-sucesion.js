@@ -22,7 +22,7 @@ export function startMinigame(opts = {}) {
     if (sel === D.solucion) {
       resuelto = true;
       ui.say('El consejo se pone en pie y aclama a ' + sel + ': las leyes lo dicen claro. El maestre os abre la cripta de los archivos. Coged la carta 58.', 'ok');
-    } else ui.say('Las leyes no dicen eso: repasad quién queda tras apartar a quien no puede heredar y en qué línea (cartas 26, 61 y 63).', 'bad');
+    } else ui.say('Las leyes no dicen eso: repasad quién queda tras apartar a quien no puede heredar y en qué línea.', 'bad');
   });
   return { close: ui.close };
 }

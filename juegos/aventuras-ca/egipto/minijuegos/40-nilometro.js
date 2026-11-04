@@ -16,7 +16,7 @@ export function startMinigame(opts = {}) {
     if (co.valor() === D.solucion[0] && pa.valor() === D.solucion[1]) {
       resuelto = true; guardarSello('40');
       ui.say('Las compuertas se abren justo a tiempo y el agua llena los canales sin desbordarse. Los sacerdotes os dejan pasar. Coged la carta 30.', 'ok');
-    } else ui.say('Con esa altura el agua se desbordaría o no llegaría a los campos. Mirad cómo han ido creciendo los años (cartas 41, 43 y 45).', 'bad');
+    } else ui.say('Con esa altura el agua se desbordaría o no llegaría a los campos. Mirad cómo han ido creciendo los años.', 'bad');
   });
   return { close: ui.close };
 }

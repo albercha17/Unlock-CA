@@ -39,7 +39,7 @@ export function startMinigame(opts = {}) {
     if (orden.every((e, i) => e === D.orden[i])) {
       resuelto = true;
       ui.say('¡Eso es! El último en cruzar fue el ' + NOM[D.orden[4]].toLowerCase() + ', y su rastro lleva a un campamento escondido entre los helechos. Coged la carta 24.', 'ok');
-    } else ui.say('Así no pudo ser: alguna huella quedaría pisando a otra que pasó después. Mirad otra vez el barro (cartas 16 y 18).', 'bad');
+    } else ui.say('Así no pudo ser: alguna huella quedaría pisando a otra que pasó después. Mirad otra vez el barro.', 'bad');
   });
   ui.button('Quitar todos', 'ghost', () => { if (!resuelto) { orden = []; ui.say(''); pintar(); } });
   pintar();

@@ -26,7 +26,7 @@ export function startMinigame(opts = {}) {
     if (sel === D.solucion) {
       resuelto = true; guardarSello('64');
       ui.say('El azulejo encaja y el friso entero se ilumina: una losa del suelo se levanta y deja ver un hueco con un brillo dorado. Coged la carta 62.', 'ok');
-    } else ui.say('Ese azulejo rompe alguna regla del friso: mirad cómo cambian figura, color y tamaño de una fila a otra y de una columna a otra (cartas 66 y 67).', 'bad');
+    } else ui.say('Ese azulejo rompe alguna regla del friso: mirad cómo cambian figura, color y tamaño de una fila a otra y de una columna a otra.', 'bad');
   });
   return { close: ui.close };
 }

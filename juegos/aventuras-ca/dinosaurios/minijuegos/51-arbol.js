@@ -44,7 +44,7 @@ export function startMinigame(opts = {}) {
     if (puesto.every((a, i) => a === D.solucion[i])) {
       resuelto = true;
       ui.say('El árbol queda completo. Bajo la última rama, la doctora había escrito dónde guarda su corral. Coged la carta 58.', 'ok');
-    } else ui.say('Algún animal está en una rama cuyas marcas no tiene, o le falta alguna (cartas 26, 61 y 63).', 'bad');
+    } else ui.say('Algún animal está en una rama cuyas marcas no tiene, o le falta alguna.', 'bad');
   });
   pintar();
   return { close: ui.close };

@@ -11,7 +11,7 @@ export function startMinigame(opts = {}) {
   const SENUELOS = R.senuelos.map(Number).concat(R.senuelos.map(s => Number(s.split('').reverse().join(''))));
   const ui = openGame({
     title: 'Carta 64 — El timón',
-    instr: 'Gira la rosa de la brújula hasta el rumbo que debe marcar la aguja y fija el timón. El rumbo verdadero está en la carta náutica plegada (carta 66); el desvío de la aguja, en el cuaderno del piloto (carta 67).',
+    instr: 'Gira la rosa de la brújula hasta el rumbo que debe marcar la aguja y fija el timón. El rumbo verdadero está en la carta náutica plegada; el desvío de la aguja, en el cuaderno del piloto.',
     ...opts
   });
 
@@ -69,7 +69,7 @@ export function startMinigame(opts = {}) {
       bit.classList.add('ok');
       ui.say('¡Rumbo fijado! La Gaviota vira y pone proa a la Isla Calavera con el viento a favor. La capitana Bruma asiente: «Por fin alguien que sabe leer una carta». Coged la carta 62.', 'ok');
     } else if (rumbo === VERDADERO) {
-      ui.say('Ese es el rumbo de la carta náutica, pero el timón obedece a la aguja, y en este mar la aguja se tuerce. Mirad el cuaderno del piloto (carta 67).', 'bad');
+      ui.say('Ese es el rumbo de la carta náutica, pero el timón obedece a la aguja, y en este mar la aguja se tuerce. Mirad el cuaderno del piloto.', 'bad');
     } else if (SENUELOS.includes(rumbo)) {
       ui.say('¡Ese rumbo lleva derecho a los arrecifes! La carta náutica desplegada engaña: buscad las líneas A y B.', 'bad');
     } else {

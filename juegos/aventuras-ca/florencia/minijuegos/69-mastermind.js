@@ -41,7 +41,7 @@ export function startMinigame(opts = {}) {
     if (sel_.every((c, i) => c === D.solucion[i])) {
       resuelto = true;
       ui.say('La caja se abre con un chasquido y huele a aceite de linaza. Letra de la clave: ' + D.letra + '. Coged la carta 80.', 'ok');
-    } else ui.say('La caja no se abre: ese orden contradice alguno de los intentos anteriores (cartas 70 y 71).', 'bad');
+    } else ui.say('La caja no se abre: ese orden contradice alguno de los intentos anteriores.', 'bad');
   });
   pintar();
   return { close: ui.close };

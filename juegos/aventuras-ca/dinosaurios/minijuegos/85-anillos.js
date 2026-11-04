@@ -33,7 +33,7 @@ export function startMinigame(opts = {}) {
     if (n === D.solucion) {
       resuelto = true;
       ui.say('El anillo del Cronoportal se ilumina: ' + n + ' años. La doctora Ibarra llora de alegría y se agarra a vuestro brazo. Coged la carta 99.', 'ok');
-    } else ui.say('El anillo parpadea en rojo: no son ' + n + ' años. Comparad los dibujos de los anillos de los tres troncos (cartas 76, 86 y 87).', 'bad');
+    } else ui.say('El anillo parpadea en rojo: no son ' + n + ' años. Comparad los dibujos de los anillos de los tres troncos.', 'bad');
   });
   pintar();
   return { close: ui.close };

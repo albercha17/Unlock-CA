@@ -39,7 +39,7 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     if (puestas.length < 4) { ui.say('Faltan figuras: el panel tiene cuatro huecos.', 'bad'); return; }
     if (puestas.every((f, i) => f === D.solucion[i])) { resuelto = true; ui.say('Las figuras encajan con un chasquido de bronce y la puerta del despacho se abre. Coged la carta 19.', 'ok'); }
-    else ui.say('La puerta no cede. Lucio era muy suyo con su camino (cartas 14 a 18).', 'bad');
+    else ui.say('La puerta no cede. Lucio era muy suyo con su camino.', 'bad');
   });
   ui.button('Quitar las figuras', '', () => { if (!resuelto) { puestas = []; ui.say(''); pintar(); } });
   pintar();

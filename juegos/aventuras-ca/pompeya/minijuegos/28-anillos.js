@@ -23,7 +23,7 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     if (!elegido) { ui.say('Elegid un anillo.', 'bad'); return; }
     if (elegido === D.solucion) { resuelto = true; ui.say('El anillo encaja en la impronta como una llave. Es el de Lucrecia: la carta es auténtica. Coged la carta 30.', 'ok'); }
-    else ui.say('Ese anillo no deja esa marca. Pensad en lo que hace un sello al apretarlo contra el lacre (cartas 27 y 29).', 'bad');
+    else ui.say('Ese anillo no deja esa marca. Pensad en lo que hace un sello al apretarlo contra el lacre.', 'bad');
   });
   return { close: ui.close };
 }

@@ -23,7 +23,7 @@ export function startMinigame(opts = {}) {
     const ref = D.bytes.slice().sort((x, y) => x - y);
     if (dados.some((v, i) => v !== ref[i])) { ui.say('Alguno de los cuatro bytes no es el que dejó su puzle: la máquina no los reconoce.', 'bad'); return; }
     const xor = dados.reduce((x, y) => x ^ y, 0);
-    if (clave.valor() !== xor) { ui.say('Los bytes están bien, pero la clave no sale de aplicarles la «o exclusiva» (cartas 86 y 87).', 'bad'); return; }
+    if (clave.valor() !== xor) { ui.say('Los bytes están bien, pero la clave no sale de aplicarles la «o exclusiva».', 'bad'); return; }
     resuelto = true;
     ui.say('La máquina arranca con un chasquido y la pantalla se enciende: la última moneda cae. Coged la carta 99.', 'ok');
   });

@@ -59,7 +59,7 @@ export function startMinigame(opts = {}) {
         resuelto = true;
         ui.say('El tren sale ordenado, del más ligero al más pesado, y el jefe de estación saca el reloj. Coordenada de Polibio: ' + D.coord + '. Coged la carta 80.', 'ok');
       } else {
-        ui.say('El tren sale desordenado: hay un vagón pesado delante de uno más ligero (cartas 70 y 71). Se vuelve a empezar.', 'bad');
+        ui.say('El tren sale desordenado: hay un vagón pesado delante de uno más ligero. Se vuelve a empezar.', 'bad');
         empezar();
         pintar();
       }

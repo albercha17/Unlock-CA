@@ -17,8 +17,8 @@ export function startMinigame(opts = {}) {
     if (t === D.solucion.triceratops && r === D.solucion.velociraptor) {
       resuelto = true;
       ui.say('Los tricerátops beben tranquilos y los raptores, al veros contar, se esconden. Pasáis sin un rasguño. Coged la carta 28.', 'ok');
-    } else if (t + r !== D.cabezas) ui.say('Con esos números no salen las cabezas que asoman por encima (cartas 19 y 21).', 'bad');
-    else ui.say('Las cabezas cuadran, pero las patas de abajo no (cartas 19 y 21).', 'bad');
+    } else if (t + r !== D.cabezas) ui.say('Con esos números no salen las cabezas que asoman por encima.', 'bad');
+    else ui.say('Las cabezas cuadran, pero las patas de abajo no.', 'bad');
   });
   return { close: ui.close };
 }

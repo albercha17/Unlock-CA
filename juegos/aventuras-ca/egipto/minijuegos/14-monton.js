@@ -16,7 +16,7 @@ export function startMinigame(opts = {}) {
     if (v === D.solucion) {
       resuelto = true; guardarSello('14');
       ui.say('El cerrojo gira y la puerta del granero se abre con un crujido de siglos. Coged la carta 24.', 'ok');
-    } else ui.say('La puerta no se mueve: ' + v + ' sacos no cuadran con lo grabado (carta 16).', 'bad');
+    } else ui.say('La puerta no se mueve: ' + v + ' sacos no cuadran con lo grabado.', 'bad');
   });
   return { close: ui.close };
 }

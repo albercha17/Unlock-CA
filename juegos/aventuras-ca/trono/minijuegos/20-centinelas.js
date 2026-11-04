@@ -25,12 +25,12 @@ export function startMinigame(opts = {}) {
     if (on.size !== D.n) { ui.say('Hacen falta ' + D.n + ' centinelas y habéis puesto ' + on.size + '.', 'bad'); return; }
     const p = [...on].map(k => k.split(',').map(Number));
     const ve = p.some((a, i) => p.some((b, j) => i < j && (a[0] === b[0] || a[1] === b[1] || Math.abs(a[0] - b[0]) === Math.abs(a[1] - b[1]))));
-    if (ve) { ui.say('Hay dos centinelas que se ven: están en la misma fila, columna o diagonal (carta 18).', 'bad'); return; }
+    if (ve) { ui.say('Hay dos centinelas que se ven: están en la misma fila, columna o diagonal.', 'bad'); return; }
     const sol = new Set(D.solucion.map(([x, y]) => x + ',' + y));
     if ([...on].every(k => sol.has(k))) {
       resuelto = true;
       ui.say('Ningún centinela ve a otro y los tres que ya estaban siguen en su sitio: la guardia queda perfecta. Cifra de la profecía: ' + D.dato + '. Coged la carta 28.', 'ok');
-    } else ui.say('Ninguno ve a otro, pero no es la disposición que cuadra con los tres centinelas que ya había (cartas 19 y 21).', 'bad');
+    } else ui.say('Ninguno ve a otro, pero no es la disposición que cuadra con los tres centinelas que ya había.', 'bad');
   });
   return { close: ui.close };
 }

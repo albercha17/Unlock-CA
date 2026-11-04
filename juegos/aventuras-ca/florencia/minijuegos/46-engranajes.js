@@ -23,8 +23,8 @@ export function startMinigame(opts = {}) {
     if (c.valor() === D.solucion.vueltas && lado === D.solucion.sentido) {
       resuelto = true;
       ui.say('El reloj marca la hora exacta y el panel de la pared se desliza. Coged la carta 56.', 'ok');
-    } else if (c.valor() === D.solucion.vueltas) ui.say('Las vueltas están bien, pero la rueda D gira hacia el otro lado (carta 33).', 'bad');
-    else ui.say('El reloj se atasca: las vueltas de D no son esas (cartas 37, 39 y 33).', 'bad');
+    } else if (c.valor() === D.solucion.vueltas) ui.say('Las vueltas están bien, pero la rueda D gira hacia el otro lado.', 'bad');
+    else ui.say('El reloj se atasca: las vueltas de D no son esas.', 'bad');
   });
   return { close: ui.close };
 }

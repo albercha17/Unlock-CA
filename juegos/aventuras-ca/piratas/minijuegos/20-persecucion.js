@@ -10,7 +10,7 @@ const k = c => c[0] + ',' + c[1];
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 20 — La persecución',
-    instr: 'Llevad La Gaviota (marco dorado) al banco de niebla blanco; la fragata va con marco rojo. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según la ordenanza. Las rocas están en la carta de aguas (cartas 19 y 21) y la ordenanza, en la 18.',
+    instr: 'Llevad La Gaviota (marco dorado) al banco de niebla blanco; la fragata va con marco rojo. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según la ordenanza. Las rocas están en la carta de aguas y la ordenanza, en la 18.',
     ...opts
   });
 
@@ -101,7 +101,7 @@ export function startMinigame(opts = {}) {
       pasoFragata();
       if (k(fragata) === k(barco)) {
         pintar();
-        ui.say('¡La fragata os da alcance y os apresa! Volvéis a empezar. Pensad cómo se mueve (carta 18): a veces conviene esperar a que una roca la frene.', 'bad');
+        ui.say('¡La fragata os da alcance y os apresa! Volvéis a empezar. Pensad cómo se mueve: a veces conviene esperar a que una roca la frene.', 'bad');
         reiniciar();
         setTimeout(pintar, 900);
         return;

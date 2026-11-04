@@ -7,7 +7,7 @@ const D = /*DATOS*/{"codigo": "1700", "cifra": 3}/*FIN*/;
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 14 — Puerta de la escalera',
-    instr: 'Introducid el código de 4 cifras: la hora real a la que se paró el reloj del recibidor (carta 16), en formato de 24 horas.',
+    instr: 'Introducid el código de 4 cifras: la hora real a la que se paró el reloj del recibidor, en formato de 24 horas.',
     ...opts
   });
 

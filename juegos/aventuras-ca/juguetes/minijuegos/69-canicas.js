@@ -9,7 +9,7 @@ const XY = { entrada: [150, 14], b1: [150, 70], b2: [90, 140], b3: [210, 140], A
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 69 — La pista de canicas',
-    instr: 'Toca los balancines para colocarlos y suelta las canicas. Caen de una en una y cada balancín cambia de lado al pasar una. La tercera tiene que caer en el tarro. La pista está en la carta 70 y la regla, en la 71.',
+    instr: 'Toca los balancines para colocarlos y suelta las canicas. Caen de una en una y cada balancín cambia de lado al pasar una. La tercera tiene que caer en el tarro.',
     ...opts
   });
 
@@ -102,7 +102,7 @@ export function startMinigame(opts = {}) {
       resuelto = true;
       ui.say('¡Clinc! La tercera canica cae justo en el tarro y un resorte abre un cajoncito del escritorio. Los juguetes lo celebran en voz bajita para no despertar a Leo. Coged la carta 80.', 'ok');
     } else {
-      ui.say('La tercera canica ha caído por la salida ' + ultima + ' y no en el tarro. Los juguetes lo devuelven a la rampa: seguid las tres canicas con la regla (carta 71).', 'bad');
+      ui.say('La tercera canica ha caído por la salida ' + ultima + ' y no en el tarro. Los juguetes lo devuelven a la rampa: seguid las tres canicas con la regla.', 'bad');
     }
   }
 

@@ -42,7 +42,7 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     const n = COLS.reduce((s, [k, m]) => s + (v[k][0] * 5 + v[k][1]) * m, 0);
     if (n === D.total) { resuelto = true; ui.say('Clac: el arca se abre. Lucrecia sabía que su esclavo no sabía sumar. Coged la carta 26.', 'ok'); }
-    else ui.say('La tapa no se mueve. ¿Habéis comprobado bien las cuentas de Tiro (cartas 21, 23 y 24)?', 'bad');
+    else ui.say('La tapa no se mueve. ¿Habéis comprobado bien las cuentas de Tiro?', 'bad');
   });
   pintar();
   return { close: ui.close };

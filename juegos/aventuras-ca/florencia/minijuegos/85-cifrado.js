@@ -20,7 +20,7 @@ export function startMinigame(opts = {}) {
     if (v === D.claro) {
       resuelto = true;
       ui.say('El cristal del lucernario se enciende con la palabra y el primer rayo del alba cruza la lente. Coged la carta 99.', 'ok');
-    } else ui.say('El cristal sigue oscuro. Es una palabra de ' + D.claro.length + ' letras: comprobad la clave y el orden de los puzles (cartas 86 y 87).', 'bad');
+    } else ui.say('El cristal sigue oscuro. Es una palabra de ' + D.claro.length + ' letras: comprobad la clave y el orden de los puzles.', 'bad');
   };
   e.addEventListener('keydown', ev => { if (ev.key === 'Enter') prueba(); });
   ui.button('Descifrar', 'primary', prueba);
