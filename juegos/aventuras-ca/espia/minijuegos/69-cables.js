@@ -30,7 +30,7 @@ export function startMinigame(opts = {}) {
       b.dataset.k = String(k);
       b.dataset.i = String(i);
       b.dataset.color = col;
-      b.style.background = COLORES[col];
+      b.style.background = "url('./img/ui/cab-" + col + ".png') center / 92% 100% no-repeat, #0b2530";
       b.setAttribute('aria-label', 'Carga ' + (k + 1) + ', cable ' + (i + 1) + ', ' + col);
       b.addEventListener('click', () => { if (resuelto) return; elegido[k] = i; ui.say(''); pintar(); });
       fila.appendChild(b);

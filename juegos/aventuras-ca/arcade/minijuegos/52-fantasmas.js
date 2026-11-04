@@ -47,7 +47,16 @@ export function startMinigame(opts = {}) {
   }
   ui.body.appendChild(tab);
   function pintar() {
-    botones.forEach(([b, p, k]) => { b.dataset.v = val[p][k]; b.textContent = val[p][k] || rotulo[k] + ' ?'; });
+    botones.forEach(([b, p, k]) => {
+      b.dataset.v = val[p][k];
+      b.textContent = val[p][k] || rotulo[k] + ' ?';
+      const v = val[p][k], conImg = v && k !== 'v';
+      b.style.backgroundImage = conImg ? "url('./img/ui/arc-" + (k === 'f' ? 'fant-' : 'fruta-') + v + ".png')" : '';
+      b.style.backgroundRepeat = 'no-repeat';
+      b.style.backgroundPosition = 'center 4px';
+      b.style.backgroundSize = 'auto 26px';
+      b.style.paddingTop = conImg ? '32px' : '2px';
+    });
   }
   ui.button('Comprobar', 'primary', () => {
     if (resuelto) return;
