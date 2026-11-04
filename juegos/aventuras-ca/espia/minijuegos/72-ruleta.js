@@ -6,7 +6,7 @@ import { contador } from './comun.js';
 const D = /*DATOS*/{"final": 115}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 72 — La martingala', instr: 'Decid cuántas fichas quedan en el banco tras el último giro. Los giros están en la carta 75 y el sistema de apuestas, en la 79.', ...opts });
+  const ui = openGame({ title: 'Carta 72 — La martingala', instr: 'Decid cuántas fichas quedan en el banco tras el último giro.', ...opts });
   const fichas = contador('Fichas en el banco', 0, 400, 100, 'fichas');
   ui.body.appendChild(fichas.el);
   // pasos de 1 en 1 serían eternos: botones de salto

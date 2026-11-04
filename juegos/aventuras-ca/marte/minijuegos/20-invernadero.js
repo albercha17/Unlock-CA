@@ -6,7 +6,7 @@ import { estilo, rejilla } from './cupula.js';
 const D = /*DATOS*/{"n": 6, "solucion": [[0, 1, 1, 1, 0, 0], [1, 0, 0, 0, 1, 0], [1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0]], "dato": 8}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 20 — El invernadero', instr: 'Marcad las casillas donde habrá una planta viva MAÑANA, aplicando las reglas del invernadero a cómo está hoy (cartas 18, 19 y 21).', ...opts });
+  const ui = openGame({ title: 'Carta 20 — El invernadero', instr: 'Marcad las casillas donde habrá una planta viva MAÑANA, aplicando las reglas del invernadero a cómo está hoy.', ...opts });
   estilo('mr-inv', `.inv .mr-cel{background:#5a4034}.inv .mr-cel.viva{background:radial-gradient(circle,#7be49a 35%,#2f7a46 40%,#5a4034 42%)}`);
   const viva = Array.from({ length: D.n }, () => Array(D.n).fill(0));
   let resuelto = false;

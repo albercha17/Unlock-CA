@@ -6,7 +6,7 @@ import { estilo } from './maquina.js';
 const D = /*DATOS*/{"fantasmas": ["rojo", "rosa", "cian", "naranja"], "velocidades": ["lento", "normal", "rápido", "loco"], "frutas": ["cereza", "fresa", "naranja", "manzana"], "solucion": [{"fantasma": "rojo", "pasillo": 3, "velocidad": "lento", "fruta": "cereza"}, {"fantasma": "rosa", "pasillo": 1, "velocidad": "rápido", "fruta": "naranja"}, {"fantasma": "cian", "pasillo": 2, "velocidad": "loco", "fruta": "manzana"}, {"fantasma": "naranja", "pasillo": 4, "velocidad": "normal", "fruta": "fresa"}], "dato": 9}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — Los cuatro fantasmas', instr: 'En cada pasillo (de izquierda a derecha, 1 a 4) hay un fantasma distinto, con su velocidad y la fruta que persigue. Tocad cada casilla para cambiar de opción. Las pistas están en las cartas 54, 55 y 59.', ...opts });
+  const ui = openGame({ title: 'Carta 52 — Los cuatro fantasmas', instr: 'En cada pasillo (de izquierda a derecha, 1 a 4) hay un fantasma distinto, con su velocidad y la fruta que persigue. Tocad cada casilla para cambiar de opción.', ...opts });
   estilo('ar-fan', `
     .fan-tab{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:340px;margin:8px auto}
     .fan-col{border:2px solid #00e2ff;border-radius:10px;background:#12082a;padding:6px 4px;display:flex;flex-direction:column;gap:6px}

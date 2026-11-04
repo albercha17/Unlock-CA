@@ -6,7 +6,7 @@ import { estilo, rejilla } from './cupula.js';
 const D = /*DATOS*/{"n": 5, "objetivo": [[0, 1, 1, 0, 1], [0, 0, 0, 1, 0], [1, 1, 1, 1, 0], [1, 0, 0, 1, 0], [0, 0, 0, 0, 1]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 64 — Los paneles de refrigeración', instr: 'Tocad paneles hasta que queden encendidos exactamente los del patrón (cartas 66 y 67). Cada toque cambia el panel y sus cuatro vecinos en cruz.', ...opts });
+  const ui = openGame({ title: 'Carta 64 — Los paneles de refrigeración', instr: 'Tocad paneles hasta que queden encendidos exactamente los del patrón. Cada toque cambia el panel y sus cuatro vecinos en cruz.', ...opts });
   estilo('mr-pan', `.pan .mr-cel{background:#4a5260}.pan .mr-cel.on{background:radial-gradient(circle,#b8f4ff 35%,#28a0b8 60%,#4a5260 62%)}`);
   const g = Array.from({ length: D.n }, () => Array(D.n).fill(0));
   let resuelto = false, toques = 0;

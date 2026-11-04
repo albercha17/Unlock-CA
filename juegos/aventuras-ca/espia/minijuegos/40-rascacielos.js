@@ -13,7 +13,7 @@ function vistas(linea) {
 }
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — El skyline del casino', instr: 'Elegid una casilla y tocad la altura de la torre (1 a 5). Los números del borde están en las cartas 41 y 43; la regla, en la 45.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — El skyline del casino', instr: 'Elegid una casilla y tocad la altura de la torre (1 a 5).', ...opts });
   const n = D.n;
   const val = {};
   let sel = null, resuelto = false;

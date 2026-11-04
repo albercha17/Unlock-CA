@@ -10,7 +10,7 @@ const SIG = ['O', 'T', 'L'];
 const LETRA = 'ABCDEFGHIJKL';
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — Las cámaras de colores', instr: 'Tocad una cámara para pintarla (ocre, turquesa, lapislázuli y otra vez sin pintar). El plano, con sus puertas, en las cartas 61 y 63.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — Las cámaras de colores', instr: 'Tocad una cámara para pintarla (ocre, turquesa, lapislázuli y otra vez sin pintar).', ...opts });
   estilo('eg-cam', `.cam-plano{display:grid;gap:8px;max-width:330px;margin:10px auto}.cam-cel{aspect-ratio:1;border-radius:50%;border:3px solid #2a1f0c;background:#f6e7bf;color:#2a1f0c;font:800 1rem system-ui;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}.cam-cel small{font:700 .6rem system-ui}`);
   const plano = document.createElement('div'); plano.className = 'cam-plano';
   plano.style.gridTemplateColumns = 'repeat(' + D.cols + ',1fr)';

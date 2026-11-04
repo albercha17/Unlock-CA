@@ -563,6 +563,8 @@ def ui(carpeta, I):
     d = os.path.join(carpeta, "img", "ui")
     os.makedirs(d, exist_ok=True)
     for f in I["laberinto"]["todas"]:
+        if os.path.exists(os.path.join(d, "fig-anfora.origen")):          # ya las dibujó ChatGPT (sprites_chatgpt.py)
+            continue
         h = Hoja(140, 140, (30, 60, 110))
         h.disco(70, 70, 66, (30, 60, 110), ORO, 4)
         figura(h, f, 70, 70, 44, (236, 220, 170), (30, 60, 110))
@@ -570,6 +572,8 @@ def ui(carpeta, I):
     for an in I["sello"]["anillos"]:
         anillo_png(an, os.path.join(d, f"anillo-{an['id']}.png"))
     for cosa in I["barca"]["carga"]:
+        if os.path.exists(os.path.join(d, "carga-anfora_aceite.origen")):
+            continue
         h = Hoja(120, 120, (255, 0, 255))
         if cosa.startswith("anfora"):
             anfora_peq(h, 60, 60, 3, (190, 170, 70) if "aceite" in cosa else (130, 30, 50))

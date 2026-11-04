@@ -6,7 +6,7 @@ import { contador } from './comun.js';
 const D = /*DATOS*/{"corte": 14, "cuenta_corte": -4, "cuenta_final": -3}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — La cuenta del crupier', instr: 'Decid cuánto vale la cuenta tras las primeras cartas y cuánto al final. Las cartas están en la 37 y la 39; la regla de la cuenta, en la 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — La cuenta del crupier', instr: 'Decid cuánto vale la cuenta tras las primeras cartas y cuánto al final.', ...opts });
   const a = contador('Cuenta tras las ' + D.corte + ' primeras cartas', -14, 14, 0, 'corte');
   const b = contador('Cuenta tras todas las cartas', -28, 28, 0, 'final');
   ui.body.append(a.el, b.el);

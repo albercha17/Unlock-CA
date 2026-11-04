@@ -7,7 +7,7 @@ import { estilo } from './reino.js';
 const D = /*DATOS*/{"fortalezas": ["Piedra Negra", "Invernalia", "Altojardín", "Roca Casterly", "Dorne", "Aguasdulces"], "solucion": [0, 2, 4, 1, 5, 3], "minimo": 138, "distancias": {"0,1": 46, "0,2": 30, "0,3": 20, "0,4": 47, "0,5": 36, "1,2": 24, "1,3": 34, "1,4": 26, "1,5": 28, "2,3": 30, "2,4": 18, "2,5": 36, "3,4": 47, "3,5": 16, "4,5": 49}, "dato": 7}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — Los cuervos mensajeros', instr: 'El cuervo sale de Piedra Negra (1). Tocad las otras fortalezas en el orden en que las visita; al final vuelve solo a casa. Mapa y leguas, en las cartas 41, 43 y 45.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — Los cuervos mensajeros', instr: 'El cuervo sale de Piedra Negra (1). Tocad las otras fortalezas en el orden en que las visita; al final vuelve solo a casa.', ...opts });
   estilo('tr-cuer', `.cue-fort{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:12px auto}.cue-f{padding:10px 4px;border-radius:12px;border:3px solid #6d8aa6;background:#2c3a4a;color:#e6f1fb;font:700 .75rem system-ui;cursor:pointer;line-height:1.2}.cue-f b{display:block;font:800 1.3rem Georgia,serif;color:#8fc7ee}.cue-f.on{background:#3a5a78;border-color:#8fc7ee}.cue-f.base{border-style:dashed}.cue-ruta{text-align:center;color:#e6f1fb;font:700 .85rem system-ui;margin:6px 0;min-height:1.3em}`);
   const g = document.createElement('div'); g.className = 'cue-fort';
   const rt = document.createElement('div'); rt.className = 'cue-ruta';

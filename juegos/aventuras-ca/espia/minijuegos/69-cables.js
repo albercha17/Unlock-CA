@@ -6,7 +6,7 @@ import { estilo, COLORES } from './comun.js';
 const D = /*DATOS*/{"cargas": [{"cables": ["rojo", "negro", "azul", "negro", "amarillo", "azul"], "regla": 2, "corta": 0}, {"cables": ["negro", "rojo", "rojo", "amarillo", "rojo", "amarillo"], "regla": 3, "corta": 4}, {"cables": ["azul", "blanco", "rojo", "azul", "azul", "blanco"], "regla": 1, "corta": 4}, {"cables": ["rojo", "rojo", "blanco", "rojo", "negro", "blanco"], "regla": 5, "corta": 3}], "pulsa": "7"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — El desactivador', instr: 'Elegid un cable de cada carga para cortarlo. El manual del desactivador está en las cartas 70 y 71.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — El desactivador', instr: 'Elegid un cable de cada carga para cortarlo.', ...opts });
   estilo('es-cab', `
     .cab-carga{margin:8px auto;max-width:340px;padding:8px;border-radius:8px;background:#0a2a36;border:2px solid #ff6fa8}
     .cab-carga b{display:block;color:#7fe8f0;font:700 .85rem system-ui,Arial,sans-serif;margin-bottom:6px}

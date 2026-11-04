@@ -6,7 +6,7 @@ import { estilo } from './reino.js';
 const D = /*DATOS*/{"claro": "DRAGONES"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 48 — La carta de la prisionera', instr: 'Escribid el mensaje que la prisionera esconde en la carta, ya descifrado. Las letras cifradas, el cuadrado y la regla, en las cartas 42, 49 y 53.', ...opts });
+  const ui = openGame({ title: 'Carta 48 — La carta de la prisionera', instr: 'Escribid el mensaje que la prisionera esconde en la carta, ya descifrado.', ...opts });
   estilo('tr-pla', `.pla-in{display:block;margin:14px auto;width:min(80vw,300px);padding:10px;text-align:center;letter-spacing:.25em;text-transform:uppercase;border-radius:10px;border:2px solid #8fc7ee;background:#e6f1fb;color:#0c121a;font:800 1.3rem Georgia,serif}`);
   const e = document.createElement('input'); e.type = 'text'; e.className = 'pla-in'; e.maxLength = 16; e.autocomplete = 'off'; e.setAttribute('aria-label', 'Mensaje descifrado');
   e.addEventListener('input', () => ui.say(''));

@@ -7,7 +7,7 @@ import { estilo, opcion } from './comun.js';
 const D = /*DATOS*/{"estrellas": [[948, 670], [991, 446], [671, 440], [112, 172], [1049, 179], [338, 391], [1172, 387], [1064, 610], [527, 503], [848, 593], [314, 248], [808, 651], [479, 246], [240, 256], [898, 327], [102, 704], [406, 273], [259, 475], [572, 270], [817, 238], [458, 702], [270, 324], [493, 582], [54, 606], [417, 358], [1089, 344], [522, 374], [1065, 716], [1189, 252], [1017, 538], [139, 465], [1116, 552], [514, 162], [430, 453], [395, 664], [855, 753]], "solucion": [6, 11, 14, 17, 22, 25], "distancia": 2}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — La tapa del cofre', instr: 'Tocad los números de las seis estrellas que forman la Calavera de la carta celeste (carta 45), que en el cielo de la tapa (cartas 41 y 43) aparece girada y más pequeña.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — La tapa del cofre', instr: 'Tocad los números de las seis estrellas que forman la Calavera de la carta celeste, que en el cielo de la tapa aparece girada y más pequeña.', ...opts });
   estilo('pi-cie', '.cie-g{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;max-width:340px;margin:8px auto}.cie-g button{min-height:42px;padding:0}');
   const sel = new Set();
   let resuelto = false;

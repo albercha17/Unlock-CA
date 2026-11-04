@@ -6,7 +6,7 @@ import { estilo, guardarSello } from './nilo.js';
 const D = /*DATOS*/{"n": 5, "filas": [[4, 3, 9, 7, 1], [7, 12, 16, 8], [19, 28, 24], [47, 52], [99]], "dados": [[1, 0], [1, 2], [3, 1], [4, 0]], "solucion": [4, 3, 9, 7, 1]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 20 — La pirámide del escriba', instr: 'Escribid el peso de las cinco piedras de la base de la pirámide (de izquierda a derecha). El resto de la pirámide, en las cartas 18, 19 y 21.', ...opts });
+  const ui = openGame({ title: 'Carta 20 — La pirámide del escriba', instr: 'Escribid el peso de las cinco piedras de la base de la pirámide (de izquierda a derecha).', ...opts });
   estilo('eg-pira', `.pir-base{display:flex;gap:6px;justify-content:center;margin:14px 0}.pir-base input{width:52px;height:52px;text-align:center;border-radius:8px;border:2px solid #d9a441;background:#f6e7bf;color:#2a1f0c;font:800 1.3rem Georgia,serif}`);
   const fila = document.createElement('div'); fila.className = 'pir-base';
   const ins = [];

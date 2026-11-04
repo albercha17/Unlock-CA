@@ -6,7 +6,7 @@ import { estilo, NEON } from './maquina.js';
 const D = /*DATOS*/{"n": 6, "naves": [[2, 2, 2, true], [5, 3, 3, true], [4, 1, 2, false], [0, 3, 3, true], [1, 4, 2, true], [3, 1, 3, true], [2, 4, 3, false]], "minimo": 18}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 20 — El aparcamiento de naves', instr: 'Tocad una nave y movedla una casilla con las flechas. Solo se mueven por donde apuntan. Sacad la nave 1 por la puerta de la derecha. El tablero y el acertijo están en las cartas 18, 19 y 21.', ...opts });
+  const ui = openGame({ title: 'Carta 20 — El aparcamiento de naves', instr: 'Tocad una nave y movedla una casilla con las flechas. Solo se mueven por donde apuntan. Sacad la nave 1 por la puerta de la derecha.', ...opts });
   const L = 52;
   estilo('ar-ata', `
     .ata-tab{position:relative;margin:8px auto;border-radius:8px;background:#0a0418;border:2px solid #2ee67a;touch-action:manipulation}

@@ -7,7 +7,7 @@ const D = /*DATOS*/{"colores": ["rojo", "azul", "verde", "amarillo", "morado"], 
 const HEX = { rojo: '#d63430', azul: '#2c68c4', verde: '#3aa054', amarillo: '#f6c42a', morado: '#8a4cc4' };
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — El collar de mamá', instr: 'Elegid el color de la última cuenta del collar de cien cuentas y escribid cuántas cuentas azules lleva. La nota de mamá está en la carta 26 y las primeras cuentas, en las cartas 61 y 63.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — El collar de mamá', instr: 'Elegid el color de la última cuenta del collar de cien cuentas y escribid cuántas cuentas azules lleva.', ...opts });
   estilo('ju-col', '.col-c{display:flex;gap:8px;justify-content:center;margin:8px 0}.col-c button{width:52px;height:52px;border-radius:50%;border:4px solid #1a2a5a;padding:0;cursor:pointer}.col-c button.sel{outline:4px solid #fff}');
   let color = null, resuelto = false;
   const fila = document.createElement('div');

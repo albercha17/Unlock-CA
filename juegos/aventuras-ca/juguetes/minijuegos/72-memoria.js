@@ -8,7 +8,7 @@ const ET = i => 'ABCD'[i % 4] + (Math.floor(i / 4) + 1);
 const COLORES = ['#d63430', '#2c68c4', '#3aa054', '#f6c42a', '#8a4cc4', '#ee8028', '#1ea8a0', '#e0609a'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 72 — La memoria de Leo', instr: 'Formad las ocho parejas: tocad una carta y luego su pareja. Los doce intentos de Leo están en las cartas 75 y 79.', ...opts });
+  const ui = openGame({ title: 'Carta 72 — La memoria de Leo', instr: 'Formad las ocho parejas: tocad una carta y luego su pareja.', ...opts });
   estilo('ju-mem', '.mem-t{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:min(86vw,300px);margin:8px auto}.mem-t button{aspect-ratio:3/4;border-radius:10px;border:3px solid #1a2a5a;background:#2c68c4;color:#fff;font:800 1rem system-ui,sans-serif;cursor:pointer;padding:0}.mem-t button.sel{outline:4px solid #fff}.mem-t button.par{border-color:#fff;color:#1a2a5a}');
   const parDe = Array(16).fill(-1);          // número de pareja formada, o -1
   const pares = [];

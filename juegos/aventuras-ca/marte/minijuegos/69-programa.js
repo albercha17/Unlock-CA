@@ -9,7 +9,7 @@ const DIR = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const FLECHA = ['▲', '▶', '▼', '◀'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — El programa del rover', instr: 'Armad el programa con los botones y pulsad «Ejecutar». El rover sale de abajo a la izquierda. El terreno, en la carta 70; los comandos y el límite de bloques, en la 71.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — El programa del rover', instr: 'Armad el programa con los botones y pulsad «Ejecutar». El rover sale de abajo a la izquierda.', ...opts });
   estilo('mr-pro', `.pro-rej .mr-cel{background:#e8d8c8;cursor:default}.pro-rej .mr-cel.rastro{background:#c8e0e8}.pro-rej .mr-cel.rover{background:#28a0b8;color:#fff;font-size:1rem}.pro-prog{margin:8px auto;max-width:330px;background:#2a1c18;border-radius:8px;padding:6px 10px;color:#ffe6d6;font:600 .8rem/1.5 monospace;min-height:56px;white-space:pre}.pro-bot{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}.pro-bot button{padding:7px 11px;border-radius:9px;border:2px solid #ff8a50;background:#4a2a1c;color:#ffe6d6;font:700 .8rem system-ui;cursor:pointer}.pro-bot select{padding:7px;border-radius:9px;border:2px solid #ff8a50;background:#4a2a1c;color:#ffe6d6;font:700 .8rem system-ui}`);
   const muros = new Set(D.muros.map(([x, y]) => x + ',' + y));
   const prog = [];

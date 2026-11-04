@@ -7,7 +7,7 @@ import { estilo, rejilla } from './reino.js';
 const D = /*DATOS*/{"n": 8, "fijas": [[4, 0], [1, 1], [0, 7]], "solucion": [[4, 0], [1, 1], [3, 2], [6, 3], [2, 4], [7, 5], [5, 6], [0, 7]], "dato": 4}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 20 — Los centinelas de la muralla', instr: 'Tocad las casillas donde colocáis un centinela (otra vez para quitarlo). Son ocho y ninguno puede ver a otro. Los tres ya puestos, en las cartas 19, 21 y 18.', ...opts });
+  const ui = openGame({ title: 'Carta 20 — Los centinelas de la muralla', instr: 'Tocad las casillas donde colocáis un centinela (otra vez para quitarlo). Son ocho y ninguno puede ver a otro.', ...opts });
   estilo('tr-cen', `.cen .tr-cel{background:#9fb6c9;font-size:1.1rem}.cen .tr-cel.on{background:radial-gradient(circle,#b05050 40%,#9fb6c9 42%)}`);
   const on = new Set();
   let resuelto = false;

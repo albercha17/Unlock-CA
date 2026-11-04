@@ -6,7 +6,7 @@ import { estilo, contador } from './taller.js';
 const D = /*DATOS*/{"solucion": {"vueltas": 2, "sentido": "derecha"}}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — El reloj del taller', instr: 'Se gira la manivela de la rueda A. Decid cuántas vueltas da la rueda D y hacia qué lado gira. El tren de ruedas, en las cartas 37, 39 y 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — El reloj del taller', instr: 'Se gira la manivela de la rueda A. Decid cuántas vueltas da la rueda D y hacia qué lado gira.', ...opts });
   estilo('fl-eng', `.eng-lados{display:flex;gap:10px;justify-content:center;margin:10px 0}.eng-lados button{padding:9px 16px;border-radius:10px;border:2px solid #d9a441;background:#4d3c20;color:#f6e7bf;font:700 .9rem system-ui;cursor:pointer}.eng-lados button.sel{background:#d9a441;color:#2a1f0c}`);
   const c = contador('Vueltas de D', 30, () => ui.say(''), 'vueltas');
   const l = document.createElement('div'); l.className = 'eng-lados';

@@ -6,7 +6,7 @@ import { estilo } from './comun.js';
 const D = /*DATOS*/{"n": 10, "inicio": [1, 7], "final": [5, 4]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 85 — El punto de la niebla', instr: 'Tocad la casilla donde echáis el ancla, en el punto de la niebla, al terminar los cinco rumbos. Los rumbos están en la carta 86 y la carta de la isla, con la salida, en la 87. Las distancias, en casillas, las dejaron la bitácora, las estrellas, el cañón, la balanza y la gruta.', ...opts });
+  const ui = openGame({ title: 'Carta 85 — El punto de la niebla', instr: 'Tocad la casilla donde echáis el ancla, en el punto de la niebla, al terminar los cinco rumbos. Las distancias, en casillas, las dejaron la bitácora, las estrellas, el cañón, la balanza y la gruta.', ...opts });
   estilo('pi-isl', '.isl-g{display:grid;gap:2px;width:min(88vw,330px);margin:8px auto;padding:4px;border-radius:8px;background:#0c3440;border:3px solid #e8b84a}.isl-g button{aspect-ratio:1;min-height:20px;border:0;border-radius:3px;background:linear-gradient(160deg,#3a8aa0,#22647a);padding:0;cursor:pointer;color:#fff;font:700 .6rem system-ui,sans-serif}.isl-g button.sel{background:#e8b84a;color:#10242c}.isl-g button.salida{box-shadow:inset 0 0 0 2px #fff}');
   let sel = null, resuelto = false;
   const g = document.createElement('div');

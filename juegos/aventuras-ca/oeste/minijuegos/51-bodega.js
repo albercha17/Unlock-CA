@@ -8,7 +8,7 @@ const D = /*DATOS*/{"filas": 6, "cols": 8, "muros": [[0, 0], [0, 1], [0, 2], [0,
 const MOV = { U: [-1, 0], D: [1, 0], L: [0, -1], R: [0, 1] };
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — La bodega de barriles', instr: 'Moved al tabernero con las flechas y empujad los barriles hasta los huecos del suelo. Los huecos están dibujados en las cartas 61 y 63; el refrán, en la 26.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — La bodega de barriles', instr: 'Moved al tabernero con las flechas y empujad los barriles hasta los huecos del suelo.', ...opts });
   estilo('oe-bod', `
     .bod-tab{display:grid;gap:2px;width:min(88vw,360px);margin:8px auto;padding:6px;border-radius:8px;background:#3a2412;border:3px solid #8a5a2a}
     .bod-c{aspect-ratio:1;border-radius:3px;background:#e6c88c;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#3a2412;font-weight:800}

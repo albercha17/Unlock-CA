@@ -6,7 +6,7 @@ import { estilo, limpio } from './comun.js';
 const D = /*DATOS*/{"claro": "ELORONOVIAJAENELTERCERVAGONDETRAS", "rieles": 4, "coord": "51"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — El telegrama en zigzag', instr: 'Escribid el mensaje original del telegrafista (sin espacios, o con ellos: da igual). El telegrama y el zigzag están en la carta 16.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — El telegrama en zigzag', instr: 'Escribid el mensaje original del telegrafista (sin espacios, o con ellos: da igual).', ...opts });
   estilo('oe-tel', `.tel-in{display:block;width:100%;max-width:340px;margin:10px auto;padding:12px;border-radius:8px;border:3px solid #8a5a2a;background:#f2e2b8;color:#3a2412;font:700 1.1rem Georgia,serif;text-transform:uppercase}`);
   const campo = document.createElement('input');
   campo.type = 'text';

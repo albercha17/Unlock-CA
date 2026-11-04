@@ -6,7 +6,7 @@ import { limpio } from './comun.js';
 const D = /*DATOS*/{"claro": "AGENTE ZORRO ESPERA EN EL MUELLE DE LA RULETA AZUL", "pulsa": "9999"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — La nota de la Agente Zorro', instr: 'Escribid el mensaje original de la nota (con o sin espacios, da igual). La nota cifrada está en la carta 16.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — La nota de la Agente Zorro', instr: 'Escribid el mensaje original de la nota (con o sin espacios, da igual).', ...opts });
   const campo = document.createElement('input');
   campo.type = 'text';
   campo.className = 'es-in';

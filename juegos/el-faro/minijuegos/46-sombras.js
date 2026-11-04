@@ -2,7 +2,7 @@
 // Anselmo pintó en la pared (carta 37; su nota, en la carta 33). Ninguna otra cuaterna da esa sombra (herramientas/instancias_faro.py, sombras).
 import { openGame } from './ui.js';
 
-const S = /*DATOS*/{"objetos": ["farol", "ancla", "botella", "tetera", "gaviota", "catalejo", "campana", "llave"], "solucion": ["botella", "catalejo", "ancla", "campana"]}/*FIN*/;
+const S = /*DATOS*/{"objetos": ["farol", "ancla", "botella", "tetera", "gaviota", "catalejo", "campana", "llave"], "solucion": ["ancla", "tetera", "farol", "gaviota"]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
   const ui = openGame({

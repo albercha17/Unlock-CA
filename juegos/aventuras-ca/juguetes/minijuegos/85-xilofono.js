@@ -7,7 +7,7 @@ const D = /*DATOS*/{"melodia": ["MI", "SOL", "DO", "RE", "LA"], "colores": {"DO"
 const HEX = { rojo: '#d63430', naranja: '#ee8028', amarillo: '#f6c42a', verde: '#3aa054', azul: '#2c68c4', 'añil': '#46409c', violeta: '#8a4cc4' };
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 85 — La nana', instr: 'Tocad las cinco notas de la nana, en orden, en las barras del xilófono. Las notas las dejaron cinco puzles; el orden está en la carta 86 y los colores de las notas, en la 87.', ...opts });
+  const ui = openGame({ title: 'Carta 85 — La nana', instr: 'Tocad las cinco notas de la nana, en orden, en las barras del xilófono.', ...opts });
   estilo('ju-xil', '.xil-b{display:flex;gap:6px;justify-content:center;align-items:flex-start;margin:10px 0}.xil-b button{width:40px;border:3px solid #1a2a5a;border-radius:8px;padding:0;cursor:pointer}.xil-s{display:flex;gap:6px;justify-content:center;min-height:34px;margin:6px 0}.xil-s i{width:30px;height:30px;border-radius:50%;border:3px solid #1a2a5a;display:inline-block}');
   const colores = Object.values(D.colores);
   const tocadas = [];

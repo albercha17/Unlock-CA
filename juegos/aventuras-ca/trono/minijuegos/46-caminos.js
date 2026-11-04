@@ -7,7 +7,7 @@ import { estilo, NS } from './reino.js';
 const D = /*DATOS*/{"n": 9, "islas": [{"x": 8, "y": 1, "letra": "A"}, {"x": 5, "y": 3, "letra": "B"}, {"x": 8, "y": 3, "letra": "C"}, {"x": 2, "y": 4, "letra": "D"}, {"x": 4, "y": 4, "letra": "E"}, {"x": 3, "y": 6, "letra": "F"}, {"x": 4, "y": 6, "letra": "G"}, {"x": 5, "y": 6, "letra": "H"}, {"x": 8, "y": 6, "letra": "I"}, {"x": 2, "y": 8, "letra": "J"}, {"x": 4, "y": 8, "letra": "K"}], "puentes": [[[4, 4], [4, 6], 2], [[4, 6], [4, 8], 1], [[2, 4], [2, 8], 1], [[8, 1], [8, 3], 2], [[4, 6], [5, 6], 2], [[2, 4], [4, 4], 2], [[5, 6], [8, 6], 1], [[2, 8], [4, 8], 2], [[5, 3], [5, 6], 2], [[3, 6], [4, 6], 2], [[5, 3], [8, 3], 1]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — Los castillos del reino', instr: 'Tocad un castillo y luego otro para tender un puente entre ellos (otra vez para un segundo puente, y otra para quitarlos). Los números de cada castillo, en las cartas 37, 39 y 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — Los castillos del reino', instr: 'Tocad un castillo y luego otro para tender un puente entre ellos (otra vez para un segundo puente, y otra para quitarlos).', ...opts });
   estilo('tr-cam', `.cam-svg{display:block;width:min(90vw,340px);margin:10px auto;background:#1c2a38;border-radius:10px}.cam-isla{cursor:pointer}`);
   const n = D.n, L = 36, M = 18;
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'cam-svg'); svg.setAttribute('viewBox', '0 0 ' + (n * L + 2 * M) + ' ' + (n * L + 2 * M));

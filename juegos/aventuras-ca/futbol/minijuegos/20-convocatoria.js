@@ -6,7 +6,7 @@ import { estilo, opcion } from './comun.js';
 const D = /*DATOS*/{"jugadores": [{"dorsal": 7, "nombre": "Rafa Gol"}, {"dorsal": 6, "nombre": "Toni Roca"}, {"dorsal": 4, "nombre": "Luis Muro"}, {"dorsal": 8, "nombre": "Mario Eje"}, {"dorsal": 2, "nombre": "Paco Guante"}, {"dorsal": 9, "nombre": "Beto Pase"}], "solucion": [4, 6]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 20 — La convocatoria', instr: 'Elegid las dos camisetas que pide el míster. Su acertijo está en la carta 18 y las fichas de los jugadores, por detrás de los cromos (cartas 19 y 21).', ...opts });
+  const ui = openGame({ title: 'Carta 20 — La convocatoria', instr: 'Elegid las dos camisetas que pide el míster.', ...opts });
   estilo('fu-conv', '.conv-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:340px;margin:8px auto}.conv-g button{min-height:56px}');
   const sel = new Set();
   let resuelto = false;

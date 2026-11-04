@@ -7,7 +7,7 @@ import { estilo, rejilla } from './comun.js';
 const D = /*DATOS*/{"cifras": [[4, 2, 3, 3, 5], [5, 4, 1, 5, 2], [1, 4, 5, 2, 4], [5, 1, 2, 5, 3], [4, 5, 4, 3, 4]], "tachones": [[0, 0, 0, 1, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 0, 1, 0], [1, 0, 0, 0, 1]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 20 — El cuadro del banquero', instr: 'Tachad cifras tocando las casillas. Las cifras del cuadro y el acertijo del banquero están en las cartas 18, 19 y 21.', ...opts });
+  const ui = openGame({ title: 'Carta 20 — El cuadro del banquero', instr: 'Tachad cifras tocando las casillas.', ...opts });
   estilo('oe-ban', `.ban .oe-cel{font-size:1.5rem}.ban .oe-cel[data-v="1"]{background:#1e1208;color:#6b4a2a}`);
   const n = D.cifras.length;
   const est = Array.from({ length: n }, () => Array(n).fill(0));

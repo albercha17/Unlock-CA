@@ -8,7 +8,7 @@ const D = /*DATOS*/{"agujeros": [[0, 2], [0, 3], [0, 4], [1, 2], [1, 3], [1, 4],
 const k = (r, c) => r + ',' + c;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — El solitario de clavijas', instr: 'Tocad una clavija y luego el agujero vacío al que salta, sobre otra clavija y en línea recta. Dejad una sola en el agujero del medio. El tablero está en la carta 37, la regla en la 39 y la meta, en la 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — El solitario de clavijas', instr: 'Tocad una clavija y luego el agujero vacío al que salta, sobre otra clavija y en línea recta. Dejad una sola en el agujero del medio.', ...opts });
   estilo('ju-cla', '.cla-t{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;width:min(86vw,320px);margin:8px auto;padding:10px;border-radius:12px;background:#c48c56;border:4px solid #6a4022}.cla-t button{aspect-ratio:1;border:0;border-radius:50%;padding:0;cursor:pointer;background:#78502e;box-shadow:inset 0 2px 4px rgba(0,0,0,.4)}.cla-t button.vacio{visibility:visible}.cla-t button.fuera{visibility:hidden}.cla-t button.peg{background:radial-gradient(circle at 35% 30%,#ff8a80,#d63430 55%,#7a1010)}.cla-t button.sel{outline:4px solid #fff}');
   const agujeros = new Set(D.agujeros.map(a => k(a[0], a[1])));
   let pegs, sel = null, historia = [], resuelto = false;

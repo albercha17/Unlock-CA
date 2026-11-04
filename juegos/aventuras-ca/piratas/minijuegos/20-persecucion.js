@@ -10,7 +10,7 @@ const k = c => c[0] + ',' + c[1];
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 20 — La persecución',
-    instr: 'Llevad La Gaviota (marco dorado) al banco de niebla blanco; la fragata va con marco rojo. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según la ordenanza. Las rocas están en la carta de aguas y la ordenanza, en la 18.',
+    instr: 'Llevad La Gaviota (marco dorado) al banco de niebla blanco; la fragata va con marco rojo. Por cada casilla que avanzáis (o cada turno que esperáis), la fragata da dos pasos según la ordenanza.',
     ...opts
   });
 

@@ -435,11 +435,12 @@
    "llave"
   ],
   "solucion": [
-   "botella",
-   "catalejo",
    "ancla",
-   "campana"
-  ]
+   "tetera",
+   "farol",
+   "gaviota"
+  ],
+  "distancia_minima": 1987
  },
  "destellos": {
   "faros": {

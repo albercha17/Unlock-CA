@@ -6,7 +6,7 @@ import { limpio } from './comun.js';
 const D = /*DATOS*/{"claro": "CRISTAL BAJO LA RULETA"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 48 — La cifra del libro', instr: 'Escribid las palabras del mensaje, en orden (con o sin espacios). Las páginas del libro están en las cartas 42 y 49 y los renglones del mensaje, en la 53.', ...opts });
+  const ui = openGame({ title: 'Carta 48 — La cifra del libro', instr: 'Escribid las palabras del mensaje, en orden (con o sin espacios).', ...opts });
   const campo = document.createElement('input');
   campo.type = 'text';
   campo.className = 'es-in';

@@ -7,7 +7,7 @@ import { teclado } from './comun.js';
 const D = /*DATOS*/{"digitos": [4, 1, 5], "pulsa": "2"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — Los pasaportes falsos', instr: 'Para cada pasaporte, elegid su fila y tocad el dígito de control que falta (0 a 9). Los pasaportes están en las cartas 61 y 63 y la regla, en la 26.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — Los pasaportes falsos', instr: 'Para cada pasaporte, elegid su fila y tocad el dígito de control que falta (0 a 9).', ...opts });
   const vals = D.digitos.map(() => null);
   let fila = 0, resuelto = false;
   const filas = document.createElement('div');

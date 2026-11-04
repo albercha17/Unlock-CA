@@ -128,7 +128,28 @@ def bahia():
 
 
 # ------------------------------------------------------------------ 46 sombras (cuatro objetos)
+SPR_DIR = os.path.join(os.path.dirname(AQUI), "juegos", "el-faro", "img", "ui")
+
+
+def celda(nombre, k=1):
+    """RGBA de 120 x 160 (por k) con el objeto del estante (sprite de ChatGPT) apoyado en la base de su hueco; None si falta el sprite."""
+    ruta = os.path.join(SPR_DIR, f"spr-{nombre}.png")
+    if not os.path.exists(ruta):
+        return None
+    from PIL import Image
+    im = Image.open(ruta).convert("RGBA")
+    caja = (104 * k, 144 * k)
+    esc = min(caja[0] / im.width, caja[1] / im.height)
+    im = im.resize((max(2, round(im.width * esc)), max(2, round(im.height * esc))), Image.LANCZOS)
+    cel = Image.new("RGBA", (120 * k, 160 * k), (0, 0, 0, 0))
+    cel.paste(im, ((120 * k - im.width) // 2, 156 * k - im.height), im)
+    return cel
+
+
 def _mascara(nombre):
+    c = celda(nombre)
+    if c is not None:
+        return np.asarray(c.getchannel("A")) > 128
     return np.asarray(IA.silueta(nombre, 0).crop((0, 0, 120, 160))) > 128
 
 
@@ -140,18 +161,29 @@ def sombra4(seq):
 
 
 def sombras():
-    meta = ["botella", "catalejo", "ancla", "campana"]
-    obj = sombra4(meta)
+    """Cuatro cosas del estante, en fila, que dan una sombra que ninguna otra ordenación de cuatro da (se busca la más distinta de todas)."""
     caches = {n: _mascara(n) for n in IA.OBJETOS_SOMBRA}
-    iguales = []
-    for seq in itertools.permutations(IA.OBJETOS_SOMBRA, 4):
-        m = np.zeros((160, 480), bool)
-        for k, nombre in enumerate(seq):
-            m[:, 120 * k:120 * k + 120] |= caches[nombre]
-        if np.count_nonzero(m ^ obj) < 250:
-            iguales.append(list(seq))
-    assert iguales == [meta], iguales
-    return {"objetos": IA.OBJETOS_SOMBRA, "solucion": meta}
+    rng = random.Random(46)
+    mejor = None
+    for _ in range(40):
+        meta = rng.sample(IA.OBJETOS_SOMBRA, 4)
+        objetivo = sombra4(meta)
+        minimo = None
+        for seq in itertools.permutations(IA.OBJETOS_SOMBRA, 4):
+            if list(seq) == meta:
+                continue
+            m = np.zeros((160, 480), bool)
+            for k, nombre in enumerate(seq):
+                m[:, 120 * k:120 * k + 120] |= caches[nombre]
+            d = int(np.count_nonzero(m ^ objetivo))
+            if minimo is None or d < minimo:
+                minimo = d
+        if mejor is None or minimo > mejor[0]:
+            mejor = (minimo, meta)
+        if minimo >= 900:
+            break
+    assert mejor[0] >= 350, mejor
+    return {"objetos": IA.OBJETOS_SOMBRA, "solucion": mejor[1], "distancia_minima": mejor[0]}
 
 
 # ------------------------------------------------------------------ 51 destellos (característica de la luz)

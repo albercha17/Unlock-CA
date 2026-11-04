@@ -7,7 +7,7 @@ const D = /*DATOS*/{"dados": [[0, 0, 2, 1, 0, 4], [3, 0, 4, 0, 0, 0], [0, 0, 0, 
 const TONO = ['#8a8a96', '#c89628', '#2f8296', '#b43c50', '#e68220', '#46a0c8'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — El tablero de las seis casas', instr: 'Tocad una casilla vacía para cambiar su escudo (los ya puestos no se mueven). Cada fila, cada columna y cada recuadro de dos por tres llevan los seis escudos sin repetir. Los ya puestos, en las cartas 70 y 71.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — El tablero de las seis casas', instr: 'Tocad una casilla vacía para cambiar su escudo (los ya puestos no se mueven). Cada fila, cada columna y cada recuadro de dos por tres llevan los seis escudos sin repetir.', ...opts });
   estilo('tr-sud', `.sud-t{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:min(88vw,330px);margin:10px auto;padding:3px;background:#0c121a;border-radius:8px}.sud-c{aspect-ratio:1;border:0;background:#e6f1fb;padding:2px;cursor:pointer;display:flex;align-items:center;justify-content:center}.sud-c[data-f="1"]{border-bottom:3px solid #0c121a}.sud-c[data-f="3"]{border-bottom:3px solid #0c121a}.sud-c[data-c="2"]{border-right:3px solid #0c121a}`);
   const v = D.dados.map(r => r.slice());
   let resuelto = false;

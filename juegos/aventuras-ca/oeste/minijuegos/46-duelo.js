@@ -7,7 +7,7 @@ import { estilo } from './comun.js';
 const D = /*DATOS*/{"n": 17, "sobrevive": 5, "caen": [4, 8, 12, 16, 3, 9, 14, 2, 10, 17, 7, 1, 13, 11, 15, 6]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — El duelo en corro', instr: 'Elegid el asiento donde queréis sentaros para ser el último que queda en pie. El corro está en la carta 37 y la regla de la cuenta, en las cartas 39 y 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — El duelo en corro', instr: 'Elegid el asiento donde queréis sentaros para ser el último que queda en pie.', ...opts });
   estilo('oe-due', `.due-corro{position:relative;width:min(84vw,320px);height:min(84vw,320px);margin:10px auto;border-radius:50%;background:radial-gradient(#6b4a2a 0 38%,transparent 39%)}.due-as{position:absolute;width:34px;height:34px;margin:-17px;border-radius:50%;border:3px solid #3a2412;background:#e6c88c;color:#3a2412;font:800 .8rem Georgia,serif;cursor:pointer;padding:0}.due-as.sel{background:#b03a2e;color:#fff;border-color:#f5d48a}`);
   let sel = 0, resuelto = false;
   const corro = document.createElement('div');

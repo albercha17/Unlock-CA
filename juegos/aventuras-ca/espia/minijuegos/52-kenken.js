@@ -18,7 +18,7 @@ function cumple(j, v) {
 }
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — La caja fuerte del joyero', instr: 'Elegid una casilla y tocad una cifra (1 a 5). Las jaulas están en las cartas 54 y 55; la regla, en la 59.', ...opts });
+  const ui = openGame({ title: 'Carta 52 — La caja fuerte del joyero', instr: 'Elegid una casilla y tocad una cifra (1 a 5).', ...opts });
   const n = D.n;
   const val = {};
   let sel = null, resuelto = false;

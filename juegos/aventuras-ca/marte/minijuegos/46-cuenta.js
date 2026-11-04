@@ -6,7 +6,7 @@ import { estilo } from './cupula.js';
 const D = /*DATOS*/{"numeros": [1, 2, 3, 9, 25, 30], "objetivo": 894}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — La cuenta de cifras', instr: 'Tocad una pieza, luego una operación y luego otra pieza: las dos se juntan en una nueva. El objetivo y la norma, en las cartas 37, 39 y 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — La cuenta de cifras', instr: 'Tocad una pieza, luego una operación y luego otra pieza: las dos se juntan en una nueva.', ...opts });
   estilo('mr-cue', `.cue-piezas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0;min-height:60px}.cue-p{min-width:54px;height:54px;border-radius:10px;border:3px solid #ff8a50;background:#4a2a1c;color:#ffe6d6;font:800 1.2rem Georgia,serif;cursor:pointer}.cue-p.sel{background:#ff8a50;color:#2a120c}.cue-ops{display:flex;gap:8px;justify-content:center;margin:8px 0}.cue-ops button{width:48px;height:44px;border-radius:10px;border:2px solid #ffe6d6;background:#7a4430;color:#ffe6d6;font:800 1.3rem system-ui;cursor:pointer}.cue-ops button.sel{background:#ffe6d6;color:#2a120c}.cue-hist{text-align:center;color:#ffe6d6;font:600 .8rem system-ui;margin:4px 0;min-height:1.2em}`);
   const piezas = document.createElement('div'); piezas.className = 'cue-piezas';
   const ops = document.createElement('div'); ops.className = 'cue-ops';

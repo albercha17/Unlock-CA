@@ -7,7 +7,7 @@ import { estilo } from './comun.js';
 const D = /*DATOS*/{"candidatos": 8, "autenticos": [2, 3, 5]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 72 — Los hierros del ganado', instr: 'Marcad los números de las reses que llevan el hierro de Don Abel. Las ocho marcas están en la carta 75 y el hierro verdadero, en la 79.', ...opts });
+  const ui = openGame({ title: 'Carta 72 — Los hierros del ganado', instr: 'Marcad los números de las reses que llevan el hierro de Don Abel.', ...opts });
   estilo('oe-hie', `.hie-fila{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:10px auto}.hie-op{min-height:56px;border-radius:10px;border:3px solid #3a2412;background:#e6c88c;color:#3a2412;font:800 1.4rem Georgia,serif;cursor:pointer}.hie-op[data-v="1"]{background:#b03a2e;color:#fff;border-color:#f5d48a}`);
   const sel = Array(D.candidatos).fill(0);
   let resuelto = false;

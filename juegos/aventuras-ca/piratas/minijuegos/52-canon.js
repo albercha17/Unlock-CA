@@ -8,7 +8,7 @@ const D = /*DATOS*/{"base": [2, 6, 7, 8, 9, 12], "corr": [4, 3, 0, 5, -1], "barc
 const ELEV = [0, 5, 10, 15, 20];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — El cañón', instr: 'Para cada barco, elegid los sacos de pólvora y la elevación del cañón para que el tiro caiga justo en él. Las tablas están en las cartas 54 y 55 y los barcos, el viento y la pólvora que queda, en la 59.', ...opts });
+  const ui = openGame({ title: 'Carta 52 — El cañón', instr: 'Para cada barco, elegid los sacos de pólvora y la elevación del cañón para que el tiro caiga justo en él.', ...opts });
   estilo('pi-can', '.can-f{max-width:340px;margin:8px auto;padding:8px;border-radius:8px;background:#0c2a34;border:2px solid #e8b84a}.can-f b{display:block;color:#e8b84a;font:800 .9rem system-ui,sans-serif;margin-bottom:4px}.can-f .pi-btns{margin:2px 0;gap:4px}.can-f .pi-opc{min-width:44px;padding:0 6px}.can-f small{display:block;color:#9fe0e0;font:700 .72rem system-ui,sans-serif;margin-top:4px}');
   const carga = D.barcos.map(() => -1);
   const elev = D.barcos.map(() => -1);

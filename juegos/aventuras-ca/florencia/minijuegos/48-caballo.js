@@ -7,7 +7,7 @@ import { estilo, rejilla } from './taller.js';
 const D = /*DATOS*/{"n": 6, "huecos": [[1, 5], [2, 0], [2, 3], [3, 4], [4, 5]], "inicio": [0, 0], "letra": "E"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 48 — El patio de ajedrez', instr: 'Tocad las casillas en el orden de los saltos del caballo, empezando por donde está. Pasad por todas las libres, una sola vez. Qué casillas están tachadas, en las cartas 42, 49 y 53.', ...opts });
+  const ui = openGame({ title: 'Carta 48 — El patio de ajedrez', instr: 'Tocad las casillas en el orden de los saltos del caballo, empezando por donde está. Pasad por todas las libres, una sola vez.', ...opts });
   estilo('fl-cab', `.cab .fl-cel{background:#e8d3a8;font:800 1rem system-ui}.cab .fl-cel.ruta{background:#c98a52;color:#fff}`);
   const ruta = [];
   let resuelto = false;

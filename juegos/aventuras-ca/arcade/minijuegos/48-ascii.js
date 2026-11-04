@@ -6,7 +6,7 @@ import { estilo } from './maquina.js';
 const D = /*DATOS*/{"claro": "CONTINUE"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 48 — El mensaje de la pantalla', instr: 'Descifrad los ocho bytes de la carta 42 con la tabla de la carta 49 y escribid el mensaje con las letras en orden. La regla está en la carta 53.', ...opts });
+  const ui = openGame({ title: 'Carta 48 — El mensaje de la pantalla', instr: 'Descifrad los ocho bytes con la tabla y escribid el mensaje con las letras en orden.', ...opts });
   estilo('ar-asc', `.asc-casillas{display:flex;gap:6px;justify-content:center;margin:6px 0 12px}.asc-casilla{width:34px;height:46px;border-bottom:3px solid #2ee67a;color:#7dffae;font:700 1.6rem/46px ui-monospace,monospace;text-align:center}.asc-teclado{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;max-width:330px;margin:0 auto 10px}.asc-teclado button{aspect-ratio:1;min-height:40px;border-radius:8px;border:2px solid #ff5ad8;background:linear-gradient(180deg,#3a1458,#1c0a30);color:#ffd6f6;font:700 1rem system-ui;cursor:pointer;box-shadow:0 3px 0 #0d0518}`);
   let texto = '', resuelto = false;
   const casillas = document.createElement('div');

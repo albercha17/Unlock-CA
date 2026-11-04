@@ -6,7 +6,7 @@ import { estilo, rejilla } from './maquina.js';
 const D = /*DATOS*/{"pixeles": [[0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1], [1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1], [1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], "dato": 11}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — El sprite comprimido', instr: 'Pintad las casillas de la rejilla para que aparezca el sprite descrito por las tandas de las cartas 41 y 43. Tocad una casilla para encenderla o apagarla.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — El sprite comprimido', instr: 'Pintad las casillas de la rejilla para que aparezca el sprite descrito. Tocad una casilla para encenderla o apagarla.', ...opts });
   estilo('ar-spr', `.spr .ar-cel{background:#1e1040;border:1px solid #2b1860}.spr .ar-cel[data-v="1"]{background:#ffde46;box-shadow:inset 0 0 6px #ff9632}`);
   const F = D.pixeles.length, C = D.pixeles[0].length;
   const est = Array.from({ length: F }, () => Array(C).fill(0));

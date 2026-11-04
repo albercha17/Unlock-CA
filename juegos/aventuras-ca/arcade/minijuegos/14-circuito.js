@@ -7,7 +7,7 @@ const D = /*DATOS*/{"puertas": [["P1", "NOR", "A", "B"], ["P2", "NAND", "C", "D"
 const OPS = { AND: (a, b) => a & b, OR: (a, b) => a | b, XOR: (a, b) => a ^ b, NAND: (a, b) => 1 - (a & b), NOR: (a, b) => 1 - (a | b) };
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — El circuito de la placa', instr: 'Poned cada interruptor arriba (1) o abajo (0) y probad la placa. Las lámparas tienen que quedar como dice el esquema de la carta 16.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — El circuito de la placa', instr: 'Poned cada interruptor arriba (1) o abajo (0) y probad la placa.', ...opts });
   estilo('ar-cir', `
     .cir-fila{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;max-width:340px;margin:8px auto}
     .cir-sw{border-radius:10px;border:3px solid #00e2ff;background:#1c0a30;color:#8ffcff;padding:8px 0 6px;cursor:pointer;font:700 1.1rem ui-monospace,monospace}

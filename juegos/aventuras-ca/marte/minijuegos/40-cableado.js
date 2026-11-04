@@ -8,7 +8,7 @@ const D = /*DATOS*/{"n": 6, "colores": 5, "solucion": [[2, 2, 2, 0, 0, 0], [2, 3
 const TONO = ['#be322c', '#3c64d2', '#46a05a', '#e8be3c', '#8c50be'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — La placa de bornes', instr: 'Tocad una casilla para pintarla con un cable (1 a 5, y otra vez sin pintar). Cada cable une sus dos bornes sin cruzarse con otro y sin dejar casillas vacías. Los bornes, en las cartas 41 y 43.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — La placa de bornes', instr: 'Tocad una casilla para pintarla con un cable (1 a 5, y otra vez sin pintar). Cada cable une sus dos bornes sin cruzarse con otro y sin dejar casillas vacías.', ...opts });
   estilo('mr-cab', `.cab .mr-cel{background:#c8d6ce;color:#fff;font:800 1.1rem system-ui}`);
   const col = Array.from({ length: D.n }, () => Array(D.n).fill(null));
   let resuelto = false;
