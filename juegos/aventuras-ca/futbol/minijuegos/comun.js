@@ -51,11 +51,15 @@ export function contador(etiqueta, min, max, inicial, nombre) {
 }
 
 // Botón de opción con texto; `onClick` recibe el botón.
+const ESCUDOS = { Estrella: 'estrella', Rayos: 'rayos', Halcones: 'halcones', Tigres: 'tigres', Delfines: 'delfines', Lobos: 'lobos', Osos: 'osos', 'Cóndores': 'condores' };
+estilo('fu-esc', '.fu-opc:has(.fu-esc){display:flex;align-items:center;justify-content:center;gap:8px}.fu-esc{width:30px;height:30px;object-fit:contain;flex:none}.fu-cam{position:relative;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;flex:none;background:url(./img/ui/esc-camiseta.png) center/contain no-repeat;color:#7a1010;font:800 .78rem system-ui;padding-top:5px}');
 export function opcion(texto, onClick, clase = 'fu-opc') {
   const b = document.createElement('button');
   b.type = 'button';
   b.className = clase;
-  b.textContent = texto;
+  const escudo = ESCUDOS[texto];
+  if (escudo) b.innerHTML = '<img class="fu-esc" alt="" src="./img/ui/esc-' + escudo + '.png"><span>' + texto + '</span>';
+  else b.textContent = texto;
   b.addEventListener('click', () => onClick(b));
   return b;
 }

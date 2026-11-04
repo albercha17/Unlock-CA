@@ -15,7 +15,14 @@ export function startMinigame(opts = {}) {
   const tot = document.createElement('div');
   tot.className = 'mon-total';
   tot.setAttribute('aria-label', 'Monedas echadas');
-  cont.forEach(c => ui.body.appendChild(c.el));
+  cont.forEach((c, i) => {
+    const im = new Image();
+    im.alt = '';
+    im.src = './img/ui/mon-' + i + '.png';
+    im.style.cssText = 'height:' + (18 + i * 6) + 'px;width:auto;vertical-align:middle;margin-right:8px';
+    c.el.insertBefore(im, c.el.firstChild);
+    ui.body.appendChild(c.el);
+  });
   ui.body.appendChild(tot);
   function datos() {
     const n = cont.map(c => c.valor());

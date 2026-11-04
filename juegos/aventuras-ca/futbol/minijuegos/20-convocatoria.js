@@ -19,6 +19,8 @@ export function startMinigame(opts = {}) {
       ui.say('');
       pintar();
     });
+    b.innerHTML = '<span class="fu-cam">' + j.dorsal + '</span><span>' + j.nombre + '</span>';
+    b.style.display = 'flex'; b.style.alignItems = 'center'; b.style.gap = '8px'; b.style.justifyContent = 'center';
     b.dataset.d = String(j.dorsal);
     cuadro.appendChild(b);
     return b;
