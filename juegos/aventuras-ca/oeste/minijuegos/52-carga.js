@@ -8,7 +8,7 @@ const D = /*DATOS*/{"articulos": ["barril de whisky", "saco de harina", "caja de
 
 export function startMinigame(opts = {}) {
   const ui = openGame({ title: 'Carta 52 — La carga del carro', instr: 'Tocad las cosas que queréis cargar en el carro, una vez cada una.', ...opts });
-  estilo('oe-car', `.car-lista{display:grid;gap:6px;max-width:340px;margin:8px auto}.car-art{display:flex;align-items:center;gap:10px;min-height:46px;border-radius:8px;border:3px solid #3a2412;background:#e6c88c;color:#3a2412;font:700 .95rem Georgia,serif;padding:4px 10px;cursor:pointer;text-align:left}.car-art i{width:24px;height:24px;border-radius:4px;border:2px solid #3a2412;flex:none}.car-art[data-v="1"]{background:#b03a2e;color:#fff;border-color:#f5d48a}`);
+  estilo('oe-car', `.car-lista{display:grid;gap:6px;max-width:340px;margin:8px auto}.car-art{display:flex;align-items:center;gap:10px;min-height:46px;border-radius:8px;border:3px solid #3a2412;background:#e6c88c;color:#3a2412;font:700 .95rem Georgia,serif;padding:4px 10px;cursor:pointer;text-align:left}.car-art i{width:24px;height:24px;border-radius:4px;border:2px solid #3a2412;flex:none}.car-art img{width:38px;height:38px;object-fit:contain;flex:none}.car-art[data-v="1"]{background:#b03a2e;color:#fff;border-color:#f5d48a}`);
   const sel = D.articulos.map(() => 0);
   let resuelto = false;
   const lista = document.createElement('div');
@@ -19,7 +19,7 @@ export function startMinigame(opts = {}) {
     b.type = 'button';
     b.className = 'car-art';
     b.dataset.i = String(i);
-    b.innerHTML = '<i style="background:' + COLORES[i] + '"></i><span>' + nombre + '</span>';
+    b.innerHTML = '<i style="background:' + COLORES[i] + '"></i><img alt="" src="./img/ui/art-' + i + '.png"><span>' + nombre + '</span>';
     b.addEventListener('click', () => { if (resuelto) return; sel[i] ^= 1; ui.say(''); pintar(); });
     lista.appendChild(b);
     return b;
