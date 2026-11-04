@@ -79,3 +79,12 @@ python herramientas/crear_manual_md.py juegos/el-faro datos_faro
 3. Pasa el verificador, el manual y el bot. Genera `MANUAL.md`.
 
 Los `spec_*.json` indican, para cada carta que no sale en el «coge» de otra, qué cartas hay que tener en la mano para obtenerla (`needs`) y los descartes que manda la app (`eventos`).
+
+## Interfaz moderna (nov 2026)
+
+| Herramienta | Qué hace |
+|---|---|
+| `con_servidor.py <comando con {URL}>` | Arranca un servidor local en un puerto libre solo mientras dura el comando (p. ej. `python herramientas/con_servidor.py python herramientas/probar_apps.py {URL} juegos/el-faro solvers_faro`); no deja procesos en segundo plano. |
+| `capturar_pantallas.py <carpeta> [prefijo]` | Capturas en tamaño iPhone del menú, el hub de aventuras, la intro, el panel de juego y el teclado de cartas (para revisar cambios de aspecto). |
+| `assets/css/moderno.css` + `assets/js/moderno.js` | Capa de animaciones de los menús (inicio, aventuras, partidas, ajustes): fondo vivo, aparición escalonada, ondas al tocar, brillo e inclinación de tarjetas, pastilla deslizante de la barra inferior. Se apaga con «reducir movimiento» y no oculta nada en las pruebas automáticas. |
+| Capa moderna del juego (`juegos/el-faro/app.css` y `app.js`, al final) | Animaciones de la pantalla de juego (portada con zoom lento, pasos escalonados, botón Empezar con halo y brillo, tic del reloj, alarma, teclado con muelle, ondas, polvo de luz de fondo y confeti al ganar). Se propaga con `regenerar_index.py`. |
