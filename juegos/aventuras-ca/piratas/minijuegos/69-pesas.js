@@ -9,7 +9,7 @@ const ESTADOS = ['fuera', 'con el cofre', 'enfrente'];
 const COEF = [0, -1, 1];                       // con el cofre: -1 (suma al lado del cofre); enfrente: +1
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — La balanza', instr: 'Para cada cofre, tocad cada pesa para ponerla fuera, en el mismo platillo que el cofre o en el platillo de enfrente, hasta equilibrar la balanza. Los pesos de los cofres están en la carta 70 y las pesas, en la 71.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — La balanza', instr: 'Para cada cofre, tocad cada pesa para ponerla fuera, en el mismo platillo que el cofre o en el platillo de enfrente, hasta equilibrar la balanza.', ...opts });
   estilo('pi-pes', '.pes-f{max-width:340px;margin:8px auto;padding:8px;border-radius:8px;background:#0c2a34;border:2px solid #e8b84a}.pes-f b{display:block;color:#e8b84a;font:800 .9rem system-ui,sans-serif;margin-bottom:6px}.pes-f .pi-btns{margin:2px 0;gap:4px}.pes-f .pi-opc{flex:1;min-width:0;padding:4px 2px;font-size:.8rem;min-height:56px}');
   const est = D.objetos.map(() => D.pesas.map(() => 0));
   let resuelto = false;

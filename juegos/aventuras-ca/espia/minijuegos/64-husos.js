@@ -6,7 +6,7 @@ import { contador } from './comun.js';
 const D = /*DATOS*/{"llegada": {"dia": 1, "hora": 15, "min": 30}}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 64 — El vuelo con escalas', instr: 'Decid cuándo aterrizó en Montecarlo, en hora de Montecarlo: cuántos días después de la salida, y la hora y los minutos. El itinerario está en la carta 66 y los husos, en la 67.', ...opts });
+  const ui = openGame({ title: 'Carta 64 — El vuelo con escalas', instr: 'Decid cuándo aterrizó en Montecarlo, en hora de Montecarlo: cuántos días después de la salida, y la hora y los minutos.', ...opts });
   const dia = contador('Días después de la salida', 0, 3, 0, 'dia');
   const hora = contador('Hora (0 a 23)', 0, 23, 0, 'hora');
   const min = contador('Minutos', 0, 59, 0, 'min');

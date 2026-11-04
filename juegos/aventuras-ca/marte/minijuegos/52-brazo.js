@@ -18,7 +18,7 @@ function forma(f, col) {
 }
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — El brazo de la antena', instr: 'Tocad una pieza de repuesto y luego la marca del brazo donde la colgáis. Cada marca admite un solo peso. Las piezas, en la carta 55.', ...opts });
+  const ui = openGame({ title: 'Carta 52 — El brazo de la antena', instr: 'Tocad una pieza de repuesto y luego la marca del brazo donde la colgáis. Cada marca admite un solo peso.', ...opts });
   estilo('mr-bra', `.bra-brazo{display:grid;grid-template-columns:repeat(11,1fr);gap:3px;max-width:340px;margin:10px auto}.bra-m{min-height:48px;border-radius:6px;border:2px solid #6a4a3a;background:#4a2a1c;color:#ffe6d6;font:700 .65rem system-ui;cursor:pointer;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.bra-m.eje{background:#2a120c;cursor:default;border-style:dashed}.bra-m.on{background:#7a4430}.bra-piezas{display:flex;gap:12px;justify-content:center;margin:8px 0}.bra-p{width:54px;height:54px;border-radius:10px;border:3px solid #6a4a3a;background:#4a2a1c;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}.bra-p.sel{border-color:#ffd36a;background:#7a4430}.bra-p.puesta{opacity:.4}`);
   const brazo = document.createElement('div'); brazo.className = 'bra-brazo';
   const piezas = document.createElement('div'); piezas.className = 'bra-piezas';

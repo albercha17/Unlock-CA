@@ -9,7 +9,7 @@ const BITS = [[1, 0, -1], [2, 1, 0], [4, 0, 1], [8, -1, 0]];
 const DIRS = [[1, -1, 0, 4], [2, 0, 1, 8], [4, 1, 0, 1], [8, 0, -1, 2]];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 64 — La bomba de agua', instr: 'Tocad un tubo para girarlo un cuarto de vuelta. Tienen que quedar todos unidos en una sola red, sin ningún extremo abierto. Algunos tubos tienen que quedar como en el plano de las cartas 66 y 67.', ...opts });
+  const ui = openGame({ title: 'Carta 64 — La bomba de agua', instr: 'Tocad un tubo para girarlo un cuarto de vuelta. Tienen que quedar todos unidos en una sola red, sin ningún extremo abierto.', ...opts });
   estilo('oe-bom', `.bom-tab{display:grid;gap:3px;width:min(86vw,340px);margin:8px auto;padding:6px;border-radius:8px;background:#3a2412;border:3px solid #8a5a2a}.bom-c{aspect-ratio:1;border:0;border-radius:3px;background:#e6c88c;padding:0;cursor:pointer;min-height:40px}.bom-c svg{width:100%;height:100%;display:block}`);
   const n = D.n;
   const m = D.inicio.map(f => f.slice());

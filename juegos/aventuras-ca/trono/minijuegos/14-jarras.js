@@ -7,7 +7,7 @@ import { estilo } from './reino.js';
 const D = /*DATOS*/{"A": 3, "B": 10, "objetivo": 5, "dato": 6}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — Las jarras del senescal', instr: 'Llenad, vaciad y pasad hidromiel de una jarra a otra hasta que una de las dos tenga justo lo que marca el cuenco del rey (carta 16). Las jarras no tienen marcas.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — Las jarras del senescal', instr: 'Llenad, vaciad y pasad hidromiel de una jarra a otra hasta que una de las dos tenga justo lo que marca el cuenco del rey. Las jarras no tienen marcas.', ...opts });
   estilo('tr-jar', `.jar-pl{display:flex;gap:30px;justify-content:center;align-items:flex-end;height:210px;margin:10px 0}.jar-j{width:90px;border:3px solid #8fc7ee;border-top:0;border-radius:0 0 12px 12px;background:rgba(0,0,0,.25);position:relative;overflow:hidden}.jar-j i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(#e8a030,#b06818);transition:height .3s}.jar-botones{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:330px;margin:8px auto}.jar-botones button{padding:8px 4px;border-radius:9px;border:2px solid #8fc7ee;background:#2c3a4a;color:#e6f1fb;font:700 .75rem system-ui;cursor:pointer}.jar-cuenta{text-align:center;color:#e6f1fb;font:700 .8rem system-ui}`);
   const pl = document.createElement('div'); pl.className = 'jar-pl';
   const bs = document.createElement('div'); bs.className = 'jar-botones';

@@ -7,7 +7,7 @@ const D = /*DATOS*/{"orden": ["14", "40", "52", "69", "72"], "final": [10, 9, 9,
 const NOMBRES = { '14': 'la tabla', '40': 'la bandera', '52': 'la camiseta', '69': 'las flechas', '72': 'la grada' };
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 85 — La cerradura de la Copa', instr: 'Colocad cada aro en su posición (1 a 12). Los aros y sus giros están en la carta 86 y el dial, en la 87.', ...opts });
+  const ui = openGame({ title: 'Carta 85 — La cerradura de la Copa', instr: 'Colocad cada aro en su posición (1 a 12).', ...opts });
   estilo('fu-aro', '.aro-f{max-width:340px;margin:8px auto;padding:6px;border-radius:8px;background:#0e3a18;border:2px solid #f2c230}.aro-f b{display:block;color:#f2c230;font:800 .85rem system-ui,Arial,sans-serif;margin-bottom:4px}.aro-n{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.aro-n button{min-height:40px;padding:0}');
   const val = D.orden.map(() => null);
   let resuelto = false;

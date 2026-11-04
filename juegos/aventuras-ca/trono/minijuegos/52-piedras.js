@@ -7,7 +7,7 @@ import { estilo } from './reino.js';
 const D = /*DATOS*/{"piedras": 21, "dato": 3}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — El juego de las piedras', instr: 'Jugáis contra el carcelero. Hay ' + D.piedras + ' piedras; cada uno toma 1, 2 o 3 por turno y gana quien se lleva la última. Empezáis vosotros. Reglas y partidas anteriores, en las cartas 54, 55 y 59.', ...opts });
+  const ui = openGame({ title: 'Carta 52 — El juego de las piedras', instr: 'Jugáis contra el carcelero. Hay ' + D.piedras + ' piedras; cada uno toma 1, 2 o 3 por turno y gana quien se lleva la última. Empezáis vosotros.', ...opts });
   estilo('tr-pie', `.pie-mesa{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:320px;margin:12px auto}.pie-p{width:34px;height:24px;border-radius:50%;background:#8a96a2;border:2px solid #0c121a}.pie-p.fuera{opacity:.12}.pie-bot{display:flex;gap:10px;justify-content:center;margin:8px 0}.pie-bot button{width:64px;height:48px;border-radius:12px;border:2px solid #8fc7ee;background:#2c3a4a;color:#e6f1fb;font:800 1.3rem Georgia,serif;cursor:pointer}.pie-log{text-align:center;color:#e6f1fb;font:600 .8rem system-ui;min-height:2.4em;margin:6px 0}`);
   const mesa = document.createElement('div'); mesa.className = 'pie-mesa';
   const bot = document.createElement('div'); bot.className = 'pie-bot';

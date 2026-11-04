@@ -6,7 +6,7 @@ import { contador } from './taller.js';
 const D = /*DATOS*/{"pigmentos": [[2, 1, 0], [1, 3, 1], [0, 1, 3]], "solucion": [3, 2, 4], "letra": "S"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — La paleta de Leonardo', instr: 'Decid cuántas cucharadas de cada pigmento mezclar para conseguir el color del maestro (cartas 54, 55 y 59).', ...opts });
+  const ui = openGame({ title: 'Carta 52 — La paleta de Leonardo', instr: 'Decid cuántas cucharadas de cada pigmento mezclar para conseguir el color del maestro.', ...opts });
   const cs = D.pigmentos.map((_, j) => {
     const c = contador('Pigmento ' + ['I', 'II', 'III'][j], 12, () => ui.say(''), 'p' + j);
     ui.body.appendChild(c.el);

@@ -6,7 +6,7 @@ const D = /*DATOS*/{"palabra": "ZARPA"}/*FIN*/;
 const TECLAS = { '2': 'ABC', '3': 'DEF', '4': 'GHI', '5': 'JKL', '6': 'MNO', '7': 'PQRS', '8': 'TUV', '9': 'WXYZ' };
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 85 — El teléfono rojo', instr: 'Marcad la clave pulsando las teclas tantas veces como pida cada letra. Entre una letra y la siguiente, tocad «Pausa». El orden de las cinco pulsaciones está en la carta 86 y el teclado, en la 87.', ...opts });
+  const ui = openGame({ title: 'Carta 85 — El teléfono rojo', instr: 'Marcad la clave pulsando las teclas tantas veces como pida cada letra. Entre una letra y la siguiente, tocad «Pausa».', ...opts });
   const estilo = document.createElement('style');
   estilo.textContent = '.tel-pantalla{max-width:340px;margin:8px auto;padding:10px;border-radius:8px;background:#04141a;border:2px solid #7fe8f0;color:#7fe8f0;font:700 1.2rem ui-monospace,Consolas,monospace;min-height:2.6em;word-break:break-all}.tel-teclas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:300px;margin:8px auto}.tel-teclas button{min-height:56px;border-radius:50%;border:3px solid #ff6fa8;background:linear-gradient(180deg,#e2467e,#7a1c40);color:#fff;font:800 1.3rem system-ui,Arial,sans-serif;cursor:pointer;padding:0}.tel-teclas button small{display:block;font:600 .6rem system-ui,Arial,sans-serif}';
   document.head.appendChild(estilo);

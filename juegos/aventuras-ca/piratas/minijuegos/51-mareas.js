@@ -8,7 +8,7 @@ const D = /*DATOS*/{"salida": 4, "alturas": [5, 8, 14, 22, 31, 37, 39, 37, 31, 2
 const NOMBRES = ['la Barra del Cangrejo', 'la Barra del Faro', 'la Barra Seca'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — Las mareas', instr: 'Elegid la hora de salida de La Gaviota para que pase las tres barras con agua suficiente. El calado y las barras están en la carta 26 y la tabla de la marea, en las cartas 61 y 63.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — Las mareas', instr: 'Elegid la hora de salida de La Gaviota para que pase las tres barras con agua suficiente.', ...opts });
   estilo('pi-mar', '.mar-g{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;max-width:340px;margin:8px auto}.mar-g button{min-height:44px;padding:0}');
   let hora = null, resuelto = false;
   const g = document.createElement('div');

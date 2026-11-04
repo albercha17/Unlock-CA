@@ -8,7 +8,7 @@ const D = /*DATOS*/{"puntos": [790, 620, 110, 410, 370, 230, 580, 830], "limite"
 const NOMBRES = ['rojo', 'cian', 'verde', 'amarillo', 'rosa', 'naranja', 'violeta', 'blanco'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — La tabla de récords', instr: 'Ordenad las entradas de menos a más puntos, de arriba abajo. Solo podéis subir una entrada un puesto (la baja la de encima). Los puntos de cada color, en la tabla de las cartas 61 y 63; la regla, en la carta 26.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — La tabla de récords', instr: 'Ordenad las entradas de menos a más puntos, de arriba abajo. Solo podéis subir una entrada un puesto (la baja la de encima).', ...opts });
   estilo('ar-ran', `
     .ran-lista{display:flex;flex-direction:column;gap:5px;max-width:320px;margin:8px auto}
     .ran-fila{display:flex;align-items:center;gap:10px;border:2px solid #5a3f9a;border-radius:10px;background:#12082a;padding:5px 8px}

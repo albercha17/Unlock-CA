@@ -7,7 +7,7 @@ const D = /*DATOS*/{"regla": {"00": 0, "01": 0, "02": 0, "10": 1, "11": 0, "12":
 const LADOS = ['izquierda', 'centro', 'derecha'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — La tanda de penaltis', instr: 'Elegid hacia dónde tirar cada penalti para marcar los cinco seguidos. El informe del portero está en las cartas 37 y 39 y su explicación, en la 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — La tanda de penaltis', instr: 'Elegid hacia dónde tirar cada penalti para marcar los cinco seguidos.', ...opts });
   estilo('fu-pen', '.pen-m{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:340px;margin:8px auto}.pen-m div{min-height:44px;border-radius:8px;border:2px solid #c9f5c0;background:#0e3a18;color:#f4fff0;font:800 1rem system-ui,Arial,sans-serif;display:flex;align-items:center;justify-content:center}.pen-m div.gol{background:#f2c230;color:#12310f}');
   let tiros, goles = 0, resuelto = false;
   const marcador = document.createElement('div');

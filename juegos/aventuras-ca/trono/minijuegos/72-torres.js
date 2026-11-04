@@ -6,7 +6,7 @@ import { estilo } from './reino.js';
 const D = /*DATOS*/{"discos": 4, "limite": 15}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 72 — Las torres de hielo', instr: 'Tocad una torre para coger el disco de arriba y luego otra torre para dejarlo. Llevad todos de la torre I a la III. Reglas y reloj de arena, en las cartas 75 y 79.', ...opts });
+  const ui = openGame({ title: 'Carta 72 — Las torres de hielo', instr: 'Tocad una torre para coger el disco de arriba y luego otra torre para dejarlo. Llevad todos de la torre I a la III.', ...opts });
   estilo('tr-tor', `.tor-pl{display:flex;gap:10px;justify-content:center;margin:12px 0}.tor-t{width:100px;height:190px;border:3px solid #6d8aa6;border-radius:8px;background:rgba(0,0,0,.25);display:flex;flex-direction:column-reverse;align-items:center;gap:3px;padding:6px 0;cursor:pointer;position:relative}.tor-t.sel{border-color:#ffd36a}.tor-t::before{content:'';position:absolute;bottom:0;top:14px;width:8px;background:#6d8aa6;z-index:0}.tor-d{height:24px;border-radius:6px;border:2px solid #0c121a;z-index:1}.tor-cu{text-align:center;color:#e6f1fb;font:700 .85rem system-ui}`);
   const t = [[], [], []];
   for (let k = D.discos; k >= 1; k--) t[0].push(k);

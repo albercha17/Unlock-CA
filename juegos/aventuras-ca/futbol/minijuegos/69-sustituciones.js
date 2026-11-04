@@ -7,7 +7,7 @@ import { estilo, opcion } from './comun.js';
 const D = /*DATOS*/{"dorsales": [10, 2, 9, 1, 4, 6, 11, 5], "final": [10, 2, 1, 9, 11, 5, 4, 6], "aro": 9}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — Los cambios del míster', instr: 'Elegid un puesto y tocad el dorsal que acaba en él después de todos los cambios. La alineación inicial está en la carta 70 y las órdenes, en la 71.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — Los cambios del míster', instr: 'Elegid un puesto y tocad el dorsal que acaba en él después de todos los cambios.', ...opts });
   estilo('fu-sus', '.sus-p{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:340px;margin:8px auto}.sus-p button{min-height:52px;font-size:1rem}.sus-d{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:340px;margin:8px auto}');
   const n = D.dorsales.length;
   const pon = Array(n).fill(null);

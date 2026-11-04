@@ -6,7 +6,7 @@ import { estilo } from './taller.js';
 const D = /*DATOS*/{"caras": 4, "solucion": "ALAS", "letras": null}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — El cofre del maestro', instr: 'La cerradura pide una palabra: la que dice el mensaje de la tira de cuero de la tapa (carta 16). Escribidla sin espacios.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — El cofre del maestro', instr: 'Escribidla sin espacios.', ...opts });
   estilo('fl-esc', `.esc-in{display:block;margin:14px auto;width:min(80vw,280px);padding:10px;text-align:center;letter-spacing:.25em;text-transform:uppercase;border-radius:10px;border:2px solid #d9a441;background:#f6e7bf;color:#2a1f0c;font:800 1.3rem Georgia,serif}`);
   const e = document.createElement('input'); e.type = 'text'; e.className = 'esc-in'; e.maxLength = 16; e.autocomplete = 'off'; e.setAttribute('aria-label', 'Palabra de la cerradura');
   e.addEventListener('input', () => ui.say(''));

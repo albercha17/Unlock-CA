@@ -9,7 +9,7 @@ const D = /*DATOS*/{"ancho": 8, "carriles": [{"vel": 1, "dir": 1, "coches": [0, 
 const MOV = { U: [-1, 0], L: [0, -1], R: [0, 1], W: [0, 0] };
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — La rana de la autopista', instr: 'Programad los pasos de la rana: arriba (U), izquierda (L), derecha (R) o esperar (W). Luego pulsad Ejecutar. El tráfico está en las cartas 70 y 71: no se ve aquí.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — La rana de la autopista', instr: 'Programad los pasos de la rana: arriba (U), izquierda (L), derecha (R) o esperar (W). Luego pulsad Ejecutar.', ...opts });
   estilo('ar-rana', `
     .rana-prog{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:44px;margin:6px 0;padding:8px;border-radius:10px;border:2px solid #2ee67a;background:#04140a}
     .rana-paso{width:30px;height:34px;border-radius:6px;background:#12301e;color:#7dffae;font:700 1rem ui-monospace,monospace;display:flex;align-items:center;justify-content:center}

@@ -6,7 +6,7 @@ import { estilo, rejilla } from './reino.js';
 const D = /*DATOS*/{"solucion": [[0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 1, 1, 1, 1, 0], [1, 1, 1, 0, 0, 1, 0, 1], [0, 1, 1, 0, 1, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0, 0], [0, 1, 1, 1, 1, 1, 1, 0], [1, 0, 1, 1, 0, 1, 1, 1], [0, 1, 0, 1, 0, 0, 1, 0]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 64 — El tapiz del sigilo', instr: 'Tocad las casillas que van pintadas (otra vez para borrar). Cada número de las cartas 66 (filas) y 67 (columnas) dice cuántas casillas seguidas se pintan; entre grupos hay al menos un hueco.', ...opts });
+  const ui = openGame({ title: 'Carta 64 — El tapiz del sigilo', instr: 'Tocad las casillas que van pintadas (otra vez para borrar).', ...opts });
   estilo('tr-tap', `.tap .tr-cel{background:#c9d6e2}.tap .tr-cel.on{background:#2c3a4a}`);
   const g = Array.from({ length: D.solucion.length }, () => Array(D.solucion.length).fill(0));
   let resuelto = false;

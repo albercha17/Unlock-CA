@@ -7,7 +7,7 @@ import { contador } from './reino.js';
 const D = /*DATOS*/{"resultado": 43}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 85 — La puerta de la profecía', instr: 'La puerta se abre con un número: el que sale de la cuenta de la profecía con las cuatro cifras que dejaron otros puzles. Los acertijos, en las cartas 86 y 87.', ...opts });
+  const ui = openGame({ title: 'Carta 85 — La puerta de la profecía', instr: 'La puerta se abre con un número: el que sale de la cuenta de la profecía con las cuatro cifras que dejaron otros puzles.', ...opts });
   const c = contador('Número', 99, () => ui.say(''), 'numero');
   ui.body.appendChild(c.el);
   let resuelto = false;

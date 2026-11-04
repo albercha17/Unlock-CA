@@ -7,7 +7,7 @@ import { estilo, rejilla } from './maquina.js';
 const D = /*DATOS*/{"dados": [[1, 0, 10], [2, 0, 5], [1, 1, 7], [2, 2, 9], [2, 3, 8], [3, 3, 2]], "solucion": [[16, 10, 5, 3], [1, 7, 12, 14], [4, 6, 9, 15], [13, 11, 8, 2]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — El marcador del jefe', instr: 'Elegid una casilla y tocad la ficha que queréis poner. Los dieciséis números del 1 al 16 van una vez cada uno. Los seis que ya están puestos se ven en la carta 37; la regla, en la 39.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — El marcador del jefe', instr: 'Elegid una casilla y tocad la ficha que queréis poner. Los dieciséis números del 1 al 16 van una vez cada uno.', ...opts });
   estilo('ar-cua', `
     .cua .ar-cel{font-size:1.2rem}.cua .ar-cel.sel{outline:3px solid #ffde46;background:#3a1458}.cua .ar-cel.fija{background:#0c3a52;color:#ffde46}
     .cua-fichas{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;max-width:340px;margin:8px auto}

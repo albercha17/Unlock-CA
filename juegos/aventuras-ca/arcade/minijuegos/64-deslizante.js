@@ -6,7 +6,7 @@ import { estilo, NEON } from './maquina.js';
 const D = /*DATOS*/{"inicio": [[8, 1, 7], [6, 3, 5], [0, 2, 4]], "objetivo": [[1, 2, 3], [8, 0, 4], [7, 6, 5]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 64 — El puzle deslizante', instr: 'Tocad una ficha junto al hueco para deslizarla. Dejad las ocho fichas como en el dibujo final de las cartas 66 y 67.', ...opts });
+  const ui = openGame({ title: 'Carta 64 — El puzle deslizante', instr: 'Tocad una ficha junto al hueco para deslizarla. Dejad las ocho fichas como en el dibujo final.', ...opts });
   estilo('ar-des', `
     .des-tab{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:min(78vw,300px);margin:10px auto;padding:8px;border-radius:10px;background:#0a0418;border:2px solid #2ee67a}
     .des-ficha{aspect-ratio:1;border-radius:8px;border:4px solid;background:#1c0a30;font:800 2rem ui-monospace,monospace;cursor:pointer;padding:0}

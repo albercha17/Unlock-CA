@@ -7,7 +7,7 @@ import { estilo, NS } from './cupula.js';
 const D = /*DATOS*/{"n": 6, "solucion": [["h", 0, 0], ["h", 0, 6], ["h", 1, 1], ["h", 1, 6], ["h", 2, 2], ["h", 2, 6], ["h", 3, 2], ["h", 3, 6], ["h", 4, 5], ["h", 4, 6], ["v", 0, 0], ["v", 0, 1], ["v", 0, 2], ["v", 0, 3], ["v", 0, 4], ["v", 0, 5], ["v", 1, 0], ["v", 2, 1], ["v", 4, 2], ["v", 4, 3], ["v", 4, 4], ["v", 5, 5]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — El circuito del reactor', instr: 'Tocad un lado entre dos puntos para trazar el cable (otra vez para quitarlo). Tiene que quedar un solo bucle cerrado. El esquema con los números, en las cartas 61 y 63.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — El circuito del reactor', instr: 'Tocad un lado entre dos puntos para trazar el cable (otra vez para quitarlo). Tiene que quedar un solo bucle cerrado.', ...opts });
   estilo('mr-ani', `.ani-svg{display:block;width:min(88vw,330px);margin:10px auto;background:#2a2430;border-radius:10px}.ani-svg .lado{stroke:rgba(255,255,255,.12);stroke-width:5;stroke-linecap:round}.ani-svg .lado.on{stroke:#ff8a50;stroke-width:7}.ani-svg .hit{stroke:transparent;stroke-width:22;cursor:pointer}`);
   const n = D.n, L = 40, M = 20;
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'ani-svg'); svg.setAttribute('viewBox', '0 0 ' + (n * L + 2 * M) + ' ' + (n * L + 2 * M));

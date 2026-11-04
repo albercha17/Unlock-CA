@@ -18,7 +18,7 @@ function cortado(p, q) {
 }
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 48 — El pase en cadena', instr: 'Tocad a los jugadores en el orden de los pases: desde el portero (P) hasta el delantero (Z), por todos los demás una vez. El campo está en las cartas 42 y 49; la regla, en la 53.', ...opts });
+  const ui = openGame({ title: 'Carta 48 — El pase en cadena', instr: 'Tocad a los jugadores en el orden de los pases: desde el portero (P) hasta el delantero (Z), por todos los demás una vez.', ...opts });
   estilo('fu-pase', '.pas-lin{min-height:2.4em}');
   let cadena = [], resuelto = false;
   const fila = document.createElement('div');

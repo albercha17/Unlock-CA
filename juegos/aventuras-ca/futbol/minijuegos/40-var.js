@@ -6,7 +6,7 @@ import { estilo } from './comun.js';
 const D = /*DATOS*/{"fuera": [true, false, true, false, false, false], "aro": 11}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — La sala del VAR', instr: 'Decidid cada jugada: ¿válida o fuera de juego? Las jugadas están en las cartas 41 y 43; el reglamento, en la 45.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — La sala del VAR', instr: 'Decidid cada jugada: ¿válida o fuera de juego?', ...opts });
   estilo('fu-var', '.var-f{display:flex;align-items:center;gap:8px;max-width:340px;margin:6px auto}.var-f b{min-width:84px;color:#f2c230;font:800 .9rem system-ui,Arial,sans-serif}.var-f button{flex:1;min-height:44px}');
   const voto = D.fuera.map(() => null);
   let resuelto = false;

@@ -1142,6 +1142,8 @@ def ui_imagenes(carpeta, inst):
     palmera(h, 56, 108, 1.5)
     guardar(h, "palmera.png", (255, 0, 255))
     for sim in ["ancla", "calavera", "estrella", "luna", "llave", "corona", "pez", "campana", "espada"]:
+        if os.path.exists(os.path.join(ui, "sim-ancla.origen")):          # ya los dibujó ChatGPT (sprites_chatgpt.py)
+            continue
         h = Hoja(160, 160, (0, 0, 0))
         simbolo(h, sim, 80, 80, 66, (236, 214, 160), (0, 0, 0))
         guardar(h, f"sim-{sim}.png")
@@ -1159,6 +1161,13 @@ def ui_imagenes(carpeta, inst):
         l = 14 if k % 9 == 0 else 7
         h.linea([(210 + (180 - l) * math.cos(a), 210 + (180 - l) * math.sin(a)), (210 + 180 * math.cos(a), 210 + 180 * math.sin(a))], TINTA, 2)
     guardar(h, "rosa.png", (255, 0, 255))
+    for nombre in ("gaviota", "fragata", "palmera", "barril"):             # sprites de ChatGPT, si existen
+        ruta = os.path.join(ui, f"spr-{nombre}.png")
+        if os.path.exists(ruta):
+            im = Image.open(ruta).convert("RGBA")
+            t = 240
+            esc = t / max(im.size)
+            im.resize((max(2, round(im.width * esc)), max(2, round(im.height * esc))), Image.LANCZOS).save(os.path.join(ui, f"{nombre}.png"))
 
 
 # ================================================================== datos de los minijuegos

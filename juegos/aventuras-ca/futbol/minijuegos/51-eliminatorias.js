@@ -6,7 +6,7 @@ import { estilo, opcion } from './comun.js';
 const D = /*DATOS*/{"equipos": ["Estrella", "Rayos", "Halcones", "Tigres", "Delfines", "Lobos", "Osos", "Cóndores"], "bits": [0, 0, 0, 1, 0, 0, 1]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — El cuadro de la Copa', instr: 'En cada partido, tocad al equipo que pasa. Los titulares están en la carta 26 y el cuadro, en las cartas 61 y 63.', ...opts });
+  const ui = openGame({ title: 'Carta 51 — El cuadro de la Copa', instr: 'En cada partido, tocad al equipo que pasa.', ...opts });
   estilo('fu-eli', '.eli-r{max-width:340px;margin:8px auto}.eli-r h4{margin:6px 0 2px;color:#f2c230;font:800 .85rem system-ui,Arial,sans-serif}.eli-p{display:flex;gap:6px;margin:4px 0}.eli-p button{flex:1;min-height:44px;font-size:.85rem}');
   // partidos: 0-3 cuartos, 4-5 semifinales, 6 final; gana[i] = equipo que pasa (o null)
   const gana = Array(7).fill(null);

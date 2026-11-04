@@ -6,7 +6,7 @@ import { estilo } from './reino.js';
 const D = /*DATOS*/{"opciones": ["Rhaena", "Daemon", "Maegor", "Aemon", "Daenys", "Jaena"], "solucion": "Daemon"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 51 — La sucesión', instr: 'El rey Aerion ha muerto. Elegid quién hereda la corona según las leyes del reino (carta 26) y el árbol de la familia (cartas 61 y 63).', ...opts });
+  const ui = openGame({ title: 'Carta 51 — La sucesión', instr: 'El rey Aerion ha muerto. Elegid quién hereda la corona según las leyes del reino y el árbol de la familia.', ...opts });
   estilo('tr-suc', `.suc-op{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:300px;margin:14px auto}.suc-b{padding:14px 6px;border-radius:12px;border:3px solid #6d8aa6;background:#2c3a4a;color:#e6f1fb;font:800 1.1rem Georgia,serif;cursor:pointer}.suc-b.sel{border-color:#8fc7ee;background:#3a5a78}`);
   const g = document.createElement('div'); g.className = 'suc-op';
   let sel = null, resuelto = false;

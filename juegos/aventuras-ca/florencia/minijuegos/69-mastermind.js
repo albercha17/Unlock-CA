@@ -8,7 +8,7 @@ const D = /*DATOS*/{"colores": ["rojo", "azul", "verde", "amarillo", "violeta", 
 const TONO = ['#be322c', '#3c64d2', '#3c966a', '#e8be3c', '#8c50be', '#f0e8d8'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — La caja de pigmentos', instr: 'Elegid un color y tocad el hueco de la caja donde va. Son cuatro pigmentos distintos. Los intentos anteriores y su norma, en las cartas 70 y 71.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — La caja de pigmentos', instr: 'Elegid un color y tocad el hueco de la caja donde va. Son cuatro pigmentos distintos.', ...opts });
   estilo('fl-mas', `.mas-hue{display:flex;gap:10px;justify-content:center;margin:12px 0}.mas-h{width:56px;height:56px;border-radius:50%;border:3px dashed #d9a441;background:rgba(0,0,0,.3);cursor:pointer;padding:0}.mas-pal{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}.mas-c{width:46px;height:46px;border-radius:50%;border:3px solid #6d5a36;cursor:pointer;padding:0}.mas-c.sel{border-color:#fff;box-shadow:0 0 0 3px #d9a441}.mas-c.usado{opacity:.35}`);
   const hue = document.createElement('div'); hue.className = 'mas-hue';
   const pal = document.createElement('div'); pal.className = 'mas-pal';

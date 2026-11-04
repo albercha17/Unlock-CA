@@ -6,7 +6,7 @@ import { estilo } from './comun.js';
 const O = /*DATOS*/{"casillas": 60, "final": 39, "nota": "LA"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — La oca de Leo', instr: 'Escribid en qué casilla acaba la ficha tras las diez tiradas, empezando fuera del tablero. El tablero está en las cartas 54 y 55 y las tiradas, en la 59.', ...opts });
+  const ui = openGame({ title: 'Carta 52 — La oca de Leo', instr: 'Escribid en qué casilla acaba la ficha tras las diez tiradas, empezando fuera del tablero.', ...opts });
   estilo('ju-oca', '.oca-t{display:block;text-align:center;font:700 .9rem system-ui,sans-serif;color:#c9d8ff;margin:4px 0}');
   const aviso = document.createElement('div');
   aviso.className = 'oca-t';

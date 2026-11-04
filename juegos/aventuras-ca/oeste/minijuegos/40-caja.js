@@ -27,7 +27,7 @@ function orientaciones(cs) {
 }
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — La caja del carro', instr: 'Elegid una letra y tocad casillas del tablero para pintarlas con esa pieza (tocad otra vez para borrar). Las seis piezas llenan el tablero entero. Las formas, en la carta 45; las dos piezas ya puestas, en las cartas 41 y 43.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — La caja del carro', instr: 'Elegid una letra y tocad casillas del tablero para pintarlas con esa pieza (tocad otra vez para borrar). Las seis piezas llenan el tablero entero.', ...opts });
   estilo('oe-caj', `.caj .oe-cel{color:#fff;font-size:1.2rem}.caj-pal{display:flex;gap:6px;justify-content:center;margin:8px 0}.caj-pal button{width:46px;height:46px;border-radius:8px;border:3px solid #3a2412;color:#fff;font:800 1.2rem Georgia,serif;cursor:pointer}.caj-pal button.sel{outline:3px solid #f5d48a}`);
   const F = D.filas, C = D.cols;
   const est = Array.from({ length: F }, () => Array(C).fill(''));

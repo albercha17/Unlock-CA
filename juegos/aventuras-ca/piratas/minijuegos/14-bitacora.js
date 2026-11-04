@@ -6,7 +6,7 @@ import { contador } from './comun.js';
 const D = /*DATOS*/{"entre_horas": 8, "entre_min": 30, "distancia": 3}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — La bitácora', instr: 'Decid cuánto tiempo pasó entre el aviso 1 y el aviso 3 de la bitácora, en horas y minutos. La bitácora está en la carta 16.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — La bitácora', instr: 'Decid cuánto tiempo pasó entre el aviso 1 y el aviso 3 de la bitácora, en horas y minutos.', ...opts });
   const horas = contador('Horas', 0, 23, 0, 'horas');
   const minutos = contador('Minutos', 0, 45, 0, 'minutos', 15);
   ui.body.append(horas.el, minutos.el);

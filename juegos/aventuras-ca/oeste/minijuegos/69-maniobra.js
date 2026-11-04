@@ -7,7 +7,7 @@ import { estilo, COLORES } from './comun.js';
 const D = /*DATOS*/{"pesos": [1, 5, 3, 2, 4, 6, 7], "coord": "34"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 69 — La maniobra de vagones', instr: 'Pasad vagones de la fila al apartadero y del apartadero a la salida, de uno en uno. Los pesos de cada color están en la carta 70; la regla, en la 71.', ...opts });
+  const ui = openGame({ title: 'Carta 69 — La maniobra de vagones', instr: 'Pasad vagones de la fila al apartadero y del apartadero a la salida, de uno en uno.', ...opts });
   estilo('oe-man', `
     .man-via{display:flex;align-items:center;gap:6px;min-height:50px;margin:6px 0;padding:6px;border-radius:8px;background:#3a2412;border:2px solid #8a5a2a}
     .man-via b{color:#f5d48a;font:700 .75rem Georgia,serif;min-width:74px}

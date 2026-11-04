@@ -6,7 +6,7 @@ import { estilo } from './cupula.js';
 const D = /*DATOS*/{"secreta": "LANZADOR"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 72 — La base de datos', instr: 'Escribid la clave de acceso a los archivos de la colonia: las letras sobrantes de la sopa de letras (cartas 75 y 79), leídas en orden.', ...opts });
+  const ui = openGame({ title: 'Carta 72 — La base de datos', instr: 'Escribid la clave de acceso a los archivos de la colonia: las letras sobrantes de la sopa de letras, leídas en orden.', ...opts });
   estilo('mr-sop', `.sop-in{display:block;margin:14px auto;width:min(80vw,280px);padding:10px;text-align:center;letter-spacing:.2em;text-transform:uppercase;border-radius:10px;border:2px solid #ff8a50;background:#ffe6d6;color:#2a120c;font:800 1.3rem Georgia,serif}`);
   const e = document.createElement('input'); e.type = 'text'; e.className = 'sop-in'; e.maxLength = 16; e.autocomplete = 'off'; e.setAttribute('aria-label', 'Clave de acceso');
   e.addEventListener('input', () => ui.say(''));

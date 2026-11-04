@@ -7,7 +7,7 @@ import { estilo, rejilla } from './taller.js';
 const D = /*DATOS*/{"n": 5, "solucion": [[3, 5, 4, 1, 2], [4, 2, 1, 5, 3], [1, 3, 5, 2, 4], [2, 1, 3, 4, 5], [5, 4, 2, 3, 1]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 40 — El tablero del león', instr: 'Tocad una casilla para cambiar su número (1 a 5, y otra vez vacía). Filas y columnas llevan del 1 al 5 sin repetir y los signos del tablero (cartas 41, 43 y 45) han de cumplirse.', ...opts });
+  const ui = openGame({ title: 'Carta 40 — El tablero del león', instr: 'Tocad una casilla para cambiar su número (1 a 5, y otra vez vacía).', ...opts });
   estilo('fl-fut', `.fut .fl-cel{background:#f6e7bf;font:800 1.4rem Georgia,serif}`);
   const v = Array.from({ length: D.n }, () => Array(D.n).fill(0));
   let resuelto = false;

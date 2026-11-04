@@ -6,7 +6,7 @@ import { estilo } from './comun.js';
 const D = /*DATOS*/{"palabra": "VAPOR"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 85 — La válvula de la locomotora', instr: 'Escribid la palabra que forman las cinco coordenadas que anotasteis, con el cuadrado de la carta 87. El orden de las coordenadas, en la 86.', ...opts });
+  const ui = openGame({ title: 'Carta 85 — La válvula de la locomotora', instr: 'Escribid la palabra que forman las cinco coordenadas que anotasteis, con el cuadrado.', ...opts });
   estilo('oe-pol', `.pol-casillas{display:flex;gap:8px;justify-content:center;margin:8px 0 12px}.pol-casilla{width:44px;height:54px;border-bottom:4px solid #e0a040;color:#f5d48a;font:800 2rem/54px Georgia,serif;text-align:center}.pol-teclado{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;max-width:330px;margin:0 auto 10px}.pol-teclado button{aspect-ratio:1;min-height:40px;border-radius:8px;border:2px solid #e0a040;background:linear-gradient(180deg,#8a5a2a,#4a2c14);color:#f5d48a;font:700 1rem Georgia,serif;cursor:pointer;box-shadow:0 3px 0 #2a1608;padding:0}`);
   let texto = '', resuelto = false;
   const casillas = document.createElement('div');

@@ -8,7 +8,7 @@ const D = /*DATOS*/{"monedas": [1, 15, 16, 20], "precio": 34, "minimo": 4, "solu
 const NOM = ['la más pequeña', 'la segunda', 'la tercera', 'la mayor'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 72 — Las monedas de la máquina', instr: 'Elegid cuántas monedas de cada clase echáis. La máquina no da cambio: hay que pagar justo el precio de la carta 79, con las menos monedas posibles. Los valores están en la carta 75, de la menor a la mayor.', ...opts });
+  const ui = openGame({ title: 'Carta 72 — Las monedas de la máquina', instr: 'Elegid cuántas monedas de cada clase echáis.', ...opts });
   estilo('ar-mon', `.mon-total{margin:6px auto;text-align:center;font:700 1rem ui-monospace,monospace;color:#ffde46}`);
   let resuelto = false;
   const cont = D.monedas.map((v, i) => contador('Moneda ' + NOM[i], 12, () => { ui.say(''); total(); }, String(v)));

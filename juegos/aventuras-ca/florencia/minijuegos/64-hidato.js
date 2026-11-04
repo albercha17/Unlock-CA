@@ -7,7 +7,7 @@ import { estilo, rejilla } from './taller.js';
 const D = /*DATOS*/{"n": 5, "camino": [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [4, 3], [4, 2], [4, 1], [4, 0], [3, 0], [3, 1], [2, 1], [2, 0], [1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 3], [2, 3], [1, 3]]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 64 — La escalera de caracol', instr: 'Tocad las casillas en el orden de los números: la primera que toquéis será el 1, la siguiente el 2, y así hasta el ' + D.n * D.n + '. Los números que ya están puestos, en las cartas 66 y 67.', ...opts });
+  const ui = openGame({ title: 'Carta 64 — La escalera de caracol', instr: 'Tocad las casillas en el orden de los números: la primera que toquéis será el 1, la siguiente el 2, y así hasta el ' + D.n * D.n + '. Los números que ya están puestos.', ...opts });
   estilo('fl-hid', `.hid .fl-cel{background:#e8d3a8;font:800 .95rem system-ui}.hid .fl-cel.puesto{background:#c98a52;color:#fff}`);
   const ruta = [];
   let resuelto = false;

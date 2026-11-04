@@ -6,7 +6,7 @@ import { guardarSello, contador } from './nilo.js';
 const D = /*DATOS*/{"fracciones": [[1, 1], [1, 2], [1, 4]], "total": 28, "solucion": 16}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — El granero cerrado', instr: 'La puerta del granero solo se abre si decís cuántos sacos tiene el montón. Lo que dice el grabado, en la carta 16.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — El granero cerrado', instr: 'La puerta del granero solo se abre si decís cuántos sacos tiene el montón.', ...opts });
   const c = contador('Sacos', 99, () => ui.say(''), 'sacos');
   ui.body.appendChild(c.el);
   let resuelto = false;

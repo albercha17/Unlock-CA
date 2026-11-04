@@ -6,7 +6,7 @@ import { estilo } from './comun.js';
 const D = /*DATOS*/{"final": [1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0], "n": 12, "pasos": 6, "aro": 2}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 72 — El mosaico de la grada', instr: 'Pintad de rojo las butacas de la fila ' + (D.pasos + 1) + '. La primera fila está en la carta 75 y la regla, en la 79.', ...opts });
+  const ui = openGame({ title: 'Carta 72 — El mosaico de la grada', instr: 'Pintad de rojo las butacas de la fila ' + (D.pasos + 1) + '.', ...opts });
   estilo('fu-gra', '.gra-f{display:grid;gap:3px;max-width:340px;margin:10px auto}.gra-f button{aspect-ratio:1;min-height:24px;border:2px solid #12310f;border-radius:4px;background:#f4fff0;padding:0;cursor:pointer}.gra-f button.roja{background:#d63a3a}');
   const fila = Array(D.n).fill(0);
   let resuelto = false;

@@ -6,7 +6,7 @@ import { openGame } from './ui.js';
 const D = /*DATOS*/{"nodos": ["A", "B", "C", "D", "E", "F", "G", "H", "I"], "aristas": [[0, 1, 4], [0, 3, 8], [1, 2, 6], [1, 4, 9], [2, 5, 9], [3, 4, 4], [3, 6, 5], [4, 5, 2], [4, 7, 7], [5, 8, 4], [6, 7, 5], [7, 8, 5]], "cerrados": [1, 5], "mejor": 23}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 20 — La persecución', instr: 'Marcad en orden las glorietas del camino, desde el Casino (A) hasta el Puerto (I). El acertijo está en la carta 18 y el plano, en las cartas 19 y 21.', ...opts });
+  const ui = openGame({ title: 'Carta 20 — La persecución', instr: 'Marcad en orden las glorietas del camino, desde el Casino (A) hasta el Puerto (I).', ...opts });
   let ruta = [], resuelto = false;
   const mapa = new Map();
   D.aristas.forEach(([a, b, w]) => { mapa.set(a + '-' + b, w); mapa.set(b + '-' + a, w); });

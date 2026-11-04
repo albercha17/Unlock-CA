@@ -6,7 +6,7 @@ import { estilo } from './comun.js';
 const D = /*DATOS*/{"piratas": 7, "monedas": 120, "solucion": [117, 0, 1, 0, 1, 0, 1], "necesarios": 4, "previo": [118, 0, 1, 0, 1, 0]}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 46 — El reparto del botín', instr: 'Escribid cuántos doblones da el capitán a cada pirata (el 1 es él mismo) para que el reparto se apruebe y el capitán se quede con lo máximo. La tripulación está en la carta 37, el Código en la 39 y el botín, en la 33.', ...opts });
+  const ui = openGame({ title: 'Carta 46 — El reparto del botín', instr: 'Escribid cuántos doblones da el capitán a cada pirata (el 1 es él mismo) para que el reparto se apruebe y el capitán se quede con lo máximo.', ...opts });
   estilo('pi-bot', '.bot-f{display:flex;align-items:center;gap:8px;max-width:340px;margin:4px auto}.bot-f label{min-width:92px;color:#e8b84a;font:800 .9rem system-ui,sans-serif}.bot-f input{flex:1;min-height:40px;border-radius:8px;border:2px solid #e8b84a;background:#f6e7b8;color:#10242c;font:700 1.1rem system-ui,sans-serif;padding:0 10px}');
   let resuelto = false;
   const campos = Array.from({ length: D.piratas }, (_, i) => {

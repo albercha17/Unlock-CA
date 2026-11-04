@@ -7,7 +7,7 @@ import { contador } from './maquina.js';
 const D = /*DATOS*/{"bytes": [6, 9, 11, 12], "resultado": 8}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 85 — El arranque de la máquina', instr: 'Apuntad los cuatro bytes que dejaron el circuito, los fantasmas, el sprite y la rana, y la clave que sale de aplicarles la «o exclusiva». Las reglas están en las cartas 86 y 87.', ...opts });
+  const ui = openGame({ title: 'Carta 85 — El arranque de la máquina', instr: 'Apuntad los cuatro bytes que dejaron el circuito, los fantasmas, el sprite y la rana, y la clave que sale de aplicarles la «o exclusiva».', ...opts });
   let resuelto = false;
   const nombres = ['Byte del circuito', 'Byte de los fantasmas', 'Byte del sprite', 'Byte de la rana'];
   const b = nombres.map((n, i) => contador(n, 15, () => ui.say(''), 'b' + i));

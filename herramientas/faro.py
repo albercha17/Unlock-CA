@@ -317,17 +317,26 @@ def carta_sombra(inst):
     h.rect(16, 16, W - 16, H - 16, None, (200, 180, 120), 4)
     h.texto((W / 2 + 30, 60), "LA SOMBRA EN LA PARED", "cartel", 32, (240, 226, 190))
     h.texto((W / 2 + 30, 98), "Cuarto de guardia del faro", "texto2", 22, (220, 210, 180))
-    from instancias_faro import sombra4
-    m = sombra4(so["solucion"])
-    a = np.full((160, 480, 3), (232, 220, 186), np.uint8)
-    a[m] = (40, 34, 30)
-    pared = Image.fromarray(a).resize((1056, 352))
+    from instancias_faro import celda, sombra4
+    if celda(so["solucion"][0], 3) is not None:
+        alfa = Image.new("L", (1440, 480), 0)
+        for k, nombre in enumerate(so["solucion"]):
+            alfa.paste(celda(nombre, 3).getchannel("A"), (360 * k, 0), celda(nombre, 3).getchannel("A"))
+        pared = Image.new("RGB", (1440, 480), (232, 220, 186))
+        pared.paste(Image.new("RGB", (1440, 480), (40, 34, 30)), (0, 0), alfa)
+        pared = pared.resize((1056, 352), Image.LANCZOS)
+    else:
+        m = sombra4(so["solucion"])
+        a = np.full((160, 480, 3), (232, 220, 186), np.uint8)
+        a[m] = (40, 34, 30)
+        pared = Image.fromarray(a).resize((1056, 352))
     h.im.paste(pared, (102, 340))
     h.linea([(51, 410), (579, 410)], (40, 34, 30), 3)
     return h.final()
 
 
 def carta_estante(inst):
+    from instancias_faro import celda
     so = inst["sombras"]
     h = Hoja(W, H, (120, 86, 56))
     h.rect(16, 16, W - 16, H - 16, None, (60, 40, 24), 5)
@@ -337,10 +346,15 @@ def carta_estante(inst):
         fila, col = divmod(k, 2)
         x, y = 70 + col * 270, 140 + fila * 175
         h.rect(x - 10, y + 138, x + 230, y + 150, (80, 54, 32))
-        mask = IA.silueta(nombre, 0).crop((0, 0, 120, 160))
-        capa = Image.new("RGB", mask.size, OBJ_COL[k])
-        h.im.paste(capa.resize((240, 320)), (int((x + 50) * 2), int((y - 20) * 2)), mask.resize((240, 320)))
-        h.texto((x + 180, y + 60), str(k + 1), "cartel", 30, (250, 236, 200))
+        c = celda(nombre, 2)
+        if c is not None:
+            sp2 = c.resize((240, 320), Image.LANCZOS)
+            h.im.paste(sp2.convert("RGB"), (int((x + 50) * 2), int((y - 22) * 2)), sp2.getchannel("A"))
+        else:
+            mask = IA.silueta(nombre, 0).crop((0, 0, 120, 160))
+            capa = Image.new("RGB", mask.size, OBJ_COL[k])
+            h.im.paste(capa.resize((240, 320)), (int((x + 50) * 2), int((y - 20) * 2)), mask.resize((240, 320)))
+        h.texto((x + 190, y + 40), str(k + 1), "cartel", 30, (250, 236, 200))
     return h.final()
 
 
@@ -515,10 +529,18 @@ def tabla_valvulas(inst):
 
 # ------------------------------------------------------------------ imágenes de la interfaz
 def ui_imagenes(carpeta):
+    from instancias_faro import celda
     d = os.path.join(carpeta, "img", "ui")
     os.makedirs(d, exist_ok=True)
     so = _inst()["sombras"]
     for k, nombre in enumerate(so["objetos"]):
+        c = celda(nombre, 2)
+        if c is not None:
+            c.save(os.path.join(d, f"obj-{nombre}.png"))
+            sm = Image.new("RGBA", c.size, (20, 18, 16, 255))
+            sm.putalpha(c.getchannel("A"))
+            sm.save(os.path.join(d, f"sombra-{nombre}.png"))
+            continue
         mask = IA.silueta(nombre, 0).crop((0, 0, 120, 160))
         capa = Image.new("RGBA", mask.size, OBJ_COL[k] + (255,))
         capa.putalpha(mask)

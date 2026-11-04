@@ -6,7 +6,7 @@ import { contador } from './comun.js';
 const D = /*DATOS*/{"equipos": ["Estrella", "Rayos", "Halcones", "Tigres"], "partidos": [[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]], "desconocidos": [1, 2, 3, 4], "resultados": [[1, 4], [0, 2], [0, 3], [3, 3], [3, 1], [0, 3]], "aro": 7}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 14 — La liguilla del club', instr: 'Escribid los marcadores de los partidos que faltan para que cuadre la clasificación. La clasificación y los resultados conocidos están en la carta 16.', ...opts });
+  const ui = openGame({ title: 'Carta 14 — La liguilla del club', instr: 'Escribid los marcadores de los partidos que faltan para que cuadre la clasificación.', ...opts });
   const cont = D.desconocidos.map(i => {
     const [a, b] = D.partidos[i];
     const caja = document.createElement('div');

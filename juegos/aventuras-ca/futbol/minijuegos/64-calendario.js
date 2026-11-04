@@ -6,7 +6,7 @@ import { estilo, opcion } from './comun.js';
 const D = /*DATOS*/{"clubes": ["Estrella", "Rayos", "Halcones", "Tigres", "Delfines", "Lobos", "Osos", "Cóndores"], "solucion": [[1, 4], [7, 5], [0, 6], [2, 3]], "jornada": 5}/*FIN*/;
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 64 — El calendario de la liga', instr: 'Formad los cuatro cruces de la jornada ' + D.jornada + ': tocad un equipo y luego su rival. Los cruces de la jornada 1 están en la carta 66 y el método, en la 67.', ...opts });
+  const ui = openGame({ title: 'Carta 64 — El calendario de la liga', instr: 'Formad los cuatro cruces de la jornada ' + D.jornada + ': tocad un equipo y luego su rival.', ...opts });
   estilo('fu-cal', '.cal-g{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-width:340px;margin:8px auto}.cal-g button{min-height:48px}.cal-g button.usado{opacity:.45}');
   let pares = [], pend = null, resuelto = false;
   const rejilla = document.createElement('div');

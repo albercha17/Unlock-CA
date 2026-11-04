@@ -8,7 +8,7 @@ const D = /*DATOS*/{"jugadores": ["Toni", "Beto", "Rafa", "Luis", "Nico"], "pues
 const CORTO = ['POR', 'DEF', 'LAT', 'MED', 'DEL'];
 
 export function startMinigame(opts = {}) {
-  const ui = openGame({ title: 'Carta 52 — El once del míster', instr: 'Poned a cada jugador en un puesto distinto. Las notas están en las cartas 54 y 55; la regla, en la 59.', ...opts });
+  const ui = openGame({ title: 'Carta 52 — El once del míster', instr: 'Poned a cada jugador en un puesto distinto.', ...opts });
   estilo('fu-ali', '.ali-f{max-width:340px;margin:6px auto}.ali-f b{color:#f2c230;display:block;margin-bottom:4px;font:800 .9rem system-ui,Arial,sans-serif}.ali-f .fu-btns{margin:2px 0;gap:4px}.ali-f .fu-opc{min-width:52px;padding:0 6px}');
   const eleccion = D.jugadores.map(() => -1);
   let resuelto = false;
