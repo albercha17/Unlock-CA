@@ -20,3 +20,6 @@ juegos/apagon-colegio/
 
 # Vídeos locales (los de cada juego van en juegos/**/video/)
 /video/
+
+# hojas originales de sprites de ChatGPT (solo locales; se pueden volver a trocear con sprites_chatgpt.py --reprocesar)
+juegos/**/img/ui/_hoja-*

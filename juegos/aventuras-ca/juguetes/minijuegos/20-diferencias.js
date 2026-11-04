@@ -2,7 +2,7 @@
 // Imagen y zonas de herramientas/juguetes.py (instancias_juguetes.json). Nota de la nana: E.nota.
 import { openGame } from './ui.js';
 
-const E = /*DATOS*/{"zonas": [[[8.71, 43.0, 14.84, 20.0]], [[32.9, 43.0, 14.84, 20.0]], [[76.45, 13.0, 14.84, 20.0]], [[78.06, 43.0, 14.84, 20.0]], [[53.87, 13.0, 14.84, 20.0]], [[67.58, 43.0, 14.84, 20.0]], [[22.42, 73.0, 14.84, 20.0], [8.71, 13.0, 14.84, 20.0]]], "textos": ["la pelota era roja y ahora es azul", "el coche era azul y ahora es rojo", "falta el libro morado", "falta el barco rojo", "el cohete está boca abajo", "hay un dado que no estaba", "el patito ha bajado a la balda de abajo"], "nota": "SOL"}/*FIN*/;
+const E = /*DATOS*/{"zonas": [[[8.72, 40.19, 14.81, 20.75]], [[28.26, 44.44, 24.12, 16.51]], [[76.59, 10.94, 14.55, 23.11]], [[77.24, 37.83, 16.48, 23.11]], [[55.12, 9.06, 12.34, 25.0]], [[69.47, 44.91, 11.06, 16.04]], [[23.38, 67.74, 12.93, 20.28], [9.67, 13.77, 12.93, 20.28]]], "textos": ["la pelota era roja y ahora es azul", "el coche era azul y ahora es rojo", "falta el libro morado", "falta el barco rojo", "el cohete está boca abajo", "hay un dado que no estaba", "el patito ha bajado a la balda de abajo"], "nota": "SOL"}/*FIN*/;
 
 export function startMinigame(opts = {}) {
   const ui = openGame({
