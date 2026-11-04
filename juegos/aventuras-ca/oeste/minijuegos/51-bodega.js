@@ -11,8 +11,8 @@ export function startMinigame(opts = {}) {
   const ui = openGame({ title: 'Carta 51 — La bodega de barriles', instr: 'Moved al tabernero con las flechas y empujad los barriles hasta los huecos del suelo.', ...opts });
   estilo('oe-bod', `
     .bod-tab{display:grid;gap:2px;width:min(88vw,360px);margin:8px auto;padding:6px;border-radius:8px;background:#3a2412;border:3px solid #8a5a2a}
-    .bod-c{aspect-ratio:1;border-radius:3px;background:#e6c88c;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#3a2412;font-weight:800}
-    .bod-c.muro{background:#5a3a1e}.bod-c.caja{background:#b0722e;border:3px solid #3a2412}.bod-c.yo{background:#f5d48a}.bod-c.yo::after{content:'';width:60%;height:60%;border-radius:50%;background:#b03a2e}
+    .bod-c{aspect-ratio:1;border-radius:3px;background:#e6c88c url(./img/ui/bod-suelo.png) center/cover;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#3a2412;font-weight:800}
+    .bod-c.muro{background:#5a3a1e url(./img/ui/bod-muro.png) center/cover}.bod-c.caja{background:url(./img/ui/bod-barril.png) center/92% no-repeat,#e6c88c url(./img/ui/bod-suelo.png) center/cover}.bod-c.yo{background:url(./img/ui/bod-tabernero.png) center bottom/88% no-repeat,#e6c88c url(./img/ui/bod-suelo.png) center/cover}
     .bod-flechas{display:grid;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(2,50px);gap:6px;justify-content:center;margin:6px 0}
     .bod-flechas button{border-radius:8px;border:2px solid #e0a040;background:linear-gradient(180deg,#8a5a2a,#4a2c14);color:#f5d48a;font:700 1.3rem Georgia,serif;cursor:pointer}`);
   const F = D.filas, C = D.cols;

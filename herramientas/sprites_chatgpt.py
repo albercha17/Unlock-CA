@@ -167,6 +167,12 @@ def procesar_hoja(im, p):
             pz = recortar_alfa(limpiar_motas(alfa_clave(pz, clave)))
         else:
             pz = pz.convert("RGB")
+            c = np.array(COLORES[clave], dtype=np.float32)
+            solido = np.sqrt(((np.asarray(pz).astype(np.float32) - c) ** 2).sum(axis=2)) > 150
+            ys, xs = np.where(solido)
+            if len(ys):                                   # quita el borde de color de fondo que rodea al recorte
+                ix, iy = int((xs.max() - xs.min()) * 0.01) + 1, int((ys.max() - ys.min()) * 0.01) + 1
+                pz = pz.crop((int(xs.min()) + ix, int(ys.min()) + iy, int(xs.max()) - ix, int(ys.max()) - iy))
         if pz.width > ancho:
             pz = pz.resize((ancho, max(1, round(pz.height * ancho / pz.width))), Image.LANCZOS)
         piezas.append(pz)
