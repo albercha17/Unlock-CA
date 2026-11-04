@@ -36,7 +36,7 @@ export function startMinigame(opts = {}) {
     if (col.every((c, i) => c === D.solucion[i])) {
       resuelto = true; guardarSello('51');
       ui.say('Las doce cámaras brillan cada una con su pintura y la sacerdotisa os sonríe. Coged la carta 58.', 'ok');
-    } else ui.say('Alguna cámara no cuadra con el plano: o dos vecinas comparten pintura, o una de las ya pintadas no tiene su color (cartas 26, 61 y 63).', 'bad');
+    } else ui.say('Alguna cámara no cuadra con el plano: o dos vecinas comparten pintura, o una de las ya pintadas no tiene su color.', 'bad');
   });
   pintar();
   return { close: ui.close };

@@ -23,11 +23,11 @@ export function startMinigame(opts = {}) {
   ui.body.appendChild(r.el);
   ui.button('Comprobar', 'primary', () => {
     if (resuelto) return;
-    if (col.some(f => f.includes(null))) { ui.say('Quedan casillas sin pintar: en una placa buena no queda ninguna vacía (carta 45).', 'bad'); return; }
+    if (col.some(f => f.includes(null))) { ui.say('Quedan casillas sin pintar: en una placa buena no queda ninguna vacía.', 'bad'); return; }
     if (col.every((f, y) => f.every((c, x) => c === D.solucion[y][x]))) {
       resuelto = true;
       ui.say('Los cinco cables unen sus bornes sin cruzarse y la placa se enciende. Dato de la misión: ' + D.dato + '. Coged la carta 30.', 'ok');
-    } else ui.say('Hay un cable que no une sus dos bornes, se cruza con otro o sobra una casilla (cartas 41, 43 y 45).', 'bad');
+    } else ui.say('Hay un cable que no une sus dos bornes, se cruza con otro o sobra una casilla.', 'bad');
   });
   return { close: ui.close };
 }

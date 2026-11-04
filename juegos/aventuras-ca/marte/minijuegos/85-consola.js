@@ -26,7 +26,7 @@ export function startMinigame(opts = {}) {
     if (v.every((x, i) => x === D.codigo[i])) {
       resuelto = true;
       ui.say('La clave es correcta: el Cronoportal se enciende con un zumbido grave y se abre un anillo de luz azul. Coged la carta 99.', 'ok');
-    } else ui.say('La consola parpadea en rojo: esa no es la clave. Recordad el dato que mostró cada puzle al resolverse y el orden de los acertijos (cartas 86 y 87).', 'bad');
+    } else ui.say('La consola parpadea en rojo: esa no es la clave. Recordad el dato que mostró cada puzle al resolverse y el orden de los acertijos.', 'bad');
   });
   pintar();
   return { close: ui.close };

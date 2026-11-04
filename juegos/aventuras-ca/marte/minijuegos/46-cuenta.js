@@ -32,8 +32,8 @@ export function startMinigame(opts = {}) {
     const x = lista[a], y = lista[i];
     let r;
     if (op === '+') r = x + y; else if (op === '×') r = x * y;
-    else if (op === '−') { if (x - y <= 0) { ui.say('Los resultados han de ser mayores que cero (carta 33).', 'bad'); a = null; op = null; pintar(); return; } r = x - y; }
-    else { if (y === 0 || x % y !== 0) { ui.say('La división tiene que salir exacta (carta 33).', 'bad'); a = null; op = null; pintar(); return; } r = x / y; }
+    else if (op === '−') { if (x - y <= 0) { ui.say('Los resultados han de ser mayores que cero.', 'bad'); a = null; op = null; pintar(); return; } r = x - y; }
+    else { if (y === 0 || x % y !== 0) { ui.say('La división tiene que salir exacta.', 'bad'); a = null; op = null; pintar(); return; } r = x / y; }
     hechos.push({ lista: lista.slice(), pasos: pasos.slice() });
     pasos.push(x + ' ' + op + ' ' + y + ' = ' + r);
     lista = lista.filter((_, k) => k !== a && k !== i).concat([r]);

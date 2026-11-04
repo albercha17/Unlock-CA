@@ -20,11 +20,11 @@ export function startMinigame(opts = {}) {
     const v = letras.map(l => cs[l].valor());
     if (new Set(v).size < v.length) { ui.say('Cada signo es una cifra distinta: hay cifras repetidas.', 'bad'); return; }
     if (D.suma.some(p => cs[p[0]].valor() === 0)) { ui.say('El primer signo de un número no puede ser el cero.', 'bad'); return; }
-    if (num(D.suma[0]) + num(D.suma[1]) !== num(D.suma[2])) { ui.say('Con esas cifras la suma no es cierta (carta 37).', 'bad'); return; }
+    if (num(D.suma[0]) + num(D.suma[1]) !== num(D.suma[2])) { ui.say('Con esas cifras la suma no es cierta.', 'bad'); return; }
     if (letras.every(l => cs[l].valor() === D.solucion[l])) {
       resuelto = true; guardarSello('46');
       ui.say('La suma es cierta y cumple lo que anotó el escriba: la tapa del cofre se abre con un clic. Coged la carta 56.', 'ok');
-    } else ui.say('La suma es cierta, pero no cumple lo que anotó el escriba en los márgenes (cartas 39 y 33).', 'bad');
+    } else ui.say('La suma es cierta, pero no cumple lo que anotó el escriba en los márgenes.', 'bad');
   });
   return { close: ui.close };
 }

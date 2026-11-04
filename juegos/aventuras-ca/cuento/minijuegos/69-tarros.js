@@ -18,7 +18,7 @@ const ORDEN = [1, 2, 0];
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 69 — Tarros de colores',
-    instr: 'Toca un tarro y luego otro para verter la capa de arriba. Solo se puede verter sobre un tarro vacío o sobre una capa del mismo color. Dejad los colores como dicen las cartas 70 y 71.',
+    instr: 'Toca un tarro y luego otro para verter la capa de arriba. Solo se puede verter sobre un tarro vacío o sobre una capa del mismo color. Dejad los colores en el orden que piden las pistas.',
     ...opts
   });
   estilo('cu-tarros-estilo', `
@@ -108,7 +108,7 @@ export function startMinigame(opts = {}) {
     }
     // todos los tarros de un solo color pero en otro orden: aviso con razón
     const entero = tubos.every((t) => t.length === 0 || (t.length === CAP && new Set(t).size === 1));
-    if (entero) ui.say('Cada color está en su tarro, pero no como quiere la Cocinera Real (cartas 70 y 71).', 'bad');
+    if (entero) ui.say('Cada color está en su tarro, pero no como quiere la Cocinera Real.', 'bad');
   }
 
   function inicio() { tubos = INICIAL.map((t) => t.slice()); sel = null; movs = 0; historial = []; resuelto = false; ui.say(''); pintar(); }

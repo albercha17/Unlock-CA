@@ -73,7 +73,7 @@ export function startMinigame(opts = {}) {
       resuelto = true;
       ui.say('La sombra encaja con la pintura de la pared y, con un chasquido, se abre un cajoncito de la mesa con media llave de bronce. Coged la carta 56.', 'ok');
     } else {
-      ui.say('Esa sombra no es la de la pared (carta 37). Comparad bien las formas y el orden con el estante (carta 39).', 'bad');
+      ui.say('Esa sombra no es la de la pared. Comparad bien las formas y el orden con el estante.', 'bad');
     }
   });
   pintar();

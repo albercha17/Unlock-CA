@@ -7,7 +7,7 @@ const C = /*DATOS*/{"dibujos": ["perro", "barco", "casa", "sol", "cohete", "arbo
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 14 — Los cubos de Leo',
-    instr: 'Tocad un cubo para girarlo y ver otra cara. Formad entre los cuatro el dibujo de la tapa de la caja (carta 16).',
+    instr: 'Tocad un cubo para girarlo y ver otra cara. Formad entre los cuatro el dibujo de la tapa de la caja.',
     ...opts
   });
 

@@ -13,7 +13,7 @@ const FLECHA = { N: '↑', E: '→', S: '↓', O: '←' };
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 69 — El desván a oscuras',
-    instr: 'No se ve nada más que la linterna. Avanzad una casilla, o girad a un lado, hasta llegar a la trampilla del plano (cartas 70 y 71). Entráis abajo a la izquierda mirando al norte.',
+    instr: 'No se ve nada más que la linterna. Avanzad una casilla, o girad a un lado, hasta llegar a la trampilla del plano. Entráis abajo a la izquierda mirando al norte.',
     ...opts
   });
   estilo('fa-des', '.des-b{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}.des-b button{padding:14px 4px;border-radius:10px;border:1.5px solid rgba(201,164,90,.6);background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(0,0,0,.25));color:#fff;font:700 .95rem system-ui,sans-serif;cursor:pointer}.des-v{text-align:center;color:#ffd27a;font:700 1.4rem system-ui,sans-serif;margin:8px 0}.des-r{min-height:2.6em;color:#cfe3ee;font:600 .85rem ui-monospace,Consolas,monospace;word-break:break-all;text-align:center}');

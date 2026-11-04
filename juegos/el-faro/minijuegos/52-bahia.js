@@ -8,7 +8,7 @@ const FILAS = 'ABCDEFGH';
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 52 — El plano de la bahía',
-    instr: 'Tocad las casillas que son islote (otra vez para devolverlas al mar). Los números de los islotes están en el plano de Anselmo (cartas 54 y 55) y sus versos (carta 59) dicen las reglas. Cuando el canal esté claro, pulsad «Transmitir».',
+    instr: 'Tocad las casillas que son islote (otra vez para devolverlas al mar). Los números de los islotes están en el plano de Anselmo y sus versos dicen las reglas. Cuando el canal esté claro, pulsad «Transmitir».',
     ...opts
   });
 
@@ -57,7 +57,7 @@ export function startMinigame(opts = {}) {
       g.classList.add('ok');
       ui.say('«Recibido, Cabo Niebla: tomamos el canal». La guardia costera os da las gracias, pero añade que el capitán necesita ver la luz del faro. Cifra de la bahía: ' + B.cifra + '. Coged la carta 44.', 'ok');
     } else {
-      ui.say('La guardia costera no lo entiende: ese plano no cuadra. Cada islote mide lo que dice su número, no se tocan entre ellos, y el mar va todo unido y sin charcos de 2 × 2 (cartas 54, 55 y 59).', 'bad');
+      ui.say('La guardia costera no lo entiende: ese plano no cuadra. Cada islote mide lo que dice su número, no se tocan entre ellos, y el mar va todo unido y sin charcos de 2 × 2.', 'bad');
     }
   });
   ui.button('Todo mar', '', () => { if (!resuelto) { tierra.clear(); g.querySelectorAll('.far-cas.tierra').forEach(b => b.classList.remove('tierra')); ui.say(''); } });

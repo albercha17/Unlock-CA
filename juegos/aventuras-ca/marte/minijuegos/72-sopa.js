@@ -19,7 +19,7 @@ export function startMinigame(opts = {}) {
     if (v === D.secreta) {
       resuelto = true;
       ui.say('«Acceso concedido.» Los archivos de la colonia se abren: planos del cohete y coordenadas de lanzamiento. Coged la carta 82.', 'ok');
-    } else ui.say('«Clave incorrecta.» Tiene ' + D.secreta.length + ' letras: son las que no pertenecen a ninguna palabra de la lista (cartas 75 y 79).', 'bad');
+    } else ui.say('«Clave incorrecta.» Tiene ' + D.secreta.length + ' letras: son las que no pertenecen a ninguna palabra de la lista.', 'bad');
   };
   e.addEventListener('keydown', ev => { if (ev.key === 'Enter') prueba(); });
   ui.button('Probar la clave', 'primary', prueba);

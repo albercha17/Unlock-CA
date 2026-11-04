@@ -158,7 +158,7 @@ def s72(d):
     """Caja de música: una nota equivocada (falla) y luego la melodía."""
     abrir_carta(d, "72")
     clic(d, ".caj-nota[data-n='Do']")
-    assert "carta 79" in feedback(d), feedback(d)
+    assert "nota del animal" in feedback(d), feedback(d)
     for n in IC.SOLUCION_MUSICA:
         clic(d, f".caj-nota[data-n='{n}']")
     time.sleep(0.2)

@@ -16,7 +16,7 @@ export function startMinigame(opts = {}) {
     if (c.valor() === D.resultado) {
       resuelto = true;
       ui.say('La puerta de piedra gira sobre sus goznes y deja ver una sala con una luz dorada al fondo. Coged la carta 99.', 'ok');
-    } else ui.say('La puerta no se mueve: ese no es el número que sale de la cuenta de la profecía (cartas 86 y 87).', 'bad');
+    } else ui.say('La puerta no se mueve: ese no es el número que sale de la cuenta de la profecía.', 'bad');
   });
   return { close: ui.close };
 }

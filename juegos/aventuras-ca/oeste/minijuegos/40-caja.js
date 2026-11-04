@@ -69,11 +69,11 @@ export function startMinigame(opts = {}) {
       const l = letras[k], pieza = D.piezas[k];
       const cs = [];
       est.forEach((f, i) => f.forEach((v, j) => { if (v === l) cs.push([i, j]); }));
-      if (cs.length !== 5 || !orientaciones(FORMAS[pieza]).has(normal(cs))) { ui.say('La pieza ' + l + ' no tiene la forma que le toca (carta 45).', 'bad'); return; }
+      if (cs.length !== 5 || !orientaciones(FORMAS[pieza]).has(normal(cs))) { ui.say('La pieza ' + l + ' no tiene la forma que le toca.', 'bad'); return; }
     }
     for (const [pz, cs] of Object.entries(D.fijas)) {
       const l = letras[D.piezas.indexOf(pz)];
-      if (cs.some(([i, j]) => est[i][j] !== l)) { ui.say('La pieza ' + l + ' tiene que estar donde la dibujaron en las cartas 41 y 43.', 'bad'); return; }
+      if (cs.some(([i, j]) => est[i][j] !== l)) { ui.say('La pieza ' + l + ' tiene que estar donde la dibujaron.', 'bad'); return; }
     }
     resuelto = true;
     ui.say('Las seis piezas encajan y la caja cierra con un golpe seco. Coordenada de Polibio: ' + D.coord + '. Coged la carta 30.', 'ok');

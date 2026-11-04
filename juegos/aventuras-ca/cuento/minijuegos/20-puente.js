@@ -16,7 +16,7 @@ const DUENDES = [
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 20 — El puente del troll',
-    instr: 'Pasad a los cuatro duendes al otro lado antes de que amanezca. Solo hay un farolillo: cruzan de uno en uno o de dos en dos, y alguien debe devolverlo. Lo que tarda cada duende y cuándo amanece, en las cartas 18, 19 y 21.',
+    instr: 'Pasad a los cuatro duendes al otro lado antes de que amanezca. Solo hay un farolillo: cruzan de uno en uno o de dos en dos, y alguien debe devolverlo.',
     ...opts
   });
   estilo('cu-puente-estilo', `

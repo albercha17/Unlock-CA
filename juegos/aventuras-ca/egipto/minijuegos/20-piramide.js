@@ -25,7 +25,7 @@ export function startMinigame(opts = {}) {
     if (v.every((x, i) => x === D.solucion[i])) {
       resuelto = true; guardarSello('20');
       ui.say('Las piedras encajan y el muro se desliza hacia un lado, dejando ver una cámara. Coged la carta 28.', 'ok');
-    } else ui.say('Con esos pesos, las piedras de arriba no coinciden con las que ya están escritas (cartas 19 y 21).', 'bad');
+    } else ui.say('Con esos pesos, las piedras de arriba no coinciden con las que ya están escritas.', 'bad');
   });
   return { close: ui.close };
 }

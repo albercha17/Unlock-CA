@@ -64,7 +64,7 @@ export function startMinigame(opts = {}) {
     if (puesto.every((p, k) => p === D.solucion[k])) {
       resuelto = true;
       ui.say('El brazo queda horizontal, firme como una regla, y la antena apunta a la Tierra. Dato de la misión: ' + D.dato + '. Coged la carta 44.', 'ok');
-    } else ui.say('El brazo se inclina hacia un lado y gime: lo que empuja a cada lado no es igual (cartas 54, 55 y 59).', 'bad');
+    } else ui.say('El brazo se inclina hacia un lado y gime: lo que empuja a cada lado no es igual.', 'bad');
   });
   pintar();
   return { close: ui.close };

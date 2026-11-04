@@ -44,7 +44,7 @@ export function startMinigame(opts = {}) {
     if (rects.length === sol.size && rects.every(q => sol.has(k(q)))) {
       resuelto = true; guardarSello('72');
       ui.say('Cada parcela encaja con su número y los campesinos aplauden: el reparto es justo. Coged la carta 82.', 'ok');
-    } else ui.say('Todo el campo está repartido, pero alguna parcela no cuadra con sus números (cartas 75 y 79).', 'bad');
+    } else ui.say('Todo el campo está repartido, pero alguna parcela no cuadra con sus números.', 'bad');
   });
   ui.button('Borrar todo', 'ghost', () => { if (!resuelto) { rects.length = 0; esquina = null; ui.say(''); pintar(); } });
   pintar();

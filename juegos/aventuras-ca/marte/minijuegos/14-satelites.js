@@ -16,7 +16,7 @@ export function startMinigame(opts = {}) {
     if (v === D.solucion) {
       resuelto = true;
       ui.say('La antena conecta justo cuando pasan los tres: la voz de la doctora Reyes llega entrecortada. Dato de la misión: ' + D.dato + '. Coged la carta 24.', 'ok');
-    } else ui.say('A las ' + v + ' horas no coinciden los tres satélites. Mirad los pasos de cada uno (carta 16).', 'bad');
+    } else ui.say('A las ' + v + ' horas no coinciden los tres satélites. Mirad los pasos de cada uno.', 'bad');
   });
   return { close: ui.close };
 }

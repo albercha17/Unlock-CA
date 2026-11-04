@@ -23,7 +23,7 @@ export function startMinigame(opts = {}) {
     if (!mal) {
       resuelto = true;
       ui.say('El invernadero amanece justo como decían las reglas y la puerta del módulo se abre. Dato de la misión: ' + D.dato + '. Coged la carta 28.', 'ok');
-    } else ui.say('Alguna casilla no sale como dicen las reglas: repasad cada planta con sus ocho vecinas (cartas 18, 19 y 21).', 'bad');
+    } else ui.say('Alguna casilla no sale como dicen las reglas: repasad cada planta con sus ocho vecinas.', 'bad');
   });
   ui.button('Vaciar', 'ghost', () => { if (!resuelto) { viva.forEach(f => f.fill(0)); r.el.querySelectorAll('.mr-cel').forEach(b => b.classList.remove('viva')); ui.say(''); } });
   return { close: ui.close };

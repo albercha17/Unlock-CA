@@ -56,7 +56,7 @@ export function startMinigame(opts = {}) {
       }
     }
     if (vis.size < n * n) return 'Los tubos forman varias redes sueltas: tienen que quedar todos unidos.';
-    for (const [r, c, mk] of D.fijas) if (m[r][c] !== mk) return 'Algún tubo no está como lo dibujó el fontanero en el plano (cartas 66 y 67).';
+    for (const [r, c, mk] of D.fijas) if (m[r][c] !== mk) return 'Algún tubo no está como lo dibujó el fontanero en el plano.';
     return '';
   }
   ui.button('Abrir la llave', 'primary', () => {

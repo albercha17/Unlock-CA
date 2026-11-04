@@ -7,7 +7,7 @@ const D = /*DATOS*/{"codigo": "17958"}/*FIN*/;
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 85 — Panel de arranque',
-    instr: 'Introducid la combinación de cinco cifras: las cifras que dejaron cinco puzles, en el orden de arranque (carta 86) y pasadas por las válvulas (carta 87).',
+    instr: 'Introducid la combinación de cinco cifras: las cifras que dejaron cinco puzles, en el orden de arranque y pasadas por las válvulas.',
     ...opts
   });
 

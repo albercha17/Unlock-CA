@@ -31,7 +31,7 @@ export function startMinigame(opts = {}) {
   ui.button('Soltar la balanza', 'primary', () => {
     if (resuelto) return;
     if (muesca === D.muesca) { resuelto = true; ui.say('El brazo queda quieto, perfectamente horizontal, y el pestillo del cofre salta. Dentro hay una lámpara de aceite. Coged la carta 56.', 'ok'); }
-    else ui.say('El brazo se inclina y se queda torcido. Calculad bien lo que pesa el cofre (cartas 43 y 45).', 'bad');
+    else ui.say('El brazo se inclina y se queda torcido. Calculad bien lo que pesa el cofre.', 'bad');
   });
   pintar();
   return { close: ui.close };

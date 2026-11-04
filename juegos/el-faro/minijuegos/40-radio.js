@@ -19,7 +19,7 @@ const X1 = 285;
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 40 — Radio de onda corta',
-    instr: 'Gira la rueda grande para buscar la emisora y la pequeña para afinar. Sintoniza la frecuencia de Cabo Niebla (cartas 41, 43 y 45).',
+    instr: 'Gira la rueda grande para buscar la emisora y la pequeña para afinar. Sintoniza la frecuencia de Cabo Niebla.',
     ...opts
   });
 

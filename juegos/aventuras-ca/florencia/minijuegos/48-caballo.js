@@ -29,12 +29,12 @@ export function startMinigame(opts = {}) {
     const huecos = new Set(D.huecos.map(([x, y]) => x + ',' + y));
     const libres = D.n * D.n - huecos.size;
     if (!ruta.length) { ui.say('Todavía no habéis marcado ningún salto.', 'bad'); return; }
-    if (ruta[0][0] !== D.inicio[0] || ruta[0][1] !== D.inicio[1]) { ui.say('El caballo empieza en la casilla marcada del patio (cartas 42 y 49).', 'bad'); return; }
+    if (ruta[0][0] !== D.inicio[0] || ruta[0][1] !== D.inicio[1]) { ui.say('El caballo empieza en la casilla marcada del patio.', 'bad'); return; }
     for (let i = 0; i < ruta.length; i++) {
-      if (huecos.has(ruta[i].join(','))) { ui.say('El salto ' + (i + 1) + ' cae en una casilla tachada del patio (cartas 42 y 49).', 'bad'); return; }
+      if (huecos.has(ruta[i].join(','))) { ui.say('El salto ' + (i + 1) + ' cae en una casilla tachada del patio.', 'bad'); return; }
       if (i) {
         const dx = Math.abs(ruta[i][0] - ruta[i - 1][0]), dy = Math.abs(ruta[i][1] - ruta[i - 1][1]);
-        if (!((dx === 1 && dy === 2) || (dx === 2 && dy === 1))) { ui.say('El salto ' + (i + 1) + ' no es de caballo: dos casillas en recto y una de lado (carta 53).', 'bad'); return; }
+        if (!((dx === 1 && dy === 2) || (dx === 2 && dy === 1))) { ui.say('El salto ' + (i + 1) + ' no es de caballo: dos casillas en recto y una de lado.', 'bad'); return; }
       }
     }
     if (ruta.length < libres) { ui.say('Faltan casillas libres por pisar: llevan ' + ruta.length + ' y hay ' + libres + '.', 'bad'); return; }

@@ -9,7 +9,7 @@ const HEX = { rojo: '#d63430', azul: '#2c68c4', verde: '#3aa054', amarillo: '#f6
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 64 — La barraca de los guardianes',
-    instr: 'Cinco literas en fila, de izquierda a derecha. Tocad el nombre de cada litera para cambiarlo y el gorro para cambiar su color. Las pistas están en el cuaderno de relevos (cartas 66 y 67).',
+    instr: 'Cinco literas en fila, de izquierda a derecha. Tocad el nombre de cada litera para cambiarlo y el gorro para cambiar su color. Las pistas están en el cuaderno de relevos.',
     ...opts
   });
   estilo('fa-gua', '.gua-f{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:min(94vw,360px);margin:8px auto}.gua-l{border:2px solid #c9a45a;border-radius:10px;padding:6px 2px;background:rgba(0,0,0,.28);text-align:center}.gua-l b{display:block;font:800 .8rem system-ui;color:#ffd27a}.gua-n,.gua-g{display:block;width:100%;margin-top:6px;border:1.5px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 0;font:700 .72rem system-ui;color:#fff;background:rgba(255,255,255,.1);cursor:pointer}.gua-g{height:30px;color:#10202c}');
@@ -51,7 +51,7 @@ export function startMinigame(opts = {}) {
       resuelto = true;
       ui.say('¡Cuadra! Los cinco guardianes están donde deben y del colgador de la barraca cae un bidón de aceite. Coged la carta 62.', 'ok');
     } else {
-      ui.say('Algo no cuadra con el cuaderno de relevos (cartas 66 y 67). Repasad pista por pista.', 'bad');
+      ui.say('Algo no cuadra con el cuaderno de relevos. Repasad pista por pista.', 'bad');
     }
   });
   ui.button('Vaciar', '', () => { if (!resuelto) { nombre.fill(-1); gorro.fill(-1); ui.say(''); pintar(); } });

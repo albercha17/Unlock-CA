@@ -24,9 +24,9 @@ export function startMinigame(opts = {}) {
   ui.button('Zarpar', 'primary', () => {
     if (resuelto) return;
     const peso = [...dentro].reduce((s, k) => s + D.carga[k][0], 0);
-    if (peso > D.maximo) { ui.say('¡La barca hace agua y empieza a hundirse! Tenéis que descargar (carta 72).', 'bad'); return; }
+    if (peso > D.maximo) { ui.say('¡La barca hace agua y empieza a hundirse! Tenéis que descargar.', 'bad'); return; }
     if (D.solucion.length === dentro.size && D.solucion.every(k => dentro.has(k))) { resuelto = true; ui.say('La barca flota justa y lleva lo que más vale. Lucrecia sonríe por primera vez en todo el día. Coged la carta 82.', 'ok'); }
-    else ui.say('La barca flota, pero Lucrecia protesta: «¡Con ese peso podríais llevar algo que valga más!» (cartas 71 y 76).', 'bad');
+    else ui.say('La barca flota, pero Lucrecia protesta: «¡Con ese peso podríais llevar algo que valga más!».', 'bad');
   });
   return { close: ui.close };
 }

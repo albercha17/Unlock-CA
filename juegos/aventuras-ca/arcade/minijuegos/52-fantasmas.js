@@ -56,7 +56,7 @@ export function startMinigame(opts = {}) {
       if (new Set(val.map(c => c[k])).size < 4) { ui.say('Hay un ' + rotulo[k] + ' repetido: cada pasillo tiene uno distinto.', 'bad'); return; }
     }
     const ok = D.solucion.every(s => { const c = val[s.pasillo - 1]; return c.f === s.fantasma && c.v === s.velocidad && c.r === s.fruta; });
-    if (!ok) { ui.say('Alguna combinación no encaja con las pistas (cartas 54, 55 y 59).', 'bad'); return; }
+    if (!ok) { ui.say('Alguna combinación no encaja con las pistas.', 'bad'); return; }
     resuelto = true;
     ui.say('Cada fantasma queda en su pasillo y la máquina los da por buenos. Byte de la máquina: ' + D.dato + '. Coged la carta 44.', 'ok');
   });

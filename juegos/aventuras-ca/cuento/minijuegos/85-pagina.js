@@ -9,7 +9,7 @@ const PALABRA = 'PERDICES';
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 85 — La última página',
-    instr: 'El libro guardó una letra por cada puzle que habéis resuelto. Tocadlas en el orden que forme la palabra del final (cartas 86 y 87). Tocad un hueco para devolver su letra.',
+    instr: 'El libro guardó una letra por cada puzle que habéis resuelto. Tocadlas en el orden que forme la palabra del final. Tocad un hueco para devolver su letra.',
     ...opts
   });
   estilo('cu-pagina-estilo', `
@@ -39,7 +39,7 @@ export function startMinigame(opts = {}) {
   conImagen(hoja, 'pagina.jpg', { clase: 'pag-img', mezcla: 'multiply' });
 
   const faltan = CARTAS.filter((c) => !letras[c]);
-  nota.textContent = faltan.length ? 'El libro todavía no tiene la letra de las cartas: ' + faltan.join(', ') + '. Resolvedlas primero (si ya lo hicisteis en otro móvil, volved a resolverlas).' : 'El libro tiene las ocho letras.';
+  nota.textContent = faltan.length ? 'El libro todavía no tiene todas las letras: faltan ' + faltan.length + '. Resolved primero los puzles que las dejan (si ya lo hicisteis en otro móvil, volved a resolverlos).' : 'El libro tiene las ocho letras.';
 
   const colocadas = []; // índices (de CARTAS) en orden de colocación
   let resuelto = false;
@@ -61,7 +61,7 @@ export function startMinigame(opts = {}) {
     b.setAttribute('aria-label', letras[c] ? 'Letra ' + letras[c] : 'Letra todavía sin conseguir');
     b.addEventListener('click', () => {
       if (resuelto) return;
-      if (!letras[c]) { ui.say('Esa letra todavía no está en el libro: resolved antes el puzle de la carta ' + c + '.', 'bad'); return; }
+      if (!letras[c]) { ui.say('Esa letra todavía no está en el libro: resolved antes el puzle que la deja.', 'bad'); return; }
       if (colocadas.length < CARTAS.length && !colocadas.includes(i)) { colocadas.push(i); ui.say(''); pintar(); }
     });
     banco.appendChild(b);
@@ -78,14 +78,14 @@ export function startMinigame(opts = {}) {
 
   ui.button('Comprobar', 'primary', () => {
     if (resuelto) return;
-    if (faltan.length) { ui.say('Todavía faltan letras en el libro (cartas ' + faltan.join(', ') + ').', 'bad'); return; }
+    if (faltan.length) { ui.say('Todavía faltan ' + faltan.length + ' letras en el libro.', 'bad'); return; }
     if (colocadas.length < CARTAS.length) { ui.say('Colocad las ocho letras para escribir la palabra.', 'bad'); return; }
     const palabra = colocadas.map((i) => letras[CARTAS[i]]).join('');
     if (palabra === PALABRA) {
       resuelto = true;
       ui.say('¡La palabra aparece con letras de oro: ' + PALABRA + '! El cuento por fin tiene final y el Cronoportal se enciende. Coged la carta 99.', 'ok');
     } else {
-      ui.say('«' + palabra + '» no es la palabra del final: no es lo que se comió en el banquete del final (cartas 86 y 87). Reordenad las letras.', 'bad');
+      ui.say('«' + palabra + '» no es la palabra del final: no es lo que se comió en el banquete del final. Reordenad las letras.', 'bad');
     }
   });
   ui.button('Quitar todas', 'ghost', () => { if (!resuelto) { colocadas.length = 0; ui.say(''); pintar(); } });

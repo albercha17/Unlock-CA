@@ -43,7 +43,7 @@ export function startMinigame(opts = {}) {
     if (on.size === sol.size && [...on].every(k => sol.has(k))) {
       resuelto = true;
       ui.say('El anillo se cierra y el circuito del reactor se llena de luz naranja. Coged la carta 58.', 'ok');
-    } else ui.say(on.size ? 'El circuito no cuadra: o no es un solo bucle cerrado, o algún número no ve los lados que pide (cartas 61, 63 y 26).' : 'Todavía no hay ningún cable trazado.', 'bad');
+    } else ui.say(on.size ? 'El circuito no cuadra: o no es un solo bucle cerrado, o algún número no ve los lados que pide.' : 'Todavía no hay ningún cable trazado.', 'bad');
   });
   ui.button('Borrar todo', 'ghost', () => { if (!resuelto) { on.clear(); svg.querySelectorAll('.lado').forEach(l => l.classList.remove('on')); ui.say(''); } });
   return { close: ui.close };

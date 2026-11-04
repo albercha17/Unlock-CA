@@ -31,14 +31,14 @@ export function startMinigame(opts = {}) {
     const o = sel; sel = null;
     if (o === i) { pintar(); return; }
     const d = t[o][t[o].length - 1];
-    if (t[i].length && t[i][t[i].length - 1] < d) { ui.say('Un disco nunca va sobre otro más pequeño (carta 79).', 'bad'); pintar(); return; }
+    if (t[i].length && t[i][t[i].length - 1] < d) { ui.say('Un disco nunca va sobre otro más pequeño.', 'bad'); pintar(); return; }
     t[i].push(t[o].pop()); movs++; ui.say('');
     pintar();
     if (t[2].length === D.discos) {
       resuelto = true;
       ui.say('La corona queda entera en la torre III antes de que se vacíe el reloj de arena: se abre el altar. Coged la carta 82.', 'ok');
     } else if (movs >= D.limite) {
-      ui.say('El reloj de arena se ha vaciado y la corona no está en su sitio: hay que empezar de nuevo (carta 79).', 'bad');
+      ui.say('El reloj de arena se ha vaciado y la corona no está en su sitio: hay que empezar de nuevo.', 'bad');
       setTimeout(() => { if (!resuelto) { t[0] = []; for (let k = D.discos; k >= 1; k--) t[0].push(k); t[1] = []; t[2] = []; movs = 0; pintar(); } }, 700);
     }
   }

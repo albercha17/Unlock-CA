@@ -19,7 +19,7 @@ export function startMinigame(opts = {}) {
     if (v.every((x, j) => x === D.solucion[j])) {
       resuelto = true;
       ui.say('La mezcla sale exactamente del color del maestro y se seca al instante, brillante. Letra de la clave: ' + D.letra + '. Coged la carta 44.', 'ok');
-    } else ui.say('Ese no es el color: las gotas de rojo, de amarillo y de azul no suman lo que pide Leonardo (cartas 54, 55 y 59).', 'bad');
+    } else ui.say('Ese no es el color: las gotas de rojo, de amarillo y de azul no suman lo que pide Leonardo.', 'bad');
   });
   return { close: ui.close };
 }

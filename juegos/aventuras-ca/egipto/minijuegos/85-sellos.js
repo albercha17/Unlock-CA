@@ -32,7 +32,7 @@ export function startMinigame(opts = {}) {
     b.appendChild(figuraSVG(D.figuras[D.sellos[c]], '#f6e7bf', '#4d3c20', 38));
     b.addEventListener('click', () => {
       if (resuelto || orden.includes(c) || orden.length >= n) return;
-      if (!tengo.has(c)) { ui.say('Ese sello todavía no está en el aparato: resolved antes el puzle de la carta ' + c + '.', 'bad'); return; }
+      if (!tengo.has(c)) { ui.say('Ese sello todavía no está en el aparato: resolved antes el puzle que lo deja.', 'bad'); return; }
       orden.push(c); ui.say(''); pintar();
     });
     sellos.appendChild(b);
@@ -43,7 +43,7 @@ export function startMinigame(opts = {}) {
     if (orden.every((c, i) => c === D.orden[i])) {
       resuelto = true;
       ui.say('Los cinco sellos brillan uno tras otro y el Cronoportal despierta con un zumbido grave. Coged la carta 99.', 'ok');
-    } else ui.say('El aparato se estremece pero no despierta: ese no es el orden de los acertijos (cartas 86 y 87).', 'bad');
+    } else ui.say('El aparato se estremece pero no despierta: ese no es el orden de los acertijos.', 'bad');
   });
   ui.button('Quitar todos', 'ghost', () => { if (!resuelto) { orden = []; ui.say(''); pintar(); } });
   pintar();

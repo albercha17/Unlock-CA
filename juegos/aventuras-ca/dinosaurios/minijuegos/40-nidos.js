@@ -29,11 +29,11 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     const sol = new Set(D.solucion.map(([x, y]) => x + ',' + y));
     const toca = [...nidos].some(a => [...nidos].some(b => a !== b && Math.max(Math.abs(a.split(',')[0] - b.split(',')[0]), Math.abs(a.split(',')[1] - b.split(',')[1])) <= 1));
-    if (toca) { ui.say('Dos madres no soportan tenerse al lado, ni en diagonal (carta 45).', 'bad'); return; }
+    if (toca) { ui.say('Dos madres no soportan tenerse al lado, ni en diagonal.', 'bad'); return; }
     if (nidos.size === sol.size && [...nidos].every(k => sol.has(k))) {
       resuelto = true;
       ui.say('¡Todos los nidos! Las madres se calman y os dejan pasar entre ellos hasta la tienda de la doctora. Coged la carta 30.', 'ok');
-    } else ui.say('Desde el acantilado y desde la duna no se verían así los huevos (cartas 41 y 43).', 'bad');
+    } else ui.say('Desde el acantilado y desde la duna no se verían así los huevos.', 'bad');
   });
   return { close: ui.close };
 }

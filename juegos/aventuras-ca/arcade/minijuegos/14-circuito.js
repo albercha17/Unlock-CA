@@ -48,9 +48,9 @@ export function startMinigame(opts = {}) {
     if (r.X === 1 && r.Y === 0) {
       resuelto = true;
       ui.say('La lámpara X se enciende y la Y se apaga: la placa responde. Byte de la máquina: ' + D.dato + '. Coged la carta 24.', 'ok');
-    } else if (r.X === 0 && r.Y === 0) ui.say('Las dos lámparas están apagadas: la placa no da señal (esquema de la carta 16).', 'bad');
-    else if (r.X === 1) ui.say('Se enciende X, pero también Y: tiene que quedar apagada (carta 16).', 'bad');
-    else ui.say('Se enciende solo la lámpara Y: justo al revés de lo que pide el esquema (carta 16).', 'bad');
+    } else if (r.X === 0 && r.Y === 0) ui.say('Las dos lámparas están apagadas: la placa no da señal.', 'bad');
+    else if (r.X === 1) ui.say('Se enciende X, pero también Y: tiene que quedar apagada.', 'bad');
+    else ui.say('Se enciende solo la lámpara Y: justo al revés de lo que pide el esquema.', 'bad');
   });
   ui.button('Todo abajo', 'ghost', () => { if (!resuelto) { estado.fill(0); ui.say(''); pintar(); } });
   pintar();

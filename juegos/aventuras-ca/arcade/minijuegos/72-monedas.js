@@ -26,8 +26,8 @@ export function startMinigame(opts = {}) {
     if (resuelto) return;
     const d = datos();
     if (!d.piezas) { ui.say('No habéis echado ninguna moneda.', 'bad'); return; }
-    if (d.suma < D.precio) { ui.say('Falta dinero: la máquina sigue pidiendo (carta 79).', 'bad'); return; }
-    if (d.suma > D.precio) { ui.say('Os pasáis: la máquina no da cambio y se traga lo que sobra (carta 79).', 'bad'); return; }
+    if (d.suma < D.precio) { ui.say('Falta dinero: la máquina sigue pidiendo.', 'bad'); return; }
+    if (d.suma > D.precio) { ui.say('Os pasáis: la máquina no da cambio y se traga lo que sobra.', 'bad'); return; }
     if (d.piezas > D.minimo) { ui.say('Pagáis justo, pero la máquina protesta: se puede hacer con menos monedas.', 'bad'); return; }
     resuelto = true;
     ui.say('Pago justo y con las menos monedas posibles: ' + d.piezas + '. La máquina da una ficha de continuar. Coged la carta 82.', 'ok');

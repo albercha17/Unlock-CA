@@ -70,7 +70,7 @@ export function startMinigame(opts = {}) {
       teatro.classList.add('ok');
       ui.say('¡Pipo saluda igual que en el cartel! Los juguetes aplauden y, con un clic, se abre una trampilla del teatrillo. Nota de la marioneta: ' + M.nota + '. Coged la carta 36.', 'ok');
     } else {
-      ui.say('Pipo no está como en el cartel (carta 53). Seguid los hilos (cartas 42 y 49) para ver qué mando mueve cada mano y cada pie.', 'bad');
+      ui.say('Pipo no está como en el cartel. Seguid los hilos para ver qué mando mueve cada mano y cada pie.', 'bad');
     }
   });
   ui.button('Soltar todo', '', () => { if (!resuelto) { tirando.clear(); ui.say(''); pintar(); } });

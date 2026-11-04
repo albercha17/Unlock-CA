@@ -22,7 +22,7 @@ export function startMinigame(opts = {}) {
     if (g.every((f, y) => f.every((v, x) => v === D.solucion[y][x]))) {
       resuelto = true;
       ui.say('El sigilo del dragón aparece entero en el tapiz y la pared se abre con un temblor. Coged la carta 62.', 'ok');
-    } else ui.say('Hay filas o columnas que no cuadran con sus números (cartas 66 y 67).', 'bad');
+    } else ui.say('Hay filas o columnas que no cuadran con sus números.', 'bad');
   });
   ui.button('Borrar todo', 'ghost', () => { if (!resuelto) { g.forEach(f => f.fill(0)); r.el.querySelectorAll('.tr-cel').forEach(b => b.classList.remove('on')); ui.say(''); } });
   return { close: ui.close };

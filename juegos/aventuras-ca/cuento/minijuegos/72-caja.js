@@ -36,7 +36,7 @@ function sonar(freq) {
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 72 — La caja de música',
-    instr: 'Tocad la melodía de la partitura (carta 75) con las teclas. Qué nota toca cada animal os lo dice el xilófono del bosque (carta 79). Las notas suenan y se iluminan.',
+    instr: 'Tocad la melodía de la partitura con las teclas. Qué nota toca cada animal os lo dice el xilófono del bosque. Las notas suenan y se iluminan.',
     ...opts
   });
   estilo('cu-caja-estilo', `
@@ -109,7 +109,7 @@ export function startMinigame(opts = {}) {
     } else {
       paso = 0;
       pintar();
-      ui.say('Esa no es la nota del animal número ' + (paso + 1) + ' según el xilófono de la carta 79. La melodía vuelve a empezar desde el primer animal.', 'bad');
+      ui.say('Esa no es la nota del animal número ' + (paso + 1) + ' según el xilófono. La melodía vuelve a empezar desde el primer animal.', 'bad');
     }
   }
 

@@ -24,7 +24,7 @@ export function startMinigame(opts = {}) {
   ui.button('Regar', 'primary', () => {
     if (resuelto) return;
     if (n === D.solucion) { resuelto = true; ui.say('La habichuela se estira con un crujido y, hoja a hoja, llega a la ventana de la torre. ¡A trepar! Coged la carta 44.', 'ok'); }
-    else ui.say('La mata tiembla, crece un poco y se detiene: esas no son sus hojas. Mirad bien cómo crece día a día (cartas 54, 55 y 59).', 'bad');
+    else ui.say('La mata tiembla, crece un poco y se detiene: esas no son sus hojas. Mirad bien cómo crece día a día.', 'bad');
   });
   pintar();
   return { close: ui.close };

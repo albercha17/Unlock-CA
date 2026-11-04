@@ -40,7 +40,7 @@ export function startMinigame(opts = {}) {
   }
   function anadir(b) {
     if (resuelto) return;
-    if (bloques(prog) + 1 + (b[0] === 'r' ? 0 : 0) > D.limite) { ui.say('Ya no caben más bloques: el límite es ' + D.limite + ' (carta 71).', 'bad'); return; }
+    if (bloques(prog) + 1 + (b[0] === 'r' ? 0 : 0) > D.limite) { ui.say('Ya no caben más bloques: el límite es ' + D.limite + '.', 'bad'); return; }
     (abierto ? abierto[2] : prog).push(b);
     if (b[0] === 'r') abierto = b;
     ui.say(''); pintar(null, D.inicio, D.mira);
@@ -81,7 +81,7 @@ export function startMinigame(opts = {}) {
     };
     ejecuta(prog);
     pintar(rastro, [x, y], d);
-    if (choque) { ui.say('¡Crac! El rover ha chocado contra una roca o contra el borde y se ha quedado parado. Mirad el terreno (carta 70).', 'bad'); return; }
+    if (choque) { ui.say('¡Crac! El rover ha chocado contra una roca o contra el borde y se ha quedado parado. Mirad el terreno.', 'bad'); return; }
     if (x === D.meta[0] && y === D.meta[1]) {
       resuelto = true;
       ui.say('El rover llega a la bandera siguiendo vuestro programa. Se abre el archivo de la colonia. Coged la carta 80.', 'ok');

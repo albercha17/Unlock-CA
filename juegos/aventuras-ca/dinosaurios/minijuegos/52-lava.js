@@ -65,7 +65,7 @@ export function startMinigame(opts = {}) {
         resuelto = true;
         ui.say('La lava choca con la roca, tuerce y se enfría lejos de los nidos. Las madres os miran agradecidas. Coged la carta 44.', 'ok');
       } else {
-        ui.say('¡La lava llega a los nidos! Por suerte era solo el primer chorro. Alberto vuelve a por la roca: pensad dónde ponerla (cartas 54, 55 y 59).', 'bad');
+        ui.say('¡La lava llega a los nidos! Por suerte era solo el primer chorro. Alberto vuelve a por la roca: pensad dónde ponerla.', 'bad');
         setTimeout(() => { if (!resuelto) { roca = null; pintar([]); } }, 900);
       }
     };

@@ -65,7 +65,7 @@ export function startMinigame(opts = {}) {
     const a = sel; sel = null;
     if (!vecinas(a, l)) { ui.say('Entre ' + a + ' y ' + l + ' no se puede tender un puente recto sin pasar por otro castillo.', 'bad'); pintar(); return; }
     const k = clave(a, l);
-    if (!puentes[k] && cruza(a, l)) { ui.say('Ese puente cruzaría otro: los puentes no se cruzan (carta 33).', 'bad'); pintar(); return; }
+    if (!puentes[k] && cruza(a, l)) { ui.say('Ese puente cruzaría otro: los puentes no se cruzan.', 'bad'); pintar(); return; }
     puentes[k] = ((puentes[k] || 0) + 1) % 3;
     ui.say(''); pintar();
   }
@@ -80,7 +80,7 @@ export function startMinigame(opts = {}) {
     if (mios.length === Object.keys(sol).length && mios.every(k => sol[k] === puentes[k])) {
       resuelto = true;
       ui.say('Todos los castillos quedan unidos con los puentes justos y se abre el paso hacia el salón del consejo. Coged la carta 56.', 'ok');
-    } else ui.say('Algún castillo no tiene los puentes que dice su número, o hay castillos sin conectar (cartas 37, 39 y 33).', 'bad');
+    } else ui.say('Algún castillo no tiene los puentes que dice su número, o hay castillos sin conectar.', 'bad');
   });
   ui.button('Quitar todos', 'ghost', () => { if (!resuelto) { Object.keys(puentes).forEach(k => { puentes[k] = 0; }); sel = null; ui.say(''); pintar(); } });
   pintar();

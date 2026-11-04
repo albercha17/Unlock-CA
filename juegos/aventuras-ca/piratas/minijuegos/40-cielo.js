@@ -35,7 +35,7 @@ export function startMinigame(opts = {}) {
   ui.button('Abrir el cofre', 'primary', () => {
     if (resuelto) return;
     if (sel.size !== D.solucion.length) { ui.say('La Calavera tiene seis estrellas, ni una más ni una menos.', 'bad'); return; }
-    if (!D.solucion.every(n => sel.has(n))) { ui.say('La tapa no cede: esas seis estrellas no forman la Calavera. Comparad la forma con la carta celeste (carta 45), girándola.', 'bad'); return; }
+    if (!D.solucion.every(n => sel.has(n))) { ui.say('La tapa no cede: esas seis estrellas no forman la Calavera. Comparad la forma con la carta celeste, girándola.', 'bad'); return; }
     resuelto = true;
     ui.say('Las seis tachuelas se hunden a la vez con un clic y la tapa se levanta sola. Distancia de las estrellas: ' + D.distancia + (D.distancia === 1 ? ' casilla' : ' casillas') + '. Coged la carta 30.', 'ok');
   });

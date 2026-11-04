@@ -19,7 +19,7 @@ export function startMinigame(opts = {}) {
     if (v === D.claro) {
       resuelto = true;
       ui.say('La prisionera lo confirma en voz baja: es justo lo que quería decir. Se abre la celda. Coged la carta 36.', 'ok');
-    } else ui.say('Eso no tiene sentido: es una palabra de ' + D.claro.length + ' letras. Repasad pareja a pareja (cartas 42, 49 y 53).', 'bad');
+    } else ui.say('Eso no tiene sentido: es una palabra de ' + D.claro.length + ' letras. Repasad pareja a pareja.', 'bad');
   };
   e.addEventListener('keydown', ev => { if (ev.key === 'Enter') prueba(); });
   ui.button('Descifrar', 'primary', prueba);

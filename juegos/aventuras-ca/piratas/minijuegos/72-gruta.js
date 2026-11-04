@@ -15,7 +15,7 @@ export function startMinigame(opts = {}) {
 
   const ui = openGame({
     title: 'Carta 72 — Cavar en la gruta',
-    instr: 'El suelo de la gruta repite la cuadrícula del mapa, pero entráis por el este: lo veis girado, con el norte a la derecha (carta 79). La palmera de piedra marca la palmera del mapa (carta 75). Tocad la casilla donde hay que cavar.',
+    instr: 'El suelo de la gruta repite la cuadrícula del mapa, pero entráis por el este: lo veis girado, con el norte a la derecha. La palmera de piedra marca la palmera del mapa. Tocad la casilla donde hay que cavar.',
     ...opts
   });
 

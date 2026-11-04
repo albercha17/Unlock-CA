@@ -26,7 +26,7 @@ export function startMinigame(opts = {}) {
   ui.button('Apretar la tablilla', 'primary', () => {
     if (resuelto) return;
     if (txt === D.solucion) { resuelto = true; ui.say('La palabra se hunde en la cera y el nicho de la pared se abre. Dentro, un pedernal y yesca. Coged la carta 38.', 'ok'); }
-    else ui.say('El nicho sigue cerrado. El sembrador dice que su cruz se lee igual en todas direcciones (cartas 41 y 42).', 'bad');
+    else ui.say('El nicho sigue cerrado. El sembrador dice que su cruz se lee igual en todas direcciones.', 'bad');
   });
   ui.button('Alisar la cera', '', () => { if (!resuelto) { txt = ''; ui.say(''); pintar(); } });
   pintar();

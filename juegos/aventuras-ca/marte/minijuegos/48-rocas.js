@@ -25,7 +25,7 @@ export function startMinigame(opts = {}) {
     if (marcas.size === sol.size && [...marcas].every(k => sol.has(k))) {
       resuelto = true;
       ui.say('El rover cruza el campo sin tocar una sola roca y llega al anexo. Coged la carta 36.', 'ok');
-    } else ui.say('El rover se atasca contra una roca que no estaba marcada, o rodea una casilla despejada. Repasad los números (cartas 42, 49 y 53).', 'bad');
+    } else ui.say('El rover se atasca contra una roca que no estaba marcada, o rodea una casilla despejada. Repasad los números.', 'bad');
   });
   return { close: ui.close };
 }

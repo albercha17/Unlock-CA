@@ -33,7 +33,7 @@ export function startMinigame(opts = {}) {
     if (v.every((r, f) => r.every((x, c) => x === D.solucion[f][c]))) {
       resuelto = true;
       ui.say('Los seis escudos quedan en paz en cada fila, columna y recuadro: el tablero se abre y deja ver una escalera. Coged la carta 80.', 'ok');
-    } else ui.say('Algún escudo se repite en una fila, columna o recuadro, o no cuadra con los ya puestos (cartas 70 y 71).', 'bad');
+    } else ui.say('Algún escudo se repite en una fila, columna o recuadro, o no cuadra con los ya puestos.', 'bad');
   });
   ui.button('Vaciar', 'ghost', () => { if (!resuelto) { v.forEach((r, f) => r.forEach((x, c) => { if (!D.dados[f][c]) v[f][c] = 0; })); ui.say(''); pintar(); } });
   pintar();

@@ -37,7 +37,7 @@ export function startMinigame(opts = {}) {
       if (resuelto) return;
       if (!sel) { sel = k; pintar(); return; }
       if (sel === k) { sel = null; pintar(); return; }
-      if (!existe(sel, k)) { ui.say('Entre ' + sel + ' y ' + k + ' no se puede cavar un canal (mapa, carta 70).', 'bad'); sel = null; pintar(); return; }
+      if (!existe(sel, k)) { ui.say('Entre ' + sel + ' y ' + k + ' no se puede cavar un canal.', 'bad'); sel = null; pintar(); return; }
       const c = clave(sel, k);
       cavados.has(c) ? cavados.delete(c) : cavados.add(c);
       sel = null; ui.say(''); pintar();
@@ -54,7 +54,7 @@ export function startMinigame(opts = {}) {
     if (cavados.size === sol.size && [...cavados].every(c => sol.has(c))) {
       resuelto = true; guardarSello('69');
       ui.say('El agua corre por las zanjas y llega a todos los campos sin desperdiciar ni un codo. El visir se frota las manos. Coged la carta 80.', 'ok');
-    } else ui.say('Todos los campos tienen agua, pero se ha gastado más de lo necesario (mapa, carta 70; nota del visir, carta 71).', 'bad');
+    } else ui.say('Todos los campos tienen agua, pero se ha gastado más de lo necesario.', 'bad');
   });
   pintar();
   return { close: ui.close };

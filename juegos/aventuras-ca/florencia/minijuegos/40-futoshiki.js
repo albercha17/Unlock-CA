@@ -24,7 +24,7 @@ export function startMinigame(opts = {}) {
     if (v.every((f, y) => f.every((x, i) => x === D.solucion[y][i]))) {
       resuelto = true;
       ui.say('El león abre las fauces con un rugido de engranajes. Coged la carta 30.', 'ok');
-    } else ui.say('Algún número se repite o un signo no se cumple (cartas 41, 43 y 45).', 'bad');
+    } else ui.say('Algún número se repite o un signo no se cumple.', 'bad');
   });
   return { close: ui.close };
 }

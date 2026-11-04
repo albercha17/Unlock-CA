@@ -26,7 +26,7 @@ const nombreCelda = k => { const [c, r] = k.split(',').map(Number); return LETRA
 export function startMinigame(opts = {}) {
   const ui = openGame({
     title: 'Carta 72 — Espejos de la lente',
-    instr: 'Toca los espejos para girarlos y lleva el rayo del foco por los tres puntos del tablero, en el orden que dice el papel del nido (carta 75). El cuaderno del óptico (carta 79) explica cómo desvía el rayo cada espejo.',
+    instr: 'Toca los espejos para girarlos y lleva el rayo del foco por los tres puntos del tablero, en el orden que dice el papel del nido. El cuaderno del óptico explica cómo desvía el rayo cada espejo.',
     ...opts
   });
 
@@ -190,7 +190,7 @@ export function startMinigame(opts = {}) {
     });
     // aviso si llega a un punto antes de tiempo
     const fuera = marcasVistas.find((m, i) => !lit[m]);
-    aviso.textContent = fuera ? 'La luz toca «' + NOMBRE[fuera] + '» antes de tiempo: el orden importa (el papel del nido, carta 75).' : '';
+    aviso.textContent = fuera ? 'La luz toca «' + NOMBRE[fuera] + '» antes de tiempo: el orden importa.' : '';
     if (!resuelto && lit.A) {
       resuelto = true;
       svg.querySelectorAll('.far-m-hot').forEach(h => { h.style.cursor = 'default'; });
