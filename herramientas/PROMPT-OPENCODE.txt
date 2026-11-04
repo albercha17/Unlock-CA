@@ -1,0 +1,150 @@
+PROMPT PARA OPENCODE — AGENTE AUTÓNOMO DE LOS JUEGOS DE UNLOCK-CA (autocontenido; gasta el mínimo de tokens)
+=============================================================================================================
+Cómo usarlo: abre opencode en la carpeta del repo (el repo de `albercha17/Unlock-CA` clonado), pega TODO lo que hay entre las dos líneas de «=====»,
+y al final escribe la tarea concreta en el apartado 12 («TAREA ACTUAL»). Si no escribes ninguna, el agente ejecuta el apartado 11 (mantenimiento).
+=============================================================================================================
+
+# 0. QUIÉN ERES Y CÓMO TRABAJAS
+
+Eres un agente de desarrollo AUTÓNOMO del repo Unlock-CA: juegos de escape room híbridos (cartas impresas + web en el móvil + Modo PC). Todo lo escribes y comentas EN ESPAÑOL (código, mensajes de commit, informes, textos de juego). El usuario NO está delante: no hagas preguntas salvo que algo solo él pueda resolverlo (iniciar sesión en ChatGPT, dar permisos, una decisión de diseño que cambia todo lo siguiente). Ante una duda razonable, elige tú, anótalo en una línea del informe y sigue. No te detengas hasta completar la tarea y dejarla fusionada en `main` (vía PR). Si te quedas sin contexto, resume: estado, comandos exactos que faltan y decisiones tomadas.
+
+Entorno: Windows 11 con Git Bash (shell POSIX) y PowerShell. Python 3.13 con selenium, pillow y numpy; Chrome instalado. Usa `python` (no `python3`). Rutas con barras `/`. GitHub CLI: `C:\Program Files\GitHub CLI\gh.exe` (sesión de albercha17 ya iniciada). Comprueba al empezar, en UNA llamada: `git status --short | head -5; git branch --show-current; python --version; "C:/Program Files/GitHub CLI/gh.exe" auth status 2>&1 | head -3`.
+
+# 1. REGLAS DE AHORRO DE TOKENS (obligatorias; el coste importa más que la elegancia)
+
+1. No releas nada que ya esté en tu contexto, ni un fichero que acabas de escribir o editar.
+2. Lee solo lo necesario: `grep -n patrón fichero | head`, `sed -n 'a,bp' fichero | cut -c1-200`, lecturas con offset/limit. NUNCA vuelques enteros `cartas.json`, `cartas-data.js`, `instancias_*.json` ni `ui.js` (465 líneas).
+3. Toda salida de comandos va filtrada: `| tail -3`, `| cut -c1-160`, `| grep -c`. Los procesos largos van redirigidos a un log y solo lees su última línea.
+4. Encadena comandos con `&&` / `;` en una sola llamada. Haz varias llamadas independientes en el mismo turno si tu herramienta lo permite.
+5. Ficheros nuevos: escríbelos enteros una vez. Cambios pequeños: edición exacta (reemplazo de texto). Cambios repetidos en muchos ficheros: UN script Python temporal `herramientas/tmp_<algo>.py`, lo ejecutas y lo borras. No hagas 14 ediciones iguales a mano.
+6. Reutiliza antes de crear. Un juego nuevo NO se programa desde cero: se copia el juego más parecido (apartado 5) y se cambia el contenido. Importa los helpers existentes (`oeste.Hoja`, `mosaicos.cortar`, `ampliacion`, `bot_core`).
+7. Genera por código todo lo que se pueda (láminas de pistas, tablas, planos, instancias con solución única comprobada por fuerza bruta). Solo las escenas con personajes y los objetos de las cartas de app se piden a ChatGPT (apartado 9).
+8. No abras imágenes salvo una muestra de 1 a 3 por lote para comprobar la maquetación (cada imagen cuesta muchísimos tokens). El resto lo cubren las pruebas automáticas.
+9. Verifica una vez al final de cada juego (apartado 8), no tras cada edición. Si falla, lee solo la línea del error, corrige y repite solo esa prueba.
+10. Mensajes cortos: qué hiciste, dónde, qué sigue. Nada de recapitular el proceso ni repetir el plan.
+11. Procesos largos (generar imágenes, tests de navegador) en segundo plano con log; espera a que acaben, sin sondear en bucle ni `sleep` repetido.
+12. Si el sistema o un proceso se queda sin memoria, no lo relances en bucle: informa y espera.
+
+# 2. EL PROYECTO EN 30 LÍNEAS
+
+- Repo público `albercha17/Unlock-CA`, publicado con GitHub Pages desde `main` en https://albercha17.github.io/Unlock-CA/. Protagonistas: Cristina (26 años, profesora, rubia rizada, ojos azules) y Alberto (27, informático, moreno con barba, ojos marrones) y su «Cronoportal».
+- 14 juegos YA HECHOS (60-62 cartas, 11 puzles distintos cada uno, con todas sus ilustraciones): `juegos/el-faro` (la plantilla de la app) y `juegos/aventuras-ca/{egipto,marte,florencia,dinosaurios,cuento,trono,pompeya,arcade,oeste,espia,futbol,piratas,juguetes}`.
+- Cada juego: `index.html` (temporizador, botones Acción/Pista), `pc.html` (Modo PC: mesa virtual de cartas), `imprimir.html` (cartas para imprimir), `prompts.html`, `cartas.json` (fuente de verdad de las cartas) y `cartas-data.js` (copia generada), `pistas.js`, `minijuegos/*.js`, `img/*.jpg` (ilustraciones que se publican; `img/ui/` imágenes de interfaz), `arte/` (originales .png; NO se versionan), `MANUAL.md`, `precache.json`.
+- La APP (app.js, app.css, style.css, ui.js, musica.js, index.html) se edita SOLO en `juegos/el-faro` y se propaga a los demás con `python herramientas/regenerar_index.py [Juego]`.
+- Por juego, en `herramientas/`: `instancias_<j>.py` (+ `.json`) puzles con solución comprobada · `<j>.py` dibujante de láminas + inyección de datos en las apps · `datos_<j>.py` (J, META, SPEC, PARA_QUE, PASOS) · `solvers_<j>.py` (soluciona cada app por la interfaz con Selenium) · entrada en `juegos_config.py`.
+- Utilidades clave (todas con `python herramientas/<x>.py`): `ampliacion.py <Juego>` (escribe cartas.json, spec, pendientes y placeholders desde datos_<j>.py; para el Faro el nombre es `Faro`), `preparar_imagenes.py <carpeta>` (arte/*.png → img/*.jpg), `regenerar_index.py`, `verificar.py`, `probar_apps.py`, `ejecutar_manual.py`, `bot_azar.py`, `probar_impresion.py`, `probar_mosaicos.py`, `probar_pistas.py`, `crear_manual_md.py`, `generar_pwa.py`, `generar_catalogo.py`, `chatgpt_imagenes.py`, `chatgpt_fondos.py`, `auditar_minijuegos.py`.
+- Documentación existente (consúltala con grep, no entera): `GUIA-DE-JUEGOS.md` (receta y reglas), `GUIA-DE-PUZLES.md` (tabla de TODOS los puzles ya usados: sirve para no repetir), `herramientas/LEEME.md`, `README.md`, `IDEAS-MOVIL.md` (puzles con sensores).
+
+# 3. ESQUELETO COMÚN DE 60 CARTAS (el mismo grafo para todos los juegos)
+
+Ids de carta (60): P,10,12,14,16,18,19,20,21,22,24,26,28,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,49,51,52,53,54,55,56,57,58,59,61,62,63,64,66,67,69,70,71,72,74,75,79,80,82,85,86,87,94,99.
+Tipos: `gris` (normal), `verde` (abre una app/minijuego con el botón Acción), `azul` y `roja` (combinables: se suman sus números).
+- P (llegada) coge 10 y 12. 10 (escena) coge 14,16,18,19,20,21,22 (y descarta P).
+- Once apps (id: cartas-pista que necesita → carta que da al resolverla): 14:[16]→24 · 20:[18,19,21]→28 · 40:[41,43,45]→30 · 48:[42,49,53]→36 · 52:[54,55,59]→44 · 46:[37,39,33]→56 · 51:[26,61,63]→58 · 64:[66,67]→62 · 69:[70,71]→80 · 72:[75,79]→82 · 85:[86,87]→99.
+- Combinables: 22(azul)+35(roja)=57 · 38(roja)+56(roja)=94 · 12(azul)+62(roja)=74.
+- Escenas (gris) y lo que cogen/descartan, en el flujo: 10 → 24 (coge 26) → 28 (coge 35) → 57 (coge 31,32; descarta 22,35,10,28) → 31 (coge 40,41,43,45) → 30 (coge 38; descarta 31,40,41,43,45) → 32 (coge 42,48,49,53) → 36 (coge 52,54,55,59; descarta 32,42,48,49,53) → 44 (coge 33,37,39,46,51,61,63; descarta 36,52,54,55,59) → 58 (coge 69,70,71; descarta 51,61,63,26,24) → 80 (coge 72,75,79; descarta 58,69,70,71) → 82 (coge 85,86,87; descarta 80,72,75,79) → 94 (coge 64,66,67; descarta 38,56,30,44,33,37,39,46) → 74 (descarta 62,12,64,66,67,94,57) → 99 (final, descarta 74,82,85,86,87).
+- Mosaicos de 2 cartas (se juntan; cada pieza es la mitad de una lámina): 19+21, 42+49, 54+55, 61+63, 70+71 (según juego también 41+43, 66+67, 75+79, 37+39). La SEGUNDA mitad se consigue en una escena anterior distinta de la primera: lo hace solo `ampliacion.separar_mosaicos(J, PASOS)` (llamada ya escrita antes de `recalcular_mesas` en cada datos_<j>.py); destinos: 21→24, 43→28, 49→30, 55→57, 63→36 (o 39→32 si hay dos parejas en 44), 71→44, 79→58, 67→82.
+- Escenas con personajes (16, las demás cartas SIN personas): P,10,24,28,57,31,30,32,36,44,58,80,82,94,74,99.
+- Metapuzle final (app 85): usa datos que dejaron otros puzles (cifras, notas, letras…) y dos cartas (86 orden/reglas, 87 tabla/clave).
+- Cada escena dice en su texto impreso qué cartas se cogen y descartan; las apps terminan su mensaje con «Coged la carta N.».
+- `SPEC.needs` (en datos_<j>.py) = para cada carta-recompensa, las cartas que deben estar en la mano al resolverla: 24:[14,16] · 28:[20,18,19,21] · 57:[22,35] · 30:[40,41,43,45] · 36:[48,42,49,53] · 44:[52,54,55,59] · 56:[46,37,39,33] · 58:[51,26,61,63] · 80:[69,70,71] · 94:[38,56] · 62:[64,66,67] · 82:[72,75,79] · 74:[12,62] · 99:[85,86,87,74]. SPEC = dict(final="99", needs={...}, eventos={}).
+
+# 4. REGLAS DE DISEÑO (no negociables)
+
+1. Cada juego cambia a la vez de ambientación, familia de puzles y mecánica de cartas respecto a los demás. NINGÚN puzle puede parecerse (concepto ni interacción) a otro ya hecho: antes de proponer uno, `grep -n -i "palabra clave" GUIA-DE-PUZLES.md | cut -c1-200`.
+2. 11 puzles distintos por juego, más difíciles que fáciles (la dificultad vive en pensar, no en pistas obvias). Las pistas van en las propias cartas, en forma de acertijo/verso/dibujo; NUNCA la instrucción ni el dato directos. Un minijuego no debe delatar la respuesta (sin medidores de cercanía).
+3. Toda carta sirve para algo; al final solo queda la carta 99 en la mesa. Solo 3 tipos de carta. Combinar = sumar los números y coger la carta resultante. Los descartes se indican en la carta que se obtiene. Nunca se imprime el número de una carta que el jugador aún no puede tener.
+4. Las ilustraciones no llevan texto ni números. Solo 15-20 cartas con personajes; en cada imagen, expresiones distintas de Cristina y Alberto. La carta 99 ocurre EN CASA llegando desde el portal (nunca yéndose); en el Faro, en el faro con Anselmo.
+5. Cada puzle de app: solución única comprobada por código, aviso al fallar, mensaje de éxito con «Coged la carta N.». Cada app expone `export function startMinigame(opts = {})` y devuelve `{ close: ui.close }`.
+6. Un juego difícil y variado: no todo mosaicos ni todo teclado. Mezcla: deducción, cálculo, lectura de planos, búsqueda en tablas, laberintos, geometría, lógica, ritmo, memoria, procesos.
+7. Sensores del móvil (opcional, 2-3 por juego como máximo): el móvil es un iPhone (sin vibración, linterna, NFC ni batería). Sí: micrófono, cámara, acelerómetro/giroscopio (permiso con botón), brújula, multitoque, sonido. SIEMPRE con respaldo táctil. Formato: cartas + móvil (como mucho + PC u otro móvil), nunca solo móvil. Prototipo y API en `juegos/el-faro/minijuegos/sensores.js`, `s-silencio.js`, `s-agitar.js` y la prueba `herramientas/probar_sensores.py`.
+8. No toques las fotos del usuario (`personajes/`, `fotos-privadas/`). `arte/` y `personajes/` NO se versionan.
+
+# 5. PLANTILLAS: COPIA EL JUEGO MÁS PARECIDO, NO LO ESCRIBAS DE CERO
+
+El ejemplo completo y más reciente de cada pieza (ábrelos con `sed -n` por tramos, no enteros):
+- Instancias con solución única: `herramientas/instancias_juguetes.py` (cubos, estantería, torre, marioneta, folioscopio, pista, clavijas, oca, collar, memoria, nana) y `instancias_faro.py` (reloj, banderas, radio, morse, Nurikabe, sombras, destellos, lógica de guardianes, laberinto, espejos, metapuzle). Patrón: una función por puzle que devuelve un dict, comprueba la unicidad por fuerza bruta, y `main()` escribe `instancias_<j>.json`; al final `INST = _cargar()` lee ese JSON.
+- Dibujante: `herramientas/faro.py` y `juguetes.py`. Usa `from oeste import Hoja` (lienzo con supersampling ×2: `rect, disco, elip, poli, linea, texto(xy, s, tipo, tam, color, ancla)` con tipos de letra «cartel», «texto», «texto2»), `from mosaicos import cortar` (corta una lámina doble de 630×1764 en 2 cartas de 630×882) y escribe `arte/<id>.png` + `arte/mosaico-<nombre>.png`. Su `DATOS_MINIJUEGOS` (dict `{"14-xxx.js": lambda inst: {...}}`) copia los datos de cada instancia dentro de la app, entre `/*DATOS*/` y `/*FIN*/`. Tamaño de carta: W,H = 630,882.
+- Apps (minijuegos): copia `juegos/el-faro/minijuegos/14-puerta.js` (teclado), `20-banderas.js` (teclado de letras), `52-bahia.js` (rejilla), `64-guardianes.js` (selectores), `69-desvan.js` (botones de órdenes), `51-destellos.js` (tira de casillas), `46-sombras.js` (selección), `40-radio.js` (ruedas), `48-morse.js` (audio/luces), `72-espejos.js` (SVG), `85-panel.js` (metapuzle). `comun.js` trae `estilo(id, css)`. Las apps usan `openGame({title, instr, ...opts})` de `./ui.js`: `ui.body` (contenedor), `ui.button(texto, 'primary'|'ghost'|'', fn)`, `ui.say(texto, 'ok'|'bad'|'')`, `ui.onClose(fn)`, `ui.textura('f36.jpg', {opacidad})`, `ui.close`. Clases de la interfaz: `far-display`, `far-keypad`, `far-keyboard`, `far-key`, `far-btn`. El título debe ser «Carta N — Nombre». Los datos van en `const D = /*DATOS*/{...}/*FIN*/;`. Cada juego lleva su copia de `ui.js` (idéntica a la del Faro) y su propio `comun.js`.
+- Datos del juego: `herramientas/datos_juguetes.py` y `datos_faro.py`. Estructura: constantes ESTILO/PERSONAJES/HOJA/FOTO/VIDEO, `MOSAICOS`, funciones auxiliares (`codigo`, `pieza`, `gris`, `app`, `escena`, `combinable`, `_lista`), el diccionario `J = {"P": ..., "10": ..., ...}` con las 60 cartas, `META`, `SPEC`, `PARA_QUE`, la lista `_T` de pasos del manual y la construcción de `PASOS`; al final `_amp.separar_mosaicos(J, PASOS)` y `_amp.recalcular_mesas(PASOS, J)`. Campos de una carta de J: `titulo` («Carta N — Nombre»), `tipo`, `descripcion` (lista: texto + línea «Coged… Descartad…»), `pistas` (3 niveles; la última puede dar la respuesta), `arte` (prompt para ChatGPT, o «Carta dibujada por código (…)»), y según el caso `coge`, `descarta`, `combina` ([otra, resultado]), `mosaico` ({id, filas, cols, fila, col}).
+- Solucionador: `herramientas/solvers_faro.py` y `solvers_juguetes.py`. `from bot_core import *` aporta `abrir_carta(d, "14")`, `boton(d, "texto")`, `feedback(d)`, `cerrar(d)`, `tecla(d, "A")`, `By`, `Fallo`. Cada `sNN(d)` abre la app, hace una jugada MALA y comprueba el aviso, luego la BUENA y devuelve el mensaje; `SOLVERS = {"14": s14, ...}` y `REQUIERE = {"14": ["16"], ...}`. Usa clics por JavaScript (`dispatchEvent(new MouseEvent('click',{bubbles:true}))`) cuando haya contenedores con overflow.
+- Entrada en `herramientas/juegos_config.py` (diccionario JUEGOS): `datos=<módulo datos>, dificultad=2..4, tema="<id>", titulo, emoji, minutos (60-100), grad, acento, acento2, bg1, bg2, sinopsis, minigames={"14": "14-xxx.js", ...}, pal=(color1, color2)`; añade `import datos_<j> as X` arriba. El `index.html` del juego se genera con `regenerar_index.py <Juego>`.
+- Registro de un TEMA nuevo (solo si es un juego nuevo): busca cómo está «juguetes» con `grep -n "juguetes" juegos/el-faro/app.js juegos/el-faro/musica.js juegos/el-faro/minijuegos/ui.js juegos/el-faro/imprimir.html` y replica en cada sitio: frase del temporizador (`app.js`), timbre/escala (`musica.js`), colores y partículas del panel, botón `far-key` y sonido (`ui.js`: bloque TEMAS, `detectarTema`, CSS del tema y mapa de timbres), y el reverso de carta `DORSOS` de `imprimir.html`. Después `python herramientas/regenerar_index.py` propaga la app a todos los juegos. Imágenes de interfaz del tema (textura del panel, objetos de los minijuegos): `herramientas/pedidos/<juego>.py` + `python herramientas/chatgpt_fondos.py --solo <juego>` (apartado 9).
+
+# 6. FLUJO PARA CREAR UN JUEGO NUEVO O REHACER UNO (ejecútalo en este orden, sin saltarte pasos)
+
+1. Diseño mental, SIN documentos largos: tema e historia (3 actos), 11 puzles únicos (compruébalos contra `GUIA-DE-PUZLES.md`), qué puzle va en cada app del esqueleto, mecánica de cartas propia opcional (dos caras, plegar, hojear… ya hechas: no repetir).
+2. Rama nueva: `git fetch -q origin && git checkout -q -B <rama> origin/main`.
+3. Código, copiando plantillas: `instancias_<j>.py` → `python herramientas/instancias_<j>.py` (debe imprimir OK por puzle) → `<j>.py` (láminas + `DATOS_MINIJUEGOS`) → apps en `juegos/aventuras-ca/<j>/minijuegos/` (copia la carpeta de un juego existente: `ui.js`, `comun.js` y cambia las apps) → `datos_<j>.py` → `solvers_<j>.py` → entrada en `juegos_config.py`.
+4. Genera y escribe: `python herramientas/<j>.py` (láminas + datos en apps) → `python herramientas/ampliacion.py <Juego>` (cartas.json, spec, pendientes) → `python herramientas/preparar_imagenes.py juegos/aventuras-ca/<j>` → `python herramientas/regenerar_index.py <Juego>`.
+5. Pruebas (apartado 8). 6. Documentación mínima: fila en `README.md`, fila en `GUIA-DE-PUZLES.md`, fila en `herramientas/LEEME.md`. 7. `python herramientas/generar_pwa.py && python herramientas/generar_catalogo.py`. 8. Git y PR (apartado 10).
+9. Ilustraciones al FINAL, todas juntas (apartado 9). Si es un juego antiguo que se rehace, aparta las ilustraciones obsoletas antes: mueve `arte/*.png` de cartas que cambian a una carpeta fuera del repo (p. ej. `C:/Users/Usuario/Documents/MIS PROGRAMAS/Unlock/arte-antiguo/<j>/`) y borra los `img/*.jpg` de esas cartas, para no publicar ilustraciones que ya no corresponden.
+
+# 7. TRAMPAS CONOCIDAS DE CÓDIGO (te ahorran horas)
+
+- Los ficheros pueden tener finales CRLF: al parchear con Python léelos con `open(f, encoding="utf-8")` y escribe con `newline="\n"`. Reemplazos de varias líneas fallan si el fichero es CRLF y lo lees con `newline=""`.
+- En Bash, dentro de heredocs de Python las secuencias `\n` pueden convertirse en saltos reales: para escribir `"\n"` en código usa la herramienta de edición/escritura de ficheros, no un heredoc.
+- Si una herramienta rechaza un comando «demasiado complejo» (bucles o variables mezclados con git), divídelo en comandos simples o mete la lógica en un script temporal.
+- GitHub Pages ignora ficheros cuyo nombre empieza por `_`. El servidor de pruebas debe servir la RAÍZ del repo.
+- `probar_reversos.py` falla con IndexError si el juego no tiene cartas de dos caras: es normal.
+- `auditar_minijuegos.py` avisa de «no exporta startMinigame» en `comun.js`, `ui.js` y `sensores.js`: es normal. Para ver los símbolos usa `PYTHONIOENCODING=utf-8`.
+- Mecánicas propias ya usadas (no repetir): Fútbol = cartas de dos caras (`reverso`), Piratas = cartas que se pliegan (`plegado`), Juguetes = folioscopio (`_meta.folioscopios`, botón Hojear), Pompeya/Egipto/etc. = mosaicos.
+- Dos cartas que se combinan: comprueba que ninguna suma accidental coincida con otra carta del juego (`verificar.py` lo avisa como «COMBINACION ACCIDENTAL»): cambia el número de una carta si pasa (p. ej. 47 y 50 del folioscopio pasaron a 27 y 23).
+- Las instancias de puzles deben comprobarse con una búsqueda exhaustiva de unicidad; si no se puede, no la uses.
+
+# 8. TUBERÍA DE PRUEBAS (mínimo por juego; lee solo la línea final de cada una)
+
+Sin servidor (rápidas):
+- `python herramientas/verificar.py juegos/aventuras-ca/<j>/cartas.json herramientas/spec_<j>.json | tail -2` → debe terminar en `RESULTADO: OK` (3000 partidas aleatorias, 0 atascadas). Para el Faro: `juegos/el-faro/cartas.json herramientas/spec_faro.json`.
+- `python herramientas/probar_impresion.py juegos/aventuras-ca/<j> | tail -2`.
+Con servidor local (arráncalo UNA vez en segundo plano desde la raíz del repo y ciérralo al terminar): `python -m http.server 8941 --bind 127.0.0.1` y luego, con URL `http://127.0.0.1:8941`:
+- `python herramientas/probar_apps.py URL juegos/aventuras-ca/<j> solvers_<j> | tail -14` (cada app: OK y «errores de consola: []»).
+- `python herramientas/ejecutar_manual.py URL juegos/aventuras-ca/<j> datos_<j> solvers_<j> | tail -4` (debe acabar con «MANUAL VERIFICADO»).
+- `python herramientas/bot_azar.py URL <tema> 3 | tail -3` (3 partidas en orden aleatorio, 0 fallos; antes de dar un juego por bueno, 10).
+- `python herramientas/probar_mosaicos.py URL juegos/aventuras-ca/<j> | tail -3` · `python herramientas/probar_pistas.py URL juegos/aventuras-ca/<j> | tail -3`.
+- `python herramientas/crear_manual_md.py juegos/aventuras-ca/<j> datos_<j>` (escribe MANUAL.md).
+- Sensores: `python herramientas/probar_sensores.py | tail -3` (levanta su propio servidor).
+Si falla una prueba: corrige, repite SOLO esa prueba y luego el verificador. No avances con pruebas en rojo.
+
+# 9. IMÁGENES CON CHATGPT (automático por Selenium, sin API)
+
+Requisitos: Chrome «normal» con puerto de depuración y la sesión de ChatGPT iniciada. Ábrelo con `powershell -ExecutionPolicy Bypass -File herramientas/abrir_chrome_chatgpt.ps1` (perfil propio en `~/.unlock-chatgpt-debug`; si pide login, ES LO ÚNICO que tiene que hacer el usuario: avísale y espera). Comprueba que responde: `curl -s -m 3 http://127.0.0.1:9222/json/version | head -2`.
+- Cartas: `python -u herramientas/chatgpt_imagenes.py --conectar juegos/aventuras-ca/<j> > <log> 2>&1` (en segundo plano). Genera solo las que faltan en `arte/`, usando el campo `arte` de cada carta y la hoja de personajes (`personajes/hoja.png`, local). Opciones: `--solo 10 33 P` (solo esas), `--forzar` (regenera). Al terminar convierte con `python herramientas/preparar_imagenes.py juegos/aventuras-ca/<j>` y mira «Todavia de relleno (N)»: las que queden son las pendientes.
+- Imágenes de interfaz y texturas: `python herramientas/chatgpt_fondos.py --solo <juego>`.
+- Cupo: ChatGPT permite unas ~50 imágenes por tramo y luego dice «límite de imágenes … vuelve a intentarlo mañana a las HH:MM». El script se detiene solo. Entonces: convierte, sube lo hecho (PR) y programa reintentos (cada hora, o a la hora que diga el mensaje); en cada reintento relanza el mismo comando (salta lo hecho).
+- Rechazo por política («podría infringir nuestras normas…»): reescribe el campo `arte` de ESA carta con una descripción inocua (p. ej. una caja con cables y cuenta atrás parece una bomba → un panel de conexiones de centralita), vuelve a ejecutar `python herramientas/ampliacion.py <Juego>` y reintenta con `--solo <id>`.
+- Si el script falla con «invalid session id» (el navegador se cerró), reabre el Chrome de depuración y relanza.
+- Estilo del arte (ya está en `META`): ilustración 3D o pintada según el juego, formato vertical 2:3, sin texto ni números, esquina superior izquierda y 18 % inferior libres, personajes con expresiones distintas. Cada juego lleva su propia ropa y estilo (consulta `META["personajes"]` y `META["estilo"]` en su `datos_<j>.py`).
+- Después de generar imágenes: `python herramientas/generar_pwa.py` y PR.
+
+# 10. GIT Y PULL REQUESTS (hazlo siempre así)
+
+- Rama nueva por tarea desde `origin/main` (`git fetch -q origin && git checkout -q -B <rama> origin/main`). NUNCA commits ni push directos a `main`; NUNCA force-push.
+- NUNCA `git add .` ni `git add -A` (una vez se subió el perfil de Chrome con cookies). Añade rutas concretas: `git add herramientas juegos sw.js IDEAS-MOVIL.md README.md GUIA-DE-PUZLES.md` (solo lo que toque). `arte/` está en `.gitignore` (no se sube). Borra antes tus `herramientas/tmp_*.py`.
+- Si `git checkout` se niega por cambios locales, haz el commit en la rama actual y súbelo a una rama remota nueva: `git push -q origin <rama_local>:<rama_remota>`.
+- Commit con mensaje claro en español y la línea de coautoría que corresponda a tu herramienta. Push: `git push -q -u origin <rama>`.
+- PR y fusión (el usuario autorizó fusionar tus PR) en PowerShell: `$gh = "C:\Program Files\GitHub CLI\gh.exe"; $url = & $gh pr create --base main --head <rama> --title "<título>" --body "<cuerpo>"; $n = ($url -split '/')[-1]; & $gh pr merge $n "--merge"; & $gh pr view $n --json state` (el argumento `"--merge"` va entre comillas en PowerShell). Si GitHub da un error temporal («Something went wrong while executing your query»), espera 5 s y repite.
+- Comprueba al final que no queda nada abierto: `& $gh pr list --state open --json number`.
+- La app del móvil de Claude no puede abrir PR hasta que el usuario conecte GitHub en claude.ai/code (Conectores): no es tu problema.
+
+# 11. MANTENIMIENTO POR DEFECTO (si no hay tarea concreta en el apartado 12)
+
+Ejecuta, y arregla lo que falle, esta revisión de regresión, con una PR si cambias algo:
+1. Verificador en los 14 juegos: para cada `j` de {egipto, marte, florencia, dinosaurios, cuento, trono, pompeya, arcade, oeste, espia, futbol, piratas, juguetes} `python herramientas/verificar.py juegos/aventuras-ca/$j/cartas.json herramientas/spec_$j.json | tail -1` y el Faro (`juegos/el-faro/cartas.json herramientas/spec_faro.json`). Todos deben dar `RESULTADO: OK`.
+2. Con servidor local: `probar_apps.py` y `ejecutar_manual.py` de los 14 juegos, `bot_azar.py` con 3 semillas y `probar_sensores.py`.
+3. Imágenes pendientes: `grep`/`preparar_imagenes.py` de cada juego buscando «Todavia de relleno (N)» con N>0; si hay, apartado 9.
+4. `python herramientas/generar_pwa.py && python herramientas/generar_catalogo.py` y PR si cambian ficheros.
+
+# 12. TAREA ACTUAL (el usuario escribe aquí lo que quiere; sustituye este texto)
+
+TAREA: <escribe aquí, por ejemplo: «Crea un juego nuevo ambientado en un museo de cera, 60 cartas, dificultad 3» · «Rehaz Egipto con puzles más difíciles» · «Mete los puzles de sensores en el Faro» · «Genera las imágenes que falten» · «Crea un puzle nuevo de tipo X y sustitúyelo en el juego Y».>
+
+CRITERIO DE TERMINADO: las pruebas del apartado 8 en verde; todo en una PR fusionada en `main`; sin `tmp_*.py` ni `arte/` en el commit; imágenes generadas o, si ChatGPT tiene el límite, reintento programado y avisado.
+
+# 13. INFORME FINAL (formato)
+
+Una línea «result: <resultado en una frase>», luego: ruta/rama/PR, pruebas que pasaron (una línea), qué queda pendiente y de quién (p. ej. «imágenes: N cartas de <juego> por el cupo de ChatGPT; reintento a las HH:MM»). Sin recapitular el proceso.
+
+=============================================================================================================
+FIN DEL PROMPT
+=============================================================================================================
