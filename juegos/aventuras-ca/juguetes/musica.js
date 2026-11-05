@@ -136,6 +136,15 @@ const PRESETS = {
     ritmo: { tipo: 'tambor', patron: [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1], vol: 0.3, tono: 70 },
     ruido: { tipo: 'lluvia', vol: 0.05 }
   },
+  // Cronoportal: misterio eléctrico y soñador, arpegio brillante en lidia y pulso suave.
+  cronoportal: {
+    bpm: 84, raiz: 52, escala: ESC.lidia, compases: 2, reverb: 2.6,
+    acordes: [[0, 2], [4, 0], [3, 2], [5, 0]],
+    pad: { onda: 'sine', filtro: 1400, vol: 0.09, octava: -1, ataque: 0.8 },
+    arpegio: { onda: 'triangle', vol: 0.07, paso: 1, octava: 1, patron: [0, 2, 4, 6, 4, 2], filtro: 3200, pulsada: false, campana: true },
+    melodia: { onda: 'sine', vol: 0.1, octava: 2, prob: 0.3, dur: 0.8, ataque: 0.05, filtro: 3000, vibrato: 4 },
+    ritmo: { tipo: 'tambor', patron: [1, 0, 0, 0, 1, 0, 0, 0], vol: 0.14, tono: 70 }
+  },
   // Piratas: balada marinera en dórico con acordeón (cuadrada filtrada), bombo de compás de 6/8 y olas.
   piratas: {
     bpm: 96, raiz: 50, escala: ESC.dorica, compases: 2, reverb: 2.2,

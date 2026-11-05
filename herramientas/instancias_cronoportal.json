@@ -1,0 +1,169 @@
+{
+ "cerradura": {
+  "cuentas": {
+   "rojo": 3,
+   "azul": 5,
+   "amarillo": 2
+  },
+  "gears": [
+   {
+    "col": "rojo",
+    "x": 4,
+    "y": 1,
+    "dx": 2,
+    "dy": 3
+   },
+   {
+    "col": "amarillo",
+    "x": 0,
+    "y": 0,
+    "dx": 0,
+    "dy": 3
+   },
+   {
+    "col": "rojo",
+    "x": 3,
+    "y": 1,
+    "dx": 8,
+    "dy": -4
+   },
+   {
+    "col": "rojo",
+    "x": 2,
+    "y": 0,
+    "dx": -3,
+    "dy": 0
+   },
+   {
+    "col": "azul",
+    "x": 3,
+    "y": 0,
+    "dx": -3,
+    "dy": -8
+   },
+   {
+    "col": "azul",
+    "x": 2,
+    "y": 1,
+    "dx": -6,
+    "dy": -5
+   },
+   {
+    "col": "azul",
+    "x": 1,
+    "y": 0,
+    "dx": 2,
+    "dy": -8
+   },
+   {
+    "col": "amarillo",
+    "x": 1,
+    "y": 1,
+    "dx": -6,
+    "dy": 0
+   },
+   {
+    "col": "azul",
+    "x": 4,
+    "y": 0,
+    "dx": -2,
+    "dy": 4
+   },
+   {
+    "col": "azul",
+    "x": 0,
+    "y": 1,
+    "dx": 4,
+    "dy": 6
+   }
+  ],
+  "codigo": "352",
+  "cifra": 4
+ },
+ "mapa": {
+  "cols": 4,
+  "filas": 6,
+  "celdas": [
+   [
+    "luna",
+    "llave",
+    "sol",
+    "flor"
+   ],
+   [
+    "flor",
+    "flor",
+    "estrella",
+    "llave"
+   ],
+   [
+    "luna",
+    "llave",
+    "sol",
+    "sol"
+   ],
+   [
+    "sol",
+    "reloj",
+    "estrella",
+    "estrella"
+   ],
+   [
+    "luna",
+    "sol",
+    "reloj",
+    "luna"
+   ],
+   [
+    "estrella",
+    "flor",
+    "flor",
+    "sol"
+   ]
+  ],
+  "camino": [
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    1
+   ]
+  ],
+  "solucion": [
+   "reloj",
+   "luna",
+   "estrella",
+   "sol"
+  ],
+  "cifra": 7
+ },
+ "meta": {
+  "orden": [
+   "20",
+   "14"
+  ],
+  "codigo": "74",
+  "cifras": {
+   "14": 4,
+   "20": 7
+  }
+ }
+}

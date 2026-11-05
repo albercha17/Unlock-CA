@@ -31,7 +31,8 @@ const ETIQUETA_RELOJ = {
   espia: 'El yate del Dr. Noche zarpa a medianoche',
   futbol: 'Faltan minutos para el pitido inicial',
   piratas: 'La marea sube hacia la cueva',
-  juguetes: 'El camión de la mudanza llega al amanecer'
+  juguetes: 'El camión de la mudanza llega al amanecer',
+  cronoportal: 'El portal solo aguanta abierto un rato'
 };
 
 const REGLAS = [

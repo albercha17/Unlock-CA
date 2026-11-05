@@ -249,7 +249,7 @@ def main():
         esperar(lambda: visibles(d, "#mis .option"))
         ok(len(visibles(d, "#mis .option")) == 2 and "viendo la app como" in d.find_element(By.ID, "mis").text, "«ver como» enseña lo que ve el cliente")
         ok("ver-como" not in d.current_url, "y limpia la dirección")
-        d.find_element(By.CSS_SELECTOR, "[data-volver]").click()
+        d.execute_script("arguments[0].click()", d.find_element(By.CSS_SELECTOR, "[data-volver]"))
         esperar(lambda: d.find_element(By.ID, "todo").is_displayed())
         ok(d.find_element(By.ID, "todo").is_displayed(), "«Volver a mi vista» devuelve el menú completo")
 

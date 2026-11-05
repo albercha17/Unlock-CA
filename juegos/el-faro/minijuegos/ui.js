@@ -85,6 +85,12 @@ const TEMAS = {
     borde: '#e8b84a', acento: '#9fe0e0', brillo: '232,184,74', boton: 'linear-gradient(180deg,#f2cf78,#b88a26)', botonTxt: '#1e1404',
     particulas: 'lluvia', simbolo: '⚓', textura: 'panel.jpg', papel: 'papel.jpg'
   },
+  cronoportal: {
+    fuente: "'Poppins', system-ui, sans-serif", mayus: false, trazo: '.02em',
+    tinte: '6,18,36', panel: 'rgba(14,40,70,.92)', panel2: 'rgba(5,13,26,.95)',
+    borde: '#ffd27a', acento: '#8fe6ff', brillo: '255,210,122', boton: 'linear-gradient(180deg,#ffe29a,#c9962e)', botonTxt: '#1a1100',
+    particulas: 'chispa', simbolo: '✦', textura: 'panel.jpg', papel: 'papel.jpg'
+  },
   juguetes: {
     fuente: "'Fredoka', 'Trebuchet MS', system-ui, sans-serif", mayus: false, trazo: '.01em',
     tinte: '14,24,56', panel: 'rgba(30,52,110,.92)', panel2: 'rgba(14,24,56,.95)',
@@ -103,6 +109,7 @@ function detectarTema() {
   if (/espia/.test(p)) return 'espia';
   if (/futbol/.test(p)) return 'futbol';
   if (/piratas/.test(p)) return 'piratas';
+  if (/cronoportal/.test(p)) return 'cronoportal';
   if (/juguetes/.test(p)) return 'juguetes';
   if (/dinosaurios/.test(p)) return 'dinosaurios';
   if (/cuento/.test(p)) return 'cuento';
@@ -188,6 +195,7 @@ function injectStyle() {
     .far-overlay[data-tema="cuento"] .far-key{background:linear-gradient(180deg,#8a63d8,#5a3aa8);border:1px solid #ffe08a;color:#fff7d6;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #2c1a66;text-shadow:0 1px 0 rgba(0,0,0,.4);border-radius:14px}
     .far-overlay[data-tema="trono"] .far-title{font-size:1.2rem;letter-spacing:.05em}
     .far-overlay[data-tema="futbol"] .far-title{font-size:1.2rem}
+    .far-overlay[data-tema="cronoportal"] .far-key{background:linear-gradient(180deg,#1f5f8a,#0d2f4d);border:1px solid #ffd27a;color:#f4fbff;box-shadow:inset 0 1px 0 rgba(180,240,255,.3),0 3px 0 #04101c;text-shadow:0 1px 0 rgba(0,0,0,.5)}
     .far-overlay[data-tema="piratas"] .far-title{font-size:1.35rem;letter-spacing:.02em}
     .far-overlay[data-tema="juguetes"] .far-title{font-size:1.25rem;font-weight:700}
     .far-overlay[data-tema="juguetes"] .far-key{background:linear-gradient(180deg,#ff6a6a,#d83a4a);border:2px solid #ffcc33;color:#fff;box-shadow:inset 0 2px 0 rgba(255,255,255,.4),0 4px 0 #8a1a2a;border-radius:16px;font-weight:700}
@@ -259,6 +267,7 @@ const SONIDO = {
   espia: { onda: 'sine', base: 392 },
   futbol: { onda: 'triangle', base: 523 },
   piratas: { onda: 'triangle', base: 392 },
+  cronoportal: { onda: 'sine', base: 587 },
   juguetes: { onda: 'sine', base: 659 }
 };
 function sonar(tipo, tema) {
