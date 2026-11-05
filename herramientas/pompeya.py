@@ -246,6 +246,21 @@ def impronta(se):
 
 
 def anillo_png(an, ruta):
+    base = os.path.join(os.path.dirname(ruta), "anillo-base.png")
+    if os.path.exists(base):                      # anillo de oro dibujado por ChatGPT; la cara oscura mide aprox. el 28 % del ancho y está en el centro
+        b = Image.open(base).convert("RGBA")
+        lado = 300
+        b = b.resize((lado, round(b.height * lado / b.width)), Image.LANCZOS)
+        cx, cy, r = b.width * 0.5, b.height * 0.5, b.width * 0.141
+        m = motivo(an["simbolo"], an["letras"], an["voltea_simbolo"], an["voltea_letras"], (24, 20, 20), (230, 200, 120), 300)
+        d = int(r * 2 * 0.98)
+        m = m.convert("RGBA").resize((d, d), Image.LANCZOS)
+        mascara = Image.new("L", (d, d), 0)
+        from PIL import ImageDraw
+        ImageDraw.Draw(mascara).ellipse([0, 0, d - 1, d - 1], fill=255)
+        b.paste(m, (round(cx - d / 2), round(cy - d / 2)), mascara)
+        b.save(ruta)
+        return
     h = Hoja(240, 240, (255, 0, 255))
     h.disco(120, 120, 110, ORO, (140, 100, 30), 6)
     h.disco(120, 120, 80, (60, 30, 30), (140, 100, 30), 4)
