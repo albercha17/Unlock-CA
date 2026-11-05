@@ -22,7 +22,7 @@ catalogo = [dict(id="faro", nombre="El Faro de Cabo Niebla", ruta="juegos/el-far
 for nombre, cfg in JUEGOS.items():
     carpeta = f"juegos/aventuras-ca/{nombre.lower()}"
     catalogo.append(dict(id=nombre.lower(), nombre=cfg["titulo"], ruta=carpeta + "/", dificultad=cfg.get("dificultad", 3),
-                         minutos=cfg.get("minutos", 60), cartas=n_cartas(carpeta)))
+                         minutos=cfg.get("minutos", 60), cartas=n_cartas(carpeta), **({"gratis": True} if cfg.get("gratis") else {})))
 with open("juegos/catalogo.json", "w", encoding="utf-8", newline="\n") as f:
     json.dump(catalogo, f, ensure_ascii=False, indent=2)
     f.write("\n")

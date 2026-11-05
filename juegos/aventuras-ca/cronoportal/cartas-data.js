@@ -1,0 +1,334 @@
+// Generado por herramientas/sincronizar_cartas.py a partir de cartas.json. No editar a mano.
+window.JUEGO_LOCAL = {
+ "_meta": {
+  "juego": "El primer salto",
+  "estilo": "Ilustración de animación 3D familiar y luminosa, como una película de aventuras de ciencia ficción amable: colores vivos y limpios, latón pulido, cristal azul brillante, relojes y engranajes, luz cálida de tarde en el salón y destellos azules y dorados del portal. Formato vertical 2:3. Sin texto, letras ni números legibles en la imagen. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).",
+  "personajes": {
+   "Cristina": "Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Viste vaqueros, zapatillas, una camiseta clara y una chaqueta ligera, y lleva el pelo recogido con un lápiz.",
+   "Alberto": "Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Viste vaqueros, zapatillas, una sudadera con capucha y unas gafas de protección subidas en la frente."
+  },
+  "hoja": "Crea una hoja de personajes (character sheet) con las dos personas de la foto adjunta, de cuerpo entero y de frente, sobre fondo claro y neutro. Mantén su parecido real con la foto (cara, pelo, barba, ojos). Cristina, mujer de 26 años, profesora, pelo rubio y rizado, ojos azules. Viste vaqueros, zapatillas, una camiseta clara y una chaqueta ligera, y lleva el pelo recogido con un lápiz. Alberto, hombre de 27 años, informático, pelo moreno corto, barba cuidada, ojos marrones. Viste vaqueros, zapatillas, una sudadera con capucha y unas gafas de protección subidas en la frente. Estilo: Ilustración de animación 3D familiar y luminosa, como una película de aventuras de ciencia ficción amable: colores vivos y limpios, latón pulido, cristal azul brillante, relojes y engranajes, luz cálida de tarde en el salón y destellos azules y dorados del portal. Formato vertical 2:3. Sin texto, letras ni números legibles en la imagen. Deja libre de detalles importantes la esquina superior izquierda y el 18 % inferior de la imagen. Los personajes tienen siempre expresiones distintas y expresivas, adecuadas a la escena (nunca la misma cara en dos imágenes).",
+  "foto": "Antes de nada, adjunta a ChatGPT una foto de Cristina y Alberto juntos (o una de cada uno, con la cara bien visible). Pídele que mantenga el parecido real en la cara y que los vista con la ropa cómoda de este juego.",
+  "video": "Crea un vídeo vertical 9:16 de 15 segundos, con estilo de animación 3D familiar y luminosa, sin ningún texto, letra ni subtítulo en pantalla. Escena 1 (0-4 s): en el salón de una casa actual, sobre una mesa, un aparato de latón y cristal con un anillo central apagado; Cristina (mujer de 26 años, rubia de pelo rizado, ojos azules) y Alberto (hombre de 27 años, moreno con barba, ojos marrones, gafas de protección en la frente) lo miran con una sonrisa nerviosa. Escena 2 (4-8 s): colocan un cristal azul en el pecho del aparato y el anillo se enciende con un arco de luz azul y dorada. Escena 3 (8-12 s): el portal los absorbe girando en un túnel de luz y caen en un salón enorme lleno de relojes flotantes. Escena 4 (12-15 s): primer plano de los dos mirando boquiabiertos los relojes; fundido a negro. Sonido: zumbido eléctrico creciente, campanadas de relojes y un destello final, sin voz de narrador.",
+  "mosaicos": {
+   "plano": {
+    "filas": 2,
+    "cols": 1,
+    "cartas": [
+     "19",
+     "21"
+    ],
+    "titulo": "El plano del Umbral"
+   }
+  }
+ },
+ "P": {
+  "titulo": "Carta P — El primer salto",
+  "tipo": "gris",
+  "coge": [
+   10,
+   12
+  ],
+  "descripcion": [
+   "BIENVENIDOS AL NIVEL DE PRUEBA. Cada carta se lee entera y dice qué hacer. REGLA 1: donde pone «Coged», se ponen esas cartas en la mesa; donde pone «Descartad», se quitan. Aquí empieza todo: Cristina y Alberto han montado por fin el Cronoportal en el salón de su casa. Es una máquina de latón y cristal con un anillo central, pero está apagada: le falta el cristal de energía.",
+   "Coged las cartas 10 y 12."
+  ],
+  "pistas": [
+   "Leed la carta con calma: dice qué hacer.",
+   "Coged las cartas 10 y 12: son las que dice abajo.",
+   "Coged las cartas 10 y 12."
+  ],
+  "arte": "El salón de una casa actual, de tarde, con una mesa grande en el centro y sobre ella un aparato de latón y cristal con un anillo central apagado (el Cronoportal) rodeado de herramientas y papeles. Cristina, con el pelo recogido con un lápiz, lo mira con los brazos en jarras y una sonrisa de orgullo, y Alberto, con las gafas de protección en la frente, ajusta un tornillo con la lengua entre los dientes."
+ },
+ "10": {
+  "titulo": "Carta 10 — El taller del salón",
+  "tipo": "gris",
+  "coge": [
+   14,
+   16,
+   21,
+   22
+  ],
+  "descarta": [
+   "P"
+  ],
+  "descripcion": [
+   "La mesa del salón es ahora el taller. REGLA 2: las cartas con el borde VERDE no se resuelven en el papel, sino en el móvil: se pulsa el botón Acción y se escribe el número de la carta. Delante tenéis la vitrina del cristal, cerrada con un candado de tres cifras (carta 14), y la pizarra de Alberto con lo que sobró del montaje (carta 16). En el suelo hay media lámina de un plano (carta 21) y la mitad de un cristal (carta 22).",
+   "Coged las cartas 14, 16, 21 y 22. Descartad la carta P."
+  ],
+  "pistas": [
+   "La carta 14 tiene borde verde: es de app. Pulsad Acción y escribid 14.",
+   "El candado de la vitrina pide una cifra por cada color de engranaje de la pizarra.",
+   "Rojo, azul y amarillo, en ese orden: contad cuántos hay de cada uno.",
+   "Coged las cartas 14, 16, 21 y 22. Descartad la carta P."
+  ],
+  "arte": "La mesa del salón convertida en taller, con una vitrina de cristal cerrada con un candado, una pizarra verde llena de engranajes de colores apoyada en la pared y un portal de latón al fondo. Cristina se inclina hacia la pizarra con el ceño fruncido de concentración y Alberto levanta una mitad de cristal azul a la luz con los ojos muy abiertos de asombro."
+ },
+ "12": {
+  "titulo": "Carta 12 — Cronoportal sin cristal",
+  "tipo": "gris",
+  "descripcion": [
+   "El Cronoportal: una máquina de latón y cristal con un anillo central apagado y un hueco vacío en el pecho, donde irá el cristal de energía."
+  ],
+  "pistas": [
+   "Es la máquina que han construido.",
+   "Está apagada.",
+   "Le falta el cristal de energía."
+  ],
+  "arte": "Carta dibujada por código (herramientas/cronoportal.py; no se pide a ChatGPT): Cronoportal sin cristal."
+ },
+ "14": {
+  "titulo": "Carta 14 — La vitrina del cristal",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: la vitrina que guarda el cristal tiene un candado de tres cifras. La pizarra de Alberto da el código.",
+   "Al resolverlo, coged la carta 24."
+  ],
+  "pistas": [
+   "Es una carta verde: se abre con el botón Acción de la app.",
+   "La pizarra es la carta 16. Contad los engranajes de cada color.",
+   "Hay 3 rojos, 5 azules y 2 amarillos: el código es 352."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Una vitrina de cristal y latón con un candado de tres ruedas de números, y dentro una pequeña almohadilla de terciopelo azul vacía con la forma de un cristal partido, sobre una mesa de taller."
+ },
+ "16": {
+  "titulo": "Carta 16 — La pizarra de Alberto",
+  "tipo": "gris",
+  "descripcion": [
+   "La pizarra verde de Alberto con engranajes rojos, azules y amarillos que sobraron al montar el portal."
+  ],
+  "pistas": [
+   "Es la pizarra de la carta 14.",
+   "Hay engranajes de tres colores.",
+   "Contadlos por color."
+  ],
+  "arte": "Carta dibujada por código (herramientas/cronoportal.py; no se pide a ChatGPT): La pizarra de Alberto."
+ },
+ "18": {
+  "titulo": "Carta 18 — La nota de Cristina",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota de Cristina pegada en el plano, que explica cómo se lee."
+  ],
+  "pistas": [
+   "Es la nota del plano de la carta 20.",
+   "Habla de un camino y de cuatro símbolos.",
+   "El plano está en las cartas 19 y 21."
+  ],
+  "arte": "Carta dibujada por código (herramientas/cronoportal.py; no se pide a ChatGPT): La nota de Cristina."
+ },
+ "19": {
+  "titulo": "Carta 19 — El plano del Umbral (mitad de arriba)",
+  "tipo": "gris",
+  "descripcion": [
+   "REGLA 3: algunas cartas son la mitad de una lámina. Se juntan: esta es la mitad de arriba de un plano; la de abajo es la carta 21."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 21.",
+   "Colocad la 19 arriba y la 21 abajo.",
+   "El camino cruza de una hoja a la otra."
+  ],
+  "mosaico": {
+   "id": "plano",
+   "filas": 2,
+   "cols": 1,
+   "fila": 0,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/cronoportal.py; no se pide a ChatGPT): mitad de arriba de «El plano del Umbral»."
+ },
+ "21": {
+  "titulo": "Carta 21 — El plano del Umbral (mitad de abajo)",
+  "tipo": "gris",
+  "descripcion": [
+   "Media lámina de un plano: la mitad de abajo. La de arriba es la carta 19."
+  ],
+  "pistas": [
+   "Es la mitad de una lámina: juntadla con la carta 19.",
+   "Colocad la 19 arriba y la 21 abajo.",
+   "El camino cruza de una hoja a la otra."
+  ],
+  "mosaico": {
+   "id": "plano",
+   "filas": 2,
+   "cols": 1,
+   "fila": 1,
+   "col": 0
+  },
+  "arte": "Carta dibujada por código (herramientas/cronoportal.py; no se pide a ChatGPT): mitad de abajo de «El plano del Umbral»."
+ },
+ "20": {
+  "titulo": "Carta 20 — Calibrar el portal",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: el portal se calibra tocando, en orden, los símbolos por los que pasa el camino del plano.",
+   "Al resolverlo, coged la carta 28."
+  ],
+  "pistas": [
+   "El plano son las cartas 19 y 21 juntas, y la nota de Cristina es la 18.",
+   "Seguid el camino desde la entrada y apuntad los símbolos de las cuatro casillas de en medio.",
+   "Los símbolos son: reloj, luna, estrella, sol."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un panel de calibración del Cronoportal con seis botones redondos de latón con símbolos grabados (sol, luna, estrella, llave, reloj y flor) bajo un cristal con un anillo luminoso."
+ },
+ "22": {
+  "titulo": "Carta 22 — Mitad del cristal",
+  "tipo": "azul",
+  "combina": [
+   35,
+   57
+  ],
+  "descripcion": [
+   "La mitad izquierda de un cristal de energía azul, cortada limpiamente por el centro.",
+   "Combinadla con la carta 35: sumad sus números (22 + 35 = 57) y coged la carta 57."
+  ],
+  "pistas": [
+   "La mitad izquierda de un cristal de energía azul, cortada limpiamente por el centro.",
+   "Se combina con la carta 35.",
+   "22 + 35 = 57."
+  ],
+  "arte": "Sin ninguna persona en la imagen. La mitad izquierda de un cristal azul brillante de energía, cortada limpiamente por el centro, sobre una almohadilla de terciopelo."
+ },
+ "24": {
+  "titulo": "Carta 24 — La vitrina se abre",
+  "tipo": "gris",
+  "coge": [
+   18,
+   19,
+   20
+  ],
+  "descarta": [
+   10,
+   14,
+   16
+  ],
+  "descripcion": [
+   "El candado cede y dentro de la vitrina hay una nota de Cristina (carta 18), la mitad de arriba de un plano (carta 19) y un calibrador del portal (carta 20).",
+   "Coged las cartas 18, 19 y 20. Descartad las cartas 10, 14 y 16."
+  ],
+  "pistas": [
+   "Mirad lo que había dentro de la vitrina.",
+   "Hay una carta nueva con borde verde: la 20.",
+   "Coged las cartas 18, 19 y 20. Descartad las cartas 10, 14 y 16."
+  ],
+  "arte": "El interior de una vitrina abierta, con una mitad de cristal azul en un cojín, un plano doblado y un calibrador de latón con botones de símbolos. Cristina saca el plano con cuidado y los ojos brillantes de emoción, y Alberto abre los brazos con una gran sonrisa de victoria."
+ },
+ "28": {
+  "titulo": "Carta 28 — El portal se calibra",
+  "tipo": "gris",
+  "coge": [
+   86,
+   35
+  ],
+  "descarta": [
+   18,
+   19,
+   20,
+   21,
+   24
+  ],
+  "descripcion": [
+   "Con los símbolos en orden, el anillo del Cronoportal gira y se llena de luz azul. Sobre la mesa, Alberto ha escrito la nota del panel de vuelta (carta 86) y, con la luz del anillo, ha aparecido la otra mitad del cristal (carta 35). REGLA 4: las cartas de color AZUL y ROJO se combinan: se suman sus números y se coge la carta que sale; la 35 se combina con la 22. REGLA 5: los puzles dejan cifras («Cifra de…»). Apuntadlas, porque las necesitaréis más tarde.",
+   "Coged las cartas 86 y 35. Descartad las cartas 18, 19, 20, 21 y 24."
+  ],
+  "pistas": [
+   "Mirad la nota de Alberto.",
+   "Una carta roja y una azul se combinan sumando sus números.",
+   "Coged las cartas 86 y 35. Descartad las cartas 18, 19, 20, 21 y 24."
+  ],
+  "arte": "El Cronoportal con el anillo central girando y lleno de luz azul, rodeado de papeles y herramientas sobre una mesa de taller. Alberto escribe una nota con el lápiz en la boca y la ceja levantada de duda, y Cristina, con las manos en las mejillas, mira el anillo con una sonrisa de asombro."
+ },
+ "35": {
+  "titulo": "Carta 35 — La otra mitad del cristal",
+  "tipo": "roja",
+  "combina": [
+   22,
+   57
+  ],
+  "descripcion": [
+   "La mitad derecha del cristal de energía, que estaba en la vitrina.",
+   "Combinadla con la carta 22: sumad sus números (35 + 22 = 57) y coged la carta 57."
+  ],
+  "pistas": [
+   "La mitad derecha del cristal de energía, que estaba en la vitrina.",
+   "Se combina con la carta 22.",
+   "35 + 22 = 57."
+  ],
+  "arte": "Sin ninguna persona en la imagen. La mitad derecha de un cristal azul brillante de energía, cortada limpiamente por el centro, sobre un cojín de terciopelo dentro de una vitrina."
+ },
+ "57": {
+  "titulo": "Carta 57 — ¡El primer salto!",
+  "tipo": "gris",
+  "coge": [
+   85
+  ],
+  "descarta": [
+   22,
+   35,
+   12,
+   28
+  ],
+  "descripcion": [
+   "Las dos mitades encajan en una sola luz: el cristal de energía. Cristina lo coloca en el pecho del Cronoportal y la máquina ruge. El anillo se abre y los absorbe en un túnel de destellos azules y dorados: caen en el Umbral del Tiempo, un salón inmenso de relojes que flotan, giran y suenan. Es el primer salto de su vida. Para volver hay un panel con dos cifras (carta 85). REGLA 6: el botón Pista de la app da ayuda si os atascáis; empieza suave y cada vez dice más.",
+   "Coged la carta 85. Descartad las cartas 22, 35, 12 y 28."
+  ],
+  "pistas": [
+   "Esta carta dice que cojáis la 85.",
+   "El panel de vuelta se abre con el botón Acción.",
+   "Coged la carta 85. Descartad las cartas 22, 35, 12 y 28."
+  ],
+  "arte": "Dentro del Umbral del Tiempo, un salón inmenso y luminoso lleno de relojes de todos los tamaños que flotan en el aire y giran, con un panel de latón con ruedas de cifras en primer plano y, al fondo, un anillo de luz azul. Cristina, con los brazos abiertos y una gran sonrisa de maravilla, gira sobre sí misma, y Alberto, boquiabierto y con las gafas de protección resbalando por la frente, mira hacia arriba."
+ },
+ "85": {
+  "titulo": "Carta 85 — El panel de vuelta",
+  "tipo": "verde",
+  "descripcion": [
+   "Es un juego de la app: un panel con un teclado en el que hay que marcar dos cifras para volver a casa.",
+   "Al resolverlo, coged la carta 99."
+  ],
+  "pistas": [
+   "Las dos cifras las dejaron el plano y la vitrina.",
+   "El orden lo dice la carta 86.",
+   "Primero la del camino (7) y luego la del candado (4): 74."
+  ],
+  "arte": "Sin ninguna persona en la imagen. Un panel de latón de una máquina del tiempo con un teclado numérico de teclas redondas, un visor ámbar y dos ruedas de cifras, bajo relojes flotantes."
+ },
+ "86": {
+  "titulo": "Carta 86 — El orden del panel",
+  "tipo": "gris",
+  "descripcion": [
+   "Una nota de Alberto con el orden en que se marcan las dos cifras del panel de vuelta."
+  ],
+  "pistas": [
+   "Es el orden de las cifras de la carta 85.",
+   "Primero una cifra, luego la otra.",
+   "Cada una la dejó un puzle."
+  ],
+  "arte": "Carta dibujada por código (herramientas/cronoportal.py; no se pide a ChatGPT): El orden del panel."
+ },
+ "99": {
+  "titulo": "Carta 99 — De vuelta a casa (FIN)",
+  "tipo": "gris",
+  "descarta": [
+   57,
+   85,
+   86
+  ],
+  "descripcion": [
+   "El panel acepta las dos cifras y el anillo se abre otra vez. Cristina y Alberto salen disparados del Umbral y aterrizan, riendo, en el sofá de su salón, otra vez en casa y de su tamaño. Alberto mira el aparato todavía humeante: «Funciona. Funciona de verdad». Cristina ya está sacando un mapa: «¿Adónde vamos mañana?». Habéis aprendido las seis reglas del juego: ya estáis listos para el siguiente salto. FIN.",
+   "Descartad las cartas 57, 85 y 86."
+  ],
+  "pistas": [
+   "Descartad las cartas 57, 85 y 86."
+  ],
+  "arte": "La escena ocurre DENTRO del salón de su casa, de tarde (sofá, estanterías con libros, plantas, una lámpara encendida y luz cálida por la ventana): acaban de VOLVER a casa. Cristina y Alberto salen de un portal circular de luz azul y dorada que se abre detrás de ellos y se está cerrando; a través del portal todavía se ven relojes flotantes. Cristina ríe a carcajadas con los brazos en alto y Alberto, con las gafas de protección torcidas, se deja caer en el sofá con cara de euforia. Están de cara a nosotros, aterrizando en el salón y alejándose del portal, que queda a su espalda; no entran en el portal ni salen de casa: están llegando."
+ }
+};
+window.fetchCartas = function () {
+  return fetch('cartas.json?v=' + Date.now(), {cache: 'no-store'})
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r; })
+    .catch(function () {
+      if (window.JUEGO_LOCAL) return {ok: true, json: function () { return Promise.resolve(window.JUEGO_LOCAL); }};
+      throw new Error('sin cartas');
+    });
+};

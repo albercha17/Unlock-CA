@@ -14,6 +14,7 @@ import datos_pompeya as P
 import datos_arcade as A
 import datos_oeste as W
 import datos_espia as S
+import datos_cronoportal as Cr
 import datos_futbol as Fu
 import datos_piratas as Pi
 import datos_juguetes as Ju
@@ -130,6 +131,12 @@ JUEGOS = {
         minigames={"14": "14-cubos.js", "20": "20-diferencias.js", "40": "40-tren.js", "48": "48-marioneta.js", "52": "52-oca.js", "46": "46-clavijas.js",
                    "51": "51-collar.js", "64": "64-torre.js", "69": "69-canicas.js", "72": "72-memoria.js", "85": "85-xilofono.js"},
         pal=("#3a6ad0", "#121e48")),
+    "Cronoportal": dict(
+        datos=Cr, dificultad=1, tema="cronoportal", titulo="El primer salto: el nacimiento del Cronoportal", emoji="🌀", minutos=30, gratis=True,
+        grad="#1f5f8a,#050d18", acento="#ffd27a", acento2="#8fe6ff", bg1="#050d18", bg2="#12385a",
+        sinopsis="Nivel de prueba, gratis para todos: Cristina y Alberto acaban de montar el Cronoportal en el salón de su casa y solo le falta el cristal de energía. Aprended las reglas del juego (coger y descartar, el botón Acción, las láminas partidas en dos, combinar cartas y apuntar cifras) con tres puzles muy sencillos... y salid por primera vez a otro mundo: el Umbral del Tiempo, un salón de relojes flotantes.",
+        minigames={"14": "14-cerradura.js", "20": "20-mapa.js", "85": "85-panel.js"},
+        pal=("#1f5f8a", "#050d18")),
 }
 
 

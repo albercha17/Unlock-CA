@@ -41,3 +41,7 @@ body.accesos-pend #todo { visibility: hidden; }
 #mis .opt-desc { margin: 2px 0 0; font-size: .78rem; }
 #mis .opt-num { display: none; }
 #mis .dif-fila { margin: 4px 0 0; font-size: .72rem; }
+
+/* juegos gratuitos: sello junto al título de la sección «Empieza aquí» */
+.gratis-sello { display: inline-block; margin-left: 10px; padding: 2px 10px; border-radius: 999px; background: linear-gradient(180deg, #8dffb0, #34c76a); color: #052b12; font: 800 .7rem system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; vertical-align: middle; }
+#gratis { margin-bottom: 8px; }

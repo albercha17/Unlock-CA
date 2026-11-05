@@ -110,5 +110,14 @@
     "dificultad": 2,
     "minutos": 75,
     "cartas": 62
+  },
+  {
+    "id": "cronoportal",
+    "nombre": "El primer salto: el nacimiento del Cronoportal",
+    "ruta": "juegos/aventuras-ca/cronoportal/",
+    "dificultad": 1,
+    "minutos": 30,
+    "cartas": 17,
+    "gratis": true
   }
 ]

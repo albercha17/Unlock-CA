@@ -73,7 +73,7 @@ for nombre, cfg in JUEGOS.items():
     shutil.copy(f"{FARO}/app.css", f"{base}/app.css")
     shutil.copy(f"{FARO}/app.js", f"{base}/app.js")
     shutil.copy(f"{FARO}/musica.js", f"{base}/musica.js")
-    if nombre != "Egipto":
+    if nombre != "Egipto" and os.path.exists("juegos/aventuras-ca/egipto/minijuegos/lector.js"):
         shutil.copy("juegos/aventuras-ca/egipto/minijuegos/lector.js", f"{base}/minijuegos/lector.js")
     css = leer(f"{FARO}/style.css")
     css += f"\n/* Aventuras C&A: {nombre} */\n:root{{ --accent:{cfg['acento']}; --accent-2:{cfg['acento2']}; --bg1:{cfg['bg1']}; --bg2:{cfg['bg2']}; }}\n"

@@ -149,12 +149,46 @@ function aplicarVista(d, por) {
   document.body.classList.remove('accesos-pend');
 }
 
+/** Juegos gratuitos (marca «gratis» en el catálogo): una sección «Empieza aquí» visible para todos, con o sin cuenta. */
+function pintarGratis(catalogo) {
+  const libres = catalogo.filter((j) => j.gratis);
+  document.querySelectorAll('#gratis').forEach((e) => e.remove());
+  if (!libres.length) return;
+  const mis = document.getElementById('mis');
+  if (!mis || !mis.parentNode) return;
+  const saltos = document.body.dataset.estilo === 'saltos';
+  const caja = document.createElement('div');
+  caja.id = 'gratis';
+  let html = saltos
+    ? '<h2 class="seccion">Empieza aquí<span class="gratis-sello">Gratis</span></h2><p class="sub">Un nivel de prueba para aprender las reglas. Sin cuenta y sin pagar.</p><div class="saltos">'
+    : '<h2 class="grupo">Empieza aquí<span class="gratis-sello">Gratis</span><small>Un nivel de prueba para aprender las reglas. Sin cuenta y sin pagar.</small></h2><section class="cards" aria-label="Juego gratuito">';
+  libres.forEach((j) => {
+    const img = esc(encodeURI(raiz + j.ruta + 'img/P.jpg'));
+    const href = esc(raiz + j.ruta + 'index.html');
+    html += saltos
+      ? '<a class="salto ' + esc(j.id) + '" data-juego="' + esc(j.id) + '" data-dif="' + j.dificultad + '" data-buscar="' + esc(j.id + ' ' + j.nombre) + '" href="' + href + '">' +
+        '<div class="cartel" aria-hidden="true"><img src="' + img + '" alt=""></div><div class="cuerpo"><h3>' + esc(j.nombre) + '</h3><p>Cristina y Alberto estrenan el Cronoportal: tres puzles sencillos, las reglas explicadas paso a paso y su primer salto a otro mundo.</p></div></a>'
+      : '<a class="option" data-juego="' + esc(j.id) + '" data-dif="' + j.dificultad + '" data-buscar="' + esc(j.id + ' ' + j.nombre) + '" href="' + href + '">' +
+        '<div class="opt-thumb" style="background-image:url(&quot;' + img.replace(/'/g, '%27') + '&quot;);background-position:center 30%"></div>' +
+        '<div class="opt-meta"><h3 class="opt-title">' + esc(j.nombre) + '</h3><p class="opt-desc">Cristina y Alberto estrenan el Cronoportal: tres puzles sencillos, las reglas explicadas paso a paso y su primer salto a otro mundo.</p></div>' +
+        '<div class="opt-num">★</div></a>';
+  });
+  html += saltos ? '</div>' : '</section>';
+  caja.innerHTML = html;
+  mis.parentNode.insertBefore(caja, mis);
+  caja.querySelectorAll('[data-juego]').forEach((el) => {
+    const j = libres.find((x) => x.id === el.dataset.juego);
+    if (j) ponerFila(el, fila(j));
+  });
+}
+
 async function iniciar() {
   const cont = document.getElementById('cuenta');
   if (cont) montarCuenta(cont, { perfil: raiz + 'perfil.html' });
   let catalogo = [];
   try { catalogo = await (await fetch(raiz + 'juegos/catalogo.json')).json(); } catch (e) { /* sin catálogo: sin decorar */ }
   const por = Object.fromEntries(catalogo.map((j) => [j.id, j]));
+  pintarGratis(catalogo);
   // primero lo guardado en el dispositivo (al instante y sin red); luego lo de la nube
   const guardado = accesosGuardados(usuarioRecordado());
   if (guardado) aplicarVista(guardado, por);
