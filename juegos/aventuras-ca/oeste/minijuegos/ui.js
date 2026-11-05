@@ -415,7 +415,31 @@ export function openGame({ title, instr, pauseGameTimer, resumeGameTimer, onClos
     setTimeout(() => r.remove(), 1900);
   }
 
+  // freno al ensayo y error: tras 6 respuestas malas seguidas, el mecanismo se atasca unos segundos (20 s, luego 30 s...) y hay que pensar
+  let malas = 0, pausas = 0;
+  function atascar() {
+    const bloqueados = [...overlay.querySelectorAll('.far-body button, .far-body input, .far-body select, .far-body textarea, .far-actions button')]
+      .filter((b) => !b.disabled && b.textContent.trim() !== 'Cerrar');
+    bloqueados.forEach((b) => { b.disabled = true; });
+    let s = 20 + 10 * pausas++;
+    malas = 0;
+    const aviso = overlay.querySelector('.far-feedback');
+    const pinta = () => { aviso.textContent = 'El mecanismo se ha atascado. Pensadlo con calma: podréis volver a probar en ' + s + ' s.'; aviso.className = 'far-feedback bad'; };
+    pinta();
+    const t = setInterval(() => {
+      s--;
+      if (s <= 0) {
+        clearInterval(t);
+        bloqueados.forEach((b) => { b.disabled = false; });
+        aviso.textContent = '';
+        aviso.className = 'far-feedback';
+      } else pinta();
+    }, 1000);
+    closers.push(() => clearInterval(t));
+  }
+
   function fallar() {
+    if (++malas >= 6) setTimeout(atascar, 450);
     sonar('bad', tema);
     box.classList.remove('far-error');
     void box.offsetWidth;
