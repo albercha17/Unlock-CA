@@ -32,7 +32,8 @@ const ETIQUETA_RELOJ = {
   futbol: 'Faltan minutos para el pitido inicial',
   piratas: 'La marea sube hacia la cueva',
   juguetes: 'El camión de la mudanza llega al amanecer',
-  cronoportal: 'El portal solo aguanta abierto un rato'
+  cronoportal: 'El portal solo aguanta abierto un rato',
+  colosos: 'El suero solo dura una hora'
 };
 
 const REGLAS = [

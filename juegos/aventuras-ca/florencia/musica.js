@@ -155,6 +155,16 @@ const PRESETS = {
     ritmo: { tipo: 'tambor', patron: [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1], vol: 0.26, tono: 60 },
     ruido: { tipo: 'lluvia', vol: 0.07 }
   },
+  // Colosos: épica en menor, cuerno grave, tambores de taiko lentos y viento del valle.
+  colosos: {
+    bpm: 66, raiz: 43, escala: ESC.menor, compases: 2, reverb: 3.4,
+    acordes: [[0, 2, 4], [5, 0, 2], [3, 5, 0], [4, 6, 1]],
+    pad: { onda: 'sawtooth', filtro: 800, vol: 0.13, octava: 0, ataque: 2.6, lfo: 0.05 },
+    arpegio: { onda: 'triangle', vol: 0.07, paso: 2, octava: 1, patron: [0, 2, 4, 2, 0, 4, 2, 4], filtro: 2600 },
+    melodia: { onda: 'sine', vol: 0.09, octava: 1, prob: 0.3, dur: 1.2, ataque: 0.2, filtro: 2400, vibrato: 4 },
+    ritmo: { tipo: 'taiko', patron: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], vol: 0.3, tono: 48 },
+    ruido: { tipo: 'viento', vol: 0.08 }
+  },
   // Juguetes: cajita de música en mayor, xilófono de juguete y un pulso suave de nana.
   juguetes: {
     bpm: 100, raiz: 60, escala: ESC.mayorPent, compases: 2, reverb: 1.8,
