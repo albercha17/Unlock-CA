@@ -835,7 +835,14 @@ cargarCartas();
   }
   RGB = color();
   medir();
-  addEventListener('resize', medir);
+  // En el móvil, al hacer scroll aparece y desaparece la barra de direcciones y salta «resize» con otra altura: rehacer el lienzo
+  // en pleno scroll lo frenaba. Solo se vuelve a medir si cambia el ancho (girar el móvil) o la altura cambia mucho.
+  let anchoMedido = innerWidth, altoMedido = innerHeight;
+  addEventListener('resize', () => {
+    if (innerWidth === anchoMedido && Math.abs(innerHeight - altoMedido) < 160) return;
+    anchoMedido = innerWidth; altoMedido = innerHeight;
+    medir();
+  });
   document.addEventListener('visibilitychange', () => { vivo = !document.hidden; if (vivo) requestAnimationFrame(pintar); });
   requestAnimationFrame(pintar);
 

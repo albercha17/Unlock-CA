@@ -223,9 +223,11 @@
         if (!interactivo && now - lastTouchEnd <= 300) e.preventDefault();
         lastTouchEnd = now;
       }, { passive: false });
-      document.addEventListener('touchmove', function (e) {
-        if (e.touches && e.touches.length > 1) e.preventDefault();
-      }, { passive: false });
+      // Pellizco: se bloquea con los eventos «gesture» de Safari. Antes había un «touchmove» no pasivo en todo el documento y el iPhone
+      // tenía que consultar al JavaScript en cada movimiento del dedo: el scroll de la portada iba a tirones.
+      ['gesturestart', 'gesturechange'].forEach(function (ev) {
+        document.addEventListener(ev, function (e) { e.preventDefault(); }, { passive: false });
+      });
     })();
   </script>
 
