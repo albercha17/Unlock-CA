@@ -481,8 +481,9 @@ async function checkAndOpen(code) {
       registrar(c, 'accion');
       module.startMinigame({
         onClose: () => actionBtn.focus(),
-        pauseGameTimer: () => { isPaused = true; musica.duck(true); },
-        resumeGameTimer: () => { isPaused = false; musica.duck(false); }
+        // El reloj sigue corriendo dentro de los minijuegos (antes se paraba y las partidas acababan en muy poco tiempo); solo baja la música.
+        pauseGameTimer: () => { musica.duck(true); },
+        resumeGameTimer: () => { musica.duck(false); }
       });
     } else {
       mostrarErrorNum(`Módulo ${c} cargado, pero no exporta startMinigame.`);
