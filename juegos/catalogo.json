@@ -112,6 +112,14 @@
     "cartas": 62
   },
   {
+    "id": "colosos",
+    "nombre": "Altamuralla: El Valle de los Colosos",
+    "ruta": "juegos/aventuras-ca/colosos/",
+    "dificultad": 4,
+    "minutos": 90,
+    "cartas": 60
+  },
+  {
     "id": "cronoportal",
     "nombre": "El primer salto: el nacimiento del Cronoportal",
     "ruta": "juegos/aventuras-ca/cronoportal/",

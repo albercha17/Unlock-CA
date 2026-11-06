@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-JUEGOS = ["faro", "egipto", "marte", "florencia", "dinosaurios", "cuento", "trono", "pompeya", "arcade", "oeste", "espia", "futbol", "piratas", "juguetes"]
+JUEGOS = ["faro", "egipto", "marte", "florencia", "dinosaurios", "cuento", "trono", "pompeya", "arcade", "oeste", "espia", "futbol", "piratas", "juguetes", "colosos"]
 sys.stdout.reconfigure(encoding="utf-8")
 malos = []
 for j in sys.argv[1:] or JUEGOS:

@@ -1,0 +1,1401 @@
+{
+ "faroles": {
+  "n": 7,
+  "muros": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "numeros": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    5,
+    1
+   ],
+   [
+    2,
+    2,
+    1
+   ],
+   [
+    2,
+    4,
+    1
+   ],
+   [
+    4,
+    2,
+    1
+   ],
+   [
+    4,
+    4,
+    2
+   ],
+   [
+    5,
+    1,
+    2
+   ]
+  ],
+  "solucion": [
+   [
+    0,
+    2
+   ],
+   [
+    0,
+    5
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    6,
+    1
+   ]
+  ]
+ },
+ "cronica": {
+  "sucesos": [
+   "La primera piedra",
+   "El primer coloso",
+   "El gran incendio",
+   "La campana mayor",
+   "La llegada de la doctora",
+   "El elevador"
+  ],
+  "solucion": [
+   2,
+   4,
+   3,
+   5,
+   1,
+   0
+  ],
+  "nota": [
+   [
+    "antes",
+    4,
+    5
+   ],
+   [
+    "justo",
+    2,
+    4
+   ]
+  ],
+  "cronica_arriba": [
+   [
+    "entre",
+    4,
+    5,
+    1
+   ],
+   [
+    "no_extremos",
+    1
+   ]
+  ],
+  "cronica_abajo": [
+   [
+    "antes",
+    2,
+    0
+   ],
+   [
+    "justo",
+    3,
+    5
+   ]
+  ]
+ },
+ "barracones": {
+  "n": 6,
+  "solucion": {
+   "4,4": 2,
+   "4,3": 2,
+   "2,1": 4,
+   "1,1": 4,
+   "2,0": 4,
+   "2,2": 4,
+   "0,4": 2,
+   "0,3": 2,
+   "3,2": 6,
+   "3,1": 6,
+   "3,0": 6,
+   "4,2": 6,
+   "3,3": 6,
+   "4,1": 6,
+   "3,4": 5,
+   "2,4": 5,
+   "1,4": 5,
+   "1,5": 5,
+   "2,3": 5,
+   "0,5": 1,
+   "0,0": 6,
+   "0,1": 6,
+   "0,2": 6,
+   "1,0": 6,
+   "1,2": 6,
+   "1,3": 6,
+   "5,3": 5,
+   "5,2": 5,
+   "5,1": 5,
+   "5,4": 5,
+   "5,0": 5,
+   "5,5": 4,
+   "4,5": 4,
+   "3,5": 4,
+   "2,5": 4,
+   "4,0": 1
+  },
+  "lista": [
+   [
+    0,
+    0,
+    6
+   ],
+   [
+    1,
+    2,
+    6
+   ],
+   [
+    1,
+    3,
+    6
+   ],
+   [
+    2,
+    1,
+    4
+   ],
+   [
+    2,
+    5,
+    4
+   ],
+   [
+    4,
+    0,
+    1
+   ],
+   [
+    5,
+    0,
+    5
+   ]
+  ],
+  "plano": [
+   [
+    0,
+    4,
+    2
+   ],
+   [
+    0,
+    5,
+    1
+   ],
+   [
+    1,
+    0,
+    6
+   ],
+   [
+    2,
+    4,
+    5
+   ],
+   [
+    3,
+    0,
+    6
+   ],
+   [
+    4,
+    3,
+    2
+   ],
+   [
+    4,
+    4,
+    2
+   ]
+  ]
+ },
+ "inscripcion": {
+  "palabras": [
+   "FLOR",
+   "MURO",
+   "VIAJERO",
+   "CRISTAL",
+   "COLOSO",
+   "BUSCAR",
+   "GUARDAR",
+   "ABRIR",
+   "NO",
+   "PLURAL",
+   "CAMINO",
+   "LUNA"
+  ],
+  "forma": {
+   "FLOR": 4,
+   "MURO": 11,
+   "VIAJERO": 10,
+   "CRISTAL": 9,
+   "COLOSO": 8,
+   "BUSCAR": 1,
+   "GUARDAR": 6,
+   "ABRIR": 3,
+   "NO": 0,
+   "PLURAL": 2,
+   "CAMINO": 5,
+   "LUNA": 7
+  },
+  "ejemplos": [
+   {
+    "es": "El viajero busca la flor.",
+    "glifos": [
+     "FLOR",
+     "BUSCAR",
+     "VIAJERO"
+    ]
+   },
+   {
+    "es": "Los colosos guardan el muro.",
+    "glifos": [
+     "MURO",
+     "GUARDAR",
+     "COLOSO",
+     "PLURAL"
+    ]
+   },
+   {
+    "es": "La flor no abre el muro.",
+    "glifos": [
+     "MURO",
+     "NO",
+     "ABRIR",
+     "FLOR"
+    ]
+   },
+   {
+    "es": "El cristal busca a los colosos.",
+    "glifos": [
+     "COLOSO",
+     "PLURAL",
+     "BUSCAR",
+     "CRISTAL"
+    ]
+   },
+   {
+    "es": "Los viajeros abren el muro.",
+    "glifos": [
+     "MURO",
+     "ABRIR",
+     "VIAJERO",
+     "PLURAL"
+    ]
+   }
+  ],
+  "objetivo": {
+   "es": "Los colosos no buscan el cristal.",
+   "glifos": [
+    "CRISTAL",
+    "NO",
+    "BUSCAR",
+    "COLOSO",
+    "PLURAL"
+   ]
+  }
+ },
+ "glifos": [
+  [
+   [
+    "l",
+    0.5,
+    0.1,
+    0.5,
+    0.9
+   ],
+   [
+    "c",
+    0.5,
+    0.3,
+    0.18
+   ]
+  ],
+  [
+   [
+    "l",
+    0.15,
+    0.85,
+    0.5,
+    0.15
+   ],
+   [
+    "l",
+    0.5,
+    0.15,
+    0.85,
+    0.85
+   ],
+   [
+    "l",
+    0.3,
+    0.55,
+    0.7,
+    0.55
+   ]
+  ],
+  [
+   [
+    "c",
+    0.5,
+    0.5,
+    0.32
+   ],
+   [
+    "p",
+    0.5,
+    0.5
+   ]
+  ],
+  [
+   [
+    "l",
+    0.15,
+    0.2,
+    0.85,
+    0.2
+   ],
+   [
+    "l",
+    0.5,
+    0.2,
+    0.5,
+    0.85
+   ],
+   [
+    "l",
+    0.25,
+    0.85,
+    0.75,
+    0.85
+   ]
+  ],
+  [
+   [
+    "l",
+    0.15,
+    0.15,
+    0.85,
+    0.85
+   ],
+   [
+    "l",
+    0.85,
+    0.15,
+    0.15,
+    0.85
+   ],
+   [
+    "c",
+    0.5,
+    0.5,
+    0.12
+   ]
+  ],
+  [
+   [
+    "l",
+    0.2,
+    0.5,
+    0.8,
+    0.5
+   ],
+   [
+    "l",
+    0.8,
+    0.5,
+    0.55,
+    0.25
+   ],
+   [
+    "l",
+    0.8,
+    0.5,
+    0.55,
+    0.75
+   ]
+  ],
+  [
+   [
+    "l",
+    0.2,
+    0.2,
+    0.2,
+    0.8
+   ],
+   [
+    "l",
+    0.2,
+    0.8,
+    0.8,
+    0.8
+   ],
+   [
+    "l",
+    0.8,
+    0.8,
+    0.8,
+    0.4
+   ],
+   [
+    "p",
+    0.55,
+    0.45
+   ]
+  ],
+  [
+   [
+    "c",
+    0.35,
+    0.5,
+    0.17
+   ],
+   [
+    "c",
+    0.65,
+    0.5,
+    0.17
+   ]
+  ],
+  [
+   [
+    "l",
+    0.5,
+    0.1,
+    0.9,
+    0.5
+   ],
+   [
+    "l",
+    0.9,
+    0.5,
+    0.5,
+    0.9
+   ],
+   [
+    "l",
+    0.5,
+    0.9,
+    0.1,
+    0.5
+   ],
+   [
+    "l",
+    0.1,
+    0.5,
+    0.5,
+    0.1
+   ]
+  ],
+  [
+   [
+    "l",
+    0.2,
+    0.3,
+    0.8,
+    0.3
+   ],
+   [
+    "l",
+    0.2,
+    0.7,
+    0.8,
+    0.7
+   ],
+   [
+    "p",
+    0.5,
+    0.5
+   ]
+  ],
+  [
+   [
+    "l",
+    0.3,
+    0.1,
+    0.3,
+    0.9
+   ],
+   [
+    "l",
+    0.7,
+    0.1,
+    0.7,
+    0.9
+   ],
+   [
+    "l",
+    0.3,
+    0.5,
+    0.7,
+    0.5
+   ]
+  ],
+  [
+   [
+    "c",
+    0.5,
+    0.62,
+    0.25
+   ],
+   [
+    "l",
+    0.5,
+    0.1,
+    0.5,
+    0.37
+   ],
+   [
+    "l",
+    0.35,
+    0.2,
+    0.65,
+    0.2
+   ]
+  ]
+ ],
+ "dosis": {
+  "pesos": [
+   50,
+   55,
+   60,
+   65,
+   70,
+   75,
+   80,
+   85,
+   90,
+   95
+  ],
+  "alturas": [
+   150,
+   160,
+   170,
+   180,
+   190
+  ],
+  "tabla": [
+   [
+    4,
+    6,
+    6,
+    7,
+    9
+   ],
+   [
+    5,
+    7,
+    8,
+    8,
+    10
+   ],
+   [
+    6,
+    7,
+    8,
+    10,
+    11
+   ],
+   [
+    7,
+    8,
+    10,
+    11,
+    11
+   ],
+   [
+    9,
+    9,
+    10,
+    11,
+    12
+   ],
+   [
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   [
+    11,
+    11,
+    12,
+    13,
+    15
+   ],
+   [
+    11,
+    13,
+    13,
+    14,
+    15
+   ],
+   [
+    12,
+    13,
+    14,
+    16,
+    16
+   ],
+   [
+    13,
+    14,
+    16,
+    16,
+    17
+   ]
+  ],
+  "cristina": {
+   "peso": 57,
+   "altura": 171
+  },
+  "alberto": {
+   "peso": 75,
+   "altura": 183
+  },
+  "dosis": {
+   "Cristina": 8,
+   "Alberto": 12
+  }
+ },
+ "pisadas": {
+  "n": 6,
+  "numeros": [
+   [
+    3,
+    1,
+    4,
+    1,
+    1,
+    2
+   ],
+   [
+    4,
+    3,
+    1,
+    2,
+    6,
+    5
+   ],
+   [
+    4,
+    2,
+    3,
+    1,
+    4,
+    1
+   ],
+   [
+    1,
+    2,
+    6,
+    6,
+    2,
+    3
+   ],
+   [
+    6,
+    1,
+    4,
+    3,
+    6,
+    4
+   ],
+   [
+    3,
+    6,
+    5,
+    4,
+    3,
+    1
+   ]
+  ],
+  "solucion": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    0
+   ]
+  ]
+ },
+ "canto": {
+  "sonidos": [
+   "grave",
+   "agudo",
+   "largo",
+   "doble"
+  ],
+  "respuestas": [
+   "piedra",
+   "río",
+   "luna",
+   "flor"
+  ],
+  "traduccion": {
+   "grave": "flor",
+   "agudo": "luna",
+   "largo": "río",
+   "doble": "piedra"
+  },
+  "rondas": [
+   [
+    "doble",
+    "grave",
+    "largo"
+   ],
+   [
+    "agudo",
+    "doble",
+    "largo",
+    "grave"
+   ],
+   [
+    "agudo",
+    "largo",
+    "agudo",
+    "doble",
+    "agudo"
+   ]
+  ],
+  "solucion": [
+   [
+    "piedra",
+    "flor",
+    "río"
+   ],
+   [
+    "luna",
+    "piedra",
+    "río",
+    "flor"
+   ],
+   [
+    "luna",
+    "piedra",
+    "luna",
+    "río",
+    "luna"
+   ]
+  ],
+  "nota_sargento": [
+   "grave"
+  ],
+  "cancionero": [
+   "agudo",
+   "largo",
+   "doble"
+  ]
+ },
+ "ofrendas": {
+  "regla": "la piedra del centro es picuda y no las tres tienen la misma forma",
+  "ejemplos_70": [
+   {
+    "piedras": [
+     [
+      "azul",
+      "redonda"
+     ],
+     [
+      "roja",
+      "picuda"
+     ],
+     [
+      "blanca",
+      "picuda"
+     ]
+    ],
+    "acepta": true
+   },
+   {
+    "piedras": [
+     [
+      "azul",
+      "redonda"
+     ],
+     [
+      "blanca",
+      "picuda"
+     ],
+     [
+      "azul",
+      "redonda"
+     ]
+    ],
+    "acepta": true
+   },
+   {
+    "piedras": [
+     [
+      "azul",
+      "picuda"
+     ],
+     [
+      "roja",
+      "redonda"
+     ],
+     [
+      "blanca",
+      "redonda"
+     ]
+    ],
+    "acepta": false
+   },
+   {
+    "piedras": [
+     [
+      "blanca",
+      "redonda"
+     ],
+     [
+      "blanca",
+      "redonda"
+     ],
+     [
+      "azul",
+      "redonda"
+     ]
+    ],
+    "acepta": false
+   },
+   {
+    "piedras": [
+     [
+      "roja",
+      "redonda"
+     ],
+     [
+      "azul",
+      "picuda"
+     ],
+     [
+      "roja",
+      "picuda"
+     ]
+    ],
+    "acepta": true
+   }
+  ],
+  "ejemplos_71": [
+   {
+    "piedras": [
+     [
+      "roja",
+      "picuda"
+     ],
+     [
+      "azul",
+      "picuda"
+     ],
+     [
+      "roja",
+      "picuda"
+     ]
+    ],
+    "acepta": false
+   },
+   {
+    "piedras": [
+     [
+      "roja",
+      "redonda"
+     ],
+     [
+      "azul",
+      "redonda"
+     ],
+     [
+      "azul",
+      "picuda"
+     ]
+    ],
+    "acepta": false
+   },
+   {
+    "piedras": [
+     [
+      "roja",
+      "picuda"
+     ],
+     [
+      "roja",
+      "picuda"
+     ],
+     [
+      "blanca",
+      "redonda"
+     ]
+    ],
+    "acepta": true
+   }
+  ],
+  "prueba": [
+   [
+    [
+     "azul",
+     "picuda"
+    ],
+    [
+     "azul",
+     "picuda"
+    ],
+    [
+     "roja",
+     "picuda"
+    ]
+   ],
+   [
+    [
+     "azul",
+     "redonda"
+    ],
+    [
+     "roja",
+     "redonda"
+    ],
+    [
+     "blanca",
+     "redonda"
+    ]
+   ],
+   [
+    [
+     "roja",
+     "picuda"
+    ],
+    [
+     "azul",
+     "picuda"
+    ],
+    [
+     "blanca",
+     "redonda"
+    ]
+   ],
+   [
+    [
+     "blanca",
+     "redonda"
+    ],
+    [
+     "roja",
+     "picuda"
+    ],
+    [
+     "azul",
+     "redonda"
+    ]
+   ],
+   [
+    [
+     "azul",
+     "redonda"
+    ],
+    [
+     "azul",
+     "picuda"
+    ],
+    [
+     "roja",
+     "picuda"
+    ]
+   ],
+   [
+    [
+     "blanca",
+     "redonda"
+    ],
+    [
+     "blanca",
+     "redonda"
+    ],
+    [
+     "roja",
+     "redonda"
+    ]
+   ]
+  ],
+  "solucion": [
+   2,
+   3,
+   4
+  ]
+ },
+ "palancas": {
+  "simbolos": [
+   "campana",
+   "llave",
+   "luna",
+   "rueda"
+  ],
+  "reglas": [
+   [
+    [
+     "sim",
+     "llave"
+    ],
+    [
+     "pos",
+     2
+    ],
+    [
+     "sim",
+     "rueda"
+    ],
+    [
+     "pos",
+     3
+    ]
+   ],
+   [
+    [
+     "igual_pos",
+     0
+    ],
+    [
+     "igual_sim",
+     0
+    ],
+    [
+     "pos",
+     2
+    ],
+    [
+     "igual_pos",
+     0
+    ]
+   ],
+   [
+    [
+     "pos",
+     0
+    ],
+    [
+     "sim",
+     "campana"
+    ],
+    [
+     "pos",
+     0
+    ],
+    [
+     "sim",
+     "luna"
+    ]
+   ],
+   [
+    [
+     "pos",
+     2
+    ],
+    [
+     "igual_pos",
+     0
+    ],
+    [
+     "pos",
+     3
+    ],
+    [
+     "igual_pos",
+     1
+    ]
+   ],
+   [
+    [
+     "sim",
+     "campana"
+    ],
+    [
+     "igual_pos",
+     1
+    ],
+    [
+     "sim",
+     "llave"
+    ],
+    [
+     "pos",
+     2
+    ]
+   ]
+  ]
+ },
+ "tesoro": {
+  "objetos": [
+   {
+    "letra": "A",
+    "material": "cobre",
+    "tipo": "campanita",
+    "muescas": 2
+   },
+   {
+    "letra": "B",
+    "material": "oro",
+    "tipo": "campanita",
+    "muescas": 4
+   },
+   {
+    "letra": "C",
+    "material": "vidrio",
+    "tipo": "moneda",
+    "muescas": 1
+   },
+   {
+    "letra": "D",
+    "material": "oro",
+    "tipo": "llave",
+    "muescas": 3
+   },
+   {
+    "letra": "E",
+    "material": "oro",
+    "tipo": "anillo",
+    "muescas": 2
+   },
+   {
+    "letra": "F",
+    "material": "plata",
+    "tipo": "llave",
+    "muescas": 4
+   },
+   {
+    "letra": "G",
+    "material": "vidrio",
+    "tipo": "llave",
+    "muescas": 2
+   },
+   {
+    "letra": "H",
+    "material": "cobre",
+    "tipo": "anillo",
+    "muescas": 1
+   },
+   {
+    "letra": "I",
+    "material": "plata",
+    "tipo": "campanita",
+    "muescas": 1
+   },
+   {
+    "letra": "J",
+    "material": "cobre",
+    "tipo": "moneda",
+    "muescas": 4
+   },
+   {
+    "letra": "K",
+    "material": "cobre",
+    "tipo": "llave",
+    "muescas": 1
+   },
+   {
+    "letra": "L",
+    "material": "plata",
+    "tipo": "moneda",
+    "muescas": 2
+   },
+   {
+    "letra": "M",
+    "material": "oro",
+    "tipo": "moneda",
+    "muescas": 3
+   },
+   {
+    "letra": "N",
+    "material": "plata",
+    "tipo": "anillo",
+    "muescas": 2
+   },
+   {
+    "letra": "O",
+    "material": "vidrio",
+    "tipo": "anillo",
+    "muescas": 1
+   },
+   {
+    "letra": "P",
+    "material": "vidrio",
+    "tipo": "campanita",
+    "muescas": 1
+   }
+  ],
+  "condiciones": [
+   "lo que tenga más de 1 muesca",
+   "campanitas y llaves con número par de muescas",
+   "lo que tenga 1 muesca",
+   "los anillos"
+  ],
+  "grupos": [
+   [
+    3,
+    9,
+    11,
+    12
+   ],
+   [
+    0,
+    1,
+    5,
+    6
+   ],
+   [
+    2,
+    8,
+    10,
+    15
+   ],
+   [
+    4,
+    7,
+    13,
+    14
+   ]
+  ]
+ },
+ "meta": {
+  "rejilla": [
+   "QUIENSIGA",
+   "LAFLORDEC",
+   "INCOPETAL",
+   "OSHALLARA",
+   "SIEMPREEL",
+   "CAMINODEV",
+   "UELTAALHO",
+   "GAR······"
+  ],
+  "marcas": {
+   "52": "78",
+   "14": "79",
+   "48": "18",
+   "20": "75",
+   "40": "26"
+  },
+  "orden": [
+   "52",
+   "14",
+   "48",
+   "20",
+   "40"
+  ],
+  "palabra": "HOGAR"
+ }
+}

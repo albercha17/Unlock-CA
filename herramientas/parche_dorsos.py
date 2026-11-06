@@ -30,6 +30,7 @@ PATRONES = {
     "cronoportal": "radial-gradient(circle,rgba(255,210,122,.3) .6mm,transparent .7mm) 0 0/5mm 5mm,repeating-linear-gradient(45deg,rgba(143,230,255,.1) 0 .4mm,transparent .4mm 6mm)",
     "piratas": "repeating-linear-gradient(0deg,rgba(255,255,255,.1) 0 .4mm,transparent .4mm 3mm),repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 .3mm,transparent .3mm 9mm)",
     "juguetes": "radial-gradient(circle,rgba(255,204,51,.45) 1mm,transparent 1.1mm) 0 0/8mm 8mm,radial-gradient(circle,rgba(255,158,192,.4) .8mm,transparent .9mm) 4mm 4mm/8mm 8mm",
+    "colosos": "radial-gradient(circle,rgba(255,190,90,.35) .9mm,transparent 1mm) 0 0/7mm 7mm,repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 .5mm,transparent .5mm 6mm)",
 }
 
 # tema -> (título corto, emoji, [color de arriba, color de abajo], color de realce, color claro)
@@ -49,6 +50,7 @@ TABLA = {
     "cronoportal": ("El primer salto", "🌀", ["#0f3a5a", "#050d18"], "#ffd27a", "#8fe6ff"),
     "piratas": ("Mar de las Brumas, 1715", "🏴‍☠️", ["#1c5a6a", "#06141a"], "#e8b84a", "#9fe0e0"),
     "juguetes": ("El Cuarto de Leo, 1995", "🧸", ["#3a6ad0", "#121e48"], "#ffcc33", "#ff9ec0"),
+    "colosos": ("El Valle de los Colosos", "⛰️", ["#7a5226", "#1a1008"], "#e0a640", "#ffd27a"),
 }
 
 

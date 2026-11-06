@@ -8,7 +8,7 @@ import sys
 from PIL import Image
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-JUEGOS = ["faro", "egipto", "marte", "florencia", "dinosaurios", "cuento", "trono", "pompeya", "arcade", "oeste", "espia", "futbol", "piratas", "juguetes"]
+JUEGOS = ["faro", "egipto", "marte", "florencia", "dinosaurios", "cuento", "trono", "pompeya", "arcade", "oeste", "espia", "futbol", "piratas", "juguetes", "colosos"]
 sys.path.insert(0, os.path.join(RAIZ, "herramientas"))
 
 

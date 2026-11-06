@@ -18,6 +18,7 @@ import datos_cronoportal as Cr
 import datos_futbol as Fu
 import datos_piratas as Pi
 import datos_juguetes as Ju
+import datos_colosos as Co
 
 FARO = "juegos/el-faro"
 FARO_SINOPSIS = "Tormenta, la gran lámpara apagada y un carguero a ciegas rumbo a las rocas. Cristina y Alberto tienen hora y cuarto para encender el faro... y encontrar al abuelo Anselmo."
@@ -131,6 +132,13 @@ JUEGOS = {
         minigames={"14": "14-cubos.js", "20": "20-diferencias.js", "40": "40-tren.js", "48": "48-marioneta.js", "52": "52-oca.js", "46": "46-clavijas.js",
                    "51": "51-collar.js", "64": "64-torre.js", "69": "69-canicas.js", "72": "72-memoria.js", "85": "85-xilofono.js"},
         pal=("#3a6ad0", "#121e48")),
+    "Colosos": dict(
+        datos=Co, dificultad=4, tema="colosos", titulo="Altamuralla: El Valle de los Colosos", emoji="⛰️", minutos=90,
+        grad="#7a5226,#1a1008", acento="#e0a640", acento2="#ffd27a", bg1="#140c06", bg2="#3a2814",
+        sinopsis="Decimocuarta parada del Cronoportal: lo alto de la muralla de Altamuralla, una ciudad que vive encerrada desde que en el valle duermen los colosos, gigantes de piedra y musgo. El cristal de energía cae al valle y nadie sale de la muralla... hasta que la doctora Olvido Marván os da dos jeringuillas con un suero ámbar que os convierte en colosos durante una hora. Encended los faroles, ordenad la crónica, repartid los barracones, traducid la piedra del viajero, calculad la dosis, cruzad la ciudad a zancadas, responded al canto de los colosos, ganaos al Coloso Viejo y volved a casa.",
+        minigames={"14": "14-faroles.js", "20": "20-cronica.js", "40": "40-barracones.js", "48": "48-inscripcion.js", "52": "52-dosis.js", "46": "46-pisadas.js",
+                   "51": "51-canto.js", "64": "64-tesoro.js", "69": "69-ofrendas.js", "72": "72-palancas.js", "85": "85-panel.js"},
+        pal=("#7a5226", "#1a1008")),
     "Cronoportal": dict(
         datos=Cr, dificultad=1, tema="cronoportal", titulo="El primer salto: el nacimiento del Cronoportal", emoji="🌀", minutos=30, gratis=True,
         grad="#1f5f8a,#050d18", acento="#ffd27a", acento2="#8fe6ff", bg1="#050d18", bg2="#12385a",
